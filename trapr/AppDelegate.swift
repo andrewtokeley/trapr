@@ -15,7 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+
+        // Set global styles
+        Styles.setAppearances()
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        RootWireframe().presentHome(in: window!)
+        
         return true
     }
 
