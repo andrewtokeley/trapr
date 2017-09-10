@@ -17,7 +17,6 @@
 		D8B94D831F5EA6B300D373EF /* RootWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D821F5EA6B300D373EF /* RootWireframe.swift */; };
 		D8B94D851F5EA70200D373EF /* HomeWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D841F5EA70200D373EF /* HomeWireframe.swift */; };
 		D8B94D8C1F5EA7EC00D373EF /* HomeViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D8B1F5EA7EC00D373EF /* HomeViewInterface.swift */; };
-		D8B94D8E1F5EA99A00D373EF /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D8D1F5EA99A00D373EF /* HomePresenter.swift */; };
 		D8B94D901F5EA9D800D373EF /* HomeInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D8F1F5EA9D800D373EF /* HomeInteractorOutput.swift */; };
 		D8B94D921F5EAA0600D373EF /* HomeModuleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D911F5EAA0600D373EF /* HomeModuleInterface.swift */; };
 		D8B94D941F5EAAEE00D373EF /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D931F5EAAEE00D373EF /* HomeInteractor.swift */; };
@@ -33,6 +32,7 @@
 		D8D729E21F61D7D30082CD4A /* VisitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D729E11F61D7D30082CD4A /* VisitCollectionViewCell.swift */; };
 		D8D729E41F61D91C0082CD4A /* VisitCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8D729E31F61D91C0082CD4A /* VisitCollectionViewCell.xib */; };
 		D8D729E61F64BD580082CD4A /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D8D729E51F64BD580082CD4A /* Podfile */; };
+		D8D729E81F64C4590082CD4A /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D729E71F64C4590082CD4A /* HomePresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +60,6 @@
 		D8B94D821F5EA6B300D373EF /* RootWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootWireframe.swift; sourceTree = "<group>"; };
 		D8B94D841F5EA70200D373EF /* HomeWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeWireframe.swift; sourceTree = "<group>"; };
 		D8B94D8B1F5EA7EC00D373EF /* HomeViewInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewInterface.swift; sourceTree = "<group>"; };
-		D8B94D8D1F5EA99A00D373EF /* HomePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		D8B94D8F1F5EA9D800D373EF /* HomeInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeInteractorOutput.swift; sourceTree = "<group>"; };
 		D8B94D911F5EAA0600D373EF /* HomeModuleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeModuleInterface.swift; sourceTree = "<group>"; };
 		D8B94D931F5EAAEE00D373EF /* HomeInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
@@ -76,6 +75,7 @@
 		D8D729E11F61D7D30082CD4A /* VisitCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitCollectionViewCell.swift; sourceTree = "<group>"; };
 		D8D729E31F61D91C0082CD4A /* VisitCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitCollectionViewCell.xib; sourceTree = "<group>"; };
 		D8D729E51F64BD580082CD4A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		D8D729E71F64C4590082CD4A /* HomePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,9 +200,9 @@
 		D8B94D881F5EA7A300D373EF /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				D8B94D8D1F5EA99A00D373EF /* HomePresenter.swift */,
 				D8B94D8F1F5EA9D800D373EF /* HomeInteractorOutput.swift */,
 				D8B94D911F5EAA0600D373EF /* HomeModuleInterface.swift */,
+				D8D729E71F64C4590082CD4A /* HomePresenter.swift */,
 			);
 			name = Presenter;
 			sourceTree = "<group>";
@@ -381,9 +381,9 @@
 				D8B94DA61F5F7FD900D373EF /* MenuWireframe.swift in Sources */,
 				D8B94D961F5EAB0F00D373EF /* HomeInteractorInput.swift in Sources */,
 				D8B94DA81F5F800B00D373EF /* MenuWireframeInput.swift in Sources */,
-				D8B94D8E1F5EA99A00D373EF /* HomePresenter.swift in Sources */,
 				D8B94D981F5EAC3400D373EF /* HomeWireframeInput.swift in Sources */,
 				D8B94D7C1F5EA56F00D373EF /* UIColorExtension.swift in Sources */,
+				D8D729E81F64C4590082CD4A /* HomePresenter.swift in Sources */,
 				D8B94D901F5EA9D800D373EF /* HomeInteractorOutput.swift in Sources */,
 				D8B94D8C1F5EA7EC00D373EF /* HomeViewInterface.swift in Sources */,
 			);
