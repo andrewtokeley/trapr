@@ -10,6 +10,6 @@ import Foundation
 
 protocol HomeInteractorOutput {
 
-    func setRecentVisits()
+    func setRecentVisits(visits: [VisitSummary]?)
     
 }

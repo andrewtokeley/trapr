@@ -26,7 +26,7 @@ class HomeWireframe: HomeWireframeInput {
         view = HomeViewController()
         view.presenter = HomePresenter()
         view.presenter?.view = view
-        view.presenter?.router = self
+        view.presenter?.menuWireframe = MenuWireframe()
         
         //visitWireframe = VisitWireframe()
         

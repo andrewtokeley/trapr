@@ -15,6 +15,20 @@ class HomeInteractor: HomeInteractorInput {
     //MARK: - HomeInteractorInput
     
     func initialiseHomeModule() {
-        presenter?.setRecentVisits()
+        
+        // call into the model to get last 5 visits
+        
+        // convert the result into the VisitSummary array
+        var dateComponent = DateComponents()
+        dateComponent.month = 1
+        
+        var visitSummaries = [VisitSummary]()
+        visitSummaries.append(VisitSummary(trapLinesDescription: "LW", dateOfVisit: Date()))
+        
+        visitSummaries.append(VisitSummary(trapLinesDescription: "LW", dateOfVisit: Calendar.current.date(byAdding: dateComponent, to: Date())!))
+        
+        visitSummaries.append(VisitSummary(trapLinesDescription: "GC, E, U", dateOfVisit: Calendar.current.date(byAdding: dateComponent, to: Date())!))
+        
+        presenter?.setRecentVisits(visits: visitSummaries)
     }
 }

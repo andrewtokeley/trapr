@@ -10,7 +10,7 @@ import Foundation
 
 protocol HomeViewInterface {
     
-    func displayRecentVisits()
+    func displayRecentVisits(visits: [VisitSummary]?)
     func setTitle(title: String)
     
 }
