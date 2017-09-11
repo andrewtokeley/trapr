@@ -29,6 +29,10 @@ class HomeInteractor: HomeInteractorInput {
         
         visitSummaries.append(VisitSummary(trapLinesDescription: "GC, E, U", dateOfVisit: Calendar.current.date(byAdding: dateComponent, to: Date())!))
         
+        visitSummaries.append(VisitSummary(trapLinesDescription: "GC, E, U", dateOfVisit: Calendar.current.date(byAdding: dateComponent, to: Date())!))
+        
+        visitSummaries.append(VisitSummary(trapLinesDescription: "LW", dateOfVisit: Calendar.current.date(byAdding: dateComponent, to: Date())!))
+        
         presenter?.setRecentVisits(visits: visitSummaries)
     }
 }

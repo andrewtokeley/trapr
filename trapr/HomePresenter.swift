@@ -13,6 +13,7 @@ class HomePresenter: HomeInteractorOutput, HomeModuleInterface {
     
     var view: HomeViewInterface?
     var interactor: HomeInteractorInput?
+    var router: HomeWireframe?
     var menuWireframe: MenuWireframeInput?
     
     //MARK: - HomeInteractorOutput
@@ -30,10 +31,18 @@ class HomePresenter: HomeInteractorOutput, HomeModuleInterface {
     }
     
     func didSelectNewVisit() {
-        
+        router?.presentVisitView(with: nil)
+    }
+    
+    func didSelectVisit() {
+        let visit = Visit()
+        visit.date = Date()
+        router?.presentVisitView(with: visit)
     }
     
     func viewWillAppear() {
         view?.setTitle(title: "Home")
+        
+        interactor?.initialiseHomeModule()
     }
 }

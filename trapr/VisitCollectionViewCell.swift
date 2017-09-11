@@ -11,7 +11,7 @@ import UIKit
 
 class VisitCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var trapLinesDescription: UILabel!
-    @IBOutlet weak var dateOfVisitDescription: UILabel!
-    
+    @IBOutlet weak var dateDescription: UILabel!
+    @IBOutlet weak var dayDescription: UILabel!
+    @IBOutlet weak var traplinesDescription: UILabel!
 }

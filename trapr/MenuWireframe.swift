@@ -35,6 +35,7 @@ class MenuWireframe: MenuWireframeInput {
         presentingViewController = viewController
         
         view.frame = CGRect(x: 0, y: 0, width: 150, height: viewController.view.bounds.height)
+        view.backgroundColor = UIColor.white
         viewController.view.addSubview(view)
         
     }

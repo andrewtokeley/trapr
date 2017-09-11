@@ -9,8 +9,7 @@
 import Foundation
 import UIKit
 
-protocol HomeWireframeInput {
+protocol VisitWireframeInput {
 
-    func presentView(in window: UIWindow)
-    func presentVisitView(with visit: Visit?)
+    func presentView(from viewController: UIViewController, visit: Visit?)
 }

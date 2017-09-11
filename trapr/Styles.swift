@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 
 class Styles {
+    
+    static let DATE_FORMAT_LONG = "MMM dd, yyyy"
+    static let DATE_FORMAT_DAY = "EEEE"
+    
     static func setAppearances() {
         
         let barButtonItemAppearance = UIBarButtonItem.appearance()
@@ -17,10 +21,10 @@ class Styles {
         
         let navigationBarAppearance = UINavigationBar.appearance()
         navigationBarAppearance.barTintColor = UIColor.trpNavigationBar
+        navigationBarAppearance.tintColor = UIColor.white
         navigationBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         
-        //        let labelAppearance = UILabel.appearance()
-        //        labelAppearance.textColor = UIColor.mmTextDark
-        
+        let labelAppearance = UILabel.appearance()
+        labelAppearance.textColor = UIColor.trpText
     }
 }

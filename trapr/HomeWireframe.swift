@@ -13,7 +13,7 @@ class HomeWireframe: HomeWireframeInput {
     
     var view: HomeViewController!
     var presenter: HomePresenter!
-    //var visitRouter: VisitWireframe!
+    var visitRouter: VisitWireframe!
     
     //MARK: - Initialisation
     
@@ -27,8 +27,14 @@ class HomeWireframe: HomeWireframeInput {
         view.presenter = HomePresenter()
         view.presenter?.view = view
         view.presenter?.menuWireframe = MenuWireframe()
+        view.presenter?.router = self
         
-        //visitWireframe = VisitWireframe()
+        let interactor = HomeInteractor()
+        interactor.presenter = view.presenter
+        
+        view.presenter?.interactor = interactor
+        
+        visitRouter = VisitWireframe()
         
         return view
     }
@@ -46,4 +52,8 @@ class HomeWireframe: HomeWireframeInput {
         }
     }
 
+    func presentVisitView(with visit: Visit?) {
+        visitRouter.presentView(from: view, visit: visit)
+    }
+    
 }

@@ -8,11 +8,8 @@
 
 import Foundation
 
-protocol HomeModuleInterface {
+protocol VisitModuleInterface {
     
-    func didSelectMenu()
-    func didSelectNewVisit()
-    func didSelectVisit()
-    
+    var visit: Visit? { get set }
     func viewWillAppear()
 }
