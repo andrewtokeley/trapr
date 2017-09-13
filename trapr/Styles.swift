@@ -25,6 +25,6 @@ class Styles {
         navigationBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         
         let labelAppearance = UILabel.appearance()
-        labelAppearance.textColor = UIColor.trpText
+        labelAppearance.textColor = UIColor.trpTextDark
     }
 }

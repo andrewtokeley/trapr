@@ -11,7 +11,26 @@ import UIKit
 
 class MenuView: UIView {
     
-    @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var headerView: UIView!
+    var presenter: MenuPresenter?
     
+    @IBOutlet weak var userEmail: UILabel!
+    @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var background: UIView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        let backgroundTap = UITapGestureRecognizer(target: self, action: #selector(closeMenu(sender:)))
+        background.addGestureRecognizer(backgroundTap)
+        
+        userEmail.textColor = UIColor.trpTextLight
+        userName.textColor = UIColor.trpTextLight
+        headerView.backgroundColor = UIColor.trpMenuBar
+    }
+    
+    func closeMenu(sender: UIImageView) {
+        presenter?.didSelectClose()
+    }
 }

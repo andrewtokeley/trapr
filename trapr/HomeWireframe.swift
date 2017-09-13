@@ -52,8 +52,8 @@ class HomeWireframe: HomeWireframeInput {
         }
     }
 
-    func presentVisitView(with visit: Visit?) {
-        visitRouter.presentView(from: view, visit: visit)
+    func presentVisitModule(dateOfVisit: Date) {
+        visitRouter.presentView(from: view, date: dateOfVisit)
     }
     
 }

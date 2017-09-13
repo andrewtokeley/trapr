@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		699D613385EE2884367110A5 /* Pods_trapr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7475BC73C1B9E9749C3B6277 /* Pods_trapr.framework */; };
+		D81883791F6931C600A74B5E /* Species.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81883781F6931C600A74B5E /* Species.swift */; };
+		D81DAAEF1F68643400C7C987 /* VisitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAEE1F68643400C7C987 /* VisitService.swift */; };
+		D81DAAF11F68652E00C7C987 /* Trap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF01F68652E00C7C987 /* Trap.swift */; };
+		D81DAAF31F68659100C7C987 /* VisitServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF21F68659100C7C987 /* VisitServiceInterface.swift */; };
+		D81DAAF51F6865DB00C7C987 /* Trapline.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF41F6865DB00C7C987 /* Trapline.swift */; };
+		D81DAAF71F686EA800C7C987 /* ServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF61F686EA800C7C987 /* ServiceFactory.swift */; };
 		D83853021F6654CD00481B57 /* NewVisitCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D83853011F6654CD00481B57 /* NewVisitCollectionViewCell.xib */; };
 		D83853041F66555700481B57 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = D83853031F66555700481B57 /* plus.png */; };
 		D8503DC41F66807C00ED0C84 /* VisitInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DBB1F66807C00ED0C84 /* VisitInteractor.swift */; };
@@ -21,6 +27,9 @@
 		D8503DCC1F66807C00ED0C84 /* VisitWireframeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DC31F66807C00ED0C84 /* VisitWireframeInput.swift */; };
 		D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */; };
 		D8503DD01F669F8500ED0C84 /* Visit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DCF1F669F8500ED0C84 /* Visit.swift */; };
+		D8503DD31F671CC600ED0C84 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DD21F671CC600ED0C84 /* MenuPresenter.swift */; };
+		D8503DD61F671D0A00ED0C84 /* MenuModuleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DD51F671D0A00ED0C84 /* MenuModuleInterface.swift */; };
+		D8503DD81F67AF7800ED0C84 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = D8503DD71F67AF7800ED0C84 /* user.png */; };
 		D8B94D591F5EA1FE00D373EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D581F5EA1FE00D373EF /* AppDelegate.swift */; };
 		D8B94D601F5EA1FE00D373EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8B94D5F1F5EA1FE00D373EF /* Assets.xcassets */; };
 		D8B94D631F5EA1FE00D373EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8B94D611F5EA1FE00D373EF /* LaunchScreen.storyboard */; };
@@ -63,6 +72,12 @@
 		3401E9024D5468D5D0E7B342 /* Pods-trapr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trapr.release.xcconfig"; path = "Pods/Target Support Files/Pods-trapr/Pods-trapr.release.xcconfig"; sourceTree = "<group>"; };
 		7475BC73C1B9E9749C3B6277 /* Pods_trapr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trapr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A13BAE40424D5A9104CB3D85 /* Pods-trapr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trapr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-trapr/Pods-trapr.debug.xcconfig"; sourceTree = "<group>"; };
+		D81883781F6931C600A74B5E /* Species.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Species.swift; sourceTree = "<group>"; };
+		D81DAAEE1F68643400C7C987 /* VisitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitService.swift; sourceTree = "<group>"; };
+		D81DAAF01F68652E00C7C987 /* Trap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trap.swift; sourceTree = "<group>"; };
+		D81DAAF21F68659100C7C987 /* VisitServiceInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitServiceInterface.swift; sourceTree = "<group>"; };
+		D81DAAF41F6865DB00C7C987 /* Trapline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trapline.swift; sourceTree = "<group>"; };
+		D81DAAF61F686EA800C7C987 /* ServiceFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceFactory.swift; sourceTree = "<group>"; };
 		D83853001F64C66B00481B57 /* Trapr-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Trapr-Bridging-Header.h"; sourceTree = "<group>"; };
 		D83853011F6654CD00481B57 /* NewVisitCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewVisitCollectionViewCell.xib; sourceTree = "<group>"; };
 		D83853031F66555700481B57 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
@@ -77,6 +92,9 @@
 		D8503DC31F66807C00ED0C84 /* VisitWireframeInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitWireframeInput.swift; sourceTree = "<group>"; };
 		D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtention.swift; sourceTree = "<group>"; };
 		D8503DCF1F669F8500ED0C84 /* Visit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Visit.swift; sourceTree = "<group>"; };
+		D8503DD21F671CC600ED0C84 /* MenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
+		D8503DD51F671D0A00ED0C84 /* MenuModuleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuModuleInterface.swift; sourceTree = "<group>"; };
+		D8503DD71F67AF7800ED0C84 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
 		D8B94D551F5EA1FE00D373EF /* trapr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = trapr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8B94D581F5EA1FE00D373EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8B94D5F1F5EA1FE00D373EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -134,6 +152,16 @@
 				7475BC73C1B9E9749C3B6277 /* Pods_trapr.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D81DAAED1F68641E00C7C987 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D81DAAF61F686EA800C7C987 /* ServiceFactory.swift */,
+				D81DAAEE1F68643400C7C987 /* VisitService.swift */,
+				D81DAAF21F68659100C7C987 /* VisitServiceInterface.swift */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 		D8503DB51F667F8100ED0C84 /* Visit */ = {
@@ -196,8 +224,21 @@
 			isa = PBXGroup;
 			children = (
 				D8503DCF1F669F8500ED0C84 /* Visit.swift */,
+				D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */,
+				D81DAAF01F68652E00C7C987 /* Trap.swift */,
+				D81DAAF41F6865DB00C7C987 /* Trapline.swift */,
+				D81883781F6931C600A74B5E /* Species.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		D8503DD41F671CD100ED0C84 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				D8503DD21F671CC600ED0C84 /* MenuPresenter.swift */,
+				D8503DD51F671D0A00ED0C84 /* MenuModuleInterface.swift */,
+			);
+			name = Presenter;
 			sourceTree = "<group>";
 		};
 		D8B94D4C1F5EA1FE00D373EF = {
@@ -225,6 +266,7 @@
 		D8B94D571F5EA1FE00D373EF /* trapr */ = {
 			isa = PBXGroup;
 			children = (
+				D81DAAED1F68641E00C7C987 /* Services */,
 				D8503DD11F669F8B00ED0C84 /* Model */,
 				D8B94D7D1F5EA67300D373EF /* Modules */,
 				D8B94D781F5EA52200D373EF /* Design */,
@@ -321,7 +363,6 @@
 		D8B94D891F5EA7BD00D373EF /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -338,6 +379,7 @@
 		D8B94D991F5F28F200D373EF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D8503DD71F67AF7800ED0C84 /* user.png */,
 				D83853031F66555700481B57 /* plus.png */,
 				D8B94D9A1F5F30CD00D373EF /* menu.png */,
 				D8B94D9B1F5F30CD00D373EF /* menu@2x.png */,
@@ -349,6 +391,7 @@
 			isa = PBXGroup;
 			children = (
 				D8B94D9F1F5F7B4C00D373EF /* View */,
+				D8503DD41F671CD100ED0C84 /* Presenter */,
 				D8B94DA41F5F7FC800D373EF /* Router */,
 			);
 			name = Menu;
@@ -474,6 +517,7 @@
 				D8B94D9D1F5F30CD00D373EF /* menu@2x.png in Resources */,
 				D8B94D601F5EA1FE00D373EF /* Assets.xcassets in Resources */,
 				D8D729E41F61D91C0082CD4A /* VisitCollectionViewCell.xib in Resources */,
+				D8503DD81F67AF7800ED0C84 /* user.png in Resources */,
 				D8D729E61F64BD580082CD4A /* Podfile in Resources */,
 				D8B94D9C1F5F30CD00D373EF /* menu.png in Resources */,
 				D83853021F6654CD00481B57 /* NewVisitCollectionViewCell.xib in Resources */,
@@ -546,26 +590,34 @@
 				D8B94D801F5EA68B00D373EF /* HomeViewController.swift in Sources */,
 				D8B94D921F5EAA0600D373EF /* HomeModuleInterface.swift in Sources */,
 				D8B94D7A1F5EA54300D373EF /* Styles.swift in Sources */,
+				D81883791F6931C600A74B5E /* Species.swift in Sources */,
 				D8D729DE1F61C9CC0082CD4A /* VisitSummary.swift in Sources */,
+				D81DAAF51F6865DB00C7C987 /* Trapline.swift in Sources */,
 				D8B94D941F5EAAEE00D373EF /* HomeInteractor.swift in Sources */,
 				D8B94D831F5EA6B300D373EF /* RootWireframe.swift in Sources */,
+				D81DAAF71F686EA800C7C987 /* ServiceFactory.swift in Sources */,
 				D8B94D851F5EA70200D373EF /* HomeWireframe.swift in Sources */,
 				D8B94D591F5EA1FE00D373EF /* AppDelegate.swift in Sources */,
 				D8D729E21F61D7D30082CD4A /* VisitCollectionViewCell.swift in Sources */,
 				D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */,
 				D8503DC91F66807C00ED0C84 /* VisitViewController.swift in Sources */,
+				D81DAAF11F68652E00C7C987 /* Trap.swift in Sources */,
 				D8503DC81F66807C00ED0C84 /* VisitPresenter.swift in Sources */,
+				D81DAAEF1F68643400C7C987 /* VisitService.swift in Sources */,
 				D8B94DA31F5F7CDA00D373EF /* MenuView.swift in Sources */,
 				D8503DC71F66807C00ED0C84 /* VisitModuleInterface.swift in Sources */,
 				D8B94DA61F5F7FD900D373EF /* MenuWireframe.swift in Sources */,
 				D8503DD01F669F8500ED0C84 /* Visit.swift in Sources */,
+				D81DAAF31F68659100C7C987 /* VisitServiceInterface.swift in Sources */,
 				D8B94D961F5EAB0F00D373EF /* HomeInteractorInput.swift in Sources */,
 				D8503DCA1F66807C00ED0C84 /* VisitViewInterface.swift in Sources */,
 				D8B94DA81F5F800B00D373EF /* MenuWireframeInput.swift in Sources */,
 				D8503DCB1F66807C00ED0C84 /* VisitWireframe.swift in Sources */,
 				D8503DC41F66807C00ED0C84 /* VisitInteractor.swift in Sources */,
 				D8B94D981F5EAC3400D373EF /* HomeWireframeInput.swift in Sources */,
+				D8503DD31F671CC600ED0C84 /* MenuPresenter.swift in Sources */,
 				D8B94D7C1F5EA56F00D373EF /* UIColorExtension.swift in Sources */,
+				D8503DD61F671D0A00ED0C84 /* MenuModuleInterface.swift in Sources */,
 				D8D729E81F64C4590082CD4A /* HomePresenter.swift in Sources */,
 				D8503DCC1F66807C00ED0C84 /* VisitWireframeInput.swift in Sources */,
 				D8B94D901F5EA9D800D373EF /* HomeInteractorOutput.swift in Sources */,

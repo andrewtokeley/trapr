@@ -15,4 +15,28 @@ extension Date {
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: self)
     }
+    
+    func add(_ days: Int, _ months: Int, _ years: Int) -> Date {
+        var components = DateComponents()
+        components.day = days
+        components.month = months
+        components.year = years
+        components.hour = 0
+        components.minute = 0
+        components.second = 0
+        
+        return Calendar.current.date(byAdding: components, to: self) ?? self
+    }
+    
+    static func dateFromComponents(_ days: Int, _ months: Int, _ years: Int) -> Date? {
+        var components = DateComponents()
+        components.day = days
+        components.month = months
+        components.year = years
+        components.hour = 0
+        components.minute = 0
+        components.second = 0
+        
+        return Calendar.current.date(from: components)
+    }
 }

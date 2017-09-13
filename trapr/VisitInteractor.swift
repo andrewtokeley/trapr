@@ -14,8 +14,8 @@ class VisitInteractor: VisitInteractorInput {
     
     //MARK: - HomeInteractorInput
     
-    func initialiseVisitModule(visit: Visit?) {
+    func initialiseVisitModule(dateOfVisit: Date) {
         
-        
+        //presenter?.setTitle
     }
 }

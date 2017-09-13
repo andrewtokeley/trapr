@@ -12,5 +12,5 @@ import UIKit
 protocol HomeWireframeInput {
 
     func presentView(in window: UIWindow)
-    func presentVisitView(with visit: Visit?)
+    func presentVisitModule(dateOfVisit: Date)
 }

@@ -13,7 +13,8 @@ class VisitPresenter: VisitInteractorOutput, VisitModuleInterface {
     
     var view: VisitViewInterface?
     var interactor: VisitInteractorInput?
-    var visit: Visit?
+    
+    var dateOfVisit: Date!
     
     //MARK: - VisitInteractorOutput
     
@@ -21,10 +22,11 @@ class VisitPresenter: VisitInteractorOutput, VisitModuleInterface {
     
     func viewWillAppear() {
         
-        interactor?.initialiseVisitModule(visit: visit)
+        interactor?.initialiseVisitModule(dateOfVisit: self.dateOfVisit)
         
         // Date for title
-        let title = visit?.date?.string(from: Styles.DATE_FORMAT_LONG) ?? "new"
+        let date = dateOfVisit ?? Date()
+        let title = date.string(from: Styles.DATE_FORMAT_LONG)
         view?.setTitle(title: title)
     }
 }

@@ -16,22 +16,8 @@ class HomeInteractor: HomeInteractorInput {
     
     func initialiseHomeModule() {
         
-        // call into the model to get last 5 visits
-        
-        // convert the result into the VisitSummary array
-        var dateComponent = DateComponents()
-        dateComponent.month = 1
-        
-        var visitSummaries = [VisitSummary]()
-        visitSummaries.append(VisitSummary(trapLinesDescription: "LW", dateOfVisit: Date()))
-        
-        visitSummaries.append(VisitSummary(trapLinesDescription: "LW", dateOfVisit: Calendar.current.date(byAdding: dateComponent, to: Date())!))
-        
-        visitSummaries.append(VisitSummary(trapLinesDescription: "GC, E, U", dateOfVisit: Calendar.current.date(byAdding: dateComponent, to: Date())!))
-        
-        visitSummaries.append(VisitSummary(trapLinesDescription: "GC, E, U", dateOfVisit: Calendar.current.date(byAdding: dateComponent, to: Date())!))
-        
-        visitSummaries.append(VisitSummary(trapLinesDescription: "LW", dateOfVisit: Calendar.current.date(byAdding: dateComponent, to: Date())!))
+        // Get all the visits in the last 3 months
+        let visitSummaries = ServiceFactory.sharedInstance.visitService.getVisitSummaries(recordedBetween: Date().add(0, -3, 0), endDate: Date())
         
         presenter?.setRecentVisits(visits: visitSummaries)
     }

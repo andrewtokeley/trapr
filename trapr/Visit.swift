@@ -9,6 +9,12 @@
 import Foundation
 
 class Visit {
-    var date: Date?
     var baitAdded: Int = 0
+    var baitEaten: Int = 0
+    var baitRemoved: Int = 0
+    var catchNumber: Int = 0
+    var notes: String?
+    var visitDateTime: Date?
+    var catchSpecies: Species?
+    var trap: Trap?
 }

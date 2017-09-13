@@ -81,7 +81,11 @@ class HomeViewController: UIViewController, HomeViewInterface, UICollectionViewD
     //MARK: - UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return visitSummaries?.count ?? 0
+        if let _ = visitSummaries
+        {
+            return visitSummaries!.count + 1
+        }
+        return 0
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -124,7 +128,9 @@ class HomeViewController: UIViewController, HomeViewInterface, UICollectionViewD
         else
         {
             // edit visit
-            presenter?.didSelectVisit()
+            if let _ = visitSummaries {
+                presenter?.didSelectVisitSummary(visitSummary: visitSummaries![indexPath.row - 1])
+            }
         }
         
     }

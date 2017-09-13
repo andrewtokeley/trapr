@@ -38,10 +38,10 @@ class VisitWireframe: VisitWireframeInput {
     /**
      Present the visit view on current navigation stack
      */
-    func presentView(from viewController: UIViewController, visit: Visit?) {
+    func presentView(from viewController: UIViewController, date: Date) {
         
         self.presentingViewController = viewController
-        view.presenter?.visit = visit
+        view.presenter?.dateOfVisit = date
         
         // Clear out the default back button text to leave only the <
         let backItem = UIBarButtonItem()

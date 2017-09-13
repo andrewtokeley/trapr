@@ -12,7 +12,7 @@ protocol HomeModuleInterface {
     
     func didSelectMenu()
     func didSelectNewVisit()
-    func didSelectVisit()
+    func didSelectVisitSummary(visitSummary: VisitSummary)
     
     func viewWillAppear()
 }

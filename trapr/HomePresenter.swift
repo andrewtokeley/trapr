@@ -31,13 +31,11 @@ class HomePresenter: HomeInteractorOutput, HomeModuleInterface {
     }
     
     func didSelectNewVisit() {
-        router?.presentVisitView(with: nil)
+        router?.presentVisitModule(dateOfVisit: Date())
     }
     
-    func didSelectVisit() {
-        let visit = Visit()
-        visit.date = Date()
-        router?.presentVisitView(with: visit)
+    func didSelectVisitSummary(visitSummary: VisitSummary) {
+        router?.presentVisitModule(dateOfVisit: visitSummary.dateOfVisit)
     }
     
     func viewWillAppear() {

@@ -21,16 +21,26 @@ class traprTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testDateCreate() {
+        
+        if let date = Date.dateFromComponents(28, 8, 1968)
+        {
+            XCTAssertTrue(date.string(from: "d") == "28")
+            XCTAssertTrue(date.string(from: "M") == "8")
+            XCTAssertTrue(date.string(from: "y") == "1968")
+        }
+        else
+        {
+            XCTFail()
+        }
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testDateAddExtension() {
+        
+        let august = Date.dateFromComponents(10, 8, 2000)
+        let nextDate = august?.add(0, 1, 0)
+        
+        XCTAssertTrue(nextDate?.string(from: "M") == "9")
     }
     
 }
