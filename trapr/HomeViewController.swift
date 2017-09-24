@@ -115,7 +115,7 @@ class HomeViewController: UIViewController, HomeViewInterface, UICollectionViewD
             if let visitSummary = visitSummaries?[indexPath.row - 1] {
                 cell.dateDescription?.text = visitSummary.dateOfVisit.string(from: Styles.DATE_FORMAT_LONG)
                 cell.dayDescription?.text = visitSummary.dateOfVisit.string(from: Styles.DATE_FORMAT_DAY)
-                cell.traplinesDescription?.text = visitSummary.trapLinesDescription
+                cell.traplinesDescription?.text = visitSummary.traplinesDescription
             }
             
             return cell

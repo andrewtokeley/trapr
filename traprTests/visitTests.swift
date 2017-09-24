@@ -26,7 +26,7 @@ class visitTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
         
-        ServiceFactory.sharedInstance.applicationService.deleteAllDate()
+        ServiceFactory.sharedInstance.applicationService.deleteAllData()
     }
     
     func testGetVisits() {
@@ -77,7 +77,7 @@ class visitTests: XCTestCase {
         visitService.add(visit: visit3)
 
         if let summary = visitService.getVisitSummary(date: Date()) {
-            XCTAssertTrue(summary.trapLinesDescription == "LW, E, GC")
+            XCTAssertTrue(summary.traplinesDescription == "LW, E, GC")
         } else {
             XCTFail()
         }

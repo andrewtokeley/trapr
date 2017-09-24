@@ -31,28 +31,24 @@ class VisitService: Service, VisitServiceInterface {
     }
     
     func getVisitSummary(date: Date) -> VisitSummary? {
+        
         var visitSummary: VisitSummary?
         
         let visits = getVisits(recordedOn: date)
         
         if visits.count != 0 {
             
-            visitSummary = VisitSummary(trapLinesDescription: "", dateOfVisit: date)
-            
-            // Create a summary record for each unique trapline across all visits
-            var trapLineCodes = [String]()
+            var traplines = [Trapline]()
             
             for visit in visits {
-                if let trapLineCode = visit.trap?.station?.trapline?.code {
-                    if  !trapLineCodes.contains(trapLineCode) {
-                        if trapLineCodes.count != 0 {
-                            visitSummary?.trapLinesDescription.append(", ")
-                        }
-                        trapLineCodes.append(trapLineCode)
-                        visitSummary?.trapLinesDescription.append(trapLineCode)
+                
+                if let trapline = visit.trap?.station?.trapline {
+                    if !traplines.contains(trapline) {
+                        traplines.append(trapline)
                     }
                 }
             }
+            visitSummary = VisitSummary(traplines: traplines, dateOfVisit: date)
         }
         return visitSummary
     }

@@ -68,9 +68,11 @@ class VisitViewController: UIViewController, VisitViewInterface {
         
         let previous = UITapGestureRecognizer(target: self, action: #selector(didSelectPreviousStation(sender:)))
         self.previousStation.addGestureRecognizer(previous)
+        self.previousStation.isUserInteractionEnabled = true
         
         let next = UITapGestureRecognizer(target: self, action: #selector(didSelectNextStation(sender:)))
         self.nextStation.addGestureRecognizer(next)
+        self.nextStation.isUserInteractionEnabled = true
         
         self.setConstraints()
     }

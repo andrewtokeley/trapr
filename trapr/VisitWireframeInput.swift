@@ -11,5 +11,5 @@ import UIKit
 
 protocol VisitWireframeInput {
 
-    func presentView(from viewController: UIViewController, date: Date)
+    func presentView(from viewController: UIViewController, visitSummary: VisitSummary)
 }

@@ -14,19 +14,20 @@ import RealmSwift
 class traplineTests: XCTestCase {
     
     lazy var traplineService: TraplineServiceInterface = {
-        return ServiceFactory.sharedInstance.trapLineService
+        return ServiceFactory.sharedInstance.traplineService
     }()
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        ServiceFactory.sharedInstance.applicationService.deleteAllData()
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
 
-        ServiceFactory.sharedInstance.applicationService.deleteAllDate()
     }
     
     func testNewTrapline() {
@@ -59,9 +60,9 @@ class traplineTests: XCTestCase {
         
         let trapline = Trapline()
         trapline.code = "LW"
-        trapline.stations.append(Station(code: "01", trapline: trapline))
-        trapline.stations.append(Station(code: "02", trapline: trapline))
-        trapline.stations.append(Station(code: "03", trapline: trapline))
+        let _ = trapline.addStation(code: "01")
+        let _ = trapline.addStation(code: "02")
+        let _ = trapline.addStation(code: "03")
         
         traplineService.add(trapline: trapline)
         

@@ -18,6 +18,10 @@ class Station: Object {
     */
     dynamic var code: String?
     
+    var longCode: String {
+        return trapline!.code!.appending(self.code!)
+    }
+    
     /**
     The trapline in which the station is located
     */

@@ -53,7 +53,7 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
         let _ = stationE01.addTrap(type: pelifeed)
         let _ = stationE01.addTrap(type: possumMaster)
         let stationE02 = trapline2.addStation(code: "02")
-        let _ = stationE02.addTrap(type: pelifeed)
+        let trap0 = stationE02.addTrap(type: pelifeed)
         let _ = stationE02.addTrap(type: possumMaster)
         
         let trapline3 = Trapline()
@@ -66,6 +66,7 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
         let trap3 = stationGC02.addTrap(type: pelifeed)
         let trap4 = stationGC02.addTrap(type: possumMaster)
 
+        let visit0 = Visit(trap: trap0)
         let visit1 = Visit(trap: trap1)
         let visit2 = Visit(trap: trap2)
         let visit3 = Visit(trap: trap3)
@@ -83,6 +84,7 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
         traplineService.add(trapline: trapline3)
         
         let visitService = ServiceFactory.sharedInstance.visitService
+        visitService.add(visit: visit0)
         visitService.add(visit: visit1)
         visitService.add(visit: visit2)
         visitService.add(visit: visit3)

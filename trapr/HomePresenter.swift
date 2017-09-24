@@ -35,12 +35,12 @@ class HomePresenter: HomeInteractorOutput, HomeModuleInterface {
     }
     
     func didSelectNewVisit() {
-        
-        router?.presentVisitModule(dateOfVisit: Date())
+        let visitSummary = VisitSummary(dateOfVisit: Date())
+        router?.presentVisitModule(visitSummary: visitSummary)
     }
     
     func didSelectVisitSummary(visitSummary: VisitSummary) {
-        router?.presentVisitModule(dateOfVisit: visitSummary.dateOfVisit)
+        router?.presentVisitModule(visitSummary: visitSummary)
     }
     
     func viewWillAppear() {
