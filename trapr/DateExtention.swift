@@ -39,4 +39,20 @@ extension Date {
         
         return Calendar.current.date(from: components)
     }
+    
+    func dayStart() -> Date {
+        var components = Calendar.current.dateComponents([.day, .month, .year], from: self)
+        
+        let formater = DateFormatter()
+        formater.dateFormat = "d M yyyy, HH:mm:ss"
+        return formater.date(from: "\(components.day!) \(components.month!) \(components.year!), 00:00:00") ?? self
+    }
+    
+    func dayEnd() -> Date {
+        var components = Calendar.current.dateComponents([.day, .month, .year], from: self)
+        
+        let formater = DateFormatter()
+        formater.dateFormat = "d M yyyy, HH:mm:ss"
+        return formater.date(from: "\(components.day!) \(components.month!) \(components.year!), 23:59:59") ?? self
+    }
 }

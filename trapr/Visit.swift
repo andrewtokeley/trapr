@@ -7,14 +7,21 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Visit {
-    var baitAdded: Int = 0
-    var baitEaten: Int = 0
-    var baitRemoved: Int = 0
-    var catchNumber: Int = 0
-    var notes: String?
-    var visitDateTime: Date?
-    var catchSpecies: Species?
-    var trap: Trap?
+class Visit: Object {
+    dynamic var baitAdded: Int = 0
+    dynamic var baitEaten: Int = 0
+    dynamic var baitRemoved: Int = 0
+    dynamic var catchNumber: Int = 0
+    dynamic var notes: String?
+    dynamic var visitDateTime: Date = Date()
+    dynamic var catchSpecies: Species?
+    dynamic var trap: Trap?
+    
+    convenience init(trap: Trap) {
+        self.init()
+        self.trap = trap
+        self.visitDateTime = Date()
+    }
 }

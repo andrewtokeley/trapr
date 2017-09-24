@@ -11,6 +11,7 @@ import Foundation
 protocol HomeViewInterface {
     
     func displayRecentVisits(visits: [VisitSummary]?)
+    func askForNewVisitDate(completion: (Date) -> Void)
     func setTitle(title: String)
     
 }

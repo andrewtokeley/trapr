@@ -11,5 +11,7 @@ import Foundation
 protocol VisitViewInterface {
     
     func setTitle(title: String)
-    //func initialize(forVisit visit: Visit)
+    func setStationText(text: String)
+    func enableNavigation(previous: Bool, next: Bool)
+    
 }

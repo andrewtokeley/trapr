@@ -1,5 +1,11 @@
 platform :ios, ‘8.0’
-use_frameworks!
 target "trapr" do
+    use_frameworks!
     pod "PureLayout"
+    pod 'RealmSwift'
+end
+
+target "traprTests" do
+    use_frameworks!
+    pod 'RealmSwift'
 end

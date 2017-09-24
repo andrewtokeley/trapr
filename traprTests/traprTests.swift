@@ -42,5 +42,37 @@ class traprTests: XCTestCase {
         
         XCTAssertTrue(nextDate?.string(from: "M") == "9")
     }
+
+    func testDateDayStart() {
+        let formater = DateFormatter()
+        formater.dateFormat = "dd MM yyyy, HH:mm:ss"
+        if let date = formater.date(from: "28 08 2017, 13:11:03") {
+            
+            let dayStart = formater.string(from: date.dayStart())
+            
+            XCTAssertTrue(dayStart == "28 08 2017, 00:00:00")
+            
+        } else {
+            
+            XCTFail()
+        }
+
+    }
+
+    
+    func testDateDayEnd() {
+        let formater = DateFormatter()
+        formater.dateFormat = "dd MM yyyy, HH:mm:ss"
+        if let date = formater.date(from: "28 08 2017, 13:11:03") {
+            
+            let dayEnd = formater.string(from: date.dayEnd())
+            
+            XCTAssertTrue(dayEnd == "28 08 2017, 23:59:59")
+            
+        } else {
+            
+            XCTFail()
+        }
+    }
     
 }

@@ -16,6 +16,9 @@ class VisitInteractor: VisitInteractorInput {
     
     func initialiseVisitModule(dateOfVisit: Date) {
         
-        //presenter?.setTitle
+        // Get all the visits for this date
+        let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: dateOfVisit)
+        
+        presenter?.didFetchVisits(visits: Array(visits))
     }
 }

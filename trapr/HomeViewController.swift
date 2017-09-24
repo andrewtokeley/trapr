@@ -30,6 +30,10 @@ class HomeViewController: UIViewController, HomeViewInterface, UICollectionViewD
         self.title = title
     }
 
+    func askForNewVisitDate(completion: (Date) -> Void) {
+        
+    }
+    
     //MARK: - Events
     
     func menuButtonAction(sender: UIBarButtonItem) {
@@ -40,7 +44,7 @@ class HomeViewController: UIViewController, HomeViewInterface, UICollectionViewD
     
     lazy var visitsLabel: UILabel = {
         var view = UILabel()
-        view.text = "MY VISITS"
+        view.text = "VISITS"
         view.font = UIFont(name: "Helvetica", size: 12)
         //view.backgroundColor = UIColor.white
         return view

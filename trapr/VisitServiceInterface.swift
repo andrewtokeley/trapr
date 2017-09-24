@@ -7,30 +7,55 @@
 //
 
 import Foundation
+import RealmSwift
 
 protocol VisitServiceInterface {
     
     /**
-     Record a new Visit to a specific Trap
+     Record a new Visit
      
      - parameters:
-        - trap: the Trap where the Visit is being recorded
+        - visit: the Visit to add to the repository
      
      - returns:
     A Visit instance that references the newly created visit
      */
-    func addVisit(to trap: Trap) -> Visit
+    func add(visit: Visit)
     
     /**
      Gets all Visits recorded on a specific Trapline
 
      - parameters:
-        - date: the date at which Visits were recorded
+        - date: the date on which Visits were recorded
      
      - returns:
-     Array of Visits, or nil if no Visits have been recorded on the Trapline
+     Array of Visits, or nil if no Visits have been recorded on this date
      */
-    func getVisits(recordedOn date: Date) -> [Visit]?
+    func getVisits(recordedOn date: Date) -> Results<Visit>
+    
+    /**
+     Gets all Visits recorded between the date range
+     
+     - parameters:
+     - dateStart: the start of the date range
+     - dateEnd: the end of the date range
+     
+     - returns:
+     Array of Visits, or nil if no Visits have been recorded within the date range
+     */
+    func getVisits(recordedBetween dateStart: Date, dateEnd: Date) -> Results<Visit>
+    
+    
+    /**
+     Get a summary of the visit recorded on the specified day
+     
+     - parameters:
+     - date: Visits on this date will be considered
+     
+     - returns:
+     A VisitSummary object, or nil if no Visits have been recorded on date
+     */
+    func getVisitSummary(date: Date) -> VisitSummary?
     
     /**
      Get a summary of each visit recorded on any day in the date range
@@ -42,6 +67,6 @@ protocol VisitServiceInterface {
      - returns:
      Array of VisitSummary objects, or nil if no Visits have been recorded between the date range
      */
-    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date) -> [VisitSummary]?
+    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date) -> [VisitSummary]
 
 }

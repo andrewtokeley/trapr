@@ -7,9 +7,10 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Species {
+class Species: Object {
     
-    var name: String?
-    var order:Int = 0
+    dynamic var name: String?
+    dynamic var order:Int = 0
 }

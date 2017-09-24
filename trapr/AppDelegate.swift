@@ -16,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+        // ** TEMP **
+        //ServiceFactory.sharedInstance.dataPopulatorService.populateWithTestData()
+        
         // Set global styles
         Styles.setAppearances()
         

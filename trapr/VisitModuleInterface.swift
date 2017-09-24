@@ -10,6 +10,7 @@ import Foundation
 
 protocol VisitModuleInterface {
     
-    var dateOfVisit: Date! { get set }
     func viewWillAppear()
+    func didSelectPreviousStation()
+    func didSelectNextStation()
 }

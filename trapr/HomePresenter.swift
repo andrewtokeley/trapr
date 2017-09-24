@@ -22,6 +22,10 @@ class HomePresenter: HomeInteractorOutput, HomeModuleInterface {
         view?.displayRecentVisits(visits: visits)
     }
     
+    func askForNewVisitDate(completion: () -> Date) {
+        
+    }
+    
     //MARK: - HomeModuleInterface
     
     func didSelectMenu() {
@@ -31,6 +35,7 @@ class HomePresenter: HomeInteractorOutput, HomeModuleInterface {
     }
     
     func didSelectNewVisit() {
+        
         router?.presentVisitModule(dateOfVisit: Date())
     }
     

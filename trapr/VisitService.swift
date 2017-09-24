@@ -7,45 +7,85 @@
 //
 
 import Foundation
+import RealmSwift
 
-class VisitService: VisitServiceInterface {
+class VisitService: Service, VisitServiceInterface {
     
-    func addVisit(to trap: Trap) -> Visit {
-        return Visit()
+    func add(visit: Visit) {
+        try! realm.write {
+            realm.add(visit)
+        }
     }
     
-    func getVisits(recordedOn date: Date) -> [Visit]? {
-        return nil
-    }
-    
-    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date) -> [VisitSummary]? {
-        return nil
-    }
-    
-}
-
-class VisitServiceMock: VisitServiceInterface {
-    
-    func addVisit(to trap: Trap) -> Visit {
-        let visit = Visit()
-        visit.visitDateTime = Date()
-        return visit
-    }
-    
-    func getVisits(recordedOn date: Date) -> [Visit]? {
-        return nil
-    }
-    
-    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date) -> [VisitSummary]? {
+    func getVisits(recordedBetween dateStart: Date, dateEnd: Date) -> Results<Visit> {
         
-        var visitSummaries = [VisitSummary]()
+        return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@}", dateStart, dateEnd)
+    }
+    
+    func getVisits(recordedOn date: Date) -> Results<Visit> {
         
-        visitSummaries.append(VisitSummary(trapLinesDescription: "LW", dateOfVisit: Date()))
-        visitSummaries.append(VisitSummary(trapLinesDescription: "GC, E, U", dateOfVisit: Date().add(0,-1,0)))
-        visitSummaries.append(VisitSummary(trapLinesDescription: "LW", dateOfVisit: Date().add(0,-2,0)))
-        visitSummaries.append(VisitSummary(trapLinesDescription: "GC, E, U", dateOfVisit: Date().add(0,-3,0)))
+        let dateStart = date.dayStart()
+        let dateEnd = date.dayEnd()
         
-        return visitSummaries
+        return getVisits(recordedBetween: dateStart, dateEnd: dateEnd)
+    }
+    
+    func getVisitSummary(date: Date) -> VisitSummary? {
+        var visitSummary: VisitSummary?
+        
+        let visits = getVisits(recordedOn: date)
+        
+        if visits.count != 0 {
+            
+            visitSummary = VisitSummary(trapLinesDescription: "", dateOfVisit: date)
+            
+            // Create a summary record for each unique trapline across all visits
+            var trapLineCodes = [String]()
+            
+            for visit in visits {
+                if let trapLineCode = visit.trap?.station?.trapline?.code {
+                    if  !trapLineCodes.contains(trapLineCode) {
+                        if trapLineCodes.count != 0 {
+                            visitSummary?.trapLinesDescription.append(", ")
+                        }
+                        trapLineCodes.append(trapLineCode)
+                        visitSummary?.trapLinesDescription.append(trapLineCode)
+                    }
+                }
+            }
+        }
+        return visitSummary
+    }
+    
+    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date) -> [VisitSummary] {
+        
+        var summaries = [VisitSummary]()
+        
+        // Get the days the contain some visits
+        let visits = getVisits(recordedBetween: startDate, dateEnd: endDate)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMM yyyy"
+        
+        var uniqueDates = [String]()
+        
+        for visit in visits {
+            let visitDate = dateFormatter.string(from: visit.visitDateTime)
+            if !uniqueDates.contains(visitDate) {
+                uniqueDates.append(visitDate)
+            }
+        }
+        
+        for aDate in uniqueDates {
+            
+            if let date = dateFormatter.date(from: aDate) {
+                if let summary = getVisitSummary(date: date) {
+                    summaries.append(summary)
+                }
+            }
+        }
+        
+        return summaries
     }
     
 }

@@ -7,7 +7,28 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Trap {
+class Trap: Object {
     
+    /**
+     Station at which the trap is location. Multiple traps can be located at the same station
+    */
+    dynamic var station: Station?
+    
+    /**
+     The type of trap. e.g. Possum Master, Pelifeed...
+     */
+    dynamic var type: TrapType?
+    
+    /**
+    Latitude of the trap location
+    */
+    dynamic var latitude: Double = 0
+    
+    /**
+    Longitude of the trap location
+    */
+    dynamic var longitude: Double = 0
+
 }

@@ -23,7 +23,8 @@ class VisitWireframe: VisitWireframeInput {
     
     private func assembleModule() -> VisitViewInterface {
         
-        view = VisitViewController()
+        view = VisitViewController(nibName: "VisitView", bundle: nil)
+        
         view.presenter = VisitPresenter()
         view.presenter?.view = view
         
@@ -41,7 +42,8 @@ class VisitWireframe: VisitWireframeInput {
     func presentView(from viewController: UIViewController, date: Date) {
         
         self.presentingViewController = viewController
-        view.presenter?.dateOfVisit = date
+        
+        view.presenter?.didSetDateOfVisit(date: date)
         
         // Clear out the default back button text to leave only the <
         let backItem = UIBarButtonItem()

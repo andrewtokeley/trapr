@@ -7,7 +7,17 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Trapline {
+class Trapline: Object {
     
+    dynamic var code: String? = nil // "LW"
+    dynamic var details: String? = nil // "Lowry Bay track"
+    let stations = List<Station>() // LW01, LW02...
+    
+    func addStation(code: String) -> Station {
+        let station = Station(code: code, trapline: self)
+        stations.append(station)
+        return station
+    }
 }
