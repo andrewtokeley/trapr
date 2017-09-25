@@ -52,6 +52,10 @@ class VisitWireframe: VisitWireframeInput {
         
         viewController.navigationController?.pushViewController(view, animated: true)
     }
+    
+    func backButtonClicked(sender: UIBarButtonItem) {
+        
+    }
 
 
 }

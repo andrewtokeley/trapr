@@ -143,6 +143,7 @@ class HomeViewController: UIViewController, HomeViewInterface, UICollectionViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        presenter?.viewDidLoad()
     }
     
     override func didReceiveMemoryWarning() {

@@ -20,8 +20,12 @@ class Visit: Object {
     dynamic var trap: Trap?
     
     convenience init(trap: Trap) {
+        self.init(trap: trap, date: Date())
+    }
+    
+    convenience init(trap: Trap, date: Date) {
         self.init()
         self.trap = trap
-        self.visitDateTime = Date()
+        self.visitDateTime = date
     }
 }

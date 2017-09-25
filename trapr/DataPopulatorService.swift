@@ -41,10 +41,10 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
         let stationLW01 = trapline1.addStation(code: "01")
         let _ = stationLW01.addTrap(type: pelifeed)
         let _ = stationLW01.addTrap(type: possumMaster)
-        let _ = trapline1.addStation(code: "02").addTrap(type: pelifeed)
-        let _ = trapline1.addStation(code: "03").addTrap(type: pelifeed)
-        let _ = trapline1.addStation(code: "04").addTrap(type: pelifeed)
-        let _ = trapline1.addStation(code: "05").addTrap(type: pelifeed)
+        let trap10 = trapline1.addStation(code: "02").addTrap(type: pelifeed)
+        let trap11 = trapline1.addStation(code: "03").addTrap(type: pelifeed)
+        let trap12 = trapline1.addStation(code: "04").addTrap(type: pelifeed)
+        let trap13 = trapline1.addStation(code: "05").addTrap(type: pelifeed)
         
         let trapline2 = Trapline()
         trapline2.code = "E"
@@ -72,6 +72,19 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
         let visit3 = Visit(trap: trap3)
         let visit4 = Visit(trap: trap4)
         
+        let lastWeek = Date().add(-7,0,0)
+        let visit5 = Visit(trap: trap0, date: lastWeek)
+        let visit6 = Visit(trap: trap1, date: lastWeek)
+        let visit7 = Visit(trap: trap2, date: lastWeek)
+        let visit8 = Visit(trap: trap3, date: lastWeek)
+        let visit9 = Visit(trap: trap4, date: lastWeek)
+    
+        let lastFortnight = Date().add(-14,0,0)
+        let visit10 = Visit(trap: trap10, date: lastFortnight)
+        let visit11 = Visit(trap: trap11, date: lastFortnight)
+        let visit12 = Visit(trap: trap12, date: lastFortnight)
+        let visit13 = Visit(trap: trap13, date: lastFortnight)
+        
         // These guys don't have their own service yet
         try! realm.write {
             realm.add(pelifeed)
@@ -89,6 +102,17 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
         visitService.add(visit: visit2)
         visitService.add(visit: visit3)
         visitService.add(visit: visit4)
+        
+        visitService.add(visit: visit5)
+        visitService.add(visit: visit6)
+        visitService.add(visit: visit7)
+        visitService.add(visit: visit8)
+        visitService.add(visit: visit9)
+        
+        visitService.add(visit: visit10)
+        visitService.add(visit: visit11)
+        visitService.add(visit: visit12)
+        visitService.add(visit: visit13)
 
     }
 }

@@ -12,6 +12,8 @@ import UIKit
 protocol MenuWireframeInput {
 
     func presentView(over viewController: UIViewController)
+    
     func dismissView()
+    func dismissView(navigateTo menuItem: MenuItem)
     
 }

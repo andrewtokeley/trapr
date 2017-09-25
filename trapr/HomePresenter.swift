@@ -43,9 +43,12 @@ class HomePresenter: HomeInteractorOutput, HomeModuleInterface {
         router?.presentVisitModule(visitSummary: visitSummary)
     }
     
-    func viewWillAppear() {
+    func viewDidLoad() {
         view?.setTitle(title: "Home")
-        
         interactor?.initialiseHomeModule()
+    }
+    
+    func viewWillAppear() {
+        
     }
 }

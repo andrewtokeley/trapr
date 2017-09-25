@@ -10,4 +10,5 @@ import Foundation
 
 protocol MenuModuleInterface {
     func didSelectClose()
+    func didSelectMenuItem(menuItem: MenuItem)
 }

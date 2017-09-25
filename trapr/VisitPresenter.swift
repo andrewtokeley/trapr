@@ -14,20 +14,20 @@ class VisitPresenter: VisitInteractorOutput, VisitModuleInterface {
     var view: VisitViewInterface?
     var interactor: VisitInteractorInput?
     
-    // var dateOfVisit: Date?
-    var visitSummary: VisitSummary?
+    var visitSummary: VisitSummary? {
+        willSet {
+            if visitSummary !==  newValue {
+                // reset if we're on a new visit summary
+                self.stationIndex = TrapSectionIndexPath(trapIndex: 0, stationIndex: 0)
+            }
+        }
+    }
     
-    var visits: [Visit]?
-    var currentVisitIndex: Int = 0
     var stationIndex = TrapSectionIndexPath(trapIndex: 0, stationIndex: 0)
     
     //MARK: - VisitInteractorOutput
     
     func didFetchVisits(visits: [Visit]?) {
-//        self.visits = visits
-//        currentVisitIndex = 0
-//        
-//        updateViewWithVisit(visitIndex: currentVisitIndex)
     }
 
     func didFetchTraplines(traplines: [Trapline]?) {

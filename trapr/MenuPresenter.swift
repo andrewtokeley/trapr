@@ -15,4 +15,9 @@ class MenuPresenter {
     func didSelectClose() {
         router?.dismissView()
     }
+    
+    func didSelectMenuItem(menuItem: MenuItem) {
+        router?.dismissView(navigateTo: menuItem)
+    }
+    
 }

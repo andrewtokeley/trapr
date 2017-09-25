@@ -38,5 +38,5 @@ class VisitSummary {
         }
         return description
     }
-    
+   
 }

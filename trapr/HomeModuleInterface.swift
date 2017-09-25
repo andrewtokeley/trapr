@@ -15,4 +15,5 @@ protocol HomeModuleInterface {
     func didSelectVisitSummary(visitSummary: VisitSummary)
     
     func viewWillAppear()
+    func viewDidLoad()
 }

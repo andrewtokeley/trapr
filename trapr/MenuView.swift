@@ -19,6 +19,13 @@ class MenuView: UIView {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var background: UIView!
     
+    @IBAction func menuItemClicked(_ sender: UIButton) {
+        
+        if let menuItem = MenuItem(rawValue: sender.tag) {
+            presenter?.didSelectMenuItem(menuItem: menuItem)
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         

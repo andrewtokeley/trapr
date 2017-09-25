@@ -13,6 +13,7 @@ class MenuWireframe: NSObject, MenuWireframeInput {
     
     var presentingViewController: UIViewController!
     var view: MenuView!
+    var settingsWireframe: SettingsWireframe!
     
     override init() {
         super.init()
@@ -28,6 +29,8 @@ class MenuWireframe: NSObject, MenuWireframeInput {
         
         view.presenter = MenuPresenter()
         view.presenter?.router = self
+        
+        settingsWireframe = SettingsWireframe()
         
         //view.presenter?.view = view
         //view.presenter?.router = self
@@ -61,6 +64,26 @@ class MenuWireframe: NSObject, MenuWireframeInput {
     }
     
     func dismissView() {
+        dismissView(completion: nil)
+    }
+
+    func dismissView(navigateTo menuItem: MenuItem) {
+        
+        switch (menuItem) {
+            case .Home:
+                dismissView()
+            case .Map:
+                dismissView()
+            case .Sync:
+                dismissView()
+            case .Settings:
+                dismissView(completion: { (flag) in self.settingsWireframe.presentView(from: self.presentingViewController) })
+                break
+        }
+    
+    }
+    
+    private func dismissView(completion: ((Bool) -> Void)?) {
         
         UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseIn, animations: {
             
@@ -71,7 +94,7 @@ class MenuWireframe: NSObject, MenuWireframeInput {
                 
                 self.view.removeFromSuperview()
                 
-            }, completion: nil)
+            }, completion: completion)
         })
         
         
