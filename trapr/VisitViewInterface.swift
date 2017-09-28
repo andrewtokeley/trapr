@@ -12,6 +12,7 @@ protocol VisitViewInterface {
     
     func setTitle(title: String)
     func setStationText(text: String)
+    func setTraps(traps: [Trap])
     func enableNavigation(previous: Bool, next: Bool)
     
 }

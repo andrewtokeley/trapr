@@ -13,4 +13,5 @@ protocol VisitModuleInterface {
     func viewWillAppear()
     func didSelectPreviousStation()
     func didSelectNextStation()
+    func didSelectTrap(index: Int)
 }

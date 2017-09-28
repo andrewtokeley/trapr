@@ -10,7 +10,5 @@ import Foundation
 
 protocol VisitInteractorOutput {
 
-    func didFetchVisits(visits: [Visit]?)
-    func didFetchTraplines(traplines: [Trapline]?)
-    
+    func didFetchVisit(visit: Visit?)    
 }

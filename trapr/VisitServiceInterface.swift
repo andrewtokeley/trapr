@@ -16,9 +16,6 @@ protocol VisitServiceInterface {
      
      - parameters:
         - visit: the Visit to add to the repository
-     
-     - returns:
-    A Visit instance that references the newly created visit
      */
     func add(visit: Visit)
     
@@ -47,7 +44,7 @@ protocol VisitServiceInterface {
     
     
     /**
-     Get a summary of the visit recorded on the specified day
+     Get a summary of the visits recorded on the specified day
      
      - parameters:
      - date: Visits on this date will be considered

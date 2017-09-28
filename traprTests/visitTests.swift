@@ -41,8 +41,7 @@ class visitTests: XCTestCase {
         XCTAssertTrue(visits.count == 1)
     }
     
-    func testGetVisitSummary() {
-
+    func getVisitSummary() -> VisitSummary {
         let possumMaster = TrapType()
         possumMaster.name = "Possum Master"
         
@@ -70,19 +69,27 @@ class visitTests: XCTestCase {
         visit2.visitDateTime = Date()
         visit2.trap = trap2
         visitService.add(visit: visit2)
-
+        
         let visit3 = Visit()
         visit3.visitDateTime = Date()
         visit3.trap = trap3
         visitService.add(visit: visit3)
-
-        if let summary = visitService.getVisitSummary(date: Date()) {
-            XCTAssertTrue(summary.traplinesDescription == "LW, E, GC")
-        } else {
-            XCTFail()
-        }
+        
+        return visitService.getVisitSummary(date: Date())!
     }
     
+    func testGetVisitSummary() {
+        let summary = getVisitSummary()
+        XCTAssertTrue(summary.traplinesDescription == "LW, E, GC")
+    }
+    
+    func testGetAvailableTraplines() {
+        let summary = getVisitSummary()
+        
+        //let interactor = SelectTraplineInteractor()
+        XCTAssert(true)
+    }
+
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {

@@ -10,6 +10,6 @@ import Foundation
 
 protocol VisitInteractorInput {
     
-    func initialiseVisitModule(visitSummary: VisitSummary)
-    
+    func retrieveVisit(trap: Trap, date: Date) 
+    func addVisit(visit: Visit)
 }

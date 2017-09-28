@@ -14,6 +14,7 @@
                 <outlet property="nextStation" destination="onF-Wm-jfO" id="TfD-hR-ZiW"/>
                 <outlet property="previousStation" destination="Vrd-if-akd" id="ebb-gJ-G1B"/>
                 <outlet property="stationLabel" destination="9Kh-Qx-oIF" id="SPY-MB-D2j"/>
+                <outlet property="trapTypeCollectionView" destination="e0U-9a-fcz" id="ZuE-qd-1aW"/>
                 <outlet property="view" destination="iN0-l3-epB" id="cP3-L6-xGd"/>
             </connections>
         </placeholder>
@@ -28,19 +29,51 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lessthan.png" translatesAutoresizingMaskIntoConstraints="NO" id="Vrd-if-akd">
-                    <rect key="frame" x="16" y="93" width="34" height="34"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lessthan.png" translatesAutoresizingMaskIntoConstraints="NO" id="Vrd-if-akd">
+                    <rect key="frame" x="16" y="74" width="80" height="80"/>
+                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="2T2-yR-EIR"/>
+                        <constraint firstAttribute="width" constant="80" id="pa5-Yn-PGi"/>
+                    </constraints>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="greaterthan.png" translatesAutoresizingMaskIntoConstraints="NO" id="onF-Wm-jfO">
-                    <rect key="frame" x="325" y="93" width="34" height="34"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greaterthan.png" translatesAutoresizingMaskIntoConstraints="NO" id="onF-Wm-jfO">
+                    <rect key="frame" x="279" y="74" width="80" height="80"/>
+                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="UXi-Xt-Xon"/>
+                        <constraint firstAttribute="height" constant="80" id="otx-f8-Q2g"/>
+                    </constraints>
                 </imageView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="e0U-9a-fcz">
+                    <rect key="frame" x="10" y="159" width="355" height="120"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="120" id="jsh-V6-POP"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="X0O-0p-qbx">
+                        <size key="itemSize" width="100" height="100"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="dCZ-Rb-DaG"/>
+                        <outlet property="delegate" destination="-1" id="BAL-ft-R0i"/>
+                    </connections>
+                </collectionView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="9Kh-Qx-oIF" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="5KU-ZQ-prj"/>
+                <constraint firstAttribute="trailing" secondItem="onF-Wm-jfO" secondAttribute="trailing" constant="16" id="D3j-fO-Nxi"/>
                 <constraint firstItem="9Kh-Qx-oIF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="100" id="Gf1-Mc-1S2"/>
+                <constraint firstItem="e0U-9a-fcz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="K4u-Sb-IIL"/>
+                <constraint firstItem="Vrd-if-akd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="a75-zp-wML"/>
+                <constraint firstAttribute="trailing" secondItem="e0U-9a-fcz" secondAttribute="trailing" constant="10" id="fcB-fM-enC"/>
+                <constraint firstItem="9Kh-Qx-oIF" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="kVt-VX-wg2"/>
+                <constraint firstItem="onF-Wm-jfO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="74" id="mbZ-wB-S6q"/>
+                <constraint firstItem="e0U-9a-fcz" firstAttribute="top" secondItem="Vrd-if-akd" secondAttribute="bottom" constant="5" id="nz5-AN-2RF"/>
+                <constraint firstItem="Vrd-if-akd" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="74" id="ydk-JQ-8L3"/>
             </constraints>
             <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>

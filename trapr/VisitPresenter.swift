@@ -11,6 +11,8 @@ import UIKit
 
 class VisitPresenter: VisitInteractorOutput, VisitModuleInterface {
     
+    //MARK: - Properties
+    
     var view: VisitViewInterface?
     var interactor: VisitInteractorInput?
     
@@ -18,29 +20,32 @@ class VisitPresenter: VisitInteractorOutput, VisitModuleInterface {
         willSet {
             if visitSummary !==  newValue {
                 // reset if we're on a new visit summary
-                self.stationIndex = TrapSectionIndexPath(trapIndex: 0, stationIndex: 0)
+                self.trapIndex = TrapIndexPath(traplineIndex: 0, stationIndex: 0, trapIndex: 0)
             }
         }
     }
     
-    var stationIndex = TrapSectionIndexPath(trapIndex: 0, stationIndex: 0)
+    var trapIndex = TrapIndexPath(traplineIndex: 0, stationIndex: 0, trapIndex: 0)
     
     //MARK: - VisitInteractorOutput
     
-    func didFetchVisits(visits: [Visit]?) {
-    }
-
-    func didFetchTraplines(traplines: [Trapline]?) {
+    func didFetchVisit(visit: Visit?) {
         
     }
     
     //MARK: - Helpers
-    func updateStationText() {
-        if let longCode = visitSummary?.traplines![stationIndex.trapIndex].stations[stationIndex.stationIndex].longCode {
-            view?.setStationText(text: longCode)
-        }
-        else {
-            view?.setStationText(text: "new")
+    func updateForNewLocation() {
+        
+        if let station = visitSummary?.traplines![trapIndex.traplineIndex].stations[trapIndex.stationIndex]
+        {
+            // Update the station label
+            view?.setStationText(text: station.longCode)
+            
+            // Get the traps for the station
+            view?.setTraps(traps: Array(station.traps))
+            
+            // Get the visit for this station
+            //interactor?.retrieveVisit(trap
         }
     }
     
@@ -66,35 +71,51 @@ class VisitPresenter: VisitInteractorOutput, VisitModuleInterface {
             view?.setTitle(title: title)
         }
         
-        updateStationText()
+        updateForNewLocation()
     }
     
     func didSelectPreviousStation() {
-        if stationIndex.stationIndex == 0 {
-            if stationIndex.trapIndex != 0 {
-                stationIndex.trapIndex -= 1
+        if trapIndex.stationIndex == 0 {
+            if trapIndex.traplineIndex != 0 {
+                trapIndex.traplineIndex -= 1
             } else {
-                stationIndex.trapIndex = visitSummary!.traplines!.count - 1
+                trapIndex.traplineIndex = visitSummary!.traplines!.count - 1
             }
-            stationIndex.stationIndex = visitSummary!.traplines![stationIndex.trapIndex].stations.count - 1
+            trapIndex.stationIndex = visitSummary!.traplines![trapIndex.traplineIndex].stations.count - 1
         } else {
-           stationIndex.stationIndex -= 1
+           trapIndex.stationIndex -= 1
         }
-        updateStationText()
+        
+        // always reset to the first trap
+        trapIndex.trapIndex = 0
+        
+        updateForNewLocation()
     }
     
     func didSelectNextStation() {
-        if stationIndex.stationIndex == visitSummary!.traplines![stationIndex.trapIndex].stations.count - 1 {
-            if stationIndex.trapIndex != visitSummary!.traplines!.count - 1 {
-                stationIndex.trapIndex += 1
+        if trapIndex.stationIndex == visitSummary!.traplines![trapIndex.traplineIndex].stations.count - 1 {
+            if trapIndex.traplineIndex != visitSummary!.traplines!.count - 1 {
+                trapIndex.traplineIndex += 1
             } else {
-                stationIndex.trapIndex = 0
+                trapIndex.traplineIndex = 0
             }
-            stationIndex.stationIndex = 0
+            trapIndex.stationIndex = 0
         } else {
-            stationIndex.stationIndex += 1
+            trapIndex.stationIndex += 1
         }
-        updateStationText()
+        
+        // always reset to the first trap
+        trapIndex.trapIndex = 0
+        
+        updateForNewLocation()
     }
 
+    func didSelectTrap(index: Int) {
+        trapIndex.trapIndex = index
+        
+        // if a visit exists, populate screen
+        
+        // if no visit then...
+        updateForNewLocation()
+    }
 }

@@ -10,14 +10,18 @@ import Foundation
 import UIKit
 import PureLayout
 
-class VisitViewController: UIViewController, VisitViewInterface {
+class VisitViewController: UIViewController, VisitViewInterface, UICollectionViewDelegate, UICollectionViewDataSource {
     
     @IBOutlet weak var stationLabel: UILabel!
+    @IBOutlet weak var trapTypeCollectionView: UICollectionView!
     
     @IBOutlet weak var previousStation: UIImageView!
     @IBOutlet weak var nextStation: UIImageView!
     
     var presenter: VisitPresenter?
+    var currentTraps: [Trap]?
+    
+    let TRAPTYPE_REUSE_ID = "cell"
     
     //MARK: - VisitViewInterface
     
@@ -27,6 +31,11 @@ class VisitViewController: UIViewController, VisitViewInterface {
     
     func setStationText(text: String) {
         self.stationLabel.text = text
+    }
+    
+    func setTraps(traps: [Trap]) {
+        currentTraps = traps
+        trapTypeCollectionView.reloadData()
     }
     
     func enableNavigation(previous: Bool, next: Bool) {
@@ -39,6 +48,32 @@ class VisitViewController: UIViewController, VisitViewInterface {
     
     func didSelectNextStation(sender: UIImageView) {
         presenter?.didSelectNextStation()
+    }
+    
+    //MARK: - UICollectionView
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return currentTraps?.count ?? 0
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.TRAPTYPE_REUSE_ID, for: indexPath) as! ImageCollectionViewCell
+        
+        if let trap = self.currentTraps?[indexPath.row] {
+            cell.image.image = UIImage(named: "menu")
+            cell.image.highlightedImage = UIImage(named: "plus")
+            cell.label.text = trap.type?.name
+        }
+        return cell
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     }
     
     //MARK: - SubViews
@@ -73,6 +108,8 @@ class VisitViewController: UIViewController, VisitViewInterface {
         let next = UITapGestureRecognizer(target: self, action: #selector(didSelectNextStation(sender:)))
         self.nextStation.addGestureRecognizer(next)
         self.nextStation.isUserInteractionEnabled = true
+        
+        self.trapTypeCollectionView.register(UINib(nibName:"ImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: self.TRAPTYPE_REUSE_ID)
         
         self.setConstraints()
     }

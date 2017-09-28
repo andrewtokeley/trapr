@@ -52,6 +52,16 @@
 		D89714BA1F789C7600E846B9 /* SettingsViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714B91F789C7600E846B9 /* SettingsViewInterface.swift */; };
 		D89714BC1F789E4D00E846B9 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714BB1F789E4D00E846B9 /* SettingsPresenter.swift */; };
 		D89714BE1F789E5B00E846B9 /* SettingsModuleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714BD1F789E5B00E846B9 /* SettingsModuleInterface.swift */; };
+		D89714C01F7A0C5D00E846B9 /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D89714BF1F7A0C5D00E846B9 /* ImageCollectionViewCell.xib */; };
+		D89714C21F7A0E4700E846B9 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714C11F7A0E4700E846B9 /* ImageCollectionViewCell.swift */; };
+		D89F40351F7C21C400BB545F /* SelectTraplineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89F40341F7C21C400BB545F /* SelectTraplineViewController.swift */; };
+		D89F40371F7C21DD00BB545F /* SelectTraplinePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89F40361F7C21DD00BB545F /* SelectTraplinePresenter.swift */; };
+		D89F40391F7C21FB00BB545F /* SelectTraplineViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89F40381F7C21FB00BB545F /* SelectTraplineViewInterface.swift */; };
+		D89F403B1F7C222600BB545F /* SelectTraplineModuleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89F403A1F7C222600BB545F /* SelectTraplineModuleInterface.swift */; };
+		D89F403D1F7C223600BB545F /* SelectTraplineWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89F403C1F7C223600BB545F /* SelectTraplineWireframe.swift */; };
+		D89F403F1F7C224500BB545F /* SelectTraplineWireframeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89F403E1F7C224500BB545F /* SelectTraplineWireframeInput.swift */; };
+		D89F40431F7C247A00BB545F /* SelectTraplineInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89F40421F7C247A00BB545F /* SelectTraplineInteractorInput.swift */; };
+		D89F40451F7CB56100BB545F /* SelectTraplineInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89F40441F7CB56100BB545F /* SelectTraplineInteractor.swift */; };
 		D8B94D591F5EA1FE00D373EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D581F5EA1FE00D373EF /* AppDelegate.swift */; };
 		D8B94D601F5EA1FE00D373EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8B94D5F1F5EA1FE00D373EF /* Assets.xcassets */; };
 		D8B94D631F5EA1FE00D373EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8B94D611F5EA1FE00D373EF /* LaunchScreen.storyboard */; };
@@ -147,6 +157,16 @@
 		D89714B91F789C7600E846B9 /* SettingsViewInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewInterface.swift; sourceTree = "<group>"; };
 		D89714BB1F789E4D00E846B9 /* SettingsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		D89714BD1F789E5B00E846B9 /* SettingsModuleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsModuleInterface.swift; sourceTree = "<group>"; };
+		D89714BF1F7A0C5D00E846B9 /* ImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageCollectionViewCell.xib; sourceTree = "<group>"; };
+		D89714C11F7A0E4700E846B9 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		D89F40341F7C21C400BB545F /* SelectTraplineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineViewController.swift; sourceTree = "<group>"; };
+		D89F40361F7C21DD00BB545F /* SelectTraplinePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplinePresenter.swift; sourceTree = "<group>"; };
+		D89F40381F7C21FB00BB545F /* SelectTraplineViewInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineViewInterface.swift; sourceTree = "<group>"; };
+		D89F403A1F7C222600BB545F /* SelectTraplineModuleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineModuleInterface.swift; sourceTree = "<group>"; };
+		D89F403C1F7C223600BB545F /* SelectTraplineWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineWireframe.swift; sourceTree = "<group>"; };
+		D89F403E1F7C224500BB545F /* SelectTraplineWireframeInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineWireframeInput.swift; sourceTree = "<group>"; };
+		D89F40421F7C247A00BB545F /* SelectTraplineInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineInteractorInput.swift; sourceTree = "<group>"; };
+		D89F40441F7CB56100BB545F /* SelectTraplineInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineInteractor.swift; sourceTree = "<group>"; };
 		D8B94D551F5EA1FE00D373EF /* trapr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = trapr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8B94D581F5EA1FE00D373EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8B94D5F1F5EA1FE00D373EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -258,6 +278,8 @@
 				D8503DC01F66807C00ED0C84 /* VisitViewController.swift */,
 				D8503DC11F66807C00ED0C84 /* VisitViewInterface.swift */,
 				D8BC08421F6A4C2800B284EE /* VisitView.xib */,
+				D89714BF1F7A0C5D00E846B9 /* ImageCollectionViewCell.xib */,
+				D89714C11F7A0E4700E846B9 /* ImageCollectionViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -343,6 +365,21 @@
 			name = Settings;
 			sourceTree = "<group>";
 		};
+		D89F40331F7C21AA00BB545F /* SelectTrapline */ = {
+			isa = PBXGroup;
+			children = (
+				D89F40441F7CB56100BB545F /* SelectTraplineInteractor.swift */,
+				D89F40421F7C247A00BB545F /* SelectTraplineInteractorInput.swift */,
+				D89F403A1F7C222600BB545F /* SelectTraplineModuleInterface.swift */,
+				D89F40361F7C21DD00BB545F /* SelectTraplinePresenter.swift */,
+				D89F40341F7C21C400BB545F /* SelectTraplineViewController.swift */,
+				D89F40381F7C21FB00BB545F /* SelectTraplineViewInterface.swift */,
+				D89F403C1F7C223600BB545F /* SelectTraplineWireframe.swift */,
+				D89F403E1F7C224500BB545F /* SelectTraplineWireframeInput.swift */,
+			);
+			name = SelectTrapline;
+			sourceTree = "<group>";
+		};
 		D8B94D4C1F5EA1FE00D373EF = {
 			isa = PBXGroup;
 			children = (
@@ -406,11 +443,12 @@
 		D8B94D7D1F5EA67300D373EF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				D89714B01F7899E300E846B9 /* Settings */,
+				D89F40331F7C21AA00BB545F /* SelectTrapline */,
 				D8B94D811F5EA6A100D373EF /* Root */,
 				D8B94D9E1F5F39C400D373EF /* Menu */,
 				D8B94D7E1F5EA67B00D373EF /* Home */,
 				D8503DB51F667F8100ED0C84 /* Visit */,
+				D89714B01F7899E300E846B9 /* Settings */,
 			);
 			name = Modules;
 			sourceTree = "<group>";
@@ -630,6 +668,7 @@
 				D8B94D631F5EA1FE00D373EF /* LaunchScreen.storyboard in Resources */,
 				D8B94DA11F5F7B7A00D373EF /* Menu.xib in Resources */,
 				D8BC084A1F6A542700B284EE /* greaterthan@2x.png in Resources */,
+				D89714C01F7A0C5D00E846B9 /* ImageCollectionViewCell.xib in Resources */,
 				D83853041F66555700481B57 /* plus.png in Resources */,
 				D8B94D9D1F5F30CD00D373EF /* menu@2x.png in Resources */,
 				D8B94D601F5EA1FE00D373EF /* Assets.xcassets in Resources */,
@@ -754,12 +793,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D80F7ED01F6E7A9300814A52 /* TraplineService.swift in Sources */,
+				D89F40351F7C21C400BB545F /* SelectTraplineViewController.swift in Sources */,
 				D8503DC61F66807C00ED0C84 /* VisitInteractorOutput.swift in Sources */,
 				D8B94D801F5EA68B00D373EF /* HomeViewController.swift in Sources */,
 				D8B94D921F5EAA0600D373EF /* HomeModuleInterface.swift in Sources */,
 				D8B94D7A1F5EA54300D373EF /* Styles.swift in Sources */,
 				D80F7ED31F6E87D500814A52 /* DataPopulatorService.swift in Sources */,
 				D89714AC1F77FEED00E846B9 /* TrapSectionIndexPath.swift in Sources */,
+				D89F403F1F7C224500BB545F /* SelectTraplineWireframeInput.swift in Sources */,
 				D81883791F6931C600A74B5E /* Species.swift in Sources */,
 				D8D729DE1F61C9CC0082CD4A /* VisitSummary.swift in Sources */,
 				D81DAAF51F6865DB00C7C987 /* Trapline.swift in Sources */,
@@ -771,6 +812,9 @@
 				D8B94D851F5EA70200D373EF /* HomeWireframe.swift in Sources */,
 				D89714BE1F789E5B00E846B9 /* SettingsModuleInterface.swift in Sources */,
 				D8B94D591F5EA1FE00D373EF /* AppDelegate.swift in Sources */,
+				D89F40451F7CB56100BB545F /* SelectTraplineInteractor.swift in Sources */,
+				D89714C21F7A0E4700E846B9 /* ImageCollectionViewCell.swift in Sources */,
+				D89F40431F7C247A00BB545F /* SelectTraplineInteractorInput.swift in Sources */,
 				D8D729E21F61D7D30082CD4A /* VisitCollectionViewCell.swift in Sources */,
 				D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */,
 				D8503DC91F66807C00ED0C84 /* VisitViewController.swift in Sources */,
@@ -780,6 +824,7 @@
 				D8B94DA31F5F7CDA00D373EF /* MenuView.swift in Sources */,
 				D8503DC71F66807C00ED0C84 /* VisitModuleInterface.swift in Sources */,
 				D8B94DA61F5F7FD900D373EF /* MenuWireframe.swift in Sources */,
+				D89F40391F7C21FB00BB545F /* SelectTraplineViewInterface.swift in Sources */,
 				D89714AA1F7751B300E846B9 /* DataPopulatorServiceInterface.swift in Sources */,
 				D8503DD01F669F8500ED0C84 /* Visit.swift in Sources */,
 				D81DAAF31F68659100C7C987 /* VisitServiceInterface.swift in Sources */,
@@ -792,6 +837,7 @@
 				D8503DCA1F66807C00ED0C84 /* VisitViewInterface.swift in Sources */,
 				D8B94DA81F5F800B00D373EF /* MenuWireframeInput.swift in Sources */,
 				D89714A41F76197D00E846B9 /* Service.swift in Sources */,
+				D89F40371F7C21DD00BB545F /* SelectTraplinePresenter.swift in Sources */,
 				D8503DCB1F66807C00ED0C84 /* VisitWireframe.swift in Sources */,
 				D89714A61F76200B00E846B9 /* ApplicationServiceInterface.swift in Sources */,
 				D8503DC41F66807C00ED0C84 /* VisitInteractor.swift in Sources */,
@@ -804,11 +850,13 @@
 				D8D729E81F64C4590082CD4A /* HomePresenter.swift in Sources */,
 				D89714BA1F789C7600E846B9 /* SettingsViewInterface.swift in Sources */,
 				D8503DCC1F66807C00ED0C84 /* VisitWireframeInput.swift in Sources */,
+				D89F403B1F7C222600BB545F /* SelectTraplineModuleInterface.swift in Sources */,
 				D8B94D901F5EA9D800D373EF /* HomeInteractorOutput.swift in Sources */,
 				D89714B81F789B7E00E846B9 /* SettingsWireframe.swift in Sources */,
 				D89714A81F76202E00E846B9 /* ApplicationService.swift in Sources */,
 				D8B94D8C1F5EA7EC00D373EF /* HomeViewInterface.swift in Sources */,
 				D8503DC51F66807C00ED0C84 /* VisitInteractorInput.swift in Sources */,
+				D89F403D1F7C223600BB545F /* SelectTraplineWireframe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,14 +8,19 @@
 
 import Foundation
 
-class TrapSectionIndexPath {
+/**
+ Index path to a specific trap within an array of traplines
+ */
+class TrapIndexPath {
     
-    var trapIndex: Int
+    var traplineIndex: Int
     var stationIndex: Int
+    var trapIndex: Int
     
-    init (trapIndex: Int, stationIndex: Int) {
-        self.trapIndex = trapIndex
+    init (traplineIndex: Int, stationIndex: Int, trapIndex: Int) {
+        self.traplineIndex = traplineIndex
         self.stationIndex = stationIndex
+        self.trapIndex = trapIndex
     }
     
 }
