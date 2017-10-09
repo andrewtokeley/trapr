@@ -14,6 +14,7 @@
 		D80F7ED31F6E87D500814A52 /* DataPopulatorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ED21F6E87D500814A52 /* DataPopulatorService.swift */; };
 		D80F7ED91F6E92C700814A52 /* TrapServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ED81F6E92C700814A52 /* TrapServiceInterface.swift */; };
 		D80F7EDB1F6EF89700814A52 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7EDA1F6EF89700814A52 /* Station.swift */; };
+		D81818701F7F795B008362BA /* AppModules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818186F1F7F795B008362BA /* AppModules.swift */; };
 		D81883791F6931C600A74B5E /* Species.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81883781F6931C600A74B5E /* Species.swift */; };
 		D81DAAEF1F68643400C7C987 /* VisitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAEE1F68643400C7C987 /* VisitService.swift */; };
 		D81DAAF11F68652E00C7C987 /* Trap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF01F68652E00C7C987 /* Trap.swift */; };
@@ -22,20 +23,42 @@
 		D81DAAF71F686EA800C7C987 /* ServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF61F686EA800C7C987 /* ServiceFactory.swift */; };
 		D83853021F6654CD00481B57 /* NewVisitCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D83853011F6654CD00481B57 /* NewVisitCollectionViewCell.xib */; };
 		D83853041F66555700481B57 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = D83853031F66555700481B57 /* plus.png */; };
+		D83DC6C81F7F841F00F91792 /* StartDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C11F7F841F00F91792 /* StartDisplayData.swift */; };
+		D83DC6C91F7F841F00F91792 /* StartInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C21F7F841F00F91792 /* StartInteractor.swift */; };
+		D83DC6CA1F7F841F00F91792 /* StartModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C31F7F841F00F91792 /* StartModuleApi.swift */; };
+		D83DC6CB1F7F841F00F91792 /* StartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C41F7F841F00F91792 /* StartPresenter.swift */; };
+		D83DC6CC1F7F841F00F91792 /* StartRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C51F7F841F00F91792 /* StartRouter.swift */; };
+		D83DC6CD1F7F841F00F91792 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C61F7F841F00F91792 /* StartView.swift */; };
+		D841CF261F8239CA004D0207 /* TraplineSelectDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D841CF201F8239CA004D0207 /* TraplineSelectDisplayData.swift */; };
+		D841CF271F8239CA004D0207 /* TraplineSelectInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D841CF211F8239CA004D0207 /* TraplineSelectInteractor.swift */; };
+		D841CF281F8239CA004D0207 /* TraplineSelectModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D841CF221F8239CA004D0207 /* TraplineSelectModuleApi.swift */; };
+		D841CF291F8239CA004D0207 /* TraplineSelectPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D841CF231F8239CA004D0207 /* TraplineSelectPresenter.swift */; };
+		D841CF2A1F8239CA004D0207 /* TraplineSelectRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D841CF241F8239CA004D0207 /* TraplineSelectRouter.swift */; };
+		D841CF2B1F8239CA004D0207 /* TraplineSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D841CF251F8239CA004D0207 /* TraplineSelectView.swift */; };
 		D8503DC41F66807C00ED0C84 /* VisitInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DBB1F66807C00ED0C84 /* VisitInteractor.swift */; };
-		D8503DC51F66807C00ED0C84 /* VisitInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DBC1F66807C00ED0C84 /* VisitInteractorInput.swift */; };
-		D8503DC61F66807C00ED0C84 /* VisitInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DBD1F66807C00ED0C84 /* VisitInteractorOutput.swift */; };
-		D8503DC71F66807C00ED0C84 /* VisitModuleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DBE1F66807C00ED0C84 /* VisitModuleInterface.swift */; };
 		D8503DC81F66807C00ED0C84 /* VisitPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DBF1F66807C00ED0C84 /* VisitPresenter.swift */; };
-		D8503DC91F66807C00ED0C84 /* VisitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DC01F66807C00ED0C84 /* VisitViewController.swift */; };
-		D8503DCA1F66807C00ED0C84 /* VisitViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DC11F66807C00ED0C84 /* VisitViewInterface.swift */; };
-		D8503DCB1F66807C00ED0C84 /* VisitWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DC21F66807C00ED0C84 /* VisitWireframe.swift */; };
-		D8503DCC1F66807C00ED0C84 /* VisitWireframeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DC31F66807C00ED0C84 /* VisitWireframeInput.swift */; };
 		D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */; };
 		D8503DD01F669F8500ED0C84 /* Visit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DCF1F669F8500ED0C84 /* Visit.swift */; };
 		D8503DD31F671CC600ED0C84 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DD21F671CC600ED0C84 /* MenuPresenter.swift */; };
 		D8503DD61F671D0A00ED0C84 /* MenuModuleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DD51F671D0A00ED0C84 /* MenuModuleInterface.swift */; };
 		D8503DD81F67AF7800ED0C84 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = D8503DD71F67AF7800ED0C84 /* user.png */; };
+		D857B3A81F81B86A006E1402 /* VisitDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A41F81B86A006E1402 /* VisitDisplayData.swift */; };
+		D857B3A91F81B86A006E1402 /* VisitModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A51F81B86A006E1402 /* VisitModuleApi.swift */; };
+		D857B3AA1F81B86A006E1402 /* VisitRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A61F81B86A006E1402 /* VisitRouter.swift */; };
+		D857B3AB1F81B86A006E1402 /* VisitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A71F81B86A006E1402 /* VisitView.swift */; };
+		D87E5BF51F88CCAA0055A3E0 /* TraplineSelectDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87E5BF41F88CCAA0055A3E0 /* TraplineSelectDelegate.swift */; };
+		D89311FF1F834F6E008DF09D /* StationSelectDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311F91F834F6E008DF09D /* StationSelectDisplayData.swift */; };
+		D89312001F834F6E008DF09D /* StationSelectInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FA1F834F6E008DF09D /* StationSelectInteractor.swift */; };
+		D89312011F834F6F008DF09D /* StationSelectModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FB1F834F6E008DF09D /* StationSelectModuleApi.swift */; };
+		D89312021F834F6F008DF09D /* StationSelectPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FC1F834F6E008DF09D /* StationSelectPresenter.swift */; };
+		D89312031F834F6F008DF09D /* StationSelectRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FD1F834F6E008DF09D /* StationSelectRouter.swift */; };
+		D89312041F834F6F008DF09D /* StationSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FE1F834F6E008DF09D /* StationSelectView.swift */; };
+		D8953EBC1F88114F00A1F424 /* NewVisitDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8953EB61F88114E00A1F424 /* NewVisitDisplayData.swift */; };
+		D8953EBD1F88114F00A1F424 /* NewVisitInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8953EB71F88114E00A1F424 /* NewVisitInteractor.swift */; };
+		D8953EBE1F88114F00A1F424 /* NewVisitModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8953EB81F88114E00A1F424 /* NewVisitModuleApi.swift */; };
+		D8953EBF1F88114F00A1F424 /* NewVisitPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8953EB91F88114E00A1F424 /* NewVisitPresenter.swift */; };
+		D8953EC01F88114F00A1F424 /* NewVisitRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8953EBA1F88114E00A1F424 /* NewVisitRouter.swift */; };
+		D8953EC11F88114F00A1F424 /* NewVisitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8953EBB1F88114E00A1F424 /* NewVisitView.swift */; };
 		D897149E1F70CCCB00E846B9 /* traplineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897149D1F70CCCB00E846B9 /* traplineTests.swift */; };
 		D89714A01F70CFB800E846B9 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897149F1F70CFB800E846B9 /* DataService.swift */; };
 		D89714A21F737B6A00E846B9 /* visitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714A11F737B6A00E846B9 /* visitTests.swift */; };
@@ -54,36 +77,19 @@
 		D89714BE1F789E5B00E846B9 /* SettingsModuleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714BD1F789E5B00E846B9 /* SettingsModuleInterface.swift */; };
 		D89714C01F7A0C5D00E846B9 /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D89714BF1F7A0C5D00E846B9 /* ImageCollectionViewCell.xib */; };
 		D89714C21F7A0E4700E846B9 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714C11F7A0E4700E846B9 /* ImageCollectionViewCell.swift */; };
-		D89F40351F7C21C400BB545F /* SelectTraplineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89F40341F7C21C400BB545F /* SelectTraplineViewController.swift */; };
-		D89F40371F7C21DD00BB545F /* SelectTraplinePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89F40361F7C21DD00BB545F /* SelectTraplinePresenter.swift */; };
-		D89F40391F7C21FB00BB545F /* SelectTraplineViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89F40381F7C21FB00BB545F /* SelectTraplineViewInterface.swift */; };
-		D89F403B1F7C222600BB545F /* SelectTraplineModuleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89F403A1F7C222600BB545F /* SelectTraplineModuleInterface.swift */; };
-		D89F403D1F7C223600BB545F /* SelectTraplineWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89F403C1F7C223600BB545F /* SelectTraplineWireframe.swift */; };
-		D89F403F1F7C224500BB545F /* SelectTraplineWireframeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89F403E1F7C224500BB545F /* SelectTraplineWireframeInput.swift */; };
-		D89F40431F7C247A00BB545F /* SelectTraplineInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89F40421F7C247A00BB545F /* SelectTraplineInteractorInput.swift */; };
-		D89F40451F7CB56100BB545F /* SelectTraplineInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89F40441F7CB56100BB545F /* SelectTraplineInteractor.swift */; };
 		D8B94D591F5EA1FE00D373EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D581F5EA1FE00D373EF /* AppDelegate.swift */; };
 		D8B94D601F5EA1FE00D373EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8B94D5F1F5EA1FE00D373EF /* Assets.xcassets */; };
 		D8B94D631F5EA1FE00D373EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8B94D611F5EA1FE00D373EF /* LaunchScreen.storyboard */; };
 		D8B94D6E1F5EA1FE00D373EF /* traprTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D6D1F5EA1FE00D373EF /* traprTests.swift */; };
 		D8B94D7A1F5EA54300D373EF /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D791F5EA54300D373EF /* Styles.swift */; };
 		D8B94D7C1F5EA56F00D373EF /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D7B1F5EA56F00D373EF /* UIColorExtension.swift */; };
-		D8B94D801F5EA68B00D373EF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D7F1F5EA68B00D373EF /* HomeViewController.swift */; };
-		D8B94D831F5EA6B300D373EF /* RootWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D821F5EA6B300D373EF /* RootWireframe.swift */; };
-		D8B94D851F5EA70200D373EF /* HomeWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D841F5EA70200D373EF /* HomeWireframe.swift */; };
-		D8B94D8C1F5EA7EC00D373EF /* HomeViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D8B1F5EA7EC00D373EF /* HomeViewInterface.swift */; };
-		D8B94D901F5EA9D800D373EF /* HomeInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D8F1F5EA9D800D373EF /* HomeInteractorOutput.swift */; };
-		D8B94D921F5EAA0600D373EF /* HomeModuleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D911F5EAA0600D373EF /* HomeModuleInterface.swift */; };
-		D8B94D941F5EAAEE00D373EF /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D931F5EAAEE00D373EF /* HomeInteractor.swift */; };
-		D8B94D961F5EAB0F00D373EF /* HomeInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D951F5EAB0F00D373EF /* HomeInteractorInput.swift */; };
-		D8B94D981F5EAC3400D373EF /* HomeWireframeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D971F5EAC3400D373EF /* HomeWireframeInput.swift */; };
 		D8B94D9C1F5F30CD00D373EF /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = D8B94D9A1F5F30CD00D373EF /* menu.png */; };
 		D8B94D9D1F5F30CD00D373EF /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8B94D9B1F5F30CD00D373EF /* menu@2x.png */; };
 		D8B94DA11F5F7B7A00D373EF /* Menu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8B94DA01F5F7B7A00D373EF /* Menu.xib */; };
 		D8B94DA31F5F7CDA00D373EF /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94DA21F5F7CDA00D373EF /* MenuView.swift */; };
 		D8B94DA61F5F7FD900D373EF /* MenuWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94DA51F5F7FD900D373EF /* MenuWireframe.swift */; };
 		D8B94DA81F5F800B00D373EF /* MenuWireframeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94DA71F5F800B00D373EF /* MenuWireframeInput.swift */; };
-		D8BC08431F6A4C2800B284EE /* VisitView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08421F6A4C2800B284EE /* VisitView.xib */; };
+		D8BC08431F6A4C2800B284EE /* Visit.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08421F6A4C2800B284EE /* Visit.xib */; };
 		D8BC08461F6A541200B284EE /* greaterthan.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08441F6A541200B284EE /* greaterthan.png */; };
 		D8BC08471F6A541200B284EE /* lessthan.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08451F6A541200B284EE /* lessthan.png */; };
 		D8BC084A1F6A542700B284EE /* greaterthan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08481F6A542700B284EE /* greaterthan@2x.png */; };
@@ -93,7 +99,17 @@
 		D8D729E21F61D7D30082CD4A /* VisitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D729E11F61D7D30082CD4A /* VisitCollectionViewCell.swift */; };
 		D8D729E41F61D91C0082CD4A /* VisitCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8D729E31F61D91C0082CD4A /* VisitCollectionViewCell.xib */; };
 		D8D729E61F64BD580082CD4A /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D8D729E51F64BD580082CD4A /* Podfile */; };
-		D8D729E81F64C4590082CD4A /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D729E71F64C4590082CD4A /* HomePresenter.swift */; };
+		D8F5F3FF1F7DC04900E91621 /* SelectTraplineWireframeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F5F3F71F7DC04900E91621 /* SelectTraplineWireframeInput.swift */; };
+		D8F5F4001F7DC04900E91621 /* SelectTraplineWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F5F3F81F7DC04900E91621 /* SelectTraplineWireframe.swift */; };
+		D8F5F4011F7DC04900E91621 /* SelectTraplineViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F5F3F91F7DC04900E91621 /* SelectTraplineViewInterface.swift */; };
+		D8F5F4021F7DC04900E91621 /* SelectTraplineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F5F3FA1F7DC04900E91621 /* SelectTraplineViewController.swift */; };
+		D8F5F4031F7DC04900E91621 /* SelectTraplinePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F5F3FB1F7DC04900E91621 /* SelectTraplinePresenter.swift */; };
+		D8F5F4041F7DC04900E91621 /* SelectTraplineModuleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F5F3FC1F7DC04900E91621 /* SelectTraplineModuleInterface.swift */; };
+		D8F5F4051F7DC04900E91621 /* SelectTraplineInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F5F3FD1F7DC04900E91621 /* SelectTraplineInteractorInput.swift */; };
+		D8F5F4061F7DC04900E91621 /* SelectTraplineInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F5F3FE1F7DC04900E91621 /* SelectTraplineInteractor.swift */; };
+		D8FA5CF51F8406D600EC890C /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FA5CF31F8406D600EC890C /* close.png */; };
+		D8FA5CF61F8406D600EC890C /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FA5CF41F8406D600EC890C /* close@2x.png */; };
+		D8FA5CF81F8409A700EC890C /* StationSelectSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FA5CF71F8409A700EC890C /* StationSelectSetupData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +134,7 @@
 		D80F7ED21F6E87D500814A52 /* DataPopulatorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataPopulatorService.swift; sourceTree = "<group>"; };
 		D80F7ED81F6E92C700814A52 /* TrapServiceInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrapServiceInterface.swift; sourceTree = "<group>"; };
 		D80F7EDA1F6EF89700814A52 /* Station.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
+		D818186F1F7F795B008362BA /* AppModules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModules.swift; sourceTree = "<group>"; };
 		D81883781F6931C600A74B5E /* Species.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Species.swift; sourceTree = "<group>"; };
 		D81DAAEE1F68643400C7C987 /* VisitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitService.swift; sourceTree = "<group>"; };
 		D81DAAF01F68652E00C7C987 /* Trap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trap.swift; sourceTree = "<group>"; };
@@ -127,20 +144,42 @@
 		D83853001F64C66B00481B57 /* Trapr-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Trapr-Bridging-Header.h"; sourceTree = "<group>"; };
 		D83853011F6654CD00481B57 /* NewVisitCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewVisitCollectionViewCell.xib; sourceTree = "<group>"; };
 		D83853031F66555700481B57 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
+		D83DC6C11F7F841F00F91792 /* StartDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartDisplayData.swift; sourceTree = "<group>"; };
+		D83DC6C21F7F841F00F91792 /* StartInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartInteractor.swift; sourceTree = "<group>"; };
+		D83DC6C31F7F841F00F91792 /* StartModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartModuleApi.swift; sourceTree = "<group>"; };
+		D83DC6C41F7F841F00F91792 /* StartPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPresenter.swift; sourceTree = "<group>"; };
+		D83DC6C51F7F841F00F91792 /* StartRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRouter.swift; sourceTree = "<group>"; };
+		D83DC6C61F7F841F00F91792 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		D841CF201F8239CA004D0207 /* TraplineSelectDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraplineSelectDisplayData.swift; sourceTree = "<group>"; };
+		D841CF211F8239CA004D0207 /* TraplineSelectInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraplineSelectInteractor.swift; sourceTree = "<group>"; };
+		D841CF221F8239CA004D0207 /* TraplineSelectModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraplineSelectModuleApi.swift; sourceTree = "<group>"; };
+		D841CF231F8239CA004D0207 /* TraplineSelectPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraplineSelectPresenter.swift; sourceTree = "<group>"; };
+		D841CF241F8239CA004D0207 /* TraplineSelectRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraplineSelectRouter.swift; sourceTree = "<group>"; };
+		D841CF251F8239CA004D0207 /* TraplineSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraplineSelectView.swift; sourceTree = "<group>"; };
 		D8503DBB1F66807C00ED0C84 /* VisitInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitInteractor.swift; sourceTree = "<group>"; };
-		D8503DBC1F66807C00ED0C84 /* VisitInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitInteractorInput.swift; sourceTree = "<group>"; };
-		D8503DBD1F66807C00ED0C84 /* VisitInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitInteractorOutput.swift; sourceTree = "<group>"; };
-		D8503DBE1F66807C00ED0C84 /* VisitModuleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitModuleInterface.swift; sourceTree = "<group>"; };
 		D8503DBF1F66807C00ED0C84 /* VisitPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitPresenter.swift; sourceTree = "<group>"; };
-		D8503DC01F66807C00ED0C84 /* VisitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitViewController.swift; sourceTree = "<group>"; };
-		D8503DC11F66807C00ED0C84 /* VisitViewInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitViewInterface.swift; sourceTree = "<group>"; };
-		D8503DC21F66807C00ED0C84 /* VisitWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitWireframe.swift; sourceTree = "<group>"; };
-		D8503DC31F66807C00ED0C84 /* VisitWireframeInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitWireframeInput.swift; sourceTree = "<group>"; };
 		D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtention.swift; sourceTree = "<group>"; };
 		D8503DCF1F669F8500ED0C84 /* Visit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Visit.swift; sourceTree = "<group>"; };
 		D8503DD21F671CC600ED0C84 /* MenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
 		D8503DD51F671D0A00ED0C84 /* MenuModuleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuModuleInterface.swift; sourceTree = "<group>"; };
 		D8503DD71F67AF7800ED0C84 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
+		D857B3A41F81B86A006E1402 /* VisitDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitDisplayData.swift; sourceTree = "<group>"; };
+		D857B3A51F81B86A006E1402 /* VisitModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitModuleApi.swift; sourceTree = "<group>"; };
+		D857B3A61F81B86A006E1402 /* VisitRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitRouter.swift; sourceTree = "<group>"; };
+		D857B3A71F81B86A006E1402 /* VisitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitView.swift; sourceTree = "<group>"; };
+		D87E5BF41F88CCAA0055A3E0 /* TraplineSelectDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraplineSelectDelegate.swift; sourceTree = "<group>"; };
+		D89311F91F834F6E008DF09D /* StationSelectDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectDisplayData.swift; sourceTree = "<group>"; };
+		D89311FA1F834F6E008DF09D /* StationSelectInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectInteractor.swift; sourceTree = "<group>"; };
+		D89311FB1F834F6E008DF09D /* StationSelectModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectModuleApi.swift; sourceTree = "<group>"; };
+		D89311FC1F834F6E008DF09D /* StationSelectPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectPresenter.swift; sourceTree = "<group>"; };
+		D89311FD1F834F6E008DF09D /* StationSelectRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectRouter.swift; sourceTree = "<group>"; };
+		D89311FE1F834F6E008DF09D /* StationSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectView.swift; sourceTree = "<group>"; };
+		D8953EB61F88114E00A1F424 /* NewVisitDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVisitDisplayData.swift; sourceTree = "<group>"; };
+		D8953EB71F88114E00A1F424 /* NewVisitInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVisitInteractor.swift; sourceTree = "<group>"; };
+		D8953EB81F88114E00A1F424 /* NewVisitModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVisitModuleApi.swift; sourceTree = "<group>"; };
+		D8953EB91F88114E00A1F424 /* NewVisitPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVisitPresenter.swift; sourceTree = "<group>"; };
+		D8953EBA1F88114E00A1F424 /* NewVisitRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVisitRouter.swift; sourceTree = "<group>"; };
+		D8953EBB1F88114E00A1F424 /* NewVisitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVisitView.swift; sourceTree = "<group>"; };
 		D897149D1F70CCCB00E846B9 /* traplineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = traplineTests.swift; sourceTree = "<group>"; };
 		D897149F1F70CFB800E846B9 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		D89714A11F737B6A00E846B9 /* visitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = visitTests.swift; sourceTree = "<group>"; };
@@ -159,14 +198,6 @@
 		D89714BD1F789E5B00E846B9 /* SettingsModuleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsModuleInterface.swift; sourceTree = "<group>"; };
 		D89714BF1F7A0C5D00E846B9 /* ImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		D89714C11F7A0E4700E846B9 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
-		D89F40341F7C21C400BB545F /* SelectTraplineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineViewController.swift; sourceTree = "<group>"; };
-		D89F40361F7C21DD00BB545F /* SelectTraplinePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplinePresenter.swift; sourceTree = "<group>"; };
-		D89F40381F7C21FB00BB545F /* SelectTraplineViewInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineViewInterface.swift; sourceTree = "<group>"; };
-		D89F403A1F7C222600BB545F /* SelectTraplineModuleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineModuleInterface.swift; sourceTree = "<group>"; };
-		D89F403C1F7C223600BB545F /* SelectTraplineWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineWireframe.swift; sourceTree = "<group>"; };
-		D89F403E1F7C224500BB545F /* SelectTraplineWireframeInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineWireframeInput.swift; sourceTree = "<group>"; };
-		D89F40421F7C247A00BB545F /* SelectTraplineInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineInteractorInput.swift; sourceTree = "<group>"; };
-		D89F40441F7CB56100BB545F /* SelectTraplineInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineInteractor.swift; sourceTree = "<group>"; };
 		D8B94D551F5EA1FE00D373EF /* trapr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = trapr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8B94D581F5EA1FE00D373EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8B94D5F1F5EA1FE00D373EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -177,22 +208,13 @@
 		D8B94D6F1F5EA1FE00D373EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8B94D791F5EA54300D373EF /* Styles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		D8B94D7B1F5EA56F00D373EF /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		D8B94D7F1F5EA68B00D373EF /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		D8B94D821F5EA6B300D373EF /* RootWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootWireframe.swift; sourceTree = "<group>"; };
-		D8B94D841F5EA70200D373EF /* HomeWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeWireframe.swift; sourceTree = "<group>"; };
-		D8B94D8B1F5EA7EC00D373EF /* HomeViewInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewInterface.swift; sourceTree = "<group>"; };
-		D8B94D8F1F5EA9D800D373EF /* HomeInteractorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeInteractorOutput.swift; sourceTree = "<group>"; };
-		D8B94D911F5EAA0600D373EF /* HomeModuleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeModuleInterface.swift; sourceTree = "<group>"; };
-		D8B94D931F5EAAEE00D373EF /* HomeInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
-		D8B94D951F5EAB0F00D373EF /* HomeInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeInteractorInput.swift; sourceTree = "<group>"; };
-		D8B94D971F5EAC3400D373EF /* HomeWireframeInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeWireframeInput.swift; sourceTree = "<group>"; };
 		D8B94D9A1F5F30CD00D373EF /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
 		D8B94D9B1F5F30CD00D373EF /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
 		D8B94DA01F5F7B7A00D373EF /* Menu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Menu.xib; sourceTree = "<group>"; };
 		D8B94DA21F5F7CDA00D373EF /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		D8B94DA51F5F7FD900D373EF /* MenuWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuWireframe.swift; sourceTree = "<group>"; };
 		D8B94DA71F5F800B00D373EF /* MenuWireframeInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuWireframeInput.swift; sourceTree = "<group>"; };
-		D8BC08421F6A4C2800B284EE /* VisitView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitView.xib; sourceTree = "<group>"; };
+		D8BC08421F6A4C2800B284EE /* Visit.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Visit.xib; sourceTree = "<group>"; };
 		D8BC08441F6A541200B284EE /* greaterthan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greaterthan.png; sourceTree = "<group>"; };
 		D8BC08451F6A541200B284EE /* lessthan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessthan.png; sourceTree = "<group>"; };
 		D8BC08481F6A542700B284EE /* greaterthan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greaterthan@2x.png"; sourceTree = "<group>"; };
@@ -202,7 +224,17 @@
 		D8D729E11F61D7D30082CD4A /* VisitCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitCollectionViewCell.swift; sourceTree = "<group>"; };
 		D8D729E31F61D91C0082CD4A /* VisitCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitCollectionViewCell.xib; sourceTree = "<group>"; };
 		D8D729E51F64BD580082CD4A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		D8D729E71F64C4590082CD4A /* HomePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
+		D8F5F3F71F7DC04900E91621 /* SelectTraplineWireframeInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineWireframeInput.swift; sourceTree = "<group>"; };
+		D8F5F3F81F7DC04900E91621 /* SelectTraplineWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineWireframe.swift; sourceTree = "<group>"; };
+		D8F5F3F91F7DC04900E91621 /* SelectTraplineViewInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineViewInterface.swift; sourceTree = "<group>"; };
+		D8F5F3FA1F7DC04900E91621 /* SelectTraplineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineViewController.swift; sourceTree = "<group>"; };
+		D8F5F3FB1F7DC04900E91621 /* SelectTraplinePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplinePresenter.swift; sourceTree = "<group>"; };
+		D8F5F3FC1F7DC04900E91621 /* SelectTraplineModuleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineModuleInterface.swift; sourceTree = "<group>"; };
+		D8F5F3FD1F7DC04900E91621 /* SelectTraplineInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineInteractorInput.swift; sourceTree = "<group>"; };
+		D8F5F3FE1F7DC04900E91621 /* SelectTraplineInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineInteractor.swift; sourceTree = "<group>"; };
+		D8FA5CF31F8406D600EC890C /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
+		D8FA5CF41F8406D600EC890C /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
+		D8FA5CF71F8409A700EC890C /* StationSelectSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectSetupData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,63 +292,41 @@
 			name = Services;
 			sourceTree = "<group>";
 		};
+		D83DC6BF1F7F83D200F91792 /* Start */ = {
+			isa = PBXGroup;
+			children = (
+				D83DC6C11F7F841F00F91792 /* StartDisplayData.swift */,
+				D83DC6C21F7F841F00F91792 /* StartInteractor.swift */,
+				D83DC6C31F7F841F00F91792 /* StartModuleApi.swift */,
+				D83DC6C41F7F841F00F91792 /* StartPresenter.swift */,
+				D83DC6C51F7F841F00F91792 /* StartRouter.swift */,
+				D83DC6C61F7F841F00F91792 /* StartView.swift */,
+				D8D729E11F61D7D30082CD4A /* VisitCollectionViewCell.swift */,
+				D8D729E31F61D91C0082CD4A /* VisitCollectionViewCell.xib */,
+				D83853011F6654CD00481B57 /* NewVisitCollectionViewCell.xib */,
+			);
+			name = Start;
+			sourceTree = "<group>";
+		};
+		D841CF1F1F82398D004D0207 /* TraplineSelect */ = {
+			isa = PBXGroup;
+			children = (
+				D841CF201F8239CA004D0207 /* TraplineSelectDisplayData.swift */,
+				D841CF211F8239CA004D0207 /* TraplineSelectInteractor.swift */,
+				D841CF221F8239CA004D0207 /* TraplineSelectModuleApi.swift */,
+				D841CF231F8239CA004D0207 /* TraplineSelectPresenter.swift */,
+				D841CF241F8239CA004D0207 /* TraplineSelectRouter.swift */,
+				D841CF251F8239CA004D0207 /* TraplineSelectView.swift */,
+				D87E5BF41F88CCAA0055A3E0 /* TraplineSelectDelegate.swift */,
+			);
+			name = TraplineSelect;
+			sourceTree = "<group>";
+		};
 		D8503DB51F667F8100ED0C84 /* Visit */ = {
 			isa = PBXGroup;
 			children = (
-				D8503DB61F667F9A00ED0C84 /* View */,
-				D8503DB71F667FA400ED0C84 /* Interactor */,
-				D8503DB81F667FAD00ED0C84 /* Presenter */,
-				D8503DB91F667FB700ED0C84 /* Entities */,
-				D8503DBA1F667FC000ED0C84 /* Router */,
 			);
 			name = Visit;
-			sourceTree = "<group>";
-		};
-		D8503DB61F667F9A00ED0C84 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				D8503DC01F66807C00ED0C84 /* VisitViewController.swift */,
-				D8503DC11F66807C00ED0C84 /* VisitViewInterface.swift */,
-				D8BC08421F6A4C2800B284EE /* VisitView.xib */,
-				D89714BF1F7A0C5D00E846B9 /* ImageCollectionViewCell.xib */,
-				D89714C11F7A0E4700E846B9 /* ImageCollectionViewCell.swift */,
-			);
-			name = View;
-			sourceTree = "<group>";
-		};
-		D8503DB71F667FA400ED0C84 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				D8503DBB1F66807C00ED0C84 /* VisitInteractor.swift */,
-				D8503DBC1F66807C00ED0C84 /* VisitInteractorInput.swift */,
-			);
-			name = Interactor;
-			sourceTree = "<group>";
-		};
-		D8503DB81F667FAD00ED0C84 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				D8503DBD1F66807C00ED0C84 /* VisitInteractorOutput.swift */,
-				D8503DBE1F66807C00ED0C84 /* VisitModuleInterface.swift */,
-				D8503DBF1F66807C00ED0C84 /* VisitPresenter.swift */,
-			);
-			name = Presenter;
-			sourceTree = "<group>";
-		};
-		D8503DB91F667FB700ED0C84 /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Entities;
-			sourceTree = "<group>";
-		};
-		D8503DBA1F667FC000ED0C84 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				D8503DC21F66807C00ED0C84 /* VisitWireframe.swift */,
-				D8503DC31F66807C00ED0C84 /* VisitWireframeInput.swift */,
-			);
-			name = Router;
 			sourceTree = "<group>";
 		};
 		D8503DD11F669F8B00ED0C84 /* Model */ = {
@@ -341,6 +351,62 @@
 				D8503DD51F671D0A00ED0C84 /* MenuModuleInterface.swift */,
 			);
 			name = Presenter;
+			sourceTree = "<group>";
+		};
+		D857B39C1F81B7C1006E1402 /* old */ = {
+			isa = PBXGroup;
+			children = (
+				D89F40331F7C21AA00BB545F /* SelectTrapline */,
+				D8B94D811F5EA6A100D373EF /* Root */,
+				D8B94D9E1F5F39C400D373EF /* Menu */,
+				D8B94D7E1F5EA67B00D373EF /* Home */,
+				D8503DB51F667F8100ED0C84 /* Visit */,
+				D89714B01F7899E300E846B9 /* Settings */,
+			);
+			name = old;
+			sourceTree = "<group>";
+		};
+		D857B39D1F81B7D8006E1402 /* Visit */ = {
+			isa = PBXGroup;
+			children = (
+				D89714C11F7A0E4700E846B9 /* ImageCollectionViewCell.swift */,
+				D89714BF1F7A0C5D00E846B9 /* ImageCollectionViewCell.xib */,
+				D8BC08421F6A4C2800B284EE /* Visit.xib */,
+				D857B3A41F81B86A006E1402 /* VisitDisplayData.swift */,
+				D8503DBB1F66807C00ED0C84 /* VisitInteractor.swift */,
+				D857B3A51F81B86A006E1402 /* VisitModuleApi.swift */,
+				D8503DBF1F66807C00ED0C84 /* VisitPresenter.swift */,
+				D857B3A61F81B86A006E1402 /* VisitRouter.swift */,
+				D857B3A71F81B86A006E1402 /* VisitView.swift */,
+			);
+			name = Visit;
+			sourceTree = "<group>";
+		};
+		D89311F81F834F44008DF09D /* StationSelect */ = {
+			isa = PBXGroup;
+			children = (
+				D89311F91F834F6E008DF09D /* StationSelectDisplayData.swift */,
+				D89311FA1F834F6E008DF09D /* StationSelectInteractor.swift */,
+				D89311FB1F834F6E008DF09D /* StationSelectModuleApi.swift */,
+				D89311FC1F834F6E008DF09D /* StationSelectPresenter.swift */,
+				D89311FD1F834F6E008DF09D /* StationSelectRouter.swift */,
+				D89311FE1F834F6E008DF09D /* StationSelectView.swift */,
+				D8FA5CF71F8409A700EC890C /* StationSelectSetupData.swift */,
+			);
+			name = StationSelect;
+			sourceTree = "<group>";
+		};
+		D8953EB51F88110900A1F424 /* NewVisit */ = {
+			isa = PBXGroup;
+			children = (
+				D8953EB61F88114E00A1F424 /* NewVisitDisplayData.swift */,
+				D8953EB71F88114E00A1F424 /* NewVisitInteractor.swift */,
+				D8953EB81F88114E00A1F424 /* NewVisitModuleApi.swift */,
+				D8953EB91F88114E00A1F424 /* NewVisitPresenter.swift */,
+				D8953EBA1F88114E00A1F424 /* NewVisitRouter.swift */,
+				D8953EBB1F88114E00A1F424 /* NewVisitView.swift */,
+			);
+			name = NewVisit;
 			sourceTree = "<group>";
 		};
 		D89714AD1F78989400E846B9 /* Entities */ = {
@@ -368,14 +434,14 @@
 		D89F40331F7C21AA00BB545F /* SelectTrapline */ = {
 			isa = PBXGroup;
 			children = (
-				D89F40441F7CB56100BB545F /* SelectTraplineInteractor.swift */,
-				D89F40421F7C247A00BB545F /* SelectTraplineInteractorInput.swift */,
-				D89F403A1F7C222600BB545F /* SelectTraplineModuleInterface.swift */,
-				D89F40361F7C21DD00BB545F /* SelectTraplinePresenter.swift */,
-				D89F40341F7C21C400BB545F /* SelectTraplineViewController.swift */,
-				D89F40381F7C21FB00BB545F /* SelectTraplineViewInterface.swift */,
-				D89F403C1F7C223600BB545F /* SelectTraplineWireframe.swift */,
-				D89F403E1F7C224500BB545F /* SelectTraplineWireframeInput.swift */,
+				D8F5F3F71F7DC04900E91621 /* SelectTraplineWireframeInput.swift */,
+				D8F5F3F81F7DC04900E91621 /* SelectTraplineWireframe.swift */,
+				D8F5F3F91F7DC04900E91621 /* SelectTraplineViewInterface.swift */,
+				D8F5F3FA1F7DC04900E91621 /* SelectTraplineViewController.swift */,
+				D8F5F3FB1F7DC04900E91621 /* SelectTraplinePresenter.swift */,
+				D8F5F3FC1F7DC04900E91621 /* SelectTraplineModuleInterface.swift */,
+				D8F5F3FD1F7DC04900E91621 /* SelectTraplineInteractorInput.swift */,
+				D8F5F3FE1F7DC04900E91621 /* SelectTraplineInteractor.swift */,
 			);
 			name = SelectTrapline;
 			sourceTree = "<group>";
@@ -443,12 +509,13 @@
 		D8B94D7D1F5EA67300D373EF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				D89F40331F7C21AA00BB545F /* SelectTrapline */,
-				D8B94D811F5EA6A100D373EF /* Root */,
-				D8B94D9E1F5F39C400D373EF /* Menu */,
-				D8B94D7E1F5EA67B00D373EF /* Home */,
-				D8503DB51F667F8100ED0C84 /* Visit */,
-				D89714B01F7899E300E846B9 /* Settings */,
+				D8953EB51F88110900A1F424 /* NewVisit */,
+				D89311F81F834F44008DF09D /* StationSelect */,
+				D841CF1F1F82398D004D0207 /* TraplineSelect */,
+				D83DC6BF1F7F83D200F91792 /* Start */,
+				D857B39D1F81B7D8006E1402 /* Visit */,
+				D857B39C1F81B7C1006E1402 /* old */,
+				D818186F1F7F795B008362BA /* AppModules.swift */,
 			);
 			name = Modules;
 			sourceTree = "<group>";
@@ -456,11 +523,6 @@
 		D8B94D7E1F5EA67B00D373EF /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				D8B94D861F5EA79200D373EF /* View */,
-				D8B94D871F5EA79900D373EF /* Interactor */,
-				D8B94D881F5EA7A300D373EF /* Presenter */,
-				D8B94D891F5EA7BD00D373EF /* Entities */,
-				D8B94D8A1F5EA7CF00D373EF /* Router */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -468,61 +530,15 @@
 		D8B94D811F5EA6A100D373EF /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				D8B94D821F5EA6B300D373EF /* RootWireframe.swift */,
 			);
 			name = Root;
-			sourceTree = "<group>";
-		};
-		D8B94D861F5EA79200D373EF /* View */ = {
-			isa = PBXGroup;
-			children = (
-				D8B94D7F1F5EA68B00D373EF /* HomeViewController.swift */,
-				D8B94D8B1F5EA7EC00D373EF /* HomeViewInterface.swift */,
-				D8D729E11F61D7D30082CD4A /* VisitCollectionViewCell.swift */,
-				D8D729E31F61D91C0082CD4A /* VisitCollectionViewCell.xib */,
-				D83853011F6654CD00481B57 /* NewVisitCollectionViewCell.xib */,
-			);
-			name = View;
-			sourceTree = "<group>";
-		};
-		D8B94D871F5EA79900D373EF /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				D8B94D931F5EAAEE00D373EF /* HomeInteractor.swift */,
-				D8B94D951F5EAB0F00D373EF /* HomeInteractorInput.swift */,
-			);
-			name = Interactor;
-			sourceTree = "<group>";
-		};
-		D8B94D881F5EA7A300D373EF /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				D8B94D8F1F5EA9D800D373EF /* HomeInteractorOutput.swift */,
-				D8B94D911F5EAA0600D373EF /* HomeModuleInterface.swift */,
-				D8D729E71F64C4590082CD4A /* HomePresenter.swift */,
-			);
-			name = Presenter;
-			sourceTree = "<group>";
-		};
-		D8B94D891F5EA7BD00D373EF /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Entities;
-			sourceTree = "<group>";
-		};
-		D8B94D8A1F5EA7CF00D373EF /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				D8B94D841F5EA70200D373EF /* HomeWireframe.swift */,
-				D8B94D971F5EAC3400D373EF /* HomeWireframeInput.swift */,
-			);
-			name = Router;
 			sourceTree = "<group>";
 		};
 		D8B94D991F5F28F200D373EF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D8FA5CF31F8406D600EC890C /* close.png */,
+				D8FA5CF41F8406D600EC890C /* close@2x.png */,
 				D8BC08441F6A541200B284EE /* greaterthan.png */,
 				D8BC08481F6A542700B284EE /* greaterthan@2x.png */,
 				D8BC08451F6A541200B284EE /* lessthan.png */,
@@ -626,7 +642,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Andrew Tokeley ";
 				TargetAttributes = {
 					D8B94D541F5EA1FE00D373EF = {
@@ -665,6 +681,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8FA5CF51F8406D600EC890C /* close.png in Resources */,
 				D8B94D631F5EA1FE00D373EF /* LaunchScreen.storyboard in Resources */,
 				D8B94DA11F5F7B7A00D373EF /* Menu.xib in Resources */,
 				D8BC084A1F6A542700B284EE /* greaterthan@2x.png in Resources */,
@@ -673,12 +690,13 @@
 				D8B94D9D1F5F30CD00D373EF /* menu@2x.png in Resources */,
 				D8B94D601F5EA1FE00D373EF /* Assets.xcassets in Resources */,
 				D8BC084B1F6A542700B284EE /* lessthan@2x.png in Resources */,
+				D8FA5CF61F8406D600EC890C /* close@2x.png in Resources */,
 				D8D729E41F61D91C0082CD4A /* VisitCollectionViewCell.xib in Resources */,
 				D8503DD81F67AF7800ED0C84 /* user.png in Resources */,
 				D8D729E61F64BD580082CD4A /* Podfile in Resources */,
 				D8B94D9C1F5F30CD00D373EF /* menu.png in Resources */,
 				D89714B21F789A2800E846B9 /* SettingsViewController.xib in Resources */,
-				D8BC08431F6A4C2800B284EE /* VisitView.xib in Resources */,
+				D8BC08431F6A4C2800B284EE /* Visit.xib in Resources */,
 				D83853021F6654CD00481B57 /* NewVisitCollectionViewCell.xib in Resources */,
 				D8BC08471F6A541200B284EE /* lessthan.png in Resources */,
 				D8BC08461F6A541200B284EE /* greaterthan.png in Resources */,
@@ -793,70 +811,84 @@
 			buildActionMask = 2147483647;
 			files = (
 				D80F7ED01F6E7A9300814A52 /* TraplineService.swift in Sources */,
-				D89F40351F7C21C400BB545F /* SelectTraplineViewController.swift in Sources */,
-				D8503DC61F66807C00ED0C84 /* VisitInteractorOutput.swift in Sources */,
-				D8B94D801F5EA68B00D373EF /* HomeViewController.swift in Sources */,
-				D8B94D921F5EAA0600D373EF /* HomeModuleInterface.swift in Sources */,
 				D8B94D7A1F5EA54300D373EF /* Styles.swift in Sources */,
 				D80F7ED31F6E87D500814A52 /* DataPopulatorService.swift in Sources */,
+				D8953EBC1F88114F00A1F424 /* NewVisitDisplayData.swift in Sources */,
+				D89312031F834F6F008DF09D /* StationSelectRouter.swift in Sources */,
+				D857B3AA1F81B86A006E1402 /* VisitRouter.swift in Sources */,
 				D89714AC1F77FEED00E846B9 /* TrapSectionIndexPath.swift in Sources */,
-				D89F403F1F7C224500BB545F /* SelectTraplineWireframeInput.swift in Sources */,
+				D8F5F4031F7DC04900E91621 /* SelectTraplinePresenter.swift in Sources */,
+				D8F5F4051F7DC04900E91621 /* SelectTraplineInteractorInput.swift in Sources */,
 				D81883791F6931C600A74B5E /* Species.swift in Sources */,
+				D8F5F4001F7DC04900E91621 /* SelectTraplineWireframe.swift in Sources */,
 				D8D729DE1F61C9CC0082CD4A /* VisitSummary.swift in Sources */,
 				D81DAAF51F6865DB00C7C987 /* Trapline.swift in Sources */,
 				D89714B61F789B6700E846B9 /* SettingsWireframeInput.swift in Sources */,
-				D8B94D941F5EAAEE00D373EF /* HomeInteractor.swift in Sources */,
-				D8B94D831F5EA6B300D373EF /* RootWireframe.swift in Sources */,
 				D81DAAF71F686EA800C7C987 /* ServiceFactory.swift in Sources */,
 				D80F7ECE1F6E79BF00814A52 /* TraplineServiceInterface.swift in Sources */,
-				D8B94D851F5EA70200D373EF /* HomeWireframe.swift in Sources */,
 				D89714BE1F789E5B00E846B9 /* SettingsModuleInterface.swift in Sources */,
+				D87E5BF51F88CCAA0055A3E0 /* TraplineSelectDelegate.swift in Sources */,
+				D8F5F4061F7DC04900E91621 /* SelectTraplineInteractor.swift in Sources */,
 				D8B94D591F5EA1FE00D373EF /* AppDelegate.swift in Sources */,
-				D89F40451F7CB56100BB545F /* SelectTraplineInteractor.swift in Sources */,
+				D8F5F3FF1F7DC04900E91621 /* SelectTraplineWireframeInput.swift in Sources */,
 				D89714C21F7A0E4700E846B9 /* ImageCollectionViewCell.swift in Sources */,
-				D89F40431F7C247A00BB545F /* SelectTraplineInteractorInput.swift in Sources */,
 				D8D729E21F61D7D30082CD4A /* VisitCollectionViewCell.swift in Sources */,
+				D89312021F834F6F008DF09D /* StationSelectPresenter.swift in Sources */,
+				D8F5F4021F7DC04900E91621 /* SelectTraplineViewController.swift in Sources */,
+				D841CF2A1F8239CA004D0207 /* TraplineSelectRouter.swift in Sources */,
 				D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */,
-				D8503DC91F66807C00ED0C84 /* VisitViewController.swift in Sources */,
+				D89312041F834F6F008DF09D /* StationSelectView.swift in Sources */,
+				D8953EC01F88114F00A1F424 /* NewVisitRouter.swift in Sources */,
+				D83DC6CD1F7F841F00F91792 /* StartView.swift in Sources */,
+				D857B3A81F81B86A006E1402 /* VisitDisplayData.swift in Sources */,
 				D81DAAF11F68652E00C7C987 /* Trap.swift in Sources */,
 				D8503DC81F66807C00ED0C84 /* VisitPresenter.swift in Sources */,
+				D841CF271F8239CA004D0207 /* TraplineSelectInteractor.swift in Sources */,
+				D8953EBD1F88114F00A1F424 /* NewVisitInteractor.swift in Sources */,
+				D841CF291F8239CA004D0207 /* TraplineSelectPresenter.swift in Sources */,
+				D83DC6C81F7F841F00F91792 /* StartDisplayData.swift in Sources */,
+				D83DC6CB1F7F841F00F91792 /* StartPresenter.swift in Sources */,
 				D81DAAEF1F68643400C7C987 /* VisitService.swift in Sources */,
 				D8B94DA31F5F7CDA00D373EF /* MenuView.swift in Sources */,
-				D8503DC71F66807C00ED0C84 /* VisitModuleInterface.swift in Sources */,
+				D8953EC11F88114F00A1F424 /* NewVisitView.swift in Sources */,
+				D83DC6C91F7F841F00F91792 /* StartInteractor.swift in Sources */,
+				D81818701F7F795B008362BA /* AppModules.swift in Sources */,
+				D8F5F4011F7DC04900E91621 /* SelectTraplineViewInterface.swift in Sources */,
+				D841CF2B1F8239CA004D0207 /* TraplineSelectView.swift in Sources */,
 				D8B94DA61F5F7FD900D373EF /* MenuWireframe.swift in Sources */,
-				D89F40391F7C21FB00BB545F /* SelectTraplineViewInterface.swift in Sources */,
 				D89714AA1F7751B300E846B9 /* DataPopulatorServiceInterface.swift in Sources */,
+				D8953EBF1F88114F00A1F424 /* NewVisitPresenter.swift in Sources */,
 				D8503DD01F669F8500ED0C84 /* Visit.swift in Sources */,
+				D8FA5CF81F8409A700EC890C /* StationSelectSetupData.swift in Sources */,
 				D81DAAF31F68659100C7C987 /* VisitServiceInterface.swift in Sources */,
+				D89311FF1F834F6E008DF09D /* StationSelectDisplayData.swift in Sources */,
 				D89714BC1F789E4D00E846B9 /* SettingsPresenter.swift in Sources */,
 				D80F7EDB1F6EF89700814A52 /* Station.swift in Sources */,
 				D89714B41F789A4400E846B9 /* SettingsViewController.swift in Sources */,
 				D89714A01F70CFB800E846B9 /* DataService.swift in Sources */,
 				D8BC084F1F6B143800B284EE /* TrapType.swift in Sources */,
-				D8B94D961F5EAB0F00D373EF /* HomeInteractorInput.swift in Sources */,
-				D8503DCA1F66807C00ED0C84 /* VisitViewInterface.swift in Sources */,
+				D857B3AB1F81B86A006E1402 /* VisitView.swift in Sources */,
 				D8B94DA81F5F800B00D373EF /* MenuWireframeInput.swift in Sources */,
+				D89312011F834F6F008DF09D /* StationSelectModuleApi.swift in Sources */,
 				D89714A41F76197D00E846B9 /* Service.swift in Sources */,
-				D89F40371F7C21DD00BB545F /* SelectTraplinePresenter.swift in Sources */,
-				D8503DCB1F66807C00ED0C84 /* VisitWireframe.swift in Sources */,
+				D841CF261F8239CA004D0207 /* TraplineSelectDisplayData.swift in Sources */,
 				D89714A61F76200B00E846B9 /* ApplicationServiceInterface.swift in Sources */,
 				D8503DC41F66807C00ED0C84 /* VisitInteractor.swift in Sources */,
 				D80F7ED91F6E92C700814A52 /* TrapServiceInterface.swift in Sources */,
 				D89714AF1F7898A800E846B9 /* MenuItem.swift in Sources */,
-				D8B94D981F5EAC3400D373EF /* HomeWireframeInput.swift in Sources */,
+				D83DC6CC1F7F841F00F91792 /* StartRouter.swift in Sources */,
 				D8503DD31F671CC600ED0C84 /* MenuPresenter.swift in Sources */,
+				D89312001F834F6E008DF09D /* StationSelectInteractor.swift in Sources */,
 				D8B94D7C1F5EA56F00D373EF /* UIColorExtension.swift in Sources */,
 				D8503DD61F671D0A00ED0C84 /* MenuModuleInterface.swift in Sources */,
-				D8D729E81F64C4590082CD4A /* HomePresenter.swift in Sources */,
 				D89714BA1F789C7600E846B9 /* SettingsViewInterface.swift in Sources */,
-				D8503DCC1F66807C00ED0C84 /* VisitWireframeInput.swift in Sources */,
-				D89F403B1F7C222600BB545F /* SelectTraplineModuleInterface.swift in Sources */,
-				D8B94D901F5EA9D800D373EF /* HomeInteractorOutput.swift in Sources */,
 				D89714B81F789B7E00E846B9 /* SettingsWireframe.swift in Sources */,
+				D857B3A91F81B86A006E1402 /* VisitModuleApi.swift in Sources */,
 				D89714A81F76202E00E846B9 /* ApplicationService.swift in Sources */,
-				D8B94D8C1F5EA7EC00D373EF /* HomeViewInterface.swift in Sources */,
-				D8503DC51F66807C00ED0C84 /* VisitInteractorInput.swift in Sources */,
-				D89F403D1F7C223600BB545F /* SelectTraplineWireframe.swift in Sources */,
+				D8F5F4041F7DC04900E91621 /* SelectTraplineModuleInterface.swift in Sources */,
+				D83DC6CA1F7F841F00F91792 /* StartModuleApi.swift in Sources */,
+				D841CF281F8239CA004D0207 /* TraplineSelectModuleApi.swift in Sources */,
+				D8953EBE1F88114F00A1F424 /* NewVisitModuleApi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -902,7 +934,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -910,7 +944,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -933,9 +971,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "$(inheritied)";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -952,7 +991,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -960,7 +1001,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -977,7 +1022,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

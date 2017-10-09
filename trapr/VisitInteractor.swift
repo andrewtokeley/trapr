@@ -8,26 +8,37 @@
 
 import Foundation
 import RealmSwift
+import Viperit
 
-class VisitInteractor: VisitInteractorInput {
-    
-    var presenter: VisitInteractorOutput?
-    
-    var visits: Results<Visit>!
-    
-    //MARK: - HomeInteractorInput
+// MARK: - VisitInteractor Class
+final class VisitInteractor: Interactor {
+
+    fileprivate var visits: [Visit]!
+}
+
+// MARK: - VisitInteractor API
+extension VisitInteractor: VisitInteractorApi {
     
     func retrieveVisit(trap: Trap, date: Date) {
-    
-        visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: date)
+        
+        let visits = Array(ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: date))
         
         // Find the visit for the given trap
         // NOTE: not supporting multiple visits to the same trap on the same day
         let visit = visits.filter({ (visit) in return visit.trap === trap })
-        presenter?.didFetchVisit(visit: visit.first)
+        presenter.didFetchVisit(visit: visit.first)
+    
     }
     
     func addVisit(visit: Visit) {
         ServiceFactory.sharedInstance.visitService.add(visit: visit)
     }
 }
+
+// MARK: - Interactor Viper Components Api
+private extension VisitInteractor {
+    var presenter: VisitPresenterApi {
+        return _presenter as! VisitPresenterApi
+    }
+}
+

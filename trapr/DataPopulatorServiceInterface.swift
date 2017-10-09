@@ -10,5 +10,9 @@ import Foundation
 
 protocol DataPopulatorServiceInterface {
     
-    func populateWithTestData()
+    func replaceAllDataWithTestData()
+    
+    func deleteAllData()
+    
+    func createTrapline(code: String, numberOfStations: Int) -> Trapline
 }

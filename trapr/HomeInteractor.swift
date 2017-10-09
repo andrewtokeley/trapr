@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import Viperit
 
-class HomeInteractor: HomeInteractorInput {
+class HomeInteractor: Interactor, HomeInteractorInput {
     
     var presenter: HomeInteractorOutput?
     

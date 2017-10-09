@@ -66,4 +66,17 @@ protocol VisitServiceInterface {
      */
     func getVisitSummaries(recordedBetween startDate: Date, endDate: Date) -> [VisitSummary]
 
+    /**
+     Get a summary of each visit recorded on any day in the date range
+     
+     - parameters:
+     - startDate: Visits from and including this date will be returned
+     - endDate: Visits up to and including this date will be returned
+     - mostRecentOnly: whether to only return the most recent visit for each combination of traplines
+     
+     - returns:
+     Array of VisitSummary objects, or nil if no Visits have been recorded between the date range
+     */
+    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date, mostRecentOnly: Bool) -> [VisitSummary]
+    
 }

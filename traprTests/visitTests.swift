@@ -84,10 +84,23 @@ class visitTests: XCTestCase {
     }
     
     func testGetAvailableTraplines() {
+        
         let summary = getVisitSummary()
         
-        //let interactor = SelectTraplineInteractor()
-        XCTAssert(true)
+        let trapline = Trapline()
+        trapline.code = "XX"
+        ServiceFactory.sharedInstance.traplineService.add(trapline: trapline)
+        
+        // add a new trapline that's not part of this summary and it should be the only one returned
+        
+        let allTraplines = ServiceFactory.sharedInstance.traplineService.getTraplines()
+        
+        let interactor = SelectTraplineInteractor()
+        let availableTraplines = interactor.getTraplinesAvailableVisitSummary(visitSummary: summary)
+        
+        XCTAssertTrue(allTraplines.count == 4)
+        XCTAssertTrue(availableTraplines?.count ?? 0 == 1)
+        XCTAssertTrue(availableTraplines?.first?.code ?? "--" == "XX")
     }
 
     func testPerformanceExample() {

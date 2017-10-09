@@ -10,109 +10,78 @@ import Foundation
 import RealmSwift
 
 class DataPopulatorService: Service, DataPopulatorServiceInterface {
+
+    lazy var possumMaster: TrapType = {
+        let trapType = TrapType()
+        trapType.name = "Possum Master"
+        trapType.killMethodRaw = KillMethod.Poison.rawValue
+        trapType.baitDescription = "Blocks"
+
+        try! self.realm.write {
+            self.realm.add(trapType)
+        }
+        
+        return trapType
+    }()
     
-    private var applicationService: ApplicationServiceInterface {
-        return ServiceFactory.sharedInstance.applicationService
+    lazy var pelifeed: TrapType = {
+        let trapType = TrapType()
+        trapType.name = "Possum Master"
+        trapType.killMethodRaw = KillMethod.Poison.rawValue
+        trapType.baitDescription = "Blocks"
+        
+        try! self.realm.write {
+            self.realm.add(trapType)
+        }
+        
+        return trapType
+    }()
+    
+    func replaceAllDataWithTestData() {
+        deleteAllData()
+        createTestData()
     }
     
-    func populateWithTestData() {
-
+    func deleteAllData() {
         // Delete all data in the repository
-        applicationService.deleteAllData()
-        
-        createTestData()
+        ServiceFactory.sharedInstance.applicationService.deleteAllData()
     }
     
     func createTestData() {
         
-        let pelifeed = TrapType()
-        pelifeed.name = "Pelifeed"
-        pelifeed.killMethodRaw = KillMethod.Poison.rawValue
-        pelifeed.baitDescription = "Blocks"
+        let trapline1 = createTrapline(code: "LW", numberOfStations: 5)
+        createVisitsForTrapline(trapline: trapline1, date: Date())
         
-        let possumMaster = TrapType()
-        possumMaster.name = "Possum Master"
-        possumMaster.killMethodRaw = KillMethod.Direct.rawValue
-        possumMaster.baitDescription = "Muesli"
+        let trapline2 = createTrapline(code: "E", numberOfStations: 5)
+        createVisitsForTrapline(trapline: trapline2, date: Date().add(-14, 0, 0))
+        let trapline3 = createTrapline(code: "GC", numberOfStations: 5)
+        createVisitsForTrapline(trapline: trapline3, date: Date().add(-14, 0, 0))
+        let trapline4 = createTrapline(code: "U", numberOfStations: 5)
+        createVisitsForTrapline(trapline: trapline4, date: Date().add(-14, 0, 0))
+        
+        let trapline5 = createTrapline(code: "LW", numberOfStations: 5)
+        createVisitsForTrapline(trapline: trapline5, date: Date().add(-21, 0, 0))
+    }
 
-        let trapline1 = Trapline()
-        trapline1.code = "LW"
-        trapline1.details = "Lowry Bay"
-        let stationLW01 = trapline1.addStation(code: "01")
-        let _ = stationLW01.addTrap(type: pelifeed)
-        let _ = stationLW01.addTrap(type: possumMaster)
-        let trap10 = trapline1.addStation(code: "02").addTrap(type: pelifeed)
-        let trap11 = trapline1.addStation(code: "03").addTrap(type: pelifeed)
-        let trap12 = trapline1.addStation(code: "04").addTrap(type: pelifeed)
-        let trap13 = trapline1.addStation(code: "05").addTrap(type: pelifeed)
-        
-        let trapline2 = Trapline()
-        trapline2.code = "E"
-        trapline2.details = "Eastern Bays"
-        let stationE01 = trapline2.addStation(code: "01")
-        let _ = stationE01.addTrap(type: pelifeed)
-        let _ = stationE01.addTrap(type: possumMaster)
-        let stationE02 = trapline2.addStation(code: "02")
-        let trap0 = stationE02.addTrap(type: pelifeed)
-        let _ = stationE02.addTrap(type: possumMaster)
-        
-        let trapline3 = Trapline()
-        trapline3.code = "GC"
-        trapline3.details = "Wainuiomata Golf Club"
-        let stationGC01 = trapline3.addStation(code: "01")
-        let trap1 = stationGC01.addTrap(type: pelifeed)
-        let trap2 = stationGC01.addTrap(type: possumMaster)
-        let stationGC02 = trapline3.addStation(code: "02")
-        let trap3 = stationGC02.addTrap(type: pelifeed)
-        let trap4 = stationGC02.addTrap(type: possumMaster)
-
-        let visit0 = Visit(trap: trap0)
-        let visit1 = Visit(trap: trap1)
-        let visit2 = Visit(trap: trap2)
-        let visit3 = Visit(trap: trap3)
-        let visit4 = Visit(trap: trap4)
-        
-        let lastWeek = Date().add(-7,0,0)
-        let visit5 = Visit(trap: trap0, date: lastWeek)
-        let visit6 = Visit(trap: trap1, date: lastWeek)
-        let visit7 = Visit(trap: trap2, date: lastWeek)
-        let visit8 = Visit(trap: trap3, date: lastWeek)
-        let visit9 = Visit(trap: trap4, date: lastWeek)
-    
-        let lastFortnight = Date().add(-14,0,0)
-        let visit10 = Visit(trap: trap10, date: lastFortnight)
-        let visit11 = Visit(trap: trap11, date: lastFortnight)
-        let visit12 = Visit(trap: trap12, date: lastFortnight)
-        let visit13 = Visit(trap: trap13, date: lastFortnight)
-        
-        // These guys don't have their own service yet
-        try! realm.write {
-            realm.add(pelifeed)
-            realm.add(possumMaster)
+    func createTrapline(code: String, numberOfStations: Int) -> Trapline {
+        let trapline = Trapline()
+        trapline.code = code
+        for i in 1...numberOfStations {
+            let station = trapline.addStation(code: String(i))
+            let _ = station.addTrap(type: possumMaster)
         }
+        ServiceFactory.sharedInstance.traplineService.add(trapline: trapline)
         
-        let traplineService = ServiceFactory.sharedInstance.traplineService
-        traplineService.add(trapline: trapline1)
-        traplineService.add(trapline: trapline2)
-        traplineService.add(trapline: trapline3)
-        
-        let visitService = ServiceFactory.sharedInstance.visitService
-        visitService.add(visit: visit0)
-        visitService.add(visit: visit1)
-        visitService.add(visit: visit2)
-        visitService.add(visit: visit3)
-        visitService.add(visit: visit4)
-        
-        visitService.add(visit: visit5)
-        visitService.add(visit: visit6)
-        visitService.add(visit: visit7)
-        visitService.add(visit: visit8)
-        visitService.add(visit: visit9)
-        
-        visitService.add(visit: visit10)
-        visitService.add(visit: visit11)
-        visitService.add(visit: visit12)
-        visitService.add(visit: visit13)
+        return trapline
+    }
 
+    func createVisitsForTrapline(trapline: Trapline, date: Date) {
+        
+        for station in trapline.stations {
+            for trap in station.traps {
+                let visit = Visit(trap: trap, date: date)
+                ServiceFactory.sharedInstance.visitService.add(visit: visit)
+            }
+        }
     }
 }

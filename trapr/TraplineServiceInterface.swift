@@ -12,7 +12,7 @@ import RealmSwift
 protocol TraplineServiceInterface {
     
     func add(trapline: Trapline)
-    func getTraplines() -> Results<Trapline>
+    func getTraplines() -> [Trapline]?
     func getTrapline(code: String) -> Trapline?
-    
+    func getRecentTraplines() -> [Trapline]?
 }

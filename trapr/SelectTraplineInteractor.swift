@@ -14,14 +14,14 @@ class SelectTraplineInteractor: SelectTraplineInteractorInput {
         
         let traplines = ServiceFactory.sharedInstance.traplineService.getTraplines()
         
-        if visitSummary.traplines == nil || visitSummary.traplines?.count == 0 {
-            return Array(traplines)
+        if visitSummary.traplines.count == 0 {
+            return traplines
         } else {
             
-            return traplines.filter({ (trapline) in
+            return traplines?.filter({ (trapline) in
                 
                 // returns true if the trapline is NOT part of the visitSummary
-                return !visitSummary.traplines!.contains(trapline)
+                return !visitSummary.traplines.contains(trapline)
             })
         }
     }

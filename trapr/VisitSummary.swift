@@ -10,7 +10,7 @@ import Foundation
 
 class VisitSummary {
 
-    var traplines: [Trapline]?
+    var traplines = [Trapline]()
     var dateOfVisit: Date
     
     init(dateOfVisit: Date) {
@@ -26,16 +26,15 @@ class VisitSummary {
         
         var description = ""
         
-        if self.traplines != nil {
-            for trapline in self.traplines! {
-                if let code = trapline.code {
-                    description.append(code)
-                    if trapline != self.traplines?.last {
-                        description.append(", ")    
-                    }
+        for trapline in self.traplines {
+            if let code = trapline.code {
+                description.append(code)
+                if trapline != self.traplines.last {
+                    description.append(", ")
                 }
             }
         }
+    
         return description
     }
    

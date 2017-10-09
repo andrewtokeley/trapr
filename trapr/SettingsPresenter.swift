@@ -22,6 +22,6 @@ class SettingsPresenter: SettingsModuleInterface {
     }
     
     func didSelectResetData() {
-        ServiceFactory.sharedInstance.dataPopulatorService.populateWithTestData()
+        ServiceFactory.sharedInstance.dataPopulatorService.replaceAllDataWithTestData()
     }
 }

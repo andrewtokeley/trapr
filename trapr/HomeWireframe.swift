@@ -11,49 +11,49 @@ import UIKit
 
 class HomeWireframe: HomeWireframeInput {
     
-    var view: HomeViewController!
-    var presenter: HomePresenter!
-    var visitRouter: VisitWireframe!
-    
-    //MARK: - Initialisation
-    
-    init() {
-        self.view = self.assembleModule() as! HomeViewController
-    }
-    
-    private func assembleModule() -> HomeViewInterface {
-        
-        view = HomeViewController()
-        view.presenter = HomePresenter()
-        view.presenter?.view = view
-        view.presenter?.menuWireframe = MenuWireframe()
-        view.presenter?.router = self
-        
-        let interactor = HomeInteractor()
-        interactor.presenter = view.presenter
-        
-        view.presenter?.interactor = interactor
-        
-        visitRouter = VisitWireframe()
-        
-        return view
-    }
-    
-    /**
-     Present the home view in the apps window
-     */
-    func presentView(in window: UIWindow) {
-    
-        if let _ = view {
-            
-            let nav = UINavigationController(rootViewController: view)
-            window.rootViewController = nav
-            window.makeKeyAndVisible()
-        }
-    }
-
-    func presentVisitModule(visitSummary: VisitSummary) {
-        visitRouter.presentView(from: view, visitSummary: visitSummary)
-    }
-    
+//    var view: HomeViewController!
+//    var presenter: HomePresenter!
+//    var visitRouter: VisitWireframe!
+//    
+//    //MARK: - Initialisation
+//    
+//    init() {
+//        self.view = self.assembleModule() as! HomeViewController
+//    }
+//    
+//    private func assembleModule() -> HomeViewInterface {
+//        
+//        view = HomeViewController()
+//        view.presenter = HomePresenter()
+//        view.presenter?.view = view
+//        view.presenter?.menuWireframe = MenuWireframe()
+//        view.presenter?.router = self
+//        
+//        let interactor = HomeInteractor()
+//        interactor.presenter = view.presenter
+//        
+//        view.presenter?.interactor = interactor
+//        
+//        visitRouter = VisitWireframe()
+//        
+//        return view
+//    }
+//    
+//    /**
+//     Present the home view in the apps window
+//     */
+//    func presentView(in window: UIWindow) {
+//    
+//        if let _ = view {
+//            
+//            let nav = UINavigationController(rootViewController: view)
+//            window.rootViewController = nav
+//            window.makeKeyAndVisible()
+//        }
+//    }
+//
+//    func presentVisitModule(visitSummary: VisitSummary) {
+//        visitRouter.presentView(from: view, visitSummary: visitSummary)
+//    }
+//    
 }

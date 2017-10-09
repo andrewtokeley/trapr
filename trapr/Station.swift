@@ -46,4 +46,9 @@ class Station: Object {
         traps.append(trap)
         return trap
     }
+    
+    static func == (left: Station, right: Station) -> Bool {
+        return left.code == right.code
+    }
+    
 }

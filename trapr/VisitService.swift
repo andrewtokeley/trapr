@@ -55,9 +55,14 @@ class VisitService: Service, VisitServiceInterface {
     
     func getVisitSummaries(recordedBetween startDate: Date, endDate: Date) -> [VisitSummary] {
         
+        return getVisitSummaries(recordedBetween: startDate, endDate: endDate, mostRecentOnly: false)
+    }
+    
+    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date, mostRecentOnly: Bool) -> [VisitSummary] {
+        
         var summaries = [VisitSummary]()
         
-        // Get the days the contain some visits
+        // Get the days that contain some visits
         let visits = getVisits(recordedBetween: startDate, dateEnd: endDate)
         
         let dateFormatter = DateFormatter()
@@ -76,7 +81,17 @@ class VisitService: Service, VisitServiceInterface {
             
             if let date = dateFormatter.date(from: aDate) {
                 if let summary = getVisitSummary(date: date) {
-                    summaries.append(summary)
+                    
+                    var add = true
+                    
+                    if (mostRecentOnly) {
+                        // don't add if the traplines visits on this day have already been recorded
+                        add = !summaries.contains(where: { (x) in return x.traplinesDescription == summary.traplinesDescription})
+                    }
+                    
+                    if (add) {
+                        summaries.append(summary)
+                    }
                 }
             }
         }

@@ -20,4 +20,8 @@ class Trapline: Object {
         stations.append(station)
         return station
     }
+    
+    static func == (left: Trapline, right: Trapline) -> Bool {
+        return left.code == right.code
+    }
 }

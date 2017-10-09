@@ -1,86 +1,29 @@
 //
-//  HomeViewController.swift
+//  StartView.swift
 //  trapr
 //
-//  Created by Andrew Tokeley  on 5/09/17.
-//  Copyright © 2017 Andrew Tokeley . All rights reserved.
+//  Created by Andrew Tokeley  on 30/09/17.
+//Copyright © 2017 Andrew Tokeley . All rights reserved.
 //
 
-import Foundation
 import UIKit
+import Viperit
 import PureLayout
 
-class HomeViewController: UIViewController, HomeViewInterface, UICollectionViewDelegate, UICollectionViewDataSource {
+//MARK: StartView Class
+final class StartView: UserInterface, UICollectionViewDelegate, UICollectionViewDataSource {
     
     let VISITS_CELL_IDENTIFIER = "cell"
     let NEW_VISIT_CELL_IDENTIFIER = "newcell"
     let SPACING:CGFloat = 5.0
     
-    var presenter: HomePresenter?
-    var visitSummaries: [VisitSummary]?
-    
-    //MARK: - HomeViewInterface
-    
-    func displayRecentVisits(visits: [VisitSummary]?) {
-        visitSummaries = visits
-        visitsCollectionView.reloadData()
-    }
-    
-    func setTitle(title: String) {
-        self.title = title
-    }
-
-    func askForNewVisitDate(completion: (Date) -> Void) {
-        
-    }
+    fileprivate var visitSummaries: [VisitSummary]?
     
     //MARK: - Events
     
     func menuButtonAction(sender: UIBarButtonItem) {
-        presenter?.didSelectMenu()
+        presenter.didSelectMenu()
     }
-
-    //MARK: - SubViews
-    
-    lazy var visitsLabel: UILabel = {
-        var view = UILabel()
-        view.text = "VISITS"
-        view.font = UIFont(name: "Helvetica", size: 12)
-        //view.backgroundColor = UIColor.white
-        return view
-    }()
-    
-    lazy var closeButtonItem: UIBarButtonItem = {
-        
-        var view = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(menuButtonAction(sender:)))
-        
-        return view
-    }()
-    
-    lazy var visitsCollectionView: UICollectionView = {
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 100, height: 100)
-        layout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10)
-        layout.footerReferenceSize = CGSize.zero
-        layout.headerReferenceSize = CGSize.zero
-        
-        let view = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        
-        view.register(UINib(nibName:"VisitCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: self.VISITS_CELL_IDENTIFIER)
-        
-        view.register(UINib(nibName:"NewVisitCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: self.NEW_VISIT_CELL_IDENTIFIER)
-        
-        view.backgroundColor = UIColor.clear
-        view.delegate = self
-        view.dataSource = self
-
-        // Not sure why I need to nudge the contents up but this centres cells inside the collectionview
-        //view.contentInset = UIEdgeInsetsMake(-65, 0, 0, 0)
-        
-        return view
-    }()
     
     //MARK: - UICollectionView
     
@@ -127,33 +70,56 @@ class HomeViewController: UIViewController, HomeViewInterface, UICollectionViewD
         if (indexPath.row == 0)
         {
             // new visit
-            presenter?.didSelectNewVisit()
+            presenter.didSelectNewVisit()
         }
         else
         {
             // edit visit
             if let _ = visitSummaries {
-                presenter?.didSelectVisitSummary(visitSummary: visitSummaries![indexPath.row - 1])
+                presenter.didSelectVisitSummary(visitSummary: visitSummaries![indexPath.row - 1])
             }
         }
         
     }
-    //MARK: - UIViewController
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        presenter?.viewDidLoad()
-    }
+    //MARK: Create view
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    lazy var visitsLabel: UILabel = {
+        var view = UILabel()
+        view.text = "VISITS"
+        view.font = UIFont(name: "Helvetica", size: 12)
+        //view.backgroundColor = UIColor.white
+        return view
+    }()
     
-    override func viewWillAppear(_ animated: Bool) {
-        presenter?.viewWillAppear()
-    }
+    lazy var closeButtonItem: UIBarButtonItem = {
+        
+        var view = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(menuButtonAction(sender:)))
+        
+        return view
+    }()
+    
+    lazy var visitsCollectionView: UICollectionView = {
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 100, height: 100)
+        layout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10)
+        layout.footerReferenceSize = CGSize.zero
+        layout.headerReferenceSize = CGSize.zero
+        
+        let view = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        
+        view.register(UINib(nibName:"VisitCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: self.VISITS_CELL_IDENTIFIER)
+        
+        view.register(UINib(nibName:"NewVisitCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: self.NEW_VISIT_CELL_IDENTIFIER)
+        
+        view.backgroundColor = UIColor.clear
+        view.delegate = self
+        view.dataSource = self
+        
+        return view
+    }()
     
     override func loadView() {
         super.loadView()
@@ -173,11 +139,38 @@ class HomeViewController: UIViewController, HomeViewInterface, UICollectionViewD
         visitsLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsetsMake(100, 10, 0, 0), excludingEdge: .bottom)
         visitsLabel.autoSetDimension(.height, toSize: 15)
         
-        visitsCollectionView.autoPinEdge(.top, to: .bottom, of: visitsLabel, withOffset: 0)
+        visitsCollectionView.autoPinEdge(.top, to: .bottom, of: visitsLabel, withOffset: 10)
         visitsCollectionView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
         visitsCollectionView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
         visitsCollectionView.autoSetDimension(.height, toSize: 120)
         
     }
+}
+
+//MARK: - StartView API
+extension StartView: StartViewApi {
     
+    func displayRecentVisits(visits: [VisitSummary]?) {
+        visitSummaries = visits
+        //visitsCollectionView.reloadData()
+    }
+    
+    func askForNewVisitDate(completion: (Date) -> Void) {
+        
+    }
+    
+    func setTitle(title: String) {
+        self.title = title
+    }
+    
+}
+
+// MARK: - StartView Viper Components API
+private extension StartView {
+    var presenter: StartPresenterApi {
+        return _presenter as! StartPresenterApi
+    }
+    var displayData: StartDisplayData {
+        return _displayData as! StartDisplayData
+    }
 }
