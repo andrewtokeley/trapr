@@ -59,7 +59,7 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
         let trapline4 = createTrapline(code: "U", numberOfStations: 5)
         createVisitsForTrapline(trapline: trapline4, date: Date().add(-14, 0, 0))
         
-        let trapline5 = createTrapline(code: "LW", numberOfStations: 5)
+        let trapline5 = createTrapline(code: "AA", numberOfStations: 5)
         createVisitsForTrapline(trapline: trapline5, date: Date().add(-21, 0, 0))
     }
 

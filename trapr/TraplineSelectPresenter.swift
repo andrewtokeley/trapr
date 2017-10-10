@@ -25,8 +25,9 @@ final class TraplineSelectPresenter: Presenter {
         if let traplines = interactor.getAllTraplines() {
             view.updateDisplay(traplines: traplines)
         }
-        view.setTitle(title: "Select Trapline")
+        view.setTitle(title: "New Visit")
         view.setSelectedTraplinesDescription(description: "")
+        view.setVisitButtonState(enabled: false)
     }
     
     override func setupView(data: Any) {
@@ -42,16 +43,20 @@ extension TraplineSelectPresenter: TraplineSelectPresenterApi {
     func didSelectTrapline(trapline: Trapline) {
         self.selectedTraplines.append(trapline)
         view.setSelectedTraplinesDescription(description: selectedTraplinesText)
+        view.setVisitButtonState(enabled: true)
     }
     
     func didDeselectTrapline(trapline: Trapline) {
         if let index = selectedTraplines.index(of: trapline) {
             selectedTraplines.remove(at: index)
+            if selectedTraplines.count == 0 {
+                view.setVisitButtonState(enabled: false)
+            }
             view.setSelectedTraplinesDescription(description: selectedTraplinesText)
         }
     }
     
-    func didSelectDone() {
+    func didSelectVisitButton() {
         self.delegate?.didSelectTraplines(traplines: selectedTraplines)
         _view.navigationController?.popViewController(animated: true)
     }

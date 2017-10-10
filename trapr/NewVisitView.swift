@@ -47,6 +47,9 @@ final class NewVisitView: UserInterface, UITableViewDelegate, UITableViewDataSou
         return "RECENT"
     }
     
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return "Select to visit a recent set of traplines or choose another combination."
+    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if indexPath.row < visitSummaries.count {

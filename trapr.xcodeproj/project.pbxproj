@@ -99,14 +99,6 @@
 		D8D729E21F61D7D30082CD4A /* VisitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D729E11F61D7D30082CD4A /* VisitCollectionViewCell.swift */; };
 		D8D729E41F61D91C0082CD4A /* VisitCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8D729E31F61D91C0082CD4A /* VisitCollectionViewCell.xib */; };
 		D8D729E61F64BD580082CD4A /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D8D729E51F64BD580082CD4A /* Podfile */; };
-		D8F5F3FF1F7DC04900E91621 /* SelectTraplineWireframeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F5F3F71F7DC04900E91621 /* SelectTraplineWireframeInput.swift */; };
-		D8F5F4001F7DC04900E91621 /* SelectTraplineWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F5F3F81F7DC04900E91621 /* SelectTraplineWireframe.swift */; };
-		D8F5F4011F7DC04900E91621 /* SelectTraplineViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F5F3F91F7DC04900E91621 /* SelectTraplineViewInterface.swift */; };
-		D8F5F4021F7DC04900E91621 /* SelectTraplineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F5F3FA1F7DC04900E91621 /* SelectTraplineViewController.swift */; };
-		D8F5F4031F7DC04900E91621 /* SelectTraplinePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F5F3FB1F7DC04900E91621 /* SelectTraplinePresenter.swift */; };
-		D8F5F4041F7DC04900E91621 /* SelectTraplineModuleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F5F3FC1F7DC04900E91621 /* SelectTraplineModuleInterface.swift */; };
-		D8F5F4051F7DC04900E91621 /* SelectTraplineInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F5F3FD1F7DC04900E91621 /* SelectTraplineInteractorInput.swift */; };
-		D8F5F4061F7DC04900E91621 /* SelectTraplineInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F5F3FE1F7DC04900E91621 /* SelectTraplineInteractor.swift */; };
 		D8FA5CF51F8406D600EC890C /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FA5CF31F8406D600EC890C /* close.png */; };
 		D8FA5CF61F8406D600EC890C /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FA5CF41F8406D600EC890C /* close@2x.png */; };
 		D8FA5CF81F8409A700EC890C /* StationSelectSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FA5CF71F8409A700EC890C /* StationSelectSetupData.swift */; };
@@ -224,14 +216,6 @@
 		D8D729E11F61D7D30082CD4A /* VisitCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitCollectionViewCell.swift; sourceTree = "<group>"; };
 		D8D729E31F61D91C0082CD4A /* VisitCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitCollectionViewCell.xib; sourceTree = "<group>"; };
 		D8D729E51F64BD580082CD4A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		D8F5F3F71F7DC04900E91621 /* SelectTraplineWireframeInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineWireframeInput.swift; sourceTree = "<group>"; };
-		D8F5F3F81F7DC04900E91621 /* SelectTraplineWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineWireframe.swift; sourceTree = "<group>"; };
-		D8F5F3F91F7DC04900E91621 /* SelectTraplineViewInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineViewInterface.swift; sourceTree = "<group>"; };
-		D8F5F3FA1F7DC04900E91621 /* SelectTraplineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineViewController.swift; sourceTree = "<group>"; };
-		D8F5F3FB1F7DC04900E91621 /* SelectTraplinePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplinePresenter.swift; sourceTree = "<group>"; };
-		D8F5F3FC1F7DC04900E91621 /* SelectTraplineModuleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineModuleInterface.swift; sourceTree = "<group>"; };
-		D8F5F3FD1F7DC04900E91621 /* SelectTraplineInteractorInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineInteractorInput.swift; sourceTree = "<group>"; };
-		D8F5F3FE1F7DC04900E91621 /* SelectTraplineInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraplineInteractor.swift; sourceTree = "<group>"; };
 		D8FA5CF31F8406D600EC890C /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
 		D8FA5CF41F8406D600EC890C /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
 		D8FA5CF71F8409A700EC890C /* StationSelectSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectSetupData.swift; sourceTree = "<group>"; };
@@ -322,13 +306,6 @@
 			name = TraplineSelect;
 			sourceTree = "<group>";
 		};
-		D8503DB51F667F8100ED0C84 /* Visit */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Visit;
-			sourceTree = "<group>";
-		};
 		D8503DD11F669F8B00ED0C84 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -356,11 +333,7 @@
 		D857B39C1F81B7C1006E1402 /* old */ = {
 			isa = PBXGroup;
 			children = (
-				D89F40331F7C21AA00BB545F /* SelectTrapline */,
-				D8B94D811F5EA6A100D373EF /* Root */,
 				D8B94D9E1F5F39C400D373EF /* Menu */,
-				D8B94D7E1F5EA67B00D373EF /* Home */,
-				D8503DB51F667F8100ED0C84 /* Visit */,
 				D89714B01F7899E300E846B9 /* Settings */,
 			);
 			name = old;
@@ -429,21 +402,6 @@
 				D89714B51F789B6700E846B9 /* SettingsWireframeInput.swift */,
 			);
 			name = Settings;
-			sourceTree = "<group>";
-		};
-		D89F40331F7C21AA00BB545F /* SelectTrapline */ = {
-			isa = PBXGroup;
-			children = (
-				D8F5F3F71F7DC04900E91621 /* SelectTraplineWireframeInput.swift */,
-				D8F5F3F81F7DC04900E91621 /* SelectTraplineWireframe.swift */,
-				D8F5F3F91F7DC04900E91621 /* SelectTraplineViewInterface.swift */,
-				D8F5F3FA1F7DC04900E91621 /* SelectTraplineViewController.swift */,
-				D8F5F3FB1F7DC04900E91621 /* SelectTraplinePresenter.swift */,
-				D8F5F3FC1F7DC04900E91621 /* SelectTraplineModuleInterface.swift */,
-				D8F5F3FD1F7DC04900E91621 /* SelectTraplineInteractorInput.swift */,
-				D8F5F3FE1F7DC04900E91621 /* SelectTraplineInteractor.swift */,
-			);
-			name = SelectTrapline;
 			sourceTree = "<group>";
 		};
 		D8B94D4C1F5EA1FE00D373EF = {
@@ -518,20 +476,6 @@
 				D818186F1F7F795B008362BA /* AppModules.swift */,
 			);
 			name = Modules;
-			sourceTree = "<group>";
-		};
-		D8B94D7E1F5EA67B00D373EF /* Home */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Home;
-			sourceTree = "<group>";
-		};
-		D8B94D811F5EA6A100D373EF /* Root */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Root;
 			sourceTree = "<group>";
 		};
 		D8B94D991F5F28F200D373EF /* Images */ = {
@@ -817,10 +761,7 @@
 				D89312031F834F6F008DF09D /* StationSelectRouter.swift in Sources */,
 				D857B3AA1F81B86A006E1402 /* VisitRouter.swift in Sources */,
 				D89714AC1F77FEED00E846B9 /* TrapSectionIndexPath.swift in Sources */,
-				D8F5F4031F7DC04900E91621 /* SelectTraplinePresenter.swift in Sources */,
-				D8F5F4051F7DC04900E91621 /* SelectTraplineInteractorInput.swift in Sources */,
 				D81883791F6931C600A74B5E /* Species.swift in Sources */,
-				D8F5F4001F7DC04900E91621 /* SelectTraplineWireframe.swift in Sources */,
 				D8D729DE1F61C9CC0082CD4A /* VisitSummary.swift in Sources */,
 				D81DAAF51F6865DB00C7C987 /* Trapline.swift in Sources */,
 				D89714B61F789B6700E846B9 /* SettingsWireframeInput.swift in Sources */,
@@ -828,13 +769,10 @@
 				D80F7ECE1F6E79BF00814A52 /* TraplineServiceInterface.swift in Sources */,
 				D89714BE1F789E5B00E846B9 /* SettingsModuleInterface.swift in Sources */,
 				D87E5BF51F88CCAA0055A3E0 /* TraplineSelectDelegate.swift in Sources */,
-				D8F5F4061F7DC04900E91621 /* SelectTraplineInteractor.swift in Sources */,
 				D8B94D591F5EA1FE00D373EF /* AppDelegate.swift in Sources */,
-				D8F5F3FF1F7DC04900E91621 /* SelectTraplineWireframeInput.swift in Sources */,
 				D89714C21F7A0E4700E846B9 /* ImageCollectionViewCell.swift in Sources */,
 				D8D729E21F61D7D30082CD4A /* VisitCollectionViewCell.swift in Sources */,
 				D89312021F834F6F008DF09D /* StationSelectPresenter.swift in Sources */,
-				D8F5F4021F7DC04900E91621 /* SelectTraplineViewController.swift in Sources */,
 				D841CF2A1F8239CA004D0207 /* TraplineSelectRouter.swift in Sources */,
 				D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */,
 				D89312041F834F6F008DF09D /* StationSelectView.swift in Sources */,
@@ -853,7 +791,6 @@
 				D8953EC11F88114F00A1F424 /* NewVisitView.swift in Sources */,
 				D83DC6C91F7F841F00F91792 /* StartInteractor.swift in Sources */,
 				D81818701F7F795B008362BA /* AppModules.swift in Sources */,
-				D8F5F4011F7DC04900E91621 /* SelectTraplineViewInterface.swift in Sources */,
 				D841CF2B1F8239CA004D0207 /* TraplineSelectView.swift in Sources */,
 				D8B94DA61F5F7FD900D373EF /* MenuWireframe.swift in Sources */,
 				D89714AA1F7751B300E846B9 /* DataPopulatorServiceInterface.swift in Sources */,
@@ -885,7 +822,6 @@
 				D89714B81F789B7E00E846B9 /* SettingsWireframe.swift in Sources */,
 				D857B3A91F81B86A006E1402 /* VisitModuleApi.swift in Sources */,
 				D89714A81F76202E00E846B9 /* ApplicationService.swift in Sources */,
-				D8F5F4041F7DC04900E91621 /* SelectTraplineModuleInterface.swift in Sources */,
 				D83DC6CA1F7F841F00F91792 /* StartModuleApi.swift in Sources */,
 				D841CF281F8239CA004D0207 /* TraplineSelectModuleApi.swift in Sources */,
 				D8953EBE1F88114F00A1F424 /* NewVisitModuleApi.swift in Sources */,

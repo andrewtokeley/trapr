@@ -16,10 +16,6 @@ final class TraplineSelectInteractor: Interactor {
 // MARK: - TraplineSelectInteractor API
 extension TraplineSelectInteractor: TraplineSelectInteractorApi {
     
-    func getRecentTraplines() -> [Trapline]? {
-        return ServiceFactory.sharedInstance.traplineService.getRecentTraplines()
-    }
-    
     func getAllTraplines() -> [Trapline]? {
         return ServiceFactory.sharedInstance.traplineService.getTraplines()
     }

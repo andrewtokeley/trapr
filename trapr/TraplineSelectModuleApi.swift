@@ -18,6 +18,7 @@ protocol TraplineSelectViewApi: UserInterfaceProtocol {
     func setTitle(title: String)
     func setSelectedTraplinesDescription(description: String)
     func updateDisplay(traplines: [Trapline])
+    func setVisitButtonState(enabled: Bool)
     
 }
 
@@ -26,12 +27,12 @@ protocol TraplineSelectPresenterApi: PresenterProtocol {
     
     func didSelectTrapline(trapline: Trapline)
     func didDeselectTrapline(trapline: Trapline)
+    func didSelectVisitButton()
     
 }
 
 //MARK: - TraplineSelectInteractor API
 protocol TraplineSelectInteractorApi: InteractorProtocol {
-    
-    func getRecentTraplines() -> [Trapline]?
+
     func getAllTraplines() -> [Trapline]?
 }

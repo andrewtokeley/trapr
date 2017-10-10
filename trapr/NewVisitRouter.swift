@@ -19,7 +19,7 @@ extension NewVisitRouter: NewVisitRouterApi {
     func showTrapLineSelectModule(delegate: TraplineSelectDelegate) {
         let module = AppModules.traplineSelect.build()
         
-        // to do - pass in TraplineSelectDelegate
+        _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         module.router.show(from: _view, embedInNavController: false, setupData: delegate)
     }
 }

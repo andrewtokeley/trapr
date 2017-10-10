@@ -85,11 +85,11 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
     //MARK: Create view
     
     lazy var visitsLabel: UILabel = {
-        var view = UILabel()
-        view.text = "VISITS"
-        view.font = UIFont(name: "Helvetica", size: 12)
-        //view.backgroundColor = UIColor.white
-        return view
+        var label = UILabel()
+        label.text = "VISITS"
+        label.font = UIFont(name: "Helvetica", size: 12)
+        label.textColor = UIColor.trpTextDark
+        return label
     }()
     
     lazy var closeButtonItem: UIBarButtonItem = {
@@ -136,10 +136,10 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
     
     func setConstraints() {
         
-        visitsLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsetsMake(100, 10, 0, 0), excludingEdge: .bottom)
+        visitsLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsetsMake(90, 20, 0, 0), excludingEdge: .bottom)
         visitsLabel.autoSetDimension(.height, toSize: 15)
         
-        visitsCollectionView.autoPinEdge(.top, to: .bottom, of: visitsLabel, withOffset: 10)
+        visitsCollectionView.autoPinEdge(.top, to: .bottom, of: visitsLabel, withOffset: 0)
         visitsCollectionView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
         visitsCollectionView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
         visitsCollectionView.autoSetDimension(.height, toSize: 120)

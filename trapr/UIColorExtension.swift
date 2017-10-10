@@ -17,6 +17,14 @@ extension UIColor
         return UIColor(red: 18/255, green: 108/255, blue: 19/255, alpha: 1)
     }
 
+    public class var trpButtonEnabled: UIColor {
+        return trpMenuBar
+    }
+    
+    public class var trpButtonDisabled: UIColor {
+        return UIColor.lightGray
+    }
+    
     public class var trpNavigationBarTint: UIColor {
         return UIColor.white
     }
@@ -26,7 +34,7 @@ extension UIColor
     }
 
     public class var trpBackground: UIColor {
-        return UIColor(red: 217/255, green: 217/255, blue: 217/255, alpha: 1)
+        return UIColor(red: 239/255, green: 239/255, blue: 244/255, alpha: 1)
     }
     
     public class var trpVisitTileBackground: UIColor {
@@ -34,7 +42,7 @@ extension UIColor
     }
     
     public class var trpTextDark: UIColor {
-        return UIColor(red: 67/255, green: 67/255, blue: 67/255, alpha: 1)
+        return UIColor(red: 73/255, green: 73/255, blue: 73/255, alpha: 1)
     }
     
     public class var trpTextLight: UIColor {

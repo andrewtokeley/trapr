@@ -33,8 +33,6 @@ class SettingsWireframe: SettingsWireframeInput {
         
         // present settings view (inside it's own navigationcontroller) modally
         let navigationController = UINavigationController(rootViewController: view)
-        
-        // Clear out the default back button text to leave only the <
         viewController.navigationController?.present(navigationController, animated: true, completion: nil)
     }
     
