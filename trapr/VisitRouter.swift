@@ -17,11 +17,17 @@ final class VisitRouter: Router {
 // MARK: - VisitRouter API
 extension VisitRouter: VisitRouterApi {
     
+    
     func showStationSelectModule(setupData: StationSelectSetupData) {
         let module = AppModules.stationSelect.build()
         module.router.show(from: _view, embedInNavController: true, setupData: setupData)
     }
 
+    func showDatePicker(setupData: DatePickerSetupData) {
+        let module = AppModules.datePicker.build()
+        module.router.showAsModalOverlay(from: _view, setupData: setupData)
+    }
+    
 }
 
 // MARK: - Visit Viper Components

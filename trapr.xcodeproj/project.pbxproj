@@ -14,6 +14,15 @@
 		D80F7ED31F6E87D500814A52 /* DataPopulatorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ED21F6E87D500814A52 /* DataPopulatorService.swift */; };
 		D80F7ED91F6E92C700814A52 /* TrapServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ED81F6E92C700814A52 /* TrapServiceInterface.swift */; };
 		D80F7EDB1F6EF89700814A52 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7EDA1F6EF89700814A52 /* Station.swift */; };
+		D81431971F8CBBA500EAF5FD /* Visit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D81431961F8CBBA500EAF5FD /* Visit.storyboard */; };
+		D814319A1F8CBD5E00EAF5FD /* show.png in Resources */ = {isa = PBXBuildFile; fileRef = D81431981F8CBD5E00EAF5FD /* show.png */; };
+		D814319B1F8CBD5E00EAF5FD /* show@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D81431991F8CBD5E00EAF5FD /* show@2x.png */; };
+		D81431A31F8DDB2600EAF5FD /* DatePickerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D814319D1F8DDB2600EAF5FD /* DatePickerInteractor.swift */; };
+		D81431A41F8DDB2600EAF5FD /* DatePickerModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D814319E1F8DDB2600EAF5FD /* DatePickerModuleApi.swift */; };
+		D81431A51F8DDB2600EAF5FD /* DatePickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D814319F1F8DDB2600EAF5FD /* DatePickerPresenter.swift */; };
+		D81431A61F8DDB2600EAF5FD /* DatePickerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81431A01F8DDB2600EAF5FD /* DatePickerRouter.swift */; };
+		D81431A71F8DDB2600EAF5FD /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81431A11F8DDB2600EAF5FD /* DatePickerView.swift */; };
+		D81431AA1F8E020900EAF5FD /* DatePickerDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81431A91F8E020900EAF5FD /* DatePickerDisplayData.swift */; };
 		D81818701F7F795B008362BA /* AppModules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818186F1F7F795B008362BA /* AppModules.swift */; };
 		D81883791F6931C600A74B5E /* Species.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81883781F6931C600A74B5E /* Species.swift */; };
 		D81DAAEF1F68643400C7C987 /* VisitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAEE1F68643400C7C987 /* VisitService.swift */; };
@@ -46,6 +55,8 @@
 		D857B3A91F81B86A006E1402 /* VisitModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A51F81B86A006E1402 /* VisitModuleApi.swift */; };
 		D857B3AA1F81B86A006E1402 /* VisitRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A61F81B86A006E1402 /* VisitRouter.swift */; };
 		D857B3AB1F81B86A006E1402 /* VisitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A71F81B86A006E1402 /* VisitView.swift */; };
+		D87C44ED1F8F4C2400CAFC7A /* DatePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44EC1F8F4C2400CAFC7A /* DatePickerDelegate.swift */; };
+		D87C44EF1F8F545F00CAFC7A /* DatePickerSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44EE1F8F545F00CAFC7A /* DatePickerSetupData.swift */; };
 		D87E5BF51F88CCAA0055A3E0 /* TraplineSelectDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87E5BF41F88CCAA0055A3E0 /* TraplineSelectDelegate.swift */; };
 		D89311FF1F834F6E008DF09D /* StationSelectDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311F91F834F6E008DF09D /* StationSelectDisplayData.swift */; };
 		D89312001F834F6E008DF09D /* StationSelectInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FA1F834F6E008DF09D /* StationSelectInteractor.swift */; };
@@ -126,6 +137,15 @@
 		D80F7ED21F6E87D500814A52 /* DataPopulatorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataPopulatorService.swift; sourceTree = "<group>"; };
 		D80F7ED81F6E92C700814A52 /* TrapServiceInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrapServiceInterface.swift; sourceTree = "<group>"; };
 		D80F7EDA1F6EF89700814A52 /* Station.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
+		D81431961F8CBBA500EAF5FD /* Visit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Visit.storyboard; sourceTree = "<group>"; };
+		D81431981F8CBD5E00EAF5FD /* show.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = show.png; sourceTree = "<group>"; };
+		D81431991F8CBD5E00EAF5FD /* show@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "show@2x.png"; sourceTree = "<group>"; };
+		D814319D1F8DDB2600EAF5FD /* DatePickerInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerInteractor.swift; sourceTree = "<group>"; };
+		D814319E1F8DDB2600EAF5FD /* DatePickerModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerModuleApi.swift; sourceTree = "<group>"; };
+		D814319F1F8DDB2600EAF5FD /* DatePickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerPresenter.swift; sourceTree = "<group>"; };
+		D81431A01F8DDB2600EAF5FD /* DatePickerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerRouter.swift; sourceTree = "<group>"; };
+		D81431A11F8DDB2600EAF5FD /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		D81431A91F8E020900EAF5FD /* DatePickerDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDisplayData.swift; sourceTree = "<group>"; };
 		D818186F1F7F795B008362BA /* AppModules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModules.swift; sourceTree = "<group>"; };
 		D81883781F6931C600A74B5E /* Species.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Species.swift; sourceTree = "<group>"; };
 		D81DAAEE1F68643400C7C987 /* VisitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitService.swift; sourceTree = "<group>"; };
@@ -159,6 +179,8 @@
 		D857B3A51F81B86A006E1402 /* VisitModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitModuleApi.swift; sourceTree = "<group>"; };
 		D857B3A61F81B86A006E1402 /* VisitRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitRouter.swift; sourceTree = "<group>"; };
 		D857B3A71F81B86A006E1402 /* VisitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitView.swift; sourceTree = "<group>"; };
+		D87C44EC1F8F4C2400CAFC7A /* DatePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDelegate.swift; sourceTree = "<group>"; };
+		D87C44EE1F8F545F00CAFC7A /* DatePickerSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerSetupData.swift; sourceTree = "<group>"; };
 		D87E5BF41F88CCAA0055A3E0 /* TraplineSelectDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraplineSelectDelegate.swift; sourceTree = "<group>"; };
 		D89311F91F834F6E008DF09D /* StationSelectDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectDisplayData.swift; sourceTree = "<group>"; };
 		D89311FA1F834F6E008DF09D /* StationSelectInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectInteractor.swift; sourceTree = "<group>"; };
@@ -257,6 +279,21 @@
 			name = Data;
 			sourceTree = "<group>";
 		};
+		D81431A81F8DDB2E00EAF5FD /* DatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				D81431A91F8E020900EAF5FD /* DatePickerDisplayData.swift */,
+				D814319D1F8DDB2600EAF5FD /* DatePickerInteractor.swift */,
+				D814319E1F8DDB2600EAF5FD /* DatePickerModuleApi.swift */,
+				D814319F1F8DDB2600EAF5FD /* DatePickerPresenter.swift */,
+				D81431A01F8DDB2600EAF5FD /* DatePickerRouter.swift */,
+				D81431A11F8DDB2600EAF5FD /* DatePickerView.swift */,
+				D87C44EC1F8F4C2400CAFC7A /* DatePickerDelegate.swift */,
+				D87C44EE1F8F545F00CAFC7A /* DatePickerSetupData.swift */,
+			);
+			name = DatePicker;
+			sourceTree = "<group>";
+		};
 		D81DAAED1F68641E00C7C987 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,6 +388,7 @@
 				D8503DBF1F66807C00ED0C84 /* VisitPresenter.swift */,
 				D857B3A61F81B86A006E1402 /* VisitRouter.swift */,
 				D857B3A71F81B86A006E1402 /* VisitView.swift */,
+				D81431961F8CBBA500EAF5FD /* Visit.storyboard */,
 			);
 			name = Visit;
 			sourceTree = "<group>";
@@ -467,6 +505,7 @@
 		D8B94D7D1F5EA67300D373EF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D81431A81F8DDB2E00EAF5FD /* DatePicker */,
 				D8953EB51F88110900A1F424 /* NewVisit */,
 				D89311F81F834F44008DF09D /* StationSelect */,
 				D841CF1F1F82398D004D0207 /* TraplineSelect */,
@@ -481,6 +520,8 @@
 		D8B94D991F5F28F200D373EF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D81431981F8CBD5E00EAF5FD /* show.png */,
+				D81431991F8CBD5E00EAF5FD /* show@2x.png */,
 				D8FA5CF31F8406D600EC890C /* close.png */,
 				D8FA5CF41F8406D600EC890C /* close@2x.png */,
 				D8BC08441F6A541200B284EE /* greaterthan.png */,
@@ -639,10 +680,13 @@
 				D8503DD81F67AF7800ED0C84 /* user.png in Resources */,
 				D8D729E61F64BD580082CD4A /* Podfile in Resources */,
 				D8B94D9C1F5F30CD00D373EF /* menu.png in Resources */,
+				D814319A1F8CBD5E00EAF5FD /* show.png in Resources */,
 				D89714B21F789A2800E846B9 /* SettingsViewController.xib in Resources */,
 				D8BC08431F6A4C2800B284EE /* Visit.xib in Resources */,
+				D814319B1F8CBD5E00EAF5FD /* show@2x.png in Resources */,
 				D83853021F6654CD00481B57 /* NewVisitCollectionViewCell.xib in Resources */,
 				D8BC08471F6A541200B284EE /* lessthan.png in Resources */,
+				D81431971F8CBBA500EAF5FD /* Visit.storyboard in Resources */,
 				D8BC08461F6A541200B284EE /* greaterthan.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -760,6 +804,7 @@
 				D8953EBC1F88114F00A1F424 /* NewVisitDisplayData.swift in Sources */,
 				D89312031F834F6F008DF09D /* StationSelectRouter.swift in Sources */,
 				D857B3AA1F81B86A006E1402 /* VisitRouter.swift in Sources */,
+				D81431A61F8DDB2600EAF5FD /* DatePickerRouter.swift in Sources */,
 				D89714AC1F77FEED00E846B9 /* TrapSectionIndexPath.swift in Sources */,
 				D81883791F6931C600A74B5E /* Species.swift in Sources */,
 				D8D729DE1F61C9CC0082CD4A /* VisitSummary.swift in Sources */,
@@ -773,11 +818,13 @@
 				D89714C21F7A0E4700E846B9 /* ImageCollectionViewCell.swift in Sources */,
 				D8D729E21F61D7D30082CD4A /* VisitCollectionViewCell.swift in Sources */,
 				D89312021F834F6F008DF09D /* StationSelectPresenter.swift in Sources */,
+				D87C44EF1F8F545F00CAFC7A /* DatePickerSetupData.swift in Sources */,
 				D841CF2A1F8239CA004D0207 /* TraplineSelectRouter.swift in Sources */,
 				D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */,
 				D89312041F834F6F008DF09D /* StationSelectView.swift in Sources */,
 				D8953EC01F88114F00A1F424 /* NewVisitRouter.swift in Sources */,
 				D83DC6CD1F7F841F00F91792 /* StartView.swift in Sources */,
+				D81431A71F8DDB2600EAF5FD /* DatePickerView.swift in Sources */,
 				D857B3A81F81B86A006E1402 /* VisitDisplayData.swift in Sources */,
 				D81DAAF11F68652E00C7C987 /* Trap.swift in Sources */,
 				D8503DC81F66807C00ED0C84 /* VisitPresenter.swift in Sources */,
@@ -796,14 +843,17 @@
 				D89714AA1F7751B300E846B9 /* DataPopulatorServiceInterface.swift in Sources */,
 				D8953EBF1F88114F00A1F424 /* NewVisitPresenter.swift in Sources */,
 				D8503DD01F669F8500ED0C84 /* Visit.swift in Sources */,
+				D81431A31F8DDB2600EAF5FD /* DatePickerInteractor.swift in Sources */,
 				D8FA5CF81F8409A700EC890C /* StationSelectSetupData.swift in Sources */,
 				D81DAAF31F68659100C7C987 /* VisitServiceInterface.swift in Sources */,
+				D81431AA1F8E020900EAF5FD /* DatePickerDisplayData.swift in Sources */,
 				D89311FF1F834F6E008DF09D /* StationSelectDisplayData.swift in Sources */,
 				D89714BC1F789E4D00E846B9 /* SettingsPresenter.swift in Sources */,
 				D80F7EDB1F6EF89700814A52 /* Station.swift in Sources */,
 				D89714B41F789A4400E846B9 /* SettingsViewController.swift in Sources */,
 				D89714A01F70CFB800E846B9 /* DataService.swift in Sources */,
 				D8BC084F1F6B143800B284EE /* TrapType.swift in Sources */,
+				D81431A41F8DDB2600EAF5FD /* DatePickerModuleApi.swift in Sources */,
 				D857B3AB1F81B86A006E1402 /* VisitView.swift in Sources */,
 				D8B94DA81F5F800B00D373EF /* MenuWireframeInput.swift in Sources */,
 				D89312011F834F6F008DF09D /* StationSelectModuleApi.swift in Sources */,
@@ -815,6 +865,7 @@
 				D89714AF1F7898A800E846B9 /* MenuItem.swift in Sources */,
 				D83DC6CC1F7F841F00F91792 /* StartRouter.swift in Sources */,
 				D8503DD31F671CC600ED0C84 /* MenuPresenter.swift in Sources */,
+				D87C44ED1F8F4C2400CAFC7A /* DatePickerDelegate.swift in Sources */,
 				D89312001F834F6E008DF09D /* StationSelectInteractor.swift in Sources */,
 				D8B94D7C1F5EA56F00D373EF /* UIColorExtension.swift in Sources */,
 				D8503DD61F671D0A00ED0C84 /* MenuModuleInterface.swift in Sources */,
@@ -825,6 +876,7 @@
 				D83DC6CA1F7F841F00F91792 /* StartModuleApi.swift in Sources */,
 				D841CF281F8239CA004D0207 /* TraplineSelectModuleApi.swift in Sources */,
 				D8953EBE1F88114F00A1F424 /* NewVisitModuleApi.swift in Sources */,
+				D81431A51F8DDB2600EAF5FD /* DatePickerPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -32,15 +32,19 @@ final class VisitPresenter: Presenter {
     
     open override func viewIsAboutToAppear() {
 
-        // Title should be set to the date of the visits
-        if let title = self.visitSummary?.dateOfVisit.string(from: Styles.DATE_FORMAT_LONG) {
-            view.setTitle(title: title)
-        }
-        
+        updateTitle()
         updateForNewLocation()
+        
     }
     
     //MARK: - Helpers
+    
+    func updateTitle() {
+        if let title = self.visitSummary?.dateOfVisit.string(from: Styles.DATE_FORMAT_LONG) {
+            view.setTitle(title: title)
+        }
+    }
+    
     func updateForNewLocation() {
         
         if let station = visitSummary?.traplines[trapIndex.traplineIndex].stations[trapIndex.stationIndex]
@@ -56,6 +60,21 @@ final class VisitPresenter: Presenter {
         }
     }
 }
+
+// MARK: - VisitPresenter API
+extension VisitPresenter: DatePickerDelegate {
+    
+    
+    func displayMode(datePicker: DatePickerViewApi) -> UIDatePickerMode {
+        return UIDatePickerMode.date
+    }
+    
+    func datePicker(datePicker: DatePickerViewApi, didSelectDate: Date) {
+        visitSummary?.dateOfVisit = didSelectDate
+        updateTitle()
+    }
+}
+
 
 // MARK: - VisitPresenter API
 extension VisitPresenter: StationSelectDelegate {
@@ -81,6 +100,18 @@ extension VisitPresenter: StationSelectDelegate {
 
 // MARK: - VisitPresenter API
 extension VisitPresenter: VisitPresenterApi {
+    
+    func didSelectMenuButton() {
+        view.displayMenuOptions(options: ["Send Report", "Add/Remove Trapline", "Remove Visit", "View Map"])
+    }
+    
+    func didSelectDate() {
+        //view.showDatePicker(date: self.visitSummary!.dateOfVisit)
+        let setupData = DatePickerSetupData()
+        setupData.initialDate = visitSummary!.dateOfVisit
+        setupData.delegate = self
+        router.showDatePicker(setupData: setupData)
+    }
     
     func didSelectPreviousStation() {
         if trapIndex.stationIndex == 0 {

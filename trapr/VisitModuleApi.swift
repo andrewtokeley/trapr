@@ -11,6 +11,7 @@ import Viperit
 //MARK: - VisitRouter API
 protocol VisitRouterApi: RouterProtocol {
     func showStationSelectModule(setupData: StationSelectSetupData)
+    func showDatePicker(setupData: DatePickerSetupData)
 }
 
 //MARK: - VisitView API
@@ -18,7 +19,9 @@ protocol VisitViewApi: UserInterfaceProtocol {
     func setTitle(title: String)
     func setStationText(text: String)
     func setTraps(traps: [Trap])
+    func showDatePicker(date: Date)
     func enableNavigation(previous: Bool, next: Bool)
+    func displayMenuOptions(options: [String])
 }
 
 //MARK: - VisitPresenter API
@@ -29,6 +32,8 @@ protocol VisitPresenterApi: PresenterProtocol {
     func didSelectTrap(index: Int)
     func didSelectStation()
     func didFetchVisit(visit: Visit?)
+    func didSelectMenuButton()
+    func didSelectDate()
 }
 
 //MARK: - VisitInteractor API

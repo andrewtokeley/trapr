@@ -21,11 +21,54 @@ final class VisitView: UserInterface, UICollectionViewDelegate, UICollectionView
     
     let TRAPTYPE_REUSE_ID = "cell"
     
+    //MARK: - Subviews
+    lazy var datePicker: UIDatePicker = {
+        let picker = UIDatePicker()
+        picker.datePickerMode = .dateAndTime
+        return picker
+    }()
+    
+    lazy var datePickerBackground: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    lazy var showMenuButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(named:"show"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(showMoreMenu(sender:)))
+        return button
+    }()
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.trpNavigationBarTint
+        label.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dateTap(sender:)))
+        label.addGestureRecognizer(tapGesture)
+        return label
+    }()
+    
     //MARK: - Events
+    
+    func dateTap(sender: UILabel) {
+        presenter.didSelectDate()
+    }
+    
+    func showMoreMenu(sender: UIBarButtonItem) {
+        presenter.didSelectMenuButton()
+    }
+    
     func didSelectPreviousStation(sender: UIImageView) {
         presenter.didSelectPreviousStation()
     }
     
+    func didSwipeLeftStationLabel(sender: UILabel) {
+        presenter.didSelectNextStation()
+    }
+
+    func didSwipeRightStationLabel(sender: UILabel) {
+        presenter.didSelectPreviousStation()
+    }
+
     func didSelectNextStation(sender: UIImageView) {
         presenter.didSelectNextStation()
     }
@@ -80,7 +123,19 @@ final class VisitView: UserInterface, UICollectionViewDelegate, UICollectionView
         self.stationLabel.addGestureRecognizer(stationLabelTap)
         self.stationLabel.isUserInteractionEnabled = true
         
+        let stationLabelSwipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeftStationLabel(sender:)))
+        stationLabelSwipeLeftGesture.direction = .left
+        self.stationLabel.addGestureRecognizer(stationLabelSwipeLeftGesture)
+        
+        let stationLabelSwipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeRightStationLabel(sender:)))
+        stationLabelSwipeRightGesture.direction = .right
+        self.stationLabel.addGestureRecognizer(stationLabelSwipeRightGesture)
+        
         self.trapTypeCollectionView.register(UINib(nibName:"ImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: self.TRAPTYPE_REUSE_ID)
+        
+        self.navigationItem.rightBarButtonItem = self.showMenuButton
+        
+        self.navigationItem.titleView = titleLabel
         
         self.setConstraints()
     }
@@ -93,8 +148,13 @@ final class VisitView: UserInterface, UICollectionViewDelegate, UICollectionView
 //MARK: - VisitView API
 extension VisitView: VisitViewApi {
     
+    func showDatePicker(date: Date) {
+        
+    }
+    
     func setTitle(title: String) {
-        self.title = title
+        self.titleLabel.text = title
+        self.titleLabel.sizeToFit()
     }
     
     func setStationText(text: String) {
@@ -108,6 +168,20 @@ extension VisitView: VisitViewApi {
     
     func enableNavigation(previous: Bool, next: Bool) {
         
+    }
+    
+    func displayMenuOptions(options: [String]) {
+        let menu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        for option in options {
+            let optionItem = UIAlertAction(title: option, style: .default, handler: nil)
+            menu.addAction(optionItem)
+        }
+        
+        // always add a cancel
+        menu.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(menu, animated: true, completion: nil)
     }
 }
 
