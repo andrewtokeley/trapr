@@ -57,6 +57,12 @@
 		D857B3AB1F81B86A006E1402 /* VisitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A71F81B86A006E1402 /* VisitView.swift */; };
 		D87C44ED1F8F4C2400CAFC7A /* DatePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44EC1F8F4C2400CAFC7A /* DatePickerDelegate.swift */; };
 		D87C44EF1F8F545F00CAFC7A /* DatePickerSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44EE1F8F545F00CAFC7A /* DatePickerSetupData.swift */; };
+		D87C44F61F9059AF00CAFC7A /* SideMenuDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F01F9059AF00CAFC7A /* SideMenuDisplayData.swift */; };
+		D87C44F71F9059AF00CAFC7A /* SideMenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F11F9059AF00CAFC7A /* SideMenuInteractor.swift */; };
+		D87C44F81F9059AF00CAFC7A /* SideMenuModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F21F9059AF00CAFC7A /* SideMenuModuleApi.swift */; };
+		D87C44F91F9059AF00CAFC7A /* SideMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F31F9059AF00CAFC7A /* SideMenuPresenter.swift */; };
+		D87C44FA1F9059AF00CAFC7A /* SideMenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F41F9059AF00CAFC7A /* SideMenuRouter.swift */; };
+		D87C44FB1F9059AF00CAFC7A /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F51F9059AF00CAFC7A /* SideMenuView.swift */; };
 		D87E5BF51F88CCAA0055A3E0 /* TraplineSelectDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87E5BF41F88CCAA0055A3E0 /* TraplineSelectDelegate.swift */; };
 		D89311FF1F834F6E008DF09D /* StationSelectDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311F91F834F6E008DF09D /* StationSelectDisplayData.swift */; };
 		D89312001F834F6E008DF09D /* StationSelectInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FA1F834F6E008DF09D /* StationSelectInteractor.swift */; };
@@ -181,6 +187,12 @@
 		D857B3A71F81B86A006E1402 /* VisitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitView.swift; sourceTree = "<group>"; };
 		D87C44EC1F8F4C2400CAFC7A /* DatePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDelegate.swift; sourceTree = "<group>"; };
 		D87C44EE1F8F545F00CAFC7A /* DatePickerSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerSetupData.swift; sourceTree = "<group>"; };
+		D87C44F01F9059AF00CAFC7A /* SideMenuDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuDisplayData.swift; sourceTree = "<group>"; };
+		D87C44F11F9059AF00CAFC7A /* SideMenuInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuInteractor.swift; sourceTree = "<group>"; };
+		D87C44F21F9059AF00CAFC7A /* SideMenuModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuModuleApi.swift; sourceTree = "<group>"; };
+		D87C44F31F9059AF00CAFC7A /* SideMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuPresenter.swift; sourceTree = "<group>"; };
+		D87C44F41F9059AF00CAFC7A /* SideMenuRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuRouter.swift; sourceTree = "<group>"; };
+		D87C44F51F9059AF00CAFC7A /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		D87E5BF41F88CCAA0055A3E0 /* TraplineSelectDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraplineSelectDelegate.swift; sourceTree = "<group>"; };
 		D89311F91F834F6E008DF09D /* StationSelectDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectDisplayData.swift; sourceTree = "<group>"; };
 		D89311FA1F834F6E008DF09D /* StationSelectInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectInteractor.swift; sourceTree = "<group>"; };
@@ -393,6 +405,19 @@
 			name = Visit;
 			sourceTree = "<group>";
 		};
+		D87C44FC1F9059B900CAFC7A /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				D87C44F01F9059AF00CAFC7A /* SideMenuDisplayData.swift */,
+				D87C44F11F9059AF00CAFC7A /* SideMenuInteractor.swift */,
+				D87C44F21F9059AF00CAFC7A /* SideMenuModuleApi.swift */,
+				D87C44F31F9059AF00CAFC7A /* SideMenuPresenter.swift */,
+				D87C44F41F9059AF00CAFC7A /* SideMenuRouter.swift */,
+				D87C44F51F9059AF00CAFC7A /* SideMenuView.swift */,
+			);
+			name = SideMenu;
+			sourceTree = "<group>";
+		};
 		D89311F81F834F44008DF09D /* StationSelect */ = {
 			isa = PBXGroup;
 			children = (
@@ -505,6 +530,7 @@
 		D8B94D7D1F5EA67300D373EF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D87C44FC1F9059B900CAFC7A /* SideMenu */,
 				D81431A81F8DDB2E00EAF5FD /* DatePicker */,
 				D8953EB51F88110900A1F424 /* NewVisit */,
 				D89311F81F834F44008DF09D /* StationSelect */,
@@ -803,6 +829,7 @@
 				D80F7ED31F6E87D500814A52 /* DataPopulatorService.swift in Sources */,
 				D8953EBC1F88114F00A1F424 /* NewVisitDisplayData.swift in Sources */,
 				D89312031F834F6F008DF09D /* StationSelectRouter.swift in Sources */,
+				D87C44F91F9059AF00CAFC7A /* SideMenuPresenter.swift in Sources */,
 				D857B3AA1F81B86A006E1402 /* VisitRouter.swift in Sources */,
 				D81431A61F8DDB2600EAF5FD /* DatePickerRouter.swift in Sources */,
 				D89714AC1F77FEED00E846B9 /* TrapSectionIndexPath.swift in Sources */,
@@ -839,17 +866,22 @@
 				D83DC6C91F7F841F00F91792 /* StartInteractor.swift in Sources */,
 				D81818701F7F795B008362BA /* AppModules.swift in Sources */,
 				D841CF2B1F8239CA004D0207 /* TraplineSelectView.swift in Sources */,
+				D87C44FA1F9059AF00CAFC7A /* SideMenuRouter.swift in Sources */,
+				D87C44F71F9059AF00CAFC7A /* SideMenuInteractor.swift in Sources */,
 				D8B94DA61F5F7FD900D373EF /* MenuWireframe.swift in Sources */,
 				D89714AA1F7751B300E846B9 /* DataPopulatorServiceInterface.swift in Sources */,
 				D8953EBF1F88114F00A1F424 /* NewVisitPresenter.swift in Sources */,
 				D8503DD01F669F8500ED0C84 /* Visit.swift in Sources */,
 				D81431A31F8DDB2600EAF5FD /* DatePickerInteractor.swift in Sources */,
+				D87C44F61F9059AF00CAFC7A /* SideMenuDisplayData.swift in Sources */,
 				D8FA5CF81F8409A700EC890C /* StationSelectSetupData.swift in Sources */,
 				D81DAAF31F68659100C7C987 /* VisitServiceInterface.swift in Sources */,
+				D87C44FB1F9059AF00CAFC7A /* SideMenuView.swift in Sources */,
 				D81431AA1F8E020900EAF5FD /* DatePickerDisplayData.swift in Sources */,
 				D89311FF1F834F6E008DF09D /* StationSelectDisplayData.swift in Sources */,
 				D89714BC1F789E4D00E846B9 /* SettingsPresenter.swift in Sources */,
 				D80F7EDB1F6EF89700814A52 /* Station.swift in Sources */,
+				D87C44F81F9059AF00CAFC7A /* SideMenuModuleApi.swift in Sources */,
 				D89714B41F789A4400E846B9 /* SettingsViewController.swift in Sources */,
 				D89714A01F70CFB800E846B9 /* DataService.swift in Sources */,
 				D8BC084F1F6B143800B284EE /* TrapType.swift in Sources */,

@@ -19,12 +19,14 @@ protocol DatePickerViewApi: UserInterfaceProtocol {
     func animateToDisappear()
     func setTitle(title: String)
     func setDate(date: Date)
+    func showToday(show: Bool)
 }
 
 //MARK: - DatePickerPresenter API
 protocol DatePickerPresenterApi: PresenterProtocol {
     func didSelectClose()
     func didSelectDate(date: Date)
+    func didSelectToday()
     var dateMode: UIDatePickerMode { get }
 }
 

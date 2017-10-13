@@ -11,5 +11,6 @@ import UIKit
 
 protocol DatePickerDelegate {
     func displayMode(datePicker: DatePickerViewApi) -> UIDatePickerMode
+    func showTodayButton(datePicker: DatePickerViewApi) -> Bool
     func datePicker(datePicker: DatePickerViewApi, didSelectDate: Date)
 }

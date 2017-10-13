@@ -73,6 +73,10 @@ extension VisitPresenter: DatePickerDelegate {
         visitSummary?.dateOfVisit = didSelectDate
         updateTitle()
     }
+    
+    func showTodayButton(datePicker: DatePickerViewApi) -> Bool {
+        return true
+    }
 }
 
 
@@ -110,6 +114,7 @@ extension VisitPresenter: VisitPresenterApi {
         let setupData = DatePickerSetupData()
         setupData.initialDate = visitSummary!.dateOfVisit
         setupData.delegate = self
+        
         router.showDatePicker(setupData: setupData)
     }
     

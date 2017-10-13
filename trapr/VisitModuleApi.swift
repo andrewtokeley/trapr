@@ -19,7 +19,6 @@ protocol VisitViewApi: UserInterfaceProtocol {
     func setTitle(title: String)
     func setStationText(text: String)
     func setTraps(traps: [Trap])
-    func showDatePicker(date: Date)
     func enableNavigation(previous: Bool, next: Bool)
     func displayMenuOptions(options: [String])
 }

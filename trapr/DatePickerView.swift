@@ -45,6 +45,7 @@ final class DatePickerView: UserInterface {
         
         view.addSubview(self.heading)
         view.addSubview(self.doneButton)
+        view.addSubview(self.todayButton)
         
         return view
     }()
@@ -69,6 +70,17 @@ final class DatePickerView: UserInterface {
         return button
     }()
     
+    lazy var todayButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Today", for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
+        button.setTitleColor(UIColor.trpButtonDisabled, for: .disabled)
+        
+        button.addTarget(self, action: #selector(todayButtonClick(sender:)), for: UIControlEvents.touchUpInside)
+        return button
+    }()
+    
     //MARK: Events
     
     func cancelButtonClick(sender: UIView) {
@@ -79,10 +91,10 @@ final class DatePickerView: UserInterface {
         presenter.didSelectDate(date: self.datePicker.date)
     }
     
-    func viewTap(sender: UIView) {
-        presenter.didSelectClose()
+    func todayButtonClick(sender: UIButton) {
+        presenter.didSelectToday()
     }
-    
+        
     //MARK: UIViewController
     override func loadView() {
         super.loadView()
@@ -116,14 +128,18 @@ final class DatePickerView: UserInterface {
         titleBar.autoPinEdge(.top, to: .top, of: datePickerContainer)
         titleBar.autoSetDimension(.height, toSize: 70)
 
-        heading.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-        doneButton.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20))
-        
+        heading.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets.zero)
+        doneButton.autoPinEdges(toSuperviewMarginsExcludingEdge: .left)
+        todayButton.autoPinEdges(toSuperviewMarginsExcludingEdge: .right)
     }
 }
 
 //MARK: - DatePickerView API
 extension DatePickerView: DatePickerViewApi {
+    
+    func showToday(show: Bool) {
+        todayButton.alpha = show ? 1 : 0
+    }
     
     func setDate(date: Date) {
         self.datePicker.date = date

@@ -22,16 +22,6 @@ final class VisitView: UserInterface, UICollectionViewDelegate, UICollectionView
     let TRAPTYPE_REUSE_ID = "cell"
     
     //MARK: - Subviews
-    lazy var datePicker: UIDatePicker = {
-        let picker = UIDatePicker()
-        picker.datePickerMode = .dateAndTime
-        return picker
-    }()
-    
-    lazy var datePickerBackground: UIView = {
-        let view = UIView()
-        return view
-    }()
     
     lazy var showMenuButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(named:"show"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(showMoreMenu(sender:)))
@@ -147,10 +137,6 @@ final class VisitView: UserInterface, UICollectionViewDelegate, UICollectionView
 
 //MARK: - VisitView API
 extension VisitView: VisitViewApi {
-    
-    func showDatePicker(date: Date) {
-        
-    }
     
     func setTitle(title: String) {
         self.titleLabel.text = title

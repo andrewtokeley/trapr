@@ -18,6 +18,10 @@ final class DatePickerPresenter: Presenter {
     override func viewHasLoaded() {
         view.setTitle(title: "Visit Date")
         view.setDate(date: initialDate)
+        
+        if let showToday = delegate?.showTodayButton(datePicker: view) {
+            view.showToday(show: showToday)
+        }
     }
     override func viewHasAppeared() {
         view.animateToAppear()
@@ -42,6 +46,10 @@ extension DatePickerPresenter: DatePickerPresenterApi {
     func didSelectDate(date: Date) {
         delegate?.datePicker(datePicker: view, didSelectDate: date)
         self.didSelectClose()
+    }
+    
+    func didSelectToday() {
+        view.setDate(date: Date())
     }
     
     var dateMode: UIDatePickerMode {
