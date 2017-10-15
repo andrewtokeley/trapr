@@ -15,6 +15,9 @@ final class SideMenuRouter: Router {
 
 // MARK: - SideMenuRouter API
 extension SideMenuRouter: SideMenuRouterApi {
+    func showModule(menuItem: MenuItem) {
+        
+    }
 }
 
 // MARK: - SideMenu Viper Components

@@ -87,12 +87,12 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
     lazy var visitsLabel: UILabel = {
         var label = UILabel()
         label.text = "VISITS"
-        label.font = UIFont(name: "Helvetica", size: 12)
+        label.font = UIFont.trapTableViewSectionHeading
         label.textColor = UIColor.trpTextDark
         return label
     }()
     
-    lazy var closeButtonItem: UIBarButtonItem = {
+    lazy var menuButtonItem: UIBarButtonItem = {
         
         var view = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(menuButtonAction(sender:)))
         
@@ -127,7 +127,7 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
         self.view.backgroundColor = UIColor.trpBackground
         self.navigationController?.navigationBar.isHidden = false
         
-        self.navigationItem.leftBarButtonItem = self.closeButtonItem
+        self.navigationItem.leftBarButtonItem = self.menuButtonItem
         self.view.addSubview(visitsCollectionView)
         self.view.addSubview(visitsLabel)
         

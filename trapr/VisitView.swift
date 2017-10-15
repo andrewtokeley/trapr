@@ -85,6 +85,7 @@ final class VisitView: UserInterface, UICollectionViewDelegate, UICollectionView
             cell.image.image = UIImage(named: "menu")
             cell.image.highlightedImage = UIImage(named: "plus")
             cell.label.text = trap.type?.name
+            cell.label.font = UIFont.trapTextSmall
         }
         return cell
         
@@ -126,6 +127,8 @@ final class VisitView: UserInterface, UICollectionViewDelegate, UICollectionView
         self.navigationItem.rightBarButtonItem = self.showMenuButton
         
         self.navigationItem.titleView = titleLabel
+        
+        self.stationLabel.font = UIFont.trpLabel
         
         self.setConstraints()
     }

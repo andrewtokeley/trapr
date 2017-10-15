@@ -33,7 +33,8 @@ extension StartPresenter: NewVisitDelegate {
 extension StartPresenter: StartPresenterApi {
     
     func didSelectMenu() {
-        //menuWireframe.presentView(over: view as! UIViewController)
+        let module = AppModules.sideMenu.build()
+        module.router.showAsModalOverlay(from: _view)
     }
     
     func didSelectNewVisit() {

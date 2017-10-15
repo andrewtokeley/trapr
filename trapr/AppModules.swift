@@ -19,6 +19,7 @@ enum AppModules: String, ViperitModule {
     case settings
     case menu
     case datePicker
+    case sideMenu
     
     var viewType: ViperitViewType {
         switch self {

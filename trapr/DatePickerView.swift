@@ -52,7 +52,7 @@ final class DatePickerView: UserInterface {
     
     lazy var heading: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18)
+        label.font = UIFont.trpLabel
         label.textColor = UIColor.black
         label.textAlignment = .center
         label.backgroundColor = UIColor.clear
@@ -105,6 +105,11 @@ final class DatePickerView: UserInterface {
         self.view.addSubview(backgroundMask)
         self.view.addSubview(datePickerContainer)
 
+        let down = UISwipeGestureRecognizer(target: self, action: #selector(cancelButtonClick(sender:)))
+        down.direction = .down
+        self.view.addGestureRecognizer(down)
+
+        
         setConstraints()
         
     }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5E21E305B912DE761C65F817 /* Pods_traprTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 091A08517706BFB528BF6370 /* Pods_traprTests.framework */; };
 		699D613385EE2884367110A5 /* Pods_trapr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7475BC73C1B9E9749C3B6277 /* Pods_trapr.framework */; };
+		D80BCD3D1F91D041005F30FF /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80BCD3C1F91D041005F30FF /* MenuItemView.swift */; };
 		D80F7ECE1F6E79BF00814A52 /* TraplineServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ECD1F6E79BF00814A52 /* TraplineServiceInterface.swift */; };
 		D80F7ED01F6E7A9300814A52 /* TraplineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ECF1F6E7A9300814A52 /* TraplineService.swift */; };
 		D80F7ED31F6E87D500814A52 /* DataPopulatorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ED21F6E87D500814A52 /* DataPopulatorService.swift */; };
@@ -48,13 +49,22 @@
 		D8503DC81F66807C00ED0C84 /* VisitPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DBF1F66807C00ED0C84 /* VisitPresenter.swift */; };
 		D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */; };
 		D8503DD01F669F8500ED0C84 /* Visit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DCF1F669F8500ED0C84 /* Visit.swift */; };
-		D8503DD31F671CC600ED0C84 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DD21F671CC600ED0C84 /* MenuPresenter.swift */; };
-		D8503DD61F671D0A00ED0C84 /* MenuModuleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DD51F671D0A00ED0C84 /* MenuModuleInterface.swift */; };
 		D8503DD81F67AF7800ED0C84 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = D8503DD71F67AF7800ED0C84 /* user.png */; };
 		D857B3A81F81B86A006E1402 /* VisitDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A41F81B86A006E1402 /* VisitDisplayData.swift */; };
 		D857B3A91F81B86A006E1402 /* VisitModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A51F81B86A006E1402 /* VisitModuleApi.swift */; };
 		D857B3AA1F81B86A006E1402 /* VisitRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A61F81B86A006E1402 /* VisitRouter.swift */; };
 		D857B3AB1F81B86A006E1402 /* VisitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A71F81B86A006E1402 /* VisitView.swift */; };
+		D86CE4781F91DBC5004A09EF /* MenuDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CE4771F91DBC5004A09EF /* MenuDivider.swift */; };
+		D86CE47A1F920781004A09EF /* test.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D86CE4791F920781004A09EF /* test.storyboard */; };
+		D86CE4831F92BC6F004A09EF /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE47B1F92BC6C004A09EF /* map.png */; };
+		D86CE4841F92BC6F004A09EF /* map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE47C1F92BC6D004A09EF /* map@2x.png */; };
+		D86CE4851F92BC6F004A09EF /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE47D1F92BC6D004A09EF /* settings.png */; };
+		D86CE4861F92BC6F004A09EF /* sync.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE47E1F92BC6D004A09EF /* sync.png */; };
+		D86CE4871F92BC6F004A09EF /* sync@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE47F1F92BC6E004A09EF /* sync@2x.png */; };
+		D86CE4881F92BC6F004A09EF /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE4801F92BC6E004A09EF /* settings@2x.png */; };
+		D86CE4891F92BC6F004A09EF /* home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE4811F92BC6E004A09EF /* home@2x.png */; };
+		D86CE48A1F92BC6F004A09EF /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE4821F92BC6E004A09EF /* home.png */; };
+		D86CE48C1F92C8EA004A09EF /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CE48B1F92C8EA004A09EF /* UIFontExtension.swift */; };
 		D87C44ED1F8F4C2400CAFC7A /* DatePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44EC1F8F4C2400CAFC7A /* DatePickerDelegate.swift */; };
 		D87C44EF1F8F545F00CAFC7A /* DatePickerSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44EE1F8F545F00CAFC7A /* DatePickerSetupData.swift */; };
 		D87C44F61F9059AF00CAFC7A /* SideMenuDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F01F9059AF00CAFC7A /* SideMenuDisplayData.swift */; };
@@ -85,13 +95,6 @@
 		D89714AA1F7751B300E846B9 /* DataPopulatorServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714A91F7751B300E846B9 /* DataPopulatorServiceInterface.swift */; };
 		D89714AC1F77FEED00E846B9 /* TrapSectionIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714AB1F77FEED00E846B9 /* TrapSectionIndexPath.swift */; };
 		D89714AF1F7898A800E846B9 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714AE1F7898A800E846B9 /* MenuItem.swift */; };
-		D89714B21F789A2800E846B9 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D89714B11F789A2800E846B9 /* SettingsViewController.xib */; };
-		D89714B41F789A4400E846B9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714B31F789A4400E846B9 /* SettingsViewController.swift */; };
-		D89714B61F789B6700E846B9 /* SettingsWireframeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714B51F789B6700E846B9 /* SettingsWireframeInput.swift */; };
-		D89714B81F789B7E00E846B9 /* SettingsWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714B71F789B7E00E846B9 /* SettingsWireframe.swift */; };
-		D89714BA1F789C7600E846B9 /* SettingsViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714B91F789C7600E846B9 /* SettingsViewInterface.swift */; };
-		D89714BC1F789E4D00E846B9 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714BB1F789E4D00E846B9 /* SettingsPresenter.swift */; };
-		D89714BE1F789E5B00E846B9 /* SettingsModuleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714BD1F789E5B00E846B9 /* SettingsModuleInterface.swift */; };
 		D89714C01F7A0C5D00E846B9 /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D89714BF1F7A0C5D00E846B9 /* ImageCollectionViewCell.xib */; };
 		D89714C21F7A0E4700E846B9 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714C11F7A0E4700E846B9 /* ImageCollectionViewCell.swift */; };
 		D8B94D591F5EA1FE00D373EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D581F5EA1FE00D373EF /* AppDelegate.swift */; };
@@ -102,10 +105,6 @@
 		D8B94D7C1F5EA56F00D373EF /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D7B1F5EA56F00D373EF /* UIColorExtension.swift */; };
 		D8B94D9C1F5F30CD00D373EF /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = D8B94D9A1F5F30CD00D373EF /* menu.png */; };
 		D8B94D9D1F5F30CD00D373EF /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8B94D9B1F5F30CD00D373EF /* menu@2x.png */; };
-		D8B94DA11F5F7B7A00D373EF /* Menu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8B94DA01F5F7B7A00D373EF /* Menu.xib */; };
-		D8B94DA31F5F7CDA00D373EF /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94DA21F5F7CDA00D373EF /* MenuView.swift */; };
-		D8B94DA61F5F7FD900D373EF /* MenuWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94DA51F5F7FD900D373EF /* MenuWireframe.swift */; };
-		D8B94DA81F5F800B00D373EF /* MenuWireframeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94DA71F5F800B00D373EF /* MenuWireframeInput.swift */; };
 		D8BC08431F6A4C2800B284EE /* Visit.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08421F6A4C2800B284EE /* Visit.xib */; };
 		D8BC08461F6A541200B284EE /* greaterthan.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08441F6A541200B284EE /* greaterthan.png */; };
 		D8BC08471F6A541200B284EE /* lessthan.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08451F6A541200B284EE /* lessthan.png */; };
@@ -138,6 +137,7 @@
 		97E006917605C37E780CC0B5 /* Pods-traprTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-traprTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-traprTests/Pods-traprTests.release.xcconfig"; sourceTree = "<group>"; };
 		A13BAE40424D5A9104CB3D85 /* Pods-trapr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trapr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-trapr/Pods-trapr.debug.xcconfig"; sourceTree = "<group>"; };
 		CB1480E579A12578A4F8D74D /* Pods-traprTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-traprTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-traprTests/Pods-traprTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D80BCD3C1F91D041005F30FF /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		D80F7ECD1F6E79BF00814A52 /* TraplineServiceInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraplineServiceInterface.swift; sourceTree = "<group>"; };
 		D80F7ECF1F6E7A9300814A52 /* TraplineService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraplineService.swift; sourceTree = "<group>"; };
 		D80F7ED21F6E87D500814A52 /* DataPopulatorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataPopulatorService.swift; sourceTree = "<group>"; };
@@ -178,13 +178,22 @@
 		D8503DBF1F66807C00ED0C84 /* VisitPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitPresenter.swift; sourceTree = "<group>"; };
 		D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtention.swift; sourceTree = "<group>"; };
 		D8503DCF1F669F8500ED0C84 /* Visit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Visit.swift; sourceTree = "<group>"; };
-		D8503DD21F671CC600ED0C84 /* MenuPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
-		D8503DD51F671D0A00ED0C84 /* MenuModuleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuModuleInterface.swift; sourceTree = "<group>"; };
 		D8503DD71F67AF7800ED0C84 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
 		D857B3A41F81B86A006E1402 /* VisitDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitDisplayData.swift; sourceTree = "<group>"; };
 		D857B3A51F81B86A006E1402 /* VisitModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitModuleApi.swift; sourceTree = "<group>"; };
 		D857B3A61F81B86A006E1402 /* VisitRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitRouter.swift; sourceTree = "<group>"; };
 		D857B3A71F81B86A006E1402 /* VisitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitView.swift; sourceTree = "<group>"; };
+		D86CE4771F91DBC5004A09EF /* MenuDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuDivider.swift; sourceTree = "<group>"; };
+		D86CE4791F920781004A09EF /* test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = test.storyboard; sourceTree = "<group>"; };
+		D86CE47B1F92BC6C004A09EF /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
+		D86CE47C1F92BC6D004A09EF /* map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map@2x.png"; sourceTree = "<group>"; };
+		D86CE47D1F92BC6D004A09EF /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		D86CE47E1F92BC6D004A09EF /* sync.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sync.png; sourceTree = "<group>"; };
+		D86CE47F1F92BC6E004A09EF /* sync@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sync@2x.png"; sourceTree = "<group>"; };
+		D86CE4801F92BC6E004A09EF /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
+		D86CE4811F92BC6E004A09EF /* home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home@2x.png"; sourceTree = "<group>"; };
+		D86CE4821F92BC6E004A09EF /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
+		D86CE48B1F92C8EA004A09EF /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
 		D87C44EC1F8F4C2400CAFC7A /* DatePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDelegate.swift; sourceTree = "<group>"; };
 		D87C44EE1F8F545F00CAFC7A /* DatePickerSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerSetupData.swift; sourceTree = "<group>"; };
 		D87C44F01F9059AF00CAFC7A /* SideMenuDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuDisplayData.swift; sourceTree = "<group>"; };
@@ -215,13 +224,6 @@
 		D89714A91F7751B300E846B9 /* DataPopulatorServiceInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataPopulatorServiceInterface.swift; sourceTree = "<group>"; };
 		D89714AB1F77FEED00E846B9 /* TrapSectionIndexPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrapSectionIndexPath.swift; sourceTree = "<group>"; };
 		D89714AE1F7898A800E846B9 /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
-		D89714B11F789A2800E846B9 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
-		D89714B31F789A4400E846B9 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		D89714B51F789B6700E846B9 /* SettingsWireframeInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWireframeInput.swift; sourceTree = "<group>"; };
-		D89714B71F789B7E00E846B9 /* SettingsWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWireframe.swift; sourceTree = "<group>"; };
-		D89714B91F789C7600E846B9 /* SettingsViewInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewInterface.swift; sourceTree = "<group>"; };
-		D89714BB1F789E4D00E846B9 /* SettingsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
-		D89714BD1F789E5B00E846B9 /* SettingsModuleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsModuleInterface.swift; sourceTree = "<group>"; };
 		D89714BF1F7A0C5D00E846B9 /* ImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		D89714C11F7A0E4700E846B9 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		D8B94D551F5EA1FE00D373EF /* trapr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = trapr.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -236,10 +238,6 @@
 		D8B94D7B1F5EA56F00D373EF /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		D8B94D9A1F5F30CD00D373EF /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
 		D8B94D9B1F5F30CD00D373EF /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
-		D8B94DA01F5F7B7A00D373EF /* Menu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Menu.xib; sourceTree = "<group>"; };
-		D8B94DA21F5F7CDA00D373EF /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
-		D8B94DA51F5F7FD900D373EF /* MenuWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuWireframe.swift; sourceTree = "<group>"; };
-		D8B94DA71F5F800B00D373EF /* MenuWireframeInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuWireframeInput.swift; sourceTree = "<group>"; };
 		D8BC08421F6A4C2800B284EE /* Visit.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Visit.xib; sourceTree = "<group>"; };
 		D8BC08441F6A541200B284EE /* greaterthan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greaterthan.png; sourceTree = "<group>"; };
 		D8BC08451F6A541200B284EE /* lessthan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessthan.png; sourceTree = "<group>"; };
@@ -370,24 +368,6 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		D8503DD41F671CD100ED0C84 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				D8503DD21F671CC600ED0C84 /* MenuPresenter.swift */,
-				D8503DD51F671D0A00ED0C84 /* MenuModuleInterface.swift */,
-			);
-			name = Presenter;
-			sourceTree = "<group>";
-		};
-		D857B39C1F81B7C1006E1402 /* old */ = {
-			isa = PBXGroup;
-			children = (
-				D8B94D9E1F5F39C400D373EF /* Menu */,
-				D89714B01F7899E300E846B9 /* Settings */,
-			);
-			name = old;
-			sourceTree = "<group>";
-		};
 		D857B39D1F81B7D8006E1402 /* Visit */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,12 +388,16 @@
 		D87C44FC1F9059B900CAFC7A /* SideMenu */ = {
 			isa = PBXGroup;
 			children = (
+				D89714AE1F7898A800E846B9 /* MenuItem.swift */,
 				D87C44F01F9059AF00CAFC7A /* SideMenuDisplayData.swift */,
 				D87C44F11F9059AF00CAFC7A /* SideMenuInteractor.swift */,
 				D87C44F21F9059AF00CAFC7A /* SideMenuModuleApi.swift */,
 				D87C44F31F9059AF00CAFC7A /* SideMenuPresenter.swift */,
 				D87C44F41F9059AF00CAFC7A /* SideMenuRouter.swift */,
 				D87C44F51F9059AF00CAFC7A /* SideMenuView.swift */,
+				D80BCD3C1F91D041005F30FF /* MenuItemView.swift */,
+				D86CE4771F91DBC5004A09EF /* MenuDivider.swift */,
+				D86CE4791F920781004A09EF /* test.storyboard */,
 			);
 			name = SideMenu;
 			sourceTree = "<group>";
@@ -443,28 +427,6 @@
 				D8953EBB1F88114E00A1F424 /* NewVisitView.swift */,
 			);
 			name = NewVisit;
-			sourceTree = "<group>";
-		};
-		D89714AD1F78989400E846B9 /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-				D89714AE1F7898A800E846B9 /* MenuItem.swift */,
-			);
-			name = Entities;
-			sourceTree = "<group>";
-		};
-		D89714B01F7899E300E846B9 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				D89714BD1F789E5B00E846B9 /* SettingsModuleInterface.swift */,
-				D89714BB1F789E4D00E846B9 /* SettingsPresenter.swift */,
-				D89714B31F789A4400E846B9 /* SettingsViewController.swift */,
-				D89714B11F789A2800E846B9 /* SettingsViewController.xib */,
-				D89714B91F789C7600E846B9 /* SettingsViewInterface.swift */,
-				D89714B71F789B7E00E846B9 /* SettingsWireframe.swift */,
-				D89714B51F789B6700E846B9 /* SettingsWireframeInput.swift */,
-			);
-			name = Settings;
 			sourceTree = "<group>";
 		};
 		D8B94D4C1F5EA1FE00D373EF = {
@@ -523,6 +485,7 @@
 				D8B94D791F5EA54300D373EF /* Styles.swift */,
 				D8B94D7B1F5EA56F00D373EF /* UIColorExtension.swift */,
 				D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */,
+				D86CE48B1F92C8EA004A09EF /* UIFontExtension.swift */,
 			);
 			name = Design;
 			sourceTree = "<group>";
@@ -537,7 +500,6 @@
 				D841CF1F1F82398D004D0207 /* TraplineSelect */,
 				D83DC6BF1F7F83D200F91792 /* Start */,
 				D857B39D1F81B7D8006E1402 /* Visit */,
-				D857B39C1F81B7C1006E1402 /* old */,
 				D818186F1F7F795B008362BA /* AppModules.swift */,
 			);
 			name = Modules;
@@ -546,6 +508,14 @@
 		D8B94D991F5F28F200D373EF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D86CE4821F92BC6E004A09EF /* home.png */,
+				D86CE4811F92BC6E004A09EF /* home@2x.png */,
+				D86CE47B1F92BC6C004A09EF /* map.png */,
+				D86CE47C1F92BC6D004A09EF /* map@2x.png */,
+				D86CE47D1F92BC6D004A09EF /* settings.png */,
+				D86CE4801F92BC6E004A09EF /* settings@2x.png */,
+				D86CE47E1F92BC6D004A09EF /* sync.png */,
+				D86CE47F1F92BC6E004A09EF /* sync@2x.png */,
 				D81431981F8CBD5E00EAF5FD /* show.png */,
 				D81431991F8CBD5E00EAF5FD /* show@2x.png */,
 				D8FA5CF31F8406D600EC890C /* close.png */,
@@ -560,35 +530,6 @@
 				D8503DD71F67AF7800ED0C84 /* user.png */,
 			);
 			name = Images;
-			sourceTree = "<group>";
-		};
-		D8B94D9E1F5F39C400D373EF /* Menu */ = {
-			isa = PBXGroup;
-			children = (
-				D89714AD1F78989400E846B9 /* Entities */,
-				D8B94D9F1F5F7B4C00D373EF /* View */,
-				D8503DD41F671CD100ED0C84 /* Presenter */,
-				D8B94DA41F5F7FC800D373EF /* Router */,
-			);
-			name = Menu;
-			sourceTree = "<group>";
-		};
-		D8B94D9F1F5F7B4C00D373EF /* View */ = {
-			isa = PBXGroup;
-			children = (
-				D8B94DA01F5F7B7A00D373EF /* Menu.xib */,
-				D8B94DA21F5F7CDA00D373EF /* MenuView.swift */,
-			);
-			name = View;
-			sourceTree = "<group>";
-		};
-		D8B94DA41F5F7FC800D373EF /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				D8B94DA51F5F7FD900D373EF /* MenuWireframe.swift */,
-				D8B94DA71F5F800B00D373EF /* MenuWireframeInput.swift */,
-			);
-			name = Router;
 			sourceTree = "<group>";
 		};
 		D9137A3F9761619C4FFA1891 /* Pods */ = {
@@ -692,25 +633,32 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D86CE4851F92BC6F004A09EF /* settings.png in Resources */,
+				D86CE4871F92BC6F004A09EF /* sync@2x.png in Resources */,
 				D8FA5CF51F8406D600EC890C /* close.png in Resources */,
 				D8B94D631F5EA1FE00D373EF /* LaunchScreen.storyboard in Resources */,
-				D8B94DA11F5F7B7A00D373EF /* Menu.xib in Resources */,
+				D86CE4841F92BC6F004A09EF /* map@2x.png in Resources */,
+				D86CE4891F92BC6F004A09EF /* home@2x.png in Resources */,
 				D8BC084A1F6A542700B284EE /* greaterthan@2x.png in Resources */,
 				D89714C01F7A0C5D00E846B9 /* ImageCollectionViewCell.xib in Resources */,
 				D83853041F66555700481B57 /* plus.png in Resources */,
 				D8B94D9D1F5F30CD00D373EF /* menu@2x.png in Resources */,
 				D8B94D601F5EA1FE00D373EF /* Assets.xcassets in Resources */,
+				D86CE4881F92BC6F004A09EF /* settings@2x.png in Resources */,
 				D8BC084B1F6A542700B284EE /* lessthan@2x.png in Resources */,
 				D8FA5CF61F8406D600EC890C /* close@2x.png in Resources */,
 				D8D729E41F61D91C0082CD4A /* VisitCollectionViewCell.xib in Resources */,
 				D8503DD81F67AF7800ED0C84 /* user.png in Resources */,
 				D8D729E61F64BD580082CD4A /* Podfile in Resources */,
+				D86CE48A1F92BC6F004A09EF /* home.png in Resources */,
 				D8B94D9C1F5F30CD00D373EF /* menu.png in Resources */,
+				D86CE47A1F920781004A09EF /* test.storyboard in Resources */,
 				D814319A1F8CBD5E00EAF5FD /* show.png in Resources */,
-				D89714B21F789A2800E846B9 /* SettingsViewController.xib in Resources */,
 				D8BC08431F6A4C2800B284EE /* Visit.xib in Resources */,
+				D86CE4831F92BC6F004A09EF /* map.png in Resources */,
 				D814319B1F8CBD5E00EAF5FD /* show@2x.png in Resources */,
 				D83853021F6654CD00481B57 /* NewVisitCollectionViewCell.xib in Resources */,
+				D86CE4861F92BC6F004A09EF /* sync.png in Resources */,
 				D8BC08471F6A541200B284EE /* lessthan.png in Resources */,
 				D81431971F8CBBA500EAF5FD /* Visit.storyboard in Resources */,
 				D8BC08461F6A541200B284EE /* greaterthan.png in Resources */,
@@ -834,18 +782,18 @@
 				D81431A61F8DDB2600EAF5FD /* DatePickerRouter.swift in Sources */,
 				D89714AC1F77FEED00E846B9 /* TrapSectionIndexPath.swift in Sources */,
 				D81883791F6931C600A74B5E /* Species.swift in Sources */,
+				D86CE48C1F92C8EA004A09EF /* UIFontExtension.swift in Sources */,
 				D8D729DE1F61C9CC0082CD4A /* VisitSummary.swift in Sources */,
 				D81DAAF51F6865DB00C7C987 /* Trapline.swift in Sources */,
-				D89714B61F789B6700E846B9 /* SettingsWireframeInput.swift in Sources */,
 				D81DAAF71F686EA800C7C987 /* ServiceFactory.swift in Sources */,
 				D80F7ECE1F6E79BF00814A52 /* TraplineServiceInterface.swift in Sources */,
-				D89714BE1F789E5B00E846B9 /* SettingsModuleInterface.swift in Sources */,
 				D87E5BF51F88CCAA0055A3E0 /* TraplineSelectDelegate.swift in Sources */,
 				D8B94D591F5EA1FE00D373EF /* AppDelegate.swift in Sources */,
 				D89714C21F7A0E4700E846B9 /* ImageCollectionViewCell.swift in Sources */,
 				D8D729E21F61D7D30082CD4A /* VisitCollectionViewCell.swift in Sources */,
 				D89312021F834F6F008DF09D /* StationSelectPresenter.swift in Sources */,
 				D87C44EF1F8F545F00CAFC7A /* DatePickerSetupData.swift in Sources */,
+				D86CE4781F91DBC5004A09EF /* MenuDivider.swift in Sources */,
 				D841CF2A1F8239CA004D0207 /* TraplineSelectRouter.swift in Sources */,
 				D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */,
 				D89312041F834F6F008DF09D /* StationSelectView.swift in Sources */,
@@ -861,14 +809,12 @@
 				D83DC6C81F7F841F00F91792 /* StartDisplayData.swift in Sources */,
 				D83DC6CB1F7F841F00F91792 /* StartPresenter.swift in Sources */,
 				D81DAAEF1F68643400C7C987 /* VisitService.swift in Sources */,
-				D8B94DA31F5F7CDA00D373EF /* MenuView.swift in Sources */,
 				D8953EC11F88114F00A1F424 /* NewVisitView.swift in Sources */,
 				D83DC6C91F7F841F00F91792 /* StartInteractor.swift in Sources */,
 				D81818701F7F795B008362BA /* AppModules.swift in Sources */,
 				D841CF2B1F8239CA004D0207 /* TraplineSelectView.swift in Sources */,
 				D87C44FA1F9059AF00CAFC7A /* SideMenuRouter.swift in Sources */,
 				D87C44F71F9059AF00CAFC7A /* SideMenuInteractor.swift in Sources */,
-				D8B94DA61F5F7FD900D373EF /* MenuWireframe.swift in Sources */,
 				D89714AA1F7751B300E846B9 /* DataPopulatorServiceInterface.swift in Sources */,
 				D8953EBF1F88114F00A1F424 /* NewVisitPresenter.swift in Sources */,
 				D8503DD01F669F8500ED0C84 /* Visit.swift in Sources */,
@@ -877,17 +823,15 @@
 				D8FA5CF81F8409A700EC890C /* StationSelectSetupData.swift in Sources */,
 				D81DAAF31F68659100C7C987 /* VisitServiceInterface.swift in Sources */,
 				D87C44FB1F9059AF00CAFC7A /* SideMenuView.swift in Sources */,
+				D80BCD3D1F91D041005F30FF /* MenuItemView.swift in Sources */,
 				D81431AA1F8E020900EAF5FD /* DatePickerDisplayData.swift in Sources */,
 				D89311FF1F834F6E008DF09D /* StationSelectDisplayData.swift in Sources */,
-				D89714BC1F789E4D00E846B9 /* SettingsPresenter.swift in Sources */,
 				D80F7EDB1F6EF89700814A52 /* Station.swift in Sources */,
 				D87C44F81F9059AF00CAFC7A /* SideMenuModuleApi.swift in Sources */,
-				D89714B41F789A4400E846B9 /* SettingsViewController.swift in Sources */,
 				D89714A01F70CFB800E846B9 /* DataService.swift in Sources */,
 				D8BC084F1F6B143800B284EE /* TrapType.swift in Sources */,
 				D81431A41F8DDB2600EAF5FD /* DatePickerModuleApi.swift in Sources */,
 				D857B3AB1F81B86A006E1402 /* VisitView.swift in Sources */,
-				D8B94DA81F5F800B00D373EF /* MenuWireframeInput.swift in Sources */,
 				D89312011F834F6F008DF09D /* StationSelectModuleApi.swift in Sources */,
 				D89714A41F76197D00E846B9 /* Service.swift in Sources */,
 				D841CF261F8239CA004D0207 /* TraplineSelectDisplayData.swift in Sources */,
@@ -896,13 +840,9 @@
 				D80F7ED91F6E92C700814A52 /* TrapServiceInterface.swift in Sources */,
 				D89714AF1F7898A800E846B9 /* MenuItem.swift in Sources */,
 				D83DC6CC1F7F841F00F91792 /* StartRouter.swift in Sources */,
-				D8503DD31F671CC600ED0C84 /* MenuPresenter.swift in Sources */,
 				D87C44ED1F8F4C2400CAFC7A /* DatePickerDelegate.swift in Sources */,
 				D89312001F834F6E008DF09D /* StationSelectInteractor.swift in Sources */,
 				D8B94D7C1F5EA56F00D373EF /* UIColorExtension.swift in Sources */,
-				D8503DD61F671D0A00ED0C84 /* MenuModuleInterface.swift in Sources */,
-				D89714BA1F789C7600E846B9 /* SettingsViewInterface.swift in Sources */,
-				D89714B81F789B7E00E846B9 /* SettingsWireframe.swift in Sources */,
 				D857B3A91F81B86A006E1402 /* VisitModuleApi.swift in Sources */,
 				D89714A81F76202E00E846B9 /* ApplicationService.swift in Sources */,
 				D83DC6CA1F7F841F00F91792 /* StartModuleApi.swift in Sources */,
@@ -991,7 +931,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inheritied)";
@@ -1042,7 +982,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

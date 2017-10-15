@@ -90,7 +90,7 @@ final class TraplineSelectView: UserInterface, UITableViewDelegate, UITableViewD
         let label = UILabel()
         label.backgroundColor = UIColor.white
         label.layer.borderColor = UIColor.lightGray.cgColor
-        label.font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
+        label.font = UIFont.trpLabel
         
         return label
     }()
