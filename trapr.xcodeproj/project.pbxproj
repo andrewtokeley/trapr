@@ -55,7 +55,6 @@
 		D857B3AA1F81B86A006E1402 /* VisitRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A61F81B86A006E1402 /* VisitRouter.swift */; };
 		D857B3AB1F81B86A006E1402 /* VisitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A71F81B86A006E1402 /* VisitView.swift */; };
 		D86CE4781F91DBC5004A09EF /* MenuDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CE4771F91DBC5004A09EF /* MenuDivider.swift */; };
-		D86CE47A1F920781004A09EF /* test.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D86CE4791F920781004A09EF /* test.storyboard */; };
 		D86CE4831F92BC6F004A09EF /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE47B1F92BC6C004A09EF /* map.png */; };
 		D86CE4841F92BC6F004A09EF /* map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE47C1F92BC6D004A09EF /* map@2x.png */; };
 		D86CE4851F92BC6F004A09EF /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE47D1F92BC6D004A09EF /* settings.png */; };
@@ -184,7 +183,6 @@
 		D857B3A61F81B86A006E1402 /* VisitRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitRouter.swift; sourceTree = "<group>"; };
 		D857B3A71F81B86A006E1402 /* VisitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitView.swift; sourceTree = "<group>"; };
 		D86CE4771F91DBC5004A09EF /* MenuDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuDivider.swift; sourceTree = "<group>"; };
-		D86CE4791F920781004A09EF /* test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = test.storyboard; sourceTree = "<group>"; };
 		D86CE47B1F92BC6C004A09EF /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
 		D86CE47C1F92BC6D004A09EF /* map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map@2x.png"; sourceTree = "<group>"; };
 		D86CE47D1F92BC6D004A09EF /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
@@ -397,7 +395,6 @@
 				D87C44F51F9059AF00CAFC7A /* SideMenuView.swift */,
 				D80BCD3C1F91D041005F30FF /* MenuItemView.swift */,
 				D86CE4771F91DBC5004A09EF /* MenuDivider.swift */,
-				D86CE4791F920781004A09EF /* test.storyboard */,
 			);
 			name = SideMenu;
 			sourceTree = "<group>";
@@ -652,7 +649,6 @@
 				D8D729E61F64BD580082CD4A /* Podfile in Resources */,
 				D86CE48A1F92BC6F004A09EF /* home.png in Resources */,
 				D8B94D9C1F5F30CD00D373EF /* menu.png in Resources */,
-				D86CE47A1F920781004A09EF /* test.storyboard in Resources */,
 				D814319A1F8CBD5E00EAF5FD /* show.png in Resources */,
 				D8BC08431F6A4C2800B284EE /* Visit.xib in Resources */,
 				D86CE4831F92BC6F004A09EF /* map.png in Resources */,
