@@ -15,10 +15,10 @@ final class StationSelectRouter: Router {
 
 // MARK: - StationSelectRouter API
 extension StationSelectRouter: StationSelectRouterApi {
-    func showTraplineSelectModule(setupData: TraplineSelectDelegate) {
-        let module = AppModules.traplineSelect.build()
-        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
-    }
+//    func showTraplineSelectModule(setupData: TraplineSelectDelegate) {
+//        let module = AppModules.traplineSelect.build()
+//        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
+//    }
 }
 
 // MARK: - StationSelect Viper Components

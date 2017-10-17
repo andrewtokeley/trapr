@@ -56,10 +56,9 @@ class Route {
                 // e.g.
                 // LW 1-10, 20-30
                 // E 1-5
-                description.append(trapline.code!)
-                
                 let rangeDescriptions = stationsRangeDescriptions(for: trapline)
                 for range in rangeDescriptions {
+                    description.append(trapline.code!)
                     description.append(range)
                     if (rangeDescriptions.last != range) {
                         description.append(", ")

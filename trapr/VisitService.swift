@@ -86,7 +86,7 @@ class VisitService: Service, VisitServiceInterface {
                     
                     if (mostRecentOnly) {
                         // don't add if the traplines visits on this day have already been recorded
-                        add = !summaries.contains(where: { (x) in return x.traplinesDescription == summary.traplinesDescription})
+                        add = !summaries.contains(where: { (x) in return x.route.description() == summary.route.description()})
                     }
                     
                     if (add) {

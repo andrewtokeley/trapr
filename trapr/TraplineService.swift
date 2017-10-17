@@ -31,7 +31,7 @@ class TraplineService: Service, TraplineServiceInterface {
         var traplines = [Trapline]()
         for visitSummary in visitsInLast3Months {
             
-            for trapline in visitSummary.traplines {
+            for trapline in visitSummary.route.traplines {
                 if !traplines.contains(trapline) {
                     traplines.append(trapline)
                 }

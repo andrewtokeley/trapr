@@ -57,7 +57,7 @@ final class NewVisitView: UserInterface, UITableViewDelegate, UITableViewDataSou
         
         if indexPath.row < visitSummaries.count {
             let visitSummary = visitSummaries[indexPath.row]
-            presenter.didSelectRecentTraplines(traplines: visitSummary.traplines)
+            presenter.didSelectRecentRoute(route: visitSummary.route)
         } else {
             presenter.didSelectOther()
         }

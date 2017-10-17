@@ -29,6 +29,10 @@ extension UIColor
         return UIColor.white
     }
 
+    public class var trpNavigationBarTintDisabled: UIColor {
+        return UIColor.lightGray
+    }
+
     public class var trpMenuBar: UIColor {
         return UIColor(red: 56/255, green: 118/255, blue: 29/255, alpha: 1)
     }

@@ -10,7 +10,7 @@ import Viperit
 
 //MARK: - NewVisitRouter API
 protocol NewVisitRouterApi: RouterProtocol {
-    func showTrapLineSelectModule(delegate: TraplineSelectDelegate)
+    func showTrapLineSelectModule(delegate: TraplineSelectDelegate?)
 }
 
 //MARK: - NewVisitView API
@@ -24,8 +24,8 @@ protocol NewVisitViewApi: UserInterfaceProtocol {
 protocol NewVisitPresenterApi: PresenterProtocol {
     func didSelectOther()
     func didSelectCloseButton()
-    func didSelectRecentTraplines(traplines: [Trapline])
-    //func didSelectRecentRoute(route: Route)
+    //func didSelectRecentTraplines(traplines: [Trapline])
+    func didSelectRecentRoute(route: Route)
     
     func didFetchRecentVisits(visitSummaries: [VisitSummary]?)
     //func didFetchRecentRoutes(routes: [Route]?)

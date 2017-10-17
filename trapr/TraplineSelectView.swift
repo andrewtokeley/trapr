@@ -10,81 +10,54 @@ import UIKit
 import Viperit
 
 //MARK: TraplineSelectView Class
-final class TraplineSelectView: UserInterface, UITableViewDelegate, UITableViewDataSource {
+final class TraplineSelectView: UserInterface {
     
     fileprivate var traplines: [Trapline]!
-    
-    private var TABLEVIEW_CELL_ID = "cell"
-    
-    //MARK: UITableview
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return traplines.count
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "TRAPLINES"
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TABLEVIEW_CELL_ID, for: indexPath)
-        let trapline = traplines[indexPath.row]
-        cell.textLabel?.text = trapline.code
-        cell.selectionStyle = .none
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        
-        if cell?.accessoryType == .checkmark {
-            cell?.accessoryType = .none
-            presenter.didDeselectTrapline(trapline: self.traplines[indexPath.row])
-        } else {
-            cell?.accessoryType = .checkmark
-            presenter.didSelectTrapline(trapline: self.traplines[indexPath.row])
-        }
-    }
+    fileprivate var TABLEVIEW_CELL_ID = "cell"
     
     //MARK: Events
     
-    func visitButtonClicked(sender: UIButton) {
-        presenter.didSelectVisitButton()
+    func nextButtonClick(sender: UIBarButtonItem) {
+        presenter.didSelectNext()
     }
     
     // MARK: Create View
     
-    lazy var visitButton: UIButton = {
-        let button = UIButton(type: UIButtonType.custom)
-        button.setTitle("Visit", for: .normal)
-        button.contentHorizontalAlignment = .right
-        button.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
-        button.setTitleColor(UIColor.trpButtonDisabled, for: .disabled)
+//    lazy var visitButton: UIButton = {
+//        let button = UIButton(type: UIButtonType.custom)
+//        button.setTitle("Visit", for: .normal)
+//        button.contentHorizontalAlignment = .right
+//        button.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
+//        button.setTitleColor(UIColor.trpButtonDisabled, for: .disabled)
+//
+//        button.addTarget(self, action: #selector(visitButtonClicked(sender:)), for: UIControlEvents.touchUpInside)
+//        return button
+//    }()
+    
+    lazy var nextButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextButtonClick(sender:)))
         
-        button.addTarget(self, action: #selector(visitButtonClicked(sender:)), for: UIControlEvents.touchUpInside)
+        button.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.trpNavigationBarTint], for: .normal)
+        button.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.trpNavigationBarTintDisabled], for: .disabled)
+
         return button
     }()
     
+    lazy var selectedTraplinesLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.trapTableViewSectionHeading
+        label.textColor = UIColor.trpTextDark
+        label.text = "TRAPLINES"
+        return label
+    }()
+
     lazy var selectedTraplinesView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.white
         view.addSubview(self.selectedTraplinesText)
-        view.addSubview(self.visitButton)
+        //view.addSubview(self.visitButton)
         return view
     }()
-    
-//    lazy var selectedTraplinesLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "SELECTION"
-//        label.backgroundColor = UIColor.clear
-//        label.font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
-//        label.textAlignment = .left
-//        return label
-//    }()
     
     lazy var selectedTraplinesText: UILabel = {
         let label = UILabel()
@@ -111,25 +84,29 @@ final class TraplineSelectView: UserInterface, UITableViewDelegate, UITableViewD
         super.loadView()
         
         self.view.backgroundColor = UIColor.trpBackground
+        self.view.addSubview(selectedTraplinesLabel)
         self.view.addSubview(selectedTraplinesView)
         self.view.addSubview(tableView)
         
+        self.navigationItem.rightBarButtonItem = self.nextButton
         setConstraints()
         
     }
         
     func setConstraints() {
-        //self.selectedTraplinesText.autoPinEdge(toSuperviewEdge: .top, withInset: 20)
         
-        self.selectedTraplinesView.autoPin(toTopLayoutGuideOf: self, withInset: 20)
+        self.selectedTraplinesLabel.autoPin(toTopLayoutGuideOf: self, withInset: 20)
+        self.selectedTraplinesLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
+        
+        self.selectedTraplinesView.autoPinEdge(.top, to: .bottom, of: self.selectedTraplinesLabel, withOffset: 20)
         self.selectedTraplinesView.autoPinEdge(toSuperviewEdge: .left)
         self.selectedTraplinesView.autoPinEdge(toSuperviewEdge: .right)
         self.selectedTraplinesView.autoSetDimension(.height, toSize: 40)
         
         self.selectedTraplinesText.autoPinEdgesToSuperviewEdges(with: UIEdgeInsetsMake(0, 20, 0, 0), excludingEdge: .right)
         
-        self.visitButton.autoPinEdgesToSuperviewEdges(with: UIEdgeInsetsMake(0, 0, 0, 20), excludingEdge: .left)
-        self.visitButton.autoSetDimension(.width, toSize: 200)
+//        self.visitButton.autoPinEdgesToSuperviewEdges(with: UIEdgeInsetsMake(0, 0, 0, 20), excludingEdge: .left)
+//        self.visitButton.autoSetDimension(.width, toSize: 200)
         
         self.tableView.autoPinEdge(.top, to: .bottom, of: self.selectedTraplinesText, withOffset: 20)
         self.tableView.autoPinEdge(toSuperviewEdge: .left)
@@ -137,6 +114,43 @@ final class TraplineSelectView: UserInterface, UITableViewDelegate, UITableViewD
         self.tableView.autoPinEdge(toSuperviewEdge: .bottom)
     }
 
+}
+
+//MARK: - TableView
+extension TraplineSelectView: UITableViewDelegate, UITableViewDataSource {
+    //MARK: UITableview
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return traplines.count
+    }
+    
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return "TRAPLINES"
+//    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: TABLEVIEW_CELL_ID, for: indexPath)
+        let trapline = traplines[indexPath.row]
+        cell.textLabel?.text = trapline.code
+        cell.selectionStyle = .none
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        
+        if cell?.accessoryType == .checkmark {
+            cell?.accessoryType = .none
+            presenter.didDeselectTrapline(trapline: self.traplines[indexPath.row])
+        } else {
+            cell?.accessoryType = .checkmark
+            presenter.didSelectTrapline(trapline: self.traplines[indexPath.row])
+        }
+    }
 }
 
 //MARK: - TraplineSelectView API
@@ -155,8 +169,8 @@ extension TraplineSelectView: TraplineSelectViewApi {
         self.tableView.reloadData()
     }
     
-    func setVisitButtonState(enabled: Bool) {
-        visitButton.isEnabled = enabled
+    func setNextButtonState(enabled: Bool) {
+        self.nextButton.isEnabled = enabled
     }
 }
 

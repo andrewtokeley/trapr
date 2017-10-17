@@ -30,9 +30,13 @@ final class NewVisitPresenter: Presenter {
 // MARK: - NewVisitPresenter API
 extension NewVisitPresenter: TraplineSelectDelegate {
     
-    func didSelectTraplines(traplines: [Trapline]) {
-        
-        delegate?.didSelectTraplines(traplines: traplines)
+//    func didSelectTraplines(traplines: [Trapline]) {
+//        
+//        _view.dismiss(animated: true, completion: nil)
+//    }
+//    
+    func didCreateRoute(route: Route) {
+        delegate?.didSelectRoute(route: route)
         _view.dismiss(animated: true, completion: nil)
     }
 }
@@ -44,10 +48,10 @@ extension NewVisitPresenter: NewVisitPresenterApi {
         view.displayRecentVisits(visitSummaries: visitSummaries)
     }
     
-    func didSelectRecentTraplines(traplines: [Trapline]) {
+    func didSelectRecentRoute(route: Route) {
         
         //tell the delegate and close module
-        delegate?.didSelectTraplines(traplines: traplines)
+        delegate?.didSelectRoute(route: route)
         _view.dismiss(animated: true, completion: nil)
     }
     
@@ -75,6 +79,6 @@ private extension NewVisitPresenter {
 }
 
 protocol NewVisitDelegate {
-    func didSelectTraplines(traplines: [Trapline])
+    func didSelectRoute(route: Route)
 }
 

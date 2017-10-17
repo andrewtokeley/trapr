@@ -12,28 +12,34 @@ import Viperit
 // MARK: - StationSelectPresenter Class
 final class StationSelectPresenter: Presenter {
     
-    fileprivate var delegate: StationSelectDelegate?
+    fileprivate var newVisitDelegate: NewVisitDelegate?
+    fileprivate var stationSelectDelegate: StationSelectDelegate?
+    fileprivate var selectedStations: [Station]!
+    
     fileprivate var currentStation: Station?
     fileprivate var visitSummary: VisitSummary?
+    fileprivate var allowMultiselect: Bool = false
     
     override func viewIsAboutToAppear() {
         view.setTitle(title: "Stations")
+        
+        view.setDoneButtonAttributes(visible: allowMultiselect, enabled: false)
+        
+        if !allowMultiselect {
+            view.showCloseButton()
+        }
     }
     
     override func setupView(data: Any) {
         if let setup = data as? StationSelectSetupData {
-            self.currentStation = setup.currentStation
-            self.visitSummary = setup.visitSummary
-            self.delegate = setup.delegate
-            if let station = setup.currentStation {
-                if let summary = setup.visitSummary {
-                    view.updateViewWithStation(currentStation: station, visitSummary: summary)
-                }
-            }
-            else {
-                // find the most relevant station to default to
-                
-            }
+            
+            self.newVisitDelegate = setup.newVisitDelegate
+            self.stationSelectDelegate = setup.stationSelectDelegate
+            
+            self.allowMultiselect = setup.allowMultiselect
+            self.selectedStations = setup.selectedStations ?? [Station]()
+            
+            view.initialiseView(traplines: setup.traplines, selectedStations: setup.selectedStations, showAllStations: setup.showAllStations, allowMultiselect: setup.allowMultiselect)
         }
     }
 }
@@ -57,11 +63,31 @@ extension StationSelectPresenter: StationSelectPresenterApi {
 //    }
     
     func didSelectStation(station: Station) {
-        self.delegate?.didSelectStation(station: station)
-        _view.dismiss(animated: true, completion: nil)
+        if allowMultiselect {
+            self.selectedStations.append(station)
+            view.setDoneButtonAttributes(visible: true, enabled: true)
+        } else {
+            self.stationSelectDelegate?.didSelectStations(stations: [station])
+            _view.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func didDeselectStation(station: Station) {
+        if let index = self.selectedStations.index(of: station) {
+            self.selectedStations.remove(at: index)
+        }
+        view.setDoneButtonAttributes(visible: self.allowMultiselect, enabled: self.selectedStations.count > 0)
     }
     
     func didSelectCloseButton() {
+        _view.dismiss(animated: true, completion: nil)
+    }
+    
+    func didSelectDone() {
+        
+        self.stationSelectDelegate?.didSelectStations(stations: self.selectedStations)
+        
+        // close the StationSelect module
         _view.dismiss(animated: true, completion: nil)
     }
 }

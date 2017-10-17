@@ -9,25 +9,25 @@
 import Foundation
 
 protocol StationSelectDelegate {
-    
-    func didSelectStation(station: Station)
-    
+    func didSelectStations(stations: [Station])
 }
 
 class StationSelectSetupData {
     
-    var visitSummary: VisitSummary?
-    var currentStation: Station?
-    var delegate: StationSelectDelegate?
+    var traplines: [Trapline]
+    var selectedStations: [Station]?
+    var showAllStations: Bool = false
+    var allowMultiselect: Bool = true
     
-    init() {
+    var newVisitDelegate: NewVisitDelegate?
+    var stationSelectDelegate: StationSelectDelegate?
+    
+    init(traplines: [Trapline]) {
+        self.traplines = traplines
     }
     
-    convenience init(visitSummary: VisitSummary, currentStation: Station, delegate: StationSelectDelegate) {
-        self.init()
-        self.visitSummary = visitSummary
-        self.currentStation = currentStation
-        self.delegate = delegate
+    convenience init(traplines: [Trapline], selectedStations: [Station]) {
+        self.init(traplines: traplines)
+        self.selectedStations = selectedStations
     }
-    
 }

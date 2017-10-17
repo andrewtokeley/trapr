@@ -10,22 +10,33 @@ import Foundation
 
 class VisitSummary {
 
-    var visitService: VisitServiceInterface!
+    var visitService: VisitServiceInterface?
     var dateOfVisit: Date!
-    var traplines = [Trapline]()
+    var route: Route!
     
-    lazy var route: Route? = {
-        let visits = self.visitService.getVisits(recordedOn: self.dateOfVisit)
-        return Route(visits: Array(visits))
-    }()
+    init() {
+        self.dateOfVisit = Date()
+    }
     
-    init(dateOfVisit: Date, visitService: VisitServiceInterface) {
+    /**
+     Create an instance from the visits that were created on a specific day
+    */
+    convenience init(dateOfVisit: Date, visitService: VisitServiceInterface) {
+        self.init()
         self.dateOfVisit = dateOfVisit
-        self.visitService = visitService
+
+        let visits = visitService.getVisits(recordedOn: self.dateOfVisit)
+        self.route = Route(visits: Array(visits))
     }
     
-    var traplinesDescription: String {
-        return self.route?.description() ?? "-"
+    /**
+     Create an instance for a specific day and route
+     */
+    convenience init(dateOfVisit: Date, route: Route) {
+        self.init()
+        
+        self.dateOfVisit = dateOfVisit
+        self.route = route
     }
-   
+    
 }

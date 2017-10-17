@@ -13,6 +13,7 @@ import Viperit
 final class TraplineSelectPresenter: Presenter {
     
     fileprivate var delegate: TraplineSelectDelegate?
+    
     fileprivate var selectedTraplines = [Trapline]()
     fileprivate var selectedTraplinesText: String {
         return selectedTraplines.map({ (trapline) -> String in return trapline.code! }).joined(separator: ", ")
@@ -21,13 +22,14 @@ final class TraplineSelectPresenter: Presenter {
     private let DELIMMTER = ", "
     
     override func viewIsAboutToAppear() {
-        //let recentTraplines = interactor.getRecentTraplines()
+        
+        
         if let traplines = interactor.getAllTraplines() {
             view.updateDisplay(traplines: traplines)
         }
-        view.setTitle(title: "New Visit")
+        view.setTitle(title: "New Route")
+        view.setNextButtonState(enabled: false)
         view.setSelectedTraplinesDescription(description: "")
-        view.setVisitButtonState(enabled: false)
     }
     
     override func setupView(data: Any) {
@@ -37,28 +39,43 @@ final class TraplineSelectPresenter: Presenter {
     }
 }
 
+//MARK: - StationSelectDelegate
+extension TraplineSelectPresenter: StationSelectDelegate {
+    
+    func didSelectStations(stations: [Station]) {
+        
+        let route = Route(stations: stations)
+        
+        // TODO: save!
+        
+        self.delegate?.didCreateRoute(route: route)
+        
+        // close view
+        _view.navigationController?.popViewController(animated: true)
+    }
+}
+
 // MARK: - TraplineSelectPresenter API
 extension TraplineSelectPresenter: TraplineSelectPresenterApi {
     
     func didSelectTrapline(trapline: Trapline) {
         self.selectedTraplines.append(trapline)
         view.setSelectedTraplinesDescription(description: selectedTraplinesText)
-        view.setVisitButtonState(enabled: true)
+        view.setNextButtonState(enabled: true)
     }
     
     func didDeselectTrapline(trapline: Trapline) {
         if let index = selectedTraplines.index(of: trapline) {
             selectedTraplines.remove(at: index)
             if selectedTraplines.count == 0 {
-                view.setVisitButtonState(enabled: false)
+                view.setNextButtonState(enabled: false)
             }
             view.setSelectedTraplinesDescription(description: selectedTraplinesText)
         }
     }
-    
-    func didSelectVisitButton() {
-        self.delegate?.didSelectTraplines(traplines: selectedTraplines)
-        _view.navigationController?.popViewController(animated: true)
+        
+    func didSelectNext() {
+        router.showStationSelect(traplines: self.selectedTraplines)
     }
 }
 

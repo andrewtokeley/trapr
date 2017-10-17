@@ -21,12 +21,12 @@ final class StartPresenter: Presenter {
 
 // MARK: - NewVisitDelegate
 extension StartPresenter: NewVisitDelegate {
-    func didSelectTraplines(traplines: [Trapline]) {
+    func didSelectRoute(route: Route) {
         
-        let visitSummary = VisitSummary(dateOfVisit: Date(), visitService: ServiceFactory.sharedInstance.visitService)
+        let visitSummary = VisitSummary(dateOfVisit: Date(), route: route)
         router.showVisitModule(visitSummary: visitSummary)
 
-    }
+    }   
 }
 
 // MARK: - StartPresenter API

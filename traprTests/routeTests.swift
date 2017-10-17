@@ -31,7 +31,7 @@ class RouteTests: XCTestCase {
         
         let route = Route(stations: Array(trapline.stations))
         
-        let expected = "LW: 01-10"
+        let expected = "LW01-10"
         let result = route.description(includeStationCodes: true)
         XCTAssertTrue(result == expected, "\(result) != \(expected)")        
     }
@@ -44,7 +44,22 @@ class RouteTests: XCTestCase {
         
         let route = Route(stations: stations)
         
-        let expected = "LW: 01-02, 05-07, 10"
+        let expected = "LW01-02, LW05-07, LW10"
+        let result = route.description(includeStationCodes: true)
+        XCTAssertTrue(result == expected, "\(result) != \(expected)")
+    }
+    
+    func testStationDescriptionsMultipleTraplines() {
+        
+        let trapline1 = ServiceFactory.sharedInstance.dataPopulatorService.createTrapline(code: "LW", numberOfStations: 10)
+        let trapline2 = ServiceFactory.sharedInstance.dataPopulatorService.createTrapline(code: "E", numberOfStations: 5)
+        
+        var stations = Array(trapline1.stations)
+        stations.append(contentsOf: Array(trapline2.stations))
+        
+        let route = Route(stations: stations)
+        
+        let expected = "LW01-10, E01-05"
         let result = route.description(includeStationCodes: true)
         XCTAssertTrue(result == expected, "\(result) != \(expected)")
     }

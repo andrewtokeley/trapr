@@ -16,7 +16,7 @@ final class NewVisitRouter: Router {
 // MARK: - NewVisitRouter API
 extension NewVisitRouter: NewVisitRouterApi {
     
-    func showTrapLineSelectModule(delegate: TraplineSelectDelegate) {
+    func showTrapLineSelectModule(delegate: TraplineSelectDelegate?) {
         let module = AppModules.traplineSelect.build()
         
         _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
