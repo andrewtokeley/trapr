@@ -38,7 +38,7 @@ class traplineTests: XCTestCase {
         
         traplineService.add(trapline: trapline)
         
-        let getTrapline = traplineService.getTraplines()
+        let getTrapline = traplineService.getTraplines() ?? [Trapline]()
         
         XCTAssertTrue(getTrapline.count == 1)
     }
@@ -51,7 +51,7 @@ class traplineTests: XCTestCase {
             traplineService.add(trapline: trapline)
         }
         
-        let getTraplines = traplineService.getTraplines()
+        let getTraplines = traplineService.getTraplines() ?? [Trapline]()
         
         XCTAssertTrue(getTraplines.count == 10)
     }
@@ -66,7 +66,7 @@ class traplineTests: XCTestCase {
         
         traplineService.add(trapline: trapline)
         
-        let getTrapline = traplineService.getTraplines()
+        let getTrapline = traplineService.getTraplines() ?? [Trapline]()
         
         XCTAssertTrue(getTrapline.count == 1)
         XCTAssertTrue(getTrapline.first!.stations.count == 3)
@@ -84,7 +84,6 @@ class traplineTests: XCTestCase {
         traplineService.add(trapline: trapline2)
         
         if let getTrapline = traplineService.getTrapline(code: "E") {
-        
             XCTAssertTrue(getTrapline.code == "E")
         } else {
             XCTFail()

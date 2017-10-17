@@ -10,32 +10,22 @@ import Foundation
 
 class VisitSummary {
 
+    var visitService: VisitServiceInterface!
+    var dateOfVisit: Date!
     var traplines = [Trapline]()
-    var dateOfVisit: Date
     
-    init(dateOfVisit: Date) {
+    lazy var route: Route? = {
+        let visits = self.visitService.getVisits(recordedOn: self.dateOfVisit)
+        return Route(visits: Array(visits))
+    }()
+    
+    init(dateOfVisit: Date, visitService: VisitServiceInterface) {
         self.dateOfVisit = dateOfVisit
-    }
-    
-    convenience init(traplines: [Trapline], dateOfVisit: Date) {
-        self.init(dateOfVisit: dateOfVisit)
-        self.traplines = traplines
+        self.visitService = visitService
     }
     
     var traplinesDescription: String {
-        
-        var description = ""
-        
-        for trapline in self.traplines {
-            if let code = trapline.code {
-                description.append(code)
-                if trapline != self.traplines.last {
-                    description.append(", ")
-                }
-            }
-        }
-    
-        return description
+        return self.route?.description() ?? "-"
     }
    
 }

@@ -28,14 +28,16 @@ final class NewVisitView: UserInterface, UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: TABLEVIEW_CELL_ID, for: indexPath)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: TABLEVIEW_CELL_ID) ?? UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: TABLEVIEW_CELL_ID)
+
         if indexPath.row < visitSummaries.count {
             let visitSummary = visitSummaries[indexPath.row]
-            cell.textLabel?.text = visitSummary.traplinesDescription
+            cell.textLabel?.text = visitSummary.route?.description()
+            cell.textLabel?.numberOfLines = 0
             cell.accessoryType = .none
+            cell.detailTextLabel?.text = visitSummary.route?.description(includeStationCodes: true)
         } else {
-            cell.textLabel?.text = "Other..."
+            cell.textLabel?.text = "New Route..."
             cell.accessoryType = .disclosureIndicator
         }
         cell.selectionStyle = .none
@@ -44,12 +46,13 @@ final class NewVisitView: UserInterface, UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "RECENT"
+        return "ROUTES"
     }
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return "Select to visit a recent set of traplines or choose another combination."
+        return "Select a Route to visit, or create a new one."
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if indexPath.row < visitSummaries.count {
@@ -74,7 +77,10 @@ final class NewVisitView: UserInterface, UITableViewDelegate, UITableViewDataSou
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.TABLEVIEW_CELL_ID)
+        tableView.estimatedRowHeight = 25
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
+        //tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.TABLEVIEW_CELL_ID)
         
         return tableView
     }()

@@ -17,6 +17,7 @@ protocol NewVisitRouterApi: RouterProtocol {
 protocol NewVisitViewApi: UserInterfaceProtocol {
     func setTitle(title: String)
     func displayRecentVisits(visitSummaries: [VisitSummary]?)
+    //func displayRecentRoutes(routes: [Route]?)
 }
 
 //MARK: - NewVisitPresenter API
@@ -24,11 +25,14 @@ protocol NewVisitPresenterApi: PresenterProtocol {
     func didSelectOther()
     func didSelectCloseButton()
     func didSelectRecentTraplines(traplines: [Trapline])
+    //func didSelectRecentRoute(route: Route)
     
     func didFetchRecentVisits(visitSummaries: [VisitSummary]?)
+    //func didFetchRecentRoutes(routes: [Route]?)
 }
 
 //MARK: - NewVisitInteractor API
 protocol NewVisitInteractorApi: InteractorProtocol {
     func fetchRecentVisits()
+    //func fetchRecentRoutes()
 }

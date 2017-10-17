@@ -83,26 +83,6 @@ class visitTests: XCTestCase {
         XCTAssertTrue(summary.traplinesDescription == "LW, E, GC")
     }
     
-    func testGetAvailableTraplines() {
-        
-        let summary = getVisitSummary()
-        
-        let trapline = Trapline()
-        trapline.code = "XX"
-        ServiceFactory.sharedInstance.traplineService.add(trapline: trapline)
-        
-        // add a new trapline that's not part of this summary and it should be the only one returned
-        
-        let allTraplines = ServiceFactory.sharedInstance.traplineService.getTraplines()
-        
-        let interactor = SelectTraplineInteractor()
-        let availableTraplines = interactor.getTraplinesAvailableVisitSummary(visitSummary: summary)
-        
-        XCTAssertTrue(allTraplines.count == 4)
-        XCTAssertTrue(availableTraplines?.count ?? 0 == 1)
-        XCTAssertTrue(availableTraplines?.first?.code ?? "--" == "XX")
-    }
-
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {

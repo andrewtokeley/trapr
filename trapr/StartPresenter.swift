@@ -23,7 +23,7 @@ final class StartPresenter: Presenter {
 extension StartPresenter: NewVisitDelegate {
     func didSelectTraplines(traplines: [Trapline]) {
         
-        let visitSummary = VisitSummary(traplines: traplines, dateOfVisit: Date())
+        let visitSummary = VisitSummary(dateOfVisit: Date(), visitService: ServiceFactory.sharedInstance.visitService)
         router.showVisitModule(visitSummary: visitSummary)
 
     }

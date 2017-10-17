@@ -48,7 +48,7 @@ class VisitService: Service, VisitServiceInterface {
                     }
                 }
             }
-            visitSummary = VisitSummary(traplines: traplines, dateOfVisit: date)
+            visitSummary = VisitSummary(dateOfVisit: date, visitService: self)
         }
         return visitSummary
     }

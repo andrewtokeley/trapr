@@ -67,7 +67,7 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
         let trapline = Trapline()
         trapline.code = code
         for i in 1...numberOfStations {
-            let station = trapline.addStation(code: String(i))
+            let station = trapline.addStation(code: String(format: "%02d", i))
             let _ = station.addTrap(type: possumMaster)
         }
         ServiceFactory.sharedInstance.traplineService.add(trapline: trapline)
