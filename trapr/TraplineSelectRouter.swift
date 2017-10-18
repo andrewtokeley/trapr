@@ -18,7 +18,6 @@ final class TraplineSelectRouter: Router {
         let setupData = StationSelectSetupData(traplines: traplines)
         setupData.stationSelectDelegate = presenter as? StationSelectDelegate
         setupData.allowMultiselect = true
-        setupData.showAllStations = true
         
         module.router.show(from: _view, embedInNavController: false, setupData: setupData)
     }

@@ -12,31 +12,15 @@ import Viperit
 //MARK: StationSelectView Class
 final class StationSelectView: UserInterface {
     
-    fileprivate var traplines: [Trapline]!
-    fileprivate var selectedStationsByTrapline: [[Station]]?
-    fileprivate var showAllStations: Bool = true
-    fileprivate var selectedStations: [Station]?
+    fileprivate var traplines = [Trapline]()
+    fileprivate var stations = [Station]()
+    fileprivate var selectedStations = [Station]()
+    
     fileprivate var allowMultiselect: Bool = false
     
     // Constants
     fileprivate let TABLEVIEW_CELL_ID = "cell"
-
-    // may not need
-    fileprivate var currentStation: Station!
-    
-    //MARK: - Private helpers
-    fileprivate func selectedStationsInTrapline(trapline: Trapline) -> [Station] {
-        
-        var stations = [Station]()
-        if let _ = selectedStations {
-            for station in trapline.stations {
-                if selectedStations!.contains(where: { $0.code == station.code }) {
-                    stations.append(station)
-                }
-            }
-        }
-        return stations
-    }
+    fileprivate let TABLEVIEW_HEADER_ID = "header"
     
     //MARK: - Events
     
@@ -92,31 +76,27 @@ final class StationSelectView: UserInterface {
 //MARK: - TableView Delegates
 extension StationSelectView: UITableViewDataSource, UITableViewDelegate {
     
+    private func stationsInSection(section: Int) -> [Station] {
+        let traplineCode = traplines[section].code
+        let stationsInTrapline = stations.filter({ $0.trapline?.code == traplineCode })
+        return stationsInTrapline
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return traplines.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if showAllStations {
-            return traplines[section].stations.count
-        } else {
-            return selectedStationsByTrapline?[section].count ?? 0
-        }
+        return stationsInSection(section:section).count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: TABLEVIEW_CELL_ID, for: indexPath)
         
-        var station: Station
-        if showAllStations {
-            station = traplines[indexPath.section].stations[indexPath.row]
-        } else {
-            station = (selectedStationsByTrapline?[indexPath.section][indexPath.row])!
-        }
+        let station = stationsInSection(section: indexPath.section)[indexPath.row]
         
-        if (self.selectedStations?.contains(station)) ?? false {
+        if (self.selectedStations.contains(where: { $0.longCode == station.longCode })) {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
@@ -127,20 +107,15 @@ extension StationSelectView: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        return traplines[section].code?.uppercased()
-    }
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//
+//        return traplines[section].code?.uppercased()
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        var station: Station
-        if showAllStations {
-            station = traplines[indexPath.section].stations[indexPath.row]
-        } else {
-            station = (selectedStationsByTrapline?[indexPath.section][indexPath.row])!
-        }
-
+        let station = stationsInSection(section: indexPath.section)[indexPath.row]
+        
         if allowMultiselect {
             let cell = tableView.cellForRow(at: indexPath)
             
@@ -154,11 +129,38 @@ extension StationSelectView: UITableViewDataSource, UITableViewDelegate {
         } else {
             presenter.didSelectStation(station: station)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: TABLEVIEW_HEADER_ID) as? MultiselectTableViewHeader ?? MultiselectTableViewHeader(reuseIdentifier: TABLEVIEW_HEADER_ID)
+        
+        header.textLabel?.text = self.traplines[section].code?.uppercased()
+        header.section = section
+        header.delegate = self
+        header.setState(state: presenter.getToggleState(section: section))
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44
     }
 }
+
+extension StationSelectView: MultiselectTableViewHeaderDelegate {
+    
+    func multiselectTableViewHeader(_ header: MultiselectTableViewHeader, toggledSection: Int) {
+        presenter.didSelectMultiselectToggle(section: toggledSection)
+    }
+
+}
+
 //MARK: - StationSelectView API
 extension StationSelectView: StationSelectViewApi {
+    
+    func setMultiselectToggle(section: Int, state: MultiselectToggle) {
+        tableView.reloadSections([section] as IndexSet, with: .automatic)
+    }
     
     func setTitle(title: String) {
         
@@ -179,23 +181,19 @@ extension StationSelectView: StationSelectViewApi {
         doneButton.isEnabled = enabled
     }
     
-//    func updateViewWithStation(currentStation: Station, visitSummary: VisitSummary) {
-//        
-//        self.traplines = visitSummary.route.traplines
-//        self.currentStation = currentStation
-//        tableView.reloadData()
-//    }
-
-    func initialiseView(traplines: [Trapline], selectedStations: [Station]?, showAllStations: Bool, allowMultiselect: Bool) {
-        self.traplines = traplines
+    func updateSelectedStations(section: Int, selectedStations: [Station]) {
         self.selectedStations = selectedStations
-        self.showAllStations = showAllStations
+        
+        tableView.reloadSections([section] as IndexSet, with: .automatic)
+    }
+    
+    func initialiseView(traplines:[Trapline], stations: [Station], selectedStations: [Station]?, allowMultiselect: Bool) {
+
+        self.traplines = traplines
+        self.stations = stations
+        self.selectedStations = selectedStations ?? [Station]()
         self.allowMultiselect = allowMultiselect
         
-        self.selectedStationsByTrapline = [[Station]]()
-        for trapline in self.traplines {
-            self.selectedStationsByTrapline?.append(selectedStationsInTrapline(trapline: trapline))
-        }
         tableView.reloadData()
     }
     

@@ -13,6 +13,7 @@ import Viperit
 final class NewVisitView: UserInterface, UITableViewDelegate, UITableViewDataSource {
     
     fileprivate var visitSummaries: [VisitSummary]!
+    fileprivate var routes: [Route]!
     
     private var TABLEVIEW_CELL_ID = "cell"
     
@@ -23,19 +24,20 @@ final class NewVisitView: UserInterface, UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return visitSummaries.count + 1
+        //return visitSummaries.count + 1
+        return routes.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: TABLEVIEW_CELL_ID) ?? UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: TABLEVIEW_CELL_ID)
 
-        if indexPath.row < visitSummaries.count {
-            let visitSummary = visitSummaries[indexPath.row]
-            cell.textLabel?.text = visitSummary.route?.description()
+        if indexPath.row < routes.count {
+            let route = routes[indexPath.row]
+            cell.textLabel?.text = route.shortDescription
             cell.textLabel?.numberOfLines = 0
             cell.accessoryType = .none
-            cell.detailTextLabel?.text = visitSummary.route?.description(includeStationCodes: true)
+            cell.detailTextLabel?.text = route.longDescription
         } else {
             cell.textLabel?.text = "New Route..."
             cell.accessoryType = .disclosureIndicator
@@ -55,9 +57,9 @@ final class NewVisitView: UserInterface, UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.row < visitSummaries.count {
-            let visitSummary = visitSummaries[indexPath.row]
-            presenter.didSelectRecentRoute(route: visitSummary.route)
+        if indexPath.row < routes.count {
+            let route = routes[indexPath.row]
+            presenter.didSelectRecentRoute(route: route)
         } else {
             presenter.didSelectOther()
         }
@@ -117,10 +119,11 @@ extension NewVisitView: NewVisitViewApi {
         self.title = title
     }
     
-    func displayRecentVisits(visitSummaries: [VisitSummary]?) {
-        self.visitSummaries = visitSummaries
+    func displayRecentRoutes(routes: [Route]?) {
+        self.routes = routes
         self.tableView.reloadData()
     }
+    
 }
 
 // MARK: - NewVisitView Viper Components API

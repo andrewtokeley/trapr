@@ -32,7 +32,7 @@ class RouteTests: XCTestCase {
         let route = Route(stations: Array(trapline.stations))
         
         let expected = "LW01-10"
-        let result = route.description(includeStationCodes: true)
+        let result = route.longDescription
         XCTAssertTrue(result == expected, "\(result) != \(expected)")        
     }
     
@@ -45,7 +45,7 @@ class RouteTests: XCTestCase {
         let route = Route(stations: stations)
         
         let expected = "LW01-02, LW05-07, LW10"
-        let result = route.description(includeStationCodes: true)
+        let result = route.longDescription
         XCTAssertTrue(result == expected, "\(result) != \(expected)")
     }
     
@@ -60,7 +60,7 @@ class RouteTests: XCTestCase {
         let route = Route(stations: stations)
         
         let expected = "LW01-10, E01-05"
-        let result = route.description(includeStationCodes: true)
+        let result = route.longDescription
         XCTAssertTrue(result == expected, "\(result) != \(expected)")
     }
     

@@ -45,6 +45,8 @@
 		D841CF291F8239CA004D0207 /* TraplineSelectPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D841CF231F8239CA004D0207 /* TraplineSelectPresenter.swift */; };
 		D841CF2A1F8239CA004D0207 /* TraplineSelectRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D841CF241F8239CA004D0207 /* TraplineSelectRouter.swift */; };
 		D841CF2B1F8239CA004D0207 /* TraplineSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D841CF251F8239CA004D0207 /* TraplineSelectView.swift */; };
+		D849B6201F96C8E100CE2085 /* RouteServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D849B61F1F96C8E100CE2085 /* RouteServiceInterface.swift */; };
+		D849B6221F96C91100CE2085 /* RouteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D849B6211F96C91100CE2085 /* RouteService.swift */; };
 		D8503DC41F66807C00ED0C84 /* VisitInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DBB1F66807C00ED0C84 /* VisitInteractor.swift */; };
 		D8503DC81F66807C00ED0C84 /* VisitPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DBF1F66807C00ED0C84 /* VisitPresenter.swift */; };
 		D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */; };
@@ -112,6 +114,7 @@
 		D8BC084A1F6A542700B284EE /* greaterthan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08481F6A542700B284EE /* greaterthan@2x.png */; };
 		D8BC084B1F6A542700B284EE /* lessthan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08491F6A542700B284EE /* lessthan@2x.png */; };
 		D8BC084F1F6B143800B284EE /* TrapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BC084E1F6B143800B284EE /* TrapType.swift */; };
+		D8C51A731F96D67200D3571A /* MultiselectTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C51A721F96D67200D3571A /* MultiselectTableViewHeader.swift */; };
 		D8D729DE1F61C9CC0082CD4A /* VisitSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */; };
 		D8D729E21F61D7D30082CD4A /* VisitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D729E11F61D7D30082CD4A /* VisitCollectionViewCell.swift */; };
 		D8D729E41F61D91C0082CD4A /* VisitCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8D729E31F61D91C0082CD4A /* VisitCollectionViewCell.xib */; };
@@ -175,6 +178,8 @@
 		D841CF231F8239CA004D0207 /* TraplineSelectPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraplineSelectPresenter.swift; sourceTree = "<group>"; };
 		D841CF241F8239CA004D0207 /* TraplineSelectRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraplineSelectRouter.swift; sourceTree = "<group>"; };
 		D841CF251F8239CA004D0207 /* TraplineSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraplineSelectView.swift; sourceTree = "<group>"; };
+		D849B61F1F96C8E100CE2085 /* RouteServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteServiceInterface.swift; sourceTree = "<group>"; };
+		D849B6211F96C91100CE2085 /* RouteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteService.swift; sourceTree = "<group>"; };
 		D8503DBB1F66807C00ED0C84 /* VisitInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitInteractor.swift; sourceTree = "<group>"; };
 		D8503DBF1F66807C00ED0C84 /* VisitPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitPresenter.swift; sourceTree = "<group>"; };
 		D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtention.swift; sourceTree = "<group>"; };
@@ -246,6 +251,7 @@
 		D8BC08481F6A542700B284EE /* greaterthan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greaterthan@2x.png"; sourceTree = "<group>"; };
 		D8BC08491F6A542700B284EE /* lessthan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lessthan@2x.png"; sourceTree = "<group>"; };
 		D8BC084E1F6B143800B284EE /* TrapType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrapType.swift; sourceTree = "<group>"; };
+		D8C51A721F96D67200D3571A /* MultiselectTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiselectTableViewHeader.swift; sourceTree = "<group>"; };
 		D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitSummary.swift; sourceTree = "<group>"; };
 		D8D729E11F61D7D30082CD4A /* VisitCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitCollectionViewCell.swift; sourceTree = "<group>"; };
 		D8D729E31F61D91C0082CD4A /* VisitCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -321,6 +327,8 @@
 				D80F7ED81F6E92C700814A52 /* TrapServiceInterface.swift */,
 				D81DAAEE1F68643400C7C987 /* VisitService.swift */,
 				D81DAAF21F68659100C7C987 /* VisitServiceInterface.swift */,
+				D849B61F1F96C8E100CE2085 /* RouteServiceInterface.swift */,
+				D849B6211F96C91100CE2085 /* RouteService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -414,6 +422,7 @@
 				D89311FD1F834F6E008DF09D /* StationSelectRouter.swift */,
 				D89311FE1F834F6E008DF09D /* StationSelectView.swift */,
 				D8FA5CF71F8409A700EC890C /* StationSelectSetupData.swift */,
+				D8C51A721F96D67200D3571A /* MultiselectTableViewHeader.swift */,
 			);
 			name = StationSelect;
 			sourceTree = "<group>";
@@ -821,6 +830,8 @@
 				D8953EBF1F88114F00A1F424 /* NewVisitPresenter.swift in Sources */,
 				D8503DD01F669F8500ED0C84 /* Visit.swift in Sources */,
 				D81431A31F8DDB2600EAF5FD /* DatePickerInteractor.swift in Sources */,
+				D849B6201F96C8E100CE2085 /* RouteServiceInterface.swift in Sources */,
+				D8C51A731F96D67200D3571A /* MultiselectTableViewHeader.swift in Sources */,
 				D87C44F61F9059AF00CAFC7A /* SideMenuDisplayData.swift in Sources */,
 				D8FA5CF81F8409A700EC890C /* StationSelectSetupData.swift in Sources */,
 				D81DAAF31F68659100C7C987 /* VisitServiceInterface.swift in Sources */,
@@ -850,6 +861,7 @@
 				D89714A81F76202E00E846B9 /* ApplicationService.swift in Sources */,
 				D83DC6CA1F7F841F00F91792 /* StartModuleApi.swift in Sources */,
 				D841CF281F8239CA004D0207 /* TraplineSelectModuleApi.swift in Sources */,
+				D849B6221F96C91100CE2085 /* RouteService.swift in Sources */,
 				D8953EBE1F88114F00A1F424 /* NewVisitModuleApi.swift in Sources */,
 				D81431A51F8DDB2600EAF5FD /* DatePickerPresenter.swift in Sources */,
 			);

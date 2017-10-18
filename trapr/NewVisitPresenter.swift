@@ -22,7 +22,7 @@ final class NewVisitPresenter: Presenter {
     
     override func viewHasLoaded() {
         view.setTitle(title: "New Visit")
-        interactor.fetchRecentVisits()
+        interactor.fetchRecentRoutes()
     }
 
 }
@@ -44,10 +44,14 @@ extension NewVisitPresenter: TraplineSelectDelegate {
 // MARK: - NewVisitPresenter API
 extension NewVisitPresenter: NewVisitPresenterApi {
     
-    func didFetchRecentVisits(visitSummaries: [VisitSummary]?) {
-        view.displayRecentVisits(visitSummaries: visitSummaries)
+//    func didFetchRecentVisits(visitSummaries: [VisitSummary]?) {
+//        view.displayRecentVisits(visitSummaries: visitSummaries)
+//    }
+//
+    func didFetchRecentRoutes(routes: [Route]?) {
+        view.displayRecentRoutes(routes: routes)
     }
-    
+
     func didSelectRecentRoute(route: Route) {
         
         //tell the delegate and close module

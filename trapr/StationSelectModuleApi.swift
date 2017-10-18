@@ -15,10 +15,12 @@ protocol StationSelectRouterApi: RouterProtocol {
 
 //MARK: - StationSelectView API
 protocol StationSelectViewApi: UserInterfaceProtocol {
+    func initialiseView(traplines:[Trapline], stations: [Station], selectedStations: [Station]?, allowMultiselect: Bool)
     func setTitle(title: String)
     func showCloseButton()
     func setDoneButtonAttributes(visible: Bool, enabled: Bool)
-    func initialiseView(traplines: [Trapline], selectedStations: [Station]?, showAllStations: Bool, allowMultiselect: Bool)
+    func setMultiselectToggle(section: Int, state: MultiselectToggle)
+    func updateSelectedStations(section: Int, selectedStations: [Station])
 }
 
 //MARK: - StationSelectPresenter API
@@ -27,7 +29,10 @@ protocol StationSelectPresenterApi: PresenterProtocol {
     func didSelectStation(station: Station)
     func didDeselectStation(station: Station)
     func didSelectCloseButton()
+    func didSelectMultiselectToggle(section: Int)
     func didSelectDone()
+    
+    func getToggleState(section: Int) -> MultiselectToggle
 }
 
 //MARK: - StationSelectInteractor API

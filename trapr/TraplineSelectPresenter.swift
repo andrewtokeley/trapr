@@ -46,7 +46,7 @@ extension TraplineSelectPresenter: StationSelectDelegate {
         
         let route = Route(stations: stations)
         
-        // TODO: save!
+        ServiceFactory.sharedInstance.routeService.add(route: route)
         
         self.delegate?.didCreateRoute(route: route)
         

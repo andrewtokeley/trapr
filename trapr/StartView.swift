@@ -58,7 +58,7 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
             if let visitSummary = visitSummaries?[indexPath.row - 1] {
                 cell.dateDescription?.text = visitSummary.dateOfVisit.string(from: Styles.DATE_FORMAT_LONG)
                 cell.dayDescription?.text = visitSummary.dateOfVisit.string(from: Styles.DATE_FORMAT_DAY)
-                cell.traplinesDescription?.text = visitSummary.route.description()
+                cell.traplinesDescription?.text = visitSummary.route.shortDescription
             }
             
             return cell

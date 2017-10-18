@@ -7,24 +7,32 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Route {
+class Route: Object {
+    
+    override static func ignoredProperties() -> [String] {
+        // have to explicitly ignore lazy properties
+        return ["traplines"]
+    }
     
     //MARK: - Properties
     
-    lazy var traplines: [Trapline] = {
+    lazy var traplines: List<Trapline> = {
         return self.getTraplines(from: self.stations)
     }()
     
-    var stations: [Station]
+    let stations = List<Station>()
     
     //MARK: - Initialisation
     
-    init(stations: [Station]) {
-        self.stations = stations
+    convenience init(stations: [Station]) {
+        self.init()
+        self.stations.append(objectsIn: stations)
     }
     
     convenience init(visits: [Visit]) {
+
         var stations = [Station]()
         
         // get the stations from the visits
@@ -35,16 +43,20 @@ class Route {
                 }
             }
         }
-        
         self.init(stations: stations)
     }
     
     //MARK: - Functions
-    func description() -> String {
-        return description(includeStationCodes: false)
+    var shortDescription: String {
+        return getDescription(includeStationCodes: false)
     }
     
-    func description(includeStationCodes: Bool) -> String {
+    var longDescription: String {
+        return getDescription(includeStationCodes: true)
+    }
+    
+    private func getDescription(includeStationCodes: Bool) -> String {
+        
         if !includeStationCodes {
             // e.g. LW, E
             return traplinesDescription(for: self.traplines)
@@ -76,15 +88,13 @@ class Route {
     
     //MARK: - Private functions
     
-    private func getTraplines(from stations: [Station]) -> [Trapline] {
+    private func getTraplines(from stations: List<Station>) -> List<Trapline> {
         
-        var traplines = [Trapline]()
+        let traplines = List<Trapline>()
         
         for station in stations {
             if let trapline = station.trapline {
-                if traplines.filter({
-                    (line) in return line.code == trapline.code
-                }).count == 0 {
+                if traplines.filter({ $0.code == trapline.code }).isEmpty {
                     traplines.append(trapline)
                 }
             }
@@ -93,7 +103,7 @@ class Route {
         return traplines
     }
     
-    private func traplinesDescription(for traplines: [Trapline]) -> String {
+    private func traplinesDescription(for traplines: List<Trapline>) -> String {
         
         var description = ""
         

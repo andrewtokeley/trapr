@@ -185,11 +185,11 @@ extension VisitPresenter: VisitPresenterApi {
     func didSelectStation() {
         if let route = visitSummary?.route {
         
-            let stationSelectSetupData = StationSelectSetupData(traplines: route.traplines, selectedStations: route.stations)
-            stationSelectSetupData.allowMultiselect = false
-            stationSelectSetupData.showAllStations = false
-            stationSelectSetupData.stationSelectDelegate = self
-            router.showStationSelectModule(setupData: stationSelectSetupData)
+            let setupData = StationSelectSetupData(traplines: Array(route.traplines), stations: Array(route.stations), selectedStations: [Station]())
+
+            setupData.allowMultiselect = false
+            setupData.stationSelectDelegate = self
+            router.showStationSelectModule(setupData: setupData)
         } else {
             // may not allow no station to appear.
         }

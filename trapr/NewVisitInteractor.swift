@@ -15,10 +15,15 @@ final class NewVisitInteractor: Interactor {
 
 // MARK: - NewVisitInteractor API
 extension NewVisitInteractor: NewVisitInteractorApi {
-    func fetchRecentVisits() {
-        let visitSummaries =
-            ServiceFactory.sharedInstance.visitService.getVisitSummaries(recordedBetween: Date().add(0, -3, 0), endDate: Date(), mostRecentOnly: true)
-        presenter.didFetchRecentVisits(visitSummaries: visitSummaries)
+//    func fetchRecentVisits() {
+//        let visitSummaries =
+//            ServiceFactory.sharedInstance.visitService.getVisitSummaries(recordedBetween: Date().add(0, -3, 0), endDate: Date(), mostRecentOnly: true)
+//        presenter.didFetchRecentVisits(visitSummaries: visitSummaries)
+//    }
+    func fetchRecentRoutes() {
+        let routes =
+            ServiceFactory.sharedInstance.routeService.getAll()
+        presenter.didFetchRecentRoutes(routes: Array(routes))
     }
 }
 

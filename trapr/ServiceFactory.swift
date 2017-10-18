@@ -39,4 +39,7 @@ class ServiceFactory {
         return TraplineService(realm: self.realm)
     }()
     
+    lazy var routeService: RouteServiceInterface = {
+        return RouteService(realm: self.realm)
+    }()
 }

@@ -15,19 +15,30 @@ protocol StationSelectDelegate {
 class StationSelectSetupData {
     
     var traplines: [Trapline]
+    var stations: [Station]
     var selectedStations: [Station]?
-    var showAllStations: Bool = false
+    //var showAllStations: Bool = false
     var allowMultiselect: Bool = true
     
-    var newVisitDelegate: NewVisitDelegate?
+    //var newVisitDelegate: NewVisitDelegate?
     var stationSelectDelegate: StationSelectDelegate?
     
-    init(traplines: [Trapline]) {
+    init(traplines: [Trapline], stations: [Station], selectedStations: [Station]) {
         self.traplines = traplines
-    }
-    
-    convenience init(traplines: [Trapline], selectedStations: [Station]) {
-        self.init(traplines: traplines)
+        self.stations = stations
         self.selectedStations = selectedStations
     }
+    
+    convenience init(traplines: [Trapline]) {
+        
+        // by default include all stations from the lines
+        var stations = [Station]()
+        for trapline in traplines {
+            stations.append(contentsOf: trapline.stations)
+        }
+        
+        self.init(traplines: traplines, stations: stations, selectedStations: [Station]())
+    }
+    
+    
 }
