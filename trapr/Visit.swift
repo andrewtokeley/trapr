@@ -10,14 +10,17 @@ import Foundation
 import RealmSwift
 
 class Visit: Object {
+    
+    // These are the natural primary keys
+    dynamic var trap: Trap?
+    dynamic var visitDateTime: Date = Date()
+    
     dynamic var baitAdded: Int = 0
     dynamic var baitEaten: Int = 0
     dynamic var baitRemoved: Int = 0
     dynamic var catchNumber: Int = 0
-    dynamic var notes: String?
-    dynamic var visitDateTime: Date = Date()
     dynamic var catchSpecies: Species?
-    dynamic var trap: Trap?
+    dynamic var notes: String?
     
     convenience init(trap: Trap) {
         self.init(trap: trap, date: Date())

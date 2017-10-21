@@ -82,10 +82,10 @@ final class VisitView: UserInterface, UICollectionViewDelegate, UICollectionView
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.TRAPTYPE_REUSE_ID, for: indexPath) as! ImageCollectionViewCell
         
         if let trap = self.currentTraps?[indexPath.row] {
-            cell.image.image = UIImage(named: "menu")
-            cell.image.highlightedImage = UIImage(named: "plus")
+            cell.image.image = UIImage(named: trap.type?.imageName ?? "plus")
+            cell.image.highlightedImage = UIImage(named: trap.type?.imageName ?? "plus")
             cell.label.text = trap.type?.name
-            cell.label.font = UIFont.trapTextSmall
+            cell.label.font = UIFont.trpTextSmall
         }
         return cell
         

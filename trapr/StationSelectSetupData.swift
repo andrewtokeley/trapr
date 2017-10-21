@@ -17,7 +17,6 @@ class StationSelectSetupData {
     var traplines: [Trapline]
     var stations: [Station]
     var selectedStations: [Station]?
-    //var showAllStations: Bool = false
     var allowMultiselect: Bool = true
     
     //var newVisitDelegate: NewVisitDelegate?

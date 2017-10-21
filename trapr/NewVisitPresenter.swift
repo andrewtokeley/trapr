@@ -67,6 +67,10 @@ extension NewVisitPresenter: NewVisitPresenterApi {
         _view.dismiss(animated: true, completion: nil)
     }
 
+    func didSelectDeleteRoute(route: Route) {
+        ServiceFactory.sharedInstance.routeService.delete(route: route)
+        interactor.fetchRecentRoutes()
+    }
 }
 
 // MARK: - NewVisit Viper Components

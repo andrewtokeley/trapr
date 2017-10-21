@@ -44,6 +44,11 @@ final class SideMenuView: UserInterface {
         view.addSubview(self.headerBackground)
         view.addSubview(self.menuTableView)
         
+        view.layer.shadowColor = UIColor.darkGray.cgColor
+        view.layer.shadowOffset = CGSize.zero
+        view.layer.shadowRadius = 5
+        view.layer.shadowOpacity = 1
+        
         return view
     }()
     
@@ -153,27 +158,6 @@ extension SideMenuView: SideMenuViewApi {
         self.separatorsAfter = separatorsAfter
         
         self.menuTableView.reloadData()
-        
-//        // remove existing items
-//        for view in menu.arrangedSubviews {
-//            view.removeFromSuperview()
-//        }
-//
-//        // add menu items
-//        for item in menuItems {
-//            if !(item.isDivider) {
-//                let menuItem = MenuItemView(item: item)
-//                menuItem.isSelected = item.rawValue == selectedIndex
-//                menu.addArrangedSubview(menuItem)
-////                let view = UIView()
-////                view.backgroundColor = UIColor.red
-////                menu.addArrangedSubview(view)
-//            } else {
-//                let divider = MenuDivider()
-//
-//                menu.addArrangedSubview(divider)
-//            }
-//        }
     }
     
     func displayUserDetails() {
@@ -183,7 +167,7 @@ extension SideMenuView: SideMenuViewApi {
     func showSideBar() {
         
         UIView.animate(withDuration: ANIMATION_DURATION_SECS, animations: {
-            self.backgroundMask.alpha = 0.5
+            self.backgroundMask.alpha = 0.3
             self.sideBar.frame.origin.x = 0
         })
     }

@@ -14,6 +14,18 @@ final class DatePickerView: UserInterface {
     
     //MARK: Subviews
     
+//    lazy var dropShadow: UIView = {
+//        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 5))
+//        view.backgroundColor = UIColor.clear
+//        let gradient = CAGradientLayer()
+//        gradient.frame = view.bounds
+//        gradient.colors = [UIColor.clear.cgColor, UIColor.gray.cgColor]
+//
+//        view.layer.insertSublayer(gradient, at: 0)
+//        return view
+//
+//    }()
+    
     lazy var backgroundMask: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.black
@@ -28,6 +40,11 @@ final class DatePickerView: UserInterface {
         
         view.addSubview(self.titleBar)
         view.addSubview(self.datePicker)
+        
+        view.layer.shadowColor = UIColor.darkGray.cgColor
+        view.layer.shadowOffset = CGSize.zero
+        view.layer.shadowRadius = 5
+        view.layer.shadowOpacity = 1
         
         return view
     }()
@@ -116,13 +133,15 @@ final class DatePickerView: UserInterface {
     
     func setConstraints() {
 
-        // todo - get the top offset from parent viewcontroller
-        backgroundMask.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0))
+        let TITLE_HEIGHT: CGFloat = 35
+        let CONTAINER_HEIGHT: CGFloat = datePicker.bounds.height + TITLE_HEIGHT
+        
+        backgroundMask.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets.zero)
         
         datePickerContainer.autoPinEdge(toSuperviewEdge: .left)
         datePickerContainer.autoPinEdge(toSuperviewEdge: .right)
         datePickerContainer.autoPinEdge(.top, to: .bottom, of: self.backgroundMask)
-        datePickerContainer.autoSetDimension(.height, toSize: 280)
+        datePickerContainer.autoSetDimension(.height, toSize: CONTAINER_HEIGHT)
         
         datePicker.autoPinEdge(.left, to: .left, of: datePickerContainer)
         datePicker.autoPinEdge(.right, to: .right, of: datePickerContainer)
@@ -131,7 +150,7 @@ final class DatePickerView: UserInterface {
         titleBar.autoPinEdge(.left, to: .left, of: datePickerContainer)
         titleBar.autoPinEdge(.right, to: .right, of: datePickerContainer)
         titleBar.autoPinEdge(.top, to: .top, of: datePickerContainer)
-        titleBar.autoSetDimension(.height, toSize: 70)
+        titleBar.autoSetDimension(.height, toSize: TITLE_HEIGHT)
 
         heading.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets.zero)
         doneButton.autoPinEdges(toSuperviewMarginsExcludingEdge: .left)

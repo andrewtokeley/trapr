@@ -22,7 +22,13 @@ final class StationSelectView: UserInterface {
     fileprivate let TABLEVIEW_CELL_ID = "cell"
     fileprivate let TABLEVIEW_HEADER_ID = "header"
     
+    fileprivate var EDIT_BUTTON_TEXT = "Edit"
+    
     //MARK: - Events
+    
+    func editButtonClick(sender: UIBarButtonItem) {
+        presenter.didSelectEdit()
+    }
     
     func closeButtonClick(sender: UIBarButtonItem) {
         presenter.didSelectCloseButton()
@@ -50,6 +56,12 @@ final class StationSelectView: UserInterface {
         var view = UIBarButtonItem(image: UIImage(named: "close"), style: .plain, target: self, action: #selector(closeButtonClick(sender:)))
         
         return view
+    }()
+    
+    lazy var editButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: self.EDIT_BUTTON_TEXT, style: .plain, target: self, action: #selector(editButtonClick(sender:)))
+        
+        return button
     }()
     
     lazy var doneButton: UIBarButtonItem = {
@@ -159,6 +171,7 @@ extension StationSelectView: MultiselectTableViewHeaderDelegate {
 extension StationSelectView: StationSelectViewApi {
     
     func setMultiselectToggle(section: Int, state: MultiselectToggle) {
+        
         tableView.reloadSections([section] as IndexSet, with: .automatic)
     }
     

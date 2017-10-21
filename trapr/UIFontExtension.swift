@@ -14,15 +14,15 @@ extension UIFont {
         return UIFont.systemFont(ofSize: UIFont.labelFontSize)
     }
     
-    public static var trapText: UIFont {
+    public static var trpText: UIFont {
         return UIFont.systemFont(ofSize: UIFont.labelFontSize)
     }
     
-    public static var trapTextSmall: UIFont {
+    public static var trpTextSmall: UIFont {
         return UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
     }
     
-    public static var trapTableViewSectionHeading: UIFont {
+    public static var trpTableViewSectionHeading: UIFont {
         return UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
     }
 }

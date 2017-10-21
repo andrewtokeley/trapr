@@ -19,6 +19,11 @@ final class TraplineSelectRouter: Router {
         setupData.stationSelectDelegate = presenter as? StationSelectDelegate
         setupData.allowMultiselect = true
         
+        // select all stations
+        for trapline in traplines {
+            setupData.selectedStations?.append(contentsOf: trapline.stations)
+        }
+        
         module.router.show(from: _view, embedInNavController: false, setupData: setupData)
     }
 }

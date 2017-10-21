@@ -25,12 +25,13 @@ protocol StationSelectViewApi: UserInterfaceProtocol {
 
 //MARK: - StationSelectPresenter API
 protocol StationSelectPresenterApi: PresenterProtocol {
-    //func didRequestToSelectTrapline()
+    
     func didSelectStation(station: Station)
     func didDeselectStation(station: Station)
     func didSelectCloseButton()
     func didSelectMultiselectToggle(section: Int)
     func didSelectDone()
+    func didSelectEdit()
     
     func getToggleState(section: Int) -> MultiselectToggle
 }

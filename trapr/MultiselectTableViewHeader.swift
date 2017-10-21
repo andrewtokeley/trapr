@@ -12,11 +12,13 @@ import UIKit
 enum MultiselectToggle: Int {
     case selectAll
     case selectNone
+    case none
     
     var textForState: String {
         switch self {
         case .selectAll: return "Select All"
         case .selectNone: return "Select None"
+        case .none: return ""
         }
     }
 }
@@ -34,7 +36,7 @@ class MultiselectTableViewHeader: UITableViewHeaderFooterView {
         let button = UIButton()
         button.titleLabel?.textAlignment = .right
         button.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
-        button.titleLabel?.font = UIFont.trapTableViewSectionHeading
+        button.titleLabel?.font = UIFont.trpTableViewSectionHeading
         button.addTarget(self, action: #selector(multiselectToggleClick(sender:)), for: .touchUpInside)
         return button
     }()
@@ -58,6 +60,7 @@ class MultiselectTableViewHeader: UITableViewHeaderFooterView {
     
     func setState(state: MultiselectToggle) {
         self.multiselectToggle.setTitle(state.textForState, for: .normal)
+        multiselectToggle.isEnabled = state != .none
     }
     
     func multiselectToggleClick(sender: UIButton) {

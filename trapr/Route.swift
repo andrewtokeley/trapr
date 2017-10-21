@@ -38,7 +38,7 @@ class Route: Object {
         // get the stations from the visits
         for visit in visits {
             if let station = visit.trap?.station {
-                if !stations.contains(station) {
+                if !stations.contains(where: { $0.longCode == station.longCode} ) {
                     stations.append(station)
                 }
             }

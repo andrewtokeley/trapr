@@ -9,6 +9,12 @@
 import Foundation
 import Viperit
 
+enum ModuleMode {
+    case editingRoute
+    case creatingRoute
+    case selectingStation
+}
+
 // MARK: - StationSelectPresenter Class
 final class StationSelectPresenter: Presenter {
     
@@ -19,9 +25,12 @@ final class StationSelectPresenter: Presenter {
     fileprivate var stationSelectDelegate: StationSelectDelegate?
 
     fileprivate var toggleState: [MultiselectToggle]!
+    fileprivate var TITLE = "Route"
+    
+    fileprivate var mode: ModuleMode?
     
     override func viewIsAboutToAppear() {
-        view.setTitle(title: "Stations")
+        view.setTitle(title: TITLE)
         
         view.setDoneButtonAttributes(visible: allowMultiselect, enabled: false)
         
@@ -30,6 +39,8 @@ final class StationSelectPresenter: Presenter {
         }
         
         view.initialiseView(traplines: self.traplines, stations: self.stations, selectedStations: self.selectedStations, allowMultiselect: self.allowMultiselect)
+        
+        updateNavigationItemState()
     }
     
     override func setupView(data: Any) {
@@ -41,10 +52,20 @@ final class StationSelectPresenter: Presenter {
             self.selectedStations = setup.selectedStations ?? [Station]()
             self.stationSelectDelegate = setup.stationSelectDelegate
             
-            // default to Select All
-            self.toggleState = Array(repeating: MultiselectToggle.selectAll, count: setup.traplines.count)
-            
+            if self.allowMultiselect {
+                
+                // default to all stations being selected
+                self.toggleState = Array(repeating: MultiselectToggle.selectNone, count: setup.traplines.count)
+            } else {
+                
+                // Hide toggle button if single select
+                self.toggleState = Array(repeating: MultiselectToggle.none, count: setup.traplines.count)
+            }
         }
+    }
+    
+    fileprivate func updateNavigationItemState() {
+        view.setDoneButtonAttributes(visible: self.allowMultiselect, enabled: self.selectedStations.count > 0)
     }
 }
 
@@ -53,19 +74,21 @@ extension StationSelectPresenter: StationSelectPresenterApi {
         
     func didSelectStation(station: Station) {
         if allowMultiselect {
+            
             self.selectedStations.append(station)
-            view.setDoneButtonAttributes(visible: true, enabled: true)
+            updateNavigationItemState()
         } else {
+            
             self.stationSelectDelegate?.didSelectStations(stations: [station])
             _view.dismiss(animated: true, completion: nil)
         }
     }
     
     func didDeselectStation(station: Station) {
-        if let index = self.selectedStations.index(of: station) {
+        if let index = selectedStations.index(where: { $0.longCode == station.longCode }) {
             self.selectedStations.remove(at: index)
         }
-        view.setDoneButtonAttributes(visible: self.allowMultiselect, enabled: self.selectedStations.count > 0)
+        updateNavigationItemState()
     }
     
     func didSelectCloseButton() {
@@ -103,6 +126,8 @@ extension StationSelectPresenter: StationSelectPresenterApi {
         }
         view.setMultiselectToggle(section: section, state: self.toggleState[section])
         view.updateSelectedStations(section: section, selectedStations: selectedStations)
+        
+        updateNavigationItemState()
     }
     
     func didSelectDone() {
@@ -111,6 +136,10 @@ extension StationSelectPresenter: StationSelectPresenterApi {
         
         // close the StationSelect module
         _view.dismiss(animated: true, completion: nil)
+    }
+    
+    func didSelectEdit() {
+        
     }
     
     func getToggleState(section: Int) -> MultiselectToggle {

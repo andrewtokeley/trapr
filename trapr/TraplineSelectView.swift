@@ -13,41 +13,36 @@ import Viperit
 final class TraplineSelectView: UserInterface {
     
     fileprivate var traplines: [Trapline]!
-    fileprivate var TABLEVIEW_CELL_ID = "cell"
     
+    fileprivate var TABLEVIEW_CELL_ID = "cell"
+    fileprivate var NEXT_BUTTON_TEXT = "Next"
+    
+    fileprivate var SELECTED_TRAPLINES_HEADER_TEXT = "SELECTED TRAPLINES"
+    fileprivate var ALL_TRAPLINES_HEADER_TEXT = "ALL TRAPLINES"
+    fileprivate var SELECTED_TRAPLINES_FOOTER_TEXT = "Select traplines below to include in the route. You will be able to select specifc stations in the next step."
+
     //MARK: Events
     
     func nextButtonClick(sender: UIBarButtonItem) {
         presenter.didSelectNext()
     }
     
-    // MARK: Create View
-    
-//    lazy var visitButton: UIButton = {
-//        let button = UIButton(type: UIButtonType.custom)
-//        button.setTitle("Visit", for: .normal)
-//        button.contentHorizontalAlignment = .right
-//        button.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
-//        button.setTitleColor(UIColor.trpButtonDisabled, for: .disabled)
-//
-//        button.addTarget(self, action: #selector(visitButtonClicked(sender:)), for: UIControlEvents.touchUpInside)
-//        return button
-//    }()
+    // MARK: Subviews
     
     lazy var nextButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextButtonClick(sender:)))
+        let button = UIBarButtonItem(title: self.NEXT_BUTTON_TEXT, style: .plain, target: self, action: #selector(nextButtonClick(sender:)))
         
         button.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.trpNavigationBarTint], for: .normal)
         button.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.trpNavigationBarTintDisabled], for: .disabled)
-
+        
         return button
     }()
     
     lazy var selectedTraplinesLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.trapTableViewSectionHeading
+        label.font = UIFont.trpTableViewSectionHeading
         label.textColor = UIColor.trpTextDark
-        label.text = "TRAPLINES"
+        label.text = self.SELECTED_TRAPLINES_HEADER_TEXT
         return label
     }()
 
@@ -55,7 +50,7 @@ final class TraplineSelectView: UserInterface {
         let view = UIView()
         view.backgroundColor = UIColor.white
         view.addSubview(self.selectedTraplinesText)
-        //view.addSubview(self.visitButton)
+        
         return view
     }()
     
@@ -65,6 +60,15 @@ final class TraplineSelectView: UserInterface {
         label.layer.borderColor = UIColor.lightGray.cgColor
         label.font = UIFont.trpLabel
         
+        return label
+    }()
+    
+    lazy var selectedTraplinesFooterText: UILabel = {
+        let label = UILabel()
+        label.text = self.SELECTED_TRAPLINES_FOOTER_TEXT
+        label.numberOfLines = 0
+        label.font = UIFont.trpTableViewSectionHeading
+        label.textColor = UIColor.trpTextDark
         return label
     }()
     
@@ -86,6 +90,7 @@ final class TraplineSelectView: UserInterface {
         self.view.backgroundColor = UIColor.trpBackground
         self.view.addSubview(selectedTraplinesLabel)
         self.view.addSubview(selectedTraplinesView)
+        self.view.addSubview(selectedTraplinesFooterText)
         self.view.addSubview(tableView)
         
         self.navigationItem.rightBarButtonItem = self.nextButton
@@ -98,17 +103,18 @@ final class TraplineSelectView: UserInterface {
         self.selectedTraplinesLabel.autoPin(toTopLayoutGuideOf: self, withInset: 20)
         self.selectedTraplinesLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
         
-        self.selectedTraplinesView.autoPinEdge(.top, to: .bottom, of: self.selectedTraplinesLabel, withOffset: 20)
+        self.selectedTraplinesView.autoPinEdge(.top, to: .bottom, of: self.selectedTraplinesLabel, withOffset: 10)
         self.selectedTraplinesView.autoPinEdge(toSuperviewEdge: .left)
         self.selectedTraplinesView.autoPinEdge(toSuperviewEdge: .right)
         self.selectedTraplinesView.autoSetDimension(.height, toSize: 40)
         
         self.selectedTraplinesText.autoPinEdgesToSuperviewEdges(with: UIEdgeInsetsMake(0, 20, 0, 0), excludingEdge: .right)
         
-//        self.visitButton.autoPinEdgesToSuperviewEdges(with: UIEdgeInsetsMake(0, 0, 0, 20), excludingEdge: .left)
-//        self.visitButton.autoSetDimension(.width, toSize: 200)
+        self.selectedTraplinesFooterText.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
+        self.selectedTraplinesFooterText.autoPinEdge(toSuperviewEdge: .right, withInset: 20)
+        self.selectedTraplinesFooterText.autoPinEdge(.top, to: .bottom, of: self.selectedTraplinesView, withOffset: 10)
         
-        self.tableView.autoPinEdge(.top, to: .bottom, of: self.selectedTraplinesText, withOffset: 20)
+        self.tableView.autoPinEdge(.top, to: .bottom, of: self.selectedTraplinesFooterText, withOffset: 20)
         self.tableView.autoPinEdge(toSuperviewEdge: .left)
         self.tableView.autoPinEdge(toSuperviewEdge: .right)
         self.tableView.autoPinEdge(toSuperviewEdge: .bottom)
@@ -128,10 +134,6 @@ extension TraplineSelectView: UITableViewDelegate, UITableViewDataSource {
         return traplines.count
     }
     
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return "TRAPLINES"
-//    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TABLEVIEW_CELL_ID, for: indexPath)
         let trapline = traplines[indexPath.row]
@@ -150,6 +152,10 @@ extension TraplineSelectView: UITableViewDelegate, UITableViewDataSource {
             cell?.accessoryType = .checkmark
             presenter.didSelectTrapline(trapline: self.traplines[indexPath.row])
         }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.ALL_TRAPLINES_HEADER_TEXT
     }
 }
 

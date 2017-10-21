@@ -18,6 +18,8 @@ class Styles {
         
         let barButtonItemAppearance = UIBarButtonItem.appearance()
         barButtonItemAppearance.tintColor = UIColor.trpNavigationBarTint
+        barButtonItemAppearance.setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.white], for: .normal)
+        barButtonItemAppearance.setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.red], for: .disabled)
         
         let navigationBarAppearance = UINavigationBar.appearance()
         navigationBarAppearance.barTintColor = UIColor.trpNavigationBar
@@ -25,6 +27,7 @@ class Styles {
         navigationBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         
         let labelAppearance = UILabel.appearance()
+        //labelAppearance.font = UIFont.trpLabel
         labelAppearance.textColor = UIColor.trpTextDark
     }
 }

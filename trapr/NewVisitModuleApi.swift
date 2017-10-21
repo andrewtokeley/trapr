@@ -24,8 +24,7 @@ protocol NewVisitPresenterApi: PresenterProtocol {
     func didSelectOther()
     func didSelectCloseButton()
     func didSelectRecentRoute(route: Route)
-    
-    //func didFetchRecentVisits(visitSummaries: [VisitSummary]?)
+    func didSelectDeleteRoute(route: Route)
     func didFetchRecentRoutes(routes: [Route]?)
 }
 

@@ -29,7 +29,7 @@ protocol TraplineSelectPresenterApi: PresenterProtocol {
     func didSelectTrapline(trapline: Trapline)
     func didDeselectTrapline(trapline: Trapline)
     func didSelectNext()
-    
+
 }
 
 //MARK: - TraplineSelectInteractor API

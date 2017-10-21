@@ -23,10 +23,10 @@ final class TraplineSelectPresenter: Presenter {
     
     override func viewIsAboutToAppear() {
         
-        
         if let traplines = interactor.getAllTraplines() {
             view.updateDisplay(traplines: traplines)
         }
+        
         view.setTitle(title: "New Route")
         view.setNextButtonState(enabled: false)
         view.setSelectedTraplinesDescription(description: "")
@@ -46,7 +46,9 @@ extension TraplineSelectPresenter: StationSelectDelegate {
         
         let route = Route(stations: stations)
         
-        ServiceFactory.sharedInstance.routeService.add(route: route)
+        if !ServiceFactory.sharedInstance.routeService.routeExists(route: route) {
+            ServiceFactory.sharedInstance.routeService.add(route: route)
+        }
         
         self.delegate?.didCreateRoute(route: route)
         
@@ -77,6 +79,8 @@ extension TraplineSelectPresenter: TraplineSelectPresenterApi {
     func didSelectNext() {
         router.showStationSelect(traplines: self.selectedTraplines)
     }
+    
+    
 }
 
 // MARK: - TraplineSelect Viper Components

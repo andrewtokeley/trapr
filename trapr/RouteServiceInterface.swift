@@ -20,4 +20,8 @@ protocol RouteServiceInterface {
     func add(route: Route)
 
     func getAll() -> Results<Route>
+    
+    func delete(route: Route)
+    
+    func routeExists(route: Route) -> Bool
 }

@@ -87,7 +87,7 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
     lazy var visitsLabel: UILabel = {
         var label = UILabel()
         label.text = "VISITS"
-        label.font = UIFont.trapTableViewSectionHeading
+        label.font = UIFont.trpTableViewSectionHeading
         label.textColor = UIColor.trpTextDark
         return label
     }()

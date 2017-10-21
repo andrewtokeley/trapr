@@ -23,4 +23,6 @@ class TrapType: Object {
     }
     
     dynamic var baitDescription: String? // "Muelsi", "Rat Poison", "Egg"...
+    
+    dynamic var imageName: String?
 }

@@ -14,9 +14,10 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
     lazy var possumMaster: TrapType = {
         let trapType = TrapType()
         trapType.name = "Possum Master"
-        trapType.killMethodRaw = KillMethod.Poison.rawValue
-        trapType.baitDescription = "Blocks"
-
+        trapType.killMethodRaw = KillMethod.Direct.rawValue
+        trapType.baitDescription = "Mueseli Blocks"
+        trapType.imageName = "possumMaster"
+        
         try! self.realm.write {
             self.realm.add(trapType)
         }
@@ -26,9 +27,10 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
     
     lazy var pelifeed: TrapType = {
         let trapType = TrapType()
-        trapType.name = "Possum Master"
+        trapType.name = "Pelifeed"
         trapType.killMethodRaw = KillMethod.Poison.rawValue
         trapType.baitDescription = "Blocks"
+        trapType.imageName = "pelifeed"
         
         try! self.realm.write {
             self.realm.add(trapType)
@@ -72,12 +74,17 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
         for i in 1...numberOfStations {
             let station = trapline.addStation(code: String(format: "%02d", i))
             let _ = station.addTrap(type: possumMaster)
+            let _ = station.addTrap(type: pelifeed)
         }
         ServiceFactory.sharedInstance.traplineService.add(trapline: trapline)
         
         return trapline
     }
 
+    func createVisitsForTrapline(trapline: Trapline, route: Route, date: Date, numberOfStations: Int = 1000) {
+        
+    }
+    
     func createVisitsForTrapline(trapline: Trapline, date: Date, numberOfStations: Int = 1000) {
         
         let count = numberOfStations > trapline.stations.count ? trapline.stations.count - 1 : numberOfStations
