@@ -19,7 +19,7 @@ protocol DatePickerViewApi: UserInterfaceProtocol {
     func animateToDisappear()
     func setTitle(title: String)
     func setDate(date: Date)
-    func showToday(show: Bool)
+    func showElements(elements: [DatePickerElement])
 }
 
 //MARK: - DatePickerPresenter API

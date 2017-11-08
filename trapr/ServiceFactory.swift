@@ -16,9 +16,9 @@ class ServiceFactory {
     lazy var realm: Realm = {
         var result: Realm?
         if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
-            result = DataService().realmTestInstance
+            result = DataService.sharedInstance.realmTestInstance
         } else {
-            result = DataService().realm
+            result = DataService.sharedInstance.realm
         }
         return result!
     }()
@@ -41,5 +41,17 @@ class ServiceFactory {
     
     lazy var routeService: RouteServiceInterface = {
         return RouteService(realm: self.realm)
+    }()
+    
+    lazy var speciesService: LookupService<Species> = {
+        return SpeciesService(realm: self.realm)
+    }()
+    
+    lazy var trapTypeService: LookupService<TrapType> = {
+        return TrapTypeService(realm: self.realm)
+    }()
+    
+    lazy var lureService: LookupService<Lure> = {
+        return LureService(realm: self.realm)
     }()
 }

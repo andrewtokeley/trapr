@@ -20,7 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Set global styles
         Styles.setAppearances()
         
-        ServiceFactory.sharedInstance.dataPopulatorService.replaceAllDataWithTestData()
+        // if we not running tests, fill the app with some data
+        let service = ServiceFactory.sharedInstance.dataPopulatorService
+        if !service.isTestService {
+            service.replaceAllDataWithTestData()
+        }
         
         window = UIWindow(frame: UIScreen.main.bounds)
         let module = AppModules.start.build()

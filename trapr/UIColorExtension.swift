@@ -52,4 +52,12 @@ extension UIColor
     public class var trpTextLight: UIColor {
         return UIColor.white
     }
+    
+    public class var trpDividerLine: UIColor {
+        return UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1)
+    }
+    
+    public class var trpTextFieldBackground: UIColor {
+        return UIColor.white
+    }
 }

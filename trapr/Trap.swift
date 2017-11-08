@@ -11,6 +11,13 @@ import RealmSwift
 
 class Trap: Object {
     
+    
+    // Primary key
+    dynamic var id: String = UUID().uuidString
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
     /**
      Station at which the trap is location. Multiple traps can be located at the same station
     */
@@ -30,5 +37,5 @@ class Trap: Object {
     Longitude of the trap location
     */
     dynamic var longitude: Double = 0
-
+    
 }

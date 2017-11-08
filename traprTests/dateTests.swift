@@ -9,7 +9,7 @@
 import XCTest
 @testable import trapr
 
-class traprTests: XCTestCase {
+class dateTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

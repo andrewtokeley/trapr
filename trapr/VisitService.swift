@@ -17,6 +17,21 @@ class VisitService: Service, VisitServiceInterface {
         }
     }
     
+    func delete(visit: Visit) {
+        try! realm.write {
+            realm.delete(visit)
+        }
+    }
+
+    func save(visit: Visit) {
+        try! realm.write {
+            realm.create(Visit.self, value: visit, update: true)
+            
+            let all = getVisits(recordedBetween: Date().add(-100, 0, 0), dateEnd: Date().add(100, 0, 0))
+            print("total visits \(all.count)")
+        }
+    }
+    
     func getVisits(recordedBetween dateStart: Date, dateEnd: Date) -> Results<Visit> {
         
         return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@}", dateStart, dateEnd)

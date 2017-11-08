@@ -15,6 +15,7 @@ final class StationSelectView: UserInterface {
     fileprivate var traplines = [Trapline]()
     fileprivate var stations = [Station]()
     fileprivate var selectedStations = [Station]()
+    fileprivate var groupedData: GroupedTableViewDatasource<Station>!
     
     fileprivate var allowMultiselect: Bool = false
     
@@ -22,7 +23,7 @@ final class StationSelectView: UserInterface {
     fileprivate let TABLEVIEW_CELL_ID = "cell"
     fileprivate let TABLEVIEW_HEADER_ID = "header"
     
-    fileprivate var EDIT_BUTTON_TEXT = "Edit"
+    fileprivate var EDIT_BUTTON_TEXT = "Sort"
     
     //MARK: - Events
     
@@ -88,66 +89,60 @@ final class StationSelectView: UserInterface {
 //MARK: - TableView Delegates
 extension StationSelectView: UITableViewDataSource, UITableViewDelegate {
     
-    private func stationsInSection(section: Int) -> [Station] {
-        let traplineCode = traplines[section].code
-        let stationsInTrapline = stations.filter({ $0.trapline?.code == traplineCode })
-        return stationsInTrapline
-    }
+//    private func stationsInSection(section: Int) -> [Station] {
+//        let traplineCode = traplines[section].code
+//        let stationsInTrapline = stations.filter({ $0.trapline?.code == traplineCode })
+//        return stationsInTrapline
+//    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return traplines.count
+        return self.groupedData.numberOfSections()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return stationsInSection(section:section).count
+        return self.groupedData.numberOfRowsInSection(section: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: TABLEVIEW_CELL_ID, for: indexPath)
         
-        let station = stationsInSection(section: indexPath.section)[indexPath.row]
+        let groupedDataItem = self.groupedData.data(section: indexPath.section, row: indexPath.row)
         
-        if (self.selectedStations.contains(where: { $0.longCode == station.longCode })) {
-            cell.accessoryType = .checkmark
-        } else {
-            cell.accessoryType = .none
-        }
-        
+        cell.accessoryType = groupedDataItem.selected ? .checkmark : .none
         cell.selectionStyle = .none
-        cell.textLabel?.text = station.code
+        cell.textLabel?.text = self.groupedData.cellLabelText(section: indexPath.section, row: indexPath.row)
+        
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//
-//        return traplines[section].code?.uppercased()
-//    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let station = stationsInSection(section: indexPath.section)[indexPath.row]
+        //let station = stationsInSection(section: indexPath.section)[indexPath.row]
+        //let groupedDataItem = self.groupedData.data(section: indexPath.section, row: indexPath.row)
         
-        if allowMultiselect {
-            let cell = tableView.cellForRow(at: indexPath)
-            
-            if cell?.accessoryType == .checkmark {
-                cell?.accessoryType = .none
-                presenter.didDeselectStation(station: station)
-            } else {
-                cell?.accessoryType = .checkmark
-                presenter.didSelectStation(station: station)
-            }
-        } else {
-            presenter.didSelectStation(station: station)
-        }
+        presenter.didSelectRow(section: indexPath.section, row: indexPath.row)
+        
+//        if allowMultiselect {
+//            let cell = tableView.cellForRow(at: indexPath)
+//
+//            if cell?.accessoryType == .checkmark {
+//                cell?.accessoryType = .none
+//                presenter.didDeselectStation(section: indexPath.section, station: groupedDataItem.item)
+//            } else {
+//                cell?.accessoryType = .checkmark
+//                presenter.didSelectStation(section: indexPath.section, station: groupedDataItem.item)
+//            }
+//        } else {
+//            presenter.didSelectStation(section: indexPath.section, station: groupedDataItem.item)
+//        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: TABLEVIEW_HEADER_ID) as? MultiselectTableViewHeader ?? MultiselectTableViewHeader(reuseIdentifier: TABLEVIEW_HEADER_ID)
         
-        header.textLabel?.text = self.traplines[section].code?.uppercased()
+        header.textLabel?.text = self.groupedData.sectionText(section: section)
         header.section = section
         header.delegate = self
         header.setState(state: presenter.getToggleState(section: section))
@@ -157,6 +152,29 @@ extension StationSelectView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 44
     }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+        presenter.didMoveRow(from: sourceIndexPath, to: destinationIndexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .none
+    }
+    
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        
+        return proposedDestinationIndexPath
+    }
+    
 }
 
 extension StationSelectView: MultiselectTableViewHeaderDelegate {
@@ -172,7 +190,10 @@ extension StationSelectView: StationSelectViewApi {
     
     func setMultiselectToggle(section: Int, state: MultiselectToggle) {
         
-        tableView.reloadSections([section] as IndexSet, with: .automatic)
+        if let header = tableView.headerView(forSection: section) as? MultiselectTableViewHeader {
+            header.setState(state: state)
+        }
+        //tableView.reloadSections([section] as IndexSet, with: .automatic)
     }
     
     func setTitle(title: String) {
@@ -186,22 +207,33 @@ extension StationSelectView: StationSelectViewApi {
     
     func setDoneButtonAttributes(visible: Bool, enabled: Bool) {
         if visible {
-            self.navigationItem.rightBarButtonItem = doneButton
+            self.navigationItem.setRightBarButtonItems([doneButton, editButton], animated: true)
         } else {
-            self.navigationItem.rightBarButtonItem = nil
+            self.navigationItem.rightBarButtonItems?.removeAll()
         }
         
         doneButton.isEnabled = enabled
+        editButton.isEnabled = enabled
+    }
+    
+    func updateGroupedData(groupedData: GroupedTableViewDatasource<Station>) {
+        self.groupedData = groupedData
+        tableView.reloadData()
+    }
+    
+    func updateGroupedData(section: Int, groupedData: GroupedTableViewDatasource<Station>) {
+        self.groupedData = groupedData
+        tableView.reloadSections([section] as IndexSet, with: .automatic)
     }
     
     func updateSelectedStations(section: Int, selectedStations: [Station]) {
         self.selectedStations = selectedStations
-        
         tableView.reloadSections([section] as IndexSet, with: .automatic)
     }
     
-    func initialiseView(traplines:[Trapline], stations: [Station], selectedStations: [Station]?, allowMultiselect: Bool) {
+    func initialiseView(groupedData: GroupedTableViewDatasource<Station>, traplines:[Trapline], stations: [Station], selectedStations: [Station]?, allowMultiselect: Bool) {
 
+        self.groupedData = groupedData
         self.traplines = traplines
         self.stations = stations
         self.selectedStations = selectedStations ?? [Station]()
@@ -210,6 +242,10 @@ extension StationSelectView: StationSelectViewApi {
         tableView.reloadData()
     }
     
+    func enableSorting(enabled: Bool) {
+        tableView.setEditing(enabled, animated: true)
+        tableView.reloadData()
+    }
 }
 
 // MARK: - StationSelectView Viper Components API

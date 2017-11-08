@@ -11,6 +11,11 @@ import RealmSwift
 
 class Trapline: Object {
     
+    // Primary key
+    override static func primaryKey() -> String? {
+        return "code"
+    }
+    
     dynamic var code: String? = nil // "LW"
     dynamic var details: String? = nil // "Lowry Bay track"
     let stations = List<Station>() // LW01, LW02...

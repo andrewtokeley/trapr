@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol ApplicationServiceInterface {
+protocol ApplicationServiceInterface: ServiceInterface {
     func deleteAllData()
 }

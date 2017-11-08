@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-protocol VisitServiceInterface {
+protocol VisitServiceInterface: ServiceInterface {
     
     /**
      Record a new Visit
@@ -18,6 +18,10 @@ protocol VisitServiceInterface {
         - visit: the Visit to add to the repository
      */
     func add(visit: Visit)
+    
+    func delete(visit: Visit)
+    
+    func save(visit: Visit)
     
     /**
      Gets all Visits recorded on a specific Trapline

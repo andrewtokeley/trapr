@@ -11,6 +11,12 @@ import RealmSwift
 
 class Station: Object {
     
+    // Primary key
+    dynamic var id: String = UUID().uuidString
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
     /**
     A unique code for the station. 
  

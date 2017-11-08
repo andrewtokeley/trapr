@@ -13,19 +13,7 @@ import Viperit
 final class DatePickerView: UserInterface {
     
     //MARK: Subviews
-    
-//    lazy var dropShadow: UIView = {
-//        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 5))
-//        view.backgroundColor = UIColor.clear
-//        let gradient = CAGradientLayer()
-//        gradient.frame = view.bounds
-//        gradient.colors = [UIColor.clear.cgColor, UIColor.gray.cgColor]
-//
-//        view.layer.insertSublayer(gradient, at: 0)
-//        return view
-//
-//    }()
-    
+   
     lazy var backgroundMask: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.black
@@ -62,7 +50,7 @@ final class DatePickerView: UserInterface {
         
         view.addSubview(self.heading)
         view.addSubview(self.doneButton)
-        view.addSubview(self.todayButton)
+        view.addSubview(self.jumpButton)
         
         return view
     }()
@@ -87,7 +75,7 @@ final class DatePickerView: UserInterface {
         return button
     }()
     
-    lazy var todayButton: UIButton = {
+    lazy var jumpButton: UIButton = {
         let button = UIButton()
         button.setTitle("Today", for: .normal)
         button.contentHorizontalAlignment = .left
@@ -125,7 +113,6 @@ final class DatePickerView: UserInterface {
         let down = UISwipeGestureRecognizer(target: self, action: #selector(cancelButtonClick(sender:)))
         down.direction = .down
         self.view.addGestureRecognizer(down)
-
         
         setConstraints()
         
@@ -154,15 +141,32 @@ final class DatePickerView: UserInterface {
 
         heading.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets.zero)
         doneButton.autoPinEdges(toSuperviewMarginsExcludingEdge: .left)
-        todayButton.autoPinEdges(toSuperviewMarginsExcludingEdge: .right)
+        jumpButton.autoPinEdges(toSuperviewMarginsExcludingEdge: .right)
     }
 }
 
 //MARK: - DatePickerView API
 extension DatePickerView: DatePickerViewApi {
     
-    func showToday(show: Bool) {
-        todayButton.alpha = show ? 1 : 0
+    func showElements(elements: [DatePickerElement]) {
+        
+        // hide everything
+        heading.alpha = 0
+        jumpButton.alpha = 0
+        
+        for element in elements {
+            if element == .title {
+                heading.alpha = 1
+            }
+            if element == .nowButton || element == .todayButton {
+                jumpButton.alpha = 1
+            }
+            if element == .todayButton {
+                jumpButton.setTitle("Today", for: .normal)
+            } else if element == .nowButton && !elements.contains(.todayButton) {
+                jumpButton.setTitle("Now", for: .normal)
+            }
+        }
     }
     
     func setDate(date: Date) {
@@ -174,7 +178,7 @@ extension DatePickerView: DatePickerViewApi {
     }
     
     func animateToAppear() {
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.backgroundMask.alpha = 0.3
             
             self.datePickerContainer.frame.origin.y = UIScreen.main.bounds.height - self.datePickerContainer.frame.height
@@ -182,7 +186,7 @@ extension DatePickerView: DatePickerViewApi {
     }
     
     func animateToDisappear() {
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.backgroundMask.alpha = 0
             
             self.datePickerContainer.frame.origin.y = UIScreen.main.bounds.height

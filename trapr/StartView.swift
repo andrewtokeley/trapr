@@ -121,6 +121,9 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
         return view
     }()
     
+    override func viewDidLoad() {
+        print("Start viewload")
+    }
     override func loadView() {
         super.loadView()
         

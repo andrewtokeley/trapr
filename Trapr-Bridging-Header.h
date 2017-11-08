@@ -7,6 +7,7 @@
 //
 
 #import "PureLayout/PureLayout.h"
+#import "iCarousel/iCarousel.h"
 
 #ifndef Trapr_Bridging_Header_h
 #define Trapr_Bridging_Header_h

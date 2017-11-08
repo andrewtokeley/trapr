@@ -13,77 +13,74 @@ import Viperit
 // MARK: - VisitPresenter Class
 final class VisitPresenter: Presenter {
     
-    var visitSummary: VisitSummary? {
-        willSet {
-            if visitSummary !== newValue {
-                // reset to the first trap
-                self.trapIndex = TrapIndexPath(traplineIndex: 0, stationIndex: 0, trapIndex: 0)
-            }
-        }
+    var visitSummary: VisitSummary!
+    var visitDelegate: VisitDelegate?
+    
+    var currentTrap: Trap {
+        return self.visitSummary.route.stations[stationIndex].traps[trapIndex]
+    }
+    var currentStation: Station {
+        return self.visitSummary.route.stations[stationIndex]
     }
     
-    var trapIndex = TrapIndexPath(traplineIndex: 0, stationIndex: 0, trapIndex: 0)
     var stationIndex = 0
+    var trapIndex = 0
     
     open override func setupView(data: Any) {
-        if let convertedData = data as? VisitSummary {
-            visitSummary = convertedData
+        if let summary = data as? VisitSummary {
+            
+            visitSummary = summary
+            stationIndex = 0
+            trapIndex = 0
+            
+            // set title
+            self.updateTitle()
+            
+            // populate stations
+            let stations = self.visitSummary.route.stations
+            view.setStations(stations: Array(stations), current: stations[self.stationIndex])
+            view.updateCurrentStation(index: stationIndex, repeatedGroup: 2)
+            
+            router.addVisitLogToView()
         }
     }
     
-    open override func viewIsAboutToAppear() {
-
-        updateTitle()
-        updateForNewLocation()
-        
-    }
     
     //MARK: - Helpers
-    
-    func updateTitle() {
-        if let title = self.visitSummary?.dateOfVisit.string(from: Styles.DATE_FORMAT_LONG) {
-            view.setTitle(title: title)
-        }
-    }
-    
-    func updateForNewLocation() {
-        
-//        if let station = visitSummary?.traplines[trapIndex.traplineIndex].stations[trapIndex.stationIndex]
 
-        if let station = visitSummary?.route?.stations[stationIndex]
-        {
-            // Update the station label
-            view.setStationText(text: station.longCode)
-            
-            // Get the traps for the station
-            view.setTraps(traps: Array(station.traps))
-            
-            // Get the visit for this station
-            //interactor?.retrieveVisit(trap
-        }
+    func updateTitle() {
+        let title = self.visitSummary.dateOfVisit.string(from: Styles.DATE_FORMAT_LONG)
+        view.setTitle(title: title)
     }
+    
 }
 
 // MARK: - VisitPresenter API
 extension VisitPresenter: DatePickerDelegate {
+
+    func datePicker(_ datePicker: DatePickerViewApi, textFor element: DatePickerElement) -> String {
+        if element == .title {
+            return "Visit Date"
+        }
+        return element.defaultTextValue
+    }
     
-    
-    func displayMode(datePicker: DatePickerViewApi) -> UIDatePickerMode {
+    func displayMode(_ datePicker: DatePickerViewApi) -> UIDatePickerMode {
         return UIDatePickerMode.date
     }
     
-    func datePicker(datePicker: DatePickerViewApi, didSelectDate: Date) {
-        visitSummary?.dateOfVisit = didSelectDate
+    func datePicker(_ datePicker: DatePickerViewApi, didSelectDate date: Date) {
+        
+        visitSummary.dateOfVisit = date
         updateTitle()
-    }
-    
-    func showTodayButton(datePicker: DatePickerViewApi) -> Bool {
-        return true
+        
+        // re-fetch the visit for this date
+        interactor.retrieveVisit(trap: self.currentTrap, date: visitSummary.dateOfVisit)
     }
 }
 
 
-// MARK: - VisitPresenter API
+// MARK: - StationSelectDelegate
 extension VisitPresenter: StationSelectDelegate {
     
     func didSelectStations(stations: [Station]) {
@@ -92,7 +89,8 @@ extension VisitPresenter: StationSelectDelegate {
         if let station = stations.first {
             if let index = visitSummary?.route?.stations.index(where: { $0.longCode == station.longCode }) {
                 stationIndex = index
-                updateForNewLocation()
+                
+                view.updateCurrentStation(index: index, repeatedGroup: 2)
             }
         }
     }
@@ -100,6 +98,11 @@ extension VisitPresenter: StationSelectDelegate {
 
 // MARK: - VisitPresenter API
 extension VisitPresenter: VisitPresenterApi {
+    
+    
+    func setVisitDelegate(delegate: VisitDelegate) {
+        self.visitDelegate = delegate
+    }
     
     func didSelectMenuButton() {
         view.displayMenuOptions(options: ["Send Report", "Add/Remove Trapline", "Remove Visit", "View Map"])
@@ -114,86 +117,24 @@ extension VisitPresenter: VisitPresenterApi {
         router.showDatePicker(setupData: setupData)
     }
     
-    func didSelectPreviousStation() {
-//        if trapIndex.stationIndex == 0 {
-//            if trapIndex.traplineIndex != 0 {
-//                trapIndex.traplineIndex -= 1
-//            } else {
-//                trapIndex.traplineIndex = visitSummary!.traplines.count - 1
-//            }
-//            trapIndex.stationIndex = visitSummary!.traplines[trapIndex.traplineIndex].stations.count - 1
-//        } else {
-//            trapIndex.stationIndex -= 1
-//        }
-//
-//        // always reset to the first trap
-//        trapIndex.trapIndex = 0
-
-        stationIndex -= 1
-        if stationIndex < 0 {
-            if let index = visitSummary?.route?.stations.count {
-                // go to the end of the list of stations
-                stationIndex = index - 1
-            } else
-            {
-                // should never happen
-                stationIndex = 0
-            }
-    
-        }
-        updateForNewLocation()
-    }
-    
-    func didSelectNextStation() {
-//        if trapIndex.stationIndex == visitSummary!.traplines[trapIndex.traplineIndex].stations.count - 1 {
-//            if trapIndex.traplineIndex != visitSummary!.traplines.count - 1 {
-//                trapIndex.traplineIndex += 1
-//            } else {
-//                trapIndex.traplineIndex = 0
-//            }
-//            trapIndex.stationIndex = 0
-//        } else {
-//            trapIndex.stationIndex += 1
-//        }
-//
-//        // always reset to the first trap
-//        trapIndex.trapIndex = 0
-
-        stationIndex += 1
-        if let index = visitSummary?.route?.stations.count {
-            if stationIndex >= index {
-                stationIndex = 0
-            }
-        }
-        
-        updateForNewLocation()
-    }
-    
     func didSelectTrap(index: Int) {
-        trapIndex.trapIndex = index
-        
-        // if a visit exists, populate screen
-        
-        // if no visit then...
-        updateForNewLocation()
+        trapIndex = index
+        interactor.retrieveVisit(trap: self.currentTrap, date: visitSummary.dateOfVisit)
     }
     
-    func didFetchVisit(visit: Visit?) {
-        
+    func didFetchVisit(visit: Visit) {
+        visitDelegate?.didChangeVisit(visit: visit)
     }
     
-    func didSelectStation() {
-        if let route = visitSummary?.route {
+    func didSelectStation(index: Int) {
+        self.stationIndex = index
         
-            let setupData = StationSelectSetupData(traplines: Array(route.traplines), stations: Array(route.stations), selectedStations: [Station]())
-
-            setupData.allowMultiselect = false
-            setupData.stationSelectDelegate = self
-            router.showStationSelectModule(setupData: setupData)
-        } else {
-            // may not allow no station to appear.
-        }
+        // get the traps for the new station
+        self.trapIndex = 0
+        view.setTraps(traps: Array(self.currentStation.traps))
+    
     }
+    
 }
 
 // MARK: - Visit Viper Components

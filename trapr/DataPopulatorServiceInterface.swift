@@ -8,11 +8,13 @@
 
 import Foundation
 
-protocol DataPopulatorServiceInterface {
+protocol DataPopulatorServiceInterface: ServiceInterface {
     
     func replaceAllDataWithTestData()
     
     func deleteAllData()
+    
+    func addLookupData()
     
     func createTrapline(code: String, numberOfStations: Int) -> Trapline
 }

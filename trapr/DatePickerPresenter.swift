@@ -15,14 +15,27 @@ final class DatePickerPresenter: Presenter {
     fileprivate var delegate: DatePickerDelegate?
     fileprivate var initialDate: Date!
     
-    override func viewHasLoaded() {
-        view.setTitle(title: "Visit Date")
-        view.setDate(date: initialDate)
+    override func viewIsAboutToAppear() {
         
-        if let showToday = delegate?.showTodayButton(datePicker: view) {
-            view.showToday(show: showToday)
+        view.setDate(date: initialDate)
+
+        view.setTitle(title: "")
+        
+        let showTitle = delegate?.datePicker(view, showTextFor: .title) ?? false
+        let showToday = delegate?.datePicker(view, showTextFor: .todayButton) ?? false
+        let showNow = delegate?.datePicker(view, showTextFor: .nowButton) ?? false
+        
+        var elementsToShow = [DatePickerElement]()
+        if showToday { elementsToShow.append(.todayButton) }
+        if showNow { elementsToShow.append(.nowButton) }
+        if showTitle {
+            elementsToShow.append(.title)
+            view.setTitle(title: delegate?.datePicker(view, textFor: .title) ?? "")
         }
+        
+        view.showElements(elements: elementsToShow)
     }
+    
     override func viewHasAppeared() {
         view.animateToAppear()
     }
@@ -44,7 +57,7 @@ extension DatePickerPresenter: DatePickerPresenterApi {
     }
     
     func didSelectDate(date: Date) {
-        delegate?.datePicker(datePicker: view, didSelectDate: date)
+        delegate?.datePicker(view, didSelectDate: date)
         self.didSelectClose()
     }
     
@@ -53,7 +66,7 @@ extension DatePickerPresenter: DatePickerPresenterApi {
     }
     
     var dateMode: UIDatePickerMode {
-        return delegate?.displayMode(datePicker: self.view) ?? UIDatePickerMode.dateAndTime
+        return delegate?.displayMode(self.view) ?? UIDatePickerMode.dateAndTime
     }
 }
 

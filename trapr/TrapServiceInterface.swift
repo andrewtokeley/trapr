@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol TrapServiceInterface {
+protocol TrapServiceInterface: ServiceInterface {
     
 }

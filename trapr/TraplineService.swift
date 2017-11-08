@@ -17,6 +17,12 @@ class TraplineService: Service, TraplineServiceInterface {
         }
     }
     
+    func delete(trapline: Trapline) {
+        try! realm.write {
+            realm.delete(trapline)
+        }
+    }
+    
     func getTraplines() -> [Trapline]? {
         return Array(realm.objects(Trapline.self).sorted(byKeyPath: "code"))
     }

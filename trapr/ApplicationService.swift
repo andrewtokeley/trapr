@@ -14,6 +14,7 @@ class ApplicationService: Service, ApplicationServiceInterface {
         try! realm.write {
             realm.deleteAll()
         }
+        print("DELETE ALL - DONE")
     }
     
 }

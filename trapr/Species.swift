@@ -9,8 +9,6 @@
 import Foundation
 import RealmSwift
 
-class Species: Object {
+class Species: LookupObject {
     
-    dynamic var name: String?
-    dynamic var order:Int = 0
 }

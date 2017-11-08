@@ -23,8 +23,31 @@ final class StationSelectPresenter: Presenter {
     fileprivate var selectedStations = [Station]()
     fileprivate var allowMultiselect: Bool = false
     fileprivate var stationSelectDelegate: StationSelectDelegate?
-
-    fileprivate var toggleState: [MultiselectToggle]!
+    
+    fileprivate var sortingEnabled = false
+    
+    fileprivate var groupedData: GroupedTableViewDatasource<Station>!
+    
+    fileprivate var toggleState: [MultiselectToggle] {
+        
+        var state = [MultiselectToggle]()
+        
+        // hide toggle if single select
+        if !self.allowMultiselect || self.sortingEnabled {
+            state = Array(repeating: MultiselectToggle.none, count: groupedData.numberOfSections())
+        } else {
+            for i in 0...groupedData.numberOfSections() - 1 {
+                if groupedData.hasSelected(section: i) {
+                    state.append(.selectNone)
+                } else {
+                    state.append(.selectAll)
+                }
+            }
+        }
+        
+        return state
+    }
+    
     fileprivate var TITLE = "Route"
     
     fileprivate var mode: ModuleMode?
@@ -38,9 +61,35 @@ final class StationSelectPresenter: Presenter {
             view.showCloseButton()
         }
         
-        view.initialiseView(traplines: self.traplines, stations: self.stations, selectedStations: self.selectedStations, allowMultiselect: self.allowMultiselect)
+        showStations(selectedOnly: false)
+        
+        for section in 0...groupedData.numberOfSections() - 1 {
+            view.setMultiselectToggle(section: section, state: self.toggleState[section])
+        }
         
         updateNavigationItemState()
+    }
+    
+    fileprivate func showStations(selectedOnly: Bool) {
+        
+        let selectedStations = self.groupedData.dataItems(selectedOnly: true)
+        
+        // show all the stations or just the ones selected inside the groupdData instance
+        let stationsToShow = selectedOnly ? self.groupedData.dataItems(selectedOnly: true) : self.stations
+        
+        // get a bool array for those selected
+        let selected = stationsToShow.map({ (station) in return selectedStations.contains(where: { (selected) in return selected.longCode == station.longCode }) })
+        
+        // recreate the groupedData structure
+        self.groupedData = GroupedTableViewDatasource<Station>(data: stationsToShow, selected: selected, sectionName: {
+            (station) in
+            return station.trapline!.code!
+        }, cellLabelText: {
+            (station) in
+            return station.code!
+        })
+        
+        view.initialiseView(groupedData: self.groupedData, traplines: self.traplines, stations: self.stations, selectedStations: self.selectedStations, allowMultiselect: self.allowMultiselect)
     }
     
     override func setupView(data: Any) {
@@ -52,15 +101,26 @@ final class StationSelectPresenter: Presenter {
             self.selectedStations = setup.selectedStations ?? [Station]()
             self.stationSelectDelegate = setup.stationSelectDelegate
             
-            if self.allowMultiselect {
-                
-                // default to all stations being selected
-                self.toggleState = Array(repeating: MultiselectToggle.selectNone, count: setup.traplines.count)
-            } else {
-                
-                // Hide toggle button if single select
-                self.toggleState = Array(repeating: MultiselectToggle.none, count: setup.traplines.count)
-            }
+            // initialize GroupedData
+            let selected = self.stations.map({ (station) in return self.selectedStations.contains(where: { (selected) in return selected.longCode == station.longCode }) })
+            
+            self.groupedData = GroupedTableViewDatasource<Station>(data: self.stations, selected: selected, sectionName: {
+                (station) in
+                return station.trapline!.code!
+            }, cellLabelText: {
+                (station) in
+                return station.code!
+            })
+            
+//            if self.allowMultiselect {
+//
+//                // default to all stations being selected
+//                self.toggleState = Array(repeating: MultiselectToggle.selectNone, count: setup.traplines.count)
+//            } else {
+//
+//                // Hide toggle button if single select
+//                self.toggleState = Array(repeating: MultiselectToggle.none, count: setup.traplines.count)
+//            }
         }
     }
     
@@ -71,25 +131,50 @@ final class StationSelectPresenter: Presenter {
 
 // MARK: - StationSelectPresenter API
 extension StationSelectPresenter: StationSelectPresenterApi {
+    
+    func didSelectRow(section: Int, row: Int) {
         
-    func didSelectStation(station: Station) {
+        let groupDataItem = self.groupedData.data(section: section, row: row)
+        
         if allowMultiselect {
             
-            self.selectedStations.append(station)
+            // toggle state
+            groupDataItem.selected = !groupDataItem.selected
+            print(groupedData.dataItems(selectedOnly: true).count)
+            view.updateGroupedData(section: section, groupedData: self.groupedData)
             updateNavigationItemState()
+            
         } else {
             
-            self.stationSelectDelegate?.didSelectStations(stations: [station])
+            self.stationSelectDelegate?.didSelectStations(stations: [groupDataItem.item])
             _view.dismiss(animated: true, completion: nil)
         }
     }
     
-    func didDeselectStation(station: Station) {
-        if let index = selectedStations.index(where: { $0.longCode == station.longCode }) {
-            self.selectedStations.remove(at: index)
-        }
-        updateNavigationItemState()
-    }
+//    func didSelectStation(section: Int, station: Station) {
+//        if allowMultiselect {
+//
+//            self.selectedStations.append(station)
+//
+//            self.groupedData.setSelected(section: <#T##Int#>, row: <#T##Int#>, selected: <#T##Bool#>)
+//            updateNavigationItemState()
+//
+//            view.updateSelectedStations(section: section, selectedStations: self.selectedStations)
+//            view.updateGroupedData(section: section, groupedData: self.groupedData)
+//        } else {
+//
+//            self.stationSelectDelegate?.didSelectStations(stations: [station])
+//            _view.dismiss(animated: true, completion: nil)
+//        }
+//    }
+    
+//    func didDeselectStation(section: Int, station: Station) {
+//        if let index = selectedStations.index(where: { $0.longCode == station.longCode }) {
+//            self.selectedStations.remove(at: index)
+//        }
+//        updateNavigationItemState()
+//        view.updateSelectedStations(section: section, selectedStations: self.selectedStations)
+//    }
     
     func didSelectCloseButton() {
         _view.dismiss(animated: true, completion: nil)
@@ -97,49 +182,48 @@ extension StationSelectPresenter: StationSelectPresenterApi {
     
     func didSelectMultiselectToggle(section: Int) {
         
-        // get the stations in the section
-        let traplineCode = self.traplines[section].code
-        let stationsInSection = self.stations.filter({ $0.trapline?.code == traplineCode })
-
         if self.toggleState[section] == .selectNone {
             
-            self.toggleState[section] = .selectAll
-
-            // make sure all these stations are NOT the selectStations array
-            for station in stationsInSection {
-                
-                if let index = selectedStations.index(where: { $0.longCode == station.longCode }) {
-                    selectedStations.remove(at: index)
-                }
-            }
+            // Deselect all stations in section
+            self.groupedData.setSelected(section: section, selected: false)
+            
         } else {
             
-            self.toggleState[section] = .selectNone
-            
-            // make sure all these stations are in the selectStations array
-            for station in stationsInSection {
-                if !selectedStations.contains(where: { $0.longCode == station.longCode }) {
-                    selectedStations.append(station)
-                }
-            }
-            
+            // Deselect all stations in section
+            self.groupedData.setSelected(section: section, selected: true)
         }
+
+        // this will get the checkmarks set
+        view.updateGroupedData(section: section, groupedData: self.groupedData)
+        
+        // this will set the headers
         view.setMultiselectToggle(section: section, state: self.toggleState[section])
-        view.updateSelectedStations(section: section, selectedStations: selectedStations)
         
         updateNavigationItemState()
     }
     
     func didSelectDone() {
         
-        self.stationSelectDelegate?.didSelectStations(stations: self.selectedStations)
+        self.stationSelectDelegate?.didSelectStations(stations: self.groupedData.dataItems(selectedOnly: true))
         
         // close the StationSelect module
         _view.dismiss(animated: true, completion: nil)
     }
     
+    func didMoveRow(from: IndexPath, to:IndexPath) {
+        
+        self.groupedData.moveItem(from: from, to: to)
+        self.stations = groupedData.dataItems(selectedOnly: false)
+        
+        view.updateGroupedData(groupedData: self.groupedData)
+    }
+    
     func didSelectEdit() {
         
+        self.sortingEnabled = !self.sortingEnabled
+        showStations(selectedOnly: self.sortingEnabled)
+        
+        view.enableSorting(enabled: self.sortingEnabled)
     }
     
     func getToggleState(section: Int) -> MultiselectToggle {

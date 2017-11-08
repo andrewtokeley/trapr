@@ -14,15 +14,16 @@ enum KillMethod: Int {
     case Direct
 }
 
-class TrapType: Object {
-    dynamic var name: String? // "Pelifeed", "Possum Master"
+class TrapType: LookupObject {
     
     dynamic var killMethodRaw = 0
+    dynamic var defaultLure: Lure?
+    let availableLures = List<Lure>()
+    dynamic var imageName: String?
+    
     var killMethod: KillMethod {
         return KillMethod(rawValue: killMethodRaw) ?? .Direct
     }
     
-    dynamic var baitDescription: String? // "Muelsi", "Rat Poison", "Egg"...
     
-    dynamic var imageName: String?
 }

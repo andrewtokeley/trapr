@@ -28,6 +28,20 @@ extension VisitRouter: VisitRouterApi {
         module.router.showAsModalOverlay(from: _view, setupData: setupData)
     }
     
+    func addVisitLogToView() {
+        let module = AppModules.visitLog.build()
+        
+        if let visitView = _view as? VisitViewApi {
+            
+            if let delegate = module.presenter as? VisitDelegate {
+                presenter.setVisitDelegate(delegate: delegate)
+                
+                module.router.addAsChildView(ofView: _view, insideContainer: visitView.getVisitContainerView)
+            }
+        }
+
+    }
+    
 }
 
 // MARK: - Visit Viper Components

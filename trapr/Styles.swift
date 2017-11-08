@@ -29,5 +29,9 @@ class Styles {
         let labelAppearance = UILabel.appearance()
         //labelAppearance.font = UIFont.trpLabel
         labelAppearance.textColor = UIColor.trpTextDark
+        
+        let stepperAppearance = UIStepper.appearance()
+        stepperAppearance.tintColor = UIColor.trpMenuBar
+        
     }
 }

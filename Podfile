@@ -4,6 +4,7 @@ target "trapr" do
     pod "PureLayout"
     pod "Viperit"
     pod "RealmSwift"
+    pod "iCarousel"
 end
 
 target "traprTests" do

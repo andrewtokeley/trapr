@@ -10,6 +10,11 @@ import Foundation
 import UIKit
 
 extension UIFont {
+    
+    public static var trpLabelLarge: UIFont {
+        return UIFont.systemFont(ofSize: 30, weight: UIFontWeightBold)
+    }
+    
     public static var trpLabel: UIFont {
         return UIFont.systemFont(ofSize: UIFont.labelFontSize)
     }

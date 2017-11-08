@@ -22,18 +22,6 @@ extension DatePickerRouter: DatePickerRouterApi {
     }
 }
 
-extension Router {
-    func showAsModalOverlay(from: UIViewController, setupData: Any? = nil) {
-        if let data = setupData {
-            _presenter.setupView(data: data)
-        }
-        
-        _view.modalTransitionStyle = .crossDissolve
-        _view.modalPresentationStyle = .overCurrentContext
-        from.present(_view, animated: false, completion: nil)
-    }
-}
-
 // MARK: - DatePicker Viper Components
 private extension DatePickerRouter {
     var presenter: DatePickerPresenterApi {

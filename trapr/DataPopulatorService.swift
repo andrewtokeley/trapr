@@ -10,43 +10,30 @@ import Foundation
 import RealmSwift
 
 class DataPopulatorService: Service, DataPopulatorServiceInterface {
-
-    lazy var possumMaster: TrapType = {
-        let trapType = TrapType()
-        trapType.name = "Possum Master"
-        trapType.killMethodRaw = KillMethod.Direct.rawValue
-        trapType.baitDescription = "Mueseli Blocks"
-        trapType.imageName = "possumMaster"
-        
-        try! self.realm.write {
-            self.realm.add(trapType)
-        }
-        
-        return trapType
-    }()
     
-    lazy var pelifeed: TrapType = {
-        let trapType = TrapType()
-        trapType.name = "Pelifeed"
-        trapType.killMethodRaw = KillMethod.Poison.rawValue
-        trapType.baitDescription = "Blocks"
-        trapType.imageName = "pelifeed"
-        
-        try! self.realm.write {
-            self.realm.add(trapType)
-        }
-        
-        return trapType
-    }()
+    var possumMaster: TrapType!
+    var pelifeed: TrapType!
     
     func replaceAllDataWithTestData() {
         deleteAllData()
+        addLookupData()
         createTestData()
     }
     
     func deleteAllData() {
         // Delete all data in the repository
         ServiceFactory.sharedInstance.applicationService.deleteAllData()
+    }
+    
+    func addLookupData() {
+        ServiceFactory.sharedInstance.lureService.createDefaults()
+        ServiceFactory.sharedInstance.speciesService.createDefaults()
+        
+        let trapTypeService = ServiceFactory.sharedInstance.trapTypeService
+        trapTypeService.createDefaults()
+        possumMaster = trapTypeService.get(code: "PMA")
+        pelifeed = trapTypeService.get(code: "PEL")
+        
     }
     
     func createTestData() {
@@ -74,7 +61,9 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
         for i in 1...numberOfStations {
             let station = trapline.addStation(code: String(format: "%02d", i))
             let _ = station.addTrap(type: possumMaster)
-            let _ = station.addTrap(type: pelifeed)
+            if i < 3 {
+                let _ = station.addTrap(type: pelifeed)
+            }
         }
         ServiceFactory.sharedInstance.traplineService.add(trapline: trapline)
         
@@ -93,6 +82,9 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
             let station = trapline.stations[i]
             for trap in station.traps {
                 let visit = Visit(trap: trap, date: date)
+                if i == 0 {
+                    visit.baitAdded = 2
+                }
                 ServiceFactory.sharedInstance.visitService.add(visit: visit)
             }
         }

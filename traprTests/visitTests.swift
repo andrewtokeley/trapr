@@ -20,13 +20,44 @@ class visitTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        ServiceFactory.sharedInstance.applicationService.deleteAllData()
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
         
-        ServiceFactory.sharedInstance.applicationService.deleteAllData()
+    }
+    
+    func testUpdateVisit() {
+        
+        let NOTE = "This is a note"
+        let BAIT_ADDED = 10
+        
+        // save a blank visit
+        let visit = Visit()
+        visit.visitDateTime = Date()
+        visitService.add(visit: visit)
+        
+        // retrieve it from store
+        var visits = visitService.getVisits(recordedOn: Date())
+        
+        // take a copy of the saved visit to enable batch updates to the objects before saving
+        let visitToUpdate = Visit(value: visits.first!)
+        
+        // update some properties
+        visitToUpdate.baitAdded = BAIT_ADDED
+        visitToUpdate.notes = NOTE
+        
+        // save to store
+        visitService.save(visit: visitToUpdate)
+        
+        // get the updated visit from the store and check properties stuck
+        visits = visitService.getVisits(recordedOn: Date())
+        XCTAssertTrue(visits.count == 1, "expected 1, was \(visits.count)")
+        XCTAssertTrue(visits.first!.baitAdded == BAIT_ADDED, "expected \(BAIT_ADDED), was \(visits.first!.baitAdded)")
+        XCTAssertTrue(visits.first!.notes == NOTE, "expected \(NOTE), was \(visits.first!.notes!)")
     }
     
     func testGetVisits() {
@@ -38,7 +69,7 @@ class visitTests: XCTestCase {
         
         let visits = visitService.getVisits(recordedOn: Date())
         
-        XCTAssertTrue(visits.count == 1)
+        XCTAssertTrue(visits.count == 1, "expected 1, was \(visits.count)")
     }
     
     func getVisitSummary() -> VisitSummary {
@@ -80,14 +111,7 @@ class visitTests: XCTestCase {
     
     func testGetVisitSummary() {
         let summary = getVisitSummary()
-        XCTAssertTrue(summary.traplinesDescription == "LW, E, GC")
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+        XCTAssertTrue(summary.route.shortDescription == "LW, E, GC")
     }
     
 }

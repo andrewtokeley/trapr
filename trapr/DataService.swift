@@ -11,11 +11,16 @@ import Foundation
 import Foundation
 import RealmSwift
 
+public enum DataFiles: String {
+    case testFile = "traprTestRealm.realm"
+    case productionFile = "traprRealm.realm"
+}
+
 class DataService {
     
-    private let CURRENT_SCHEMA_VERSION:UInt64 = 2
-    private let TEST_REALM_NAME = "traprTestRealm"
-    private let REALM_NAME = "traprRealm"
+    static let sharedInstance = DataService()
+    
+    private let CURRENT_SCHEMA_VERSION:UInt64 = 8
     
     private var documentDirectory: URL {
         let url = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
@@ -26,7 +31,7 @@ class DataService {
 
         // return default data store
         self.configuration.fileURL = self.documentDirectory
-            .appendingPathComponent(self.REALM_NAME)
+            .appendingPathComponent(DataFiles.productionFile.rawValue)
         
         return try! Realm(configuration: self.configuration)
     }()
@@ -34,7 +39,7 @@ class DataService {
     lazy var realmTestInstance: Realm = {
 
         self.configuration.fileURL = self.documentDirectory
-            .appendingPathComponent(self.TEST_REALM_NAME)
+            .appendingPathComponent(DataFiles.testFile.rawValue)
         
         return try! Realm(configuration: self.configuration)
     }()
@@ -49,11 +54,112 @@ class DataService {
             // a schema version lower than the one set above
             migrationBlock: { migration, oldSchemaVersion in
                 
-                if (oldSchemaVersion < self.CURRENT_SCHEMA_VERSION) {
-                    print("Migrating from \(oldSchemaVersion) to \(self.CURRENT_SCHEMA_VERSION)")
+                if (oldSchemaVersion < 2) {
                     // Nothing to do!
                     // Realm will automatically detect new properties and removed properties
                     // And will update the schema on disk automatically
+                }
+                
+                if (oldSchemaVersion < 3) {
+                    // primary key was aded for Visit objects
+                    migration.enumerateObjects(ofType: Visit.className()) { oldObject, newObject in
+                        // add a primary key value
+                        newObject!["id"] = UUID().uuidString
+                    }
+                }
+                if (oldSchemaVersion < 4) {
+                    
+                    // primary key was aded for Species objects
+                    migration.enumerateObjects(ofType: Species.className()) { oldObject, newObject in
+                        // add a primary key value
+                        newObject!["id"] = UUID().uuidString
+                    }
+                    // primary key was aded for TrapType objects
+                    migration.enumerateObjects(ofType: TrapType.className()) { oldObject, newObject in
+                        // add a primary key value
+                        newObject!["id"] = UUID().uuidString
+                    }
+                    // primary key was aded for Trap objects
+                    migration.enumerateObjects(ofType: Trap.className()) { oldObject, newObject in
+                        // add a primary key value
+                        newObject!["id"] = UUID().uuidString
+                    }
+                    // primary key was aded for Trap objects
+                    migration.enumerateObjects(ofType: Station.className()) { oldObject, newObject in
+                        // add a primary key value
+                        newObject!["id"] = UUID().uuidString
+                    }
+                }
+                
+                if (oldSchemaVersion < 5) {
+                    
+                    // populate new code (primary key) property of species
+                    migration.enumerateObjects(ofType: Species.className()) { oldObject, newObject in
+                        var code = ""
+                        
+                        if let name = oldObject!["name"] as? String {
+                            switch name {
+                            case "Possum Master":
+                                code = "POS"
+                                break
+                            case "Rat":
+                                code = "RAT"
+                                break
+                            case "Mouse":
+                                code = "NOU"
+                                break
+                            case "Hedgehog":
+                                code = "HED"
+                                break
+                            default:
+                                code = UUID().uuidString
+                            }
+                        }
+                        newObject!["code"] = code
+                    }
+                }
+                
+                if (oldSchemaVersion < 6) {
+                     migration.enumerateObjects(ofType: Species.className()) { oldObject, newObject in
+                        
+                        var code = ""
+                        
+                        if let name = oldObject!["name"] as? String {
+                            // Fix the code for Possum species (will be a UUID now)
+                            if name == "Possum" {
+                                newObject!["code"] = "POS"
+                            }
+                        }
+                                
+                    }
+                    
+                    // populate new code (primary key) property of TrapType
+                    migration.enumerateObjects(ofType: TrapType.className()) { oldObject, newObject in
+                        
+                        var code = ""
+                        
+                        if let name = oldObject!["name"] as? String {
+                            switch name {
+                            case "Possum Master":
+                                code = "PMA"
+                                break
+                            case "Pelifeed":
+                                code = "PEL"
+                                break
+                            case "DOC200":
+                                code = "D200"
+                                break
+                            case "Hedgehog":
+                                code = "HED"
+                                break
+                            default:
+                                code = UUID().uuidString
+                            }
+                        }
+                        newObject!["code"] = code
+                    }
+                }
+                if (oldSchemaVersion < self.CURRENT_SCHEMA_VERSION) {
                 }
         })
         return config

@@ -13,6 +13,7 @@ import Viperit
 enum AppModules: String, ViperitModule {
     case start
     case visit
+    case visitLog
     case traplineSelect
     case stationSelect
     case newVisit
@@ -20,13 +21,9 @@ enum AppModules: String, ViperitModule {
     case menu
     case datePicker
     case sideMenu
+    case listPicker
     
     var viewType: ViperitViewType {
-        switch self {
-        case .visit:
-            return .nib
-        default:
-            return .code
-        }
+        return .code
     }
 }

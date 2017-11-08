@@ -25,9 +25,19 @@ extension VisitInteractor: VisitInteractorApi {
         
         // Find the visit for the given trap
         // NOTE: not supporting multiple visits to the same trap on the same day
-        let visit = visits.filter({ (visit) in return visit.trap === trap })
-        presenter.didFetchVisit(visit: visit.first)
-    
+        if let visit = visits.filter({ (visit) in return visit.trap?.id == trap.id}).first {
+            
+            // trap exists for this day
+            print("return existing visit: \(visit.id)")
+            presenter.didFetchVisit(visit: visit)
+        } else {
+            
+            // create a new Visit
+            let newVisit = Visit(trap: trap, date: date)
+            print("create new visit: \(newVisit.id)")
+            
+            presenter.didFetchVisit(visit: newVisit)
+        }
     }
     
     func addVisit(visit: Visit) {

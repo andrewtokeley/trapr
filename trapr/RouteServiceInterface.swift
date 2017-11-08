@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-protocol RouteServiceInterface {
+protocol RouteServiceInterface: ServiceInterface {
     
     /**
      Record a new Route
