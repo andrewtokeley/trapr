@@ -12,14 +12,18 @@ import Viperit
 // MARK: - TraplineSelectPresenter Class
 final class TraplineSelectPresenter: Presenter {
     
+    private let TITLE = "New Route"
+    
     fileprivate var delegate: TraplineSelectDelegate?
     
+    fileprivate var routeName: String?
     fileprivate var selectedTraplines = [Trapline]()
     fileprivate var selectedTraplinesText: String {
         return selectedTraplines.map({ (trapline) -> String in return trapline.code! }).joined(separator: ", ")
     }
     
     private let DELIMMTER = ", "
+    private let ROUTE_NAME = "Route name"
     
     override func viewIsAboutToAppear() {
         
@@ -27,7 +31,8 @@ final class TraplineSelectPresenter: Presenter {
             view.updateDisplay(traplines: traplines)
         }
         
-        view.setTitle(title: "New Route")
+        view.setTitle(title: TITLE)
+        view.setRouteNamePlaceholderText(text: ROUTE_NAME)
         view.setNextButtonState(enabled: false)
         view.setSelectedTraplinesDescription(description: "")
     }
@@ -44,21 +49,28 @@ extension TraplineSelectPresenter: StationSelectDelegate {
     
     func didSelectStations(stations: [Station]) {
         
-        let route = Route(stations: stations)
-        
-        if !ServiceFactory.sharedInstance.routeService.routeExists(route: route) {
-            ServiceFactory.sharedInstance.routeService.add(route: route)
+        if let _ = routeName {
+            let route = Route(name: self.routeName!, stations: stations)
+            
+            if !ServiceFactory.sharedInstance.routeService.routeExists(route: route) {
+                ServiceFactory.sharedInstance.routeService.add(route: route)
+            }
+            
+            self.delegate?.didCreateRoute(route: route)
+            
+            // close view
+            _view.navigationController?.popViewController(animated: true)
         }
-        
-        self.delegate?.didCreateRoute(route: route)
-        
-        // close view
-        _view.navigationController?.popViewController(animated: true)
     }
+    
 }
 
 // MARK: - TraplineSelectPresenter API
 extension TraplineSelectPresenter: TraplineSelectPresenterApi {
+    
+    func didChangeRouteName(name: String?) {
+        self.routeName = name
+    }
     
     func didSelectTrapline(trapline: Trapline) {
         self.selectedTraplines.append(trapline)

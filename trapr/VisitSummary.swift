@@ -22,11 +22,13 @@ class VisitSummary {
      Create an instance from the visits that were created on a specific day
     */
     convenience init(dateOfVisit: Date, visitService: VisitServiceInterface) {
+        
+        //TODO: don't need to create a summary from visits - should use (dateOfVisit: route:) only
         self.init()
         self.dateOfVisit = dateOfVisit
 
         let visits = visitService.getVisits(recordedOn: self.dateOfVisit)
-        self.route = Route(visits: Array(visits))
+        self.route = Route(name: "Test", visits: Array(visits))
     }
     
     /**

@@ -40,7 +40,7 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
         
         let trapline1 = createTrapline(code: "LW", numberOfStations: 11)
         createVisitsForTrapline(trapline: trapline1, date: Date())
-        createRoute(traplines: [trapline1], maxStationsPerLine: 11)
+        createRoute(name: "Lowry Bay", traplines: [trapline1], maxStationsPerLine: 11)
         
         let trapline2 = createTrapline(code: "E", numberOfStations: 50)
         createVisitsForTrapline(trapline: trapline2, date: Date().add(-14, 0, 0), numberOfStations: 10)
@@ -48,11 +48,11 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
         createVisitsForTrapline(trapline: trapline3, date: Date().add(-14, 0, 0))
         let trapline4 = createTrapline(code: "U", numberOfStations: 6)
         createVisitsForTrapline(trapline: trapline4, date: Date().add(-14, 0, 0))
-        createRoute(traplines: [trapline2, trapline3, trapline4], maxStationsPerLine: 11)
+        createRoute(name: "East Ridge", traplines: [trapline2, trapline3, trapline4], maxStationsPerLine: 11)
         
         let trapline5 = createTrapline(code: "AA", numberOfStations: 10)
         createVisitsForTrapline(trapline: trapline5, date: Date().add(-21, 0, 0), numberOfStations: 5)
-        createRoute(traplines: [trapline5], maxStationsPerLine: 5)
+        createRoute(name: "A Line", traplines: [trapline5], maxStationsPerLine: 5)
     }
 
     func createTrapline(code: String, numberOfStations: Int) -> Trapline {
@@ -90,7 +90,7 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
         }
     }
     
-    func createRoute(traplines: [Trapline], maxStationsPerLine: Int) {
+    func createRoute(name: String, traplines: [Trapline], maxStationsPerLine: Int) {
         var stations = [Station]()
         
         for trapline in traplines {
@@ -100,6 +100,6 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
             }
         }
         
-        ServiceFactory.sharedInstance.routeService.add(route: Route(stations: stations))
+        ServiceFactory.sharedInstance.routeService.add(route: Route(name: name, stations: stations))
     }
 }

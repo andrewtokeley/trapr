@@ -17,6 +17,7 @@ protocol TraplineSelectRouterApi: RouterProtocol {
 protocol TraplineSelectViewApi: UserInterfaceProtocol {
     
     func setTitle(title: String)
+    func setRouteNamePlaceholderText(text: String)
     func setSelectedTraplinesDescription(description: String)
     func updateDisplay(traplines: [Trapline])
     func setNextButtonState(enabled: Bool)
@@ -25,7 +26,7 @@ protocol TraplineSelectViewApi: UserInterfaceProtocol {
 
 //MARK: - TraplineSelectPresenter API
 protocol TraplineSelectPresenterApi: PresenterProtocol {
-    
+    func didChangeRouteName(name: String?)
     func didSelectTrapline(trapline: Trapline)
     func didDeselectTrapline(trapline: Trapline)
     func didSelectNext()

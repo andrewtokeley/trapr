@@ -23,15 +23,17 @@ class Route: Object {
     }()
     
     let stations = List<Station>()
+    dynamic var name: String?
     
     //MARK: - Initialisation
     
-    convenience init(stations: [Station]) {
+    convenience init(name: String, stations: [Station]) {
         self.init()
         self.stations.append(objectsIn: stations)
+        self.name = name
     }
     
-    convenience init(visits: [Visit]) {
+    convenience init(name: String, visits: [Visit]) {
 
         var stations = [Station]()
         
@@ -43,7 +45,7 @@ class Route: Object {
                 }
             }
         }
-        self.init(stations: stations)
+        self.init(name: name, stations: stations)
     }
     
     //MARK: - Functions

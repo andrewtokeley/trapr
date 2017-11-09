@@ -29,6 +29,21 @@ final class TraplineSelectView: UserInterface {
     
     // MARK: Subviews
     
+    
+    lazy var routeNameTextField: UITextField = {
+        let field = UITextField()
+        field.font = UIFont.trpText
+        field.backgroundColor = UIColor.white
+        
+        let spacerView = UIView(frame:CGRect(x:0, y:0, width:10, height:10))
+        field.leftViewMode = .always
+        field.leftView = spacerView
+
+        field.delegate = self
+        
+        return field
+    }()
+    
     lazy var nextButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: self.NEXT_BUTTON_TEXT, style: .plain, target: self, action: #selector(nextButtonClick(sender:)))
         
@@ -88,6 +103,7 @@ final class TraplineSelectView: UserInterface {
         super.loadView()
         
         self.view.backgroundColor = UIColor.trpBackground
+        self.view.addSubview(routeNameTextField)
         self.view.addSubview(selectedTraplinesLabel)
         self.view.addSubview(selectedTraplinesView)
         self.view.addSubview(selectedTraplinesFooterText)
@@ -100,7 +116,12 @@ final class TraplineSelectView: UserInterface {
         
     func setConstraints() {
         
-        self.selectedTraplinesLabel.autoPin(toTopLayoutGuideOf: self, withInset: 20)
+        self.routeNameTextField.autoPin(toTopLayoutGuideOf: self, withInset: 20)
+        self.routeNameTextField.autoPinEdge(toSuperviewEdge: .left)
+        self.routeNameTextField.autoPinEdge(toSuperviewEdge: .right)
+        self.routeNameTextField.autoSetDimension(.height, toSize: 40)
+        
+        self.selectedTraplinesLabel.autoPinEdge(.top, to: .bottom, of: self.routeNameTextField, withOffset: 20)
         self.selectedTraplinesLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
         
         self.selectedTraplinesView.autoPinEdge(.top, to: .bottom, of: self.selectedTraplinesLabel, withOffset: 10)
@@ -120,6 +141,15 @@ final class TraplineSelectView: UserInterface {
         self.tableView.autoPinEdge(toSuperviewEdge: .bottom)
     }
 
+}
+
+//MARK: - TextField
+extension TraplineSelectView: UITextFieldDelegate {
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        presenter.didChangeRouteName(name: textField.text)
+    }
+    
 }
 
 //MARK: - TableView
@@ -161,6 +191,10 @@ extension TraplineSelectView: UITableViewDelegate, UITableViewDataSource {
 
 //MARK: - TraplineSelectView API
 extension TraplineSelectView: TraplineSelectViewApi {
+    
+    func setRouteNamePlaceholderText(text: String) {
+        self.routeNameTextField.placeholder = text
+    }
     
     func setTitle(title: String) {
         self.title = title
