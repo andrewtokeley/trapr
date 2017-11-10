@@ -17,8 +17,8 @@ class RouteService: Service, RouteServiceInterface {
         }
     }
     
-    func getAll() -> Results<Route> {
-        return realm.objects(Route.self)
+    func getAll() -> [Route] {
+        return Array(realm.objects(Route.self))
     }
     
     func delete(route: Route) {

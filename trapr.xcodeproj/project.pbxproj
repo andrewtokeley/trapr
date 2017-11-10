@@ -89,6 +89,10 @@
 		D86CE4891F92BC6F004A09EF /* home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE4811F92BC6E004A09EF /* home@2x.png */; };
 		D86CE48A1F92BC6F004A09EF /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE4821F92BC6E004A09EF /* home.png */; };
 		D86CE48C1F92C8EA004A09EF /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CE48B1F92C8EA004A09EF /* UIFontExtension.swift */; };
+		D87926921FB553A600240767 /* RouteCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87926911FB553A600240767 /* RouteCollectionViewCell.xib */; };
+		D87926951FB555A500240767 /* clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D87926931FB555A400240767 /* clock@2x.png */; };
+		D87926961FB555A500240767 /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = D87926941FB555A500240767 /* clock.png */; };
+		D87926981FB556B800240767 /* RouteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87926971FB556B800240767 /* RouteCollectionViewCell.swift */; };
 		D87C44ED1F8F4C2400CAFC7A /* DatePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44EC1F8F4C2400CAFC7A /* DatePickerDelegate.swift */; };
 		D87C44EF1F8F545F00CAFC7A /* DatePickerSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44EE1F8F545F00CAFC7A /* DatePickerSetupData.swift */; };
 		D87C44F61F9059AF00CAFC7A /* SideMenuDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F01F9059AF00CAFC7A /* SideMenuDisplayData.swift */; };
@@ -253,6 +257,10 @@
 		D86CE4811F92BC6E004A09EF /* home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home@2x.png"; sourceTree = "<group>"; };
 		D86CE4821F92BC6E004A09EF /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		D86CE48B1F92C8EA004A09EF /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
+		D87926911FB553A600240767 /* RouteCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouteCollectionViewCell.xib; sourceTree = "<group>"; };
+		D87926931FB555A400240767 /* clock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock@2x.png"; sourceTree = "<group>"; };
+		D87926941FB555A500240767 /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
+		D87926971FB556B800240767 /* RouteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCollectionViewCell.swift; sourceTree = "<group>"; };
 		D87C44EC1F8F4C2400CAFC7A /* DatePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDelegate.swift; sourceTree = "<group>"; };
 		D87C44EE1F8F545F00CAFC7A /* DatePickerSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerSetupData.swift; sourceTree = "<group>"; };
 		D87C44F01F9059AF00CAFC7A /* SideMenuDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuDisplayData.swift; sourceTree = "<group>"; };
@@ -442,6 +450,8 @@
 				D8D729E11F61D7D30082CD4A /* VisitCollectionViewCell.swift */,
 				D8D729E31F61D91C0082CD4A /* VisitCollectionViewCell.xib */,
 				D83853011F6654CD00481B57 /* NewVisitCollectionViewCell.xib */,
+				D87926911FB553A600240767 /* RouteCollectionViewCell.xib */,
+				D87926971FB556B800240767 /* RouteCollectionViewCell.swift */,
 			);
 			name = Start;
 			sourceTree = "<group>";
@@ -622,6 +632,8 @@
 		D8B94D991F5F28F200D373EF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D87926941FB555A500240767 /* clock.png */,
+				D87926931FB555A400240767 /* clock@2x.png */,
 				D84CE4581F987CC30000D422 /* pelifeed.png */,
 				D84CE4591F987CC30000D422 /* pelifeed@2x.png */,
 				D8B73C2F1F97F4D8000C231E /* possumMaster.png */,
@@ -764,6 +776,8 @@
 			files = (
 				D86CE4851F92BC6F004A09EF /* settings.png in Resources */,
 				D86CE4871F92BC6F004A09EF /* sync@2x.png in Resources */,
+				D87926961FB555A500240767 /* clock.png in Resources */,
+				D87926921FB553A600240767 /* RouteCollectionViewCell.xib in Resources */,
 				D8B73C311F97F4D8000C231E /* possumMaster.png in Resources */,
 				D8FA5CF51F8406D600EC890C /* close.png in Resources */,
 				D8B94D631F5EA1FE00D373EF /* LaunchScreen.storyboard in Resources */,
@@ -782,6 +796,7 @@
 				D8BC084B1F6A542700B284EE /* lessthan@2x.png in Resources */,
 				D8FA5CF61F8406D600EC890C /* close@2x.png in Resources */,
 				D8D729E41F61D91C0082CD4A /* VisitCollectionViewCell.xib in Resources */,
+				D87926951FB555A500240767 /* clock@2x.png in Resources */,
 				D8503DD81F67AF7800ED0C84 /* user.png in Resources */,
 				D8D729E61F64BD580082CD4A /* Podfile in Resources */,
 				D86CE48A1F92BC6F004A09EF /* home.png in Resources */,
@@ -949,6 +964,7 @@
 				D841CF271F8239CA004D0207 /* TraplineSelectInteractor.swift in Sources */,
 				D8953EBD1F88114F00A1F424 /* NewVisitInteractor.swift in Sources */,
 				D8039E261FABF458006E394B /* ListPickerInteractor.swift in Sources */,
+				D87926981FB556B800240767 /* RouteCollectionViewCell.swift in Sources */,
 				D841CF291F8239CA004D0207 /* TraplineSelectPresenter.swift in Sources */,
 				D8039E291FABF458006E394B /* ListPickerRouter.swift in Sources */,
 				D83DC6C81F7F841F00F91792 /* StartDisplayData.swift in Sources */,

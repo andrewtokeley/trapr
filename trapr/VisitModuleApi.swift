@@ -17,7 +17,7 @@ protocol VisitRouterApi: RouterProtocol {
 
 //MARK: - VisitView API
 protocol VisitViewApi: UserInterfaceProtocol {
-    func setTitle(title: String)
+    func setTitle(title: String, subTitle: String)
     func setStations(stations: [Station], current: Station)
     func setTraps(traps: [Trap])
     func displayMenuOptions(options: [String])

@@ -49,8 +49,10 @@ final class VisitPresenter: Presenter {
     //MARK: - Helpers
 
     func updateTitle() {
-        let title = self.visitSummary.dateOfVisit.string(from: Styles.DATE_FORMAT_LONG)
-        view.setTitle(title: title)
+        if let title = self.visitSummary.route.name {
+            let subTitle = self.visitSummary.dateOfVisit.string(from: Styles.DATE_FORMAT_LONG)
+            view.setTitle(title: title, subTitle: subTitle)
+        }
     }
     
 }

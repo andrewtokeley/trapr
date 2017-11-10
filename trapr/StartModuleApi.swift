@@ -16,6 +16,7 @@ protocol StartRouterApi: RouterProtocol {
 
 //MARK: - StartView API
 protocol StartViewApi: UserInterfaceProtocol {
+    func displayRoutes(routes: [Route]?)
     func displayRecentVisits(visits: [VisitSummary]?)
     func askForNewVisitDate(completion: (Date) -> Void)
     func setTitle(title: String)
@@ -27,8 +28,9 @@ protocol StartPresenterApi: PresenterProtocol {
     func didSelectMenu()
     func didSelectNewVisit()
     func didSelectVisitSummary(visitSummary: VisitSummary)
-    
+    func didSelectRoute(route: Route)
     func setRecentVisits(visits: [VisitSummary]?)
+    func setRoutes(routes: [Route]?)
 }
 
 //MARK: - StartInteractor API

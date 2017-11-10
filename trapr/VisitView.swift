@@ -121,10 +121,44 @@ final class VisitView: UserInterface {
         return button
     }()
     
+    lazy var titleView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
+        view.backgroundColor = UIColor.clear
+        
+        view.addSubview(self.titleLabel)
+        view.addSubview(self.subTitleLabel)
+
+        self.titleLabel.autoPinEdge(toSuperviewEdge: .left)
+        self.titleLabel.autoPinEdge(toSuperviewEdge: .right)
+//        self.titleLabel.autoAlignAxis(.horizontal, toSameAxisOf: view)
+//        self.titleLabel.autoSetDimension(.height, toSize: 20)
+
+        self.subTitleLabel.autoPinEdge(toSuperviewEdge: .left)
+        self.subTitleLabel.autoPinEdge(toSuperviewEdge: .right)
+        self.subTitleLabel.autoPinEdge(.top, to: .bottom, of: self.titleLabel, withOffset: 0)
+//        self.subTitleLabel.autoAlignAxis(.horizontal, toSameAxisOf: view)
+//        self.subTitleLabel.autoSetDimension(.height, toSize: 10)
+        
+        return view
+    }()
+    
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.trpNavigationBarTint
         label.isUserInteractionEnabled = true
+        label.textAlignment = .center
+        label.font = UIFont.trpText
+        
+        return label
+    }()
+    
+    lazy var subTitleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.trpNavigationBarTint
+        label.isUserInteractionEnabled = true
+        label.textAlignment = .center
+        label.font = UIFont.trpTextSmall
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dateTap(sender:)))
         label.addGestureRecognizer(tapGesture)
         return label
@@ -159,8 +193,8 @@ final class VisitView: UserInterface {
         
         self.navigationItem.rightBarButtonItem = self.showMenuButton
         
-        self.navigationItem.titleView = titleLabel
-        
+        self.navigationItem.titleView = titleView
+
         self.setConstraints()
     }
     
@@ -291,9 +325,12 @@ extension VisitView: VisitViewApi {
         return self.visitContainerView
     }
     
-    func setTitle(title: String) {
+    func setTitle(title: String, subTitle: String) {
         self.titleLabel.text = title
         self.titleLabel.sizeToFit()
+        
+        self.subTitleLabel.text = subTitle
+        self.subTitleLabel.sizeToFit()
     }
     
 //    func setStationText(text: String) {

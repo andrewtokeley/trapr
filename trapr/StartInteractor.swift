@@ -20,6 +20,9 @@ extension StartInteractor: StartInteractorApi {
         let visitSummaries = ServiceFactory.sharedInstance.visitService.getVisitSummaries(recordedBetween: Date().add(0, -3, 0), endDate: Date())
         
         presenter.setRecentVisits(visits: visitSummaries)
+        
+        let routes = ServiceFactory.sharedInstance.routeService.getAll()
+        presenter.setRoutes(routes: routes)
     }
 }
 

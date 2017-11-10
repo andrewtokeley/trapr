@@ -19,7 +19,7 @@ protocol RouteServiceInterface: ServiceInterface {
      */
     func add(route: Route)
 
-    func getAll() -> Results<Route>
+    func getAll() -> [Route]
     
     func delete(route: Route)
     
