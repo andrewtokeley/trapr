@@ -13,29 +13,33 @@ import Viperit
 final class TraplineSelectView: UserInterface {
     
     fileprivate var traplines: [Trapline]!
+    fileprivate var selectedTraplines: [Trapline]?
     
     fileprivate var TABLEVIEW_CELL_ID = "cell"
     fileprivate var NEXT_BUTTON_TEXT = "Next"
     
-    fileprivate var SELECTED_TRAPLINES_HEADER_TEXT = "SELECTED TRAPLINES"
-    fileprivate var ALL_TRAPLINES_HEADER_TEXT = "ALL TRAPLINES"
-    fileprivate var SELECTED_TRAPLINES_FOOTER_TEXT = "Select traplines below to include in the route. You will be able to select specifc stations in the next step."
+    fileprivate var SELECTED_TRAPLINES_HEADER_TEXT = "ROUTE TRAPLINES"
+    fileprivate var ALL_TRAPLINES_HEADER_TEXT = "TRAPLINES"
+    fileprivate var SELECTED_TRAPLINES_FOOTER_TEXT = "Select which traplines are included in the Route. You will be able to select specifc stations in the next step."
 
-    //MARK: Events
+    //MARK: - Events
     
     func nextButtonClick(sender: UIBarButtonItem) {
         presenter.didSelectNext()
     }
     
-    // MARK: Subviews
+    func closeButtonClick(sender: UIBarButtonItem) {
+        presenter.didSelectClose()
+    }
     
+    // MARK: - Subviews
     
     lazy var routeNameTextField: UITextField = {
         let field = UITextField()
         field.font = UIFont.trpText
         field.backgroundColor = UIColor.white
         
-        let spacerView = UIView(frame:CGRect(x:0, y:0, width:10, height:10))
+        let spacerView = UIView(frame:CGRect(x:0, y:0, width:LayoutDimensions.textIndentMargin, height:LayoutDimensions.textIndentMargin))
         field.leftViewMode = .always
         field.leftView = spacerView
 
@@ -50,6 +54,12 @@ final class TraplineSelectView: UserInterface {
         button.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.trpNavigationBarTint], for: .normal)
         button.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.trpNavigationBarTintDisabled], for: .disabled)
         
+        return button
+    }()
+    
+    lazy var closeButton: UIBarButtonItem = {
+
+        let button = UIBarButtonItem(image: UIImage(named: "close"), style: .plain, target: self, action: #selector(closeButtonClick(sender:)))
         return button
     }()
     
@@ -116,26 +126,26 @@ final class TraplineSelectView: UserInterface {
         
     func setConstraints() {
         
-        self.routeNameTextField.autoPin(toTopLayoutGuideOf: self, withInset: 20)
+        self.routeNameTextField.autoPin(toTopLayoutGuideOf: self, withInset: LayoutDimensions.spacingMargin)
         self.routeNameTextField.autoPinEdge(toSuperviewEdge: .left)
         self.routeNameTextField.autoPinEdge(toSuperviewEdge: .right)
-        self.routeNameTextField.autoSetDimension(.height, toSize: 40)
+        self.routeNameTextField.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
         
-        self.selectedTraplinesLabel.autoPinEdge(.top, to: .bottom, of: self.routeNameTextField, withOffset: 20)
-        self.selectedTraplinesLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
+        self.selectedTraplinesLabel.autoPinEdge(.top, to: .bottom, of: self.routeNameTextField, withOffset: LayoutDimensions.spacingMargin)
+        self.selectedTraplinesLabel.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.textIndentMargin)
         
-        self.selectedTraplinesView.autoPinEdge(.top, to: .bottom, of: self.selectedTraplinesLabel, withOffset: 10)
+        self.selectedTraplinesView.autoPinEdge(.top, to: .bottom, of: self.selectedTraplinesLabel, withOffset: LayoutDimensions.spacingMargin / 2)
         self.selectedTraplinesView.autoPinEdge(toSuperviewEdge: .left)
         self.selectedTraplinesView.autoPinEdge(toSuperviewEdge: .right)
-        self.selectedTraplinesView.autoSetDimension(.height, toSize: 40)
+        self.selectedTraplinesView.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
         
-        self.selectedTraplinesText.autoPinEdgesToSuperviewEdges(with: UIEdgeInsetsMake(0, 20, 0, 0), excludingEdge: .right)
+        self.selectedTraplinesText.autoPinEdgesToSuperviewEdges(with: UIEdgeInsetsMake(0, LayoutDimensions.textIndentMargin, 0, 0), excludingEdge: .right)
         
-        self.selectedTraplinesFooterText.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
-        self.selectedTraplinesFooterText.autoPinEdge(toSuperviewEdge: .right, withInset: 20)
-        self.selectedTraplinesFooterText.autoPinEdge(.top, to: .bottom, of: self.selectedTraplinesView, withOffset: 10)
+        self.selectedTraplinesFooterText.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.textIndentMargin)
+        self.selectedTraplinesFooterText.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.textIndentMargin)
+        self.selectedTraplinesFooterText.autoPinEdge(.top, to: .bottom, of: self.selectedTraplinesView, withOffset: LayoutDimensions.textIndentMargin)
         
-        self.tableView.autoPinEdge(.top, to: .bottom, of: self.selectedTraplinesFooterText, withOffset: 20)
+        self.tableView.autoPinEdge(.top, to: .bottom, of: self.selectedTraplinesFooterText, withOffset: LayoutDimensions.spacingMargin)
         self.tableView.autoPinEdge(toSuperviewEdge: .left)
         self.tableView.autoPinEdge(toSuperviewEdge: .right)
         self.tableView.autoPinEdge(toSuperviewEdge: .bottom)
@@ -169,7 +179,16 @@ extension TraplineSelectView: UITableViewDelegate, UITableViewDataSource {
         let trapline = traplines[indexPath.row]
         cell.textLabel?.text = trapline.code
         cell.selectionStyle = .none
+        
+        // decide whether it's selected or not
+        if selectedTraplines?.contains(trapline) ?? false {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
+        
         return cell
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -200,17 +219,26 @@ extension TraplineSelectView: TraplineSelectViewApi {
         self.title = title
     }
     
+    func setRouteName(name: String?) {
+        self.routeNameTextField.text = name
+    }
+    
     func setSelectedTraplinesDescription(description: String) {
         self.selectedTraplinesText.text = description
     }
     
-    func updateDisplay(traplines: [Trapline]) {
+    func updateDisplay(traplines: [Trapline], selected: [Trapline]?) {
         self.traplines = traplines
+        self.selectedTraplines = selected
         self.tableView.reloadData()
     }
     
     func setNextButtonState(enabled: Bool) {
         self.nextButton.isEnabled = enabled
+    }
+    
+    func showCloseButton(show: Bool) {
+        self.navigationItem.leftBarButtonItem = show ? closeButton : nil
     }
 }
 

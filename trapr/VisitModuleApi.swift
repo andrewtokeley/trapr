@@ -11,6 +11,7 @@ import Viperit
 //MARK: - VisitRouter API
 protocol VisitRouterApi: RouterProtocol {
     func showStationSelectModule(setupData: StationSelectSetupData)
+    func showEditRoute(setupData: TraplineSelectSetupData) 
     func showDatePicker(setupData: DatePickerSetupData)
     func addVisitLogToView()
 }
@@ -38,8 +39,8 @@ protocol VisitPresenterApi: PresenterProtocol {
     func didSelectStation(index: Int)
     func didFetchVisit(visit: Visit)
     func didSelectMenuButton()
+    func didSelectMenuItem(title: String)
     func didSelectDate()
-    
     func setVisitDelegate(delegate: VisitDelegate)
     
 }

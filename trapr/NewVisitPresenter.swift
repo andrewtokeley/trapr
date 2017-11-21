@@ -34,7 +34,12 @@ extension NewVisitPresenter: TraplineSelectDelegate {
 //        
 //        _view.dismiss(animated: true, completion: nil)
 //    }
-//    
+//
+    
+    func didUpdateRoute(route: Route) {
+        // can ignore - may be getting rid of NewVisitModule
+    }
+    
     func didCreateRoute(route: Route) {
         delegate?.didSelectRoute(route: route)
         _view.dismiss(animated: true, completion: nil)

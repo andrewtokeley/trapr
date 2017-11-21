@@ -19,6 +19,14 @@ extension TraplineSelectInteractor: TraplineSelectInteractorApi {
     func getAllTraplines() -> [Trapline]? {
         return ServiceFactory.sharedInstance.traplineService.getTraplines()
     }
+    
+    func addRoute(route: Route) {
+        ServiceFactory.sharedInstance.routeService.add(route: route)
+    }
+    
+    func updateStations(route: Route, stations: [Station]) {
+        ServiceFactory.sharedInstance.routeService.updateStations(route: route, stations: stations)
+    }
 }
 
 // MARK: - Interactor Viper Components Api

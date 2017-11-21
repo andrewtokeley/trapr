@@ -12,9 +12,7 @@ protocol DataPopulatorServiceInterface: ServiceInterface {
     
     func replaceAllDataWithTestData()
     
-    func deleteAllData()
-    
-    func addLookupData()
+    func deleteAllTestData()
     
     func createTrapline(code: String, numberOfStations: Int) -> Trapline
 }

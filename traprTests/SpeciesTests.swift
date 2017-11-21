@@ -18,7 +18,7 @@ class SpeciesTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        ServiceFactory.sharedInstance.applicationService.deleteAllData()
+        ServiceFactory.sharedInstance.dataPopulatorService.deleteAllTestData()
     }
     
     override func tearDown() {
@@ -27,21 +27,14 @@ class SpeciesTests: XCTestCase {
     }
     
     func testSpeciesDefaults() {
-        let none = service.getAll()
-        XCTAssertTrue(none.count == 0, "Expected 0, received \(none.count)")
         
-        service.createDefaults()
-        
+        // by default species lookup should be 
         let all = service.getAll()
         XCTAssertTrue(all.count > 0, "Expected more than 0, received \(all.count)")
         
     }
     
     func testGetSpeciesByCode() {
-        
-        XCTAssertNil(service.get(code: "POS"))
-        
-        service.createDefaults()
         
         XCTAssertNotNil(service.get(code: "POS"))
 

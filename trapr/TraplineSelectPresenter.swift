@@ -12,34 +12,47 @@ import Viperit
 // MARK: - TraplineSelectPresenter Class
 final class TraplineSelectPresenter: Presenter {
     
-    private let TITLE = "New Route"
-    
     fileprivate var delegate: TraplineSelectDelegate?
     
+    fileprivate var route: Route?
     fileprivate var routeName: String?
     fileprivate var selectedTraplines = [Trapline]()
     fileprivate var selectedTraplinesText: String {
         return selectedTraplines.map({ (trapline) -> String in return trapline.code! }).joined(separator: ", ")
     }
     
+    private let TITLE = "New Route"
     private let DELIMMTER = ", "
     private let ROUTE_NAME = "Route name"
     
-    override func viewIsAboutToAppear() {
+    override func viewHasLoaded() {
+        
+        view.setTitle(title: route?.name ?? TITLE)
+        view.setRouteName(name: route?.name)
+        view.setRouteNamePlaceholderText(text: ROUTE_NAME)
+        
+        view.setSelectedTraplinesDescription(description: "")
         
         if let traplines = interactor.getAllTraplines() {
-            view.updateDisplay(traplines: traplines)
+            
+            if let _ = route {
+                self.selectedTraplines.removeAll()
+                self.selectedTraplines.append(contentsOf: route!.traplines)
+                view.setSelectedTraplinesDescription(description: route!.shortDescription)
+            }
+            view.updateDisplay(traplines: traplines, selected: self.selectedTraplines)
         }
         
-        view.setTitle(title: TITLE)
-        view.setRouteNamePlaceholderText(text: ROUTE_NAME)
-        view.setNextButtonState(enabled: false)
-        view.setSelectedTraplinesDescription(description: "")
+        view.setNextButtonState(enabled: self.selectedTraplines.count > 0)
     }
     
     override func setupView(data: Any) {
-        if let data = data as? TraplineSelectDelegate {
-            self.delegate = data
+        if let data = data as? TraplineSelectSetupData {
+            self.delegate = data.delegate
+            self.route = data.route
+            
+            view.showCloseButton(show: data.presentingAsModal)
+                //self.selectedTraplines = data.route?.traplines ?? [Trapline]()
         }
     }
 }
@@ -47,14 +60,19 @@ final class TraplineSelectPresenter: Presenter {
 //MARK: - StationSelectDelegate
 extension TraplineSelectPresenter: StationSelectDelegate {
     
-    func didSelectStations(stations: [Station]) {
+    func newStationsSelected(stations: [Station]) {
         
-        if let _ = routeName {
-            let route = Route(name: self.routeName!, stations: stations)
+        if let _ = route {
+            // we have a Route so need to update the stations on it
+            interactor.updateStations(route: route!, stations: stations)
+            self.delegate?.didUpdateRoute(route: route!)
             
-            if !ServiceFactory.sharedInstance.routeService.routeExists(route: route) {
-                ServiceFactory.sharedInstance.routeService.add(route: route)
-            }
+        } else {
+            
+            // create a new route
+            
+            let route = Route(name: self.routeName!, stations: stations)
+            interactor.addRoute(route: route)
             
             self.delegate?.didCreateRoute(route: route)
             
@@ -89,10 +107,18 @@ extension TraplineSelectPresenter: TraplineSelectPresenterApi {
     }
         
     func didSelectNext() {
-        router.showStationSelect(traplines: self.selectedTraplines)
+        if let _ = route {
+            // this will show all stations and only select those in the route
+            router.showStationSelect(traplines: self.selectedTraplines, selectedStations: Array(route!.stations))
+        } else {
+            // this will show and select all stations
+            router.showStationSelect(traplines: self.selectedTraplines)
+        }
     }
     
-    
+    func didSelectClose() {
+        _view.dismiss(animated: true, completion: nil)
+    }
 }
 
 // MARK: - TraplineSelect Viper Components

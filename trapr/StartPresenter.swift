@@ -13,7 +13,8 @@ import Viperit
 final class StartPresenter: Presenter {
     
     open override func viewIsAboutToAppear() {
-        view.setTitle(title: "Trapr")
+        view.setTitle(title: "Trapr", routesSectionTitle: "ROUTES", routeSectionActionText: "NEW", recentVisitsSectionTitle: "RECENT", recentVisitsSectionActionText: "ALL")
+        
         interactor.initialiseHomeModule()
     }
 

@@ -17,8 +17,7 @@ class RouteTests: XCTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         print("DELETE ALL")
-        ServiceFactory.sharedInstance.applicationService.deleteAllData()
-        ServiceFactory.sharedInstance.dataPopulatorService.addLookupData()
+        ServiceFactory.sharedInstance.dataPopulatorService.deleteAllTestData()
     }
     
     override func tearDown() {
@@ -31,7 +30,7 @@ class RouteTests: XCTestCase {
         print("START testStationDescriptions")
         let trapline = ServiceFactory.sharedInstance.dataPopulatorService.createTrapline(code: "LW", numberOfStations: 10)
         
-        let route = Route(stations: Array(trapline.stations))
+        let route = Route(name: "Test", stations: Array(trapline.stations))
         
         let expected = "LW01-10"
         let result = route.longDescription
@@ -46,7 +45,7 @@ class RouteTests: XCTestCase {
         
         let stations = [trapline.stations[0], trapline.stations[1], trapline.stations[4], trapline.stations[5], trapline.stations[6], trapline.stations[9]]
         
-        let route = Route(stations: stations)
+        let route = Route(name: "Test", stations: stations)
         
         let expected = "LW01-02, LW05-07, LW10"
         let result = route.longDescription
@@ -63,7 +62,7 @@ class RouteTests: XCTestCase {
         var stations = Array(trapline1.stations)
         stations.append(contentsOf: Array(trapline2.stations))
         
-        let route = Route(stations: stations)
+        let route = Route(name: "Test", stations: stations)
         
         let expected = "LW01-10, E01-05"
         let result = route.longDescription

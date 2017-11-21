@@ -14,23 +14,30 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
     var possumMaster: TrapType!
     var pelifeed: TrapType!
     
+    override init(realm: Realm) {
+        super.init(realm: realm)
+        
+        // Make sure lookup data is up to date
+        createOrUpdateLookupData()
+    }
+    
     func replaceAllDataWithTestData() {
-        deleteAllData()
-        addLookupData()
+        deleteAllTestData()
         createTestData()
     }
     
-    func deleteAllData() {
+    func deleteAllTestData() {
         // Delete all data in the repository
         ServiceFactory.sharedInstance.applicationService.deleteAllData()
+        createOrUpdateLookupData()
     }
     
-    func addLookupData() {
-        ServiceFactory.sharedInstance.lureService.createDefaults()
-        ServiceFactory.sharedInstance.speciesService.createDefaults()
+    private func createOrUpdateLookupData() {
+        ServiceFactory.sharedInstance.lureService.createOrUpdateDefaults()
+        ServiceFactory.sharedInstance.speciesService.createOrUpdateDefaults()
         
         let trapTypeService = ServiceFactory.sharedInstance.trapTypeService
-        trapTypeService.createDefaults()
+        trapTypeService.createOrUpdateDefaults()
         possumMaster = trapTypeService.get(code: "PMA")
         pelifeed = trapTypeService.get(code: "PEL")
         

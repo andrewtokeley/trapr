@@ -146,7 +146,7 @@ extension StationSelectPresenter: StationSelectPresenterApi {
             
         } else {
             
-            self.stationSelectDelegate?.didSelectStations(stations: [groupDataItem.item])
+            self.stationSelectDelegate?.newStationsSelected(stations: [groupDataItem.item])
             _view.dismiss(animated: true, completion: nil)
         }
     }
@@ -204,7 +204,7 @@ extension StationSelectPresenter: StationSelectPresenterApi {
     
     func didSelectDone() {
         
-        self.stationSelectDelegate?.didSelectStations(stations: self.groupedData.dataItems(selectedOnly: true))
+        self.stationSelectDelegate?.newStationsSelected(stations: self.groupedData.dataItems(selectedOnly: true))
         
         // close the StationSelect module
         _view.dismiss(animated: true, completion: nil)

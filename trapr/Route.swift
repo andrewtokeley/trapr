@@ -16,11 +16,17 @@ class Route: Object {
         return ["traplines"]
     }
     
+    // Primary key
+    dynamic var id: String = UUID().uuidString
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
     //MARK: - Properties
     
-    lazy var traplines: List<Trapline> = {
+    var traplines: List<Trapline> {
         return self.getTraplines(from: self.stations)
-    }()
+    }
     
     let stations = List<Station>()
     dynamic var name: String?

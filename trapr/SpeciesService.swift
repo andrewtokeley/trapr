@@ -11,7 +11,7 @@ import RealmSwift
 
 class SpeciesService: LookupService<Species> {
     
-    override func createDefaults() {
+    override func createOrUpdateDefaults() {
         try! realm.write {
             realm.add(Species(code: "POS", name: "Possum", order: 0), update: true)
             realm.add(Species(code: "RAT", name: "Rat", order: 1), update: true)

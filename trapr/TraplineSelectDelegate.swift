@@ -9,6 +9,7 @@
 import Foundation
 
 protocol TraplineSelectDelegate {
-    //func didSelectTraplines(traplines: [Trapline])
+    
     func didCreateRoute(route: Route)
+    func didUpdateRoute(route: Route)
 }

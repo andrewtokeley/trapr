@@ -45,6 +45,14 @@ final class VisitPresenter: Presenter {
         }
     }
     
+    //MARK: - Menu actions
+    
+    func menuEditRoute() {
+        let setupData = TraplineSelectSetupData()
+        setupData.delegate = self
+        setupData.route = self.visitSummary.route
+        router.showEditRoute(setupData: setupData)
+    }
     
     //MARK: - Helpers
 
@@ -85,8 +93,9 @@ extension VisitPresenter: DatePickerDelegate {
 // MARK: - StationSelectDelegate
 extension VisitPresenter: StationSelectDelegate {
     
-    func didSelectStations(stations: [Station]) {
+    func newStationsSelected(stations: [Station]) {
         
+        // TODO - this is used for jumping to a selected station - haven't wired up yet from Visit module
         // should only be a single station
         if let station = stations.first {
             if let index = visitSummary?.route?.stations.index(where: { $0.longCode == station.longCode }) {
@@ -107,7 +116,13 @@ extension VisitPresenter: VisitPresenterApi {
     }
     
     func didSelectMenuButton() {
-        view.displayMenuOptions(options: ["Send Report", "Add/Remove Trapline", "Remove Visit", "View Map"])
+        view.displayMenuOptions(options: ["Edit Route", "Send Report", "Add/Remove Trapline", "Remove Visit", "View Map"])
+    }
+    
+    func didSelectMenuItem(title: String) {
+        if title == "Edit Route" {
+            self.menuEditRoute()
+        }
     }
     
     func didSelectDate() {
@@ -136,7 +151,25 @@ extension VisitPresenter: VisitPresenterApi {
         view.setTraps(traps: Array(self.currentStation.traps))
     
     }
+}
+
+extension VisitPresenter: TraplineSelectDelegate {
     
+    func didCreateRoute(route: Route) {
+        // may not use
+    }
+    
+    func didUpdateRoute(route: Route) {
+        // decide what to do with Visits no longer on route
+        
+        self.visitSummary.route = route
+        
+        // update the navigation strip
+        let stations = route.stations
+        stationIndex = stationIndex >= stations.count ? stations.count - 1 : stationIndex
+        view.setStations(stations: Array(stations), current:  stations[stationIndex])
+        view.updateCurrentStation(index: stationIndex, repeatedGroup: 2)
+    }
 }
 
 // MARK: - Visit Viper Components

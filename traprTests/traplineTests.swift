@@ -21,7 +21,7 @@ class traplineTests: XCTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         print("DELETE ALL")
-        ServiceFactory.sharedInstance.applicationService.deleteAllData()
+        ServiceFactory.sharedInstance.dataPopulatorService.deleteAllTestData()
     }
     
     override func tearDown() {

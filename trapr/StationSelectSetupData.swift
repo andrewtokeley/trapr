@@ -8,13 +8,24 @@
 
 import Foundation
 
+/**
+Delegates of the StationSelectModule can implement this protocol to know when new stations are selected
+*/
 protocol StationSelectDelegate {
-    func didSelectStations(stations: [Station])
+    
+    /*
+     Tells the delegate that new stations have been selected
+    */
+    func newStationsSelected(stations: [Station])
 }
 
 class StationSelectSetupData {
     
     var traplines: [Trapline]
+    
+    /**
+     Used for displaying a subset of trapline stations (i.e. when quick navigating to a station for a Route)
+    */
     var stations: [Station]
     var selectedStations: [Station]?
     var allowMultiselect: Bool = true

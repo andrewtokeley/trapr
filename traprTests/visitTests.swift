@@ -19,9 +19,9 @@ class visitTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
         
-        ServiceFactory.sharedInstance.applicationService.deleteAllData()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+        ServiceFactory.sharedInstance.dataPopulatorService.deleteAllTestData()
     }
     
     override func tearDown() {

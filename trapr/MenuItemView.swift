@@ -32,12 +32,12 @@ class MenuItemView: UIView {
         
         //menuItem.autoSetDimension(.height, toSize: 100)
         
-        image.autoPinEdge(toSuperviewEdge: .left, withInset: 20)
-        image.autoSetDimension(.width, toSize: 20)
-        image.autoSetDimension(.height, toSize: 20)
+        image.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
+        image.autoSetDimension(.width, toSize: LayoutDimensions.spacingMargin)
+        image.autoSetDimension(.height, toSize: LayoutDimensions.spacingMargin)
         image.autoAlignAxis(.horizontal, toSameAxisOf: self)
 
-        label.autoPinEdge(.left, to: .right, of: image, withOffset: 40)
+        label.autoPinEdge(.left, to: .right, of: image, withOffset: LayoutDimensions.spacingMargin * 2)
         label.autoAlignAxis(.horizontal, toSameAxisOf: self)
         label.autoPinEdge(toSuperviewMargin: .right)
     }

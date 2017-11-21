@@ -19,7 +19,7 @@ protocol StartViewApi: UserInterfaceProtocol {
     func displayRoutes(routes: [Route]?)
     func displayRecentVisits(visits: [VisitSummary]?)
     func askForNewVisitDate(completion: (Date) -> Void)
-    func setTitle(title: String)
+    func setTitle(title: String, routesSectionTitle: String, routeSectionActionText: String, recentVisitsSectionTitle: String, recentVisitsSectionActionText: String)
 }
 
 //MARK: - StartPresenter API

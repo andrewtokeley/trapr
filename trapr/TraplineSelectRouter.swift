@@ -12,20 +12,57 @@ import Viperit
 // MARK: - TraplineSelectRouter class
 final class TraplineSelectRouter: Router {
     
-    func showStationSelect(traplines: [Trapline]) {
+    func showStationSelect(traplines: [Trapline], stations: [Station], selectedStations: [Station]?) {
         let module = AppModules.stationSelect.build()
         
         let setupData = StationSelectSetupData(traplines: traplines)
         setupData.stationSelectDelegate = presenter as? StationSelectDelegate
+        
+        // whenever presenting the SelectStation module from the TraplineSelect module, we're editing a route so should allow multiselect.
         setupData.allowMultiselect = true
         
-        // select all stations
-        for trapline in traplines {
-            setupData.selectedStations?.append(contentsOf: trapline.stations)
-        }
+        setupData.selectedStations = selectedStations
+        setupData.stations = stations
         
         module.router.show(from: _view, embedInNavController: false, setupData: setupData)
     }
+    
+    /**
+     Show the StationSelect module for given traplines, show all stations and pre-select all stations.
+    */
+    func showStationSelect(traplines: [Trapline]) {
+        
+        let stations = stationsForTraplines(traplines: traplines)
+        showStationSelect(traplines: traplines, stations: stations, selectedStations: stations)
+    }
+    
+    /**
+     Show the StationSelect module for specific traplines, show all stations and select the specified ones
+     */
+    func showStationSelect(traplines: [Trapline], selectedStations: [Station]) {
+        
+        let stations = stationsForTraplines(traplines: traplines)
+        showStationSelect(traplines: traplines, stations: stations, selectedStations: selectedStations)
+    }
+
+    /**
+     Show the StationSelect module for specific traplines, show only the specified stations. None will be selected.
+     */
+//    func showStationSelect(traplines: [Trapline], stations: [Station]) {
+//        
+//        showStationSelect(traplines: traplines, stations: stations, selectedStations: nil)
+//    }
+    
+    private func stationsForTraplines(traplines: [Trapline]) -> [Station] {
+        var stations = [Station]()
+        
+        // show and select all stations
+        for trapline in traplines {
+            stations.append(contentsOf: trapline.stations)
+        }
+        return stations
+    }
+    
 }
 
 // MARK: - TraplineSelectRouter API

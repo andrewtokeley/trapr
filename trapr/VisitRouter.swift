@@ -28,6 +28,11 @@ extension VisitRouter: VisitRouterApi {
         module.router.showAsModalOverlay(from: _view, setupData: setupData)
     }
     
+    func showEditRoute(setupData: TraplineSelectSetupData) {
+        let module = AppModules.traplineSelect.build()
+        module.router.show(from: _view, embedInNavController: true, setupData: setupData)
+    }
+    
     func addVisitLogToView() {
         let module = AppModules.visitLog.build()
         

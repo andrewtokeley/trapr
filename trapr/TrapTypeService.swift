@@ -15,11 +15,11 @@ class TrapTypeService: LookupService<TrapType> {
         return ServiceFactory.sharedInstance.lureService
     }
     
-    override func createDefaults() {
+    override func createOrUpdateDefaults() {
         try! realm.write {
-            realm.add(possumMaster())
-            realm.add(doc200())
-            realm.add(pelifeed())
+            realm.add(possumMaster(), update:true)
+            realm.add(doc200(), update:true)
+            realm.add(pelifeed(), update:true)
         }
     }
     

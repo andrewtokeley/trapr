@@ -130,14 +130,10 @@ final class VisitView: UserInterface {
 
         self.titleLabel.autoPinEdge(toSuperviewEdge: .left)
         self.titleLabel.autoPinEdge(toSuperviewEdge: .right)
-//        self.titleLabel.autoAlignAxis(.horizontal, toSameAxisOf: view)
-//        self.titleLabel.autoSetDimension(.height, toSize: 20)
 
         self.subTitleLabel.autoPinEdge(toSuperviewEdge: .left)
         self.subTitleLabel.autoPinEdge(toSuperviewEdge: .right)
         self.subTitleLabel.autoPinEdge(.top, to: .bottom, of: self.titleLabel, withOffset: 0)
-//        self.subTitleLabel.autoAlignAxis(.horizontal, toSameAxisOf: view)
-//        self.subTitleLabel.autoSetDimension(.height, toSize: 10)
         
         return view
     }()
@@ -365,7 +361,10 @@ extension VisitView: VisitViewApi {
         let menu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         for option in options {
-            let optionItem = UIAlertAction(title: option, style: .default, handler: nil)
+            let optionItem = UIAlertAction(title: option, style: .default, handler: {
+                (action) in
+                self.presenter.didSelectMenuItem(title: action.title!)
+            })
             menu.addAction(optionItem)
         }
         

@@ -11,21 +11,26 @@ import RealmSwift
 
 class Station: Object {
     
-    // Primary key
+    /**
+     Primary key
+    */
     dynamic var id: String = UUID().uuidString
+    
     override static func primaryKey() -> String? {
         return "id"
     }
     
     /**
-    A unique code for the station. 
- 
-    The station code's alphanumeric sort order determines the order in which the stations are located along a trapline.
+    A unique code for the station. The station code's alphanumeric sort order determines the order in which the stations are located along a trapline.
     */
     dynamic var code: String?
     
     var longCode: String {
         return trapline!.code!.appending(self.code!)
+    }
+    
+    override var description: String {
+        return longCode
     }
     
     /**
@@ -56,5 +61,6 @@ class Station: Object {
     static func == (left: Station, right: Station) -> Bool {
         return left.code == right.code
     }
+    
     
 }

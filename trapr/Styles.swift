@@ -33,5 +33,9 @@ class Styles {
         let stepperAppearance = UIStepper.appearance()
         stepperAppearance.tintColor = UIColor.trpMenuBar
         
+        let buttonAppearance =  UIButton.appearance()
+        buttonAppearance.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
+        buttonAppearance.setTitleColor(UIColor.trpButtonDisabled, for: .disabled)
+        
     }
 }

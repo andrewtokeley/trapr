@@ -12,16 +12,24 @@ import RealmSwift
 protocol RouteServiceInterface: ServiceInterface {
     
     /**
-     Record a new Route
+     Add a new Route to repository. If the Route exists it is updated
      
      - parameters:
-     - route: the Route to add to the repository
+        - route: the Route to add to the repository
      */
     func add(route: Route)
-
+    
+    func updateStations(route: Route, stations: [Station])
+    
     func getAll() -> [Route]
     
     func delete(route: Route)
     
+    /**
+     Returns true if a Route exists that contains exactly the same stations as the supplied Route.
+     
+     - parameters:
+        - route: the Route to compare with existing Routes
+     */
     func routeExists(route: Route) -> Bool
 }
