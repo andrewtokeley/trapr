@@ -22,6 +22,7 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
     
     fileprivate var routes: [Route]?
     fileprivate var visitSummaries: [VisitSummary]?
+    fileprivate var routeMenuOptions: [String]?
     
     //MARK: - Events
     
@@ -48,6 +49,7 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ROUTE_CELL_IDENTIFIER, for: indexPath) as! RouteCollectionViewCell
         
         cell.backgroundColor = UIColor.trpVisitTileBackground
+        cell.delegate = self
         
         //let dateFormatterPrint = DateFormatter()
         
@@ -71,6 +73,8 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
     lazy var routesSection: SectionStripView = {
         let view = Bundle.main.loadNibNamed("SectionStripView", owner: nil, options: nil)?.first as! SectionStripView
         view.tag = self.SECTIONSTRIP_ROUTES
+        //view.titleLabel.font = UIFont.trpLabelLarge
+        view.backgroundColor = UIColor.clear
         view.delegate = self
         return view
     }()
@@ -78,6 +82,8 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
     lazy var recentVisitsSection: SectionStripView = {
         let view = Bundle.main.loadNibNamed("SectionStripView", owner: nil, options: nil)?.first as! SectionStripView
         view.tag = self.SECTIONSTRIP_RECENT_VISITS
+        //view.titleLabel.font = UIFont.trpLabelLarge
+        view.backgroundColor = UIColor.clear
         view.delegate = self
         return view
     }()
@@ -170,11 +176,46 @@ extension StartView: SectionStripViewDelegate {
     }
 }
 
+extension StartView: RouteCollectionViewCellDelegate {
+    func routeCollectionViewCell(numberOfActionsFor routeCollectionViewCell: RouteCollectionViewCell) -> Int {
+        
+        // make sure the presenter knows we're about to render the menu for the route
+        if let index = routesCollectionView.indexPath(for: routeCollectionViewCell)?.row {
+            presenter.didSelectRouteMenu(routeIndex: index)
+            
+            return self.routeMenuOptions!.count
+        }
+        return 0
+    }
+    
+    func routeCollectionViewCell(_ routeCollectionViewCell: RouteCollectionViewCell, didSelectActionWith title: String) {
+        if let _ = self.routeMenuOptions {
+            if let index = routesCollectionView.indexPath(for: routeCollectionViewCell)?.row {
+                presenter.didSelectRouteMenuItem(routeIndex: index, menuItemIndex: self.routeMenuOptions!.index(of: title)!)
+            }
+        }
+    }
+    
+    func routeCollectionViewCell(_ routeCollectionViewCell: RouteCollectionViewCell, actionTextAt index: Int) -> String? {
+        return self.routeMenuOptions?[index]
+    }
+    
+    func routeCollectionViewCell(hostingViewControllerFor routeCollectionViewCell: RouteCollectionViewCell) -> UIViewController {
+        return self
+    }
+    
+}
+
 //MARK: - StartView API
 extension StartView: StartViewApi {
     
+    func setRouteMenu(options: [String]) {
+        self.routeMenuOptions = options
+    }
+    
     func displayRoutes(routes: [Route]?) {
         self.routes = routes
+        routesCollectionView.reloadData()
     }
     
     func displayRecentVisits(visits: [VisitSummary]?) {

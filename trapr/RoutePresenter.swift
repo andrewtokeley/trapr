@@ -90,9 +90,8 @@ final class RoutePresenter: Presenter {
     }
     
     fileprivate func saveRoute() {
-        if let route = self.currentRoute {
-            interactor.saveRoute(route: route)
-        }
+        let route = Route(value: self.currentRoute)
+        interactor.saveRoute(route: route)
     }
 }
 
@@ -100,6 +99,12 @@ final class RoutePresenter: Presenter {
 extension RoutePresenter: RoutePresenterApi {
     
     func didSelectClose() {
+        _view.dismiss(animated: true, completion: nil)
+    }
+    
+    func didSelectDone() {
+        _view.view.endEditing(true)
+        saveRoute()
         _view.dismiss(animated: true, completion: nil)
     }
     
@@ -122,7 +127,6 @@ extension RoutePresenter: RoutePresenterApi {
     
     func didUpdateRouteName(name: String?) {
         self.currentRoute?.name = name
-        saveRoute()
     }
     
     func didSelectToChangeVisitFrequency() {
@@ -203,7 +207,6 @@ extension RoutePresenter: ListPickerDelegate {
         } else if listPicker.tag == LISTPICKER_VISITFREQUENCY {
                 self.currentRoute?.visitFrequencyRaw = TimePeriod.all[index].rawValue
                 view.displayVisitFrequency(frequency: self.currentRoute?.visitFrequency ?? TimePeriod.defaultValue)
-                saveRoute()
         }
     }
     

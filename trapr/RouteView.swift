@@ -76,9 +76,25 @@ final class RouteView: UserInterface {
         return view
     }()
     
+    lazy var doneButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneButtonClick(sender:)))
+        return button
+    }()
+    
     lazy var routeNameTableViewCell: UITableViewCell = {
        
         let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: self.TOP_TABLEVIEW_CELL_ID)
+        
+        cell.contentView.addSubview(self.routeNameTextField)
+        
+        //cell.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
+        self.routeNameTextField.autoPinEdgesToSuperviewEdges()
+        self.routeNameTextField.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
+        
+        return cell
+    }()
+    
+    lazy var routeNameTextField: UITextField = {
         
         let textField = UITextField()
         textField.placeholder = "Route name"
@@ -87,13 +103,8 @@ final class RouteView: UserInterface {
         textField.leftViewMode = .always
         textField.leftView = spacerView
         textField.clearButtonMode = .whileEditing
-        cell.contentView.addSubview(textField)
         
-        //cell.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
-        textField.autoPinEdgesToSuperviewEdges()
-        textField.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
-        
-        return cell
+        return textField
     }()
     
     lazy var visitFrequencyTableViewCell: UITableViewCell = {
@@ -113,6 +124,7 @@ final class RouteView: UserInterface {
         
         self.view.backgroundColor = UIColor.trpBackground
         self.navigationItem.leftBarButtonItem = closeButton
+        self.navigationItem.rightBarButtonItem = doneButton
         
         self.view.addSubview(topTableView)
         self.view.addSubview(sectionHeader)
@@ -149,6 +161,9 @@ final class RouteView: UserInterface {
         presenter.didSelectClose()
     }
     
+    func doneButtonClick(sender: UIButton) {
+        presenter.didSelectDone()
+    }
 }
 
 extension RouteView: SectionStripViewDelegate {
@@ -198,7 +213,7 @@ extension RouteView: UITableViewDelegate, UITableViewDataSource {
                 return cell
             } else { // if indexPath.row == ROW_VISIT_FREQUENCY {
                 let cell = self.visitFrequencyTableViewCell
-                cell.detailTextLabel?.text = "Monthly" // TODO
+                //cell.detailTextLabel?.text = "Monthly" // TODO
                 return cell
             }
         }
@@ -231,7 +246,7 @@ extension RouteView: RouteViewApi {
     }
     
     func displayRouteName(name: String) {
-        self.routeNameTableViewCell.textLabel?.text = name
+        self.routeNameTextField.text = name
     }
     
     func displayVisitFrequency(frequency: TimePeriod) {

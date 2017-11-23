@@ -12,12 +12,18 @@ import Viperit
 // MARK: - StartPresenter Class
 final class StartPresenter: Presenter {
     
+    fileprivate var routeMenuOptions = [String]()
+    fileprivate var routes: [Route]?
+    
+    fileprivate let ROUTE_MENU_EDIT = 0
+    fileprivate let ROUTE_MENU_DELETE = 1
+    fileprivate let ROUTE_MENU_VISIT = 2
+    
     open override func viewIsAboutToAppear() {
         view.setTitle(title: "Trapr", routesSectionTitle: "ROUTES", routeSectionActionText: "NEW", recentVisitsSectionTitle: "RECENT", recentVisitsSectionActionText: "ALL")
         
         interactor.initialiseHomeModule()
     }
-
 }
 
 // MARK: - NewVisitDelegate
@@ -32,6 +38,22 @@ final class StartPresenter: Presenter {
 
 // MARK: - StartPresenter API
 extension StartPresenter: StartPresenterApi {
+    
+    func didSelectRouteMenu(routeIndex: Int) {
+        // for now all routes have the same options
+        routeMenuOptions.removeAll()
+        routeMenuOptions.append("Edit Route")
+        routeMenuOptions.append("Delete Route")
+        routeMenuOptions.append("Visit Route")
+        view.setRouteMenu(options: routeMenuOptions)
+    }
+
+    func didSelectRouteMenuItem(routeIndex: Int, menuItemIndex: Int) {
+        
+        if menuItemIndex == ROUTE_MENU_EDIT {
+            router.showRouteModule(route: self.routes?[routeIndex])
+        }
+    }
     
     func didSelectMenu() {
         let module = AppModules.sideMenu.build()
@@ -60,6 +82,7 @@ extension StartPresenter: StartPresenterApi {
     }
 
     func setRoutes(routes: [Route]?) {
+        self.routes = routes
         view.displayRoutes(routes: routes)
     }
     

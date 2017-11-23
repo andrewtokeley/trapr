@@ -90,6 +90,8 @@
 		D86CE4891F92BC6F004A09EF /* home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE4811F92BC6E004A09EF /* home@2x.png */; };
 		D86CE48A1F92BC6F004A09EF /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE4821F92BC6E004A09EF /* home.png */; };
 		D86CE48C1F92C8EA004A09EF /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CE48B1F92C8EA004A09EF /* UIFontExtension.swift */; };
+		D873C86E1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D873C86D1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift */; };
+		D873C8701FC6873A00F581D8 /* UIImageExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = D873C86F1FC6873A00F581D8 /* UIImageExtention.swift */; };
 		D87926921FB553A600240767 /* RouteCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87926911FB553A600240767 /* RouteCollectionViewCell.xib */; };
 		D87926951FB555A500240767 /* clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D87926931FB555A400240767 /* clock@2x.png */; };
 		D87926961FB555A500240767 /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = D87926941FB555A500240767 /* clock.png */; };
@@ -273,6 +275,8 @@
 		D86CE4811F92BC6E004A09EF /* home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home@2x.png"; sourceTree = "<group>"; };
 		D86CE4821F92BC6E004A09EF /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		D86CE48B1F92C8EA004A09EF /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
+		D873C86D1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
+		D873C86F1FC6873A00F581D8 /* UIImageExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtention.swift; sourceTree = "<group>"; };
 		D87926911FB553A600240767 /* RouteCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouteCollectionViewCell.xib; sourceTree = "<group>"; };
 		D87926931FB555A400240767 /* clock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock@2x.png"; sourceTree = "<group>"; };
 		D87926941FB555A500240767 /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
@@ -481,6 +485,7 @@
 				D8D729E31F61D91C0082CD4A /* VisitCollectionViewCell.xib */,
 				D83853011F6654CD00481B57 /* NewVisitCollectionViewCell.xib */,
 				D87926911FB553A600240767 /* RouteCollectionViewCell.xib */,
+				D873C86D1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift */,
 				D87926971FB556B800240767 /* RouteCollectionViewCell.swift */,
 			);
 			name = Start;
@@ -667,6 +672,7 @@
 				D8B94D7B1F5EA56F00D373EF /* UIColorExtension.swift */,
 				D86CE48B1F92C8EA004A09EF /* UIFontExtension.swift */,
 				D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */,
+				D873C86F1FC6873A00F581D8 /* UIImageExtention.swift */,
 			);
 			name = Design;
 			sourceTree = "<group>";
@@ -1056,6 +1062,7 @@
 				D8D79AB31FC4B992008AC5C1 /* OptionItem.swift in Sources */,
 				D835E0741FAC0CC300A4664B /* SpeciesService.swift in Sources */,
 				D8953EC11F88114F00A1F424 /* NewVisitView.swift in Sources */,
+				D873C8701FC6873A00F581D8 /* UIImageExtention.swift in Sources */,
 				D83DC6C91F7F841F00F91792 /* StartInteractor.swift in Sources */,
 				D81818701F7F795B008362BA /* AppModules.swift in Sources */,
 				D806C7EA1F9C881F0064C98F /* GroupedTableViewDatasource.swift in Sources */,
@@ -1065,6 +1072,7 @@
 				D87C44F71F9059AF00CAFC7A /* SideMenuInteractor.swift in Sources */,
 				D8039E271FABF458006E394B /* ListPickerModuleApi.swift in Sources */,
 				D89714AA1F7751B300E846B9 /* DataPopulatorServiceInterface.swift in Sources */,
+				D873C86E1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift in Sources */,
 				D8953EBF1F88114F00A1F424 /* NewVisitPresenter.swift in Sources */,
 				D8E86B3E1FACF95B003BFD54 /* ServiceInterface.swift in Sources */,
 				D8503DD01F669F8500ED0C84 /* Visit.swift in Sources */,

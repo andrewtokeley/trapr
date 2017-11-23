@@ -59,7 +59,7 @@ final class ListPickerPresenter: Presenter {
     
     private func closeRootListPickerViewController(root: UIViewController) {
         if root.isModal {
-            root.navigationController?.dismiss(animated: false, completion: nil)
+                root.navigationController?.dismiss(animated: false, completion: nil)
         } else {
             root.navigationController?.popViewController(animated: true)
         }

@@ -29,6 +29,7 @@ protocol RouteViewApi: UserInterfaceProtocol {
 //MARK: - RoutePresenter API
 protocol RoutePresenterApi: PresenterProtocol {
     func didSelectClose()
+    func didSelectDone()
     func didUpdateRouteName(name: String?)
     func didSelectAddSection()
     func didSelectToChangeVisitFrequency()

@@ -20,6 +20,7 @@ protocol StartViewApi: UserInterfaceProtocol {
     func displayRoutes(routes: [Route]?)
     func displayRecentVisits(visits: [VisitSummary]?)
     func askForNewVisitDate(completion: (Date) -> Void)
+    func setRouteMenu(options: [String])
     func setTitle(title: String, routesSectionTitle: String, routeSectionActionText: String, recentVisitsSectionTitle: String, recentVisitsSectionActionText: String)
 }
 
@@ -27,6 +28,8 @@ protocol StartViewApi: UserInterfaceProtocol {
 protocol StartPresenterApi: PresenterProtocol {
     
     func didSelectMenu()
+    func didSelectRouteMenu(routeIndex: Int)
+    func didSelectRouteMenuItem(routeIndex: Int, menuItemIndex: Int)
     func didSelectNewVisit()
     func didSelectNewRoute()
     func didSelectVisitSummary(visitSummary: VisitSummary)
