@@ -16,8 +16,8 @@ final class StartPresenter: Presenter {
     fileprivate var routes: [Route]?
     
     fileprivate let ROUTE_MENU_EDIT = 0
-    fileprivate let ROUTE_MENU_DELETE = 1
-    fileprivate let ROUTE_MENU_VISIT = 2
+    fileprivate let ROUTE_MENU_VISIT = 1
+    fileprivate let ROUTE_MENU_DELETE = 2
     
     open override func viewIsAboutToAppear() {
         view.setTitle(title: "Trapr", routesSectionTitle: "ROUTES", routeSectionActionText: "NEW", recentVisitsSectionTitle: "RECENT", recentVisitsSectionActionText: "ALL")
@@ -43,8 +43,8 @@ extension StartPresenter: StartPresenterApi {
         // for now all routes have the same options
         routeMenuOptions.removeAll()
         routeMenuOptions.append("Edit Route")
-        routeMenuOptions.append("Delete Route")
         routeMenuOptions.append("Visit Route")
+        routeMenuOptions.append("Delete Route")
         view.setRouteMenu(options: routeMenuOptions)
     }
 

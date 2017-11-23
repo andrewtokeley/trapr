@@ -26,10 +26,15 @@ class RouteCollectionViewCell: UICollectionViewCell {
             for i in 0...numberOfActions - 1 {
                 
                 if let actionText = delegate?.routeCollectionViewCell(self, actionTextAt: i) {
-                    let action = UIAlertAction(title: actionText, style: .default, handler: {
+                    var style = UIAlertActionStyle.default
+                    if actionText.lowercased().contains("delete") {
+                        style = UIAlertActionStyle.destructive
+                    }
+                    let action = UIAlertAction(title: actionText, style: style, handler: {
                         (action) in
                         self.delegate?.routeCollectionViewCell(self, didSelectActionWith: actionText)
                     })
+                    
                     menu.addAction(action)
                 }
             }

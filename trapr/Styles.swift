@@ -37,5 +37,8 @@ class Styles {
         buttonAppearance.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
         buttonAppearance.setTitleColor(UIColor.trpButtonDisabled, for: .disabled)
         
+        let alertActionViewControllerView = UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self])
+        alertActionViewControllerView.tintColor = UIColor.trpTextHighlight
+        
     }
 }

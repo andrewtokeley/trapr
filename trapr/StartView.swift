@@ -115,10 +115,6 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
         let view = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
 
         view.register(UINib(nibName:"RouteCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: self.ROUTE_CELL_IDENTIFIER)
-//        view.register(UINib(nibName:"VisitCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: self.VISITS_CELL_IDENTIFIER)
-//
-//        view.register(UINib(nibName:"NewVisitCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: self.NEW_VISIT_CELL_IDENTIFIER)
-        
         view.backgroundColor = UIColor.clear
         view.delegate = self
         view.dataSource = self
