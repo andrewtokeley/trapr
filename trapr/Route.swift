@@ -9,27 +9,75 @@
 import Foundation
 import RealmSwift
 
+enum TimePeriod: Int {
+    case week = 0
+    case fortnight = 1
+    case month = 2
+    case twoMonths = 3
+    case sixMonths = 4
+    
+    var name: String {
+        switch self {
+        case .week: return "Weekly"
+        case .fortnight: return "Fornightly"
+        case .month: return "Monthly"
+        case .twoMonths: return "Every 2 months"
+        case .sixMonths: return "Every 6 months"
+        }
+    }
+    
+    static var count: Int {
+        return TimePeriod.all.count
+    }
+    
+    static var all: [TimePeriod] {
+        return [.week, .fortnight, .month, .twoMonths, sixMonths]
+    }
+    
+    static var defaultValue: TimePeriod {
+        return TimePeriod.month
+    }
+}
+
 class Route: Object {
     
-    override static func ignoredProperties() -> [String] {
-        // have to explicitly ignore lazy properties
-        return ["traplines"]
-    }
+    //MARK: - Persisted Properties
     
-    // Primary key
     dynamic var id: String = UUID().uuidString
-    override static func primaryKey() -> String? {
-        return "id"
-    }
+    let stations = List<Station>()
+    dynamic var name: String?
+    dynamic var visitFrequencyRaw: Int = 0
     
-    //MARK: - Properties
+    
+    //MARK: - Read-Only Properties
     
     var traplines: List<Trapline> {
         return self.getTraplines(from: self.stations)
     }
     
-    let stations = List<Station>()
-    dynamic var name: String?
+    var visitFrequency: TimePeriod {
+        return TimePeriod(rawValue: visitFrequencyRaw) ?? .month
+    }
+    
+    var shortDescription: String {
+        return getDescription(includeStationCodes: false)
+    }
+    
+    var longDescription: String {
+        return getDescription(includeStationCodes: true)
+    }
+    
+    
+    //MARK: - Object overrides
+    
+    override static func ignoredProperties() -> [String] {
+        // have to explicitly ignore lazy properties
+        return ["traplines"]
+    }
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
     
     //MARK: - Initialisation
     
@@ -54,14 +102,8 @@ class Route: Object {
         self.init(name: name, stations: stations)
     }
     
-    //MARK: - Functions
-    var shortDescription: String {
-        return getDescription(includeStationCodes: false)
-    }
     
-    var longDescription: String {
-        return getDescription(includeStationCodes: true)
-    }
+    //MARK: - Private functions
     
     private func getDescription(includeStationCodes: Bool) -> String {
         
@@ -93,8 +135,6 @@ class Route: Object {
             return description
         }
     }
-    
-    //MARK: - Private functions
     
     private func getTraplines(from stations: List<Station>) -> List<Trapline> {
         

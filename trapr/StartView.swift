@@ -163,7 +163,7 @@ extension StartView: SectionStripViewDelegate {
     
     func sectionStrip(_ sectionStripView: SectionStripView, didSelectActionButton: UIButton) {
         if sectionStripView.tag == SECTIONSTRIP_ROUTES {
-            print("new route")
+            presenter.didSelectNewRoute()
         } else if sectionStripView.tag == SECTIONSTRIP_RECENT_VISITS {
             print("show all")
         }

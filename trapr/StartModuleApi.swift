@@ -12,6 +12,7 @@ import Viperit
 protocol StartRouterApi: RouterProtocol {
     func showVisitModule(visitSummary: VisitSummary)
     func showNewVisitModule(delegate: NewVisitDelegate)
+    func showRouteModule(route: Route?)
 }
 
 //MARK: - StartView API
@@ -27,6 +28,7 @@ protocol StartPresenterApi: PresenterProtocol {
     
     func didSelectMenu()
     func didSelectNewVisit()
+    func didSelectNewRoute()
     func didSelectVisitSummary(visitSummary: VisitSummary)
     func didSelectRoute(route: Route)
     func setRecentVisits(visits: [VisitSummary]?)

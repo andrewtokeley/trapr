@@ -164,9 +164,57 @@ class GroupedTableViewDatasource<T: Any> {
             self.selected.insert(self.selected.remove(at: fromIndex), at: toIndex)
         }
         
-        
-        
         // rebuild
         self.rebuild()
     }
+    
+    func replace(dataInSection section: Int, items: [T]) {
+        replace(dataInSection: section, items: items, selected: false)
+    }
+    
+    func replace(dataInSection section: Int, items: [T], selected: Bool) {
+        
+        if self.groupedData.count <= section {
+            return
+        } else {
+        
+            // index range of the section
+            let indexStart = self.flatIndex(index: IndexPath(row: 0, section: section))
+            let indexEnd = self.flatIndex(index: IndexPath(row: numberOfRowsInSection(section: section) - 1, section: section))
+            
+            self.data.removeSubrange(indexStart...indexEnd)
+            self.data.insert(contentsOf: items, at: indexStart)
+            
+            self.rebuild()
+
+        }
+    }
+    
+    func insert(item: T, at: IndexPath) {
+        insert(item: item, at: at, selected: false)
+    }
+    
+    func insert(item: T, at: IndexPath, selected: Bool) {
+        
+        let flatIndex = self.flatIndex(index: at)
+        
+        // insert into underlying data array
+        self.data.insert(item, at: flatIndex)
+        self.selected.insert(selected, at: flatIndex)
+        
+        // rebuild groupedData structure
+        self.rebuild()
+    }
+    
+    func append(items: [T]) {
+        append(items: items, selected: false)
+    }
+    
+    func append(items: [T], selected: Bool) {
+        
+        self.data.append(contentsOf: items)
+        self.selected.append(contentsOf: [Bool](repeatElement(selected, count: items.count)))
+        self.rebuild()
+    }
+    
 }

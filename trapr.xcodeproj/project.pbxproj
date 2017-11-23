@@ -159,6 +159,15 @@
 		D8D729E21F61D7D30082CD4A /* VisitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D729E11F61D7D30082CD4A /* VisitCollectionViewCell.swift */; };
 		D8D729E41F61D91C0082CD4A /* VisitCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8D729E31F61D91C0082CD4A /* VisitCollectionViewCell.xib */; };
 		D8D729E61F64BD580082CD4A /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D8D729E51F64BD580082CD4A /* Podfile */; };
+		D8D79AAC1FC3F0CD008AC5C1 /* RouteDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AA61FC3F0CD008AC5C1 /* RouteDisplayData.swift */; };
+		D8D79AAD1FC3F0CD008AC5C1 /* RoutePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AA71FC3F0CD008AC5C1 /* RoutePresenter.swift */; };
+		D8D79AAE1FC3F0CD008AC5C1 /* RouteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AA81FC3F0CD008AC5C1 /* RouteRouter.swift */; };
+		D8D79AAF1FC3F0CD008AC5C1 /* RouteModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AA91FC3F0CD008AC5C1 /* RouteModuleApi.swift */; };
+		D8D79AB01FC3F0CD008AC5C1 /* RouteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AAA1FC3F0CD008AC5C1 /* RouteInteractor.swift */; };
+		D8D79AB11FC3F0CD008AC5C1 /* RouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AAB1FC3F0CD008AC5C1 /* RouteView.swift */; };
+		D8D79AB31FC4B992008AC5C1 /* OptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AB21FC4B992008AC5C1 /* OptionItem.swift */; };
+		D8D79AB51FC4BB6F008AC5C1 /* RouteSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AB41FC4BB6F008AC5C1 /* RouteSetupData.swift */; };
+		D8D79AB81FC52370008AC5C1 /* RLMResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AB71FC52370008AC5C1 /* RLMResults.swift */; };
 		D8E86B3E1FACF95B003BFD54 /* ServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E86B3D1FACF95B003BFD54 /* ServiceInterface.swift */; };
 		D8FA5CF51F8406D600EC890C /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FA5CF31F8406D600EC890C /* close.png */; };
 		D8FA5CF61F8406D600EC890C /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FA5CF41F8406D600EC890C /* close@2x.png */; };
@@ -337,6 +346,15 @@
 		D8D729E11F61D7D30082CD4A /* VisitCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitCollectionViewCell.swift; sourceTree = "<group>"; };
 		D8D729E31F61D91C0082CD4A /* VisitCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitCollectionViewCell.xib; sourceTree = "<group>"; };
 		D8D729E51F64BD580082CD4A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D8D79AA61FC3F0CD008AC5C1 /* RouteDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDisplayData.swift; sourceTree = "<group>"; };
+		D8D79AA71FC3F0CD008AC5C1 /* RoutePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePresenter.swift; sourceTree = "<group>"; };
+		D8D79AA81FC3F0CD008AC5C1 /* RouteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRouter.swift; sourceTree = "<group>"; };
+		D8D79AA91FC3F0CD008AC5C1 /* RouteModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteModuleApi.swift; sourceTree = "<group>"; };
+		D8D79AAA1FC3F0CD008AC5C1 /* RouteInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteInteractor.swift; sourceTree = "<group>"; };
+		D8D79AAB1FC3F0CD008AC5C1 /* RouteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteView.swift; sourceTree = "<group>"; };
+		D8D79AB21FC4B992008AC5C1 /* OptionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionItem.swift; sourceTree = "<group>"; };
+		D8D79AB41FC4BB6F008AC5C1 /* RouteSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSetupData.swift; sourceTree = "<group>"; };
+		D8D79AB71FC52370008AC5C1 /* RLMResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLMResults.swift; sourceTree = "<group>"; };
 		D8E86B3D1FACF95B003BFD54 /* ServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInterface.swift; sourceTree = "<group>"; };
 		D8FA5CF31F8406D600EC890C /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
 		D8FA5CF41F8406D600EC890C /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
@@ -573,6 +591,13 @@
 		D8B138B31FC3EA740093E809 /* Route */ = {
 			isa = PBXGroup;
 			children = (
+				D8D79AA61FC3F0CD008AC5C1 /* RouteDisplayData.swift */,
+				D8D79AA71FC3F0CD008AC5C1 /* RoutePresenter.swift */,
+				D8D79AA81FC3F0CD008AC5C1 /* RouteRouter.swift */,
+				D8D79AA91FC3F0CD008AC5C1 /* RouteModuleApi.swift */,
+				D8D79AAA1FC3F0CD008AC5C1 /* RouteInteractor.swift */,
+				D8D79AAB1FC3F0CD008AC5C1 /* RouteView.swift */,
+				D8D79AB41FC4BB6F008AC5C1 /* RouteSetupData.swift */,
 			);
 			name = Route;
 			sourceTree = "<group>";
@@ -602,6 +627,7 @@
 		D8B94D571F5EA1FE00D373EF /* trapr */ = {
 			isa = PBXGroup;
 			children = (
+				D8D79AB61FC5235E008AC5C1 /* Realm */,
 				D8039E2D1FABF64B006E394B /* Viper */,
 				D81DAAED1F68641E00C7C987 /* Services */,
 				D8503DD11F669F8B00ED0C84 /* Model */,
@@ -612,6 +638,7 @@
 				D8B94D611F5EA1FE00D373EF /* LaunchScreen.storyboard */,
 				D8B94D641F5EA1FE00D373EF /* Info.plist */,
 				D89714AB1F77FEED00E846B9 /* TrapSectionIndexPath.swift */,
+				D8D79AB21FC4B992008AC5C1 /* OptionItem.swift */,
 			);
 			path = trapr;
 			sourceTree = "<group>";
@@ -636,10 +663,10 @@
 			children = (
 				D8B94D991F5F28F200D373EF /* Images */,
 				D8B94D791F5EA54300D373EF /* Styles.swift */,
-				D8B94D7B1F5EA56F00D373EF /* UIColorExtension.swift */,
-				D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */,
-				D86CE48B1F92C8EA004A09EF /* UIFontExtension.swift */,
 				D87926991FB5775900240767 /* Layout.swift */,
+				D8B94D7B1F5EA56F00D373EF /* UIColorExtension.swift */,
+				D86CE48B1F92C8EA004A09EF /* UIFontExtension.swift */,
+				D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */,
 			);
 			name = Design;
 			sourceTree = "<group>";
@@ -705,6 +732,14 @@
 				D8D1A0481FAF219E00926CEF /* LookupService.swift */,
 			);
 			name = Lookups;
+			sourceTree = "<group>";
+		};
+		D8D79AB61FC5235E008AC5C1 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				D8D79AB71FC52370008AC5C1 /* RLMResults.swift */,
+			);
+			name = Realm;
 			sourceTree = "<group>";
 		};
 		D9137A3F9761619C4FFA1891 /* Pods */ = {
@@ -977,6 +1012,7 @@
 				D80F7ECE1F6E79BF00814A52 /* TraplineServiceInterface.swift in Sources */,
 				D87E5BF51F88CCAA0055A3E0 /* TraplineSelectDelegate.swift in Sources */,
 				D879269A1FB5775900240767 /* Layout.swift in Sources */,
+				D8D79AB11FC3F0CD008AC5C1 /* RouteView.swift in Sources */,
 				D8B94D591F5EA1FE00D373EF /* AppDelegate.swift in Sources */,
 				D89714C21F7A0E4700E846B9 /* ImageCollectionViewCell.swift in Sources */,
 				D80B6DCF1F9F3DCD00F49E9E /* VisitLogRouter.swift in Sources */,
@@ -989,16 +1025,19 @@
 				D8D1A03C1FAF081E00926CEF /* TrapTypeService.swift in Sources */,
 				D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */,
 				D89312041F834F6F008DF09D /* StationSelectView.swift in Sources */,
+				D8D79AB01FC3F0CD008AC5C1 /* RouteInteractor.swift in Sources */,
 				D8953EC01F88114F00A1F424 /* NewVisitRouter.swift in Sources */,
 				D83DC6CD1F7F841F00F91792 /* StartView.swift in Sources */,
 				D80B6DCB1F9F3DCD00F49E9E /* VisitLogDisplayData.swift in Sources */,
 				D87926A11FB5973700240767 /* SectionStripViewDelegate.swift in Sources */,
 				D81431A71F8DDB2600EAF5FD /* DatePickerView.swift in Sources */,
 				D857B3A81F81B86A006E1402 /* VisitDisplayData.swift in Sources */,
+				D8D79AAF1FC3F0CD008AC5C1 /* RouteModuleApi.swift in Sources */,
 				D8039E311FABF6B9006E394B /* ListPickerSetupData.swift in Sources */,
 				D80B6DD01F9F3DCD00F49E9E /* VisitLogView.swift in Sources */,
 				D8039E251FABF458006E394B /* ListPickerDisplayData.swift in Sources */,
 				D81DAAF11F68652E00C7C987 /* Trap.swift in Sources */,
+				D8D79AAD1FC3F0CD008AC5C1 /* RoutePresenter.swift in Sources */,
 				D8503DC81F66807C00ED0C84 /* VisitPresenter.swift in Sources */,
 				D841CF271F8239CA004D0207 /* TraplineSelectInteractor.swift in Sources */,
 				D8953EBD1F88114F00A1F424 /* NewVisitInteractor.swift in Sources */,
@@ -1007,11 +1046,14 @@
 				D841CF291F8239CA004D0207 /* TraplineSelectPresenter.swift in Sources */,
 				D8039E291FABF458006E394B /* ListPickerRouter.swift in Sources */,
 				D83DC6C81F7F841F00F91792 /* StartDisplayData.swift in Sources */,
+				D8D79AAE1FC3F0CD008AC5C1 /* RouteRouter.swift in Sources */,
+				D8D79AAC1FC3F0CD008AC5C1 /* RouteDisplayData.swift in Sources */,
 				D83DC6CB1F7F841F00F91792 /* StartPresenter.swift in Sources */,
 				D80B6DCD1F9F3DCD00F49E9E /* VisitLogModuleApi.swift in Sources */,
 				D8039E2C1FABF577006E394B /* ListPickerDelegate.swift in Sources */,
 				D8039E2A1FABF458006E394B /* ListPickerView.swift in Sources */,
 				D81DAAEF1F68643400C7C987 /* VisitService.swift in Sources */,
+				D8D79AB31FC4B992008AC5C1 /* OptionItem.swift in Sources */,
 				D835E0741FAC0CC300A4664B /* SpeciesService.swift in Sources */,
 				D8953EC11F88114F00A1F424 /* NewVisitView.swift in Sources */,
 				D83DC6C91F7F841F00F91792 /* StartInteractor.swift in Sources */,
@@ -1019,6 +1061,7 @@
 				D806C7EA1F9C881F0064C98F /* GroupedTableViewDatasource.swift in Sources */,
 				D841CF2B1F8239CA004D0207 /* TraplineSelectView.swift in Sources */,
 				D87C44FA1F9059AF00CAFC7A /* SideMenuRouter.swift in Sources */,
+				D8D79AB51FC4BB6F008AC5C1 /* RouteSetupData.swift in Sources */,
 				D87C44F71F9059AF00CAFC7A /* SideMenuInteractor.swift in Sources */,
 				D8039E271FABF458006E394B /* ListPickerModuleApi.swift in Sources */,
 				D89714AA1F7751B300E846B9 /* DataPopulatorServiceInterface.swift in Sources */,
@@ -1062,6 +1105,7 @@
 				D83DC6CA1F7F841F00F91792 /* StartModuleApi.swift in Sources */,
 				D841CF281F8239CA004D0207 /* TraplineSelectModuleApi.swift in Sources */,
 				D849B6221F96C91100CE2085 /* RouteService.swift in Sources */,
+				D8D79AB81FC52370008AC5C1 /* RLMResults.swift in Sources */,
 				D8D1A0471FAF16B000926CEF /* LookupObject.swift in Sources */,
 				D8953EBE1F88114F00A1F424 /* NewVisitModuleApi.swift in Sources */,
 				D81431A51F8DDB2600EAF5FD /* DatePickerPresenter.swift in Sources */,

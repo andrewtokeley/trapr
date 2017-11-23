@@ -25,6 +25,8 @@ protocol RouteServiceInterface: ServiceInterface {
     
     func delete(route: Route)
     
+    func save(route: Route)
+    
     /**
      Returns true if a Route exists that contains exactly the same stations as the supplied Route.
      

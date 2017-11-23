@@ -17,6 +17,12 @@ class RouteService: Service, RouteServiceInterface {
         }
     }
     
+    func save(route: Route) {
+        try! realm.write {
+            realm.add(route, update: true)
+        }
+    }
+    
     func updateStations(route: Route, stations: [Station]) {
         
         // merge the new stations with the ones already defined on the route

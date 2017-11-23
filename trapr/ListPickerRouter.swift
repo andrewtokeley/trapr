@@ -15,6 +15,11 @@ final class ListPickerRouter: Router {
 
 // MARK: - ListPickerRouter API
 extension ListPickerRouter: ListPickerRouterApi {
+
+    func showChildListPicker(setupData: ListPickerSetupData) {
+        let module = AppModules.listPicker.build()
+        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
+    }
 }
 
 // MARK: - ListPicker Viper Components

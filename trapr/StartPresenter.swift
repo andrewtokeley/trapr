@@ -42,6 +42,10 @@ extension StartPresenter: StartPresenterApi {
         //router.showNewVisitModule(delegate: self)
     }
     
+    func didSelectNewRoute() {
+        router.showRouteModule(route: nil)
+    }
+    
     func didSelectVisitSummary(visitSummary: VisitSummary) {
         router.showVisitModule(visitSummary: visitSummary)
     }
@@ -58,6 +62,7 @@ extension StartPresenter: StartPresenterApi {
     func setRoutes(routes: [Route]?) {
         view.displayRoutes(routes: routes)
     }
+    
 }
 
 // MARK: - Start Viper Components

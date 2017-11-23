@@ -62,10 +62,10 @@ class StationTests: XCTestCase {
     }
     
 //    func testRemovingRouteStations() {
-//        
+//
 //        let traplineLW = dataPopulatorService.createTrapline(code: "LW", numberOfStations: 3)
 //        let traplineAA = dataPopulatorService.createTrapline(code: "AA", numberOfStations: 4)
-//        
+//
 //        // Create a new Route with Stations in the order of LW01, LW02, AA01, LW03, AA03, AA04
 //        let route = Route(name: "TestRoute", stations: [
 //            traplineLW.stations[0],
@@ -77,13 +77,13 @@ class StationTests: XCTestCase {
 //            ])
 //        routeService.add(route: route)
 //        XCTAssertTrue(route.stations.count == 6)
-//        
+//
 //        // Update route stations to include all the route stations, excluding AA01
 //        var newRouteStations = Array(route.stations)
 //        newRouteStations.remove(at: 2) // AA01
-//        
+//
 //        routeService.updateStations(route: route, stations: newRouteStations)
-//        
+//
 //        // LW01, LW02, LW03, AA03, AA04, AA02
 //        XCTAssertTrue(route.stations.count == 5)
 //        XCTAssertTrue(route.stations[2].longCode == "LW03", "Expected LW03 was \(route.stations.last!.longCode)")

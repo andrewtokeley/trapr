@@ -92,6 +92,7 @@ extension VisitLogPresenter: VisitLogPresenterApi {
             let setupData = ListPickerSetupData()
             setupData.delegate = self
             setupData.tag = LIST_SPECIES
+            setupData.embedInNavController = false
             router.showListPicker(setupData: setupData)
         }
     }
@@ -101,6 +102,7 @@ extension VisitLogPresenter: VisitLogPresenterApi {
         let setupData = ListPickerSetupData()
         setupData.delegate = self
         setupData.tag = LIST_LURE
+        setupData.embedInNavController = false
         router.showListPicker(setupData: setupData)
     
     }
@@ -127,16 +129,16 @@ extension VisitLogPresenter: ListPickerDelegate {
             : "Select Lure"
     }
     
-    func listPicker(_ listPicker: ListPickerView, itemTextAtRow: Int) -> String {
+    func listPicker(_ listPicker: ListPickerView, itemTextAt index: Int) -> String {
         return listPicker.tag == LIST_SPECIES
-            ? self.species?[itemTextAtRow].name ?? "-"
-            : self.currentVisit?.trap?.type?.availableLures[itemTextAtRow].name ?? "-"
+            ? self.species?[index].name ?? "-"
+            : self.currentVisit?.trap?.type?.availableLures[index].name ?? "-"
     }
     
-    func listPicker(_ listPicker: ListPickerView, didSelectItemAtRow: Int) {
+    func listPicker(_ listPicker: ListPickerView, didSelectItemAt index: Int) {
         
         if listPicker.tag == LIST_SPECIES {
-            if let species = self.species?[didSelectItemAtRow] {
+            if let species = self.species?[index] {
                 if let _ = self.currentVisit {
                     self.currentVisit!.catchSpecies = species
                     updateView()
@@ -144,7 +146,7 @@ extension VisitLogPresenter: ListPickerDelegate {
                 }
             }
         } else if listPicker.tag == LIST_LURE {
-            if let lure = self.currentVisit?.trap?.type?.availableLures[didSelectItemAtRow] {
+            if let lure = self.currentVisit?.trap?.type?.availableLures[index] {
                 if let _ = self.currentVisit {
                     self.currentVisit!.lure = lure
                     updateView()

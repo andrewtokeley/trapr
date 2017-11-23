@@ -46,7 +46,7 @@ extension UIColor
     }
 
     public class var trpBackground: UIColor {
-        return UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1)
+        return UIColor(red: 239/255, green: 239/255, blue: 244/255, alpha: 1)
     }
     
     public class var trpVisitTileBackground: UIColor {

@@ -32,6 +32,92 @@ class GroupedTableViewDatasourceTests: XCTestCase {
         super.tearDown()
     }
     
+    func testEmptyGroupedTableViewDatasource() {
+        let stations = [Station]() // empty
+        
+        let selected = [Bool](repeatElement(false, count: stations.count))
+        let groupedData = GroupedTableViewDatasource<Station>(data: stations, selected: selected, sectionName:{
+            $0.traplineCode
+        }, cellLabelText: {
+            $0.code
+        })
+        
+        XCTAssertTrue(groupedData.numberOfSections() == 0)
+        XCTAssertTrue(groupedData.dataItems(selectedOnly: false).count == 0)
+        //XCTAssertTrue(groupedData
+    }
+    
+    func testInsertingItems() {
+        
+        let orderedData = [Station("1", "LW"),
+                           Station("2", "LW"),
+                           Station("3", "LW"),
+                           Station("1", "AA"),
+                           Station("2", "AA")]
+        let selected = [Bool](repeatElement(false, count: orderedData.count))
+        let groupedData = GroupedTableViewDatasource<Station>(data: orderedData, selected: selected, sectionName:{
+            $0.traplineCode
+        }, cellLabelText: {
+            $0.code
+        })
+        
+        groupedData.insert(item: Station("1.5", "LW"), at: IndexPath(row: 1, section: 0))
+        
+        XCTAssertTrue(groupedData.numberOfSections() == 2)
+        XCTAssertTrue(groupedData.numberOfRowsInSection(section: 0) == 4)
+        XCTAssertTrue(groupedData.numberOfRowsInSection(section: 1) == 2)
+        XCTAssertTrue(groupedData.data(section: 0, row: 1).item.code == "1.5")
+        XCTAssertTrue(groupedData.data(section: 0, row: 1).selected == false) // default
+        
+    }
+    
+    func testAppendingItems() {
+        
+        let orderedData = [Station("1", "LW"),
+                           Station("2", "LW"),
+                           Station("3", "LW"),
+                           Station("1", "AA"),
+                           Station("2", "AA")]
+        let selected = [Bool](repeatElement(false, count: orderedData.count))
+        let groupedData = GroupedTableViewDatasource<Station>(data: orderedData, selected: selected, sectionName:{
+            $0.traplineCode
+        }, cellLabelText: {
+            $0.code
+        })
+        
+        groupedData.append(items: [Station("1", "BB"), Station("2", "BB")])
+        
+        XCTAssertTrue(groupedData.numberOfSections() == 3)
+        XCTAssertTrue(groupedData.numberOfRowsInSection(section: 0) == 3)
+        XCTAssertTrue(groupedData.numberOfRowsInSection(section: 1) == 2)
+        XCTAssertTrue(groupedData.numberOfRowsInSection(section: 1) == 2)
+        XCTAssertTrue(groupedData.data(section: 2, row: 0).item.traplineCode == "BB")
+        
+    }
+    
+    func testReplacingSectionItems() {
+        
+        let orderedData = [Station("1", "LW"),
+                           Station("2", "LW"),
+                           Station("3", "LW"),
+                           Station("1", "AA"),
+                           Station("2", "AA")]
+        let selected = [Bool](repeatElement(false, count: orderedData.count))
+        let groupedData = GroupedTableViewDatasource<Station>(data: orderedData, selected: selected, sectionName:{
+            $0.traplineCode
+        }, cellLabelText: {
+            $0.code
+        })
+        
+        groupedData.replace(dataInSection: 1, items: [Station("1", "ZZ")])
+        
+        XCTAssertTrue(groupedData.numberOfSections() == 2)
+        XCTAssertTrue(groupedData.numberOfRowsInSection(section: 0) == 3)
+        XCTAssertTrue(groupedData.numberOfRowsInSection(section: 1) == 1)
+        XCTAssertTrue(groupedData.data(section: 1, row: 0).item.traplineCode == "ZZ")
+        
+    }
+    
     func testNumberOfSectionsOrderedData() {
         
         let orderedData = [Station("1", "LW"),

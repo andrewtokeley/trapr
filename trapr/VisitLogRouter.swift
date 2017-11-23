@@ -23,7 +23,7 @@ extension VisitLogRouter: VisitLogRouterApi {
     
     func showListPicker(setupData: ListPickerSetupData) {
         let module = AppModules.listPicker.build()
-        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
+        module.router.show(from: _view, embedInNavController: setupData.embedInNavController, setupData: setupData)
     }
     
 }

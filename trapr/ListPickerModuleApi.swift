@@ -10,19 +10,27 @@ import Viperit
 
 //MARK: - ListPickerRouter API
 protocol ListPickerRouterApi: RouterProtocol {
+    func showChildListPicker(setupData: ListPickerSetupData)
 }
 
 //MARK: - ListPickerView API
 protocol ListPickerViewApi: UserInterfaceProtocol {
-    var tag: Int { get }
+    
     // Can't set tag through property since the View is readonly
+    var tag: Int { get }
     func setTag(tag: Int)
+    
+    func showDoneButton(show: Bool)
+    func showCloseButton(show: Bool)
     func setTitle(title: String)
+    func setSelectedIndices(indices: [Int])
 }
 
 //MARK: - ListPickerPresenter API
 protocol ListPickerPresenterApi: PresenterProtocol {
     func didSelectItem(row: Int)
+    func didSelectDone()
+    func didSelectClose()
 }
 
 //MARK: - ListPickerInteractor API

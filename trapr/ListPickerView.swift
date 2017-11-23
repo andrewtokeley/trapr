@@ -13,6 +13,19 @@ import Viperit
 final class ListPickerView: UserInterface {
     
     fileprivate let CELL_ID = "cell"
+    fileprivate var selectedIndices = [Int]()
+    
+    //MARK: - Subviews
+    
+    lazy var doneButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneButtonClick(sender:)))
+        return button
+    }()
+    
+    lazy var closeButton: UIBarButtonItem = {
+        var view = UIBarButtonItem(image: UIImage(named: "close"), style: .plain, target: self, action: #selector(closeButtonClick(sender:)))
+        return view
+    }()
     
     lazy var tableView: UITableView = {
        
@@ -24,10 +37,11 @@ final class ListPickerView: UserInterface {
         return tableView
     }()
     
+    //MARK: - UIViewController
+    
     override func loadView() {
         super.loadView()
 
-        self.title = displayData.delegate?.listPicker(title: self)
         self.view.addSubview(tableView)
         
         setConstraints()
@@ -36,7 +50,16 @@ final class ListPickerView: UserInterface {
     private func setConstraints() {
         tableView.autoPinEdgesToSuperviewEdges(with: .zero)
     }
+
+    //MARK: - Events
     
+    func doneButtonClick(sender: UIButton) {
+        presenter.didSelectDone()
+    }
+    
+    func closeButtonClick(sender: UIButton) {
+        presenter.didSelectClose()
+    }
 }
 
 //MARK: - UITableView
@@ -57,8 +80,10 @@ extension ListPickerView: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID, for: indexPath)
         cell.selectionStyle = .none
         
-        cell.textLabel?.text = displayData.delegate?.listPicker(self, itemTextAtRow: indexPath.row)
-        cell.detailTextLabel?.text = displayData.delegate?.listPicker(self, itemDetailAtRow: indexPath.row)
+        cell.textLabel?.text = displayData.delegate?.listPicker(self, itemTextAt: indexPath.row)
+        cell.detailTextLabel?.text = displayData.delegate?.listPicker(self, itemDetailAt: indexPath.row)
+        
+        cell.accessoryType = selectedIndices.contains(indexPath.row) ? .checkmark : .none
         
         return cell
     }
@@ -70,7 +95,7 @@ extension ListPickerView: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        displayData.delegate?.listPicker(self, didSelectItemAtRow: indexPath.row)
+        //displayData.delegate?.listPicker(self, didSelectItemAt: indexPath.row)
         presenter.didSelectItem(row: indexPath.row)
     }
     
@@ -85,9 +110,23 @@ extension ListPickerView: ListPickerViewApi {
         self.view.tag = tag
     }
     
+    func showCloseButton(show: Bool) {
+        self.navigationItem.leftBarButtonItem = show ? closeButton : nil
+    }
+    
     func setTitle(title: String) {
         self.title = title
     }
+    
+    func setSelectedIndices(indices: [Int]) {
+        self.selectedIndices = indices
+        self.tableView.reloadData()
+    }
+    
+    func showDoneButton(show: Bool) {
+        self.navigationItem.rightBarButtonItem = show ? doneButton : nil
+    }
+    
 }
 
 // MARK: - ListPickerView Viper Components API
