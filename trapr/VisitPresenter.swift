@@ -13,18 +13,20 @@ import Viperit
 // MARK: - VisitPresenter Class
 final class VisitPresenter: Presenter {
     
-    var visitSummary: VisitSummary!
-    var visitDelegate: VisitDelegate?
+    fileprivate var visitSummary: VisitSummary!
+    fileprivate var visitDelegate: VisitDelegate?
+    fileprivate var currentVisit: Visit?
     
-    var currentTrap: Trap {
+    fileprivate var currentTrap: Trap {
         return self.visitSummary.route.stations[stationIndex].traps[trapIndex]
     }
-    var currentStation: Station {
+    
+    fileprivate var currentStation: Station {
         return self.visitSummary.route.stations[stationIndex]
     }
     
-    var stationIndex = 0
-    var trapIndex = 0
+    fileprivate var stationIndex = 0
+    fileprivate var trapIndex = 0
     
     open override func setupView(data: Any) {
         if let summary = data as? VisitSummary {
@@ -52,6 +54,15 @@ final class VisitPresenter: Presenter {
         setupData.delegate = self
         setupData.route = self.visitSummary.route
         router.showEditRoute(setupData: setupData)
+    }
+    
+    func menuDeleteVisit() {
+        if let visit = self.currentVisit {
+            interactor.deleteVisit(visit: visit)
+        }
+        
+        // grab a new visit for this day - it will be marked as new so the VisitLog will
+        interactor.retrieveVisit(trap: self.currentTrap, date: visitSummary.dateOfVisit)
     }
     
     //MARK: - Helpers
@@ -116,12 +127,15 @@ extension VisitPresenter: VisitPresenterApi {
     }
     
     func didSelectMenuButton() {
-        view.displayMenuOptions(options: ["Send Report", "Remove Visit", "View Map"])
+        view.displayMenuOptions(options: ["Send Report", "Delete Visit", "View Map"])
     }
     
     func didSelectMenuItem(title: String) {
         if title == "Edit Route" {
             self.menuEditRoute()
+        }
+        if title == "Delete Visit" {
+            self.menuDeleteVisit()
         }
     }
     
@@ -140,6 +154,8 @@ extension VisitPresenter: VisitPresenterApi {
     }
     
     func didFetchVisit(visit: Visit, isNew: Bool) {
+        // hold a reference to this visit - needed if user requests to delete it
+        self.currentVisit = visit
         visitDelegate?.didChangeVisit(visit: visit, isNew: isNew)
     }
     

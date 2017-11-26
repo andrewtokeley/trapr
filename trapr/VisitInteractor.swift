@@ -40,6 +40,10 @@ extension VisitInteractor: VisitInteractorApi {
     func addVisit(visit: Visit) {
         ServiceFactory.sharedInstance.visitService.add(visit: visit)
     }
+    
+    func deleteVisit(visit: Visit) {
+        ServiceFactory.sharedInstance.visitService.delete(visit: visit)
+    }
 }
 
 // MARK: - Interactor Viper Components Api
