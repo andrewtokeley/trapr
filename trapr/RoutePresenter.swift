@@ -20,6 +20,14 @@ final class RoutePresenter: Presenter {
     fileprivate var sectionContext: Int = 0
     fileprivate var traplineContext: Trapline?
     
+    fileprivate let sectionMenuOptions = [
+        OptionItem(title: "Add/Remove Stations", isEnabled: true),
+        OptionItem(title: "Move up", isEnabled: true),
+        OptionItem(title: "Move down", isEnabled: true),
+        OptionItem(title: "Reverse order", isEnabled: true),
+        OptionItem(title: "Delete", isEnabled: true, isDestructive: true),
+    ]
+    
     fileprivate let LISTPICKER_VISITFREQUENCY = 0
     fileprivate let LISTPICKER_TRAPLINE = 1
     fileprivate let LISTPICKER_STATIONS = 2
@@ -90,8 +98,10 @@ final class RoutePresenter: Presenter {
     }
     
     fileprivate func saveRoute() {
-        let route = Route(value: self.currentRoute)
-        interactor.saveRoute(route: route)
+        if let _ = self.currentRoute {
+            let route = Route(value: self.currentRoute!)
+            interactor.saveRoute(route: route)
+        }
     }
 }
 
@@ -118,7 +128,12 @@ extension RoutePresenter: RoutePresenterApi {
         listPickerStationsSetupData.delegate = self
         listPickerStationsSetupData.tag = LISTPICKER_STATIONS
         listPickerStationsSetupData.embedInNavController = false
-        listPickerStationsSetupData.allowMultiselect = true
+        listPickerStationsSetupData.enableMultiselect = true
+        
+        // default to having all stations selected
+        if let stationCount = self.traplineContext?.stations.count {
+            listPickerStationsSetupData.selectedIndicies = Array(0...stationCount)
+        }
         
         listPickerTraplineSetup.childSetupData = listPickerStationsSetupData
         
@@ -142,11 +157,26 @@ extension RoutePresenter: RoutePresenterApi {
         
     }
     
-    func didSelectShowSectionMenu(sectionIndex: Int) {
-        self.sectionContext = sectionIndex
+    func didSelectShowSectionMenu(section: Int) {
+        self.sectionContext = section
+        
+        // get the description of the section
+        if let groupData = self.groupedData {
+            var title = ""
+            let firstItemInSection = groupData.data(section: section, row: 0).item.longCode
+            let lastItemInSection = groupData.data(section: section, row: groupData.numberOfRowsInSection(section: section) - 1).item.longCode
+            
+            if firstItemInSection != lastItemInSection {
+                title = "\(firstItemInSection) - \(lastItemInSection)"
+            } else {
+                title = "\(firstItemInSection)"
+            }
+            
+            view.displaySectionMenuOptionItems(title: title, message: nil, optionItems: self.sectionMenuOptions)
+        }
     }
     
-    func didSelectMenuOptionItem(item: OptionItem) {
+    func didSelectSectionMenuOptionItem(title: String) {
         
     }
     
@@ -251,6 +281,27 @@ extension RoutePresenter: ListPickerDelegate {
             return self.traplineContext!.stations[index].longCode
         }
         return ""
+    }
+    
+    func listPicker(_ listPicker: ListPickerView, isInitiallySelected index: Int) -> Bool {
+        if listPicker.tag == LISTPICKER_STATIONS {
+            return true // always?
+        } else {
+            return false
+        }
+    }
+    
+    func listPicker(initialMultiselectState listPicker: ListPickerView) -> MultiselectOptions {
+        if listPicker.tag == LISTPICKER_STATIONS {
+            // since we're going to select all
+            return .selectNone
+        } else {
+            return .none
+        }
+    }
+    
+    func listPicker(hasChildListPicker listPicker: ListPickerView) -> Bool {
+        return listPicker.tag == LISTPICKER_TRAPLINE
     }
     
 }

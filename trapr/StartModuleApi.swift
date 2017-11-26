@@ -41,4 +41,5 @@ protocol StartPresenterApi: PresenterProtocol {
 //MARK: - StartInteractor API
 protocol StartInteractorApi: InteractorProtocol {
     func initialiseHomeModule()
+    func deleteRoute(route: Route)
 }

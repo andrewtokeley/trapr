@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         let module = AppModules.start.build()
         module.router.show(inWindow: window, embedInNavController: true, setupData: nil, makeKeyAndVisible: true)
+        
         return true
     }
 

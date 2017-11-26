@@ -24,6 +24,10 @@ extension StartInteractor: StartInteractorApi {
         let routes = ServiceFactory.sharedInstance.routeService.getAll()
         presenter.setRoutes(routes: routes)
     }
+    
+    func deleteRoute(route: Route) {
+        ServiceFactory.sharedInstance.routeService.delete(route: route)
+    }
 }
 
 // MARK: - Interactor Viper Components Api

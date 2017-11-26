@@ -17,12 +17,28 @@ struct LayoutDimensions {
     static let spacingMargin: CGFloat = 20
     
     /**
+     Standard spacing between view elements
+     */
+    static let smallSpacingMargin: CGFloat = 10
+    
+    /**
     Standard text indentation from nearest edge
      */
     static let textIndentMargin: CGFloat = 15
     
     /**
-    Standard height for UITextField, UITableViewCell
+    Standard height for UITextField, UILabels etc
     */
     static let inputHeight: CGFloat = 40
+    
+    /**
+     Standard height for UITableViewCell
+     */
+    static let tableCellHeight: CGFloat = 44
+
+    /**
+     Standard height for UITableViewCell
+     */
+    static let tableHeaderHeight: CGFloat = 60
+
 }

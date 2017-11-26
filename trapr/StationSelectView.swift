@@ -144,8 +144,8 @@ extension StationSelectView: UITableViewDataSource, UITableViewDelegate {
         
         header.textLabel?.text = self.groupedData.sectionText(section: section)
         header.section = section
-        header.delegate = self
-        header.setState(state: presenter.getToggleState(section: section))
+        header.multiselectDelegate = self
+        header.displayMultiselectOption(option: presenter.getToggleState(section: section))
         return header
     }
     
@@ -179,21 +179,19 @@ extension StationSelectView: UITableViewDataSource, UITableViewDelegate {
 
 extension StationSelectView: MultiselectTableViewHeaderDelegate {
     
-    func multiselectTableViewHeader(_ header: MultiselectTableViewHeader, toggledSection: Int) {
-        presenter.didSelectMultiselectToggle(section: toggledSection)
-    }
-
+    func multiselectTableViewHeader(_ header: MultiselectTableViewHeader, multiselectOptionClicked: MultiselectOptions, section: Int) {
+        presenter.didSelectMultiselectToggle(section: section)
+    }    
 }
 
 //MARK: - StationSelectView API
 extension StationSelectView: StationSelectViewApi {
     
-    func setMultiselectToggle(section: Int, state: MultiselectToggle) {
+    func setMultiselectToggle(section: Int, state: MultiselectOptions) {
         
         if let header = tableView.headerView(forSection: section) as? MultiselectTableViewHeader {
-            header.setState(state: state)
+            header.displayMultiselectOption(option: state)
         }
-        //tableView.reloadSections([section] as IndexSet, with: .automatic)
     }
     
     func setTitle(title: String) {

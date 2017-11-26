@@ -12,14 +12,17 @@ import Viperit
 //MARK: RouteView Class
 final class RouteView: UserInterface {
     
-    fileprivate let TABLEVIEW_CELL_ID = "cell"
+    fileprivate let STATION_ROW_CELL_ID = "cell"
     fileprivate let TOP_TABLEVIEW_CELL_ID = "cell2"
+    fileprivate let HEADER_ID_ADDSTATIONS = "header_add"
+    fileprivate let HEADER_ID_STATIONSECTION = "header_stationsection"
     
-    fileprivate let SECTION_ROUTE_NAME = 0
+    fileprivate let SECTION_DETAILS = 0
     fileprivate let ROW_ROUTE_NAME = 0
-    
-    fileprivate let SECTION_VISIT_FREQUENCY = 0
     fileprivate let ROW_VISIT_FREQUENCY = 1
+    
+    fileprivate let SECTION_STATIONS_HEADER = 1
+    fileprivate let ROW_STATIONS_HEADER_DESCRIPTION = 0
     
     fileprivate var groupedData: GroupedTableViewDatasource<Station>?
     
@@ -30,44 +33,16 @@ final class RouteView: UserInterface {
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.TOP_TABLEVIEW_CELL_ID)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.STATION_ROW_CELL_ID)
+        tableView.register(TableViewHeaderWithAction.self, forHeaderFooterViewReuseIdentifier: self.HEADER_ID_ADDSTATIONS)
+        tableView.register(TableViewHeaderWithAction.self, forHeaderFooterViewReuseIdentifier: self.HEADER_ID_STATIONSECTION)
         
         return tableView
     }()
 
-    lazy var sectionHeader: SectionStripView = {
-        let view = Bundle.main.loadNibNamed("SectionStripView", owner: nil, options: nil)?.first as! SectionStripView
-        view.delegate = self
-        view.backgroundColor = UIColor.trpBackground
-        view.titleLabel.text = "Sections"
-        view.titleLabel.font = UIFont.trpLabelLarge
-        view.actionButton.setTitle("Add", for: .normal)
-        return view
-    }()
-    
     func addSection(sender: UIButton) {
         presenter.didSelectAddSection()
     }
-
-    lazy var noSectionsLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.trpTextSmall
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        
-        return label
-    }()
-    
-    lazy var tableView: UITableView = {
-        
-        let tableView = UITableView(frame: CGRect.zero, style: .grouped)
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.TABLEVIEW_CELL_ID)
-        
-        return tableView
-    }()
     
     lazy var closeButton: UIBarButtonItem = {
         
@@ -77,7 +52,7 @@ final class RouteView: UserInterface {
     }()
     
     lazy var doneButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneButtonClick(sender:)))
+        let button = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(doneButtonClick(sender:)))
         return button
     }()
     
@@ -87,9 +62,8 @@ final class RouteView: UserInterface {
         
         cell.contentView.addSubview(self.routeNameTextField)
         
-        //cell.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
         self.routeNameTextField.autoPinEdgesToSuperviewEdges()
-        self.routeNameTextField.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
+        self.routeNameTextField.autoSetDimension(.height, toSize: LayoutDimensions.tableCellHeight)
         
         return cell
     }()
@@ -103,7 +77,7 @@ final class RouteView: UserInterface {
         textField.leftViewMode = .always
         textField.leftView = spacerView
         textField.clearButtonMode = .whileEditing
-        
+        textField.returnKeyType = UIReturnKeyType.done
         return textField
     }()
     
@@ -117,7 +91,33 @@ final class RouteView: UserInterface {
         return cell
     }()
     
+    lazy var sectionHeadingDescriptionTableViewCell: UITableViewCell = {
+        
+        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: self.TOP_TABLEVIEW_CELL_ID)
+        cell.accessoryType = .none
+        cell.textLabel?.text = "Add stations from one or more  traplines."
+        cell.selectionStyle = .none
+        cell.backgroundColor = UIColor.clear
+        //cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
+        return cell
+    }()
+    
+    //MARK: - Helpers
+    
+    fileprivate func adjustedStationSection(section: Int) -> Int {
+        return section - 2
+    }
+    
     //MARK: - UIViewController
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //HACK - this prevents the Save button changing color from white!
+        // https://stackoverflow.com/questions/39026593/handling-tint-color-changes-of-uibarbuttonitems-in-navigation-controller
+        navigationController?.navigationBar.tintColorDidChange()
+    }
+    
     override func loadView() {
         
         super.loadView()
@@ -127,32 +127,16 @@ final class RouteView: UserInterface {
         self.navigationItem.rightBarButtonItem = doneButton
         
         self.view.addSubview(topTableView)
-        self.view.addSubview(sectionHeader)
-        self.view.addSubview(noSectionsLabel)
-        self.view.addSubview(tableView)
+//        self.view.addSubview(sectionHeader)
+//        self.view.addSubview(noSectionsLabel)
+//        self.view.addSubview(tableView)
         
         setConstraints()
     }
     
     func setConstraints() {
-        self.topTableView.autoPin(toTopLayoutGuideOf: self, withInset: 0)
-        self.topTableView.autoPinEdge(toSuperviewEdge: .left)
-        self.topTableView.autoPinEdge(toSuperviewEdge: .right)
-        self.topTableView.autoSetDimension(.height, toSize: 180) // better way
         
-        self.sectionHeader.autoPinEdge(.top, to: .bottom, of: self.topTableView)
-        self.sectionHeader.autoPinEdge(toSuperviewEdge: .left)
-        self.sectionHeader.autoPinEdge(toSuperviewEdge: .right)
-        self.sectionHeader.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
-        
-        self.noSectionsLabel.autoPinEdge(.top, to: .bottom, of: self.sectionHeader, withOffset: LayoutDimensions.spacingMargin)
-        self.noSectionsLabel.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.textIndentMargin)
-        self.noSectionsLabel.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.textIndentMargin)
-        
-        self.tableView.autoPinEdge(.top, to: .bottom, of: self.sectionHeader)
-        self.tableView.autoPinEdge(toSuperviewEdge: .left)
-        self.tableView.autoPinEdge(toSuperviewEdge: .right)
-        self.tableView.autoPinEdge(toSuperviewEdge: .bottom)
+        self.topTableView.autoPinEdgesToSuperviewEdges()
     }
 
     //MARK: - Events
@@ -166,6 +150,7 @@ final class RouteView: UserInterface {
     }
 }
 
+//MARK: - SectionStripViewDelegate
 extension RouteView: SectionStripViewDelegate {
     
     func sectionStrip(_ sectionStripView: SectionStripView, didSelectActionButton: UIButton) {
@@ -173,69 +158,123 @@ extension RouteView: SectionStripViewDelegate {
     }
 }
 
+//MARK: - UITextFieldDelegate
 extension RouteView: UITextFieldDelegate {
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         presenter.didUpdateRouteName(name: textField.text)
     }
 
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
 }
 
+//MARK: - UITableViewDelegate, UITableViewDataSource
 extension RouteView: UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        if tableView == self.tableView {
-            return groupedData?.numberOfSections() ?? 0
-        } else {
-            return 1
-        }
+        
+        // Details
+        // + Stations
+        // + Each Station Groupp
+        return 1 + 1 + (groupedData?.numberOfSections() ?? 0)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == self.tableView {
-            return groupedData?.numberOfRowsInSection(section: section) ?? 0
-        } else {
+
+        if section == SECTION_DETAILS {
             return 2
+        } else if section == SECTION_STATIONS_HEADER {
+            return 0
+        } else {
+            return groupedData?.numberOfRowsInSection(section: adjustedStationSection(section: section)) ?? 0
         }
+        
+    
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if tableView == self.tableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: self.TABLEVIEW_CELL_ID, for: indexPath)
-            
-            cell.textLabel?.text = groupedData?.cellLabelText(section: indexPath.section, row: indexPath.row)
-            return cell
-            
-        } else {
-            if indexPath.section == SECTION_ROUTE_NAME && indexPath.row == ROW_ROUTE_NAME {
-                let cell = self.routeNameTableViewCell
-                return cell
-            } else { // if indexPath.row == ROW_VISIT_FREQUENCY {
-                let cell = self.visitFrequencyTableViewCell
-                //cell.detailTextLabel?.text = "Monthly" // TODO
-                return cell
+        if indexPath.section == SECTION_DETAILS {
+            if indexPath.row == ROW_VISIT_FREQUENCY {
+                return self.visitFrequencyTableViewCell
+            } else if indexPath.row == ROW_ROUTE_NAME {
+                return self.routeNameTableViewCell
             }
+        } else if indexPath.section > SECTION_STATIONS_HEADER {
+            let cell = tableView.dequeueReusableCell(withIdentifier: self.STATION_ROW_CELL_ID, for: indexPath)
+            cell.textLabel?.text = groupedData?.cellLabelText(section: adjustedStationSection(section: indexPath.section), row: indexPath.row)
+            return cell
         }
+//        else if indexPath.section == SECTION_STATIONS_HEADER {
+//            return sectionHeadingDescriptionTableViewCell
+//        }
+        return UITableViewCell()
         
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == SECTION_STATIONS_HEADER {
+            if let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HEADER_ID_ADDSTATIONS) as? TableViewHeaderWithAction {
+                header.delegate = self
+                header.section = section
+                header.actionButton.setTitle("Add", for: .normal)
+                header.detailTextLabel?.text = "Add stations from one or more  traplines."
+                return header
+            }
+        } else if section > SECTION_STATIONS_HEADER {
+            if let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HEADER_ID_STATIONSECTION) as? TableViewHeaderWithAction {
+                header.delegate = self
+                header.section = section
+                
+                let image = UIImage(named: "show")?.withRenderingMode(.alwaysTemplate)
+                header.actionButton.setImage(image, for: .normal)
+                header.actionButton.tintColor = UIColor.trpNavigationBar
+                
+                return header
+            }
+        }
+        return tableView.headerView(forSection: section)
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if tableView == self.tableView {
-            return groupedData?.sectionText(section: section) ?? ""
+        if section == SECTION_STATIONS_HEADER {
+            return "STATIONS"
+        } else if section == SECTION_DETAILS {
+            return "DETAILS"
         } else {
-            return "ROUTE DETAILS"
+            return groupedData?.sectionText(section: adjustedStationSection(section: section)) ?? ""
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView == self.topTableView {
-            if indexPath.section == SECTION_VISIT_FREQUENCY {
-                presenter.didSelectToChangeVisitFrequency()
-            }
+        if indexPath.section == SECTION_DETAILS && indexPath.row == ROW_VISIT_FREQUENCY {
+            presenter.didSelectToChangeVisitFrequency()
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == SECTION_STATIONS_HEADER {
+            return LayoutDimensions.tableHeaderHeight * 1
+        }
+        return LayoutDimensions.tableHeaderHeight
+    }
+    
+}
+
+//MARK: - TableViewHeaderWithActionDelegate
+extension RouteView: TableViewHeaderWithActionDelegate {
+    func tableViewHeaderWithAction(_ tableViewHeaderWithAction: TableViewHeaderWithAction, actionButtonClickedForSection section: Int) {
+        if tableViewHeaderWithAction.reuseIdentifier == HEADER_ID_ADDSTATIONS {
+            presenter.didSelectAddSection()
+        }
+        if tableViewHeaderWithAction.reuseIdentifier == HEADER_ID_STATIONSECTION {
+            // open menu
+            presenter.didSelectShowSectionMenu(section: adjustedStationSection(section: section))
+        }
+    }
 }
 
 //MARK: - RouteView API
@@ -259,24 +298,42 @@ extension RouteView: RouteViewApi {
     
     func bindToGroupedTableViewData(groupedData: GroupedTableViewDatasource<Station>) {
         self.groupedData = groupedData
-        self.tableView.reloadData()
+        self.topTableView.reloadData()
     }
     
     func displayNoSectionsText(text: String) {
-        self.noSectionsLabel.text = text
+        //self.noSectionsLabel.text = text
     }
     
     func hideSectionsTableView(hide: Bool) {
-        tableView.alpha = hide ? 0 : 1
-        noSectionsLabel.alpha = hide ? 1 : 0
+//        tableView.alpha = hide ? 0 : 1
+//        noSectionsLabel.alpha = hide ? 1 : 0
     }
     
     func refreshSectionTableView() {
-        tableView.reloadData()
+        topTableView.reloadData()
     }
     
-    func displaySectionMenuOptionItems(optionItems: [OptionItem]) {
+    func displaySectionMenuOptionItems(title: String?, message: String?, optionItems: [OptionItem]) {
+        let menu = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         
+        for option in optionItems {
+            
+            let style: UIAlertActionStyle = option.isDestructive ? .destructive : .default
+            let optionItem = UIAlertAction(title: option.title, style: style, handler: {
+                (action) in
+                if let title = action.title {
+                    self.presenter.didSelectSectionMenuOptionItem(title: title)
+                }
+            })
+            
+            menu.addAction(optionItem)
+        }
+        
+        // always add a cancel
+        menu.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(menu, animated: true, completion: nil)
     }
     
     

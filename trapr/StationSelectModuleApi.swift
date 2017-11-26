@@ -22,7 +22,7 @@ protocol StationSelectViewApi: UserInterfaceProtocol {
     func showCloseButton()
     func setDoneButtonAttributes(visible: Bool, enabled: Bool)
     func enableSorting(enabled: Bool)
-    func setMultiselectToggle(section: Int, state: MultiselectToggle)
+    func setMultiselectToggle(section: Int, state: MultiselectOptions)
     func updateSelectedStations(section: Int, selectedStations: [Station])
     func updateGroupedData(section: Int, groupedData: GroupedTableViewDatasource<Station>)
     func updateGroupedData(groupedData: GroupedTableViewDatasource<Station>)
@@ -43,7 +43,7 @@ protocol StationSelectPresenterApi: PresenterProtocol {
     
     
     // For the View (maybe not so good, but hey)
-    func getToggleState(section: Int) -> MultiselectToggle
+    func getToggleState(section: Int) -> MultiselectOptions
 }
 
 //MARK: - StationSelectInteractor API

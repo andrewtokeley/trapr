@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ListPickerDelegate {
     
@@ -17,7 +18,10 @@ protocol ListPickerDelegate {
     func listPicker(numberOfRows listPicker: ListPickerView) -> Int
     
     // optional
+    func listPicker(hasChildListPicker listPicker: ListPickerView) -> Bool
+    func listPicker(initialMultiselectState listPicker: ListPickerView) -> MultiselectOptions
     func listPicker(_ listPicker: ListPickerView, itemDetailAt index: Int) -> String?
+    func listPicker(_ listPicker: ListPickerView, isInitiallySelected index: Int) -> Bool
     func listPicker(_ listPicker: ListPickerView, didSelectItemAt index: Int)
     func listPicker(_ listPicker: ListPickerView, didSelectMultipleItemsAt indexes: [Int])
 }
@@ -25,6 +29,18 @@ protocol ListPickerDelegate {
     //MARK: - Default implementations for optional methods
     extension ListPickerDelegate {
     
+        func listPicker(hasChildListPicker listPicker: ListPickerView) -> Bool {
+            return false
+        }
+        
+        func listPicker(initialMultiselectState listPicker: ListPickerView) -> MultiselectOptions {
+            return .none
+        }
+        
+        func listPicker(_ listPicker: ListPickerView, isInitiallySelected index: Int) -> Bool {
+            return false
+        }
+        
         func listPicker(_ listPicker: ListPickerView, didSelectItemAt index: Int) {
             // do nothing
         }

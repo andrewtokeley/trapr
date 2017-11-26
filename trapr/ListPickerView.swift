@@ -13,6 +13,8 @@ import Viperit
 final class ListPickerView: UserInterface {
     
     fileprivate let CELL_ID = "cell"
+    fileprivate let TABLEVIEW_HEADER_ID = "header"
+    fileprivate var multiselectEnabled = false
     fileprivate var selectedIndices = [Int]()
     
     //MARK: - Subviews
@@ -48,7 +50,7 @@ final class ListPickerView: UserInterface {
     }
     
     private func setConstraints() {
-        tableView.autoPinEdgesToSuperviewEdges(with: .zero)
+        tableView.autoPinEdgesToSuperviewEdges()
     }
 
     //MARK: - Events
@@ -83,22 +85,59 @@ extension ListPickerView: UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = displayData.delegate?.listPicker(self, itemTextAt: indexPath.row)
         cell.detailTextLabel?.text = displayData.delegate?.listPicker(self, itemDetailAt: indexPath.row)
         
-        cell.accessoryType = selectedIndices.contains(indexPath.row) ? .checkmark : .none
+        if multiselectEnabled {
+            cell.accessoryType = selectedIndices.contains(indexPath.row) ? .checkmark : .none
+        } else {
+            if displayData.delegate?.listPicker(hasChildListPicker: self) ?? false {
+                cell.accessoryType = .disclosureIndicator
+            }
+        }
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if multiselectEnabled {
+            
+            let initalMultipleSelectState = displayData.delegate?.listPicker(initialMultiselectState: self)
+            
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: TABLEVIEW_HEADER_ID) as? MultiselectTableViewHeader ?? MultiselectTableViewHeader(reuseIdentifier: TABLEVIEW_HEADER_ID, initialState: initalMultipleSelectState ?? .none)
+            header.textLabel?.text = displayData.delegate?.listPicker(headerText: self)
+            header.section = section
+            header.multiselectDelegate = self
+            return header
+        } else {
+            return nil
+        }
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
         return displayData.delegate?.listPicker(headerText: self)
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //displayData.delegate?.listPicker(self, didSelectItemAt: indexPath.row)
         presenter.didSelectItem(row: indexPath.row)
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return LayoutDimensions.tableHeaderHeight
+    }
+
+}
+
+//MARK: - MultiselectTableViewHeaderDelegate
+
+extension ListPickerView: MultiselectTableViewHeaderDelegate {
+    
+    func multiselectTableViewHeader(_ header: MultiselectTableViewHeader, multiselectOptionClicked: MultiselectOptions, section: Int) {
+        
+        if multiselectOptionClicked == .selectAll {
+            presenter.didSelectAllItems()
+        } else if multiselectOptionClicked == .selectNone {
+            presenter.didSelectNoItems()
+        }
+    }
 }
 
 //MARK: - ListPickerView API
@@ -127,6 +166,9 @@ extension ListPickerView: ListPickerViewApi {
         self.navigationItem.rightBarButtonItem = show ? doneButton : nil
     }
     
+    func enableMultiselect(enable: Bool) {
+        self.multiselectEnabled = enable
+    }
 }
 
 // MARK: - ListPickerView Viper Components API

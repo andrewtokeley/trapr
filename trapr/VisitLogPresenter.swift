@@ -93,6 +93,8 @@ extension VisitLogPresenter: VisitLogPresenterApi {
             setupData.delegate = self
             setupData.tag = LIST_SPECIES
             setupData.embedInNavController = false
+            setupData.includeSelectNone = true
+            
             router.showListPicker(setupData: setupData)
         }
     }
@@ -103,6 +105,8 @@ extension VisitLogPresenter: VisitLogPresenterApi {
         setupData.delegate = self
         setupData.tag = LIST_LURE
         setupData.embedInNavController = false
+        setupData.includeSelectNone = true
+        
         router.showListPicker(setupData: setupData)
     
     }

@@ -11,11 +11,14 @@ import Foundation
 class ListPickerSetupData {
     
     var tag: Int = 0
-    var allowMultiselect: Bool = false
+    var enableMultiselect: Bool = false
     
     // If true, will be displayed as modal
     var embedInNavController: Bool = true
     
+    var selectedIndicies = [Int]()
+    var initialMultipleState: MultiselectOptions = .none
+    var includeSelectNone: Bool = false
     var delegate: ListPickerDelegate?
     
     // supply if one lookup should navigate to another

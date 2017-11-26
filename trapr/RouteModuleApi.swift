@@ -23,7 +23,7 @@ protocol RouteViewApi: UserInterfaceProtocol {
     func displayNoSectionsText(text: String)
     func hideSectionsTableView(hide: Bool)
     func refreshSectionTableView()
-    func displaySectionMenuOptionItems(optionItems: [OptionItem])
+    func displaySectionMenuOptionItems(title: String?, message: String?, optionItems: [OptionItem])
 }
 
 //MARK: - RoutePresenter API
@@ -34,8 +34,9 @@ protocol RoutePresenterApi: PresenterProtocol {
     func didSelectAddSection()
     func didSelectToChangeVisitFrequency()
     func didSelectDeleteStation(item: GroupedTableViewDatasourceItem<Station>)
-    func didSelectShowSectionMenu(sectionIndex: Int)
-    func didSelectMenuOptionItem(item: OptionItem)
+    func didSelectShowSectionMenu(section: Int)
+    func didSelectSectionMenuOptionItem(title: String)
+    
 }
 
 //MARK: - RouteInteractor API

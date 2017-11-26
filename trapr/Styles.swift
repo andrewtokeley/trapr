@@ -17,9 +17,8 @@ class Styles {
     static func setAppearances() {
         
         let barButtonItemAppearance = UIBarButtonItem.appearance()
-        barButtonItemAppearance.tintColor = UIColor.trpNavigationBarTint
-        barButtonItemAppearance.setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.white], for: .normal)
-        barButtonItemAppearance.setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.red], for: .disabled)
+        barButtonItemAppearance.tintColor = UIColor.white
+        barButtonItemAppearance.setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.white], for: UIControlState.normal)
         
         let navigationBarAppearance = UINavigationBar.appearance()
         navigationBarAppearance.barTintColor = UIColor.trpNavigationBar
@@ -27,7 +26,6 @@ class Styles {
         navigationBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         
         let labelAppearance = UILabel.appearance()
-        //labelAppearance.font = UIFont.trpLabel
         labelAppearance.textColor = UIColor.trpTextDark
         
         let stepperAppearance = UIStepper.appearance()

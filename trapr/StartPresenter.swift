@@ -50,8 +50,15 @@ extension StartPresenter: StartPresenterApi {
 
     func didSelectRouteMenuItem(routeIndex: Int, menuItemIndex: Int) {
         
-        if menuItemIndex == ROUTE_MENU_EDIT {
-            router.showRouteModule(route: self.routes?[routeIndex])
+        if let route = self.routes?[routeIndex] {
+            if menuItemIndex == ROUTE_MENU_EDIT {
+                router.showRouteModule(route: route)
+            } else if menuItemIndex == ROUTE_MENU_DELETE {
+                interactor.deleteRoute(route: route)
+                interactor.initialiseHomeModule()
+            } else if menuItemIndex == ROUTE_MENU_VISIT {
+                self.didSelectRoute(route: route)
+            }
         }
     }
     

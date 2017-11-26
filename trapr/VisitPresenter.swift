@@ -116,7 +116,7 @@ extension VisitPresenter: VisitPresenterApi {
     }
     
     func didSelectMenuButton() {
-        view.displayMenuOptions(options: ["Edit Route", "Send Report", "Add/Remove Trapline", "Remove Visit", "View Map"])
+        view.displayMenuOptions(options: ["Send Report", "Remove Visit", "View Map"])
     }
     
     func didSelectMenuItem(title: String) {

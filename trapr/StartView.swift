@@ -172,6 +172,7 @@ extension StartView: SectionStripViewDelegate {
     }
 }
 
+//MARK: - RouteCollectionViewCellDelegate
 extension StartView: RouteCollectionViewCellDelegate {
     func routeCollectionViewCell(numberOfActionsFor routeCollectionViewCell: RouteCollectionViewCell) -> Int {
         

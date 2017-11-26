@@ -28,13 +28,13 @@ final class StationSelectPresenter: Presenter {
     
     fileprivate var groupedData: GroupedTableViewDatasource<Station>!
     
-    fileprivate var toggleState: [MultiselectToggle] {
+    fileprivate var toggleState: [MultiselectOptions] {
         
-        var state = [MultiselectToggle]()
+        var state = [MultiselectOptions]()
         
         // hide toggle if single select
         if !self.allowMultiselect || self.sortingEnabled {
-            state = Array(repeating: MultiselectToggle.none, count: groupedData.numberOfSections())
+            state = Array(repeating: MultiselectOptions.none, count: groupedData.numberOfSections())
         } else {
             for i in 0...groupedData.numberOfSections() - 1 {
                 if groupedData.hasSelected(section: i) {
@@ -226,7 +226,7 @@ extension StationSelectPresenter: StationSelectPresenterApi {
         view.enableSorting(enabled: self.sortingEnabled)
     }
     
-    func getToggleState(section: Int) -> MultiselectToggle {
+    func getToggleState(section: Int) -> MultiselectOptions {
         return toggleState[section]
     }
 }

@@ -21,15 +21,38 @@ final class ListPickerPresenter: Presenter {
         
         if let _ = setupData {
             view.setTag(tag: setupData!.tag)
-            view.showDoneButton(show: setupData.allowMultiselect)
+            
             view.showCloseButton(show: setupData.embedInNavController)
             view.setTitle(title: setupData!.delegate?.listPicker(title: _view as! ListPickerView) ?? "")
+            
+            view.enableMultiselect(enable: setupData.enableMultiselect)
+            view.showDoneButton(show: setupData.enableMultiselect)
+            
+            // get initial selec
+            self.selectedIndices = initialSelection()
+            view.setSelectedIndices(indices: self.selectedIndices)
             
             // pass the delegate on to the view
             let displayData = view._displayData as? ListPickerDisplayData
             displayData?.delegate = setupData!.delegate
         }
         
+    }
+        
+    private func initialSelection() -> [Int] {
+        
+        var selectedIndicies = [Int]()
+        if let numberOfItems = setupData.delegate?.listPicker(numberOfRows: _view as! ListPickerView) {
+            
+            for i in 0...numberOfItems - 1 {
+                if let selected = setupData.delegate?.listPicker(_view as! ListPickerView, isInitiallySelected: i) {
+                    if selected {
+                        selectedIndicies.append(i)
+                    }
+                }
+            }
+        }
+        return selectedIndicies
     }
     
     private func isRootListPicker(viewController: UIViewController) -> Bool {
@@ -119,13 +142,28 @@ extension ListPickerPresenter: ListPickerPresenterApi {
         view.setSelectedIndices(indices: selectedIndices)
         
         // close the view, if we're in single select mode
-        if !setupData.allowMultiselect {
+        if !setupData.enableMultiselect {
             processFinalSelection()
         }
     }
     
+    func didSelectAllItems() {
+        if let numberOfItems = self.setupData.delegate?.listPicker(numberOfRows: _view as! ListPickerView) {
+            self.selectedIndices.removeAll()
+            for i in 0...numberOfItems {
+                self.selectedIndices.append(i)
+            }
+        }
+        view.setSelectedIndices(indices: self.selectedIndices)
+    }
+    
+    func didSelectNoItems() {
+        self.selectedIndices.removeAll()
+        view.setSelectedIndices(indices: self.selectedIndices)
+    }
+    
     func didSelectDone() {
-        // for multiselect only
+        // will only be called for multiselect
         setupData.delegate?.listPicker(_view as! ListPickerView, didSelectMultipleItemsAt: self.selectedIndices)
         processFinalSelection()
     }

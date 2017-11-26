@@ -92,6 +92,7 @@
 		D86CE48C1F92C8EA004A09EF /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CE48B1F92C8EA004A09EF /* UIFontExtension.swift */; };
 		D873C86E1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D873C86D1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift */; };
 		D873C8701FC6873A00F581D8 /* UIImageExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = D873C86F1FC6873A00F581D8 /* UIImageExtention.swift */; };
+		D873C8741FC9246F00F581D8 /* TableViewHeaderWithAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D873C8731FC9246F00F581D8 /* TableViewHeaderWithAction.swift */; };
 		D87926921FB553A600240767 /* RouteCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87926911FB553A600240767 /* RouteCollectionViewCell.xib */; };
 		D87926951FB555A500240767 /* clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D87926931FB555A400240767 /* clock@2x.png */; };
 		D87926961FB555A500240767 /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = D87926941FB555A500240767 /* clock.png */; };
@@ -277,6 +278,7 @@
 		D86CE48B1F92C8EA004A09EF /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
 		D873C86D1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
 		D873C86F1FC6873A00F581D8 /* UIImageExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtention.swift; sourceTree = "<group>"; };
+		D873C8731FC9246F00F581D8 /* TableViewHeaderWithAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeaderWithAction.swift; sourceTree = "<group>"; };
 		D87926911FB553A600240767 /* RouteCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouteCollectionViewCell.xib; sourceTree = "<group>"; };
 		D87926931FB555A400240767 /* clock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock@2x.png"; sourceTree = "<group>"; };
 		D87926941FB555A500240767 /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
@@ -539,6 +541,22 @@
 			name = Visit;
 			sourceTree = "<group>";
 		};
+		D873C8711FC9244100F581D8 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
+			sourceTree = "<group>";
+		};
+		D873C8721FC9244B00F581D8 /* TableViewHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				D8C51A721F96D67200D3571A /* MultiselectTableViewHeader.swift */,
+				D873C8731FC9246F00F581D8 /* TableViewHeaderWithAction.swift */,
+			);
+			name = TableViewHeaders;
+			sourceTree = "<group>";
+		};
 		D879269B1FB58E7800240767 /* SectionStrip */ = {
 			isa = PBXGroup;
 			children = (
@@ -575,7 +593,6 @@
 				D89311FD1F834F6E008DF09D /* StationSelectRouter.swift */,
 				D89311FE1F834F6E008DF09D /* StationSelectView.swift */,
 				D8FA5CF71F8409A700EC890C /* StationSelectSetupData.swift */,
-				D8C51A721F96D67200D3571A /* MultiselectTableViewHeader.swift */,
 			);
 			name = StationSelect;
 			sourceTree = "<group>";
@@ -680,6 +697,8 @@
 		D8B94D7D1F5EA67300D373EF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D873C8721FC9244B00F581D8 /* TableViewHeaders */,
+				D873C8711FC9244100F581D8 /* New Group */,
 				D8B138B31FC3EA740093E809 /* Route */,
 				D879269B1FB58E7800240767 /* SectionStrip */,
 				D8039E1E1FABF428006E394B /* ListPicker */,
@@ -1002,6 +1021,7 @@
 				D8953EBC1F88114F00A1F424 /* NewVisitDisplayData.swift in Sources */,
 				D89312031F834F6F008DF09D /* StationSelectRouter.swift in Sources */,
 				D87C44F91F9059AF00CAFC7A /* SideMenuPresenter.swift in Sources */,
+				D873C8741FC9246F00F581D8 /* TableViewHeaderWithAction.swift in Sources */,
 				D857B3AA1F81B86A006E1402 /* VisitRouter.swift in Sources */,
 				D830895A1FA189AC007C9316 /* StepperTableViewCell.swift in Sources */,
 				D80B6DCC1F9F3DCD00F49E9E /* VisitLogInteractor.swift in Sources */,
