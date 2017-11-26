@@ -26,6 +26,10 @@ final class VisitLogView: UserInterface {
     fileprivate let ROW_EATEN = 2
     fileprivate let ROW_REMOVED = 3
     
+    fileprivate let STEPPER_ADD = 0
+    fileprivate let STEPPER_EATEN = 1
+    fileprivate let STEPPER_REMOVED = 2
+    
     fileprivate var sections = [String]()
     fileprivate var visibleSections = [Int]()
     
@@ -74,7 +78,7 @@ final class VisitLogView: UserInterface {
         let cell = Bundle.main.loadNibNamed("StepperTableViewCell", owner: nil, options: nil)?.first as! StepperTableViewCell
         cell.selectionStyle = .none
         cell.titleLabel.text = "Added"
-        cell.tag = 0
+        cell.tag = self.STEPPER_ADD
         cell.delegate = self
         return cell
     }()
@@ -83,7 +87,7 @@ final class VisitLogView: UserInterface {
         let cell = Bundle.main.loadNibNamed("StepperTableViewCell", owner: nil, options: nil)?.first as! StepperTableViewCell
         cell.titleLabel.text = "Eaten"
         cell.selectionStyle = .none
-        cell.tag = 1
+        cell.tag = self.STEPPER_EATEN
         cell.delegate = self
         return cell
     }()
@@ -92,7 +96,7 @@ final class VisitLogView: UserInterface {
         let cell = Bundle.main.loadNibNamed("StepperTableViewCell", owner: nil, options: nil)?.first as! StepperTableViewCell
         cell.titleLabel.text = "Removed"
         cell.selectionStyle = .none
-        cell.tag = 2
+        cell.tag = self.STEPPER_REMOVED
         cell.delegate = self
         return cell
     }()
@@ -134,6 +138,17 @@ final class VisitLogView: UserInterface {
 extension VisitLogView: StepperTableViewCellDelegate {
     func stepper(_ stepper: StepperTableViewCell, valueChanged: Int) {
         // tell the presenter this happened
+        if stepper.tag == STEPPER_ADD {
+            presenter.didUpdateBaitAddedValue(newValue: valueChanged)
+        }
+        if stepper.tag == STEPPER_EATEN {
+            presenter.didUpdateBaitEatenValue(newValue: valueChanged)
+        }
+        
+        if stepper.tag == STEPPER_REMOVED {
+            presenter.didUpdateBaitRemovedValue(newValue: valueChanged)
+        }
+        
     }
 }
 
@@ -215,13 +230,13 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
             cell.detailTextLabel?.text = self.visit?.lure?.name ?? "-"
         } else if section == SECTION_BAIT && row == ROW_ADDED {
             cell = self.addedTableViewCell
-            (cell as! StepperTableViewCell).countLabel.text = String(self.visit?.baitAdded ?? 0)
+            (cell as! StepperTableViewCell).setCountValue(newValue: self.visit?.baitAdded ?? 0)
         } else if section == SECTION_BAIT && row == ROW_REMOVED {
             cell = self.removedTableViewCell
-            (cell as! StepperTableViewCell).countLabel.text = String(self.visit?.baitRemoved ?? 0)
+            (cell as! StepperTableViewCell).setCountValue(newValue: self.visit?.baitRemoved ?? 0)
         } else { // if section == SECTION_BAIT && row == ROW_EATEN {
             cell = self.eatenTableViewCell
-            (cell as! StepperTableViewCell).countLabel.text = String(self.visit?.baitEaten ?? 0)
+            (cell as! StepperTableViewCell).setCountValue(newValue: self.visit?.baitEaten ?? 0)
         }
         return cell
     }

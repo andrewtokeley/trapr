@@ -119,6 +119,19 @@ extension VisitLogPresenter: VisitLogPresenterApi {
         saveVisit()
         updateViewForCurrentVisit()
     }
+    
+    func didUpdateBaitAddedValue(newValue: Int) {
+        self.currentVisit?.baitAdded = newValue
+        saveVisit()
+    }
+    func didUpdateBaitEatenValue(newValue: Int) {
+        self.currentVisit?.baitEaten = newValue
+        saveVisit()
+    }
+    func didUpdateBaitRemovedValue(newValue: Int) {
+        self.currentVisit?.baitRemoved = newValue
+        saveVisit()
+    }
 }
 
 // MARK: - ListPickerDelegate (Species)

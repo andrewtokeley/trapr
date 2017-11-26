@@ -17,8 +17,14 @@ class StepperTableViewCell: UITableViewCell {
     @IBOutlet weak var stepper: UIStepper!
     @IBOutlet weak var countLabel: UILabel!
     
+    func setCountValue(newValue: Int) {
+        if let _ = countLabel {
+            countLabel.text = String(newValue)
+            stepper.value = Double(newValue)
+        }
+    }
+    
     @IBAction func stepperClicked(sender: UIStepper) {
-        
         delegate?.stepper(self, valueChanged: Int(sender.value))
         countLabel.text = String(Int(sender.value))
     }
