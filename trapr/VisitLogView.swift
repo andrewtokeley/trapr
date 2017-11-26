@@ -204,7 +204,12 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if visibleSections.contains(section) {
-            return tableView.sectionFooterHeight
+            // add a larger section footer to last section
+            if (section == SECTION_BAIT) {
+                return LayoutDimensions.tableFooterHeightLarge
+            } else {
+                return LayoutDimensions.tableFooterHeight
+            }
         }
         return 0
     }
