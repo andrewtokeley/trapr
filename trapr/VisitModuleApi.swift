@@ -37,7 +37,7 @@ protocol VisitPresenterApi: PresenterProtocol {
     
     func didSelectTrap(index: Int)
     func didSelectStation(index: Int)
-    func didFetchVisit(visit: Visit)
+    func didFetchVisit(visit: Visit, isNew: Bool)
     func didSelectMenuButton()
     func didSelectMenuItem(title: String)
     func didSelectDate()

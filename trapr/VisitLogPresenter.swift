@@ -20,32 +20,36 @@ final class VisitLogPresenter: Presenter {
     
     func saveVisit() {
         if let visit = self.currentVisit {
-            print("Save visit \(visit.id)")
             interactor.saveVisit(visit: visit)
         }
     }
     
-    func updateView() {
+    func updateViewForCurrentVisit() {
         if self.currentVisit != nil {
             view.displayVisit(visit: self.currentVisit!, showCatchSection: self.currentVisit?.trap?.type?.killMethod == .Direct)
         }
     }
 }
 
+//MARK: - VisitDelegate
+
 extension VisitLogPresenter: VisitDelegate {
     
-    func didChangeVisit(visit: Visit) {
+    func didChangeVisit(visit: Visit, isNew: Bool) {
         
         // take a copy so that visit can be bulk updated
         self.currentVisit = Visit(value: visit)
         
-        updateView()
+        if !isNew {
+            updateViewForCurrentVisit()
+        } else {
+            view.displayNoVisitState()
+        }
         
     }
-    
 }
 
-// MARK: - VisitLogPresenter API
+// MARK: - DatePickerDelegate
 extension VisitLogPresenter: DatePickerDelegate {
     
     func datePicker(_ datePicker: DatePickerViewApi, textFor element: DatePickerElement) -> String {
@@ -66,7 +70,7 @@ extension VisitLogPresenter: DatePickerDelegate {
     }
 }
 
-// MARK: - VisitLogPresenter API
+// MARK: - VisitLogPresenterApi
 extension VisitLogPresenter: VisitLogPresenterApi {
     
     func didSelectToChangeTime() {
@@ -110,6 +114,11 @@ extension VisitLogPresenter: VisitLogPresenterApi {
         router.showListPicker(setupData: setupData)
     
     }
+    
+    func didSelectToRecordVisit() {
+        saveVisit()
+        updateViewForCurrentVisit()
+    }
 }
 
 // MARK: - ListPickerDelegate (Species)
@@ -145,7 +154,7 @@ extension VisitLogPresenter: ListPickerDelegate {
             if let species = self.species?[index] {
                 if let _ = self.currentVisit {
                     self.currentVisit!.catchSpecies = species
-                    updateView()
+                    updateViewForCurrentVisit()
                     saveVisit()
                 }
             }
@@ -153,7 +162,7 @@ extension VisitLogPresenter: ListPickerDelegate {
             if let lure = self.currentVisit?.trap?.type?.availableLures[index] {
                 if let _ = self.currentVisit {
                     self.currentVisit!.lure = lure
-                    updateView()
+                    updateViewForCurrentVisit()
                     saveVisit()
                 }
             }

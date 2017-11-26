@@ -29,8 +29,19 @@ final class VisitLogView: UserInterface {
     fileprivate var sections = [String]()
     fileprivate var visibleSections = [Int]()
     
+    lazy var noVisitButton: UIButton = {
+        let button = UIButton(type: UIButtonType.custom)
+        button.alpha = 0
+        button.setTitle("Record a Visit", for: .normal)
+        button.backgroundColor = UIColor.trpNavigationBar
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.addTarget(self, action: #selector(createVisitButtonClick(sender:)), for: .touchUpInside)
+        return button
+    } ()
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .grouped)
+        tableView.alpha = 0
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -86,12 +97,15 @@ final class VisitLogView: UserInterface {
         return cell
     }()
     
-    //MARK: UIViewController
+    
+//MARK: - UIViewController
     override func loadView() {
         print("loadview")
         super.loadView()
         
         self.view.addSubview(tableView)
+        self.view.addSubview(noVisitButton)
+        
         setConstraints()
         
         sections = ["", "CATCH", "BAIT"]
@@ -100,9 +114,23 @@ final class VisitLogView: UserInterface {
     
     func setConstraints() {
         tableView.autoPinEdgesToSuperviewEdges()
+        
+        noVisitButton.autoCenterInSuperview()
+        noVisitButton.autoSetDimension(.width, toSize: 200)
+        noVisitButton.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
+    }
+
+    //MARK: - Events
+    
+    func createVisitButtonClick(sender: UIButton) {
+        presenter.didSelectToRecordVisit()
     }
 
 }
+
+
+//MARK: - StepperTableViewCellDelegate
+
 extension VisitLogView: StepperTableViewCellDelegate {
     func stepper(_ stepper: StepperTableViewCell, valueChanged: Int) {
         // tell the presenter this happened
@@ -213,7 +241,15 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
 //MARK: - VisitLogView API
 extension VisitLogView: VisitLogViewApi {
     
+    func displayNoVisitState() {
+        self.tableView.alpha = 0
+        self.noVisitButton.alpha = 1
+    }
+    
     func displayVisit(visit: Visit, showCatchSection: Bool) {
+        self.tableView.alpha = 1
+        self.noVisitButton.alpha = 0
+        
         self.visit = visit
         
         if let index = visibleSections.index(of: SECTION_CATCH) {

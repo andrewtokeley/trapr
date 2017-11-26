@@ -28,15 +28,12 @@ extension VisitInteractor: VisitInteractorApi {
         if let visit = visits.filter({ (visit) in return visit.trap?.id == trap.id}).first {
             
             // trap exists for this day
-            print("return existing visit: \(visit.id)")
-            presenter.didFetchVisit(visit: visit)
+            presenter.didFetchVisit(visit: visit, isNew: false)
         } else {
             
             // create a new Visit
             let newVisit = Visit(trap: trap, date: date)
-            print("create new visit: \(newVisit.id)")
-            
-            presenter.didFetchVisit(visit: newVisit)
+            presenter.didFetchVisit(visit: newVisit, isNew: true)
         }
     }
     

@@ -350,7 +350,7 @@ extension VisitView: VisitViewApi {
     }
     
     func updateDisplayFor(visit: Visit) {
-        print("Update for visit to \(visit.trap?.station?.longCode ?? "?"), trap \(visit.trap?.type?.name ?? "?")")
+        //print("Update for visit to \(visit.trap?.station?.longCode ?? "?"), trap \(visit.trap?.type?.name ?? "?")")
     }
     
     func updateCurrentStation(index: Int, repeatedGroup: Int) {

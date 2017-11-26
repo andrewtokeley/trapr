@@ -139,8 +139,12 @@ extension VisitPresenter: VisitPresenterApi {
         interactor.retrieveVisit(trap: self.currentTrap, date: visitSummary.dateOfVisit)
     }
     
-    func didFetchVisit(visit: Visit) {
-        visitDelegate?.didChangeVisit(visit: visit)
+    func didFetchVisit(visit: Visit, isNew: Bool) {
+        visitDelegate?.didChangeVisit(visit: visit, isNew: isNew)
+    }
+    
+    func noVisitExists() {
+        //visitDelegate?.noVisitExists()
     }
     
     func didSelectStation(index: Int) {
