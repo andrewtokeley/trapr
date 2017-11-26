@@ -119,8 +119,9 @@ final class VisitLogView: UserInterface {
     func setConstraints() {
         tableView.autoPinEdgesToSuperviewEdges()
         
-        noVisitButton.autoCenterInSuperview()
-        noVisitButton.autoSetDimension(.width, toSize: 200)
+        noVisitButton.autoPinEdge(toSuperviewEdge: .top, withInset: 100)
+        noVisitButton.autoAlignAxis(.vertical, toSameAxisOf: self.view)
+        noVisitButton.autoSetDimension(.width, toSize: 250)
         noVisitButton.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
     }
 
