@@ -13,6 +13,9 @@ import RealmSwift
 
 class visitTests: XCTestCase {
     
+    var route_LW_E: Route?
+    var route_GC: Route?
+    
     lazy var visitService: VisitServiceInterface = {
         return ServiceFactory.sharedInstance.visitService
     }()
@@ -22,6 +25,7 @@ class visitTests: XCTestCase {
         
         // Put setup code here. This method is called before the invocation of each test method in the class.
         ServiceFactory.sharedInstance.dataPopulatorService.deleteAllTestData()
+        
     }
     
     override func tearDown() {
@@ -60,6 +64,7 @@ class visitTests: XCTestCase {
         XCTAssertTrue(visits.first!.notes == NOTE, "expected \(NOTE), was \(visits.first!.notes!)")
     }
     
+    
     func testGetVisits() {
         
         let visit = Visit()
@@ -72,46 +77,81 @@ class visitTests: XCTestCase {
         XCTAssertTrue(visits.count == 1, "expected 1, was \(visits.count)")
     }
     
-    func getVisitSummary() -> VisitSummary {
+    //MARK: - Test Data
+    
+    /**
+     Create...
+     
+     LW, E Route
+        - LW01 - one visit
+        - E01 - one visit
+     
+     GC Route
+        - GC01 - no visits
+    */
+    func createTestData() {
         let possumMaster = TrapType()
         possumMaster.name = "Possum Master"
         
+        // LW01
         let trapline1 = Trapline()
         trapline1.code = "LW"
-        let station = trapline1.addStation(code: "01")
-        let trap1 = station.addTrap(type: possumMaster)
+        let station1 = trapline1.addStation(code: "01")
+        let trap1 = station1.addTrap(type: possumMaster)
         
+        // E01
         let trapline2 = Trapline()
         trapline2.code = "E"
         let station2 = trapline2.addStation(code: "01")
         let trap2 = station2.addTrap(type: possumMaster)
         
+        // GC01
         let trapline3 = Trapline()
         trapline3.code = "GC"
         let station3 = trapline3.addStation(code: "01")
-        let trap3 = station3.addTrap(type: possumMaster)
+        let _ = station3.addTrap(type: possumMaster)
         
-        let visit1 = Visit()
-        visit1.visitDateTime = Date()
-        visit1.trap = trap1
+        // Route_LW_E
+        self.route_GC = Route(name: "GC Route", stations: [station3])
+        self.route_LW_E = Route(name: "LW, E Route", stations: [station1, station2])
+        ServiceFactory.sharedInstance.routeService.add(route: self.route_GC!)
+        ServiceFactory.sharedInstance.routeService.add(route: self.route_LW_E!)
+        
+        // Visit LW01
+        let visit1 = Visit(date: Date(), route: route_LW_E!, trap: trap1)
         visitService.add(visit: visit1)
         
-        let visit2 = Visit()
-        visit2.visitDateTime = Date()
-        visit2.trap = trap2
+        // Visit E01
+        let visit2 = Visit(date: Date(), route: route_LW_E!, trap: trap2)
         visitService.add(visit: visit2)
         
-        let visit3 = Visit()
-        visit3.visitDateTime = Date()
-        visit3.trap = trap3
-        visitService.add(visit: visit3)
-        
-        return visitService.getVisitSummary(date: Date())!
+        //
     }
     
     func testGetVisitSummary() {
-        let summary = getVisitSummary()
-        XCTAssertTrue(summary.route.shortDescription == "LW, E, GC")
+        createTestData()
+        let summary = visitService.getVisitSummary(date: Date(), route: self.route_LW_E!)
+        
+        XCTAssert(summary.route == route_LW_E)
+        XCTAssert(summary.visits.count == 2)
+        XCTAssert(summary.route.shortDescription == "LW, E")
     }
     
+    func testGetVisitSummary_NoVisits() {
+        createTestData()
+        let summary = visitService.getVisitSummary(date: Date(), route: self.route_GC!)
+        
+        XCTAssert(summary.route == route_GC)
+        XCTAssert(summary.visits.count == 0)
+        XCTAssert(summary.route.shortDescription == "GC")
+    }
+    
+    func testGetSummaries() {
+        createTestData()
+        let summaries = visitService.getVisitSummaries(recordedBetween: Date().add(-1, 0,0), endDate: Date().add(1, 0, 0))
+        
+        // even though there are 2 route, only one has visits
+        XCTAssert(summaries.count == 1)
+        
+    }
 }

@@ -28,6 +28,7 @@ protocol VisitLogPresenterApi: PresenterProtocol {
     func didSelectToChangeTime()
     func didSelectToChangeSpecies()
     func didSelectToChangeLure()
+    func didSelectToTrapStatus()
     func didSelectToRecordVisit()
     func didUpdateBaitAddedValue(newValue: Int)
     func didUpdateBaitEatenValue(newValue: Int)

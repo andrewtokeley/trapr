@@ -16,6 +16,7 @@ final class VisitLogView: UserInterface {
     
     fileprivate let SECTION_DATETIME = 0
     fileprivate let ROW_DATETIME = 0
+    fileprivate let ROW_TRAPSTATUS = 1
     
     fileprivate let SECTION_CATCH = 1
     fileprivate let ROW_CATCH = 0
@@ -41,7 +42,7 @@ final class VisitLogView: UserInterface {
         button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(createVisitButtonClick(sender:)), for: .touchUpInside)
         return button
-    } ()
+    }()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .grouped)
@@ -49,12 +50,20 @@ final class VisitLogView: UserInterface {
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
-    } ()
+    }()
     
     lazy var dateTimeTableViewCell: UITableViewCell = {
         let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
         cell.textLabel?.text = "Time"
         cell.selectionStyle = .none
+        return cell
+    }()
+    
+    lazy var trapStatusTableViewCell: UITableViewCell = {
+        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
+        cell.textLabel?.text = "Trap Status"
+        cell.selectionStyle = .none
+        cell.accessoryType = .disclosureIndicator
         return cell
     }()
     
@@ -102,7 +111,7 @@ final class VisitLogView: UserInterface {
     }()
     
     
-//MARK: - UIViewController
+    //MARK: - UIViewController
     override func loadView() {
         print("loadview")
         super.loadView()
@@ -123,6 +132,7 @@ final class VisitLogView: UserInterface {
         noVisitButton.autoAlignAxis(.vertical, toSameAxisOf: self.view)
         noVisitButton.autoSetDimension(.width, toSize: 250)
         noVisitButton.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
+        
     }
 
     //MARK: - Events
@@ -158,7 +168,7 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0: return 1
+        case 0: return 2
         case 1: return 1
         case 2: return 4
         default: return 0
@@ -227,7 +237,10 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
         
         if section == SECTION_DATETIME && row == ROW_DATETIME {
             cell = self.dateTimeTableViewCell
-            cell.detailTextLabel?.text = self.visit?.visitDateTime.string(from: "hh:mm") ?? "-"
+            cell.detailTextLabel?.text = self.visit?.visitDateTime.toString(from: "hh:mm") ?? "-"
+        } else if section == SECTION_DATETIME && row == ROW_TRAPSTATUS {
+            cell = self.trapStatusTableViewCell
+            cell.detailTextLabel?.text = self.visit?.trapStatus.name
         } else if section == SECTION_CATCH && row == ROW_CATCH {
             cell = self.killTableViewCell
             cell.detailTextLabel?.text = self.visit?.catchSpecies?.name ?? "None"
@@ -251,6 +264,8 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
 
         if indexPath.section == SECTION_DATETIME && indexPath.row == ROW_DATETIME {
             presenter.didSelectToChangeTime()
+        } else if indexPath.section == SECTION_DATETIME && indexPath.row == ROW_TRAPSTATUS {
+                presenter.didSelectToTrapStatus()
         } else if indexPath.section == SECTION_CATCH && indexPath.row == ROW_CATCH {
             presenter.didSelectToChangeSpecies()
         } else if indexPath.section == SECTION_BAIT && indexPath.row == ROW_BAIT_TYPE {
@@ -286,7 +301,7 @@ extension VisitLogView: VisitLogViewApi {
     }
     
     func displayDateTime(date: Date) {
-        self.dateTimeTableViewCell.detailTextLabel?.text = date.string(from: "hh:mm")
+        self.dateTimeTableViewCell.detailTextLabel?.text = date.toString(from: "hh:mm")
         //presenter.updateDateTime(date: date)
     }
     

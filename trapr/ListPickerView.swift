@@ -32,7 +32,7 @@ final class ListPickerView: UserInterface {
     lazy var tableView: UITableView = {
        
         let tableView = UITableView(frame: CGRect.zero, style: .grouped)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.CELL_ID)
+        //tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.CELL_ID)
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -79,21 +79,27 @@ extension ListPickerView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID, for: indexPath)
-        cell.selectionStyle = .none
+        var cell:UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: CELL_ID)
+        if (cell == nil) {
+            cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: CELL_ID)
+        }
         
-        cell.textLabel?.text = displayData.delegate?.listPicker(self, itemTextAt: indexPath.row)
-        cell.detailTextLabel?.text = displayData.delegate?.listPicker(self, itemDetailAt: indexPath.row)
+        //let cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID, for: indexPath)
+        cell!.selectionStyle = .none
+        cell!.detailTextLabel?.numberOfLines = 0
+        
+        cell!.textLabel?.text = displayData.delegate?.listPicker(self, itemTextAt: indexPath.row)
+        cell!.detailTextLabel?.text = displayData.delegate?.listPicker(self, itemDetailAt: indexPath.row)
         
         if multiselectEnabled {
-            cell.accessoryType = selectedIndices.contains(indexPath.row) ? .checkmark : .none
+            cell!.accessoryType = selectedIndices.contains(indexPath.row) ? .checkmark : .none
         } else {
             if displayData.delegate?.listPicker(hasChildListPicker: self) ?? false {
-                cell.accessoryType = .disclosureIndicator
+                cell!.accessoryType = .disclosureIndicator
             }
         }
         
-        return cell
+        return cell!
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

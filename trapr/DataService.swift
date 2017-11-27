@@ -20,7 +20,7 @@ class DataService {
     
     static let sharedInstance = DataService()
     
-    private let CURRENT_SCHEMA_VERSION:UInt64 = 11
+    private let CURRENT_SCHEMA_VERSION:UInt64 = 16
     
     private var documentDirectory: URL {
         let url = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!

@@ -10,33 +10,45 @@ import Foundation
 
 class VisitSummary {
 
-    var visitService: VisitServiceInterface?
+    /**
+     Date on which the visits happened
+     */
     var dateOfVisit: Date!
-    var route: Route!
-    
-    init() {
-        self.dateOfVisit = Date()
-    }
     
     /**
-     Create an instance from the visits that were created on a specific day
-    */
-    convenience init(dateOfVisit: Date, visitService: VisitServiceInterface) {
-        
-        //TODO: don't need to create a summary from visits - should use (dateOfVisit: route:) only
-        self.init()
-        self.dateOfVisit = dateOfVisit
-
-        let visits = visitService.getVisits(recordedOn: self.dateOfVisit)
-        self.route = Route(name: "Test", visits: Array(visits))
+     The Route which was followed when the visits were recorded
+     */
+    var route: Route!
+    
+    /**
+     The visits that were recorded on the specified day and Route.
+     */
+    var visits = [Visit]()
+    
+    var totalPoisonAdded: Int {
+        var count = 0
+        for visit in visits {
+            if visit.trap?.type?.killMethod == KillMethod.poison {
+                count += visit.baitAdded
+            }
+        }
+        return count
+    }
+    
+    var totalKills: Int {
+        var count = 0
+        for visit in visits {
+            if visit.catchSpecies != nil {
+                count += 1
+            }
+        }
+        return count
     }
     
     /**
      Create an instance for a specific day and route
      */
-    convenience init(dateOfVisit: Date, route: Route) {
-        self.init()
-        
+    init(dateOfVisit: Date, route: Route) {
         self.dateOfVisit = dateOfVisit
         self.route = route
     }

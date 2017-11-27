@@ -33,6 +33,8 @@ protocol VisitServiceInterface: ServiceInterface {
      Array of Visits, or nil if no Visits have been recorded on this date
      */
     func getVisits(recordedOn date: Date) -> Results<Visit>
+    func getVisits(recordedOn date: Date, route: Route) -> Results<Visit>
+    func getVisits(recordedOn date: Date, route: Route, trap: Trap) -> Results<Visit>
     
     /**
      Gets all Visits recorded between the date range
@@ -45,18 +47,20 @@ protocol VisitServiceInterface: ServiceInterface {
      Array of Visits, or nil if no Visits have been recorded within the date range
      */
     func getVisits(recordedBetween dateStart: Date, dateEnd: Date) -> Results<Visit>
-    
+    func getVisits(recordedBetween dateStart: Date, dateEnd: Date, route: Route) -> Results<Visit>
+    func getVisits(recordedBetween dateStart: Date, dateEnd: Date, route: Route, trap: Trap) -> Results<Visit>
     
     /**
      Get a summary of the visits recorded on the specified day
      
      - parameters:
      - date: Visits on this date will be considered
+     - route: Route
      
      - returns:
      A VisitSummary object, or nil if no Visits have been recorded on date
      */
-    func getVisitSummary(date: Date) -> VisitSummary?
+    func getVisitSummary(date: Date, route: Route) -> VisitSummary
     
     /**
      Get a summary of each visit recorded on any day in the date range
@@ -69,18 +73,5 @@ protocol VisitServiceInterface: ServiceInterface {
      Array of VisitSummary objects, or nil if no Visits have been recorded between the date range
      */
     func getVisitSummaries(recordedBetween startDate: Date, endDate: Date) -> [VisitSummary]
-
-    /**
-     Get a summary of each visit recorded on any day in the date range
-     
-     - parameters:
-     - startDate: Visits from and including this date will be returned
-     - endDate: Visits up to and including this date will be returned
-     - mostRecentOnly: whether to only return the most recent visit for each combination of traplines
-     
-     - returns:
-     Array of VisitSummary objects, or nil if no Visits have been recorded between the date range
-     */
-    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date, mostRecentOnly: Bool) -> [VisitSummary]
     
 }

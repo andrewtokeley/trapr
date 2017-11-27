@@ -17,6 +17,7 @@ final class VisitLogPresenter: Presenter {
     
     fileprivate let LIST_SPECIES = 0
     fileprivate let LIST_LURE = 1
+    fileprivate let LIST_TRAPSTATUS = 2
     
     func saveVisit() {
         if let visit = self.currentVisit {
@@ -26,7 +27,7 @@ final class VisitLogPresenter: Presenter {
     
     func updateViewForCurrentVisit() {
         if self.currentVisit != nil {
-            view.displayVisit(visit: self.currentVisit!, showCatchSection: self.currentVisit?.trap?.type?.killMethod == .Direct)
+            view.displayVisit(visit: self.currentVisit!, showCatchSection: self.currentVisit?.trap?.type?.killMethod == .direct)
         }
     }
 }
@@ -84,6 +85,16 @@ extension VisitLogPresenter: VisitLogPresenterApi {
         }
     }
     
+    func didSelectToTrapStatus() {
+        let setupData = ListPickerSetupData()
+        setupData.delegate = self
+        setupData.tag = LIST_TRAPSTATUS
+        setupData.embedInNavController = false
+        setupData.includeSelectNone = false
+        
+        router.showListPicker(setupData: setupData)
+    }
+    
     func didSelectToChangeSpecies() {
         
         if self.species == nil {
@@ -138,33 +149,50 @@ extension VisitLogPresenter: VisitLogPresenterApi {
 extension VisitLogPresenter: ListPickerDelegate {
     
     func listPicker(title listPicker: ListPickerView) -> String {
-        return listPicker.tag == LIST_SPECIES
-            ? "Species"
-            : "Lure"
+        switch listPicker.tag {
+        case LIST_SPECIES: return "Species"
+        case LIST_LURE: return "Lure"
+        default: return "Trap Status"
+        }
     }
     
     func listPicker(numberOfRows listPicker: ListPickerView) -> Int {
-        return listPicker.tag == LIST_SPECIES
-            ? self.species?.count ?? 0
-            : self.currentVisit?.trap?.type?.availableLures.count ?? 0
+        switch listPicker.tag {
+        case LIST_SPECIES: return self.currentVisit?.trap?.type?.catchableSpecies.count ?? 0
+        case LIST_LURE: return self.currentVisit?.trap?.type?.availableLures.count ?? 0
+        default: return TrapStatus.count
+        }
+        
     }
     
     func listPicker(headerText listPicker: ListPickerView) -> String {
-        return listPicker.tag == LIST_SPECIES
-            ? "Select Species"
-            : "Select Lure"
+        switch listPicker.tag {
+        case LIST_SPECIES: return "Select Species"
+        case LIST_LURE: return "Select Lure"
+        default: return "Select Trap Status"
+        }
     }
     
     func listPicker(_ listPicker: ListPickerView, itemTextAt index: Int) -> String {
-        return listPicker.tag == LIST_SPECIES
-            ? self.species?[index].name ?? "-"
-            : self.currentVisit?.trap?.type?.availableLures[index].name ?? "-"
+        switch listPicker.tag {
+        case LIST_SPECIES: return self.currentVisit?.trap?.type?.catchableSpecies[index].name ?? "-"
+        case LIST_LURE: return self.currentVisit?.trap?.type?.availableLures[index].name ?? "-"
+        default: return TrapStatus.all[index].name
+        }
+    }
+    
+    func listPicker(_ listPicker: ListPickerView, itemDetailAt index: Int) -> String? {
+        if listPicker.tag == LIST_TRAPSTATUS {
+            return TrapStatus.all[index].statusDescription
+        } else {
+            return nil
+        }
     }
     
     func listPicker(_ listPicker: ListPickerView, didSelectItemAt index: Int) {
         
         if listPicker.tag == LIST_SPECIES {
-            if let species = self.species?[index] {
+            if let species = self.currentVisit?.trap?.type?.catchableSpecies[index] {
                 if let _ = self.currentVisit {
                     self.currentVisit!.catchSpecies = species
                     updateViewForCurrentVisit()
@@ -179,6 +207,10 @@ extension VisitLogPresenter: ListPickerDelegate {
                     saveVisit()
                 }
             }
+        } else if listPicker.tag == LIST_TRAPSTATUS {
+            self.currentVisit?.trapStatusRaw = TrapStatus.all[index].rawValue
+            updateViewForCurrentVisit()
+            saveVisit()
         }
     }
 }

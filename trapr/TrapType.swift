@@ -10,20 +10,23 @@ import Foundation
 import RealmSwift
 
 enum KillMethod: Int {
-    case Poison = 0
-    case Direct
+    case poison = 0
+    case direct
 }
 
 class TrapType: LookupObject {
     
     dynamic var killMethodRaw = 0
+    var killMethod: KillMethod {
+        return KillMethod(rawValue: killMethodRaw) ?? .direct
+    }
+    
     dynamic var defaultLure: Lure?
     let availableLures = List<Lure>()
+    let catchableSpecies = List<Species>()
     dynamic var imageName: String?
     
-    var killMethod: KillMethod {
-        return KillMethod(rawValue: killMethodRaw) ?? .Direct
-    }
+    
     
     
 }

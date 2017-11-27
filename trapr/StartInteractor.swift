@@ -18,7 +18,6 @@ extension StartInteractor: StartInteractorApi {
     func initialiseHomeModule() {
         // Get all the visits in the last 3 months
         let visitSummaries = ServiceFactory.sharedInstance.visitService.getVisitSummaries(recordedBetween: Date().add(0, -3, 0), endDate: Date())
-        
         presenter.setRecentVisits(visits: visitSummaries)
         
         let routes = ServiceFactory.sharedInstance.routeService.getAll()

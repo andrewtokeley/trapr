@@ -62,14 +62,14 @@ final class VisitPresenter: Presenter {
         }
         
         // grab a new visit for this day - it will be marked as new so the VisitLog will
-        interactor.retrieveVisit(trap: self.currentTrap, date: visitSummary.dateOfVisit)
+        interactor.retrieveVisit(date: visitSummary.dateOfVisit, route: self.visitSummary.route, trap: self.currentTrap)
     }
     
     //MARK: - Helpers
 
     func updateTitle() {
         if let title = self.visitSummary.route.name {
-            let subTitle = self.visitSummary.dateOfVisit.string(from: Styles.DATE_FORMAT_LONG)
+            let subTitle = self.visitSummary.dateOfVisit.toString(from: Styles.DATE_FORMAT_LONG)
             view.setTitle(title: title, subTitle: subTitle)
         }
     }
@@ -96,7 +96,7 @@ extension VisitPresenter: DatePickerDelegate {
         updateTitle()
         
         // re-fetch the visit for this date
-        interactor.retrieveVisit(trap: self.currentTrap, date: visitSummary.dateOfVisit)
+        interactor.retrieveVisit(date: visitSummary.dateOfVisit, route: visitSummary.route, trap: self.currentTrap)
     }
 }
 
@@ -150,7 +150,7 @@ extension VisitPresenter: VisitPresenterApi {
     
     func didSelectTrap(index: Int) {
         trapIndex = index
-        interactor.retrieveVisit(trap: self.currentTrap, date: visitSummary.dateOfVisit)
+        interactor.retrieveVisit(date: visitSummary.dateOfVisit, route: visitSummary.route, trap: self.currentTrap)
     }
     
     func didFetchVisit(visit: Visit, isNew: Bool) {

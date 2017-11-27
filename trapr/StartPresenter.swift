@@ -79,7 +79,7 @@ extension StartPresenter: StartPresenterApi {
         router.showVisitModule(visitSummary: visitSummary)
     }
     
-    func didSelectRoute(route: Route) {        
+    func didSelectRoute(route: Route) {
         let visitSummary = VisitSummary(dateOfVisit: Date(), route: route)
         router.showVisitModule(visitSummary: visitSummary)
     }

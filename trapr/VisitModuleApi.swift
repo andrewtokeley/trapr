@@ -47,7 +47,7 @@ protocol VisitPresenterApi: PresenterProtocol {
 
 //MARK: - VisitInteractor API
 protocol VisitInteractorApi: InteractorProtocol {
-    func retrieveVisit(trap: Trap, date: Date)
+    func retrieveVisit(date: Date, route: Route, trap: Trap)
     func addVisit(visit: Visit)
     func deleteVisit(visit: Visit)
 }

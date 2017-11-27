@@ -19,20 +19,20 @@ final class VisitInteractor: Interactor {
 // MARK: - VisitInteractor API
 extension VisitInteractor: VisitInteractorApi {
     
-    func retrieveVisit(trap: Trap, date: Date) {
+    func retrieveVisit(date: Date, route: Route, trap: Trap) {
         
-        let visits = Array(ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: date))
+        let visits = Array(ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: date, route: route, trap: trap))
         
         // Find the visit for the given trap
         // NOTE: not supporting multiple visits to the same trap on the same day
-        if let visit = visits.filter({ (visit) in return visit.trap?.id == trap.id}).first {
+        if visits.count > 0 {
             
             // trap exists for this day
-            presenter.didFetchVisit(visit: visit, isNew: false)
+            presenter.didFetchVisit(visit: visits[0], isNew: false)
         } else {
             
             // create a new Visit
-            let newVisit = Visit(trap: trap, date: date)
+            let newVisit = Visit(date: date, route: route, trap: trap)
             presenter.didFetchVisit(visit: newVisit, isNew: true)
         }
     }

@@ -34,6 +34,16 @@ class VisitService: Service, VisitServiceInterface {
         return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@}", dateStart, dateEnd)
     }
     
+    func getVisits(recordedBetween dateStart: Date, dateEnd: Date, route: Route) -> Results<Visit> {
+        
+        return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@} AND route = %@", dateStart, dateEnd, route)
+    }
+    
+    func getVisits(recordedBetween dateStart: Date, dateEnd: Date, route: Route, trap: Trap) -> Results<Visit> {
+        
+        return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@} AND route = %@ AND trap = %@", dateStart, dateEnd, route, trap)
+    }
+    
     func getVisits(recordedOn date: Date) -> Results<Visit> {
         
         let dateStart = date.dayStart()
@@ -42,73 +52,68 @@ class VisitService: Service, VisitServiceInterface {
         return getVisits(recordedBetween: dateStart, dateEnd: dateEnd)
     }
     
-    func getVisitSummary(date: Date) -> VisitSummary? {
+    func getVisits(recordedOn date: Date, route: Route) -> Results<Visit> {
         
-        var visitSummary: VisitSummary?
+        let dateStart = date.dayStart()
+        let dateEnd = date.dayEnd()
         
-        let visits = getVisits(recordedOn: date)
+        return getVisits(recordedBetween: dateStart, dateEnd: dateEnd, route: route)
+    }
+    
+    func getVisits(recordedOn date: Date, route: Route, trap: Trap) -> Results<Visit> {
         
-        if visits.count != 0 {
-            
-            var traplines = [Trapline]()
-            
-            for visit in visits {
-                
-                if let trapline = visit.trap?.station?.trapline {
-                    if !traplines.contains(trapline) {
-                        traplines.append(trapline)
-                    }
-                }
-            }
-            visitSummary = VisitSummary(dateOfVisit: date, visitService: self)
-        }
+        let dateStart = date.dayStart()
+        let dateEnd = date.dayEnd()
+        
+        return getVisits(recordedBetween: dateStart, dateEnd: dateEnd, route: route, trap: trap)
+    }
+
+    
+    func getVisitSummary(date: Date, route: Route) -> VisitSummary {
+
+        let visitSummary = VisitSummary(dateOfVisit: date, route: route)
+        
+        let visits = getVisits(recordedOn: date, route: route)
+        visitSummary.visits = Array(visits)
+        
         return visitSummary
     }
-    
+
     func getVisitSummaries(recordedBetween startDate: Date, endDate: Date) -> [VisitSummary] {
-        
-        return getVisitSummaries(recordedBetween: startDate, endDate: endDate, mostRecentOnly: false)
-    }
-    
-    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date, mostRecentOnly: Bool) -> [VisitSummary] {
-        
+
         var summaries = [VisitSummary]()
+
+        // For each Route
+        let routeService = ServiceFactory.sharedInstance.routeService
+        let allRoutes = routeService.getAll()
         
-        // Get the days that contain some visits
-        let visits = getVisits(recordedBetween: startDate, dateEnd: endDate)
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMM yyyy"
-        
-        var uniqueDates = [String]()
-        
-        for visit in visits {
-            let visitDate = dateFormatter.string(from: visit.visitDateTime)
-            if !uniqueDates.contains(visitDate) {
-                uniqueDates.append(visitDate)
-            }
-        }
-        
-        for aDate in uniqueDates {
+        for route in allRoutes {
             
-            if let date = dateFormatter.date(from: aDate) {
-                if let summary = getVisitSummary(date: date) {
-                    
-                    var add = true
-                    
-                    if (mostRecentOnly) {
-                        // don't add if the traplines visits on this day have already been recorded
-                        add = !summaries.contains(where: { (x) in return x.route.shortDescription == summary.route.shortDescription })
-                    }
-                    
-                    if (add) {
-                        summaries.append(summary)
-                    }
+            // Get the visits recorded for this route - if none, no summary will be created
+            let visits = getVisits(recordedBetween: startDate, dateEnd: endDate, route: route)
+            
+            // Find the unique days where visits were recorded
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd MMM yyyy"
+            var uniqueDates = [String]()
+            for visit in visits {
+                let visitDate = dateFormatter.string(from: visit.visitDateTime)
+                if !uniqueDates.contains(visitDate) {
+                    uniqueDates.append(visitDate)
+                }
+            }
+
+            // Create a VisitSummary for each day's visit
+            for aDate in uniqueDates {
+                
+                if let date = dateFormatter.date(from: aDate) {
+                    let summary = getVisitSummary(date: date, route: route)
+                    summary.visits = Array(visits)
+                    summaries.append(summary)
                 }
             }
         }
         
         return summaries
     }
-    
 }
