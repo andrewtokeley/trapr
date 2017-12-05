@@ -21,7 +21,7 @@ protocol VisitViewApi: UserInterfaceProtocol {
     func setTitle(title: String, subTitle: String)
     func setStations(stations: [Station], current: Station)
     func setTraps(traps: [Trap])
-    func displayMenuOptions(options: [String])
+    func displayMenuOptions(options: [OptionItem])
     func updateDisplayFor(visit: Visit)
     func updateCurrentStation(index: Int, repeatedGroup: Int)
     
@@ -42,7 +42,7 @@ protocol VisitPresenterApi: PresenterProtocol {
     func didSelectMenuItem(title: String)
     func didSelectDate()
     func setVisitDelegate(delegate: VisitDelegate)
-    
+    func visitLogDidScroll(contentOffsetY: CGFloat)
 }
 
 //MARK: - VisitInteractor API

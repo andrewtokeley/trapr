@@ -12,14 +12,17 @@ import Viperit
 //MARK: VisitLogView Class
 final class VisitLogView: UserInterface {
     
+    var delegate: VisitLogDelegate?
+    
     fileprivate var visit: Visit?
     
     fileprivate let SECTION_DATETIME = 0
     fileprivate let ROW_DATETIME = 0
-    fileprivate let ROW_TRAPSTATUS = 1
+    fileprivate let ROW_TRAP_OPERATING_STATUS = 1
     
     fileprivate let SECTION_CATCH = 1
-    fileprivate let ROW_CATCH = 0
+    fileprivate let ROW_TRAP_SET_STATUS = 0
+    fileprivate let ROW_CATCH = 1
 
     fileprivate let SECTION_BAIT = 2
     fileprivate let ROW_BAIT_TYPE = 0
@@ -27,12 +30,16 @@ final class VisitLogView: UserInterface {
     fileprivate let ROW_EATEN = 2
     fileprivate let ROW_REMOVED = 3
     
+    fileprivate let SECTION_COMMENTS = 3
+    fileprivate let ROW_COMMENTS = 0
+    
     fileprivate let STEPPER_ADD = 0
     fileprivate let STEPPER_EATEN = 1
     fileprivate let STEPPER_REMOVED = 2
     
     fileprivate var sections = [String]()
     fileprivate var visibleSections = [Int]()
+    fileprivate var editingComments: Bool = false
     
     lazy var noVisitButton: UIButton = {
         let button = UIButton(type: UIButtonType.custom)
@@ -49,6 +56,7 @@ final class VisitLogView: UserInterface {
         tableView.alpha = 0
         tableView.delegate = self
         tableView.dataSource = self
+        
         return tableView
     }()
     
@@ -61,7 +69,15 @@ final class VisitLogView: UserInterface {
     
     lazy var trapStatusTableViewCell: UITableViewCell = {
         let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
-        cell.textLabel?.text = "Trap Status"
+        cell.textLabel?.text = "Trap status"
+        cell.selectionStyle = .none
+        cell.accessoryType = .disclosureIndicator
+        return cell
+    }()
+    
+    lazy var trapSetStatusTableViewCell: UITableViewCell = {
+        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
+        cell.textLabel?.text = "Set status"
         cell.selectionStyle = .none
         cell.accessoryType = .disclosureIndicator
         return cell
@@ -78,7 +94,7 @@ final class VisitLogView: UserInterface {
     lazy var lureTableViewCell: UITableViewCell = {
         let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
         cell.accessoryType = .disclosureIndicator
-        cell.textLabel?.text = "Type"
+        cell.textLabel?.text = "Bait used"
         cell.selectionStyle = .none
         return cell
     }()
@@ -110,10 +126,16 @@ final class VisitLogView: UserInterface {
         return cell
     }()
     
+    lazy var commentsTableViewCell: CommentsTableViewCell = {
+        let cell = Bundle.main.loadNibNamed("CommentsTableViewCell", owner: nil, options: nil)?.first as! CommentsTableViewCell
+        cell.selectionStyle = .none
+        cell.commentsTextView.delegate = self
+        return cell
+    }()
     
     //MARK: - UIViewController
     override func loadView() {
-        print("loadview")
+        
         super.loadView()
         
         self.view.addSubview(tableView)
@@ -121,8 +143,14 @@ final class VisitLogView: UserInterface {
         
         setConstraints()
         
-        sections = ["", "CATCH", "BAIT"]
-        visibleSections = [0, 1, 2]
+        sections = ["", "CATCH", "BAIT", "COMMENTS"]
+        visibleSections = [0, 1, 2, 3]
+        
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+        
+        (tableView as UIScrollView).delegate = self
     }
     
     func setConstraints() {
@@ -143,6 +171,27 @@ final class VisitLogView: UserInterface {
 
 }
 
+//MARK: - UIScrollViewDelegate
+extension VisitLogView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.delegate?.visitLogViewDidScroll(self, scrollView: scrollView)
+    }
+}
+
+//MARK: - StepperTableViewCellDelegate
+
+extension VisitLogView: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        tableView.scrollToRow(at: IndexPath(row: ROW_COMMENTS, section: SECTION_COMMENTS), at: UITableViewScrollPosition.top, animated: true)
+    }
+    func textViewDidChange(_ textView: UITextView) {
+        print("textViewDidChange")
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        presenter.didUpdateComment(text: textView.text)
+    }
+}
 
 //MARK: - StepperTableViewCellDelegate
 
@@ -169,8 +218,9 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return 2
-        case 1: return 1
+        case 1: return 2
         case 2: return 4
+        case 3: return 1
         default: return 0
         }
     }
@@ -188,8 +238,13 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if visibleSections.contains(indexPath.section) {
-            return tableView.rowHeight
+            if indexPath.section == SECTION_COMMENTS {
+                return LayoutDimensions.tableCellHeight * 2
+            } else {
+                return tableView.rowHeight
+            }
         }
+        
         return 0
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -216,8 +271,8 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if visibleSections.contains(section) {
             // add a larger section footer to last section
-            if (section == SECTION_BAIT) {
-                return LayoutDimensions.tableFooterHeightLarge
+            if (section == SECTION_COMMENTS) {
+                return LayoutDimensions.tableFooterHeightLarge + 300
             } else {
                 return LayoutDimensions.tableFooterHeight
             }
@@ -238,21 +293,27 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
         if section == SECTION_DATETIME && row == ROW_DATETIME {
             cell = self.dateTimeTableViewCell
             cell.detailTextLabel?.text = self.visit?.visitDateTime.toString(from: "hh:mm") ?? "-"
-        } else if section == SECTION_DATETIME && row == ROW_TRAPSTATUS {
+        } else if section == SECTION_DATETIME && row == ROW_TRAP_OPERATING_STATUS {
             cell = self.trapStatusTableViewCell
-            cell.detailTextLabel?.text = self.visit?.trapStatus.name
+            cell.detailTextLabel?.text = self.visit?.trapOperatingStatus.name
         } else if section == SECTION_CATCH && row == ROW_CATCH {
             cell = self.killTableViewCell
             cell.detailTextLabel?.text = self.visit?.catchSpecies?.name ?? "None"
+        } else if section == SECTION_CATCH && row == ROW_TRAP_SET_STATUS {
+            cell = self.trapSetStatusTableViewCell
+            cell.detailTextLabel?.text = self.visit?.trapSetStatus.name ?? "Not set"
         } else if section == SECTION_BAIT && row == ROW_BAIT_TYPE {
             cell = self.lureTableViewCell
-            cell.detailTextLabel?.text = self.visit?.lure?.name ?? "-"
+            cell.detailTextLabel?.text = self.visit?.lure?.name ?? "None"
         } else if section == SECTION_BAIT && row == ROW_ADDED {
             cell = self.addedTableViewCell
             (cell as! StepperTableViewCell).setCountValue(newValue: self.visit?.baitAdded ?? 0)
         } else if section == SECTION_BAIT && row == ROW_REMOVED {
             cell = self.removedTableViewCell
             (cell as! StepperTableViewCell).setCountValue(newValue: self.visit?.baitRemoved ?? 0)
+        } else if section == SECTION_COMMENTS && row == ROW_COMMENTS {
+            cell = self.commentsTableViewCell
+            (cell as! CommentsTableViewCell).commentsTextView.text = self.visit?.notes
         } else { // if section == SECTION_BAIT && row == ROW_EATEN {
             cell = self.eatenTableViewCell
             (cell as! StepperTableViewCell).setCountValue(newValue: self.visit?.baitEaten ?? 0)
@@ -264,18 +325,26 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
 
         if indexPath.section == SECTION_DATETIME && indexPath.row == ROW_DATETIME {
             presenter.didSelectToChangeTime()
-        } else if indexPath.section == SECTION_DATETIME && indexPath.row == ROW_TRAPSTATUS {
-                presenter.didSelectToTrapStatus()
+        } else if indexPath.section == SECTION_DATETIME && indexPath.row == ROW_TRAP_OPERATING_STATUS {
+            presenter.didSelectToChangeTrapOperatingStatus()
+        } else if indexPath.section == SECTION_CATCH && indexPath.row == ROW_TRAP_SET_STATUS {
+            presenter.didSelectToChangeTrapSetStatus()
         } else if indexPath.section == SECTION_CATCH && indexPath.row == ROW_CATCH {
             presenter.didSelectToChangeSpecies()
         } else if indexPath.section == SECTION_BAIT && indexPath.row == ROW_BAIT_TYPE {
             presenter.didSelectToChangeLure()
         }
     }
+    
+    
 }
 
 //MARK: - VisitLogView API
 extension VisitLogView: VisitLogViewApi {
+    
+//    func setVisitLogScrollViewDelegate(delegate: ViewLogDelegate) {
+//        self.delegate =
+//    }
     
     func displayNoVisitState() {
         self.tableView.alpha = 0

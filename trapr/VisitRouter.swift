@@ -39,7 +39,12 @@ extension VisitRouter: VisitRouterApi {
         if let visitView = _view as? VisitViewApi {
             
             if let delegate = module.presenter as? VisitDelegate {
+                
+                // let the presenter know the VisitDelegate so it can tell the VisitLog about changes to the current visit
                 presenter.setVisitDelegate(delegate: delegate)
+                
+                // tell the VisitLog about the scrollView delegate so that the VisitPresenter knows when the VisitLogView scrolls
+                (module.view as? VisitLogView)?.delegate = _view as? VisitLogDelegate
                 
                 module.router.addAsChildView(ofView: _view, insideContainer: visitView.getVisitContainerView)
             }

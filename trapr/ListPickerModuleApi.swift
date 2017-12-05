@@ -25,11 +25,13 @@ protocol ListPickerViewApi: UserInterfaceProtocol {
     func setTitle(title: String)
     func setSelectedIndices(indices: [Int])
     func enableMultiselect(enable: Bool)
+    func includeSelectNone(enable: Bool)
 }
 
 //MARK: - ListPickerPresenter API
 protocol ListPickerPresenterApi: PresenterProtocol {
     func didSelectItem(row: Int)
+    func didSelectNoSelection()
     func didSelectAllItems()
     func didSelectNoItems()
     func didSelectDone()

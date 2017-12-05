@@ -26,7 +26,4 @@ class TrapType: LookupObject {
     let catchableSpecies = List<Species>()
     dynamic var imageName: String?
     
-    
-    
-    
 }

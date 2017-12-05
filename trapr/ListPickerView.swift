@@ -16,6 +16,7 @@ final class ListPickerView: UserInterface {
     fileprivate let TABLEVIEW_HEADER_ID = "header"
     fileprivate var multiselectEnabled = false
     fileprivate var selectedIndices = [Int]()
+    fileprivate var includeSelectNone: Bool = false
     
     //MARK: - Subviews
     
@@ -53,6 +54,10 @@ final class ListPickerView: UserInterface {
         tableView.autoPinEdgesToSuperviewEdges()
     }
 
+    fileprivate func adjRow(_ index: Int) -> Int {
+        return includeSelectNone ? index - 1 : index
+    }
+    
     //MARK: - Events
     
     func doneButtonClick(sender: UIButton) {
@@ -73,8 +78,7 @@ extension ListPickerView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return displayData.delegate?.listPicker(numberOfRows: self) ?? 0
+        return (displayData.delegate?.listPickerNumberOfRows(self) ?? 0) +  (includeSelectNone ? 1 : 0)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -87,14 +91,19 @@ extension ListPickerView: UITableViewDelegate, UITableViewDataSource {
         //let cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID, for: indexPath)
         cell!.selectionStyle = .none
         cell!.detailTextLabel?.numberOfLines = 0
-        
-        cell!.textLabel?.text = displayData.delegate?.listPicker(self, itemTextAt: indexPath.row)
-        cell!.detailTextLabel?.text = displayData.delegate?.listPicker(self, itemDetailAt: indexPath.row)
-        
-        if multiselectEnabled {
-            cell!.accessoryType = selectedIndices.contains(indexPath.row) ? .checkmark : .none
+
+        if includeSelectNone && indexPath.row == 0 {
+            cell!.textLabel?.text = "None"
+            cell!.detailTextLabel?.text = ""
         } else {
-            if displayData.delegate?.listPicker(hasChildListPicker: self) ?? false {
+            cell!.textLabel?.text = displayData.delegate?.listPicker(self, itemTextAt: adjRow(indexPath.row))
+            cell!.detailTextLabel?.text = displayData.delegate?.listPicker(self, itemDetailAt: adjRow(indexPath.row))
+        }
+        
+        cell!.accessoryType = selectedIndices.contains(adjRow(indexPath.row)) ? .checkmark : .none
+        
+        if !multiselectEnabled {
+            if displayData.delegate?.listPickerHasChildListPicker(self) ?? false {
                 cell!.accessoryType = .disclosureIndicator
             }
         }
@@ -105,10 +114,10 @@ extension ListPickerView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if multiselectEnabled {
             
-            let initalMultipleSelectState = displayData.delegate?.listPicker(initialMultiselectState: self)
+            let initalMultipleSelectState = displayData.delegate?.listPickerInitialMultiselectState(self)
             
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: TABLEVIEW_HEADER_ID) as? MultiselectTableViewHeader ?? MultiselectTableViewHeader(reuseIdentifier: TABLEVIEW_HEADER_ID, initialState: initalMultipleSelectState ?? .none)
-            header.textLabel?.text = displayData.delegate?.listPicker(headerText: self)
+            header.textLabel?.text = displayData.delegate?.listPickerHeaderText(self)
             header.section = section
             header.multiselectDelegate = self
             return header
@@ -118,12 +127,18 @@ extension ListPickerView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return displayData.delegate?.listPicker(headerText: self)
+        return displayData.delegate?.listPickerHeaderText(self)
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.didSelectItem(row: indexPath.row)
+        
+        if (includeSelectNone && indexPath.row == 0) {
+            presenter.didSelectNoSelection()
+        } else {
+            presenter.didSelectItem(row: adjRow(indexPath.row))
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -174,6 +189,11 @@ extension ListPickerView: ListPickerViewApi {
     
     func enableMultiselect(enable: Bool) {
         self.multiselectEnabled = enable
+    }
+    
+    func includeSelectNone(enable: Bool) {
+        self.includeSelectNone = enable
+        tableView.reloadData()
     }
 }
 

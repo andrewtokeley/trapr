@@ -81,6 +81,18 @@ class GroupedTableViewDatasource<T: Any> {
         return groupedData[section][row]
     }
     
+    func dataItems(section: Int, selectedOnly: Bool) -> [T] {
+        var items = [T]()
+        
+        for data in groupedData[section] {
+            if (selectedOnly && data.selected) || !selectedOnly {
+                items.append(data.item)
+            }
+        }
+    
+        return items
+    }
+    
     func dataItems(selectedOnly: Bool) -> [T] {
         var items = [T]()
         
@@ -183,7 +195,10 @@ class GroupedTableViewDatasource<T: Any> {
             let indexEnd = self.flatIndex(index: IndexPath(row: numberOfRowsInSection(section: section) - 1, section: section))
             
             self.data.removeSubrange(indexStart...indexEnd)
+            self.selected.removeSubrange(indexStart...indexEnd)
+            
             self.data.insert(contentsOf: items, at: indexStart)
+            self.selected.insert(contentsOf: [Bool](repeatElement(selected, count: items.count)), at: indexStart)
             
             self.rebuild()
 
@@ -217,4 +232,19 @@ class GroupedTableViewDatasource<T: Any> {
         self.rebuild()
     }
     
+    func remove(section: Int) {
+        if self.groupedData.count <= section {
+            return
+        } else {
+            
+            // index range of the section
+            let indexStart = self.flatIndex(index: IndexPath(row: 0, section: section))
+            let indexEnd = self.flatIndex(index: IndexPath(row: numberOfRowsInSection(section: section) - 1, section: section))
+            
+            self.data.removeSubrange(indexStart...indexEnd)
+            self.selected.removeSubrange(indexStart...indexEnd)
+            self.rebuild()
+            
+        }
+    }
 }

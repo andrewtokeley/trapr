@@ -38,4 +38,9 @@ class Trap: Object {
     */
     dynamic var longitude: Double = 0
     
+    var longDescription: String {
+        let longCode = self.station?.longCode ?? ""
+        let typeName = self.type?.name ?? ""
+        return "\(longCode) \(typeName)"
+    }
 }

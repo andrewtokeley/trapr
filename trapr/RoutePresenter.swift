@@ -9,31 +9,32 @@
 import Foundation
 import Viperit
 
+enum sectionMenuOptionTitle: String {
+    case edit = "Edit"
+    case moveUp = "Move up"
+    case moveDown = "Move down"
+    case reverseOrder = "Reverse order"
+    case deleteSection = "Delete section"
+}
+
 // MARK: - RoutePresenter Class
 final class RoutePresenter: Presenter {
     
     // MARK: - File private properties
     fileprivate var setupData: RouteSetupData!
-    
     fileprivate var currentRoute: Route?
-    
     fileprivate var sectionContext: Int = 0
     fileprivate var traplineContext: Trapline?
-    
-    fileprivate let sectionMenuOptions = [
-        OptionItem(title: "Add/Remove Stations", isEnabled: true),
-        OptionItem(title: "Move up", isEnabled: true),
-        OptionItem(title: "Move down", isEnabled: true),
-        OptionItem(title: "Reverse order", isEnabled: true),
-        OptionItem(title: "Delete", isEnabled: true, isDestructive: true),
-    ]
+    fileprivate var sectionMenuOptions = [OptionItem]()
     
     fileprivate let LISTPICKER_VISITFREQUENCY = 0
     fileprivate let LISTPICKER_TRAPLINE = 1
     fileprivate let LISTPICKER_STATIONS = 2
+    
     fileprivate lazy var traplines: [Trapline] = {
         return ServiceFactory.sharedInstance.traplineService.getTraplines() ?? [Trapline]()
     }()
+    
     fileprivate var isNew: Bool {
         if let _ = self.setupData {
             return self.setupData!.route == nil
@@ -89,7 +90,7 @@ final class RoutePresenter: Presenter {
             view.displayVisitFrequency(frequency: TimePeriod.month)
         } else {
 
-            view.displayRouteName(name: setupData.route!.name!)
+            view.displayRouteName(name: setupData.route!.name ?? "")
             view.displayVisitFrequency(frequency: setupData.route!.visitFrequency)
             if let data = groupedData {
                 view.bindToGroupedTableViewData(groupedData: data)
@@ -103,6 +104,7 @@ final class RoutePresenter: Presenter {
             interactor.saveRoute(route: route)
         }
     }
+
 }
 
 // MARK: - RoutePresenter API
@@ -121,7 +123,7 @@ extension RoutePresenter: RoutePresenterApi {
     func didSelectAddSection() {
         let listPickerTraplineSetup = ListPickerSetupData()
         listPickerTraplineSetup.delegate = self
-        listPickerTraplineSetup.embedInNavController = true
+        listPickerTraplineSetup.embedInNavController = false
         listPickerTraplineSetup.tag = LISTPICKER_TRAPLINE
         
         let listPickerStationsSetupData = ListPickerSetupData()
@@ -158,7 +160,17 @@ extension RoutePresenter: RoutePresenterApi {
     }
     
     func didSelectShowSectionMenu(section: Int) {
+        
+        self.sectionMenuOptions = [
+            OptionItem(title: sectionMenuOptionTitle.edit.rawValue, isEnabled: true),
+            OptionItem(title: sectionMenuOptionTitle.moveUp.rawValue, isEnabled: true),
+            OptionItem(title: sectionMenuOptionTitle.moveDown.rawValue, isEnabled: true),
+            OptionItem(title: sectionMenuOptionTitle.reverseOrder.rawValue, isEnabled: true),
+            OptionItem(title: sectionMenuOptionTitle.deleteSection.rawValue, isEnabled: true, isDestructive: true),
+        ]
+        
         self.sectionContext = section
+        self.traplineContext = groupedData?.data(section: section, row: 0).item.trapline
         
         // get the description of the section
         if let groupData = self.groupedData {
@@ -177,14 +189,45 @@ extension RoutePresenter: RoutePresenterApi {
     }
     
     func didSelectSectionMenuOptionItem(title: String) {
+        if title == sectionMenuOptionTitle.deleteSection.rawValue {
+            if let groupData = self.groupedData {
+                groupData.remove(section: self.sectionContext)
+                if let _ = self.currentRoute {
+                    let stations = groupData.dataItems(selectedOnly: false)
+                    self.currentRoute?.stations.removeAll()
+                    self.currentRoute?.stations.append(objectsIn: stations)
+                }
+                view.bindToGroupedTableViewData(groupedData: groupData)
+            }
+        }
         
+        if title == sectionMenuOptionTitle.edit.rawValue {
+            let listPickerStationsSetupData = ListPickerSetupData()
+            listPickerStationsSetupData.delegate = self
+            listPickerStationsSetupData.tag = LISTPICKER_STATIONS
+            listPickerStationsSetupData.embedInNavController = true
+            listPickerStationsSetupData.enableMultiselect = true
+            
+            // set the selection to the stations currently in the section
+//            if let stationCount = self.groupedData?.numberOfRowsInSection(section: self.sectionContext) {
+//                for i in 0...stationCount - 1 {
+//                    if let station = self.groupedData?.data(section: self.sectionContext, row: i).item {
+//                        if let index = self.traplineContext?.stations.index(of: station) {
+//                            listPickerStationsSetupData.selectedIndicies.append(index)
+//                        }
+//                    }
+//                }
+//            }
+            
+            router.showListPicker(setupData: listPickerStationsSetupData)
+        }
     }
     
 }
 
 extension RoutePresenter: ListPickerDelegate {
     
-    func listPicker(title listPicker: ListPickerView) -> String {
+    func listPickerTitle(_ listPicker: ListPickerView) -> String {
         switch listPicker.tag {
         case LISTPICKER_TRAPLINE:
             return "Trapline"
@@ -197,7 +240,7 @@ extension RoutePresenter: ListPickerDelegate {
         }
     }
     
-    func listPicker(headerText listPicker: ListPickerView) -> String {
+    func listPickerHeaderText(_ listPicker: ListPickerView) -> String {
         switch listPicker.tag {
         case LISTPICKER_TRAPLINE:
             return "Traplines"
@@ -210,7 +253,7 @@ extension RoutePresenter: ListPickerDelegate {
         }
     }
     
-    func listPicker(numberOfRows listPicker: ListPickerView) -> Int {
+    func listPickerNumberOfRows(_ listPicker: ListPickerView) -> Int {
         switch listPicker.tag {
         case LISTPICKER_TRAPLINE:
             return self.traplines.count
@@ -261,10 +304,18 @@ extension RoutePresenter: ListPickerDelegate {
                 // existing section
                 } else {
                     
-                    self.groupedData?.replace(dataInSection: 1, items: Array(stations))
                     //replace all the stations in the current section with those selected
+                    if let groupData = self.groupedData {
+                        groupData.replace(dataInSection: self.sectionContext, items: Array(stations))
                     
+                        if let _ = self.currentRoute {
+                            let stations = groupData.dataItems(selectedOnly: false)
+                            self.currentRoute?.stations.removeAll()
+                            self.currentRoute?.stations.append(objectsIn: stations)
+                        }
+                    }
                 }
+                
                 view.hideSectionsTableView(hide: false)
                 view.bindToGroupedTableViewData(groupedData: self.groupedData!)
             }
@@ -283,15 +334,29 @@ extension RoutePresenter: ListPickerDelegate {
         return ""
     }
     
-    func listPicker(_ listPicker: ListPickerView, isInitiallySelected index: Int) -> Bool {
+    func listPicker(_ listPicker: ListPickerView, isSelected index: Int) -> Bool {
         if listPicker.tag == LISTPICKER_STATIONS {
-            return true // always?
-        } else {
-            return false
+            
+            // if we're opening the list picker from a section
+            if self.sectionContext >= 0 {
+                let stationsInSection = self.groupedData?.dataItems(section: self.sectionContext, selectedOnly: false)
+                
+                // check if the station at index is in the section
+                if let currentStation = self.traplineContext?.stations[index] {
+                    return stationsInSection?.contains(currentStation) ?? false
+                }
+            } else {
+                // always select all for new sections
+                return true
+            }
         }
+        
+        // Don't select anything for
+        return false
+        
     }
     
-    func listPicker(initialMultiselectState listPicker: ListPickerView) -> MultiselectOptions {
+    func listPickerInitialMultiselectState(_ listPicker: ListPickerView) -> MultiselectOptions {
         if listPicker.tag == LISTPICKER_STATIONS {
             // since we're going to select all
             return .selectNone
@@ -300,7 +365,7 @@ extension RoutePresenter: ListPickerDelegate {
         }
     }
     
-    func listPicker(hasChildListPicker listPicker: ListPickerView) -> Bool {
+    func listPickerHasChildListPicker(_ listPicker: ListPickerView) -> Bool {
         return listPicker.tag == LISTPICKER_TRAPLINE
     }
     

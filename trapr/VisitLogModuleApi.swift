@@ -21,6 +21,7 @@ protocol VisitLogViewApi: UserInterfaceProtocol {
     func displayDateTime(date: Date)
     func displaySpecies(name: String)
     func displayNoVisitState()
+    //func setVisitLogScrollViewDelegate(delegate: VisitLogDelegate)
 }
 
 //MARK: - VisitLogPresenter API
@@ -28,11 +29,13 @@ protocol VisitLogPresenterApi: PresenterProtocol {
     func didSelectToChangeTime()
     func didSelectToChangeSpecies()
     func didSelectToChangeLure()
-    func didSelectToTrapStatus()
+    func didSelectToChangeTrapOperatingStatus()
+    func didSelectToChangeTrapSetStatus()
     func didSelectToRecordVisit()
     func didUpdateBaitAddedValue(newValue: Int)
     func didUpdateBaitEatenValue(newValue: Int)
     func didUpdateBaitRemovedValue(newValue: Int)
+    func didUpdateComment(text: String?)
 }
 
 //MARK: - VisitLogInteractor API

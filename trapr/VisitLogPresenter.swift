@@ -17,7 +17,8 @@ final class VisitLogPresenter: Presenter {
     
     fileprivate let LIST_SPECIES = 0
     fileprivate let LIST_LURE = 1
-    fileprivate let LIST_TRAPSTATUS = 2
+    fileprivate let LIST_TRAP_OPERATING_STATUS = 2
+    fileprivate let LIST_TRAP_SET_STATUS = 3
     
     func saveVisit() {
         if let visit = self.currentVisit {
@@ -85,10 +86,20 @@ extension VisitLogPresenter: VisitLogPresenterApi {
         }
     }
     
-    func didSelectToTrapStatus() {
+    func didSelectToChangeTrapOperatingStatus() {
         let setupData = ListPickerSetupData()
         setupData.delegate = self
-        setupData.tag = LIST_TRAPSTATUS
+        setupData.tag = LIST_TRAP_OPERATING_STATUS
+        setupData.embedInNavController = false
+        setupData.includeSelectNone = false
+        
+        router.showListPicker(setupData: setupData)
+    }
+    
+    func didSelectToChangeTrapSetStatus() {
+        let setupData = ListPickerSetupData()
+        setupData.delegate = self
+        setupData.tag = LIST_TRAP_SET_STATUS
         setupData.embedInNavController = false
         setupData.includeSelectNone = false
         
@@ -109,7 +120,14 @@ extension VisitLogPresenter: VisitLogPresenterApi {
             setupData.tag = LIST_SPECIES
             setupData.embedInNavController = false
             setupData.includeSelectNone = true
-            
+//            if let species = self.currentVisit?.catchSpecies  {
+//                if let selected = self.species?.index(of: species) {
+//                    setupData.selectedIndicies.append(selected)
+//                }
+//            } else {
+//                // select the None selected option
+//                setupData.selectedIndicies.append(0)
+//            }
             router.showListPicker(setupData: setupData)
         }
     }
@@ -143,33 +161,41 @@ extension VisitLogPresenter: VisitLogPresenterApi {
         self.currentVisit?.baitRemoved = newValue
         saveVisit()
     }
+    
+    func didUpdateComment(text: String?) {
+        self.currentVisit?.notes = text
+        saveVisit()
+    }
 }
 
 // MARK: - ListPickerDelegate (Species)
 extension VisitLogPresenter: ListPickerDelegate {
     
-    func listPicker(title listPicker: ListPickerView) -> String {
+    func listPickerTitle(_ listPicker: ListPickerView) -> String {
         switch listPicker.tag {
         case LIST_SPECIES: return "Species"
         case LIST_LURE: return "Lure"
-        default: return "Trap Status"
+        case LIST_TRAP_SET_STATUS: return "Set status"
+        default: return "Trap operating status"
         }
     }
     
-    func listPicker(numberOfRows listPicker: ListPickerView) -> Int {
+    func listPickerNumberOfRows(_ listPicker: ListPickerView) -> Int {
         switch listPicker.tag {
         case LIST_SPECIES: return self.currentVisit?.trap?.type?.catchableSpecies.count ?? 0
         case LIST_LURE: return self.currentVisit?.trap?.type?.availableLures.count ?? 0
-        default: return TrapStatus.count
+        case LIST_TRAP_SET_STATUS: return TrapSetStatus.count
+        default: return TrapOperatingStatus.count
         }
         
     }
     
-    func listPicker(headerText listPicker: ListPickerView) -> String {
+    func listPickerHeaderText(_ listPicker: ListPickerView) -> String {
         switch listPicker.tag {
         case LIST_SPECIES: return "Select Species"
         case LIST_LURE: return "Select Lure"
-        default: return "Select Trap Status"
+        case LIST_TRAP_SET_STATUS: return "Set Status"
+        default: return "Select Operating Status"
         }
     }
     
@@ -177,16 +203,46 @@ extension VisitLogPresenter: ListPickerDelegate {
         switch listPicker.tag {
         case LIST_SPECIES: return self.currentVisit?.trap?.type?.catchableSpecies[index].name ?? "-"
         case LIST_LURE: return self.currentVisit?.trap?.type?.availableLures[index].name ?? "-"
-        default: return TrapStatus.all[index].name
+        case LIST_TRAP_SET_STATUS: return TrapSetStatus.all[index].name
+        default: return TrapOperatingStatus.all[index].name
         }
     }
     
     func listPicker(_ listPicker: ListPickerView, itemDetailAt index: Int) -> String? {
-        if listPicker.tag == LIST_TRAPSTATUS {
-            return TrapStatus.all[index].statusDescription
+        if listPicker.tag == LIST_TRAP_OPERATING_STATUS {
+            return TrapOperatingStatus.all[index].statusDescription
         } else {
             return nil
         }
+    }
+    
+    func listPickerDidSelectNoSelection(_ listPicker: ListPickerView) {
+        
+        if let _ = self.currentVisit {
+            if listPicker.tag == LIST_SPECIES {
+                self.currentVisit!.catchSpecies = nil
+            } else if listPicker.tag == LIST_LURE {
+                self.currentVisit!.lure = nil
+            }
+            updateViewForCurrentVisit()
+            saveVisit()
+        }
+    }
+    
+    func listPicker(_ listPicker: ListPickerView, isSelected index: Int) -> Bool {
+        if listPicker.tag == LIST_SPECIES {
+            return self.currentVisit?.trap?.type?.catchableSpecies[index] == self.currentVisit?.catchSpecies
+        }
+        if listPicker.tag == LIST_LURE {
+            return self.currentVisit?.trap?.type?.availableLures[index] == self.currentVisit?.lure
+        }
+        if listPicker.tag == LIST_TRAP_SET_STATUS {
+            return TrapSetStatus.all[index] == self.currentVisit?.trapSetStatus
+        }
+        if listPicker.tag == LIST_TRAP_OPERATING_STATUS {
+            return TrapOperatingStatus.all[index] == self.currentVisit?.trapOperatingStatus
+        }
+        return false
     }
     
     func listPicker(_ listPicker: ListPickerView, didSelectItemAt index: Int) {
@@ -207,8 +263,12 @@ extension VisitLogPresenter: ListPickerDelegate {
                     saveVisit()
                 }
             }
-        } else if listPicker.tag == LIST_TRAPSTATUS {
-            self.currentVisit?.trapStatusRaw = TrapStatus.all[index].rawValue
+        } else if listPicker.tag == LIST_TRAP_OPERATING_STATUS {
+            self.currentVisit?.trapOperatingStatusRaw = TrapOperatingStatus.all[index].rawValue
+            updateViewForCurrentVisit()
+            saveVisit()
+        } else if listPicker.tag == LIST_TRAP_SET_STATUS {
+            self.currentVisit?.trapSetStatusRaw = TrapSetStatus.all[index].rawValue
             updateViewForCurrentVisit()
             saveVisit()
         }

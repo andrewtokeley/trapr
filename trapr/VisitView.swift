@@ -13,6 +13,8 @@ import iCarousel
 //MARK: VisitView Class
 final class VisitView: UserInterface {
     
+    fileprivate var CAROUSEL_TRAPS_HEIGHT: CGFloat = 125
+    fileprivate var trapCarouselViews = [UIView]()
     fileprivate let CAROUSEL_STATIONS_TAG = 0
     fileprivate let CAROUSEL_STATIONS_LABEL_TAG = 1
     
@@ -20,11 +22,17 @@ final class VisitView: UserInterface {
     fileprivate let CAROUSEL_TRAPS_IMAGE_TAG = 2
     fileprivate let CAROUSEL_TRAPS_LABEL_TAG = 3
     
+    fileprivate let TAG_TRAP_IMAGE = 0
+    fileprivate let TAG_TRAP_LABEL = 1
+    
     fileprivate var currentTraps: [Trap]?
     fileprivate var stations: [Station]?
     
     fileprivate var lastSelectedStation: Int = -1
     fileprivate var lastSelectedTrap: Int = -1
+    
+    fileprivate var totalScrollOffset: CGFloat = 0
+    fileprivate var previousScrollOffset: CGFloat = 0
     
     let INFINITE_SCROLL_MULTIPLIER = 4
     let TRAPTYPE_REUSE_ID = "cell"
@@ -42,7 +50,7 @@ final class VisitView: UserInterface {
     }()
     
     fileprivate var stationCarouselView: UIView {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 120, height: 30))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 110, height: 30))
         
         let label = UILabel()
         label.font = UIFont.trpLabelLarge
@@ -69,13 +77,14 @@ final class VisitView: UserInterface {
         carousel.delegate = self
         carousel.bounces = false
         carousel.dataSource = self
-        
         carousel.tag = self.CAROUSEL_TRAPS_TAG
+        
+        //carousel.backgroundColor = UIColor.red
         return carousel
     }()
     
     fileprivate var trapCarouselView: UIView {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: CAROUSEL_TRAPS_HEIGHT))
         
         let image = UIImageView()
         image.tag = self.CAROUSEL_TRAPS_IMAGE_TAG
@@ -83,17 +92,21 @@ final class VisitView: UserInterface {
         let label = UILabel()
         label.font = UIFont.trpTextSmall
         label.textAlignment = .center
+        label.numberOfLines = 0
         label.tag = self.CAROUSEL_TRAPS_LABEL_TAG
         
         view.addSubview(image)
         view.addSubview(label)
         
-        image.autoPinEdge(toSuperviewEdge: .top, withInset: 10)
+        image.autoPinEdge(toSuperviewEdge: .top, withInset: 0)//LayoutDimensions.smallSpacingMargin)
         image.autoAlignAxis(.vertical, toSameAxisOf: view)
-        image.autoSetDimension(.width, toSize: 60)
-        image.autoSetDimension(.height, toSize: 60)
+        image.autoSetDimension(.height, toSize: CAROUSEL_TRAPS_HEIGHT/2)
+        image.autoMatch(.width, to: .height, of: image)
         
-        label.autoPinEdge(.top, to: .bottom, of: image, withOffset: 10)
+        label.autoPinEdge(.top, to: .bottom, of: image, withOffset: LayoutDimensions.smallSpacingMargin)
+        label.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.textIndentMargin)
+        label.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.textIndentMargin)
+        label.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
         label.autoAlignAxis(.vertical, toSameAxisOf: view)
         
         return view
@@ -184,43 +197,88 @@ final class VisitView: UserInterface {
         self.view.addSubview(self.stationsCarousel)
         self.view.addSubview(self.dividingLineBetweenStationsAndTraps)
         self.view.addSubview(self.trapsCarousel)
-        self.view.addSubview(self.dividingLineAfterTrapSelector)
         self.view.addSubview(self.visitContainerView)
+        self.view.addSubview(self.dividingLineAfterTrapSelector)
         
         self.navigationItem.rightBarButtonItem = self.showMenuButton
         
         self.navigationItem.titleView = titleView
 
-        self.setConstraints()
+    }
+    
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        setConstraints()
     }
     
     func setConstraints() {
         
-        self.stationsCarousel.autoPin(toTopLayoutGuideOf: self, withInset: 10)
-        self.stationsCarousel.autoPinEdge(toSuperviewEdge: .left, withInset: 10)
-        self.stationsCarousel.autoPinEdge(toSuperviewEdge: .right, withInset: 10)
-        self.stationsCarousel.autoSetDimension(.height, toSize: 60)
+        self.stationsCarousel.autoPin(toTopLayoutGuideOf: self, withInset: LayoutDimensions.spacingMargin)
+        self.stationsCarousel.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
+        self.stationsCarousel.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
+        self.stationsCarousel.autoSetDimension(.height, toSize: 50)
         
         self.dividingLineBetweenStationsAndTraps.autoPinEdge(toSuperviewEdge: .left)
         self.dividingLineBetweenStationsAndTraps.autoPinEdge(toSuperviewEdge: .right)
         self.dividingLineBetweenStationsAndTraps.autoPinEdge(.top, to: .bottom, of: self.stationsCarousel, withOffset: 0)
         self.dividingLineBetweenStationsAndTraps.autoSetDimension(.height, toSize: 1)
         
-        self.trapsCarousel.autoPinEdge(.top, to: .bottom, of: self.stationsCarousel, withOffset: 10)
-        self.trapsCarousel.autoPinEdge(toSuperviewEdge: .left, withInset: 10)
-        self.trapsCarousel.autoPinEdge(toSuperviewEdge: .right, withInset: 10)
-        self.trapsCarousel.autoSetDimension(.height, toSize: 100)
-        
-        self.visitContainerView.autoPinEdge(.top, to: .bottom, of: self.dividingLineAfterTrapSelector, withOffset: 10)
-        self.visitContainerView.autoPinEdge(toSuperviewEdge: .left)
-        self.visitContainerView.autoPinEdge(toSuperviewEdge: .right)
-        self.visitContainerView.autoPinEdge(toSuperviewEdge: .bottom)
+        self.trapsCarousel.autoPinEdge(.top, to: .bottom, of: self.stationsCarousel, withOffset: LayoutDimensions.spacingMargin)
+        self.trapsCarousel.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
+        self.trapsCarousel.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
+        self.trapsCarousel.autoSetDimension(.height, toSize: CAROUSEL_TRAPS_HEIGHT)
         
         self.dividingLineAfterTrapSelector.autoPinEdge(toSuperviewEdge: .left)
         self.dividingLineAfterTrapSelector.autoPinEdge(toSuperviewEdge: .right)
-        self.dividingLineAfterTrapSelector.autoPinEdge(.top, to: .bottom, of: self.trapsCarousel, withOffset: 10)
-        self.dividingLineAfterTrapSelector.autoSetDimension(.height, toSize: 10)
+        self.dividingLineAfterTrapSelector.autoPinEdge(.top, to: .bottom, of: self.trapsCarousel, withOffset: 0)
+        self.dividingLineAfterTrapSelector.autoSetDimension(.height, toSize: LayoutDimensions.spacingMargin)
         
+        self.visitContainerView.autoPinEdge(.top, to: .top, of: self.dividingLineAfterTrapSelector, withOffset: 0)
+        self.visitContainerView.autoPinEdge(toSuperviewEdge: .left)
+        self.visitContainerView.autoPinEdge(toSuperviewEdge: .right)
+        self.visitContainerView.autoPinEdge(toSuperviewEdge: .bottom)
+    }
+}
+
+// MARK: - UIScrollViewDelegate (for VisitLogView)
+extension VisitView: VisitLogDelegate {
+    
+    func visitLogViewDidScroll(_ visitLogView: VisitLogView, scrollView: UIScrollView) {
+
+        let MIN_HEADER: CGFloat = 62
+        let scrollDiff = scrollView.contentOffset.y - self.previousScrollOffset
+        self.totalScrollOffset += scrollDiff
+//        let isScrollingDown = scrollDiff > 0
+//        let isScrollingUp = scrollDiff < 0
+        
+        // Keep track of how far the visitLog tableview has scrolled down
+        //self.totalScrollOffset +=
+        let offSet = self.totalScrollOffset
+        
+        if (offSet > 0 && offSet <= MIN_HEADER) {
+            
+            // stop the tableview from moving
+            scrollView.contentOffset = CGPoint(x: 0, y: 0)
+            
+            for view in self.trapCarouselViews {
+                
+                view.frame = CGRect(x: 0, y: 0 + offSet/2, width: 100, height: CAROUSEL_TRAPS_HEIGHT - offSet)
+                
+                if let label = view.viewWithTag(self.CAROUSEL_TRAPS_LABEL_TAG) as? UILabel {
+                    label.alpha = 1 - min(offSet/MIN_HEADER * 3, 1)
+                }
+                
+            }
+            self.trapsCarousel.frame.size.height = CAROUSEL_TRAPS_HEIGHT - offSet
+            
+            self.dividingLineAfterTrapSelector.frame.origin.y = self.trapsCarousel.frame.origin.y + self.trapsCarousel.frame.size.height
+            
+            self.visitContainerView.frame.origin.y = self.dividingLineAfterTrapSelector.frame.origin.y
+            
+            scrollView.frame.size.height = self.view.frame.height - self.dividingLineAfterTrapSelector.frame.origin.y
+            
+        }
+        self.previousScrollOffset = scrollView.contentOffset.y
     }
 }
 
@@ -251,6 +309,7 @@ extension VisitView: iCarouselDelegate, iCarouselDataSource {
             
             // Create view
             usableView = carousel.tag == CAROUSEL_STATIONS_TAG ? self.stationCarouselView : self.trapCarouselView
+            usableView.tag = index
         }
         
         // set properties on view
@@ -263,11 +322,14 @@ extension VisitView: iCarouselDelegate, iCarouselDataSource {
         } else {
             if let imageView = usableView.viewWithTag(self.CAROUSEL_TRAPS_IMAGE_TAG) as? UIImageView {
                 if let imageName = self.currentTraps?[index].type?.imageName {
-                    imageView.image = UIImage(named: imageName)
+                    imageView.image = UIImage(named: imageName)?.changeColor(UIColor.black)
                 }
                 if let label = usableView.viewWithTag(self.CAROUSEL_TRAPS_LABEL_TAG) as? UILabel {
                     label.text = self.currentTraps?[index].type?.name?.uppercased()
                 }
+            }
+            if !self.trapCarouselViews.contains(usableView) {
+                self.trapCarouselViews.append(usableView)
             }
         }
         
@@ -276,14 +338,16 @@ extension VisitView: iCarouselDelegate, iCarouselDataSource {
     
     func carousel(_ carousel: iCarousel, valueFor option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {
 
+        let isTrapType = (carousel == self.trapsCarousel)
+        
         switch option
         {
         case .fadeMin:
-            return -0.3
+            return -0.2
         case .fadeMax:
-            return 0.3
+            return 0.2
         case .fadeRange:
-            return 1.0
+            return isTrapType ? 2.0 : 1.0
         default:
             return value
         }
@@ -357,15 +421,17 @@ extension VisitView: VisitViewApi {
         self.stationsCarousel.currentItemIndex = index + (numberOfStations() * repeatedGroup)
     }
     
-    func displayMenuOptions(options: [String]) {
+    func displayMenuOptions(options: [OptionItem]) {
         let menu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         for option in options {
-            let optionItem = UIAlertAction(title: option, style: .default, handler: {
+            let action = UIAlertAction(title: option.title, style: option.isDestructive ? .destructive : .default, handler: {
                 (action) in
                 self.presenter.didSelectMenuItem(title: action.title!)
             })
-            menu.addAction(optionItem)
+            action.isEnabled = option.isEnabled
+            //action.
+            menu.addAction(action)
         }
         
         // always add a cancel

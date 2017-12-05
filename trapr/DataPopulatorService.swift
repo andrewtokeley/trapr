@@ -13,6 +13,7 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
     
     var possumMaster: TrapType!
     var pelifeed: TrapType!
+    var doc200: TrapType!
     
     override init(realm: Realm) {
         super.init(realm: realm)
@@ -38,9 +39,9 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
         
         let trapTypeService = ServiceFactory.sharedInstance.trapTypeService
         trapTypeService.createOrUpdateDefaults()
-        possumMaster = trapTypeService.get(code: "PMA")
-        pelifeed = trapTypeService.get(code: "PEL")
-        
+        possumMaster = trapTypeService.get(.possumMaster)
+        pelifeed = trapTypeService.get(.pellibait)
+        doc200 = trapTypeService.get(.doc200)
     }
     
     func createTestData() {
@@ -69,9 +70,10 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
         trapline.code = code
         for i in 1...numberOfStations {
             let station = trapline.addStation(code: String(format: "%02d", i))
+            let _ = station.addTrap(type: pelifeed)
             let _ = station.addTrap(type: possumMaster)
-            if i < 3 {
-                let _ = station.addTrap(type: pelifeed)
+            if i % 2 == 0 {
+                let _ = station.addTrap(type: doc200)
             }
         }
         ServiceFactory.sharedInstance.traplineService.add(trapline: trapline)

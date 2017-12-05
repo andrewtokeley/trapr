@@ -150,8 +150,8 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
         self.navigationItem.leftBarButtonItem = self.menuButtonItem
         self.view.addSubview(routesCollectionView)
         self.view.addSubview(routesSection)
-        self.view.addSubview(recentVisitsSection)
-        self.view.addSubview(recentVisitsTableView)
+//        self.view.addSubview(recentVisitsSection)
+//        self.view.addSubview(recentVisitsTableView)
         
         self.setConstraints()
     }
@@ -168,15 +168,15 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
         routesCollectionView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
         routesCollectionView.autoSetDimension(.height, toSize: 120)
         
-        self.recentVisitsSection.autoPinEdge(.top, to: .bottom, of: routesCollectionView, withOffset: LayoutDimensions.spacingMargin)
-        self.recentVisitsSection.autoPinEdge(toSuperviewEdge: .left)
-        self.recentVisitsSection.autoPinEdge(toSuperviewEdge: .right)
-        self.recentVisitsSection.autoSetDimension(.height, toSize: 40)
-        
-        self.recentVisitsTableView.autoPinEdge(.top, to: .bottom, of: self.recentVisitsSection, withOffset: LayoutDimensions.spacingMargin)
-        self.recentVisitsTableView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
-        self.recentVisitsTableView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
-        self.recentVisitsTableView.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
+//        self.recentVisitsSection.autoPinEdge(.top, to: .bottom, of: routesCollectionView, withOffset: LayoutDimensions.spacingMargin)
+//        self.recentVisitsSection.autoPinEdge(toSuperviewEdge: .left)
+//        self.recentVisitsSection.autoPinEdge(toSuperviewEdge: .right)
+//        self.recentVisitsSection.autoSetDimension(.height, toSize: 40)
+//        
+//        self.recentVisitsTableView.autoPinEdge(.top, to: .bottom, of: self.recentVisitsSection, withOffset: LayoutDimensions.spacingMargin)
+//        self.recentVisitsTableView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
+//        self.recentVisitsTableView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
+//        self.recentVisitsTableView.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
     }
 }
 

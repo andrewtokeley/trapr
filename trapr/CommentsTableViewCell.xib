@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="139" id="f2K-Xg-AfZ" customClass="CommentsTableViewCell" customModule="trapr" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="401" height="139"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f2K-Xg-AfZ" id="zhK-lX-CiI">
+                <rect key="frame" x="0.0" y="0.0" width="401" height="138.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="fsdfsdfd sdf sd" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BXI-Ty-9Lf">
+                        <rect key="frame" x="20" y="11" width="361" height="117"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="BXI-Ty-9Lf" firstAttribute="trailing" secondItem="zhK-lX-CiI" secondAttribute="trailingMargin" id="0Kf-nS-qDe"/>
+                    <constraint firstItem="BXI-Ty-9Lf" firstAttribute="bottom" secondItem="zhK-lX-CiI" secondAttribute="bottomMargin" id="MY6-PF-z5y"/>
+                    <constraint firstItem="BXI-Ty-9Lf" firstAttribute="leading" secondItem="zhK-lX-CiI" secondAttribute="leadingMargin" id="WVo-8O-vs4"/>
+                    <constraint firstItem="BXI-Ty-9Lf" firstAttribute="top" secondItem="zhK-lX-CiI" secondAttribute="topMargin" id="nMa-gB-4zj"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="commentsTextView" destination="BXI-Ty-9Lf" id="56c-g6-YCj"/>
+            </connections>
+            <point key="canvasLocation" x="2.5" y="102.5"/>
+        </tableViewCell>
+    </objects>
+</document>

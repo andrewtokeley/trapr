@@ -38,5 +38,13 @@ class Styles {
         let alertActionViewControllerView = UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self])
         alertActionViewControllerView.tintColor = UIColor.trpTextHighlight
         
+        if let menuControllerButton = NSClassFromString("UICalloutBarButton") as? UIButton.Type {
+            menuControllerButton.appearance().setTitleColor(UIColor.lightGray, for: UIControlState.normal)
+            menuControllerButton.appearance().setTitleColor(UIColor.white, for: UIControlState.highlighted)
+            //menuControllerButton.appearance().backgroundColor = UIColor.trpTextDark
+        }
+
+        let tableViewCellAppearance = UITableViewCell.appearance()
+        tableViewCellAppearance.tintColor = UIColor.trpNavigationBar
     }
 }

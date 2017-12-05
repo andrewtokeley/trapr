@@ -10,6 +10,12 @@ import Foundation
 import UIKit
 import Viperit
 
+enum visitRecordMenuItem: String {
+    case sendReport = "Send report"
+    case deleteVisitRecord = "Delete"
+    case viewMap = "View map"
+}
+
 // MARK: - VisitPresenter Class
 final class VisitPresenter: Presenter {
     
@@ -121,20 +127,34 @@ extension VisitPresenter: StationSelectDelegate {
 // MARK: - VisitPresenter API
 extension VisitPresenter: VisitPresenterApi {
     
+    func visitLogDidScroll(contentOffsetY: CGFloat) {
+        // tell the view to move!
+    }
     
     func setVisitDelegate(delegate: VisitDelegate) {
         self.visitDelegate = delegate
     }
     
     func didSelectMenuButton() {
-        view.displayMenuOptions(options: ["Send Report", "Delete Visit", "View Map"])
+        
+        let deleteTitle = "\(visitRecordMenuItem.deleteVisitRecord.rawValue) \(self.currentTrap.longDescription) record"
+        
+        let options = [
+            OptionItem(title: visitRecordMenuItem.sendReport.rawValue, isEnabled: true),
+            OptionItem(title: visitRecordMenuItem.viewMap.rawValue, isEnabled: true),
+            OptionItem(title: deleteTitle, isEnabled: true)
+        ]
+        view.displayMenuOptions(options: options)
     }
     
     func didSelectMenuItem(title: String) {
-        if title == "Edit Route" {
-            self.menuEditRoute()
+        if title.contains(visitRecordMenuItem.sendReport.rawValue) {
+            //self.sendReport()
         }
-        if title == "Delete Visit" {
+        if title.contains(visitRecordMenuItem.viewMap.rawValue) {
+            //self.viewMap()
+        }
+        if title.contains(visitRecordMenuItem.deleteVisitRecord.rawValue) {
             self.menuDeleteVisit()
         }
     }
@@ -157,10 +177,6 @@ extension VisitPresenter: VisitPresenterApi {
         // hold a reference to this visit - needed if user requests to delete it
         self.currentVisit = visit
         visitDelegate?.didChangeVisit(visit: visit, isNew: isNew)
-    }
-    
-    func noVisitExists() {
-        //visitDelegate?.noVisitExists()
     }
     
     func didSelectStation(index: Int) {

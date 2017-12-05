@@ -9,6 +9,12 @@
 import Foundation
 import RealmSwift
 
+enum TrapTypeCode: String {
+    case possumMaster = "POS"
+    case pellibait = "PEL"
+    case doc200 = "DOC200"
+}
+
 class TrapTypeService: LookupService<TrapType> {
 
     private var lureService: LookupService<Lure> {
@@ -29,7 +35,7 @@ class TrapTypeService: LookupService<TrapType> {
     
     private func doc200() -> TrapType {
         let trapType = TrapType()
-        trapType.code = "D200"
+        trapType.code = TrapTypeCode.doc200.rawValue
         trapType.name = "DOC200"
         trapType.killMethodRaw = KillMethod.direct.rawValue
         trapType.defaultLure = lureService.get(.driedRabbit)
@@ -42,13 +48,13 @@ class TrapTypeService: LookupService<TrapType> {
         trapType.catchableSpecies.append(speciesService.get(.mouse)!)
         trapType.catchableSpecies.append(speciesService.get(.other)!)
         
-        //trapType.imageName = "doc200"
+        trapType.imageName = "doc200"
         return trapType
     }
     
     private func possumMaster() -> TrapType {
         let trapType = TrapType()
-        trapType.code = "PMA"
+        trapType.code = TrapTypeCode.possumMaster.rawValue
         trapType.name = "Possum Master"
         trapType.killMethodRaw = KillMethod.direct.rawValue
         
@@ -69,7 +75,7 @@ class TrapTypeService: LookupService<TrapType> {
     
     private func pelifeed() -> TrapType {
         let trapType = TrapType()
-        trapType.code = "PEL"
+        trapType.code = TrapTypeCode.pellibait.rawValue
         trapType.name = "Pellibait"
         trapType.killMethodRaw = KillMethod.poison.rawValue
         
@@ -80,5 +86,11 @@ class TrapTypeService: LookupService<TrapType> {
         
         trapType.imageName = "pelifeed"
         return trapType
+    }
+}
+
+extension LookupService where T: TrapType {
+    func get(_ code: TrapTypeCode) -> T? {
+        return get(code: code.rawValue)
     }
 }
