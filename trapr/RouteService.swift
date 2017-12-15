@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class RouteService: Service, RouteServiceInterface {
+class RouteService: RealmService, RouteServiceInterface {
     
     func add(route: Route) {
         try! realm.write {

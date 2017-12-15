@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class VisitService: Service, VisitServiceInterface {
+class VisitService: RealmService, VisitServiceInterface {
     
     func add(visit: Visit) {
         try! realm.write {

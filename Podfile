@@ -5,9 +5,11 @@ target "trapr" do
     pod "Viperit"
     pod "RealmSwift"
     pod "iCarousel"
+    pod "CSVImporter", "1.7.1"
 end
 
 target "traprTests" do
     use_frameworks!
     pod "RealmSwift"
+    pod "CSVImporter", "1.7.1"
 end

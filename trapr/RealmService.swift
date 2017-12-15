@@ -13,7 +13,7 @@ enum ServiceError: Error {
     case PrimaryKeyViolation
 }
 
-class Service {
+class RealmService {
     
     var realm: Realm!
     var isTestService: Bool {

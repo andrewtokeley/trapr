@@ -24,7 +24,9 @@
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWh-he-h6c">
                     <rect key="frame" x="571" y="15" width="44" height="30"/>
-                    <state key="normal" title="Action"/>
+                    <state key="normal" title="Action">
+                        <color key="titleColor" red="0.89411764705882346" green="0.35686274509803922" blue="0.83529411764705885" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </state>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

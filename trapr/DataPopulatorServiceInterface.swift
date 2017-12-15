@@ -8,11 +8,13 @@
 
 import Foundation
 
-protocol DataPopulatorServiceInterface: ServiceInterface {
+protocol DataPopulatorServiceInterface: RealmServiceInterface {
     
     func replaceAllDataWithTestData()
     
     func deleteAllTestData()
     
     func createTrapline(code: String, numberOfStations: Int) -> Trapline
+    
+    func mergeWithV1Data()
 }

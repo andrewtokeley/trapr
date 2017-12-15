@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ApplicationService: Service, ApplicationServiceInterface {
+class ApplicationService: RealmService, ApplicationServiceInterface {
     
     func deleteAllData() {
         try! realm.write {

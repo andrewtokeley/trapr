@@ -9,7 +9,7 @@
 import XCTest
 @testable import trapr
 
-class Station {
+fileprivate class Station {
     var code: String
     var traplineCode: String
     

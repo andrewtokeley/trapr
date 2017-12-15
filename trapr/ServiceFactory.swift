@@ -54,4 +54,8 @@ class ServiceFactory {
     lazy var lureService: LookupService<Lure> = {
         return LureService(realm: self.realm)
     }()
+    
+    lazy var stationService: StationServiceInterface = {
+        return StationService()
+    }()
 }

@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-protocol VisitServiceInterface: ServiceInterface {
+protocol VisitServiceInterface: RealmServiceInterface {
     
     /**
      Record a new Visit

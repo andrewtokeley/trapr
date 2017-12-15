@@ -9,11 +9,14 @@
 import Foundation
 import RealmSwift
 
-protocol TraplineServiceInterface: ServiceInterface {
+protocol TraplineServiceInterface: RealmServiceInterface {
     
     func add(trapline: Trapline)
+    func addStation(trapline: Trapline, station: Station)
+    func addTrap(station: Station, trap: Trap)
     func delete(trapline: Trapline)
     func getTraplines() -> [Trapline]?
     func getTrapline(code: String) -> Trapline?
     func getRecentTraplines() -> [Trapline]?
+    
 }

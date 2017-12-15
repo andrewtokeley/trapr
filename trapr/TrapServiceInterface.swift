@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol TrapServiceInterface: ServiceInterface {
+protocol TrapServiceInterface: RealmServiceInterface {
     
 }

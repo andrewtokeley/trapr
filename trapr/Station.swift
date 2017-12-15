@@ -21,14 +21,22 @@ class Station: Object {
     }
     
     /**
-    A unique code for the station. The station code's alphanumeric sort order determines the order in which the stations are located along a trapline.
+    A code, typically a leading zero number, e.g. "01" for the station. Code need only be unique for the trapline they are part of.
+     
+     The station code's alphanumeric sort order determines the order in which the stations are located along a trapline. So, it's possible to have "01" followed by "01a", but we recommend sticking to numbers, if possible
     */
     dynamic var code: String?
     
+    /**
+     Read only, fully qualified station code, that is prefixed with the trapline code. e.g. LW01
+     */
     var longCode: String {
-        return trapline!.code!.appending(self.code!)
+        return trapline?.code!.appending(self.code!) ?? id
     }
     
+    /**
+     Typically only used for debugging purposes to return the station's longCode
+     */
     override var description: String {
         return longCode
     }
@@ -36,18 +44,20 @@ class Station: Object {
     /**
     The trapline in which the station is located
     */
-    dynamic var trapline: Trapline?
+    private let traplines:LinkingObjects<Trapline> = LinkingObjects(fromType: Trapline.self, property: "stations")
+    var trapline:Trapline? {
+        return self.traplines.first
+    }
     
     /**
-    The traps located at this station
+    The traps located at this station, e.g. Possum Master, Pellibait traps...
     */
     let traps = List<Trap>()
     
-    convenience init(code: String, trapline: Trapline) {
+    convenience init(code: String) {
         self.init()
         
         self.code = code
-        self.trapline = trapline
     }
     
     func addTrap(type: TrapType) -> Trap {

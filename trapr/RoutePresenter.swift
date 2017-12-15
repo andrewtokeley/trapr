@@ -56,6 +56,14 @@ final class RoutePresenter: Presenter {
         return nil
     }
     
+    fileprivate var orderedStations: [Station] {
+        var stations = [Station]()
+        if let sorted = self.traplineContext?.stations.sorted(byKeyPath: "code") {
+            stations = Array(sorted)
+        }
+        return stations
+    }
+    
     // MARK: - Private properties
     private let NO_SECTIONS_TEXT = "Sections are defined by a Trapline and some, or all, of its Stations."
 
@@ -172,20 +180,25 @@ extension RoutePresenter: RoutePresenterApi {
         self.sectionContext = section
         self.traplineContext = groupedData?.data(section: section, row: 0).item.trapline
         
-        // get the description of the section
-        if let groupData = self.groupedData {
-            var title = ""
-            let firstItemInSection = groupData.data(section: section, row: 0).item.longCode
-            let lastItemInSection = groupData.data(section: section, row: groupData.numberOfRowsInSection(section: section) - 1).item.longCode
-            
-            if firstItemInSection != lastItemInSection {
-                title = "\(firstItemInSection) - \(lastItemInSection)"
-            } else {
-                title = "\(firstItemInSection)"
-            }
-            
+        // get the description of the section for the title of the menu
+        if let stations = groupedData?.dataItems(section: self.sectionContext, selectedOnly: false)
+        {
+            let title = ServiceFactory.sharedInstance.stationService.getDescription(stations: stations, includeStationCodes: true)
             view.displaySectionMenuOptionItems(title: title, message: nil, optionItems: self.sectionMenuOptions)
         }
+//        if let groupData = self.groupedData {
+//            var title = ""
+//            let firstItemInSection = groupData.data(section: section, row: 0).item.longCode
+//            let lastItemInSection = groupData.data(section: section, row: groupData.numberOfRowsInSection(section: section) - 1).item.longCode
+//
+//            if firstItemInSection != lastItemInSection {
+//                title = "\(firstItemInSection) - \(lastItemInSection)"
+//            } else {
+//                title = "\(firstItemInSection)"
+//            }
+//
+//            view.displaySectionMenuOptionItems(title: title, message: nil, optionItems: self.sectionMenuOptions)
+//        }
     }
     
     func didSelectSectionMenuOptionItem(title: String) {
@@ -207,19 +220,30 @@ extension RoutePresenter: RoutePresenterApi {
             listPickerStationsSetupData.tag = LISTPICKER_STATIONS
             listPickerStationsSetupData.embedInNavController = true
             listPickerStationsSetupData.enableMultiselect = true
-            
-            // set the selection to the stations currently in the section
-//            if let stationCount = self.groupedData?.numberOfRowsInSection(section: self.sectionContext) {
-//                for i in 0...stationCount - 1 {
-//                    if let station = self.groupedData?.data(section: self.sectionContext, row: i).item {
-//                        if let index = self.traplineContext?.stations.index(of: station) {
-//                            listPickerStationsSetupData.selectedIndicies.append(index)
-//                        }
-//                    }
-//                }
-//            }
-            
             router.showListPicker(setupData: listPickerStationsSetupData)
+        }
+        
+        if title == sectionMenuOptionTitle.reverseOrder.rawValue {
+            
+            // get the stations in the section
+            if let groupData = self.groupedData {
+                
+                // reverse order of underlying groupData structure
+                let stations = groupData.dataItems(section: self.sectionContext, selectedOnly: false)
+                let reorderedStations = ServiceFactory.sharedInstance.stationService.reverseOrder(stations: stations)
+                groupData.replace(dataInSection: self.sectionContext, items: reorderedStations)
+
+                // update the order in the Route itself
+                if let _ = self.currentRoute {
+                    let stations = groupData.dataItems(selectedOnly: false)
+                    self.currentRoute?.stations.removeAll()
+                    self.currentRoute?.stations.append(objectsIn: stations)
+                }
+                view.bindToGroupedTableViewData(groupedData: groupData)
+            }
+            
+            
+            
         }
     }
     
@@ -287,39 +311,37 @@ extension RoutePresenter: ListPickerDelegate {
         if listPicker.tag == LISTPICKER_STATIONS {
             
             // get the sections that were selected
-            if let stations = self.traplineContext?.stations.filter({
+            let stations = self.orderedStations.filter({
                 (station) in
-                if let indexOfStation = self.traplineContext!.stations.index(of: station) {
+                if let indexOfStation = self.orderedStations.index(of: station) {
                     return indexes.contains(indexOfStation)
                 }
                 return false
-            }) {
+            })
                 
-                // new section
-                if self.sectionContext == -1 {
-                    
-                    // add a new section to the end of the route
-                    self.currentRoute?.stations.append(objectsIn: stations)
+            // new section
+            if self.sectionContext == -1 {
+                
+                // add a new section to the end of the route
+                self.currentRoute?.stations.append(objectsIn: stations)
 
-                // existing section
-                } else {
-                    
-                    //replace all the stations in the current section with those selected
-                    if let groupData = self.groupedData {
-                        groupData.replace(dataInSection: self.sectionContext, items: Array(stations))
-                    
-                        if let _ = self.currentRoute {
-                            let stations = groupData.dataItems(selectedOnly: false)
-                            self.currentRoute?.stations.removeAll()
-                            self.currentRoute?.stations.append(objectsIn: stations)
-                        }
+            // existing section
+            } else {
+                
+                //replace all the stations in the current section with those selected
+                if let groupData = self.groupedData {
+                    groupData.replace(dataInSection: self.sectionContext, items: Array(stations))
+                
+                    if let _ = self.currentRoute {
+                        let stations = groupData.dataItems(selectedOnly: false)
+                        self.currentRoute?.stations.removeAll()
+                        self.currentRoute?.stations.append(objectsIn: stations)
                     }
                 }
-                
-                view.hideSectionsTableView(hide: false)
-                view.bindToGroupedTableViewData(groupedData: self.groupedData!)
             }
             
+            view.hideSectionsTableView(hide: false)
+            view.bindToGroupedTableViewData(groupedData: self.groupedData!)
         }
     }
     
@@ -329,7 +351,8 @@ extension RoutePresenter: ListPickerDelegate {
         } else if listPicker.tag == LISTPICKER_VISITFREQUENCY {
             return TimePeriod.all[index].name
         } else if listPicker.tag == LISTPICKER_STATIONS {
-            return self.traplineContext!.stations[index].longCode
+            return self.orderedStations[index].longCode
+            //return self.traplineContext!.stations[index].longCode
         }
         return ""
     }
@@ -342,9 +365,9 @@ extension RoutePresenter: ListPickerDelegate {
                 let stationsInSection = self.groupedData?.dataItems(section: self.sectionContext, selectedOnly: false)
                 
                 // check if the station at index is in the section
-                if let currentStation = self.traplineContext?.stations[index] {
-                    return stationsInSection?.contains(currentStation) ?? false
-                }
+                let currentStation = self.orderedStations[index]
+                return stationsInSection?.contains(currentStation) ?? false
+                
             } else {
                 // always select all for new sections
                 return true

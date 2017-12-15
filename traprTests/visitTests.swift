@@ -20,6 +20,10 @@ class visitTests: XCTestCase {
         return ServiceFactory.sharedInstance.visitService
     }()
     
+    lazy var traplineService: TraplineServiceInterface = {
+        return ServiceFactory.sharedInstance.traplineService
+    }()
+    
     override func setUp() {
         super.setUp()
         
@@ -96,20 +100,29 @@ class visitTests: XCTestCase {
         // LW01
         let trapline1 = Trapline()
         trapline1.code = "LW"
-        let station1 = trapline1.addStation(code: "01")
+        traplineService.add(trapline: trapline1)
+        
+        let station1 = Station(code: "01")
         let trap1 = station1.addTrap(type: possumMaster)
+        traplineService.addStation(trapline: trapline1, station: station1)
         
         // E01
         let trapline2 = Trapline()
         trapline2.code = "E"
-        let station2 = trapline2.addStation(code: "01")
+        traplineService.add(trapline: trapline2)
+        
+        let station2 = Station(code: "01")
         let trap2 = station2.addTrap(type: possumMaster)
+        traplineService.addStation(trapline: trapline2, station: station2)
         
         // GC01
         let trapline3 = Trapline()
         trapline3.code = "GC"
-        let station3 = trapline3.addStation(code: "01")
+        traplineService.add(trapline: trapline3)
+        
+        let station3 = Station(code: "01")
         let _ = station3.addTrap(type: possumMaster)
+        traplineService.addStation(trapline: trapline3, station: station3)
         
         // Route_LW_E
         self.route_GC = Route(name: "GC Route", stations: [station3])

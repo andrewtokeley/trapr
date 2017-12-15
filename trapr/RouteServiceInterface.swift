@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-protocol RouteServiceInterface: ServiceInterface {
+protocol RouteServiceInterface: RealmServiceInterface {
     
     /**
      Add a new Route to repository. If the Route exists it is updated

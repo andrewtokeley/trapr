@@ -125,7 +125,7 @@
 		D897149E1F70CCCB00E846B9 /* traplineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897149D1F70CCCB00E846B9 /* traplineTests.swift */; };
 		D89714A01F70CFB800E846B9 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897149F1F70CFB800E846B9 /* DataService.swift */; };
 		D89714A21F737B6A00E846B9 /* visitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714A11F737B6A00E846B9 /* visitTests.swift */; };
-		D89714A41F76197D00E846B9 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714A31F76197C00E846B9 /* Service.swift */; };
+		D89714A41F76197D00E846B9 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714A31F76197C00E846B9 /* RealmService.swift */; };
 		D89714A61F76200B00E846B9 /* ApplicationServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714A51F76200B00E846B9 /* ApplicationServiceInterface.swift */; };
 		D89714A81F76202E00E846B9 /* ApplicationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714A71F76202E00E846B9 /* ApplicationService.swift */; };
 		D89714AA1F7751B300E846B9 /* DataPopulatorServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714A91F7751B300E846B9 /* DataPopulatorServiceInterface.swift */; };
@@ -133,9 +133,15 @@
 		D89714AF1F7898A800E846B9 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714AE1F7898A800E846B9 /* MenuItem.swift */; };
 		D89714C01F7A0C5D00E846B9 /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D89714BF1F7A0C5D00E846B9 /* ImageCollectionViewCell.xib */; };
 		D89714C21F7A0E4700E846B9 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714C11F7A0E4700E846B9 /* ImageCollectionViewCell.swift */; };
+		D89A20DB1FDC98D200A813FB /* StationServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A20DA1FDC98D200A813FB /* StationServiceInterface.swift */; };
+		D89A20DD1FDC98DE00A813FB /* StationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A20DC1FDC98DE00A813FB /* StationService.swift */; };
 		D89EBD7C1FBE870D001203AC /* StationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89EBD7B1FBE870D001203AC /* StationTests.swift */; };
 		D8B1480A1F9552D9000AB414 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B148091F9552D9000AB414 /* Route.swift */; };
 		D8B1480C1F955E5B000AB414 /* routeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B1480B1F955E5B000AB414 /* routeTests.swift */; };
+		D8B57FE91FD66CDA003437D9 /* trapLines_Dec_5_2017.trl in Resources */ = {isa = PBXBuildFile; fileRef = D8B57FE81FD66CDA003437D9 /* trapLines_Dec_5_2017.trl */; };
+		D8B57FEC1FD76E6D003437D9 /* DataImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B57FEB1FD76E6D003437D9 /* DataImport.swift */; };
+		D8B57FEE1FDA500A003437D9 /* importTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B57FED1FDA500A003437D9 /* importTests.swift */; };
+		D8B57FF01FDA5582003437D9 /* importer_traplines_v1_to_v2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B57FEF1FDA5582003437D9 /* importer_traplines_v1_to_v2.swift */; };
 		D8B73C301F97F4D8000C231E /* possumMaster@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8B73C2E1F97F4D8000C231E /* possumMaster@2x.png */; };
 		D8B73C311F97F4D8000C231E /* possumMaster.png in Resources */ = {isa = PBXBuildFile; fileRef = D8B73C2F1F97F4D8000C231E /* possumMaster.png */; };
 		D8B94D591F5EA1FE00D373EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D581F5EA1FE00D373EF /* AppDelegate.swift */; };
@@ -184,7 +190,7 @@
 		D8D79AB31FC4B992008AC5C1 /* OptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AB21FC4B992008AC5C1 /* OptionItem.swift */; };
 		D8D79AB51FC4BB6F008AC5C1 /* RouteSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AB41FC4BB6F008AC5C1 /* RouteSetupData.swift */; };
 		D8D79AB81FC52370008AC5C1 /* RLMResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AB71FC52370008AC5C1 /* RLMResults.swift */; };
-		D8E86B3E1FACF95B003BFD54 /* ServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E86B3D1FACF95B003BFD54 /* ServiceInterface.swift */; };
+		D8E86B3E1FACF95B003BFD54 /* RealmServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E86B3D1FACF95B003BFD54 /* RealmServiceInterface.swift */; };
 		D8FA5CF51F8406D600EC890C /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FA5CF31F8406D600EC890C /* close.png */; };
 		D8FA5CF61F8406D600EC890C /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FA5CF41F8406D600EC890C /* close@2x.png */; };
 		D8FA5CF81F8409A700EC890C /* StationSelectSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FA5CF71F8409A700EC890C /* StationSelectSetupData.swift */; };
@@ -324,7 +330,7 @@
 		D897149D1F70CCCB00E846B9 /* traplineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = traplineTests.swift; sourceTree = "<group>"; };
 		D897149F1F70CFB800E846B9 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		D89714A11F737B6A00E846B9 /* visitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = visitTests.swift; sourceTree = "<group>"; };
-		D89714A31F76197C00E846B9 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		D89714A31F76197C00E846B9 /* RealmService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		D89714A51F76200B00E846B9 /* ApplicationServiceInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationServiceInterface.swift; sourceTree = "<group>"; };
 		D89714A71F76202E00E846B9 /* ApplicationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationService.swift; sourceTree = "<group>"; };
 		D89714A91F7751B300E846B9 /* DataPopulatorServiceInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataPopulatorServiceInterface.swift; sourceTree = "<group>"; };
@@ -332,9 +338,15 @@
 		D89714AE1F7898A800E846B9 /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		D89714BF1F7A0C5D00E846B9 /* ImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		D89714C11F7A0E4700E846B9 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		D89A20DA1FDC98D200A813FB /* StationServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationServiceInterface.swift; sourceTree = "<group>"; };
+		D89A20DC1FDC98DE00A813FB /* StationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationService.swift; sourceTree = "<group>"; };
 		D89EBD7B1FBE870D001203AC /* StationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationTests.swift; sourceTree = "<group>"; };
 		D8B148091F9552D9000AB414 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		D8B1480B1F955E5B000AB414 /* routeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = routeTests.swift; sourceTree = "<group>"; };
+		D8B57FE81FD66CDA003437D9 /* trapLines_Dec_5_2017.trl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trapLines_Dec_5_2017.trl; sourceTree = "<group>"; };
+		D8B57FEB1FD76E6D003437D9 /* DataImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataImport.swift; sourceTree = "<group>"; };
+		D8B57FED1FDA500A003437D9 /* importTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = importTests.swift; sourceTree = "<group>"; };
+		D8B57FEF1FDA5582003437D9 /* importer_traplines_v1_to_v2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = importer_traplines_v1_to_v2.swift; sourceTree = "<group>"; };
 		D8B73C2E1F97F4D8000C231E /* possumMaster@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "possumMaster@2x.png"; sourceTree = "<group>"; };
 		D8B73C2F1F97F4D8000C231E /* possumMaster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = possumMaster.png; sourceTree = "<group>"; };
 		D8B94D551F5EA1FE00D373EF /* trapr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = trapr.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -377,7 +389,7 @@
 		D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitSummary.swift; sourceTree = "<group>"; };
 		D8D729E11F61D7D30082CD4A /* VisitCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitCollectionViewCell.swift; sourceTree = "<group>"; };
 		D8D729E31F61D91C0082CD4A /* VisitCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitCollectionViewCell.xib; sourceTree = "<group>"; };
-		D8D729E51F64BD580082CD4A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D8D729E51F64BD580082CD4A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		D8D79AA61FC3F0CD008AC5C1 /* RouteDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDisplayData.swift; sourceTree = "<group>"; };
 		D8D79AA71FC3F0CD008AC5C1 /* RoutePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePresenter.swift; sourceTree = "<group>"; };
 		D8D79AA81FC3F0CD008AC5C1 /* RouteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRouter.swift; sourceTree = "<group>"; };
@@ -387,7 +399,7 @@
 		D8D79AB21FC4B992008AC5C1 /* OptionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionItem.swift; sourceTree = "<group>"; };
 		D8D79AB41FC4BB6F008AC5C1 /* RouteSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSetupData.swift; sourceTree = "<group>"; };
 		D8D79AB71FC52370008AC5C1 /* RLMResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLMResults.swift; sourceTree = "<group>"; };
-		D8E86B3D1FACF95B003BFD54 /* ServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInterface.swift; sourceTree = "<group>"; };
+		D8E86B3D1FACF95B003BFD54 /* RealmServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmServiceInterface.swift; sourceTree = "<group>"; };
 		D8FA5CF31F8406D600EC890C /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
 		D8FA5CF41F8406D600EC890C /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
 		D8FA5CF71F8409A700EC890C /* StationSelectSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectSetupData.swift; sourceTree = "<group>"; };
@@ -483,14 +495,15 @@
 		D81DAAED1F68641E00C7C987 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D8B57FEA1FD76E3E003437D9 /* Import */,
 				D8D1A0451FAF12F600926CEF /* Lookups */,
 				D89714A71F76202E00E846B9 /* ApplicationService.swift */,
 				D89714A51F76200B00E846B9 /* ApplicationServiceInterface.swift */,
 				D80F7ED21F6E87D500814A52 /* DataPopulatorService.swift */,
 				D89714A91F7751B300E846B9 /* DataPopulatorServiceInterface.swift */,
 				D897149F1F70CFB800E846B9 /* DataService.swift */,
-				D89714A31F76197C00E846B9 /* Service.swift */,
-				D8E86B3D1FACF95B003BFD54 /* ServiceInterface.swift */,
+				D89714A31F76197C00E846B9 /* RealmService.swift */,
+				D8E86B3D1FACF95B003BFD54 /* RealmServiceInterface.swift */,
 				D81DAAF61F686EA800C7C987 /* ServiceFactory.swift */,
 				D80F7ECF1F6E7A9300814A52 /* TraplineService.swift */,
 				D80F7ECD1F6E79BF00814A52 /* TraplineServiceInterface.swift */,
@@ -499,6 +512,8 @@
 				D81DAAF21F68659100C7C987 /* VisitServiceInterface.swift */,
 				D849B61F1F96C8E100CE2085 /* RouteServiceInterface.swift */,
 				D849B6211F96C91100CE2085 /* RouteService.swift */,
+				D89A20DA1FDC98D200A813FB /* StationServiceInterface.swift */,
+				D89A20DC1FDC98DE00A813FB /* StationService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -659,6 +674,16 @@
 			name = Route;
 			sourceTree = "<group>";
 		};
+		D8B57FEA1FD76E3E003437D9 /* Import */ = {
+			isa = PBXGroup;
+			children = (
+				D8B57FE81FD66CDA003437D9 /* trapLines_Dec_5_2017.trl */,
+				D8B57FEB1FD76E6D003437D9 /* DataImport.swift */,
+				D8B57FEF1FDA5582003437D9 /* importer_traplines_v1_to_v2.swift */,
+			);
+			name = Import;
+			sourceTree = "<group>";
+		};
 		D8B94D4C1F5EA1FE00D373EF = {
 			isa = PBXGroup;
 			children = (
@@ -711,6 +736,7 @@
 				D806C7EB1F9D95320064C98F /* GroupedTableViewDatasourceTests.swift */,
 				D8D1A0371FAE629C00926CEF /* SpeciesTests.swift */,
 				D89EBD7B1FBE870D001203AC /* StationTests.swift */,
+				D8B57FED1FDA500A003437D9 /* importTests.swift */,
 			);
 			path = traprTests;
 			sourceTree = "<group>";
@@ -911,6 +937,7 @@
 				D86CE4871F92BC6F004A09EF /* sync@2x.png in Resources */,
 				D87926961FB555A500240767 /* clock.png in Resources */,
 				D87926921FB553A600240767 /* RouteCollectionViewCell.xib in Resources */,
+				D8B57FE91FD66CDA003437D9 /* trapLines_Dec_5_2017.trl in Resources */,
 				D8C8A1E71FCBA6210075E44E /* envelope.png in Resources */,
 				D8B73C311F97F4D8000C231E /* possumMaster.png in Resources */,
 				D8C8A1EA1FCBA6EC0075E44E /* VisitSummaryTableViewCell.xib in Resources */,
@@ -968,9 +995,18 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-traprTests/Pods-traprTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CSVImporter/CSVImporter.framework",
+				"${BUILT_PRODUCTS_DIR}/HandySwift/HandySwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSVImporter.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandySwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -998,13 +1034,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-traprTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3DCBCC59219F7C660155A775 /* [CP] Copy Pods Resources */ = {
@@ -1028,9 +1067,24 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-trapr/Pods-trapr-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CSVImporter/CSVImporter.framework",
+				"${BUILT_PRODUCTS_DIR}/HandySwift/HandySwift.framework",
+				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Viperit/Viperit.framework",
+				"${BUILT_PRODUCTS_DIR}/iCarousel/iCarousel.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSVImporter.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandySwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Viperit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iCarousel.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1043,13 +1097,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-trapr-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1103,11 +1160,14 @@
 				D8953EC01F88114F00A1F424 /* NewVisitRouter.swift in Sources */,
 				D83DC6CD1F7F841F00F91792 /* StartView.swift in Sources */,
 				D80B6DCB1F9F3DCD00F49E9E /* VisitLogDisplayData.swift in Sources */,
+				D8B57FEC1FD76E6D003437D9 /* DataImport.swift in Sources */,
 				D87926A11FB5973700240767 /* SectionStripViewDelegate.swift in Sources */,
 				D8C8A1FA1FCE85EF0075E44E /* VisitLogDelegate.swift in Sources */,
+				D8B57FF01FDA5582003437D9 /* importer_traplines_v1_to_v2.swift in Sources */,
 				D81431A71F8DDB2600EAF5FD /* DatePickerView.swift in Sources */,
 				D857B3A81F81B86A006E1402 /* VisitDisplayData.swift in Sources */,
 				D8D79AAF1FC3F0CD008AC5C1 /* RouteModuleApi.swift in Sources */,
+				D89A20DB1FDC98D200A813FB /* StationServiceInterface.swift in Sources */,
 				D8039E311FABF6B9006E394B /* ListPickerSetupData.swift in Sources */,
 				D80B6DD01F9F3DCD00F49E9E /* VisitLogView.swift in Sources */,
 				D8C8A1EE1FCCBA070075E44E /* TrapOperatingStatus.swift in Sources */,
@@ -1145,7 +1205,7 @@
 				D89714AA1F7751B300E846B9 /* DataPopulatorServiceInterface.swift in Sources */,
 				D873C86E1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift in Sources */,
 				D8953EBF1F88114F00A1F424 /* NewVisitPresenter.swift in Sources */,
-				D8E86B3E1FACF95B003BFD54 /* ServiceInterface.swift in Sources */,
+				D8E86B3E1FACF95B003BFD54 /* RealmServiceInterface.swift in Sources */,
 				D8503DD01F669F8500ED0C84 /* Visit.swift in Sources */,
 				D81431A31F8DDB2600EAF5FD /* DatePickerInteractor.swift in Sources */,
 				D849B6201F96C8E100CE2085 /* RouteServiceInterface.swift in Sources */,
@@ -1168,7 +1228,7 @@
 				D81431A41F8DDB2600EAF5FD /* DatePickerModuleApi.swift in Sources */,
 				D857B3AB1F81B86A006E1402 /* VisitView.swift in Sources */,
 				D89312011F834F6F008DF09D /* StationSelectModuleApi.swift in Sources */,
-				D89714A41F76197D00E846B9 /* Service.swift in Sources */,
+				D89714A41F76197D00E846B9 /* RealmService.swift in Sources */,
 				D841CF261F8239CA004D0207 /* TraplineSelectDisplayData.swift in Sources */,
 				D89714A61F76200B00E846B9 /* ApplicationServiceInterface.swift in Sources */,
 				D8503DC41F66807C00ED0C84 /* VisitInteractor.swift in Sources */,
@@ -1180,6 +1240,7 @@
 				D8B1480A1F9552D9000AB414 /* Route.swift in Sources */,
 				D89312001F834F6E008DF09D /* StationSelectInteractor.swift in Sources */,
 				D8B94D7C1F5EA56F00D373EF /* UIColorExtension.swift in Sources */,
+				D89A20DD1FDC98DE00A813FB /* StationService.swift in Sources */,
 				D857B3A91F81B86A006E1402 /* VisitModuleApi.swift in Sources */,
 				D89714A81F76202E00E846B9 /* ApplicationService.swift in Sources */,
 				D83DC6CA1F7F841F00F91792 /* StartModuleApi.swift in Sources */,
@@ -1198,6 +1259,7 @@
 			files = (
 				D806C7EC1F9D95320064C98F /* GroupedTableViewDatasourceTests.swift in Sources */,
 				D897149E1F70CCCB00E846B9 /* traplineTests.swift in Sources */,
+				D8B57FEE1FDA500A003437D9 /* importTests.swift in Sources */,
 				D8B1480C1F955E5B000AB414 /* routeTests.swift in Sources */,
 				D89EBD7C1FBE870D001203AC /* StationTests.swift in Sources */,
 				D8B94D6E1F5EA1FE00D373EF /* dateTests.swift in Sources */,

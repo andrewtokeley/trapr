@@ -13,6 +13,7 @@ enum TrapTypeCode: String {
     case possumMaster = "POS"
     case pellibait = "PEL"
     case doc200 = "DOC200"
+    case other = "OTHER"
 }
 
 class TrapTypeService: LookupService<TrapType> {

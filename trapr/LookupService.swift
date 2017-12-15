@@ -15,7 +15,7 @@ import RealmSwift
 //    func get(code: String) -> Any?
 //}
 
-class LookupService<T: LookupObject>: Service {
+class LookupService<T: LookupObject>: RealmService {
     
     func createOrUpdateDefaults() {
         // do nothing, must be overriden for specific Type

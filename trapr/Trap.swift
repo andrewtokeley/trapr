@@ -38,6 +38,11 @@ class Trap: Object {
     */
     dynamic var longitude: Double = 0
     
+    /**
+     Notes about the trap
+    */
+    dynamic var notes: String?
+    
     var longDescription: String {
         let longCode = self.station?.longCode ?? ""
         let typeName = self.type?.name ?? ""

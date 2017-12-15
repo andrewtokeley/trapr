@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class DataPopulatorService: Service, DataPopulatorServiceInterface {
+class DataPopulatorService: RealmService, DataPopulatorServiceInterface {
     
     var possumMaster: TrapType!
     var pelifeed: TrapType!
@@ -44,13 +44,20 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
         doc200 = trapTypeService.get(.doc200)
     }
     
+    func mergeWithV1Data() {
+        if let path = Bundle.main.path(forResource: "trapLines_Dec_5_2017", ofType: "trl") {
+            let importer: DataImport = importer_traplines_v1_to_v2(fileURL: URL(fileURLWithPath: path))
+            importer.importAndMerge(onError: nil, onCompletion: nil)
+        }
+    }
+    
     func createTestData() {
-        
+
         let trapline1 = createTrapline(code: "LW", numberOfStations: 11)
         let route1 = createRoute(name: "Lowry Bay", traplines: [trapline1], maxStationsPerLine: 11)
         createVisitsForTrapline(route: route1, trapline: trapline1, date: Date().add(-7, 0, 0))
-        
-        
+
+
         let trapline2 = createTrapline(code: "E", numberOfStations: 50)
         let trapline3 = createTrapline(code: "GC", numberOfStations: 6)
         let trapline4 = createTrapline(code: "U", numberOfStations: 6)
@@ -58,7 +65,7 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
         createVisitsForTrapline(route: route2, trapline: trapline2, date: Date().add(0, -1, 0), numberOfStations: 10)
         createVisitsForTrapline(route: route2, trapline: trapline3, date: Date().add(0, -1, 0))
         createVisitsForTrapline(route: route2, trapline: trapline4, date: Date().add(0, -1, 0))
-        
+
         let trapline5 = createTrapline(code: "AA", numberOfStations: 10)
         let route3 = createRoute(name: "A Line", traplines: [trapline5], maxStationsPerLine: 5)
         createVisitsForTrapline(route: route3, trapline: trapline5, date: Date().add(0, -2, 0), numberOfStations: 5)
@@ -68,17 +75,19 @@ class DataPopulatorService: Service, DataPopulatorServiceInterface {
     func createTrapline(code: String, numberOfStations: Int) -> Trapline {
         let trapline = Trapline()
         trapline.code = code
+        ServiceFactory.sharedInstance.traplineService.add(trapline: trapline)
+        
         for i in 1...numberOfStations {
-            let station = trapline.addStation(code: String(format: "%02d", i))
+            let station = Station(code: String(format: "%02d", i))
             let _ = station.addTrap(type: pelifeed)
             let _ = station.addTrap(type: possumMaster)
             if i % 2 == 0 {
                 let _ = station.addTrap(type: doc200)
             }
+            ServiceFactory.sharedInstance.traplineService.addStation(trapline: trapline, station: station)
         }
-        ServiceFactory.sharedInstance.traplineService.add(trapline: trapline)
         
-        return trapline
+        return ServiceFactory.sharedInstance.traplineService.getTrapline(code: code) ?? trapline
     }
 
     func createVisitsForTrapline(route: Route, trapline: Trapline, date: Date, numberOfStations: Int = 1000) {

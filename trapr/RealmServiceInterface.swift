@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol ServiceInterface {
+protocol RealmServiceInterface {
     var isTestService: Bool { get }
 }

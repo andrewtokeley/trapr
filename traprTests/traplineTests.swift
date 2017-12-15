@@ -60,11 +60,12 @@ class traplineTests: XCTestCase {
         print("START testAddingTrapStations")
         let trapline = Trapline()
         trapline.code = "LW"
-        let _ = trapline.addStation(code: "01")
-        let _ = trapline.addStation(code: "02")
-        let _ = trapline.addStation(code: "03")
-        
         traplineService.add(trapline: trapline)
+        
+        traplineService.addStation(trapline: trapline, station: Station(code: "01"))
+        traplineService.addStation(trapline: trapline, station: Station(code: "02"))
+        
+        traplineService.addStation(trapline: trapline, station: Station(code: "03"))
         
         let getTrapline = traplineService.getTraplines() ?? [Trapline]()
         

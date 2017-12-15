@@ -20,10 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Set global styles
         Styles.setAppearances()
         
-        // if we not running tests, fill the app with some data
+        // if we not running tests, merge whatever data is in here with test data
         let service = ServiceFactory.sharedInstance.dataPopulatorService
         if !service.isTestService {
-            service.replaceAllDataWithTestData()
+            service.mergeWithV1Data()
         }
         
         window = UIWindow(frame: UIScreen.main.bounds)
