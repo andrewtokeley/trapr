@@ -374,6 +374,13 @@ extension RoutePresenter: ListPickerDelegate {
             }
         }
         
+        if listPicker.tag == LISTPICKER_VISITFREQUENCY {
+            if let selectedIndex = self.currentRoute?.visitFrequency.rawValue {
+                return index == selectedIndex
+            } else {
+                return false
+            }
+        }
         // Don't select anything for
         return false
         
