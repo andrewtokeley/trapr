@@ -13,10 +13,17 @@ import RealmSwift
 
 class RouteTests: XCTestCase {
     
+    private lazy var dataPopulatorService = {
+        return ServiceFactory.sharedInstance.dataPopulatorService
+    }()
+    
+    private lazy var routeService = {
+        return ServiceFactory.sharedInstance.routeService
+    }()
+    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        print("DELETE ALL")
         ServiceFactory.sharedInstance.dataPopulatorService.deleteAllTestData()
     }
     
@@ -26,50 +33,33 @@ class RouteTests: XCTestCase {
         
     }
     
-    func testStationDescriptions() {
-        print("START testStationDescriptions")
-        let trapline = ServiceFactory.sharedInstance.dataPopulatorService.createTrapline(code: "LW", numberOfStations: 10)
+    func testAddingRouteStations() {
         
-        let route = Route(name: "Test", stations: Array(trapline.stations))
+        let traplineLW = dataPopulatorService.createTrapline(code: "LW", numberOfStations: 3)
+        let traplineAA = dataPopulatorService.createTrapline(code: "AA", numberOfStations: 4)
         
-        let expected = "LW01-10"
-        let result = route.longDescription
-        XCTAssertTrue(result == expected, "FAIL: \(result) != \(expected)")
+        // Create a new Route with Stations in the order of LW01, LW02, AA01, LW03, AA03, AA04
+        let route = Route(name: "TestRoute", stations: [
+            traplineLW.stations[0],
+            traplineLW.stations[1],
+            traplineAA.stations[0],
+            traplineLW.stations[2],
+            traplineAA.stations[2],
+            traplineAA.stations[3]
+            ])
+        routeService.add(route: route)
+        XCTAssertTrue(route.stations.count == 6)
         
-        ServiceFactory.sharedInstance.traplineService.delete(trapline: trapline)
+        // Update route stations to include all the stations, including AA02
+        var newRouteStations = Array(traplineLW.stations)
+        newRouteStations.append(contentsOf: Array(traplineAA.stations))
+        
+        routeService.updateStations(route: route, stations: newRouteStations)
+        
+        // New station, AA02, should be at the end
+        XCTAssertTrue(route.stations.count == 7)
+        XCTAssertTrue(route.stations.last!.longCode == "AA02", "Expected AA02 was \(route.stations.last!.longCode)")
     }
     
-    func testStationDescriptionsMultiple() {
-        print("START testStationDescriptionsMultiple")
-        let trapline = ServiceFactory.sharedInstance.dataPopulatorService.createTrapline(code: "LW", numberOfStations: 10)
-        
-        let stations = [trapline.stations[0], trapline.stations[1], trapline.stations[4], trapline.stations[5], trapline.stations[6], trapline.stations[9]]
-        
-        let route = Route(name: "Test", stations: stations)
-        
-        let expected = "LW01-02, LW05-07, LW10"
-        let result = route.longDescription
-        XCTAssertTrue(result == expected, "FAIL: \(result) != \(expected)")
-        
-        ServiceFactory.sharedInstance.traplineService.delete(trapline: trapline)
-    }
-    
-    func testStationDescriptionsMultipleTraplines() {
-        print("START testStationDescriptionsMultipleTraplines")
-        let trapline1 = ServiceFactory.sharedInstance.dataPopulatorService.createTrapline(code: "LW", numberOfStations: 10)
-        let trapline2 = ServiceFactory.sharedInstance.dataPopulatorService.createTrapline(code: "E", numberOfStations: 5)
-        
-        var stations = Array(trapline1.stations)
-        stations.append(contentsOf: Array(trapline2.stations))
-        
-        let route = Route(name: "Test", stations: stations)
-        
-        let expected = "LW01-10, E01-05"
-        let result = route.longDescription
-        XCTAssertTrue(result == expected, "FAIL: \(result) != \(expected)")
-        
-        ServiceFactory.sharedInstance.traplineService.delete(trapline: trapline1)
-        ServiceFactory.sharedInstance.traplineService.delete(trapline: trapline2)
-    }
     
 }
