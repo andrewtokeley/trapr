@@ -19,8 +19,8 @@ final class VisitView: UserInterface {
     fileprivate let CAROUSEL_STATIONS_LABEL_TAG = 1
     
     fileprivate let CAROUSEL_TRAPS_TAG = 1
-    fileprivate let CAROUSEL_TRAPS_IMAGE_TAG = 2
-    fileprivate let CAROUSEL_TRAPS_LABEL_TAG = 3
+    fileprivate let CAROUSEL_TRAPS_IMAGE_TAG = 20
+    fileprivate let CAROUSEL_TRAPS_LABEL_TAG = 30
     
     fileprivate let TAG_TRAP_IMAGE = 0
     fileprivate let TAG_TRAP_LABEL = 1
@@ -320,8 +320,11 @@ extension VisitView: iCarouselDelegate, iCarouselDataSource {
                 label.text = self.stations?[adjustedIndex].longCode
             }
         } else {
+            print("getting trap at index \(index)")
             if let imageView = usableView.viewWithTag(self.CAROUSEL_TRAPS_IMAGE_TAG) as? UIImageView {
+                print("found imageView")
                 if let imageName = self.currentTraps?[index].type?.imageName {
+                    print("found image name \(imageName)")
                     imageView.image = UIImage(named: imageName)?.changeColor(UIColor.black)
                 }
                 if let label = usableView.viewWithTag(self.CAROUSEL_TRAPS_LABEL_TAG) as? UILabel {
