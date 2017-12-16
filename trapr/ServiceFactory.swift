@@ -58,4 +58,8 @@ class ServiceFactory {
     lazy var stationService: StationServiceInterface = {
         return StationService()
     }()
+    
+    lazy var settingsService: ProfileServiceInterface = {
+        return ProfileService(realm: self.realm)
+    }()
 }

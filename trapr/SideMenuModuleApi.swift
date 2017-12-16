@@ -10,12 +10,13 @@ import Viperit
 
 //MARK: - SideMenuRouter API
 protocol SideMenuRouterApi: RouterProtocol {
-    func showModule(menuItem: MenuItem)
+    func showModule(menuItem: SideBarMenuItem)
+    func dismiss(completion: (() -> Void)?)
 }
 
 //MARK: - SideMenuView API
 protocol SideMenuViewApi: UserInterfaceProtocol {
-    func displayMenuItems(menuItems: [MenuItem], separatorsAfter: [Int]?)
+    func displayMenuItems(menuItems: [SideBarMenuItem], separatorsAfter: [Int]?)
     func displayUserDetails()
     func showSideBar()
     func hideSideBar(completion: (() -> Void)?)

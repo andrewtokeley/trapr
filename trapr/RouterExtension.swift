@@ -12,9 +12,9 @@ import Viperit
 extension Router {
     func showAsModalOverlay(from: UIViewController, setupData: Any? = nil) {
         
-        if let data = setupData {
-            _presenter.setupView(data: data)
-        }
+        //if let data = setupData {
+            _presenter.setupView(data: setupData)
+        //}
         
         _view.modalTransitionStyle = .crossDissolve
         _view.modalPresentationStyle = .overCurrentContext

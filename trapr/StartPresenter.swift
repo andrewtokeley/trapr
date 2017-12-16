@@ -20,7 +20,7 @@ final class StartPresenter: Presenter {
     fileprivate let ROUTE_MENU_DELETE = 2
     
     open override func viewIsAboutToAppear() {
-        view.setTitle(title: "Trapr", routesSectionTitle: "ROUTES", routeSectionActionText: "NEW", recentVisitsSectionTitle: "RECENT", recentVisitsSectionActionText: "ALL")
+        view.setTitle(title: "Trapr", routesSectionTitle: "VISIT TODAY", routeSectionActionText: "NEW", recentVisitsSectionTitle: "RECENT", recentVisitsSectionActionText: "ALL")
         
         interactor.initialiseHomeModule()
     }
@@ -63,8 +63,7 @@ extension StartPresenter: StartPresenterApi {
     }
     
     func didSelectMenu() {
-        let module = AppModules.sideMenu.build()
-        module.router.showAsModalOverlay(from: _view)
+        router.showSideMenu()
     }
     
     func didSelectNewVisit() {

@@ -11,12 +11,22 @@ import Viperit
 
 // MARK: - SideMenuRouter class
 final class SideMenuRouter: Router {
+    
 }
 
 // MARK: - SideMenuRouter API
 extension SideMenuRouter: SideMenuRouterApi {
-    func showModule(menuItem: MenuItem) {
-        
+    func showModule(menuItem: SideBarMenuItem) {
+        if menuItem == .Settings {
+            let module = AppModules.profile.build()
+            if let presentingViewController = _view.presentingViewController {
+                module.router.show(from: presentingViewController, embedInNavController: true, setupData: nil)
+            }
+        }
+    }
+    
+    func dismiss(completion: (() -> Void)?) {
+        _view.dismiss(animated: false, completion: completion)
     }
 }
 

@@ -21,7 +21,7 @@ class MenuItemView: UIView {
         self.addSubview(label)
     }
     
-    convenience init(item: MenuItem) {
+    convenience init(item: SideBarMenuItem) {
         self.init()
         self.image.image = item.image
         self.label.text = item.name

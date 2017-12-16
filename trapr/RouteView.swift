@@ -127,10 +127,6 @@ final class RouteView: UserInterface {
         self.navigationItem.rightBarButtonItem = doneButton
         
         self.view.addSubview(topTableView)
-//        self.view.addSubview(sectionHeader)
-//        self.view.addSubview(noSectionsLabel)
-//        self.view.addSubview(tableView)
-        
         setConstraints()
     }
     

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-enum MenuItem: Int {
+enum SideBarMenuItem: Int {
     case Home = 0
     case Map
     case Sync

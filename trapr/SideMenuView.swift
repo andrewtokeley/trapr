@@ -15,7 +15,7 @@ final class SideMenuView: UserInterface {
     fileprivate let ANIMATION_DURATION_SECS = 0.3
     fileprivate let MENU_CELL_ID = "cell"
     
-    fileprivate var menuItems: [MenuItem]!
+    fileprivate var menuItems: [SideBarMenuItem]!
     fileprivate var separatorsAfter: [Int]?
     
     fileprivate var sideBarWidth: CGFloat {
@@ -58,15 +58,6 @@ final class SideMenuView: UserInterface {
         return view
     }()
     
-//    lazy var menu: UIStackView = {
-//        let menu = UIStackView()
-//        menu.axis = .vertical
-//        menu.distribution = .fillProportionally
-//        menu.spacing = 4
-//        //menu.translatesAutoresizingMaskIntoConstraints = false
-//        return menu
-//    }()
-
     lazy var menuTableView: UITableView = {
         let menu = UITableView(frame: CGRect.zero, style: UITableViewStyle.plain)
         menu.register(UITableViewCell.self, forCellReuseIdentifier: self.MENU_CELL_ID)
@@ -137,7 +128,7 @@ extension SideMenuView: UITableViewDelegate, UITableViewDataSource {
         
         cell.textLabel?.text = menuItems[indexPath.row].name
         cell.imageView?.image = menuItems[indexPath.row].image
-        
+        cell.selectionStyle = .none
         // add custom separator
         if (self.separatorsAfter?.contains(indexPath.row) ?? false) {
             let separator = UIImageView(frame: CGRect(x: 10, y: cell.bounds.height, width: tableView.bounds.width - 20, height: 1))
@@ -147,12 +138,16 @@ extension SideMenuView: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.didSelectMenuItem(menuItemIndex: indexPath.row)
+    }
 }
 
 //MARK: - SideMenuView API
 extension SideMenuView: SideMenuViewApi {
     
-    func displayMenuItems(menuItems: [MenuItem], separatorsAfter: [Int]?) {
+    func displayMenuItems(menuItems: [SideBarMenuItem], separatorsAfter: [Int]?) {
 
         self.menuItems = menuItems
         self.separatorsAfter = separatorsAfter

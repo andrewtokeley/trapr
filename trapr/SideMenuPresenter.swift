@@ -12,13 +12,18 @@ import Viperit
 // MARK: - SideMenuPresenter Class
 final class SideMenuPresenter: Presenter {
     
-    fileprivate var menuItems = [MenuItem]()
+    fileprivate var delegate: SideMenuDelegate?
+    fileprivate var menuItems = [SideBarMenuItem]()
     fileprivate var separatorsAfter: [Int]?
     
-    override func viewIsAboutToAppear() {
+    override func setupView(data: Any) {
+        
+        if let setupData = data as? SideMenuSetupData {
+            delegate = setupData.delegate
+        }
         
         // Get the menu items for this user context
-        self.menuItems = [MenuItem.Home, MenuItem.Map, MenuItem.Settings, MenuItem.Sync]
+        self.menuItems = [SideBarMenuItem.Home, SideBarMenuItem.Map, SideBarMenuItem.Settings, SideBarMenuItem.Sync]
         self.separatorsAfter = [1, 2]
         
         view.displayMenuItems(menuItems: self.menuItems, separatorsAfter: self.separatorsAfter)
@@ -31,13 +36,20 @@ final class SideMenuPresenter: Presenter {
 extension SideMenuPresenter: SideMenuPresenterApi {
     
     func didSelectMenuItem(menuItemIndex: Int) {
-        
+        if menuItems[menuItemIndex] == SideBarMenuItem.Settings {
+            view.hideSideBar(completion: {
+                () in
+                self.router.dismiss(completion: {
+                    self.delegate?.didSelectMenuItem(menu: .Settings)
+                })
+            })
+        }
     }
     
     func didSelectClose() {
         view.hideSideBar(completion: {
             () in
-            self._view.dismiss(animated: false, completion: nil)
+            self.router.dismiss(completion: nil)
         })
     }
 }
