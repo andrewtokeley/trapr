@@ -10,10 +10,16 @@ import UIKit
 import Viperit
 
 //MARK: ProfileView Class
-final class ProfileView: UserInterface {
+final class SettingsView: UserInterface {
     
     let TABLEVIEW_CELL_ID = "cell"
+    
+    let SECTION_USER =  0
     let ROW_TRAPPER_NAME = 0
+    
+    let SECTION_VERSIONS =  1
+    let ROW_APP_VERSION = 0
+    let ROW_REALM_VERSION = 1
     
     override func viewWillDisappear(_ animated: Bool) {
         
@@ -49,6 +55,22 @@ final class ProfileView: UserInterface {
         return cell
     }()
     
+    lazy var appVersionTableViewCell: UITableViewCell = {
+        
+        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: self.TABLEVIEW_CELL_ID)
+        cell.textLabel?.text = "App Version"
+        
+        return cell
+    }()
+
+    lazy var realmVersionTableViewCell: UITableViewCell = {
+        
+        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: self.TABLEVIEW_CELL_ID)
+        cell.textLabel?.text = "Realm Version"
+        
+        return cell
+    }()
+
     lazy var trapperNameTextField: UITextField = {
         
         let textField = UITextField()
@@ -71,6 +93,12 @@ final class ProfileView: UserInterface {
         self.view.backgroundColor = UIColor.trpBackground
         self.navigationItem.leftBarButtonItem = closeButton
         self.view.addSubview(tableView)
+        
+        // ensure the keyboard disappears when click view
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+
         setConstraints()
     }
     
@@ -81,40 +109,60 @@ final class ProfileView: UserInterface {
     //MARK: - Events
     
     func closeButtonClick(sender: UIBarButtonItem) {
+        
         presenter.didSelectClose()
     }
 }
 
 //MARK: - UITableView
 
-extension ProfileView: UITableViewDelegate, UITableViewDataSource {
+extension SettingsView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "PROFILE"
+        if section == SECTION_USER {
+            return "PROFILE"
+        } else if section == SECTION_VERSIONS {
+            return "VERSIONS"
+        }
+        return nil
     }
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return "Enter your name or nickname"
+        if section == SECTION_USER {
+            return "Your username is used when sending data to your controller"
+        }
+        return nil
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1 // just trapper name for now
+        if section == SECTION_USER {
+            return 1
+        } else if section == SECTION_VERSIONS {
+            return 2
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == ROW_TRAPPER_NAME {
+        if indexPath.section == SECTION_USER && indexPath.row == ROW_TRAPPER_NAME {
             return trapperNameTableViewCell
+        } else if indexPath.section == SECTION_VERSIONS {
+            if indexPath.row == ROW_APP_VERSION {
+                return self.appVersionTableViewCell
+            } else if indexPath.row == ROW_REALM_VERSION {
+                return self.realmVersionTableViewCell
+            }
         }
         return UITableViewCell()
     }
 }
 
 //MARK: - UITextField
-extension ProfileView: UITextFieldDelegate {
+extension SettingsView: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         presenter.didUpdateTrapperName(name: textField.text)
@@ -128,27 +176,35 @@ extension ProfileView: UITextFieldDelegate {
 
 
 //MARK: - ProfileView API
-extension ProfileView: ProfileViewApi {
+extension SettingsView: SettingsViewApi {
     
     func setTitle(title: String?) {
         self.title = title
     }
     
-    func displayTrapperName(name: String) {
+    func displayTrapperName(name: String?) {
         trapperNameTextField.text = name
     }
     
     func setFocusToRouteName() {
         trapperNameTextField.becomeFirstResponder()
     }
+    
+    func displayAppVersion(version: String) {
+        self.appVersionTableViewCell.detailTextLabel?.text = version
+    }
+    
+    func displayRealmVersion(version: String) {
+        self.realmVersionTableViewCell.detailTextLabel?.text = version
+    }
 }
 
 // MARK: - ProfileView Viper Components API
-private extension ProfileView {
-    var presenter: ProfilePresenterApi {
-        return _presenter as! ProfilePresenterApi
+private extension SettingsView {
+    var presenter: SettingsPresenterApi {
+        return _presenter as! SettingsPresenterApi
     }
-    var displayData: ProfileDisplayData {
-        return _displayData as! ProfileDisplayData
+    var displayData: SettingsDisplayData {
+        return _displayData as! SettingsDisplayData
     }
 }

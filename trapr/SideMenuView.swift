@@ -39,6 +39,8 @@ final class SideMenuView: UserInterface {
     lazy var sideBar: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.white
+        
+        // offset so it's not visible
         view.frame.origin.x = -self.sideBarWidth
         
         view.addSubview(self.headerBackground)
@@ -55,6 +57,12 @@ final class SideMenuView: UserInterface {
     lazy var headerBackground: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.trpNavigationBar
+        
+        let imageView = UIImageView(image: UIImage(named: "header_image"))
+        imageView.contentMode = .scaleAspectFill
+        view.addSubview(imageView)
+        
+        imageView.autoPinEdgesToSuperviewEdges()
         return view
     }()
     
@@ -160,7 +168,6 @@ extension SideMenuView: SideMenuViewApi {
     }
     
     func showSideBar() {
-        
         UIView.animate(withDuration: ANIMATION_DURATION_SECS, animations: {
             self.backgroundMask.alpha = 0.3
             self.sideBar.frame.origin.x = 0
@@ -168,6 +175,7 @@ extension SideMenuView: SideMenuViewApi {
     }
     
     func hideSideBar(completion: (() -> Void)?) {
+        
         UIView.animate(withDuration: ANIMATION_DURATION_SECS, animations: {
             self.backgroundMask.alpha = 0
             self.sideBar.frame.origin.x = -self.sideBarWidth
@@ -176,9 +184,9 @@ extension SideMenuView: SideMenuViewApi {
         })
     }
     
-    func moveSideBar(positionX: CGFloat) {
-        self.sideBar.frame.origin.x = positionX
-    }
+//    func moveSideBar(positionX: CGFloat) {
+//        self.sideBar.frame.origin.x = positionX
+//    }
 }
 
 // MARK: - SideMenuView Viper Components API

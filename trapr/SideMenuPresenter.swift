@@ -16,6 +16,10 @@ final class SideMenuPresenter: Presenter {
     fileprivate var menuItems = [SideBarMenuItem]()
     fileprivate var separatorsAfter: [Int]?
     
+    override func viewIsAboutToAppear() {
+        view.showSideBar()
+    }
+    
     override func setupView(data: Any) {
         
         if let setupData = data as? SideMenuSetupData {
@@ -28,7 +32,6 @@ final class SideMenuPresenter: Presenter {
         
         view.displayMenuItems(menuItems: self.menuItems, separatorsAfter: self.separatorsAfter)
         
-        view.showSideBar()
     }
 }
 

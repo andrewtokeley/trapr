@@ -8,6 +8,7 @@
 
 import Foundation
 
-protocol ProfileServiceInterface: RealmServiceInterface {
-    func addOrUpdate(profile: Profile) 
+protocol SettingsServiceInterface: RealmServiceInterface {
+    func getSettings() -> Settings
+    func addOrUpdate(settings: Settings)
 }

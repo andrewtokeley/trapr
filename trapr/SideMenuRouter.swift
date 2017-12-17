@@ -18,7 +18,7 @@ final class SideMenuRouter: Router {
 extension SideMenuRouter: SideMenuRouterApi {
     func showModule(menuItem: SideBarMenuItem) {
         if menuItem == .Settings {
-            let module = AppModules.profile.build()
+            let module = AppModules.settings.build()
             if let presentingViewController = _view.presentingViewController {
                 module.router.show(from: presentingViewController, embedInNavController: true, setupData: nil)
             }

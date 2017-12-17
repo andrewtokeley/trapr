@@ -146,6 +146,7 @@ final class VisitLogView: UserInterface {
         sections = ["", "CATCH", "BAIT", "COMMENTS"]
         visibleSections = [0, 1, 2, 3]
         
+        // ensure the keyboard disappears when click view
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)

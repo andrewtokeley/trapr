@@ -10,16 +10,16 @@ import Foundation
 import Viperit
 
 // MARK: - ProfileRouter class
-final class ProfileRouter: Router {
+final class SettingsRouter: Router {
 }
 
 // MARK: - ProfileRouter API
-extension ProfileRouter: ProfileRouterApi {
+extension SettingsRouter: SettingsRouterApi {
 }
 
 // MARK: - Profile Viper Components
-private extension ProfileRouter {
-    var presenter: ProfilePresenterApi {
-        return _presenter as! ProfilePresenterApi
+private extension SettingsRouter {
+    var presenter: SettingsPresenterApi {
+        return _presenter as! SettingsPresenterApi
     }
 }

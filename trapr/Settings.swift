@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class Profile: Object {
+class Settings: Object {
 
     // Primary key
     dynamic var id: String = UUID().uuidString
@@ -18,5 +18,11 @@ class Profile: Object {
     }
     
     // Full name of the trapper using the app on device
-    dynamic var name: String? = nil
+    dynamic var username: String?
+    
+    // Version of app
+    dynamic var appVersion: String?
+    
+    // Version of Realm database
+    dynamic var realmVersion: String?
 }

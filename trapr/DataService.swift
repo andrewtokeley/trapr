@@ -11,6 +11,9 @@ import Foundation
 import Foundation
 import RealmSwift
 
+/**
+ Enumeration that holds the file names of the realm instances
+*/
 public enum DataFiles: String {
     case testFile = "traprTestRealm.realm"
     case productionFile = "traprRealm.realm"
@@ -20,7 +23,7 @@ class DataService {
     
     static let sharedInstance = DataService()
     
-    private let CURRENT_SCHEMA_VERSION:UInt64 = 20
+    private let CURRENT_SCHEMA_VERSION:UInt64 = 21
     
     private var documentDirectory: URL {
         let url = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
@@ -37,7 +40,7 @@ class DataService {
     }()
 
     lazy var realmTestInstance: Realm = {
-
+        
         self.configuration.fileURL = self.documentDirectory
             .appendingPathComponent(DataFiles.testFile.rawValue)
         

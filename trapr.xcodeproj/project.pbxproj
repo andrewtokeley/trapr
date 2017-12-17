@@ -22,17 +22,18 @@
 		D8039E311FABF6B9006E394B /* ListPickerSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8039E301FABF6B9006E394B /* ListPickerSetupData.swift */; };
 		D806C7EA1F9C881F0064C98F /* GroupedTableViewDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D806C7E91F9C881F0064C98F /* GroupedTableViewDatasource.swift */; };
 		D806C7EC1F9D95320064C98F /* GroupedTableViewDatasourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D806C7EB1F9D95320064C98F /* GroupedTableViewDatasourceTests.swift */; };
-		D8083D141FE498F900D1C5F1 /* ProfileDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D0E1FE498F900D1C5F1 /* ProfileDisplayData.swift */; };
-		D8083D151FE498F900D1C5F1 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D0F1FE498F900D1C5F1 /* ProfilePresenter.swift */; };
-		D8083D161FE498F900D1C5F1 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D101FE498F900D1C5F1 /* ProfileRouter.swift */; };
-		D8083D171FE498F900D1C5F1 /* ProfileModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D111FE498F900D1C5F1 /* ProfileModuleApi.swift */; };
-		D8083D181FE498F900D1C5F1 /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D121FE498F900D1C5F1 /* ProfileInteractor.swift */; };
-		D8083D191FE498F900D1C5F1 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D131FE498F900D1C5F1 /* ProfileView.swift */; };
-		D8083D1B1FE49A4E00D1C5F1 /* ProfileServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D1A1FE49A4E00D1C5F1 /* ProfileServiceInterface.swift */; };
-		D8083D1D1FE49A7800D1C5F1 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D1C1FE49A7800D1C5F1 /* ProfileService.swift */; };
-		D8083D1F1FE49AB000D1C5F1 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D1E1FE49AB000D1C5F1 /* Profile.swift */; };
+		D8083D141FE498F900D1C5F1 /* SettingsDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D0E1FE498F900D1C5F1 /* SettingsDisplayData.swift */; };
+		D8083D151FE498F900D1C5F1 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D0F1FE498F900D1C5F1 /* SettingsPresenter.swift */; };
+		D8083D161FE498F900D1C5F1 /* SettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D101FE498F900D1C5F1 /* SettingsRouter.swift */; };
+		D8083D171FE498F900D1C5F1 /* SettingsModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D111FE498F900D1C5F1 /* SettingsModuleApi.swift */; };
+		D8083D181FE498F900D1C5F1 /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D121FE498F900D1C5F1 /* SettingsInteractor.swift */; };
+		D8083D191FE498F900D1C5F1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D131FE498F900D1C5F1 /* SettingsView.swift */; };
+		D8083D1B1FE49A4E00D1C5F1 /* SettingsServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D1A1FE49A4E00D1C5F1 /* SettingsServiceInterface.swift */; };
+		D8083D1D1FE49A7800D1C5F1 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D1C1FE49A7800D1C5F1 /* SettingsService.swift */; };
+		D8083D1F1FE49AB000D1C5F1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D1E1FE49AB000D1C5F1 /* Settings.swift */; };
 		D8083D211FE4E67D00D1C5F1 /* SideMenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D201FE4E67D00D1C5F1 /* SideMenuDelegate.swift */; };
 		D8083D231FE4E6E500D1C5F1 /* SideMenuSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D221FE4E6E500D1C5F1 /* SideMenuSetupData.swift */; };
+		D8083D251FE5C24300D1C5F1 /* header_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D8083D241FE5C24200D1C5F1 /* header_image.png */; };
 		D80B6DCB1F9F3DCD00F49E9E /* VisitLogDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B6DC51F9F3DCD00F49E9E /* VisitLogDisplayData.swift */; };
 		D80B6DCC1F9F3DCD00F49E9E /* VisitLogInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B6DC61F9F3DCD00F49E9E /* VisitLogInteractor.swift */; };
 		D80B6DCD1F9F3DCD00F49E9E /* VisitLogModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B6DC71F9F3DCD00F49E9E /* VisitLogModuleApi.swift */; };
@@ -237,17 +238,18 @@
 		D8039E301FABF6B9006E394B /* ListPickerSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPickerSetupData.swift; sourceTree = "<group>"; };
 		D806C7E91F9C881F0064C98F /* GroupedTableViewDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedTableViewDatasource.swift; sourceTree = "<group>"; };
 		D806C7EB1F9D95320064C98F /* GroupedTableViewDatasourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedTableViewDatasourceTests.swift; sourceTree = "<group>"; };
-		D8083D0E1FE498F900D1C5F1 /* ProfileDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDisplayData.swift; sourceTree = "<group>"; };
-		D8083D0F1FE498F900D1C5F1 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
-		D8083D101FE498F900D1C5F1 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
-		D8083D111FE498F900D1C5F1 /* ProfileModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModuleApi.swift; sourceTree = "<group>"; };
-		D8083D121FE498F900D1C5F1 /* ProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInteractor.swift; sourceTree = "<group>"; };
-		D8083D131FE498F900D1C5F1 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		D8083D1A1FE49A4E00D1C5F1 /* ProfileServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileServiceInterface.swift; sourceTree = "<group>"; };
-		D8083D1C1FE49A7800D1C5F1 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
-		D8083D1E1FE49AB000D1C5F1 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		D8083D0E1FE498F900D1C5F1 /* SettingsDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDisplayData.swift; sourceTree = "<group>"; };
+		D8083D0F1FE498F900D1C5F1 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
+		D8083D101FE498F900D1C5F1 /* SettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRouter.swift; sourceTree = "<group>"; };
+		D8083D111FE498F900D1C5F1 /* SettingsModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModuleApi.swift; sourceTree = "<group>"; };
+		D8083D121FE498F900D1C5F1 /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
+		D8083D131FE498F900D1C5F1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D8083D1A1FE49A4E00D1C5F1 /* SettingsServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsServiceInterface.swift; sourceTree = "<group>"; };
+		D8083D1C1FE49A7800D1C5F1 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
+		D8083D1E1FE49AB000D1C5F1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		D8083D201FE4E67D00D1C5F1 /* SideMenuDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuDelegate.swift; sourceTree = "<group>"; };
 		D8083D221FE4E6E500D1C5F1 /* SideMenuSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuSetupData.swift; sourceTree = "<group>"; };
+		D8083D241FE5C24200D1C5F1 /* header_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = header_image.png; sourceTree = "<group>"; };
 		D80B6DC51F9F3DCD00F49E9E /* VisitLogDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitLogDisplayData.swift; sourceTree = "<group>"; };
 		D80B6DC61F9F3DCD00F49E9E /* VisitLogInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitLogInteractor.swift; sourceTree = "<group>"; };
 		D80B6DC71F9F3DCD00F49E9E /* VisitLogModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitLogModuleApi.swift; sourceTree = "<group>"; };
@@ -411,7 +413,7 @@
 		D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitSummary.swift; sourceTree = "<group>"; };
 		D8D729E11F61D7D30082CD4A /* VisitCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitCollectionViewCell.swift; sourceTree = "<group>"; };
 		D8D729E31F61D91C0082CD4A /* VisitCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitCollectionViewCell.xib; sourceTree = "<group>"; };
-		D8D729E51F64BD580082CD4A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		D8D729E51F64BD580082CD4A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D8D79AA61FC3F0CD008AC5C1 /* RouteDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDisplayData.swift; sourceTree = "<group>"; };
 		D8D79AA71FC3F0CD008AC5C1 /* RoutePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePresenter.swift; sourceTree = "<group>"; };
 		D8D79AA81FC3F0CD008AC5C1 /* RouteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRouter.swift; sourceTree = "<group>"; };
@@ -480,17 +482,17 @@
 			name = Viper;
 			sourceTree = "<group>";
 		};
-		D8083D0D1FE498D400D1C5F1 /* Profile */ = {
+		D8083D0D1FE498D400D1C5F1 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				D8083D0E1FE498F900D1C5F1 /* ProfileDisplayData.swift */,
-				D8083D0F1FE498F900D1C5F1 /* ProfilePresenter.swift */,
-				D8083D101FE498F900D1C5F1 /* ProfileRouter.swift */,
-				D8083D111FE498F900D1C5F1 /* ProfileModuleApi.swift */,
-				D8083D121FE498F900D1C5F1 /* ProfileInteractor.swift */,
-				D8083D131FE498F900D1C5F1 /* ProfileView.swift */,
+				D8083D0E1FE498F900D1C5F1 /* SettingsDisplayData.swift */,
+				D8083D0F1FE498F900D1C5F1 /* SettingsPresenter.swift */,
+				D8083D101FE498F900D1C5F1 /* SettingsRouter.swift */,
+				D8083D111FE498F900D1C5F1 /* SettingsModuleApi.swift */,
+				D8083D121FE498F900D1C5F1 /* SettingsInteractor.swift */,
+				D8083D131FE498F900D1C5F1 /* SettingsView.swift */,
 			);
-			name = Profile;
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		D80B6DC41F9F3D9200F49E9E /* VisitLog */ = {
@@ -530,20 +532,18 @@
 		D81DAAED1F68641E00C7C987 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				D8D1A0451FAF12F600926CEF /* Lookups */,
-				D8B57FEA1FD76E3E003437D9 /* Import */,
 				D89714A71F76202E00E846B9 /* ApplicationService.swift */,
 				D89714A51F76200B00E846B9 /* ApplicationServiceInterface.swift */,
 				D80F7ED21F6E87D500814A52 /* DataPopulatorService.swift */,
 				D89714A91F7751B300E846B9 /* DataPopulatorServiceInterface.swift */,
 				D897149F1F70CFB800E846B9 /* DataService.swift */,
-				D8083D1C1FE49A7800D1C5F1 /* ProfileService.swift */,
-				D8083D1A1FE49A4E00D1C5F1 /* ProfileServiceInterface.swift */,
 				D89714A31F76197C00E846B9 /* RealmService.swift */,
 				D8E86B3D1FACF95B003BFD54 /* RealmServiceInterface.swift */,
 				D849B6211F96C91100CE2085 /* RouteService.swift */,
 				D849B61F1F96C8E100CE2085 /* RouteServiceInterface.swift */,
 				D81DAAF61F686EA800C7C987 /* ServiceFactory.swift */,
+				D8083D1C1FE49A7800D1C5F1 /* SettingsService.swift */,
+				D8083D1A1FE49A4E00D1C5F1 /* SettingsServiceInterface.swift */,
 				D89A20DC1FDC98DE00A813FB /* StationService.swift */,
 				D89A20DA1FDC98D200A813FB /* StationServiceInterface.swift */,
 				D80F7ECF1F6E7A9300814A52 /* TraplineService.swift */,
@@ -551,6 +551,8 @@
 				D80F7ED81F6E92C700814A52 /* TrapServiceInterface.swift */,
 				D81DAAEE1F68643400C7C987 /* VisitService.swift */,
 				D81DAAF21F68659100C7C987 /* VisitServiceInterface.swift */,
+				D8B57FEA1FD76E3E003437D9 /* Import */,
+				D8D1A0451FAF12F600926CEF /* Lookups */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -608,7 +610,7 @@
 				D8D1A0461FAF16B000926CEF /* LookupObject.swift */,
 				D8C8A1ED1FCCBA070075E44E /* TrapOperatingStatus.swift */,
 				D8C8A1EF1FCCBAB90075E44E /* TrapSetStatus.swift */,
-				D8083D1E1FE49AB000D1C5F1 /* Profile.swift */,
+				D8083D1E1FE49AB000D1C5F1 /* Settings.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -791,20 +793,20 @@
 		D8B94D7D1F5EA67300D373EF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				D8083D0D1FE498D400D1C5F1 /* Profile */,
-				D873C8721FC9244B00F581D8 /* TableViewHeaders */,
+				D806C7E91F9C881F0064C98F /* GroupedTableViewDatasource.swift */,
+				D81431A81F8DDB2E00EAF5FD /* DatePicker */,
+				D8039E1E1FABF428006E394B /* ListPicker */,
+				D8953EB51F88110900A1F424 /* NewVisit */,
 				D8B138B31FC3EA740093E809 /* Route */,
 				D879269B1FB58E7800240767 /* SectionStrip */,
-				D8039E1E1FABF428006E394B /* ListPicker */,
+				D8083D0D1FE498D400D1C5F1 /* Settings */,
 				D87C44FC1F9059B900CAFC7A /* SideMenu */,
-				D81431A81F8DDB2E00EAF5FD /* DatePicker */,
-				D8953EB51F88110900A1F424 /* NewVisit */,
-				D89311F81F834F44008DF09D /* StationSelect */,
-				D841CF1F1F82398D004D0207 /* TrapSelect */,
 				D83DC6BF1F7F83D200F91792 /* Start */,
+				D89311F81F834F44008DF09D /* StationSelect */,
+				D873C8721FC9244B00F581D8 /* TableViewHeaders */,
+				D841CF1F1F82398D004D0207 /* TrapSelect */,
 				D857B39D1F81B7D8006E1402 /* Visit */,
 				D80B6DC41F9F3D9200F49E9E /* VisitLog */,
-				D806C7E91F9C881F0064C98F /* GroupedTableViewDatasource.swift */,
 			);
 			name = Modules;
 			sourceTree = "<group>";
@@ -812,6 +814,7 @@
 		D8B94D991F5F28F200D373EF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D8083D241FE5C24200D1C5F1 /* header_image.png */,
 				D8C8A1F61FCE1C4F0075E44E /* doc200.png */,
 				D8C8A1F51FCE1C4F0075E44E /* doc200@2x.png */,
 				D8C8A1E51FCBA6210075E44E /* envelope.png */,
@@ -889,6 +892,7 @@
 				D8B94D531F5EA1FE00D373EF /* Resources */,
 				E47BD7212A05A0F1A304270D /* [CP] Embed Pods Frameworks */,
 				3DCBCC59219F7C660155A775 /* [CP] Copy Pods Resources */,
+				D8083D261FE5D5D000D1C5F1 /* Increment Build Number */,
 			);
 			buildRules = (
 			);
@@ -984,6 +988,7 @@
 				D8B73C301F97F4D8000C231E /* possumMaster@2x.png in Resources */,
 				D89714C01F7A0C5D00E846B9 /* ImageCollectionViewCell.xib in Resources */,
 				D84CE45B1F987CC30000D422 /* pelifeed@2x.png in Resources */,
+				D8083D251FE5C24300D1C5F1 /* header_image.png in Resources */,
 				D83853041F66555700481B57 /* plus.png in Resources */,
 				D8B94D9D1F5F30CD00D373EF /* menu@2x.png in Resources */,
 				D8C8A1F21FCD10CB0075E44E /* CommentsTableViewCell.xib in Resources */,
@@ -1094,6 +1099,20 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-trapr/Pods-trapr-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D8083D261FE5D5D000D1C5F1 /* Increment Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Increment Build Number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
 		E47BD7212A05A0F1A304270D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1158,10 +1177,10 @@
 				D89312031F834F6F008DF09D /* StationSelectRouter.swift in Sources */,
 				D87C44F91F9059AF00CAFC7A /* SideMenuPresenter.swift in Sources */,
 				D873C8741FC9246F00F581D8 /* TableViewHeaderWithAction.swift in Sources */,
-				D8083D161FE498F900D1C5F1 /* ProfileRouter.swift in Sources */,
+				D8083D161FE498F900D1C5F1 /* SettingsRouter.swift in Sources */,
 				D857B3AA1F81B86A006E1402 /* VisitRouter.swift in Sources */,
-				D8083D151FE498F900D1C5F1 /* ProfilePresenter.swift in Sources */,
-				D8083D191FE498F900D1C5F1 /* ProfileView.swift in Sources */,
+				D8083D151FE498F900D1C5F1 /* SettingsPresenter.swift in Sources */,
+				D8083D191FE498F900D1C5F1 /* SettingsView.swift in Sources */,
 				D8C8A1F41FCD12900075E44E /* CommentsTableViewCell.swift in Sources */,
 				D830895A1FA189AC007C9316 /* StepperTableViewCell.swift in Sources */,
 				D80B6DCC1F9F3DCD00F49E9E /* VisitLogInteractor.swift in Sources */,
@@ -1170,7 +1189,7 @@
 				D8083D231FE4E6E500D1C5F1 /* SideMenuSetupData.swift in Sources */,
 				D81883791F6931C600A74B5E /* Species.swift in Sources */,
 				D86CE48C1F92C8EA004A09EF /* UIFontExtension.swift in Sources */,
-				D8083D141FE498F900D1C5F1 /* ProfileDisplayData.swift in Sources */,
+				D8083D141FE498F900D1C5F1 /* SettingsDisplayData.swift in Sources */,
 				D8D729DE1F61C9CC0082CD4A /* VisitSummary.swift in Sources */,
 				D80B6DCE1F9F3DCD00F49E9E /* VisitLogPresenter.swift in Sources */,
 				D81DAAF51F6865DB00C7C987 /* Trapline.swift in Sources */,
@@ -1204,7 +1223,7 @@
 				D8B57FF01FDA5582003437D9 /* importer_traplines_v1_to_v2.swift in Sources */,
 				D81431A71F8DDB2600EAF5FD /* DatePickerView.swift in Sources */,
 				D857B3A81F81B86A006E1402 /* VisitDisplayData.swift in Sources */,
-				D8083D1B1FE49A4E00D1C5F1 /* ProfileServiceInterface.swift in Sources */,
+				D8083D1B1FE49A4E00D1C5F1 /* SettingsServiceInterface.swift in Sources */,
 				D8D79AAF1FC3F0CD008AC5C1 /* RouteModuleApi.swift in Sources */,
 				D89A20DB1FDC98D200A813FB /* StationServiceInterface.swift in Sources */,
 				D8039E311FABF6B9006E394B /* ListPickerSetupData.swift in Sources */,
@@ -1218,10 +1237,10 @@
 				D8953EBD1F88114F00A1F424 /* NewVisitInteractor.swift in Sources */,
 				D8039E261FABF458006E394B /* ListPickerInteractor.swift in Sources */,
 				D87926981FB556B800240767 /* RouteCollectionViewCell.swift in Sources */,
-				D8083D171FE498F900D1C5F1 /* ProfileModuleApi.swift in Sources */,
+				D8083D171FE498F900D1C5F1 /* SettingsModuleApi.swift in Sources */,
 				D841CF291F8239CA004D0207 /* TraplineSelectPresenter.swift in Sources */,
 				D8039E291FABF458006E394B /* ListPickerRouter.swift in Sources */,
-				D8083D1D1FE49A7800D1C5F1 /* ProfileService.swift in Sources */,
+				D8083D1D1FE49A7800D1C5F1 /* SettingsService.swift in Sources */,
 				D83DC6C81F7F841F00F91792 /* StartDisplayData.swift in Sources */,
 				D8D79AAE1FC3F0CD008AC5C1 /* RouteRouter.swift in Sources */,
 				D8D79AAC1FC3F0CD008AC5C1 /* RouteDisplayData.swift in Sources */,
@@ -1257,8 +1276,8 @@
 				D8FA5CF81F8409A700EC890C /* StationSelectSetupData.swift in Sources */,
 				D81DAAF31F68659100C7C987 /* VisitServiceInterface.swift in Sources */,
 				D87C44FB1F9059AF00CAFC7A /* SideMenuView.swift in Sources */,
-				D8083D181FE498F900D1C5F1 /* ProfileInteractor.swift in Sources */,
-				D8083D1F1FE49AB000D1C5F1 /* Profile.swift in Sources */,
+				D8083D181FE498F900D1C5F1 /* SettingsInteractor.swift in Sources */,
+				D8083D1F1FE49AB000D1C5F1 /* Settings.swift in Sources */,
 				D8D1A0441FAF0DC300926CEF /* LureService.swift in Sources */,
 				D80BCD3D1F91D041005F30FF /* MenuItemView.swift in Sources */,
 				D81431AA1F8E020900EAF5FD /* DatePickerDisplayData.swift in Sources */,

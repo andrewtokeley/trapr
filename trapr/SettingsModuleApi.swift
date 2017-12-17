@@ -9,24 +9,26 @@
 import Viperit
 
 //MARK: - ProfileRouter API
-protocol ProfileRouterApi: RouterProtocol {
+protocol SettingsRouterApi: RouterProtocol {
 }
 
 //MARK: - ProfileView API
-protocol ProfileViewApi: UserInterfaceProtocol {
+protocol SettingsViewApi: UserInterfaceProtocol {
     func setTitle(title: String?)
-    func displayTrapperName(name: String)
+    func displayTrapperName(name: String?)
+    func displayAppVersion(version: String)
+    func displayRealmVersion(version: String)
     func setFocusToRouteName()
 }
 
 //MARK: - ProfilePresenter API
-protocol ProfilePresenterApi: PresenterProtocol {
+protocol SettingsPresenterApi: PresenterProtocol {
     func didSelectClose()
     func didUpdateTrapperName(name: String?)
 }
 
 //MARK: - ProfileInteractor API
-protocol ProfileInteractorApi: InteractorProtocol {
-    func saveProfile(profile: Profile)
-    func getProfile() -> Profile
+protocol SettingsInteractorApi: InteractorProtocol {
+    func saveSettings(settings: Settings)
+    func getSettings() -> Settings
 }

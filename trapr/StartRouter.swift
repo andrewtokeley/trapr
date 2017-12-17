@@ -52,7 +52,7 @@ extension StartRouter: StartRouterApi {
     }
     
     func showProfile() {
-        let module = AppModules.profile.build()
+        let module = AppModules.settings.build()
         module.router.show(from: _view, embedInNavController: true, setupData: nil)
     }
 }

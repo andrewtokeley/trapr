@@ -10,6 +10,6 @@ import Foundation
 import Viperit
 
 // MARK: - ProfileDisplayData class
-final class ProfileDisplayData: DisplayData {
+final class SettingsDisplayData: DisplayData {
     
 }
