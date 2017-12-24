@@ -23,7 +23,7 @@ class DataService {
     
     static let sharedInstance = DataService()
     
-    private let CURRENT_SCHEMA_VERSION:UInt64 = 21
+    private let CURRENT_SCHEMA_VERSION:UInt64 = 24
     
     private var documentDirectory: URL {
         let url = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
@@ -164,11 +164,12 @@ class DataService {
                 }
                 if (oldSchemaVersion < 10) {
                     // Route model get an Id column
-                    migration.enumerateObjects(ofType: Route.className()) { oldObject, newObject in
+                migration.enumerateObjects(ofType: Route.className()) { oldObject, newObject in
                         // add a primary key value
                         newObject!["id"] = UUID().uuidString
                     }
                 }
+                
                 if (oldSchemaVersion < self.CURRENT_SCHEMA_VERSION) {
                 }
         })

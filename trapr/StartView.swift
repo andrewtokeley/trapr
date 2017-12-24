@@ -31,8 +31,7 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
     lazy var routesSection: SectionStripView = {
         let view = Bundle.main.loadNibNamed("SectionStripView", owner: nil, options: nil)?.first as! SectionStripView
         view.tag = self.SECTIONSTRIP_ROUTES
-        //view.titleLabel.font = UIFont.trpLabelLarge
-        view.backgroundColor = UIColor.clear
+        view.backgroundColor = UIColor.trpSectionStrip //UIColor.clear
         view.delegate = self
         return view
     }()
@@ -40,8 +39,7 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
     lazy var recentVisitsSection: SectionStripView = {
         let view = Bundle.main.loadNibNamed("SectionStripView", owner: nil, options: nil)?.first as! SectionStripView
         view.tag = self.SECTIONSTRIP_RECENT_VISITS
-        //view.titleLabel.font = UIFont.trpLabelLarge
-        view.backgroundColor = UIColor.clear
+        view.backgroundColor = UIColor.trpSectionStrip //UIColor.clear
         view.delegate = self
         return view
     }()
@@ -76,7 +74,7 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 160, height: 120)
+        layout.itemSize = CGSize(width: 160, height: 100)
         layout.sectionInset = UIEdgeInsetsMake(0, LayoutDimensions.spacingMargin, 0, LayoutDimensions.spacingMargin)
         layout.footerReferenceSize = CGSize.zero
         layout.headerReferenceSize = CGSize.zero
@@ -124,7 +122,18 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
         if let route = routes?[indexPath.row] {
             cell.routeNameLabel?.text = route.name
             cell.routeTrapLinesLabel?.text = route.shortDescription
-            cell.daysSinceLastVisitLabel?.text = "20 days"
+            
+            if let days = ServiceFactory.sharedInstance.routeService.daysSinceLastVisit(route: route) {
+                if days == 0 {
+                    cell.daysSinceLastVisitLabel?.text = "Today"
+                } else if days == 1 {
+                    cell.daysSinceLastVisitLabel?.text = "Yesterday"
+                } else {
+                    cell.daysSinceLastVisitLabel?.text = "\(days) days"
+                }
+            } else {
+                cell.daysSinceLastVisitLabel?.text = "Not visited"
+            }
         }
         return cell
     }
@@ -136,7 +145,7 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
         }
     }
     
-    //MARK: UIViewController
+    //MARK: - UIViewController
     
     override func viewDidLoad() {
         print("Start viewload")
@@ -150,33 +159,33 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
         self.navigationItem.leftBarButtonItem = self.menuButtonItem
         self.view.addSubview(routesCollectionView)
         self.view.addSubview(routesSection)
-//        self.view.addSubview(recentVisitsSection)
-//        self.view.addSubview(recentVisitsTableView)
+        self.view.addSubview(recentVisitsSection)
+        self.view.addSubview(recentVisitsTableView)
         
         self.setConstraints()
     }
     
     func setConstraints() {
         
-        self.routesSection.autoPin(toTopLayoutGuideOf: self, withInset: LayoutDimensions.spacingMargin)
-        self.routesSection.autoPinEdge(toSuperviewEdge: .left)
-        self.routesSection.autoPinEdge(toSuperviewEdge: .right)
+        self.routesSection.autoPin(toTopLayoutGuideOf: self, withInset: LayoutDimensions.smallSpacingMargin)
+        self.routesSection.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
+        self.routesSection.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
         self.routesSection.autoSetDimension(.height, toSize: 40)
 
-        routesCollectionView.autoPinEdge(.top, to: .bottom, of: routesSection, withOffset: LayoutDimensions.spacingMargin)
-        routesCollectionView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
-        routesCollectionView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
+        routesCollectionView.autoPinEdge(.top, to: .bottom, of: routesSection, withOffset: LayoutDimensions.smallSpacingMargin)
+        routesCollectionView.autoPinEdge(toSuperviewEdge: .left, withInset: -LayoutDimensions.smallSpacingMargin)
+        routesCollectionView.autoPinEdge(toSuperviewEdge: .right, withInset: -LayoutDimensions.smallSpacingMargin)
         routesCollectionView.autoSetDimension(.height, toSize: 120)
         
-//        self.recentVisitsSection.autoPinEdge(.top, to: .bottom, of: routesCollectionView, withOffset: LayoutDimensions.spacingMargin)
-//        self.recentVisitsSection.autoPinEdge(toSuperviewEdge: .left)
-//        self.recentVisitsSection.autoPinEdge(toSuperviewEdge: .right)
-//        self.recentVisitsSection.autoSetDimension(.height, toSize: 40)
-//        
-//        self.recentVisitsTableView.autoPinEdge(.top, to: .bottom, of: self.recentVisitsSection, withOffset: LayoutDimensions.spacingMargin)
-//        self.recentVisitsTableView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
-//        self.recentVisitsTableView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
-//        self.recentVisitsTableView.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
+        self.recentVisitsSection.autoPinEdge(.top, to: .bottom, of: routesCollectionView, withOffset: LayoutDimensions.smallSpacingMargin)
+        self.recentVisitsSection.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
+        self.recentVisitsSection.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
+        self.recentVisitsSection.autoSetDimension(.height, toSize: 40)
+        
+        self.recentVisitsTableView.autoPinEdge(.top, to: .bottom, of: self.recentVisitsSection, withOffset: 0)
+        self.recentVisitsTableView.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.smallSpacingMargin)
+        self.recentVisitsTableView.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.smallSpacingMargin)
+        self.recentVisitsTableView.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
     }
 }
 
@@ -184,40 +193,67 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
 extension StartView: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return self.visitSummaries?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.visitSummaries?.count ?? 0
-    }
-
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = Bundle.main.loadNibNamed("VisitSummaryTableViewHeader", owner: nil, options: nil)?.first as! UIView
-        return view
-        
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.TABLEVIEW_CELL_RECENT_VISITS, for: indexPath) as! VisitSummaryTableViewCell
         
-        if let visit = self.visitSummaries?[indexPath.row] {
-            cell.date.text = visit.dateOfVisit.toString(from: "dd MMM yyyy")
-            cell.killCount.text = String(visit.totalKills)
-            cell.poisonCount.text = String(visit.totalPoisonAdded)
-            cell.routeNameButton.setTitle(visit.route.name, for: .normal)
-        }
+        if let visit = self.visitSummaries?[indexPath.section] {
+            cell.dateLabel.text = visit.dateOfVisit.toString(from: "dd MMM yyyy")
+            cell.routeNameLabel.text = visit.route.name
             
+            var stats = [Statistic]()
+            stats.append(Statistic(title: "POISON", statistic: String(visit.totalPoisonAdded), variance: -5.0))
+            
+            for kills in visit.totalKillsBySpecies {
+                stats.append(Statistic(title: kills.key, statistic: String(kills.value), variance: -5.0))
+            }
+            
+            cell.statistics = stats
+            
+        }
+        cell.accessoryType = .disclosureIndicator
+        cell.selectionStyle = .none
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let summary = self.visitSummaries?[indexPath.row] {
+        if let summary = self.visitSummaries?[indexPath.section] {
             presenter.didSelectVisitSummary(visitSummary: summary)
         }
     }
     
+    // Make the background color show through
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let height = self.tableView(tableView, heightForHeaderInSection: section)
+        let view = UIView(frame: CGRect(x: 0, y: 0, width:  self.view.frame.size.width, height: height))
+        //view.backgroundColor = UIColor.red
+        return view
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let height = self.tableView(tableView, heightForFooterInSection: section)
+        let view = UIView(frame: CGRect(x: 0, y: 0, width:  self.view.frame.size.width, height: height))
+        //view.backgroundColor = UIColor.clear
+        return view
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return section == 0 ? LayoutDimensions.smallSpacingMargin : 0.01
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return LayoutDimensions.smallSpacingMargin
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 65
+        return 140
     }
 }
 

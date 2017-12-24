@@ -27,8 +27,26 @@ final class VisitLogPresenter: Presenter {
     }
     
     func updateViewForCurrentVisit() {
-        if self.currentVisit != nil {
-            view.displayVisit(visit: self.currentVisit!, showCatchSection: self.currentVisit?.trap?.type?.killMethod == .direct)
+        if let visit = self.currentVisit {
+            
+            if let trap = visit.trap {
+                if let killMethod = trap.type?.killMethod {
+                
+                    view.displayVisit(visit: visit, showCatchSection: killMethod == .direct)
+                    
+                    // if this is a poison trap then display balance of lures
+                    if trap.type!.code == TrapTypeCode.pellibait.rawValue {
+                        
+                        // get the balance from the day before the visit (assumes only one visit per day)
+                        let balance = ServiceFactory.sharedInstance.trapService.getLureBalance(trap: trap, asAtDate: visit.visitDateTime.add(-1, 0, 0))
+                        
+                        let message = "Before this visit, the balance was \(balance)"
+                        view.displayLureBalanceMessage(message: message)
+                    } else {
+                        view.displayLureBalanceMessage(message: "")
+                    }
+                }
+            }
         }
     }
 }

@@ -35,6 +35,20 @@ class VisitSummary {
         return count
     }
     
+    var totalKillsBySpecies: [String: Int] {
+        var counts = [String: Int]()
+        for visit in visits {
+            if let name = visit.catchSpecies?.name {
+                if let _ = counts[name] {
+                    counts[name]! += 1
+                } else {
+                    counts[name] = 1
+                }
+            }
+        }
+        return counts
+    }
+    
     var totalKills: Int {
         var count = 0
         for visit in visits {

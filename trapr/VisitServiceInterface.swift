@@ -49,6 +49,7 @@ protocol VisitServiceInterface: RealmServiceInterface {
     func getVisits(recordedBetween dateStart: Date, dateEnd: Date) -> Results<Visit>
     func getVisits(recordedBetween dateStart: Date, dateEnd: Date, route: Route) -> Results<Visit>
     func getVisits(recordedBetween dateStart: Date, dateEnd: Date, route: Route, trap: Trap) -> Results<Visit>
+    func getVisits(recordedBetween dateStart: Date, dateEnd: Date, trap: Trap) -> Results<Visit>
     
     /**
      Get a summary of the visits recorded on the specified day

@@ -63,7 +63,7 @@ class Station: Object {
     func addTrap(type: TrapType) -> Trap {
         let trap = Trap()
         trap.type = type
-        trap.station = self
+        //trap.station = self
         traps.append(trap)
         return trap
     }

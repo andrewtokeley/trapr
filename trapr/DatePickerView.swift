@@ -57,7 +57,7 @@ final class DatePickerView: UserInterface {
     
     lazy var heading: UILabel = {
         let label = UILabel()
-        label.font = UIFont.trpLabel
+        label.font = UIFont.trpLabelNormal
         label.textColor = UIColor.black
         label.textAlignment = .center
         label.backgroundColor = UIColor.clear

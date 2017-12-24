@@ -20,7 +20,7 @@ class traplineTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        print("DELETE ALL")
+        
         ServiceFactory.sharedInstance.dataPopulatorService.deleteAllTestData()
     }
     
@@ -31,7 +31,7 @@ class traplineTests: XCTestCase {
     }
     
     func testNewTrapline() {
-        print("START testNewTrapline")
+        
         let trapline = Trapline()
         trapline.code = "LW"
         trapline.details = "details"
@@ -44,7 +44,7 @@ class traplineTests: XCTestCase {
     }
     
     func testNewTraplines() {
-        print("START testNewTraplines")
+        
         for i in 1...10 {
             let trapline = Trapline()
             trapline.code = "LW\(String(i))"
@@ -57,7 +57,7 @@ class traplineTests: XCTestCase {
     }
     
     func testAddingTrapStations() {
-        print("START testAddingTrapStations")
+        
         let trapline = Trapline()
         trapline.code = "LW"
         traplineService.add(trapline: trapline)
@@ -74,7 +74,6 @@ class traplineTests: XCTestCase {
     }
     
     func testFindTrapline() {
-        print("START testFindTrapline")
         
         let trapline1 = Trapline()
         trapline1.code = "LW"

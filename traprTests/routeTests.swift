@@ -61,5 +61,40 @@ class RouteTests: XCTestCase {
         XCTAssertTrue(route.stations.last!.longCode == "AA02", "Expected AA02 was \(route.stations.last!.longCode)")
     }
     
+    func testNumberOfDaysNoVisits() {
+        let traplineLW = dataPopulatorService.createTrapline(code: "LW", numberOfStations: 3)
+        let route = Route(name: "TestRoute", stations: Array(traplineLW.stations))
+        
+        let numberOfDays = ServiceFactory.sharedInstance.routeService.daysSinceLastVisit(route: route)
+        
+        XCTAssertNil(numberOfDays)
+        
+        
+    }
     
+    func testNumberOfDaysVisitedToday() {
+        let traplineLW = dataPopulatorService.createTrapline(code: "LW", numberOfStations: 3)
+        let route = Route(name: "TestRoute", stations: Array(traplineLW.stations))
+        
+        // create a visit for today
+        let visit = Visit(date: Date(), route: route, trap: route.traplines[0].stations[0].traps[0])
+        ServiceFactory.sharedInstance.visitService.add(visit: visit)
+        
+        let numberOfDays = ServiceFactory.sharedInstance.routeService.daysSinceLastVisit(route: route)
+        
+        XCTAssertTrue(numberOfDays == 0, "Expected 0, result \(numberOfDays)")
+    }
+    
+    func testNumberOfDaysVisitedYesterday() {
+        let traplineLW = dataPopulatorService.createTrapline(code: "LW", numberOfStations: 3)
+        let route = Route(name: "TestRoute", stations: Array(traplineLW.stations))
+        
+        // create a visit for today
+        let visit = Visit(date: Date().add(-1, 0, 0), route: route, trap: route.traplines[0].stations[0].traps[0])
+        ServiceFactory.sharedInstance.visitService.add(visit: visit)
+        
+        let numberOfDays = ServiceFactory.sharedInstance.routeService.daysSinceLastVisit(route: route)
+        
+        XCTAssertTrue(numberOfDays == 1, "Expected 1, result \(numberOfDays)")
+    }
 }

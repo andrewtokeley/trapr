@@ -25,6 +25,7 @@ protocol SettingsViewApi: UserInterfaceProtocol {
 protocol SettingsPresenterApi: PresenterProtocol {
     func didSelectClose()
     func didUpdateTrapperName(name: String?)
+    func mergeWithTrapData()
 }
 
 //MARK: - ProfileInteractor API

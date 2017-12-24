@@ -53,7 +53,7 @@ final class VisitView: UserInterface {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 110, height: 30))
         
         let label = UILabel()
-        label.font = UIFont.trpLabelLarge
+        label.font = UIFont.trpLabelBoldLarge
         label.textColor = UIColor.trpTextDark
         label.textAlignment = .center
         label.tag = self.CAROUSEL_STATIONS_LABEL_TAG
@@ -90,7 +90,7 @@ final class VisitView: UserInterface {
         image.tag = self.CAROUSEL_TRAPS_IMAGE_TAG
         
         let label = UILabel()
-        label.font = UIFont.trpTextSmall
+        label.font = UIFont.trpLabelSmall
         label.textAlignment = .center
         label.numberOfLines = 0
         label.tag = self.CAROUSEL_TRAPS_LABEL_TAG
@@ -156,7 +156,7 @@ final class VisitView: UserInterface {
         label.textColor = UIColor.trpNavigationBarTint
         label.isUserInteractionEnabled = true
         label.textAlignment = .center
-        label.font = UIFont.trpText
+        label.font = UIFont.trpLabelNormal
         
         return label
     }()
@@ -166,7 +166,7 @@ final class VisitView: UserInterface {
         label.textColor = UIColor.trpNavigationBarTint
         label.isUserInteractionEnabled = true
         label.textAlignment = .center
-        label.font = UIFont.trpTextSmall
+        label.font = UIFont.trpLabelSmall
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dateTap(sender:)))
         label.addGestureRecognizer(tapGesture)

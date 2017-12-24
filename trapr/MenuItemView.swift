@@ -70,7 +70,7 @@ class MenuItemView: UIView {
     lazy var label: UILabel = {
         
         let label = UILabel()
-        label.font = UIFont.trpLabel
+        label.font = UIFont.trpLabelNormal
         label.textColor = UIColor.trpTextDark
         label.textAlignment = .left
         label.backgroundColor = UIColor.clear

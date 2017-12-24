@@ -19,10 +19,14 @@ class TraplineService: RealmService, TraplineServiceInterface {
     
     func addStation(trapline: Trapline, station: Station) {
         try! realm.write {
+            
+            // only add the station to the trapline if it's not there already
             if !trapline.stations.contains(where: { $0.code == station.code }) {
+                
+                // add the station to the trapline
                 trapline.stations.append(station)
                 
-                // update the trapline
+                // save the upated trapline
                 realm.add(trapline, update: true)
             } else {
                 // nothing to do as this station already exists.

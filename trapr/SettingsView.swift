@@ -21,9 +21,9 @@ final class SettingsView: UserInterface {
     let ROW_APP_VERSION = 0
     let ROW_REALM_VERSION = 1
     
-    override func viewWillDisappear(_ animated: Bool) {
-        
-    }
+    let SECTION_TESTING =  2
+    let ROW_MERGE_TRAP_DATA = 0
+    
     //MARK: - Subviews
     
     lazy var closeButton: UIBarButtonItem = {
@@ -84,6 +84,27 @@ final class SettingsView: UserInterface {
         return textField
     }()
     
+    lazy var mergeWithTrapDataButton: UIButton = {
+        
+        let button = UIButton(type: UIButtonType.custom)
+        button.setTitle("Merge", for: .normal)
+        button.addTarget(self, action: #selector(mergeButtonClick(sender:)), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var mergeWithTrapDataTableViewCell: UITableViewCell = {
+        
+        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: self.TABLEVIEW_CELL_ID)
+        
+        cell.contentView.addSubview(self.mergeWithTrapDataButton)
+        cell.detailTextLabel?.text = "Merge current trap data with embedded file."
+        
+        self.mergeWithTrapDataButton.autoPinEdgesToSuperviewEdges()
+        self.mergeWithTrapDataButton.autoSetDimension(.height, toSize: LayoutDimensions.tableCellHeight)
+        
+        return cell
+    }()
+    
     // MARK: - UIViewController
     
     override func loadView() {
@@ -112,6 +133,10 @@ final class SettingsView: UserInterface {
         
         presenter.didSelectClose()
     }
+    
+    func mergeButtonClick(sender: UIButton) {
+        presenter.mergeWithTrapData()
+    }
 }
 
 //MARK: - UITableView
@@ -123,6 +148,8 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
             return "PROFILE"
         } else if section == SECTION_VERSIONS {
             return "VERSIONS"
+        } else if section == SECTION_TESTING {
+            return "TESTING"
         }
         return nil
     }
@@ -130,12 +157,14 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == SECTION_USER {
             return "Your username is used when sending data to your controller"
+        } else if section == SECTION_TESTING {
+            return "This is for testing purposes only - probably wouldn't click it unless you know what you're doing"
         }
         return nil
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -143,19 +172,27 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
             return 1
         } else if section == SECTION_VERSIONS {
             return 2
+        } else if section == SECTION_TESTING {
+            return 1
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == SECTION_USER && indexPath.row == ROW_TRAPPER_NAME {
+        
+        let section = indexPath.section
+        let row = indexPath.row
+        
+        if section == SECTION_USER && row == ROW_TRAPPER_NAME {
             return trapperNameTableViewCell
-        } else if indexPath.section == SECTION_VERSIONS {
-            if indexPath.row == ROW_APP_VERSION {
+        } else if section == SECTION_VERSIONS {
+            if row == ROW_APP_VERSION {
                 return self.appVersionTableViewCell
             } else if indexPath.row == ROW_REALM_VERSION {
                 return self.realmVersionTableViewCell
             }
+        } else if indexPath.section == SECTION_TESTING && row == ROW_MERGE_TRAP_DATA {
+            return self.mergeWithTrapDataTableViewCell
         }
         return UITableViewCell()
     }

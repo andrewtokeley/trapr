@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="StatisticView" customModule="trapr" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="90" height="85"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="POISON" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vwY-Kx-PqD">
+                    <rect key="frame" x="0.0" y="5" width="87" height="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+15%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NXL-d3-t9V">
+                    <rect key="frame" x="0.0" y="54" width="87" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.25098040700000002" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahD-fz-VPi">
+                    <rect key="frame" x="0.0" y="25" width="87" height="29"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Jl-0r-8QN">
+                    <rect key="frame" x="87" y="0.0" width="3" height="85"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="3" id="ahA-qY-jBg"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="8Jl-0r-8QN" firstAttribute="leading" secondItem="NXL-d3-t9V" secondAttribute="trailing" id="CW3-Fw-wy4"/>
+                <constraint firstItem="8Jl-0r-8QN" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="D11-91-FFz"/>
+                <constraint firstItem="8Jl-0r-8QN" firstAttribute="leading" secondItem="ahD-fz-VPi" secondAttribute="trailing" id="EhE-ky-O5s"/>
+                <constraint firstItem="NXL-d3-t9V" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="WFa-BL-Gh4"/>
+                <constraint firstItem="NXL-d3-t9V" firstAttribute="top" secondItem="ahD-fz-VPi" secondAttribute="bottom" id="Z4o-qq-Tke"/>
+                <constraint firstItem="8Jl-0r-8QN" firstAttribute="leading" secondItem="vwY-Kx-PqD" secondAttribute="trailing" id="fun-OD-OvR"/>
+                <constraint firstItem="8Jl-0r-8QN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="of8-8T-tTw"/>
+                <constraint firstItem="vwY-Kx-PqD" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="pbc-Yy-ZXT"/>
+                <constraint firstItem="vwY-Kx-PqD" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="5" id="sdL-Js-s6M"/>
+                <constraint firstAttribute="bottom" secondItem="8Jl-0r-8QN" secondAttribute="bottom" id="tF7-yd-cmN"/>
+                <constraint firstItem="ahD-fz-VPi" firstAttribute="top" secondItem="vwY-Kx-PqD" secondAttribute="bottom" id="uk0-tJ-qE6"/>
+                <constraint firstItem="ahD-fz-VPi" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="vA7-Cy-QR0"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="divider" destination="8Jl-0r-8QN" id="aRE-3c-Hhm"/>
+                <outlet property="statisticLabel" destination="ahD-fz-VPi" id="CPj-Da-jAG"/>
+                <outlet property="titleLabel" destination="vwY-Kx-PqD" id="suL-S9-jax"/>
+                <outlet property="varianceLabel" destination="NXL-d3-t9V" id="Jcg-mO-dez"/>
+            </connections>
+            <point key="canvasLocation" x="-117" y="-28.5"/>
+        </view>
+    </objects>
+</document>

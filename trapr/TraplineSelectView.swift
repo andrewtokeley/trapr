@@ -36,7 +36,7 @@ final class TraplineSelectView: UserInterface {
     
     lazy var routeNameTextField: UITextField = {
         let field = UITextField()
-        field.font = UIFont.trpText
+        field.font = UIFont.trpLabelNormal
         field.backgroundColor = UIColor.white
         
         let spacerView = UIView(frame:CGRect(x:0, y:0, width:LayoutDimensions.textIndentMargin, height:LayoutDimensions.textIndentMargin))
@@ -83,7 +83,7 @@ final class TraplineSelectView: UserInterface {
         let label = UILabel()
         label.backgroundColor = UIColor.white
         label.layer.borderColor = UIColor.lightGray.cgColor
-        label.font = UIFont.trpLabel
+        label.font = UIFont.trpLabelNormal
         
         return label
     }()

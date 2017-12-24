@@ -31,17 +31,21 @@ class VisitService: RealmService, VisitServiceInterface {
     
     func getVisits(recordedBetween dateStart: Date, dateEnd: Date) -> Results<Visit> {
         
-        return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@}", dateStart, dateEnd)
+        return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@}", dateStart, dateEnd).sorted(byKeyPath: "visitDateTime", ascending: false)
     }
     
     func getVisits(recordedBetween dateStart: Date, dateEnd: Date, route: Route) -> Results<Visit> {
         
-        return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@} AND route = %@", dateStart, dateEnd, route)
+        return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@} AND route = %@", dateStart, dateEnd, route).sorted(byKeyPath: "visitDateTime", ascending: false)
     }
     
     func getVisits(recordedBetween dateStart: Date, dateEnd: Date, route: Route, trap: Trap) -> Results<Visit> {
         
-        return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@} AND route = %@ AND trap = %@", dateStart, dateEnd, route, trap)
+        return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@} AND route = %@ AND trap = %@", dateStart, dateEnd, route, trap).sorted(byKeyPath: "visitDateTime", ascending: false)
+    }
+    
+    func getVisits(recordedBetween dateStart: Date, dateEnd: Date, trap: Trap) -> Results<Visit> {
+        return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@} AND trap = %@", dateStart, dateEnd, trap).sorted(byKeyPath: "visitDateTime", ascending: false)
     }
     
     func getVisits(recordedOn date: Date) -> Results<Visit> {
@@ -94,7 +98,7 @@ class VisitService: RealmService, VisitServiceInterface {
             
             // Find the unique days where visits were recorded
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd MMM yyyy"
+            dateFormatter.dateFormat = "ddMMyyyy"
             var uniqueDates = [String]()
             for visit in visits {
                 let visitDate = dateFormatter.string(from: visit.visitDateTime)
@@ -108,7 +112,7 @@ class VisitService: RealmService, VisitServiceInterface {
                 
                 if let date = dateFormatter.date(from: aDate) {
                     let summary = getVisitSummary(date: date, route: route)
-                    summary.visits = Array(visits)
+                    summary.visits = Array(getVisits(recordedOn: date, route: route))
                     summaries.append(summary)
                 }
             }

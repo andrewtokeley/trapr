@@ -10,4 +10,5 @@ import Foundation
 
 protocol TrapServiceInterface: RealmServiceInterface {
     
+    func getLureBalance(trap: Trap, asAtDate: Date) -> Int
 }

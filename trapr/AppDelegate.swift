@@ -1,4 +1,4 @@
-//
+ //
 //  AppDelegate.swift
 //  trapr
 //
@@ -19,12 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Set global styles
         Styles.setAppearances()
-        
-        // if we not running tests, merge whatever data is in here with test data
-        let service = ServiceFactory.sharedInstance.dataPopulatorService
-        if !service.isTestService {
-            //service.mergeWithV1Data()
-        }
         
         window = UIWindow(frame: UIScreen.main.bounds)
         let module = AppModules.start.build()

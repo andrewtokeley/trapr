@@ -24,7 +24,7 @@ final class VisitPresenter: Presenter {
     fileprivate var currentVisit: Visit?
     
     fileprivate var currentTrap: Trap {
-        return self.visitSummary.route.stations[stationIndex].traps[trapIndex]
+        return self.visitSummary.route.stations[stationIndex].traps.sorted(byKeyPath: "type.order")[trapIndex]
     }
     
     fileprivate var currentStation: Station {
@@ -184,7 +184,7 @@ extension VisitPresenter: VisitPresenterApi {
         
         // get the traps for the new station
         self.trapIndex = 0
-        view.setTraps(traps: Array(self.currentStation.traps))
+        view.setTraps(traps: Array(self.currentStation.traps.sorted(byKeyPath: "type.order")))
     
     }
 }

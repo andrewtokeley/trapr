@@ -17,13 +17,13 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TITLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jqb-ij-5bN">
-                    <rect key="frame" x="20" y="20" width="44" height="21"/>
+                    <rect key="frame" x="10" y="20" width="44" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.93749207258224487" green="0.93679589033126831" blue="0.95686620473861694" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWh-he-h6c">
-                    <rect key="frame" x="571" y="15" width="44" height="30"/>
+                    <rect key="frame" x="581" y="15" width="44" height="30"/>
                     <state key="normal" title="Action">
                         <color key="titleColor" red="0.89411764705882346" green="0.35686274509803922" blue="0.83529411764705885" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </state>
@@ -33,8 +33,8 @@
             <constraints>
                 <constraint firstItem="fWh-he-h6c" firstAttribute="centerY" secondItem="j4F-9b-4oe" secondAttribute="centerY" id="4xT-0S-s38"/>
                 <constraint firstItem="Jqb-ij-5bN" firstAttribute="centerY" secondItem="j4F-9b-4oe" secondAttribute="centerY" id="93Z-Ix-2gk"/>
-                <constraint firstItem="wsf-YF-dog" firstAttribute="trailing" secondItem="fWh-he-h6c" secondAttribute="trailing" constant="20" id="CuO-mT-vNF"/>
-                <constraint firstItem="Jqb-ij-5bN" firstAttribute="leading" secondItem="wsf-YF-dog" secondAttribute="leading" constant="20" id="amA-Ef-fvg"/>
+                <constraint firstItem="wsf-YF-dog" firstAttribute="trailing" secondItem="fWh-he-h6c" secondAttribute="trailing" constant="10" id="CuO-mT-vNF"/>
+                <constraint firstItem="Jqb-ij-5bN" firstAttribute="leading" secondItem="wsf-YF-dog" secondAttribute="leading" constant="10" id="amA-Ef-fvg"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="wsf-YF-dog"/>

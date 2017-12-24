@@ -48,44 +48,6 @@ class RouteService: RealmService, RouteServiceInterface {
                 mergeStations.append(station)
             }
         }
-//                // find the station that's nearest to this station on the route
-//                let distanceFromStation = route.stations.map({
-//                    (stationOnRoute) -> Int in
-//
-//                    var distance = 1000 // miles away
-//
-//                    if station.trapline == stationOnRoute.trapline {
-//
-//                        // work out how many stations away it is based on the code
-//                        // ASSUMES NUMERIC CODES!
-//                        if let stationCodeValue = Int(station.code!) {
-//                            if let stationOnRouteCodeValue = Int(stationOnRoute.code!) {
-//                                distance = abs(stationOnRouteCodeValue - stationCodeValue)
-//                            }
-//                        }
-//                    }
-//
-//                    return distance
-//
-//                })
-//
-//                if let minimumDistance = distanceFromStation.min() {
-//
-//                    if let indexOfClosest = distanceFromStation.index(of: minimumDistance) {
-//
-//
-//                        // add before or after?
-//                        mergeStations.insert(station, at: indexOfClosest)
-//                    }
-//
-//                } else {
-//
-//                    // Just whack this station to the end of the route stations
-//                    mergeStations.append(station)
-//                }
-//
-//            }
-//        }
         
         // replace the route stations with the merged stations
         try! realm.write {
@@ -119,4 +81,24 @@ class RouteService: RealmService, RouteServiceInterface {
         })
     }
     
+    func daysSinceLastVisit(route: Route) -> Int? {
+        
+        var numberOfDays: Int?
+        
+        // find all the visits for this route, ordered from the most recent (the default ordering)
+        let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedBetween: Date().add(0, 0, -100), dateEnd: Date(), route: route)
+        
+        // take the first result - this is the last visit
+        if let lastVisit = visits.first {
+            let calendar = NSCalendar.current
+            let lastVisitDate = calendar.startOfDay(for: lastVisit.visitDateTime)
+            let today = calendar.startOfDay(for: Date())
+            
+            let components = calendar.dateComponents([.day], from: lastVisitDate, to: today)
+            
+            numberOfDays = components.day
+        }
+        
+        return numberOfDays
+    }
 }

@@ -21,7 +21,11 @@ class Trap: Object {
     /**
      Station at which the trap is location. Multiple traps can be located at the same station
     */
-    dynamic var station: Station?
+    //dynamic var station: Station?
+    private let stations:LinkingObjects<Station> = LinkingObjects(fromType: Station.self, property: "traps")
+    var station:Station? {
+        return self.stations.first
+    }
     
     /**
      The type of trap. e.g. Possum Master, Pelifeed...

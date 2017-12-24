@@ -50,13 +50,13 @@ class RouteCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         
         routeNameLabel?.textColor = UIColor.trpTextHighlight
-        routeNameLabel?.font = UIFont.trpText
+        routeNameLabel?.font = UIFont.trpLabelNormal
         
         routeTrapLinesLabel?.textColor = UIColor.trpTextDark
-        routeTrapLinesLabel?.font = UIFont.trpText
+        routeTrapLinesLabel?.font = UIFont.trpLabelNormal
 
         daysSinceLastVisitLabel?.textColor = UIColor.trpTextDark
-        daysSinceLastVisitLabel?.font = UIFont.trpTextSmall
+        daysSinceLastVisitLabel?.font = UIFont.trpLabelSmall
     
         // color the menuImage
         let image = UIImage(named: "show")?.withRenderingMode(.alwaysTemplate)

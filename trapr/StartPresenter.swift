@@ -20,7 +20,7 @@ final class StartPresenter: Presenter {
     fileprivate let ROUTE_MENU_DELETE = 2
     
     open override func viewIsAboutToAppear() {
-        view.setTitle(title: "Trapr", routesSectionTitle: "VISIT TODAY", routeSectionActionText: "NEW", recentVisitsSectionTitle: "RECENT", recentVisitsSectionActionText: "ALL")
+        view.setTitle(title: "Trapr", routesSectionTitle: "ROUTES", routeSectionActionText: "NEW", recentVisitsSectionTitle: "VISITS", recentVisitsSectionActionText: "")
         
         interactor.initialiseHomeModule()
     }
@@ -57,7 +57,8 @@ extension StartPresenter: StartPresenterApi {
                 interactor.deleteRoute(route: route)
                 interactor.initialiseHomeModule()
             } else if menuItemIndex == ROUTE_MENU_VISIT {
-                self.didSelectRoute(route: route)
+                let visitSummary = VisitSummary(dateOfVisit: Date(), route: route)
+                router.showVisitModule(visitSummary: visitSummary)
             }
         }
     }
@@ -79,8 +80,7 @@ extension StartPresenter: StartPresenterApi {
     }
     
     func didSelectRoute(route: Route) {
-        let visitSummary = VisitSummary(dateOfVisit: Date(), route: route)
-        router.showVisitModule(visitSummary: visitSummary)
+        router.showRouteModule(route: route)
     }
     
     func setRecentVisits(visits: [VisitSummary]?) {

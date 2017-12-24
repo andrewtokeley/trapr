@@ -62,4 +62,8 @@ class ServiceFactory {
     lazy var settingsService: SettingsServiceInterface = {
         return SettingsService(realm: self.realm)
     }()
+    
+    lazy var trapService: TrapServiceInterface = {
+        return TrapService(realm: self.realm)
+    }()
 }

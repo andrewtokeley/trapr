@@ -10,4 +10,4 @@ import Foundation
 
 protocol VisitSummaryTableViewCellDelegate {
     func visitSummaryTableViewCell(_ visitSummaryTableViewCell: VisitSummaryTableViewCell, didSelectVisitSummary visitSummary: VisitSummary)
-}
+}   

@@ -40,6 +40,9 @@ final class VisitLogView: UserInterface {
     fileprivate var sections = [String]()
     fileprivate var visibleSections = [Int]()
     fileprivate var editingComments: Bool = false
+    fileprivate var lureBalanceMessage: String?
+    
+    //MARK: - SubViews
     
     lazy var noVisitButton: UIButton = {
         let button = UIButton(type: UIButtonType.custom)
@@ -237,6 +240,15 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
         return nil
     }
     
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if visibleSections.contains(section) {
+            if section == SECTION_BAIT {
+                return lureBalanceMessage
+            }
+        }
+        return nil
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if visibleSections.contains(indexPath.section) {
             if indexPath.section == SECTION_COMMENTS {
@@ -274,6 +286,8 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
             // add a larger section footer to last section
             if (section == SECTION_COMMENTS) {
                 return LayoutDimensions.tableFooterHeightLarge + 300
+            } else if (section == SECTION_BAIT) && lureBalanceMessage?.count ?? 0 > 0 {
+                return LayoutDimensions.tableFooterHeight + 20
             } else {
                 return LayoutDimensions.tableFooterHeight
             }
@@ -373,6 +387,12 @@ extension VisitLogView: VisitLogViewApi {
     func displayDateTime(date: Date) {
         self.dateTimeTableViewCell.detailTextLabel?.text = date.toString(from: "hh:mm")
         //presenter.updateDateTime(date: date)
+    }
+    
+    func displayLureBalanceMessage(message: String) {
+        self.lureBalanceMessage = message
+        
+        self.tableView.reloadSections([SECTION_BAIT], with: UITableViewRowAnimation.fade)
     }
     
     func displaySpecies(name: String) {

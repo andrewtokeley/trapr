@@ -39,6 +39,11 @@ extension SettingsPresenter: SettingsPresenterApi {
         self.settings.username = name
     }
     
+    func mergeWithTrapData() {
+        let service = ServiceFactory.sharedInstance.dataPopulatorService
+        service.mergeWithV1Data()
+    }
+    
 }
 
 // MARK: - Profile Viper Components

@@ -38,6 +38,7 @@ class TrapTypeService: LookupService<TrapType> {
         let trapType = TrapType()
         trapType.code = TrapTypeCode.doc200.rawValue
         trapType.name = "DOC200"
+        trapType.order = 2
         trapType.killMethodRaw = KillMethod.direct.rawValue
         trapType.defaultLure = lureService.get(.driedRabbit)
 
@@ -57,6 +58,7 @@ class TrapTypeService: LookupService<TrapType> {
         let trapType = TrapType()
         trapType.code = TrapTypeCode.possumMaster.rawValue
         trapType.name = "Possum Master"
+        trapType.order = 1
         trapType.killMethodRaw = KillMethod.direct.rawValue
         
         trapType.defaultLure = lureService.get(.cereal)
@@ -78,6 +80,7 @@ class TrapTypeService: LookupService<TrapType> {
         let trapType = TrapType()
         trapType.code = TrapTypeCode.pellibait.rawValue
         trapType.name = "Pellibait"
+        trapType.order = 0
         trapType.killMethodRaw = KillMethod.poison.rawValue
         
         trapType.defaultLure = lureService.get(.contracBloxPoison)
@@ -88,6 +91,7 @@ class TrapTypeService: LookupService<TrapType> {
         trapType.imageName = "pelifeed"
         return trapType
     }
+    
 }
 
 extension LookupService where T: TrapType {

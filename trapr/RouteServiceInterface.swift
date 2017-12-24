@@ -34,4 +34,9 @@ protocol RouteServiceInterface: RealmServiceInterface {
         - route: the Route to compare with existing Routes
      */
     func routeExists(route: Route) -> Bool
+    
+    /**
+     Returns the number of days since the route was visited. If it has never been visited, nil is returned
+     */
+    func daysSinceLastVisit(route: Route) -> Int?
 }
