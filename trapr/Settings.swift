@@ -19,6 +19,9 @@ class Settings: Object {
     
     // Full name of the trapper using the app on device
     dynamic var username: String?
+ 
+    dynamic var emailVisitsRecipient: String?
+    dynamic var emailOrdersRecipient: String?
     
     // Version of app
     dynamic var appVersion: String?

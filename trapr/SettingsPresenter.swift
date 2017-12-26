@@ -20,6 +20,8 @@ final class SettingsPresenter: Presenter {
         view.displayTrapperName(name: settings.username)
         view.displayAppVersion(version: settings.appVersion ?? "-")
         view.displayRealmVersion(version: settings.realmVersion ?? "-")
+        view.displayEmailOrdersRecipient(emailAddress: settings.emailOrdersRecipient)
+        view.displayEmailVisitsRecipient(emailAddress: settings.emailVisitsRecipient)
         view.setTitle(title: "Settings")
     }
     
@@ -37,6 +39,14 @@ extension SettingsPresenter: SettingsPresenterApi {
     
     func didUpdateTrapperName(name: String?) {
         self.settings.username = name
+    }
+    
+    func didUpdateEmailOrdersRecipient(emailAddress: String?) {
+        self.settings.emailOrdersRecipient = emailAddress
+    }
+    
+    func didUpdateEmailVisitsRecipient(emailAddress: String?) {
+        self.settings.emailVisitsRecipient = emailAddress
     }
     
     func mergeWithTrapData() {

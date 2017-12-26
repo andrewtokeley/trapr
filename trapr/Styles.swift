@@ -12,6 +12,7 @@ import UIKit
 class Styles {
     
     static let DATE_FORMAT_LONG = "MMM dd, yyyy"
+    static let DATE_FORMAT_TIME = "hh:mm"
     static let DATE_FORMAT_DAY = "EEEE"
     
     static func setAppearances() {

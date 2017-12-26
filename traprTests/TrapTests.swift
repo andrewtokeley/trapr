@@ -30,12 +30,7 @@ class TrapTests: XCTestCase {
     
     //MARK: - Helpers
     func createVisit(_ added: Int, _ removed: Int, _ eaten: Int, _ date: Date, _ route: Route, _ trap: Trap) {
-        
-        let visit = Visit(date: date, route: route, trap: trap)
-        visit.baitAdded = added
-        visit.baitEaten = eaten
-        visit.baitRemoved = removed
-        ServiceFactory.sharedInstance.visitService.add(visit: visit)
+        ServiceFactory.sharedInstance.dataPopulatorService.createVisit(added, removed, eaten, date, route, trap)
     }
     
     //MARK: - Tests

@@ -16,13 +16,21 @@ final class SettingsView: UserInterface {
     
     let SECTION_USER =  0
     let ROW_TRAPPER_NAME = 0
-    
-    let SECTION_VERSIONS =  1
+
+    let SECTION_EMAILS = 1
+    let ROW_VISITS_EMAIL = 0
+    let ROW_ORDERS_EMAIL = 1
+
+    let SECTION_VERSIONS =  2
     let ROW_APP_VERSION = 0
     let ROW_REALM_VERSION = 1
     
-    let SECTION_TESTING =  2
+    let SECTION_TESTING =  3
     let ROW_MERGE_TRAP_DATA = 0
+    
+    let TEXTFIELD_TAG_NAME = 0
+    let TEXTFIELD_TAG_VISIT_EMAIL = 1
+    let TEXTFIELD_TAG_ORDER_EMAIL = 2
     
     //MARK: - Subviews
     
@@ -38,8 +46,6 @@ final class SettingsView: UserInterface {
         tableView.delegate = self
         tableView.dataSource = self
         
-        //tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.STATION_ROW_CELL_ID)
-        
         return tableView
     }()
     
@@ -48,11 +54,105 @@ final class SettingsView: UserInterface {
         let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: self.TABLEVIEW_CELL_ID)
         
         cell.contentView.addSubview(self.trapperNameTextField)
-        
+        cell.selectionStyle = .none
         self.trapperNameTextField.autoPinEdgesToSuperviewEdges()
         self.trapperNameTextField.autoSetDimension(.height, toSize: LayoutDimensions.tableCellHeight)
         
         return cell
+    }()
+    
+    lazy var trapperNameTextField: UITextField = {
+        
+        let textField = UITextField()
+        textField.placeholder = "Name"
+        textField.tag = self.TEXTFIELD_TAG_NAME
+        textField.delegate = self
+        let spacerView = UIView(frame:CGRect(x:0, y:0, width:LayoutDimensions.textIndentMargin, height:LayoutDimensions.textIndentMargin))
+        textField.leftViewMode = .always
+        textField.leftView = spacerView
+        textField.clearButtonMode = .whileEditing
+        textField.returnKeyType = UIReturnKeyType.done
+        return textField
+    }()
+    
+    lazy var visitsEmailTableViewCell: UITableViewCell = {
+        
+        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: self.TABLEVIEW_CELL_ID)
+        cell.selectionStyle = .none
+        cell.detailTextLabel?.text = "Recipient of visit emails."
+        
+        let label = UILabel()
+        label.text = "Visits"
+        
+        cell.contentView.addSubview(label)
+        cell.contentView.addSubview(self.visitsEmailTextField)
+        
+        label.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
+        label.autoAlignAxis(toSuperviewAxis: .horizontal)
+        label.autoSetDimension(.width, toSize: 60)
+        
+        self.visitsEmailTextField.autoPinEdge(.left, to: .right, of: label, withOffset: LayoutDimensions.spacingMargin)
+        self.visitsEmailTextField.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
+        self.visitsEmailTextField.autoAlignAxis(toSuperviewAxis: .horizontal)
+        self.visitsEmailTextField.autoSetDimension(.height, toSize: LayoutDimensions.tableCellHeight)
+        
+        return cell
+    }()
+    
+    lazy var visitsEmailTextField: UITextField = {
+        
+        let textField = UITextField()
+        textField.tag = self.TEXTFIELD_TAG_VISIT_EMAIL
+        textField.placeholder = "Email address"
+        textField.textColor = UIColor.gray
+        textField.textAlignment = .right
+        textField.delegate = self
+        let spacerView = UIView(frame:CGRect(x:0, y:0, width:LayoutDimensions.textIndentMargin, height:LayoutDimensions.textIndentMargin))
+        textField.leftViewMode = .always
+        textField.leftView = spacerView
+        textField.clearButtonMode = .whileEditing
+        textField.returnKeyType = UIReturnKeyType.done
+        textField.keyboardType = UIKeyboardType.emailAddress
+        return textField
+    }()
+    
+    lazy var ordersEmailTableViewCell: UITableViewCell = {
+        
+        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: self.TABLEVIEW_CELL_ID)
+        
+        let label = UILabel()
+        label.text = "Orders"
+        
+        cell.contentView.addSubview(label)
+        cell.contentView.addSubview(self.ordersEmailTextField)
+        
+        label.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
+        label.autoAlignAxis(toSuperviewAxis: .horizontal)
+        label.autoSetDimension(.width, toSize: 60)
+        
+        self.ordersEmailTextField.autoPinEdge(.left, to: .right, of: label, withOffset: LayoutDimensions.spacingMargin)
+        self.ordersEmailTextField.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
+        self.ordersEmailTextField.autoAlignAxis(toSuperviewAxis: .horizontal)
+        self.ordersEmailTextField.autoSetDimension(.height, toSize: LayoutDimensions.tableCellHeight)
+        
+        return cell
+    }()
+    
+    lazy var ordersEmailTextField: UITextField = {
+        
+        let textField = UITextField()
+        textField.tag = self.TEXTFIELD_TAG_ORDER_EMAIL
+        textField.placeholder = "Email address"
+        textField.delegate = self
+        textField.textAlignment = .right
+        textField.textColor = UIColor.gray
+        let spacerView = UIView(frame:CGRect(x:0, y:0, width:LayoutDimensions.textIndentMargin, height:LayoutDimensions.textIndentMargin))
+        textField.leftViewMode = .always
+        textField.leftView = spacerView
+        textField.clearButtonMode = .whileEditing
+        textField.returnKeyType = UIReturnKeyType.done
+        textField.keyboardType = UIKeyboardType.emailAddress
+        return textField
     }()
     
     lazy var appVersionTableViewCell: UITableViewCell = {
@@ -71,19 +171,6 @@ final class SettingsView: UserInterface {
         return cell
     }()
 
-    lazy var trapperNameTextField: UITextField = {
-        
-        let textField = UITextField()
-        textField.placeholder = "Name"
-        textField.delegate = self
-        let spacerView = UIView(frame:CGRect(x:0, y:0, width:LayoutDimensions.textIndentMargin, height:LayoutDimensions.textIndentMargin))
-        textField.leftViewMode = .always
-        textField.leftView = spacerView
-        textField.clearButtonMode = .whileEditing
-        textField.returnKeyType = UIReturnKeyType.done
-        return textField
-    }()
-    
     lazy var mergeWithTrapDataButton: UIButton = {
         
         let button = UIButton(type: UIButtonType.custom)
@@ -148,6 +235,8 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
             return "PROFILE"
         } else if section == SECTION_VERSIONS {
             return "VERSIONS"
+        } else if section == SECTION_EMAILS {
+            return "EMAIL ADDRESSES"
         } else if section == SECTION_TESTING {
             return "TESTING"
         }
@@ -164,7 +253,7 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -174,6 +263,8 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
             return 2
         } else if section == SECTION_TESTING {
             return 1
+        } else if section == SECTION_EMAILS {
+            return 2
         }
         return 0
     }
@@ -188,10 +279,16 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
         } else if section == SECTION_VERSIONS {
             if row == ROW_APP_VERSION {
                 return self.appVersionTableViewCell
-            } else if indexPath.row == ROW_REALM_VERSION {
+            } else if row == ROW_REALM_VERSION {
                 return self.realmVersionTableViewCell
             }
-        } else if indexPath.section == SECTION_TESTING && row == ROW_MERGE_TRAP_DATA {
+        } else if section == SECTION_EMAILS {
+            if row == ROW_VISITS_EMAIL {
+                return visitsEmailTableViewCell
+            } else if row == ROW_ORDERS_EMAIL {
+                return ordersEmailTableViewCell
+            }
+        } else if section == SECTION_TESTING && row == ROW_MERGE_TRAP_DATA {
             return self.mergeWithTrapDataTableViewCell
         }
         return UITableViewCell()
@@ -202,7 +299,16 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
 extension SettingsView: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        presenter.didUpdateTrapperName(name: textField.text)
+        let tag = textField.tag
+        
+        if tag == TEXTFIELD_TAG_NAME {
+            presenter.didUpdateTrapperName(name: textField.text)
+        } else if tag == TEXTFIELD_TAG_ORDER_EMAIL {
+            presenter.didUpdateEmailOrdersRecipient(emailAddress: textField.text)
+        } else if tag == TEXTFIELD_TAG_VISIT_EMAIL {
+            presenter.didUpdateEmailVisitsRecipient(emailAddress: textField.text)
+        }
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -233,6 +339,14 @@ extension SettingsView: SettingsViewApi {
     
     func displayRealmVersion(version: String) {
         self.realmVersionTableViewCell.detailTextLabel?.text = version
+    }
+    
+    func displayEmailOrdersRecipient(emailAddress: String?) {
+        self.ordersEmailTextField.text = emailAddress
+    }
+    
+    func displayEmailVisitsRecipient(emailAddress: String?) {
+        self.visitsEmailTextField.text = emailAddress
     }
 }
 

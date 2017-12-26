@@ -18,6 +18,8 @@ protocol SettingsViewApi: UserInterfaceProtocol {
     func displayTrapperName(name: String?)
     func displayAppVersion(version: String)
     func displayRealmVersion(version: String)
+    func displayEmailVisitsRecipient(emailAddress: String?)
+    func displayEmailOrdersRecipient(emailAddress: String?)
     func setFocusToRouteName()
 }
 
@@ -25,6 +27,8 @@ protocol SettingsViewApi: UserInterfaceProtocol {
 protocol SettingsPresenterApi: PresenterProtocol {
     func didSelectClose()
     func didUpdateTrapperName(name: String?)
+    func didUpdateEmailVisitsRecipient(emailAddress: String?)
+    func didUpdateEmailOrdersRecipient(emailAddress: String?)
     func mergeWithTrapData()
 }
 

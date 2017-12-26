@@ -21,7 +21,6 @@ struct ImportSummary {
 
 protocol DataImport {
     
-
     init(fileURL: URL)
     
     init(contentString: String)

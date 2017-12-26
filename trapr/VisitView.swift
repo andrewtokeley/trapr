@@ -9,6 +9,7 @@
 import UIKit
 import Viperit
 import iCarousel
+import MessageUI
 
 //MARK: VisitView Class
 final class VisitView: UserInterface {
@@ -320,11 +321,11 @@ extension VisitView: iCarouselDelegate, iCarouselDataSource {
                 label.text = self.stations?[adjustedIndex].longCode
             }
         } else {
-            print("getting trap at index \(index)")
+            
             if let imageView = usableView.viewWithTag(self.CAROUSEL_TRAPS_IMAGE_TAG) as? UIImageView {
-                print("found imageView")
+                
                 if let imageName = self.currentTraps?[index].type?.imageName {
-                    print("found image name \(imageName)")
+            
                     imageView.image = UIImage(named: imageName)?.changeColor(UIColor.black)
                 }
                 if let label = usableView.viewWithTag(self.CAROUSEL_TRAPS_LABEL_TAG) as? UILabel {
@@ -356,6 +357,9 @@ extension VisitView: iCarouselDelegate, iCarouselDataSource {
         }
     }
     
+    /**
+     Have to use this rather than the selected method as this is the only one called when a user scrolls to a new item rather than clicking on it.
+     */
     func carouselDidEndScrollingAnimation(_ carousel: iCarousel) {
         var adjIndex = carousel.currentItemIndex
  
@@ -412,8 +416,11 @@ extension VisitView: VisitViewApi {
     
     func setTraps(traps: [Trap]) {
         currentTraps = traps
-        //trapTypeCollectionView.reloadData()
         self.trapsCarousel.reloadData()
+    }
+    
+    func selectTrap(index: Int) {
+        trapsCarousel.currentItemIndex = index
     }
     
     func updateDisplayFor(visit: Visit) {
@@ -441,6 +448,46 @@ extension VisitView: VisitViewApi {
         menu.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(menu, animated: true, completion: nil)
+    }
+    
+    func showVisitEmail(visitSummary: VisitSummary) {
+        if MFMailComposeViewController.canSendMail() {
+            
+            let settings = ServiceFactory.sharedInstance.settingsService.getSettings()
+            
+            let controller = MFMailComposeViewController()
+            controller.mailComposeDelegate = self
+            
+            controller.setSubject("Data for \(visitSummary.route!.name!)")
+            
+            if let _ = settings.emailVisitsRecipient {
+                controller.setToRecipients([settings.emailVisitsRecipient!])
+            }
+            
+            if let html = ServiceFactory.sharedInstance.htmlService.getVisitsAsHtmlTable(recordedOn: visitSummary.dateOfVisit, route: visitSummary.route) {
+                controller.setMessageBody(html, isHTML: true)
+            }
+            
+            self.present(controller, animated: true, completion: nil)
+        }
+    }
+    
+    func showConfirmation(title: String, message: String, yes: (() -> Void)?, no: (() -> Void)?) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in yes?() })
+        let noAction = UIAlertAction(title: "Cancel", style: .cancel, handler:  { (action) in no?() })
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+}
+
+extension VisitView: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }
 

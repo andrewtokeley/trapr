@@ -9,10 +9,12 @@
 import Foundation
 import UIKit
 import Viperit
+import MessageUI
 
 enum visitRecordMenuItem: String {
     case sendReport = "Send report"
     case deleteVisitRecord = "Delete"
+    case deleteAllVisits = "Delete All"
     case viewMap = "View map"
 }
 
@@ -71,6 +73,18 @@ final class VisitPresenter: Presenter {
         interactor.retrieveVisit(date: visitSummary.dateOfVisit, route: self.visitSummary.route, trap: self.currentTrap)
     }
     
+    func menuDeleteAllVisits() {
+
+        interactor.deleteAllVisits(visitSummary: self.visitSummary)
+        
+        // grab a new visit for this day - it will be marked as new so the VisitLog will
+        interactor.retrieveVisit(date: visitSummary.dateOfVisit, route: self.visitSummary.route, trap: self.currentTrap)
+    }
+    
+    func menuSendToHandler() {
+        view.showVisitEmail(visitSummary: self.visitSummary)
+    }
+    
     //MARK: - Helpers
 
     func updateTitle() {
@@ -81,6 +95,12 @@ final class VisitPresenter: Presenter {
     }
     
 }
+
+//extension VisitPresenter: MFMailComposeViewControllerDelegate {
+//    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+//        // do something with error
+//    }
+//}
 
 // MARK: - VisitPresenter API
 extension VisitPresenter: DatePickerDelegate {
@@ -137,25 +157,27 @@ extension VisitPresenter: VisitPresenterApi {
     
     func didSelectMenuButton() {
         
-        let deleteTitle = "\(visitRecordMenuItem.deleteVisitRecord.rawValue) \(self.currentTrap.longDescription) record"
-        
         let options = [
             OptionItem(title: visitRecordMenuItem.sendReport.rawValue, isEnabled: true),
             OptionItem(title: visitRecordMenuItem.viewMap.rawValue, isEnabled: true),
-            OptionItem(title: deleteTitle, isEnabled: true)
+            OptionItem(title: visitRecordMenuItem.deleteVisitRecord.rawValue, isEnabled: true, isDestructive: true),
+            OptionItem(title: visitRecordMenuItem.deleteAllVisits.rawValue, isEnabled: true, isDestructive: true)
         ]
         view.displayMenuOptions(options: options)
     }
     
     func didSelectMenuItem(title: String) {
-        if title.contains(visitRecordMenuItem.sendReport.rawValue) {
-            //self.sendReport()
+        if title == visitRecordMenuItem.sendReport.rawValue {
+            self.menuSendToHandler()
         }
-        if title.contains(visitRecordMenuItem.viewMap.rawValue) {
+        if title == visitRecordMenuItem.viewMap.rawValue {
             //self.viewMap()
         }
-        if title.contains(visitRecordMenuItem.deleteVisitRecord.rawValue) {
+        if title == visitRecordMenuItem.deleteVisitRecord.rawValue {
             self.menuDeleteVisit()
+        }
+        if title == visitRecordMenuItem.deleteAllVisits.rawValue {
+            view.showConfirmation(title: "Delete All", message: "This action will delete all visits for this Route on \(self.currentVisit!.visitDateTime.toString(from: Styles.DATE_FORMAT_LONG)). Are you sure that's what you want to do?", yes: { self.menuDeleteAllVisits() }, no: nil)
         }
     }
     
@@ -183,9 +205,9 @@ extension VisitPresenter: VisitPresenterApi {
         self.stationIndex = index
         
         // get the traps for the new station
-        self.trapIndex = 0
         view.setTraps(traps: Array(self.currentStation.traps.sorted(byKeyPath: "type.order")))
     
+        view.selectTrap(index: 0)
     }
 }
 

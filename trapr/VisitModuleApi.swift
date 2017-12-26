@@ -24,9 +24,10 @@ protocol VisitViewApi: UserInterfaceProtocol {
     func displayMenuOptions(options: [OptionItem])
     func updateDisplayFor(visit: Visit)
     func updateCurrentStation(index: Int, repeatedGroup: Int)
-    
+    func showVisitEmail(visitSummary: VisitSummary)
+    func showConfirmation(title: String, message: String, yes: (() -> Void)?, no: (() -> Void)?)
+    func selectTrap(index: Int)
     var getVisitContainerView: UIView { get }
-    
     //func setStationText(text: String)
     //func enableNavigation(previous: Bool, next: Bool)
     
@@ -50,4 +51,5 @@ protocol VisitInteractorApi: InteractorProtocol {
     func retrieveVisit(date: Date, route: Route, trap: Trap)
     func addVisit(visit: Visit)
     func deleteVisit(visit: Visit)
+    func deleteAllVisits(visitSummary: VisitSummary)
 }

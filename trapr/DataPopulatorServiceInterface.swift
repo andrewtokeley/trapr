@@ -15,6 +15,9 @@ protocol DataPopulatorServiceInterface: RealmServiceInterface {
     func deleteAllTestData()
     
     func createTrapline(code: String, numberOfStations: Int) -> Trapline
+    func createTrapline(code: String, numberOfStations: Int, numberOfTrapsPerStation: Int) -> Trapline
     
     func mergeWithV1Data()
+    
+    func createVisit(_ added: Int, _ removed: Int, _ eaten: Int, _ date: Date, _ route: Route, _ trap: Trap)
 }

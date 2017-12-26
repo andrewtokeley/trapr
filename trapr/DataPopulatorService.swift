@@ -73,17 +73,28 @@ class DataPopulatorService: RealmService, DataPopulatorServiceInterface {
     }
 
     func createTrapline(code: String, numberOfStations: Int) -> Trapline {
+        return createTrapline(code: code, numberOfStations: numberOfStations, numberOfTrapsPerStation: 2)
+    }
+    
+    func createTrapline(code: String, numberOfStations: Int, numberOfTrapsPerStation: Int) -> Trapline {
+        
         let trapline = Trapline()
         trapline.code = code
         ServiceFactory.sharedInstance.traplineService.add(trapline: trapline)
         
         for i in 1...numberOfStations {
             let station = Station(code: String(format: "%02d", i))
-            let _ = station.addTrap(type: pelifeed)
-            let _ = station.addTrap(type: possumMaster)
-            if i % 2 == 0 {
+            
+            if 1 <= numberOfTrapsPerStation {
+                let _ = station.addTrap(type: pelifeed)
+            }
+            if 2 <= numberOfTrapsPerStation {
+                let _ = station.addTrap(type: possumMaster)
+            }
+            if numberOfTrapsPerStation >= 3 {
                 let _ = station.addTrap(type: doc200)
             }
+            
             ServiceFactory.sharedInstance.traplineService.addStation(trapline: trapline, station: station)
         }
         
@@ -104,6 +115,15 @@ class DataPopulatorService: RealmService, DataPopulatorServiceInterface {
                 ServiceFactory.sharedInstance.visitService.add(visit: visit)
             }
         }
+    }
+    
+    func createVisit(_ added: Int, _ removed: Int, _ eaten: Int, _ date: Date, _ route: Route, _ trap: Trap) {
+        
+        let visit = Visit(date: date, route: route, trap: trap)
+        visit.baitAdded = added
+        visit.baitEaten = eaten
+        visit.baitRemoved = removed
+        ServiceFactory.sharedInstance.visitService.add(visit: visit)
     }
     
     func createRoute(name: String, traplines: [Trapline], maxStationsPerLine: Int) -> Route {

@@ -69,6 +69,9 @@
 		D81DAAF71F686EA800C7C987 /* ServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF61F686EA800C7C987 /* ServiceFactory.swift */; };
 		D82A53E21FEF02CD000D9339 /* TrapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E11FEF02CD000D9339 /* TrapService.swift */; };
 		D82A53E41FEF04F2000D9339 /* TrapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E31FEF04F2000D9339 /* TrapTests.swift */; };
+		D82A53E61FF0DDF5000D9339 /* HtmlService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E51FF0DDF5000D9339 /* HtmlService.swift */; };
+		D82A53E81FF0DE11000D9339 /* HtmlServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E71FF0DE11000D9339 /* HtmlServiceInterface.swift */; };
+		D82A53EA1FF1F9B3000D9339 /* HtmlServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E91FF1F9B3000D9339 /* HtmlServiceTests.swift */; };
 		D83089581FA18815007C9316 /* StepperTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D83089571FA18815007C9316 /* StepperTableViewCell.xib */; };
 		D830895A1FA189AC007C9316 /* StepperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83089591FA189AC007C9316 /* StepperTableViewCell.swift */; };
 		D835E0741FAC0CC300A4664B /* SpeciesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835E0731FAC0CC300A4664B /* SpeciesService.swift */; };
@@ -289,6 +292,9 @@
 		D81DAAF61F686EA800C7C987 /* ServiceFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceFactory.swift; sourceTree = "<group>"; };
 		D82A53E11FEF02CD000D9339 /* TrapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrapService.swift; sourceTree = "<group>"; };
 		D82A53E31FEF04F2000D9339 /* TrapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrapTests.swift; sourceTree = "<group>"; };
+		D82A53E51FF0DDF5000D9339 /* HtmlService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlService.swift; sourceTree = "<group>"; };
+		D82A53E71FF0DE11000D9339 /* HtmlServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlServiceInterface.swift; sourceTree = "<group>"; };
+		D82A53E91FF1F9B3000D9339 /* HtmlServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlServiceTests.swift; sourceTree = "<group>"; };
 		D83089571FA18815007C9316 /* StepperTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepperTableViewCell.xib; sourceTree = "<group>"; };
 		D83089591FA189AC007C9316 /* StepperTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperTableViewCell.swift; sourceTree = "<group>"; };
 		D835E0731FAC0CC300A4664B /* SpeciesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeciesService.swift; sourceTree = "<group>"; };
@@ -567,6 +573,8 @@
 				D80F7ED21F6E87D500814A52 /* DataPopulatorService.swift */,
 				D89714A91F7751B300E846B9 /* DataPopulatorServiceInterface.swift */,
 				D897149F1F70CFB800E846B9 /* DataService.swift */,
+				D82A53E51FF0DDF5000D9339 /* HtmlService.swift */,
+				D82A53E71FF0DE11000D9339 /* HtmlServiceInterface.swift */,
 				D89714A31F76197C00E846B9 /* RealmService.swift */,
 				D8E86B3D1FACF95B003BFD54 /* RealmServiceInterface.swift */,
 				D849B6211F96C91100CE2085 /* RouteService.swift */,
@@ -621,19 +629,19 @@
 		D8503DD11F669F8B00ED0C84 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D8D1A0461FAF16B000926CEF /* LookupObject.swift */,
+				D8D1A03F1FAF0CE800926CEF /* Lure.swift */,
 				D8B148091F9552D9000AB414 /* Route.swift */,
-				D8503DCF1F669F8500ED0C84 /* Visit.swift */,
-				D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */,
-				D81DAAF01F68652E00C7C987 /* Trap.swift */,
-				D8BC084E1F6B143800B284EE /* TrapType.swift */,
-				D81DAAF41F6865DB00C7C987 /* Trapline.swift */,
+				D8083D1E1FE49AB000D1C5F1 /* Settings.swift */,
 				D81883781F6931C600A74B5E /* Species.swift */,
 				D80F7EDA1F6EF89700814A52 /* Station.swift */,
-				D8D1A03F1FAF0CE800926CEF /* Lure.swift */,
-				D8D1A0461FAF16B000926CEF /* LookupObject.swift */,
+				D81DAAF01F68652E00C7C987 /* Trap.swift */,
+				D81DAAF41F6865DB00C7C987 /* Trapline.swift */,
 				D8C8A1ED1FCCBA070075E44E /* TrapOperatingStatus.swift */,
 				D8C8A1EF1FCCBAB90075E44E /* TrapSetStatus.swift */,
-				D8083D1E1FE49AB000D1C5F1 /* Settings.swift */,
+				D8BC084E1F6B143800B284EE /* TrapType.swift */,
+				D8503DCF1F669F8500ED0C84 /* Visit.swift */,
+				D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -796,6 +804,7 @@
 				D897149D1F70CCCB00E846B9 /* traplineTests.swift */,
 				D82A53E31FEF04F2000D9339 /* TrapTests.swift */,
 				D89714A11F737B6A00E846B9 /* visitTests.swift */,
+				D82A53E91FF1F9B3000D9339 /* HtmlServiceTests.swift */,
 			);
 			path = traprTests;
 			sourceTree = "<group>";
@@ -1269,6 +1278,7 @@
 				D87926981FB556B800240767 /* RouteCollectionViewCell.swift in Sources */,
 				D8083D171FE498F900D1C5F1 /* SettingsModuleApi.swift in Sources */,
 				D82A53E21FEF02CD000D9339 /* TrapService.swift in Sources */,
+				D82A53E61FF0DDF5000D9339 /* HtmlService.swift in Sources */,
 				D841CF291F8239CA004D0207 /* TraplineSelectPresenter.swift in Sources */,
 				D8039E291FABF458006E394B /* ListPickerRouter.swift in Sources */,
 				D8083D1D1FE49A7800D1C5F1 /* SettingsService.swift in Sources */,
@@ -1341,6 +1351,7 @@
 				D841CF281F8239CA004D0207 /* TraplineSelectModuleApi.swift in Sources */,
 				D849B6221F96C91100CE2085 /* RouteService.swift in Sources */,
 				D8D79AB81FC52370008AC5C1 /* RLMResults.swift in Sources */,
+				D82A53E81FF0DE11000D9339 /* HtmlServiceInterface.swift in Sources */,
 				D8D1A0471FAF16B000926CEF /* LookupObject.swift in Sources */,
 				D8953EBE1F88114F00A1F424 /* NewVisitModuleApi.swift in Sources */,
 				D81431A51F8DDB2600EAF5FD /* DatePickerPresenter.swift in Sources */,
@@ -1351,6 +1362,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D82A53EA1FF1F9B3000D9339 /* HtmlServiceTests.swift in Sources */,
 				D806C7EC1F9D95320064C98F /* GroupedTableViewDatasourceTests.swift in Sources */,
 				D897149E1F70CCCB00E846B9 /* traplineTests.swift in Sources */,
 				D8B57FEE1FDA500A003437D9 /* importTests.swift in Sources */,
