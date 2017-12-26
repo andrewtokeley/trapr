@@ -237,7 +237,7 @@ extension RouteView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == SECTION_STATIONS_HEADER {
-            return "STATIONS"
+            return "TRAPLINES"
         } else if section == SECTION_DETAILS {
             return "DETAILS"
         } else {
@@ -322,7 +322,7 @@ extension RouteView: RouteViewApi {
                     self.presenter.didSelectSectionMenuOptionItem(title: title)
                 }
             })
-            
+            optionItem.isEnabled = option.isEnabled
             menu.addAction(optionItem)
         }
         

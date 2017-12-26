@@ -266,6 +266,39 @@ class GroupedTableViewDatasourceTests: XCTestCase {
         XCTAssertTrue(lastItem.code == "3" && lastItem.traplineCode == "LW")
     }
     
+    func testMoveSectionBeforeFirst() {
+        
+        let orderedData = [Station("1", "Group1"),
+                           Station("2", "Group1"),
+                           Station("3", "Group1"),
+                           Station("1", "Group2"),
+                           Station("2", "Group2"),
+                           Station("1", "Group3"),
+                           Station("2", "Group3")]
+        
+        // All unselected
+        let selected = [Bool](repeatElement(false, count: orderedData.count))
+        
+        let groupedData = GroupedTableViewDatasource(data: orderedData, selected: selected, sectionName:{
+            $0.traplineCode
+        }, cellLabelText: {
+            $0.code
+        })
+        
+        // Move Group2 before Group1
+        groupedData.moveSection(fromSection: 1, beforeSection: 0)
+
+        // still three sections
+        let numberOfSections = groupedData.numberOfSections()
+        XCTAssertTrue( numberOfSections == 3, "Expected 3, was \(numberOfSections)")
+        
+        // first section is now Group2
+        let firstSectionText = groupedData.sectionText(section: 0)
+        XCTAssertTrue(firstSectionText == "Group2", "Expected Group2, was \(firstSectionText)")
+        
+    }
+    
+    
     func testHasSelected() {
         
         let orderedData = [Station("1", "LW"),

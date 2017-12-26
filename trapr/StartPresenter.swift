@@ -42,9 +42,9 @@ extension StartPresenter: StartPresenterApi {
     func didSelectRouteMenu(routeIndex: Int) {
         // for now all routes have the same options
         routeMenuOptions.removeAll()
-        routeMenuOptions.append("Edit Route")
-        routeMenuOptions.append("Visit Route")
-        routeMenuOptions.append("Delete Route")
+        routeMenuOptions.append("Edit")
+        routeMenuOptions.append("Visit")
+        routeMenuOptions.append("Delete")
         view.setRouteMenu(options: routeMenuOptions)
     }
 

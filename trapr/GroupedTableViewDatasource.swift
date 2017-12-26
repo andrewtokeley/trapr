@@ -146,6 +146,9 @@ class GroupedTableViewDatasource<T: Any> {
         return hasSelected
     }
     
+    /**
+     Returns the index of the underlying one-dimensional array of data
+     */
     func flatIndex(index: IndexPath) -> Int {
         var flatIndex = 0
         
@@ -162,11 +165,43 @@ class GroupedTableViewDatasource<T: Any> {
         return flatIndex
     }
     
+    func moveSection(fromSection: Int, beforeSection: Int) {
+        
+        // Get the range of the section to move
+        let fromSectionStartIndex = self.flatIndex(index: IndexPath(row: 0, section: fromSection))
+        let fromSectionEndIndex = self.flatIndex(index: IndexPath(row: self.numberOfRowsInSection(section: fromSection) - 1, section: fromSection))
+        
+        let toSectionStartIndex = self.flatIndex(index: IndexPath(row: 0, section: beforeSection))
+        var insertIndex = toSectionStartIndex
+        
+        // we're going to delete the section that's moving, which will reduce the insert index
+        if fromSectionEndIndex < beforeSection {
+            insertIndex = insertIndex - self.numberOfRowsInSection(section: fromSection)
+        }
+        
+        // take a copy of the section we're moving
+        let sectionToMove = Array(self.data[fromSectionStartIndex...fromSectionEndIndex])
+        let sectionSelectionToMove = Array(self.selected[fromSectionStartIndex...fromSectionEndIndex])
+        
+        // remove the section
+        self.data.removeSubrange(fromSectionStartIndex...fromSectionEndIndex)
+        self.selected.removeSubrange(fromSectionStartIndex...fromSectionEndIndex)
+        
+        // add section at the correct location
+        self.data.insert(contentsOf: sectionToMove, at: insertIndex)
+        self.selected.insert(contentsOf: sectionSelectionToMove, at: insertIndex)
+        
+        self.rebuild()
+    }
+    
+    func moveSection(fromSection: Int, afterSection: Int) {
+        
+    }
+    
     func moveItem(from: IndexPath, to: IndexPath) {
         
         let fromIndex = self.flatIndex(index: from)
         let toIndex = self.flatIndex(index: to)
-        print("From: \(fromIndex), To: \(toIndex))")
         
         if toIndex >= self.data.count {
             self.data.append(self.data.remove(at: fromIndex))

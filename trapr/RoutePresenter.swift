@@ -171,8 +171,8 @@ extension RoutePresenter: RoutePresenterApi {
         
         self.sectionMenuOptions = [
             OptionItem(title: sectionMenuOptionTitle.edit.rawValue, isEnabled: true),
-            OptionItem(title: sectionMenuOptionTitle.moveUp.rawValue, isEnabled: true),
-            OptionItem(title: sectionMenuOptionTitle.moveDown.rawValue, isEnabled: true),
+            OptionItem(title: sectionMenuOptionTitle.moveUp.rawValue, isEnabled: section != 0),
+            OptionItem(title: sectionMenuOptionTitle.moveDown.rawValue, isEnabled: section != (self.groupedData?.numberOfSections() ?? 0) - 1),
             OptionItem(title: sectionMenuOptionTitle.reverseOrder.rawValue, isEnabled: true),
             OptionItem(title: sectionMenuOptionTitle.deleteSection.rawValue, isEnabled: true, isDestructive: true),
         ]
@@ -186,19 +186,7 @@ extension RoutePresenter: RoutePresenterApi {
             let title = ServiceFactory.sharedInstance.stationService.getDescription(stations: stations, includeStationCodes: true)
             view.displaySectionMenuOptionItems(title: title, message: nil, optionItems: self.sectionMenuOptions)
         }
-//        if let groupData = self.groupedData {
-//            var title = ""
-//            let firstItemInSection = groupData.data(section: section, row: 0).item.longCode
-//            let lastItemInSection = groupData.data(section: section, row: groupData.numberOfRowsInSection(section: section) - 1).item.longCode
-//
-//            if firstItemInSection != lastItemInSection {
-//                title = "\(firstItemInSection) - \(lastItemInSection)"
-//            } else {
-//                title = "\(firstItemInSection)"
-//            }
-//
-//            view.displaySectionMenuOptionItems(title: title, message: nil, optionItems: self.sectionMenuOptions)
-//        }
+
     }
     
     func didSelectSectionMenuOptionItem(title: String) {
@@ -241,9 +229,30 @@ extension RoutePresenter: RoutePresenterApi {
                 }
                 view.bindToGroupedTableViewData(groupedData: groupData)
             }
-            
-            
-            
+        }
+        
+        if title == sectionMenuOptionTitle.moveUp.rawValue {
+            if let groupData = self.groupedData {
+                groupData.moveSection(fromSection: self.sectionContext, beforeSection: self.sectionContext - 1)
+                if let _ = self.currentRoute {
+                    let stations = groupData.dataItems(selectedOnly: false)
+                    self.currentRoute?.stations.removeAll()
+                    self.currentRoute?.stations.append(objectsIn: stations)
+                }
+                view.bindToGroupedTableViewData(groupedData: groupData)
+            }
+        }
+        
+        if title == sectionMenuOptionTitle.moveDown.rawValue {
+            if let groupData = self.groupedData {
+                groupData.moveSection(fromSection: self.sectionContext, beforeSection: self.sectionContext + 1)
+                if let _ = self.currentRoute {
+                    let stations = groupData.dataItems(selectedOnly: false)
+                    self.currentRoute?.stations.removeAll()
+                    self.currentRoute?.stations.append(objectsIn: stations)
+                }
+                view.bindToGroupedTableViewData(groupedData: groupData)
+            }
         }
     }
     
