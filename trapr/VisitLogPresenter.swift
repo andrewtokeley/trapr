@@ -11,6 +11,9 @@ import Viperit
 
 // MARK: - VisitLogPresenter Class
 final class VisitLogPresenter: Presenter {
+    
+    var delegate: VisitLogDelegate?
+    
     fileprivate var currentVisit: Visit?
     fileprivate var species: [Species]?
     fileprivate var lures: [Lure]?
@@ -22,7 +25,8 @@ final class VisitLogPresenter: Presenter {
     
     func saveVisit() {
         if let visit = self.currentVisit {
-            interactor.saveVisit(visit: visit)
+            print("save")
+            let _ = interactor.saveVisit(visit: visit)
         }
     }
     
@@ -40,7 +44,7 @@ final class VisitLogPresenter: Presenter {
                         // get the balance from the day before the visit (assumes only one visit per day)
                         let balance = ServiceFactory.sharedInstance.trapService.getLureBalance(trap: trap, asAtDate: visit.visitDateTime.add(-1, 0, 0))
                         
-                        let message = "Before this visit, the balance was \(balance)"
+                        let message = "Balance at last visit, \(balance)."
                         view.displayLureBalanceMessage(message: message)
                     } else {
                         view.displayLureBalanceMessage(message: "")
@@ -54,18 +58,23 @@ final class VisitLogPresenter: Presenter {
 //MARK: - VisitDelegate
 
 extension VisitLogPresenter: VisitDelegate {
+
+    func editVisit(visit: Visit) {
+        
+    }
     
-    func didChangeVisit(visit: Visit, isNew: Bool) {
+    func didChangeVisit(visit: Visit?) {
         
-        // take a copy so that visit can be bulk updated
-        self.currentVisit = Visit(value: visit)
+        // before navigating to another visit, make sure active textfields stop editing (like comments)
+        view.endEditing()
         
-        if !isNew {
+        // take a copy so that visit properties can be bulk updated outside realm.write
+        if let _ = visit {
+            self.currentVisit = Visit(value: visit!)
             updateViewForCurrentVisit()
         } else {
             view.displayNoVisitState()
         }
-        
     }
 }
 
@@ -163,8 +172,13 @@ extension VisitLogPresenter: VisitLogPresenterApi {
     }
     
     func didSelectToRecordVisit() {
-        saveVisit()
-        updateViewForCurrentVisit()
+        delegate?.didSelectToCreateNewVisit()
+    }
+    
+    func didSelectToRemoveVisit() {
+        
+        // the delegate (Visit module) is responsible for managing the current visit
+        self.delegate?.didSelectToRemoveVisit()
     }
     
     func didUpdateBaitAddedValue(newValue: Int) {

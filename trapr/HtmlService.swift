@@ -33,14 +33,17 @@ class HtmlService: HtmlServiceInterface {
         RowDefinition<Visit>(title: "Eaten", width: 80, alignment: "right", value: { String($0.baitEaten) }),
         RowDefinition<Visit>(title: "Removed", width: 80, alignment: "right", value: { String($0.baitRemoved) }),
         RowDefinition<Visit>(title: "Catch", width: 80, alignment: "right", value: { $0.catchSpecies == nil ? "" : "1" } ),
-        RowDefinition<Visit>(title: "Species", width: 150, alignment: "right", value: { $0.catchSpecies?.name ?? ""} )
+        RowDefinition<Visit>(title: "Species", width: 150, alignment: "right", value: { $0.catchSpecies?.name ?? ""} ),
+        RowDefinition<Visit>(title: "Notes", width: 150, alignment: "right", value: { $0.notes ?? ""} )
     ]
     
     //private var headings = [String]()
     
-    func getVisitsAsHtmlTable(recordedOn date: Date, route: Route) -> String? {
+    func getVisitsAsHtml(recordedOn date: Date, route: Route) -> String? {
     
-        let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: date, route: route)
+        let visitsFromRealm = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: date, route: route)
+        
+        let visits = Array(visitsFromRealm).sorted(by: { $0.order < $1.order })
         
         var html = "<html><table style=\'border-collapse : collapse;\'>"
         

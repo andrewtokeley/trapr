@@ -27,26 +27,34 @@ extension VisitInteractor: VisitInteractorApi {
         // NOTE: not supporting multiple visits to the same trap on the same day
         if visits.count > 0 {
             
-            // trap exists for this day
-            presenter.didFetchVisit(visit: visits[0], isNew: false)
+            // visit exists for this day
+            presenter.didFetchVisit(visit: visits[0])
         } else {
+            // no visit exists
+            presenter.didFindNoVisit()
             
-            // create a new Visit
-            let newVisit = Visit(date: date, route: route, trap: trap)
-            presenter.didFetchVisit(visit: newVisit, isNew: true)
+            // create a new Visit, with time now (but date the same as being requested)
+//            if let dateNow = date.setTimeToNow() {
+//                let newVisit = Visit(date: dateNow, route: route, trap: trap)
+//                presenter.didFetchVisit(visit: newVisit)
+//            }
         }
     }
     
     func addVisit(visit: Visit) {
         ServiceFactory.sharedInstance.visitService.add(visit: visit)
+        presenter.didFetchVisit(visit: visit)
     }
     
     func deleteVisit(visit: Visit) {
-        ServiceFactory.sharedInstance.visitService.delete(visit: visit)
+        if let visitToDelete = ServiceFactory.sharedInstance.visitService.getById(id: visit.id) {
+            ServiceFactory.sharedInstance.visitService.delete(visit: visitToDelete)
+        }
     }
     
-    func deleteAllVisits(visitSummary: VisitSummary) {
-        for visit in visitSummary.visits {
+    func deleteAllVisits(route: Route, date: Date) {
+        let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: date, route: route)
+        for visit in visits {
             deleteVisit(visit: visit)
         }
     }

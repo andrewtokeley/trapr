@@ -13,6 +13,7 @@ enum TrapTypeCode: String {
     case possumMaster = "POS"
     case pellibait = "PEL"
     case doc200 = "DOC200"
+    case timms = "TIMM"
     case other = "OTHER"
 }
 
@@ -31,6 +32,7 @@ class TrapTypeService: LookupService<TrapType> {
             realm.add(possumMaster(), update:true)
             realm.add(doc200(), update:true)
             realm.add(pelifeed(), update:true)
+            realm.add(timms(), update:true)
         }
     }
     
@@ -48,12 +50,33 @@ class TrapTypeService: LookupService<TrapType> {
 
         trapType.catchableSpecies.append(speciesService.get(.rat)!)
         trapType.catchableSpecies.append(speciesService.get(.mouse)!)
+        trapType.catchableSpecies.append(speciesService.get(.hedgehog)!)
         trapType.catchableSpecies.append(speciesService.get(.other)!)
         
         trapType.imageName = "doc200"
         return trapType
     }
     
+    private func timms() -> TrapType {
+        let trapType = TrapType()
+        trapType.code = TrapTypeCode.timms.rawValue
+        trapType.name = "Timms Trap"
+        trapType.order = 3
+        trapType.killMethodRaw = KillMethod.direct.rawValue
+        trapType.defaultLure = lureService.get(.cereal)
+        
+        trapType.availableLures.append(lureService.get(.cereal)!)
+        trapType.availableLures.append(lureService.get(.apple)!)
+        trapType.availableLures.append(lureService.get(.other)!)
+        
+        trapType.catchableSpecies.append(speciesService.get(.possum)!)
+        trapType.catchableSpecies.append(speciesService.get(.hedgehog)!)
+        trapType.catchableSpecies.append(speciesService.get(.cat)!)
+        trapType.catchableSpecies.append(speciesService.get(.other)!)
+        
+        trapType.imageName = "timms"
+        return trapType
+    }
     private func possumMaster() -> TrapType {
         let trapType = TrapType()
         trapType.code = TrapTypeCode.possumMaster.rawValue

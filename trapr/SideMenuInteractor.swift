@@ -15,6 +15,9 @@ final class SideMenuInteractor: Interactor {
 
 // MARK: - SideMenuInteractor API
 extension SideMenuInteractor: SideMenuInteractorApi {
+    func getStationsForMap() -> [Station] {
+        return ServiceFactory.sharedInstance.stationService.getAll()
+    }
 }
 
 // MARK: - Interactor Viper Components Api

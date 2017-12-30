@@ -23,6 +23,7 @@ enum AppModules: String, ViperitModule {
     case sideMenu
     case listPicker
     case route
+    case map
     
     var viewType: ViperitViewType {
         return .code

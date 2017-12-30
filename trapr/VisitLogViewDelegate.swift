@@ -9,7 +9,12 @@
 import Foundation
 import UIKit
 
-protocol VisitLogDelegate {
+protocol VisitLogViewDelegate {
     func visitLogViewDidScroll(_ visitLogView: VisitLogView, scrollView: UIScrollView)
+}
+
+protocol VisitLogDelegate {
+    func didSelectToRemoveVisit()
+    func didSelectToCreateNewVisit()
 }
 

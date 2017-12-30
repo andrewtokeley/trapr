@@ -54,6 +54,11 @@ extension SettingsPresenter: SettingsPresenterApi {
         service.mergeWithV1Data()
     }
     
+    func resetAllData() {
+        let service = ServiceFactory.sharedInstance.dataPopulatorService
+        service.resetAllData()
+    }
+    
 }
 
 // MARK: - Profile Viper Components

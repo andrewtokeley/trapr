@@ -12,7 +12,7 @@ import Viperit
 //MARK: VisitLogView Class
 final class VisitLogView: UserInterface {
     
-    var delegate: VisitLogDelegate?
+    var delegate: VisitLogViewDelegate?
     
     fileprivate var visit: Visit?
     
@@ -32,6 +32,9 @@ final class VisitLogView: UserInterface {
     
     fileprivate let SECTION_COMMENTS = 3
     fileprivate let ROW_COMMENTS = 0
+    
+    fileprivate let SECTION_REMOVE = 4
+    fileprivate let ROW_REMOVE = 0
     
     fileprivate let STEPPER_ADD = 0
     fileprivate let STEPPER_EATEN = 1
@@ -136,6 +139,28 @@ final class VisitLogView: UserInterface {
         return cell
     }()
     
+    lazy var removeVisitButton: UIButton = {
+        let button = UIButton(type: UIButtonType.custom)
+        button.setTitle("Remove Visit", for: .normal)
+        button.setTitleColor(UIColor.red, for: .normal)
+        button.titleLabel?.textAlignment = .center
+        
+        button.addTarget(self, action: #selector(removeVisit(sender:)), for: .touchUpInside)
+        return button
+    }()
+    
+//    lazy var removeVisitTableViewCell: UITableViewCell = {
+//        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+//        cell.selectionStyle = .none
+//        cell.backgroundColor = UIColor.clear
+//
+//        cell.addSubview(self.removeVisitButton)
+//
+//        self.removeVisitButton.autoPinEdgesToSuperviewEdges()
+//
+//        return cell
+//    }()
+    
     //MARK: - UIViewController
     override func loadView() {
         
@@ -146,10 +171,10 @@ final class VisitLogView: UserInterface {
         
         setConstraints()
         
-        sections = ["", "CATCH", "BAIT", "COMMENTS"]
-        visibleSections = [0, 1, 2, 3]
+        sections = ["", "CATCH", "BAIT", "COMMENTS", ""]
+        visibleSections = [0, 1, 2, 3, 4]
         
-        // ensure the keyboard disappears when click view
+        // ensure the keyboard disappears when click view - this also ensures presenter knows about updates to editable fields like comments
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
@@ -173,12 +198,17 @@ final class VisitLogView: UserInterface {
         presenter.didSelectToRecordVisit()
     }
 
+    func removeVisit(sender: UIButton) {
+        presenter.didSelectToRemoveVisit()
+    }
+    
 }
+
 
 //MARK: - UIScrollViewDelegate
 extension VisitLogView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.delegate?.visitLogViewDidScroll(self, scrollView: scrollView)
+        //self.delegate?.visitLogViewDidScroll(self, scrollView: scrollView)
     }
 }
 
@@ -189,9 +219,7 @@ extension VisitLogView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         tableView.scrollToRow(at: IndexPath(row: ROW_COMMENTS, section: SECTION_COMMENTS), at: UITableViewScrollPosition.top, animated: true)
     }
-    func textViewDidChange(_ textView: UITextView) {
-        print("textViewDidChange")
-    }
+
     func textViewDidEndEditing(_ textView: UITextView) {
         presenter.didUpdateComment(text: textView.text)
     }
@@ -221,10 +249,11 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0: return 2
-        case 1: return 2
-        case 2: return 4
-        case 3: return 1
+        case SECTION_DATETIME: return 2
+        case SECTION_CATCH: return 2
+        case SECTION_BAIT: return 4
+        case SECTION_COMMENTS: return 1
+        case SECTION_REMOVE: return 0
         default: return 0
         }
     }
@@ -261,7 +290,9 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
         return 0
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if visibleSections.contains(section) {
+        if section == SECTION_REMOVE {
+            return self.removeVisitButton
+        } else if visibleSections.contains(section) {
             return tableView.headerView(forSection: section)
         }
         return nil
@@ -284,10 +315,10 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if visibleSections.contains(section) {
             // add a larger section footer to last section
-            if (section == SECTION_COMMENTS) {
-                return LayoutDimensions.tableFooterHeightLarge + 300
+            if (section == SECTION_REMOVE) {
+                return LayoutDimensions.tableFooterHeightLarge + 120
             } else if (section == SECTION_BAIT) && lureBalanceMessage?.count ?? 0 > 0 {
-                return LayoutDimensions.tableFooterHeight + 20
+                return LayoutDimensions.tableFooterHeight + 10
             } else {
                 return LayoutDimensions.tableFooterHeight
             }
@@ -386,7 +417,6 @@ extension VisitLogView: VisitLogViewApi {
     
     func displayDateTime(date: Date) {
         self.dateTimeTableViewCell.detailTextLabel?.text = date.toString(from: "hh:mm")
-        //presenter.updateDateTime(date: date)
     }
     
     func displayLureBalanceMessage(message: String) {
@@ -397,6 +427,11 @@ extension VisitLogView: VisitLogViewApi {
     
     func displaySpecies(name: String) {
         //presenter.`
+    }
+    
+    func endEditing() {
+        // called by the presenter before navigating away to ensure the active textfield (comments) reports its update
+        self.view.endEditing(true)
     }
 }
 

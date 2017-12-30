@@ -16,7 +16,7 @@ class importTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        ServiceFactory.sharedInstance.dataPopulatorService.deleteAllTestData()
+        ServiceFactory.sharedInstance.dataPopulatorService.resetAllData()
     }
     
     override func tearDown() {
@@ -44,7 +44,7 @@ class importTests: XCTestCase {
             expect.fulfill()
         })
         
-        waitForExpectations(timeout: 10) { (error) in
+        waitForExpectations(timeout: 100) { (error) in
             if let e = error {
                 XCTFail(e.localizedDescription)
             }
@@ -54,7 +54,7 @@ class importTests: XCTestCase {
     
     func testImportSuccess() {
         
-        let expect = expectation(description: "ImportSuccess")
+        let expect = expectation(description: "testImportSuccess")
         
         // Create CSV with incorrect/missing Trap Line and Summary headings
         let csvData = """
@@ -77,7 +77,7 @@ class importTests: XCTestCase {
             expect.fulfill()
         })
         
-        waitForExpectations(timeout: 10) { (error) in
+        waitForExpectations(timeout: 100) { (error) in
             if let e = error {
                 XCTFail(e.localizedDescription)
             }
@@ -87,7 +87,7 @@ class importTests: XCTestCase {
     
     func testImportSuccessMuktipleLines() {
         
-        let expect = expectation(description: "ImportSuccess")
+        let expect = expectation(description: "testImportSuccessMuktipleLines")
         
         // Create CSV with incorrect/missing Trap Line and Summary headings
         let csvData = """
@@ -113,7 +113,7 @@ class importTests: XCTestCase {
             expect.fulfill()
         })
         
-        waitForExpectations(timeout: 10) { (error) in
+        waitForExpectations(timeout: 100) { (error) in
             if let e = error {
                 XCTFail(e.localizedDescription)
             }
@@ -126,7 +126,7 @@ class importTests: XCTestCase {
         var traplines = ServiceFactory.sharedInstance.traplineService.getTraplines()
         XCTAssertTrue(traplines?.count == 0)
         
-        let expect = expectation(description: "ImportAddingAndUpdating")
+        let expect = expectation(description: "testImportAddingAndUpdating")
         
         // Create CSV with incorrect/missing Trap Line and Summary headings
         var csvData = """
@@ -161,7 +161,7 @@ class importTests: XCTestCase {
                 })
         })
             
-        waitForExpectations(timeout: 10) { (error) in
+        waitForExpectations(timeout: 100) { (error) in
             if let e = error {
                 XCTFail(e.localizedDescription)
             }
@@ -174,7 +174,7 @@ class importTests: XCTestCase {
         var traplines = ServiceFactory.sharedInstance.traplineService.getTraplines()
         XCTAssertTrue(traplines?.count == 0)
         
-        let expect = expectation(description: "ImportingStations")
+        let expect = expectation(description: "testImportingStationsWithTraps")
         
         // Create CSV with 3 stations, one repeated
         let csvData = """
@@ -219,7 +219,7 @@ class importTests: XCTestCase {
     
     func testImportingOverExisitingData() {
         
-        let expect = expectation(description: "ImportingOverExisitingData")
+        let expect = expectation(description: "testImportingOverExisitingData")
         
         // Add LW01 Possum Master
         let trapline = Trapline()

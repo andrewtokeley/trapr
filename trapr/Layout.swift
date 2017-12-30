@@ -12,6 +12,11 @@ import UIKit
 struct LayoutDimensions {
     
     /**
+    Maximum width of left aligned labels in custom UITableViewCell
+    */
+    static let tableViewLabelWidth: CGFloat = 60
+    
+    /**
     Standard spacing between view elements
     */
     static let spacingMargin: CGFloat = 20

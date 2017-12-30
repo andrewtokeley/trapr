@@ -23,10 +23,6 @@ class ServiceFactory {
         return result!
     }()
     
-    lazy var applicationService: ApplicationServiceInterface = {
-        return ApplicationService(realm: self.realm)
-    }()
-    
     lazy var dataPopulatorService: DataPopulatorServiceInterface = {
         return DataPopulatorService(realm: self.realm)
     }()
@@ -56,7 +52,7 @@ class ServiceFactory {
     }()
     
     lazy var stationService: StationServiceInterface = {
-        return StationService()
+        return StationService(realm: self.realm)
     }()
     
     lazy var settingsService: SettingsServiceInterface = {

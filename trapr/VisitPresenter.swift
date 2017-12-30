@@ -12,17 +12,17 @@ import Viperit
 import MessageUI
 
 enum visitRecordMenuItem: String {
-    case sendReport = "Send report"
-    case deleteVisitRecord = "Delete"
-    case deleteAllVisits = "Delete All"
-    case viewMap = "View map"
+    case sendReport = "Email report"
+    case deleteAllVisits = "Remove all visits..."
+    case viewMap = "Map"
 }
 
 // MARK: - VisitPresenter Class
 final class VisitPresenter: Presenter {
     
+    fileprivate var delegate: VisitDelegate?
+    
     fileprivate var visitSummary: VisitSummary!
-    fileprivate var visitDelegate: VisitDelegate?
     fileprivate var currentVisit: Visit?
     
     fileprivate var currentTrap: Trap {
@@ -64,18 +64,9 @@ final class VisitPresenter: Presenter {
         router.showEditRoute(setupData: setupData)
     }
     
-    func menuDeleteVisit() {
-        if let visit = self.currentVisit {
-            interactor.deleteVisit(visit: visit)
-        }
-        
-        // grab a new visit for this day - it will be marked as new so the VisitLog will
-        interactor.retrieveVisit(date: visitSummary.dateOfVisit, route: self.visitSummary.route, trap: self.currentTrap)
-    }
-    
     func menuDeleteAllVisits() {
 
-        interactor.deleteAllVisits(visitSummary: self.visitSummary)
+        interactor.deleteAllVisits(route: self.visitSummary.route, date: self.visitSummary.dateOfVisit)
         
         // grab a new visit for this day - it will be marked as new so the VisitLog will
         interactor.retrieveVisit(date: visitSummary.dateOfVisit, route: self.visitSummary.route, trap: self.currentTrap)
@@ -83,6 +74,12 @@ final class VisitPresenter: Presenter {
     
     func menuSendToHandler() {
         view.showVisitEmail(visitSummary: self.visitSummary)
+    }
+    
+    func menuShowMap() {
+        
+        let stations = ServiceFactory.sharedInstance.stationService.getAll()
+        router.showMap(stations: stations, highlightedStations: Array(self.visitSummary.route.stations))
     }
     
     //MARK: - Helpers
@@ -95,12 +92,6 @@ final class VisitPresenter: Presenter {
     }
     
 }
-
-//extension VisitPresenter: MFMailComposeViewControllerDelegate {
-//    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-//        // do something with error
-//    }
-//}
 
 // MARK: - VisitPresenter API
 extension VisitPresenter: DatePickerDelegate {
@@ -152,16 +143,18 @@ extension VisitPresenter: VisitPresenterApi {
     }
     
     func setVisitDelegate(delegate: VisitDelegate) {
-        self.visitDelegate = delegate
+        self.delegate = delegate
     }
     
     func didSelectMenuButton() {
         
+        // can send on if there's at least one visit
+        let hasVisits = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: self.visitSummary.dateOfVisit, route: self.visitSummary.route).count > 0
+        
         let options = [
-            OptionItem(title: visitRecordMenuItem.sendReport.rawValue, isEnabled: true),
+            OptionItem(title: visitRecordMenuItem.sendReport.rawValue, isEnabled: hasVisits),
             OptionItem(title: visitRecordMenuItem.viewMap.rawValue, isEnabled: true),
-            OptionItem(title: visitRecordMenuItem.deleteVisitRecord.rawValue, isEnabled: true, isDestructive: true),
-            OptionItem(title: visitRecordMenuItem.deleteAllVisits.rawValue, isEnabled: true, isDestructive: true)
+            OptionItem(title: visitRecordMenuItem.deleteAllVisits.rawValue, isEnabled: hasVisits, isDestructive: true)
         ]
         view.displayMenuOptions(options: options)
     }
@@ -171,13 +164,13 @@ extension VisitPresenter: VisitPresenterApi {
             self.menuSendToHandler()
         }
         if title == visitRecordMenuItem.viewMap.rawValue {
-            //self.viewMap()
-        }
-        if title == visitRecordMenuItem.deleteVisitRecord.rawValue {
-            self.menuDeleteVisit()
+            self.menuShowMap()
         }
         if title == visitRecordMenuItem.deleteAllVisits.rawValue {
-            view.showConfirmation(title: "Delete All", message: "This action will delete all visits for this Route on \(self.currentVisit!.visitDateTime.toString(from: Styles.DATE_FORMAT_LONG)). Are you sure that's what you want to do?", yes: { self.menuDeleteAllVisits() }, no: nil)
+            
+            let count = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: self.visitSummary.dateOfVisit, route: self.visitSummary.route).count
+            
+            view.showConfirmation(title: "Remove All", message: "Are you sure you want to delete all \(count) visits on the \(self.visitSummary.dateOfVisit.toString(from: Styles.DATE_FORMAT_LONG)) for this route?", yes: { self.menuDeleteAllVisits() }, no: nil)
         }
     }
     
@@ -195,10 +188,18 @@ extension VisitPresenter: VisitPresenterApi {
         interactor.retrieveVisit(date: visitSummary.dateOfVisit, route: visitSummary.route, trap: self.currentTrap)
     }
     
-    func didFetchVisit(visit: Visit, isNew: Bool) {
+    func didFetchVisit(visit: Visit) {
+        
         // hold a reference to this visit - needed if user requests to delete it
         self.currentVisit = visit
-        visitDelegate?.didChangeVisit(visit: visit, isNew: isNew)
+        
+        // isNew will be true if this is
+        delegate?.didChangeVisit(visit: visit)
+    }
+    
+    func didFindNoVisit() {
+        self.currentVisit = nil
+        delegate?.didChangeVisit(visit: nil)
     }
     
     func didSelectStation(index: Int) {
@@ -211,6 +212,25 @@ extension VisitPresenter: VisitPresenterApi {
     }
 }
 
+extension VisitPresenter: VisitLogDelegate {
+    func didSelectToRemoveVisit() {
+        if let visit = self.currentVisit {
+            interactor.deleteVisit(visit: visit)
+            
+            delegate?.didChangeVisit(visit: nil)
+        }
+    }
+    
+    func didSelectToCreateNewVisit() {
+        
+        let newVisit = Visit(date: self.visitSummary.dateOfVisit, route: self.visitSummary.route, trap: self.currentTrap)
+
+        interactor.addVisit(visit: newVisit)
+        
+    }
+}
+
+//MARK: - TraplineSelectDelegate
 extension VisitPresenter: TraplineSelectDelegate {
     
     func didCreateRoute(route: Route) {

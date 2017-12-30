@@ -22,18 +22,23 @@ class DataPopulatorService: RealmService, DataPopulatorServiceInterface {
         createOrUpdateLookupData()
     }
     
+    func resetAllData() {
+        try! realm.write {
+            realm.deleteAll()
+        }
+        createOrUpdateLookupData()
+        mergeWithV1Data()
+    }
+
     func replaceAllDataWithTestData() {
-        deleteAllTestData()
+        try! realm.write {
+            realm.deleteAll()
+        }
+        createOrUpdateLookupData()
         createTestData()
     }
     
-    func deleteAllTestData() {
-        // Delete all data in the repository
-        ServiceFactory.sharedInstance.applicationService.deleteAllData()
-        createOrUpdateLookupData()
-    }
-    
-    private func createOrUpdateLookupData() {
+    func createOrUpdateLookupData() {
         ServiceFactory.sharedInstance.lureService.createOrUpdateDefaults()
         ServiceFactory.sharedInstance.speciesService.createOrUpdateDefaults()
         
@@ -45,7 +50,7 @@ class DataPopulatorService: RealmService, DataPopulatorServiceInterface {
     }
     
     func mergeWithV1Data() {
-        if let path = Bundle.main.path(forResource: "trapLines_Dec_5_2017", ofType: "trl") {
+        if let path = Bundle.main.path(forResource: "trapLines_Dec_27_2017", ofType: "trl") {
             let importer: DataImport = importer_traplines_v1_to_v2(fileURL: URL(fileURLWithPath: path))
             importer.importAndMerge(onError: nil, onCompletion: nil)
         }

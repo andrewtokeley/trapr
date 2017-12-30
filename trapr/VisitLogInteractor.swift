@@ -15,6 +15,11 @@ final class VisitLogInteractor: Interactor {
 
 // MARK: - VisitLogInteractor API
 extension VisitLogInteractor: VisitLogInteractorApi {
+    
+    func deleteVisit(visit: Visit) {
+        ServiceFactory.sharedInstance.visitService.delete(visit: visit)
+    }
+    
     func retrieveSpeciesList(callback: ([Species]) -> Void) {
         
         let service = ServiceFactory.sharedInstance.speciesService
@@ -29,9 +34,9 @@ extension VisitLogInteractor: VisitLogInteractorApi {
         callback(species)
     }
     
-    func saveVisit(visit: Visit) {
+    func saveVisit(visit: Visit) -> Visit {
         let service = ServiceFactory.sharedInstance.visitService
-        service.save(visit: visit)
+        return service.save(visit: visit)
     }
 }
 

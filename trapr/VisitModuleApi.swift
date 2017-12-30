@@ -14,6 +14,7 @@ protocol VisitRouterApi: RouterProtocol {
     func showEditRoute(setupData: TraplineSelectSetupData) 
     func showDatePicker(setupData: DatePickerSetupData)
     func addVisitLogToView()
+    func showMap(stations: [Station], highlightedStations: [Station]?)
 }
 
 //MARK: - VisitView API
@@ -38,12 +39,14 @@ protocol VisitPresenterApi: PresenterProtocol {
     
     func didSelectTrap(index: Int)
     func didSelectStation(index: Int)
-    func didFetchVisit(visit: Visit, isNew: Bool)
     func didSelectMenuButton()
     func didSelectMenuItem(title: String)
     func didSelectDate()
     func setVisitDelegate(delegate: VisitDelegate)
     func visitLogDidScroll(contentOffsetY: CGFloat)
+    
+    func didFetchVisit(visit: Visit)
+    func didFindNoVisit()
 }
 
 //MARK: - VisitInteractor API
@@ -51,5 +54,5 @@ protocol VisitInteractorApi: InteractorProtocol {
     func retrieveVisit(date: Date, route: Route, trap: Trap)
     func addVisit(visit: Visit)
     func deleteVisit(visit: Visit)
-    func deleteAllVisits(visitSummary: VisitSummary)
+    func deleteAllVisits(route: Route, date: Date)
 }

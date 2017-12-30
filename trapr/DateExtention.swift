@@ -29,16 +29,20 @@ extension Date {
         return Calendar.current.date(byAdding: components, to: self) ?? self
     }
     
-    static func dateFromComponents(_ days: Int, _ months: Int, _ years: Int) -> Date? {
+    static func dateFromComponents(_ day: Int?, _ month: Int?, _ year: Int?, _ hour: Int?, _ minute: Int?, _ second: Int?) -> Date? {
         var components = DateComponents()
-        components.day = days
-        components.month = months
-        components.year = years
-        components.hour = 0
-        components.minute = 0
-        components.second = 0
+        components.day = day
+        components.month = month
+        components.year = year
+        components.hour = hour
+        components.minute = minute
+        components.second = second
         
         return Calendar.current.date(from: components)
+    }
+    
+    static func dateFromComponents(_ day: Int, _ month: Int, _ year: Int) -> Date? {
+        return dateFromComponents(day, month, year, nil, nil, nil)
     }
     
     func dayStart() -> Date {
@@ -55,5 +59,23 @@ extension Date {
         let formater = DateFormatter()
         formater.dateFormat = "d M yyyy, HH:mm:ss"
         return formater.date(from: "\(components.day!) \(components.month!) \(components.year!), 23:59:59") ?? self
+    }
+    
+    /**
+     Converts a date to have the same time as now. The day/month/year will remain unchanged.
+     */
+    func setTimeToNow() -> Date? {
+        let timeComponentsOfNow = Calendar.current.dateComponents([.hour, .minute, .second], from: Date())
+        return self.setTime(timeComponentsOfNow.hour, timeComponentsOfNow.minute, timeComponentsOfNow.second)
+    }
+    
+    /**
+     Converts a date to have a specific time. The day/month/year will remain unchanged.
+     */
+    func setTime(_ hour: Int?, _ minute: Int?, _ second: Int?) -> Date? {
+        
+        let dateComonentsOfSelf = Calendar.current.dateComponents([.year, .month, .day], from: self)
+        
+        return Date.dateFromComponents(dateComonentsOfSelf.day, dateComonentsOfSelf.month, dateComonentsOfSelf.year, hour, minute, second)
     }
 }

@@ -33,4 +33,5 @@ protocol SideMenuPresenterApi: PresenterProtocol {
 
 //MARK: - SideMenuInteractor API
 protocol SideMenuInteractorApi: InteractorProtocol {
+    func getStationsForMap() -> [Station]
 }

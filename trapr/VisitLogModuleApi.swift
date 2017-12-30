@@ -22,7 +22,7 @@ protocol VisitLogViewApi: UserInterfaceProtocol {
     func displaySpecies(name: String)
     func displayNoVisitState()
     func displayLureBalanceMessage(message: String)
-    
+    func endEditing()
     //func setVisitLogScrollViewDelegate(delegate: VisitLogDelegate)
 }
 
@@ -34,6 +34,7 @@ protocol VisitLogPresenterApi: PresenterProtocol {
     func didSelectToChangeTrapOperatingStatus()
     func didSelectToChangeTrapSetStatus()
     func didSelectToRecordVisit()
+    func didSelectToRemoveVisit()
     func didUpdateBaitAddedValue(newValue: Int)
     func didUpdateBaitEatenValue(newValue: Int)
     func didUpdateBaitRemovedValue(newValue: Int)
@@ -44,5 +45,6 @@ protocol VisitLogPresenterApi: PresenterProtocol {
 protocol VisitLogInteractorApi: InteractorProtocol {
     func retrieveSpeciesList(callback: ([Species]) -> Swift.Void )
     func retrieveLuresList(callback: ([Lure]) -> Swift.Void )
-    func saveVisit(visit: Visit)
+    func saveVisit(visit: Visit) -> Visit
+    func deleteVisit(visit: Visit)
 }

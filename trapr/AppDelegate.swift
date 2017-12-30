@@ -1,4 +1,4 @@
- //
+     //
 //  AppDelegate.swift
 //  trapr
 //
@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Set global styles
         Styles.setAppearances()
+        
+        ServiceFactory.sharedInstance.dataPopulatorService.createOrUpdateLookupData()
         
         window = UIWindow(frame: UIScreen.main.bounds)
         let module = AppModules.start.build()

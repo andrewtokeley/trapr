@@ -8,7 +8,11 @@
 
 import Foundation
 
-class StationService: StationServiceInterface {
+class StationService: RealmService, StationServiceInterface {
+    
+    func getAll() -> [Station] {
+        return Array(realm.objects(Station.self))
+    }
     
     func reverseOrder(stations: [Station]) -> [Station] {
         var reordered = [Station]()

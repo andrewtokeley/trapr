@@ -10,6 +10,6 @@ import Foundation
 
 protocol HtmlServiceInterface {
 
-    func getVisitsAsHtmlTable(recordedOn date: Date, route: Route) -> String?
+    func getVisitsAsHtml(recordedOn date: Date, route: Route) -> String?
     
 }

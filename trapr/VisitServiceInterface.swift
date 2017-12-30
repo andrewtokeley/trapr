@@ -21,7 +21,9 @@ protocol VisitServiceInterface: RealmServiceInterface {
     
     func delete(visit: Visit)
     
-    func save(visit: Visit)
+    func save(visit: Visit) -> Visit
+    
+    func getById(id: String) -> Visit?
     
     /**
      Gets all Visits recorded on a specific Trapline

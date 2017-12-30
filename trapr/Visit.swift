@@ -42,6 +42,19 @@ class Visit: Object {
     dynamic var catchSpecies: Species?
     dynamic var notes: String?
     
+    /**
+     Computed property that allows visits to be ordered by Station then Trap order.
+     
+     For example, LW01_0
+     
+     Note, realm still won't be able to sort on this as it's not persisted to the database
+    */
+    var order: String {
+        let code = trap?.station?.longCode ?? "_"
+        let trapOrder = String(trap?.type?.order ?? 0)
+        return "\(code)_\(trapOrder)"
+    }
+    
     convenience init(date: Date, route: Route, trap: Trap) {
         self.init()
         self.visitDateTime = date

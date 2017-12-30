@@ -55,13 +55,24 @@ extension StartRouter: StartRouterApi {
         let module = AppModules.settings.build()
         module.router.show(from: _view, embedInNavController: true, setupData: nil)
     }
+    
+    func showMap(setupData: MapSetupData) {
+        let module = AppModules.map.build()
+        module.router.show(from: _view, embedInNavController: true, setupData: setupData)
+    }
 }
 
 extension StartRouter: SideMenuDelegate {
 
-    func didSelectMenuItem(menu: SideBarMenuItem) {
+    func didSelectMenuItem(menu: SideBarMenuItem, setupData: Any?) {
+        
         if menu == .Settings {
             self.showProfile()
+        }
+        if menu == .Map {
+            if let setup = setupData as? MapSetupData {
+                self.showMap(setupData: setup)
+            }
         }
     }
 }

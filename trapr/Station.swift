@@ -34,6 +34,14 @@ class Station: Object {
         return trapline?.code!.appending(self.code!) ?? id
     }
     
+    var latitude: Double {
+        return traps.first?.latitude ?? 0
+    }
+
+    var longitude: Double {
+        return traps.first?.longitude ?? 0
+    }
+
     /**
      Typically only used for debugging purposes to return the station's longCode
      */

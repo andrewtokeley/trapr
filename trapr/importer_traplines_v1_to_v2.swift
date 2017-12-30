@@ -19,10 +19,14 @@ enum TraplineFileHeaders: String {
     case trap_notes = "Notes"
 }
 
-enum TrapTypeDescriptions: String {
+/**
+ These are the names given to trap types from the v1 app. Note some are incorrectly named, but are still mapped to the write type
+ */
+enum V1TrapTypeDescriptions: String {
     case possumMaster = "Possum Master"
     case pelifeed = "Pelifeed"
     case doc200 = "Haines Trap"
+    case timms = "Possum Trap (KBL)"
 }
 
 class importer_traplines_v1_to_v2: DataImport {
@@ -155,20 +159,21 @@ class importer_traplines_v1_to_v2: DataImport {
         
         var station: Station?
         
-        //get the numeric values from the Trap Name - this will be the station code
         if let trapName = record[TraplineFileHeaders.station_code.rawValue] {
             
+            //get the numeric values from the Trap Name - this will be the station code
             let stationCode = String(trapName.filter { "0"..."9" ~= $0 })
             if stationCode.count != 0 {
                 
                 // see if it exists
                 station = trapline.stations.first(where: { $0.code == stationCode })
                 
+                // if the station doesn't exists already, add it
                 if station == nil {
                     station = Station(code: stationCode)
+                    traplineService.addStation(trapline: trapline, station: station!)
                 }
                 
-                traplineService.addStation(trapline: trapline, station: station!)
             } else {
                 // warning that there's no station code?
             }
@@ -186,12 +191,14 @@ class importer_traplines_v1_to_v2: DataImport {
             trap = Trap()
             
             switch trapTypeName {
-            case TrapTypeDescriptions.possumMaster.rawValue:
+            case V1TrapTypeDescriptions.possumMaster.rawValue:
                 trap!.type = ServiceFactory.sharedInstance.trapTypeService.get(.possumMaster)
-            case TrapTypeDescriptions.doc200.rawValue:
+            case V1TrapTypeDescriptions.doc200.rawValue:
                 trap!.type = ServiceFactory.sharedInstance.trapTypeService.get(.doc200)
-            case TrapTypeDescriptions.pelifeed.rawValue:
+            case V1TrapTypeDescriptions.pelifeed.rawValue:
                 trap!.type = ServiceFactory.sharedInstance.trapTypeService.get(.pellibait)
+            case V1TrapTypeDescriptions.timms.rawValue:
+                trap!.type = ServiceFactory.sharedInstance.trapTypeService.get(.timms)
             default:
                 trap!.type = ServiceFactory.sharedInstance.trapTypeService.get(.other)
             }

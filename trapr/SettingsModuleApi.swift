@@ -30,6 +30,7 @@ protocol SettingsPresenterApi: PresenterProtocol {
     func didUpdateEmailVisitsRecipient(emailAddress: String?)
     func didUpdateEmailOrdersRecipient(emailAddress: String?)
     func mergeWithTrapData()
+    func resetAllData()
 }
 
 //MARK: - ProfileInteractor API

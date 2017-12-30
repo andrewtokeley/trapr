@@ -75,4 +75,26 @@ class dateTests: XCTestCase {
         }
     }
     
+    func testSetTime() {
+        let today = Date()
+        let todayComponents = Calendar.current.dateComponents([.day, .month, .year], from: today)
+        
+        // set the time is 11:11:11 and set to this
+        if let newDate = today.setTime(11, 11, 11) {
+        
+            // test the time is 11:11:11 on newDate
+            let components = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute, .second], from: newDate)
+            
+            // Test the day is the same
+            XCTAssertTrue(components.day == todayComponents.day)
+            XCTAssertTrue(components.month == todayComponents.month)
+            XCTAssertTrue(components.year == todayComponents.year)
+            
+            XCTAssertTrue(components.hour == 11)
+            XCTAssertTrue(components.minute == 11)
+            XCTAssertTrue(components.second == 11)
+        } else {
+            XCTFail()
+        }
+    }
 }

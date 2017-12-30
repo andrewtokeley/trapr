@@ -27,6 +27,7 @@ final class SettingsView: UserInterface {
     
     let SECTION_TESTING =  3
     let ROW_MERGE_TRAP_DATA = 0
+    let ROW_RESET_ALL = 1
     
     let TEXTFIELD_TAG_NAME = 0
     let TEXTFIELD_TAG_VISIT_EMAIL = 1
@@ -53,9 +54,21 @@ final class SettingsView: UserInterface {
         
         let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: self.TABLEVIEW_CELL_ID)
         
+        let label = UILabel()
+        label.text = "Username"
+        
+        cell.contentView.addSubview(label)
         cell.contentView.addSubview(self.trapperNameTextField)
+        
         cell.selectionStyle = .none
-        self.trapperNameTextField.autoPinEdgesToSuperviewEdges()
+        
+        label.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
+        label.autoAlignAxis(toSuperviewAxis: .horizontal)
+        label.autoSetDimension(.width, toSize: LayoutDimensions.tableViewLabelWidth * 1.5)
+        
+        self.trapperNameTextField.autoPinEdge(.left, to: .right, of: label, withOffset: LayoutDimensions.spacingMargin)
+        self.trapperNameTextField.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
+        self.trapperNameTextField.autoAlignAxis(toSuperviewAxis: .horizontal)
         self.trapperNameTextField.autoSetDimension(.height, toSize: LayoutDimensions.tableCellHeight)
         
         return cell
@@ -65,6 +78,8 @@ final class SettingsView: UserInterface {
         
         let textField = UITextField()
         textField.placeholder = "Name"
+        textField.textColor = UIColor.gray
+        textField.textAlignment = .right
         textField.tag = self.TEXTFIELD_TAG_NAME
         textField.delegate = self
         let spacerView = UIView(frame:CGRect(x:0, y:0, width:LayoutDimensions.textIndentMargin, height:LayoutDimensions.textIndentMargin))
@@ -89,7 +104,7 @@ final class SettingsView: UserInterface {
         
         label.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
         label.autoAlignAxis(toSuperviewAxis: .horizontal)
-        label.autoSetDimension(.width, toSize: 60)
+        label.autoSetDimension(.width, toSize: LayoutDimensions.tableViewLabelWidth)
         
         self.visitsEmailTextField.autoPinEdge(.left, to: .right, of: label, withOffset: LayoutDimensions.spacingMargin)
         self.visitsEmailTextField.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
@@ -128,7 +143,7 @@ final class SettingsView: UserInterface {
         
         label.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
         label.autoAlignAxis(toSuperviewAxis: .horizontal)
-        label.autoSetDimension(.width, toSize: 60)
+        label.autoSetDimension(.width, toSize: LayoutDimensions.tableViewLabelWidth)
         
         self.ordersEmailTextField.autoPinEdge(.left, to: .right, of: label, withOffset: LayoutDimensions.spacingMargin)
         self.ordersEmailTextField.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
@@ -192,6 +207,27 @@ final class SettingsView: UserInterface {
         return cell
     }()
     
+    lazy var resetAllButton: UIButton = {
+        
+        let button = UIButton(type: UIButtonType.custom)
+        button.setTitle("Reset All!", for: .normal)
+        button.addTarget(self, action: #selector(resetAllButtonClick(sender:)), for: .touchUpInside)
+        button.setTitleColor(UIColor.red, for: .normal)
+        return button
+    }()
+    
+    lazy var resetAllTableViewCell: UITableViewCell = {
+        
+        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: self.TABLEVIEW_CELL_ID)
+        
+        cell.contentView.addSubview(self.resetAllButton)
+        
+        self.resetAllButton.autoPinEdgesToSuperviewEdges()
+        self.resetAllButton.autoSetDimension(.height, toSize: LayoutDimensions.tableCellHeight)
+        
+        return cell
+    }()
+    
     // MARK: - UIViewController
     
     override func loadView() {
@@ -223,6 +259,10 @@ final class SettingsView: UserInterface {
     
     func mergeButtonClick(sender: UIButton) {
         presenter.mergeWithTrapData()
+    }
+    
+    func resetAllButtonClick(sender: UIButton) {
+        presenter.resetAllData()
     }
 }
 
@@ -262,7 +302,7 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
         } else if section == SECTION_VERSIONS {
             return 2
         } else if section == SECTION_TESTING {
-            return 1
+            return 2
         } else if section == SECTION_EMAILS {
             return 2
         }
@@ -288,8 +328,12 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
             } else if row == ROW_ORDERS_EMAIL {
                 return ordersEmailTableViewCell
             }
-        } else if section == SECTION_TESTING && row == ROW_MERGE_TRAP_DATA {
-            return self.mergeWithTrapDataTableViewCell
+        } else if section == SECTION_TESTING {
+            if row == ROW_MERGE_TRAP_DATA {
+                return self.mergeWithTrapDataTableViewCell
+            } else if row == ROW_RESET_ALL {
+                return self.resetAllTableViewCell
+            }
         }
         return UITableViewCell()
     }

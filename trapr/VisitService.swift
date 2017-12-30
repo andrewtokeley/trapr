@@ -23,12 +23,18 @@ class VisitService: RealmService, VisitServiceInterface {
         }
     }
 
-    func save(visit: Visit) {
+    func save(visit: Visit) -> Visit {
+        var updated: Visit!
         try! realm.write {
-            realm.create(Visit.self, value: visit, update: true)
+            updated = realm.create(Visit.self, value: visit, update: true)
         }
+        return updated
     }
     
+    func getById(id: String) -> Visit? {
+        return realm.object(ofType: Visit, forPrimaryKey: id)
+    }
+
     func getVisits(recordedBetween dateStart: Date, dateEnd: Date) -> Results<Visit> {
         
         return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@}", dateStart, dateEnd).sorted(byKeyPath: "visitDateTime", ascending: false)

@@ -9,5 +9,5 @@
 import Foundation
 
 protocol SideMenuDelegate {
-    func didSelectMenuItem(menu: SideBarMenuItem)
+    func didSelectMenuItem(menu: SideBarMenuItem, setupData: Any?)
 }
