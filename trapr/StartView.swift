@@ -159,8 +159,8 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
         self.navigationItem.leftBarButtonItem = self.menuButtonItem
         self.view.addSubview(routesCollectionView)
         self.view.addSubview(routesSection)
-        self.view.addSubview(recentVisitsSection)
         self.view.addSubview(recentVisitsTableView)
+        self.view.addSubview(recentVisitsSection)
         
         self.setConstraints()
     }
@@ -245,7 +245,7 @@ extension StartView: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? LayoutDimensions.smallSpacingMargin : 0.01
+        return section == 0 ? LayoutDimensions.spacingMargin : 0.01
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

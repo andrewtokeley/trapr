@@ -223,10 +223,13 @@ extension VisitPresenter: VisitLogDelegate {
     
     func didSelectToCreateNewVisit() {
         
-        let newVisit = Visit(date: self.visitSummary.dateOfVisit, route: self.visitSummary.route, trap: self.currentTrap)
-
-        interactor.addVisit(visit: newVisit)
-        
+        // get the current time on the same day as the visitSummary
+        if let date = self.visitSummary.dateOfVisit.setTimeToNow() {
+         
+            let newVisit = Visit(date: date , route: self.visitSummary.route, trap: self.currentTrap)
+            
+            interactor.addVisit(visit: newVisit)
+        }
     }
 }
 

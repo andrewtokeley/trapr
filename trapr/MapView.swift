@@ -20,12 +20,15 @@ final class MapView: UserInterface {
     fileprivate var annotationStyle = AnnotationStyle.dots
     fileprivate var showingHighlightedOnly: Bool = false
     
+    fileprivate var locationManager = CLLocationManager()
+    
     //MARK: - Subviews
     lazy var map: MKMapView = {
         let view = MKMapView()
         view.mapType = .satellite
         view.register(StationLargeAnnotationView.self, forAnnotationViewWithReuseIdentifier: self.LARGE_ANNOTATION_VIEW_IDENTIFIER)
         view.register(StationSmallAnnotationView.self, forAnnotationViewWithReuseIdentifier: self.SMALL_ANNOTATION_VIEW_IDENTIFIER)
+        self.locationManager.requestWhenInUseAuthorization()
         view.showsUserLocation = true
         view.delegate = self
         return view

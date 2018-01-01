@@ -61,7 +61,6 @@ final class VisitView: UserInterface {
         carousel.delegate = self
         carousel.dataSource = self
         carousel.bounces = false
-        
         carousel.tag = self.CAROUSEL_STATIONS_TAG
         return carousel
     }()

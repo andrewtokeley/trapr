@@ -17,7 +17,8 @@ final class StartPresenter: Presenter {
     
     fileprivate let ROUTE_MENU_EDIT = 0
     fileprivate let ROUTE_MENU_VISIT = 1
-    fileprivate let ROUTE_MENU_DELETE = 2
+    fileprivate let ROUTE_MENU_MAP = 2
+    fileprivate let ROUTE_MENU_DELETE = 3
     
     open override func viewIsAboutToAppear() {
         view.setTitle(title: "Trapr", routesSectionTitle: "ROUTES", routeSectionActionText: "NEW", recentVisitsSectionTitle: "VISITS", recentVisitsSectionActionText: "")
@@ -44,6 +45,7 @@ extension StartPresenter: StartPresenterApi {
         routeMenuOptions.removeAll()
         routeMenuOptions.append("Edit")
         routeMenuOptions.append("Visit")
+        routeMenuOptions.append("Map")
         routeMenuOptions.append("Delete")
         view.setRouteMenu(options: routeMenuOptions)
     }
@@ -59,6 +61,8 @@ extension StartPresenter: StartPresenterApi {
             } else if menuItemIndex == ROUTE_MENU_VISIT {
                 let visitSummary = VisitSummary(dateOfVisit: Date(), route: route)
                 router.showVisitModule(visitSummary: visitSummary)
+            } else if menuItemIndex == ROUTE_MENU_MAP {
+                router.showMap(route: route)
             }
         }
     }

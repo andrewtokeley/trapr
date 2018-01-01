@@ -23,6 +23,7 @@ class Styles {
         
         let navigationBarAppearance = UINavigationBar.appearance()
         navigationBarAppearance.barTintColor = UIColor.trpNavigationBar
+        navigationBarAppearance.isTranslucent = false
         navigationBarAppearance.tintColor = UIColor.white
         navigationBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         

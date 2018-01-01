@@ -58,11 +58,24 @@ final class SideMenuView: UserInterface {
         let view = UIView()
         view.backgroundColor = UIColor.trpNavigationBar
         
-        let imageView = UIImageView(image: UIImage(named: "header_image"))
-        imageView.contentMode = .scaleAspectFill
-        view.addSubview(imageView)
+        let image = UIImageView(image: UIImage(named: "tree"))
+        image.contentMode = .scaleAspectFit
         
-        imageView.autoPinEdgesToSuperviewEdges()
+        let title = UILabel()
+        title.text = "Trapr"
+        title.font = UIFont.trpLabelNormal
+        title.textColor = UIColor.white
+        
+        view.addSubview(image)
+        view.addSubview(title)
+        
+        title.autoPinEdge(toSuperviewEdge: .bottom, withInset: LayoutDimensions.smallSpacingMargin)
+        title.autoAlignAxis(toSuperviewAxis: .vertical)
+        image.autoAlignAxis(toSuperviewAxis: .vertical)
+        image.autoSetDimension(.width, toSize: 60)
+        image.autoSetDimension(.height, toSize: 60)
+        image.autoPinEdge(.bottom, to: .top, of: title, withOffset: -LayoutDimensions.smallSpacingMargin)
+
         return view
     }()
     

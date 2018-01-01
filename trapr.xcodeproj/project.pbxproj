@@ -196,6 +196,10 @@
 		D8D1A0441FAF0DC300926CEF /* LureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D1A0431FAF0DC300926CEF /* LureService.swift */; };
 		D8D1A0471FAF16B000926CEF /* LookupObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D1A0461FAF16B000926CEF /* LookupObject.swift */; };
 		D8D1A0491FAF219E00926CEF /* LookupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D1A0481FAF219E00926CEF /* LookupService.swift */; };
+		D8D1BB031FF8637C00AD71E3 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D1BB011FF8637C00AD71E3 /* Logo.png */; };
+		D8D1BB041FF8637C00AD71E3 /* Logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D1BB021FF8637C00AD71E3 /* Logo@2x.png */; };
+		D8D1BB071FF8653500AD71E3 /* tree.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D1BB051FF8653500AD71E3 /* tree.png */; };
+		D8D1BB081FF8653500AD71E3 /* tree@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D1BB061FF8653500AD71E3 /* tree@2x.png */; };
 		D8D729DE1F61C9CC0082CD4A /* VisitSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */; };
 		D8D729E61F64BD580082CD4A /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D8D729E51F64BD580082CD4A /* Podfile */; };
 		D8D79AAC1FC3F0CD008AC5C1 /* RouteDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AA61FC3F0CD008AC5C1 /* RouteDisplayData.swift */; };
@@ -438,6 +442,10 @@
 		D8D1A0431FAF0DC300926CEF /* LureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LureService.swift; sourceTree = "<group>"; };
 		D8D1A0461FAF16B000926CEF /* LookupObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupObject.swift; sourceTree = "<group>"; };
 		D8D1A0481FAF219E00926CEF /* LookupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupService.swift; sourceTree = "<group>"; };
+		D8D1BB011FF8637C00AD71E3 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
+		D8D1BB021FF8637C00AD71E3 /* Logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Logo@2x.png"; sourceTree = "<group>"; };
+		D8D1BB051FF8653500AD71E3 /* tree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree.png; sourceTree = "<group>"; };
+		D8D1BB061FF8653500AD71E3 /* tree@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tree@2x.png"; sourceTree = "<group>"; };
 		D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitSummary.swift; sourceTree = "<group>"; };
 		D8D729E51F64BD580082CD4A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D8D79AA61FC3F0CD008AC5C1 /* RouteDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDisplayData.swift; sourceTree = "<group>"; };
@@ -810,7 +818,6 @@
 				D8B94D781F5EA52200D373EF /* Design */,
 				D8B94D581F5EA1FE00D373EF /* AppDelegate.swift */,
 				D8B94D5F1F5EA1FE00D373EF /* Assets.xcassets */,
-				D8B94D611F5EA1FE00D373EF /* LaunchScreen.storyboard */,
 				D8B94D641F5EA1FE00D373EF /* Info.plist */,
 				D89714AB1F77FEED00E846B9 /* TrapSectionIndexPath.swift */,
 				D8D79AB21FC4B992008AC5C1 /* OptionItem.swift */,
@@ -847,6 +854,7 @@
 				D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */,
 				D873C86F1FC6873A00F581D8 /* UIImageExtention.swift */,
 				D8DBE3F01FF764C900AA6482 /* UIViewExtension.swift */,
+				D8B94D611F5EA1FE00D373EF /* LaunchScreen.storyboard */,
 			);
 			name = Design;
 			sourceTree = "<group>";
@@ -876,6 +884,10 @@
 		D8B94D991F5F28F200D373EF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D8D1BB051FF8653500AD71E3 /* tree.png */,
+				D8D1BB061FF8653500AD71E3 /* tree@2x.png */,
+				D8D1BB011FF8637C00AD71E3 /* Logo.png */,
+				D8D1BB021FF8637C00AD71E3 /* Logo@2x.png */,
 				D8DBE3EB1FF5CD7300AA6482 /* circle.png */,
 				D8DBE3EA1FF5CD7300AA6482 /* circle@2x.png */,
 				D8DBE3D41FF37F0900AA6482 /* timms.png */,
@@ -1077,20 +1089,24 @@
 				D8DBE3EC1FF5CD7300AA6482 /* circle@2x.png in Resources */,
 				D83089581FA18815007C9316 /* StepperTableViewCell.xib in Resources */,
 				D8C8A1E81FCBA6210075E44E /* envelope@2x.png in Resources */,
+				D8D1BB031FF8637C00AD71E3 /* Logo.png in Resources */,
 				D8B73C301F97F4D8000C231E /* possumMaster@2x.png in Resources */,
 				D89714C01F7A0C5D00E846B9 /* ImageCollectionViewCell.xib in Resources */,
+				D8D1BB081FF8653500AD71E3 /* tree@2x.png in Resources */,
 				D84CE45B1F987CC30000D422 /* pelifeed@2x.png in Resources */,
 				D8083D251FE5C24300D1C5F1 /* header_image.png in Resources */,
 				D8083D2E1FE6129A00D1C5F1 /* rip.png in Resources */,
 				D83853041F66555700481B57 /* plus.png in Resources */,
 				D8B94D9D1F5F30CD00D373EF /* menu@2x.png in Resources */,
 				D8C8A1F21FCD10CB0075E44E /* CommentsTableViewCell.xib in Resources */,
+				D8D1BB071FF8653500AD71E3 /* tree.png in Resources */,
 				D84CE45A1F987CC30000D422 /* pelifeed.png in Resources */,
 				D8B94D601F5EA1FE00D373EF /* Assets.xcassets in Resources */,
 				D86CE4881F92BC6F004A09EF /* settings@2x.png in Resources */,
 				D8BC084B1F6A542700B284EE /* lessthan@2x.png in Resources */,
 				D8FA5CF61F8406D600EC890C /* close@2x.png in Resources */,
 				D8DBE3D61FF37F0900AA6482 /* timms.png in Resources */,
+				D8D1BB041FF8637C00AD71E3 /* Logo@2x.png in Resources */,
 				D87926951FB555A500240767 /* clock@2x.png in Resources */,
 				D8DBE3D21FF3276C00AA6482 /* trapLines_Dec_27_2017.trl in Resources */,
 				D8503DD81F67AF7800ED0C84 /* user.png in Resources */,

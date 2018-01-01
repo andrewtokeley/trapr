@@ -16,6 +16,17 @@ final class StartRouter: Router {
 // MARK: - StartRouter API
 extension StartRouter: StartRouterApi {
     
+    func showMap(route: Route) {
+        let module = AppModules.map.build()
+        
+        let setupData = MapSetupData()
+        setupData.stations = ServiceFactory.sharedInstance.stationService.getAll()
+        setupData.highlightedStations = Array(route.stations)
+        setupData.showHighlightedOnly = true
+        
+        module.router.show(from: _view, embedInNavController: true, setupData: setupData)
+    }
+    
     func showRouteModule(route: Route?) {
         let module = AppModules.route.build()
         

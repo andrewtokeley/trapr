@@ -32,7 +32,7 @@ class VisitService: RealmService, VisitServiceInterface {
     }
     
     func getById(id: String) -> Visit? {
-        return realm.object(ofType: Visit, forPrimaryKey: id)
+        return realm.object(ofType: Visit.self, forPrimaryKey: id)
     }
 
     func getVisits(recordedBetween dateStart: Date, dateEnd: Date) -> Results<Visit> {

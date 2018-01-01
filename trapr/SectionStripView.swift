@@ -20,7 +20,7 @@ class SectionStripView: UIView {
         titleLabel.font = UIFont.trpTableViewSectionHeading
         actionButton.titleLabel?.font = UIFont.trpTableViewSectionHeading
         self.backgroundColor = UIColor.trpSectionStrip
-        
+        self.dropShadow(color: UIColor.darkGray, opacity: 0.5, offSet: CGSize(width: 0, height: 6), radius: 3.0, scale: true)
         actionButton.addTarget(self, action: #selector(actionButtonTap(sender:)), for: .touchUpInside)
     }
     

@@ -10,6 +10,7 @@ import Viperit
 
 //MARK: - StartRouter API
 protocol StartRouterApi: RouterProtocol {
+    func showMap(route: Route)
     func showVisitModule(visitSummary: VisitSummary)
     func showNewVisitModule(delegate: NewVisitDelegate)
     func showRouteModule(route: Route?)

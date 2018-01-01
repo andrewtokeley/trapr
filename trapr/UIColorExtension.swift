@@ -24,7 +24,7 @@ extension UIColor
     public class var trpNavigationBar: UIColor {
         return UIColor(red: 18/255, green: 108/255, blue: 19/255, alpha: 1) 
     }
-
+    
     public class var trpTextHighlight: UIColor {
         return UIColor(red: 18/255, green: 108/255, blue: 19/255, alpha: 1)
     }
