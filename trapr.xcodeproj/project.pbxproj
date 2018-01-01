@@ -132,6 +132,12 @@
 		D87C44FA1F9059AF00CAFC7A /* SideMenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F41F9059AF00CAFC7A /* SideMenuRouter.swift */; };
 		D87C44FB1F9059AF00CAFC7A /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F51F9059AF00CAFC7A /* SideMenuView.swift */; };
 		D87E5BF51F88CCAA0055A3E0 /* TraplineSelectDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87E5BF41F88CCAA0055A3E0 /* TraplineSelectDelegate.swift */; };
+		D88DFE4C1FFABCD00048CA54 /* RouteDashboardDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE461FFABCD00048CA54 /* RouteDashboardDisplayData.swift */; };
+		D88DFE4D1FFABCD00048CA54 /* RouteDashboardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE471FFABCD00048CA54 /* RouteDashboardPresenter.swift */; };
+		D88DFE4E1FFABCD00048CA54 /* RouteDashboardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE481FFABCD00048CA54 /* RouteDashboardRouter.swift */; };
+		D88DFE4F1FFABCD00048CA54 /* RouteDashboardModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE491FFABCD00048CA54 /* RouteDashboardModuleApi.swift */; };
+		D88DFE501FFABCD00048CA54 /* RouteDashboardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE4A1FFABCD00048CA54 /* RouteDashboardInteractor.swift */; };
+		D88DFE511FFABCD00048CA54 /* RouteDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE4B1FFABCD00048CA54 /* RouteDashboardView.swift */; };
 		D89311FF1F834F6E008DF09D /* StationSelectDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311F91F834F6E008DF09D /* StationSelectDisplayData.swift */; };
 		D89312001F834F6E008DF09D /* StationSelectInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FA1F834F6E008DF09D /* StationSelectInteractor.swift */; };
 		D89312011F834F6F008DF09D /* StationSelectModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FB1F834F6E008DF09D /* StationSelectModuleApi.swift */; };
@@ -374,6 +380,12 @@
 		D87C44F41F9059AF00CAFC7A /* SideMenuRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuRouter.swift; sourceTree = "<group>"; };
 		D87C44F51F9059AF00CAFC7A /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		D87E5BF41F88CCAA0055A3E0 /* TraplineSelectDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraplineSelectDelegate.swift; sourceTree = "<group>"; };
+		D88DFE461FFABCD00048CA54 /* RouteDashboardDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDashboardDisplayData.swift; sourceTree = "<group>"; };
+		D88DFE471FFABCD00048CA54 /* RouteDashboardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDashboardPresenter.swift; sourceTree = "<group>"; };
+		D88DFE481FFABCD00048CA54 /* RouteDashboardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDashboardRouter.swift; sourceTree = "<group>"; };
+		D88DFE491FFABCD00048CA54 /* RouteDashboardModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDashboardModuleApi.swift; sourceTree = "<group>"; };
+		D88DFE4A1FFABCD00048CA54 /* RouteDashboardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDashboardInteractor.swift; sourceTree = "<group>"; };
+		D88DFE4B1FFABCD00048CA54 /* RouteDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDashboardView.swift; sourceTree = "<group>"; };
 		D89311F91F834F6E008DF09D /* StationSelectDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectDisplayData.swift; sourceTree = "<group>"; };
 		D89311FA1F834F6E008DF09D /* StationSelectInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectInteractor.swift; sourceTree = "<group>"; };
 		D89311FB1F834F6E008DF09D /* StationSelectModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectModuleApi.swift; sourceTree = "<group>"; };
@@ -733,6 +745,19 @@
 			name = SideMenu;
 			sourceTree = "<group>";
 		};
+		D88DFE451FFABCB20048CA54 /* RouteDashboard */ = {
+			isa = PBXGroup;
+			children = (
+				D88DFE461FFABCD00048CA54 /* RouteDashboardDisplayData.swift */,
+				D88DFE471FFABCD00048CA54 /* RouteDashboardPresenter.swift */,
+				D88DFE481FFABCD00048CA54 /* RouteDashboardRouter.swift */,
+				D88DFE491FFABCD00048CA54 /* RouteDashboardModuleApi.swift */,
+				D88DFE4A1FFABCD00048CA54 /* RouteDashboardInteractor.swift */,
+				D88DFE4B1FFABCD00048CA54 /* RouteDashboardView.swift */,
+			);
+			name = RouteDashboard;
+			sourceTree = "<group>";
+		};
 		D89311F81F834F44008DF09D /* StationSelect */ = {
 			isa = PBXGroup;
 			children = (
@@ -862,6 +887,7 @@
 		D8B94D7D1F5EA67300D373EF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D88DFE451FFABCB20048CA54 /* RouteDashboard */,
 				D8DBE3D71FF4FC0000AA6482 /* Map */,
 				D806C7E91F9C881F0064C98F /* GroupedTableViewDatasource.swift */,
 				D81431A81F8DDB2E00EAF5FD /* DatePicker */,
@@ -1290,6 +1316,7 @@
 				D87C44F91F9059AF00CAFC7A /* SideMenuPresenter.swift in Sources */,
 				D873C8741FC9246F00F581D8 /* TableViewHeaderWithAction.swift in Sources */,
 				D8083D161FE498F900D1C5F1 /* SettingsRouter.swift in Sources */,
+				D88DFE511FFABCD00048CA54 /* RouteDashboardView.swift in Sources */,
 				D857B3AA1F81B86A006E1402 /* VisitRouter.swift in Sources */,
 				D8083D151FE498F900D1C5F1 /* SettingsPresenter.swift in Sources */,
 				D8083D191FE498F900D1C5F1 /* SettingsView.swift in Sources */,
@@ -1323,6 +1350,7 @@
 				D841CF2A1F8239CA004D0207 /* TraplineSelectRouter.swift in Sources */,
 				D8D1A03C1FAF081E00926CEF /* TrapTypeService.swift in Sources */,
 				D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */,
+				D88DFE4E1FFABCD00048CA54 /* RouteDashboardRouter.swift in Sources */,
 				D89312041F834F6F008DF09D /* StationSelectView.swift in Sources */,
 				D8D79AB01FC3F0CD008AC5C1 /* RouteInteractor.swift in Sources */,
 				D8C8A1E21FCB9F7F0075E44E /* VisitSummaryTableViewCell.swift in Sources */,
@@ -1331,6 +1359,7 @@
 				D80B6DCB1F9F3DCD00F49E9E /* VisitLogDisplayData.swift in Sources */,
 				D8B57FEC1FD76E6D003437D9 /* DataImport.swift in Sources */,
 				D87926A11FB5973700240767 /* SectionStripViewDelegate.swift in Sources */,
+				D88DFE4C1FFABCD00048CA54 /* RouteDashboardDisplayData.swift in Sources */,
 				D8C8A1FA1FCE85EF0075E44E /* VisitLogViewDelegate.swift in Sources */,
 				D8B57FF01FDA5582003437D9 /* importer_traplines_v1_to_v2.swift in Sources */,
 				D81431A71F8DDB2600EAF5FD /* DatePickerView.swift in Sources */,
@@ -1347,6 +1376,7 @@
 				D8D79AAD1FC3F0CD008AC5C1 /* RoutePresenter.swift in Sources */,
 				D8503DC81F66807C00ED0C84 /* VisitPresenter.swift in Sources */,
 				D8083D341FE994B400D1C5F1 /* StatisticView.swift in Sources */,
+				D88DFE501FFABCD00048CA54 /* RouteDashboardInteractor.swift in Sources */,
 				D841CF271F8239CA004D0207 /* TraplineSelectInteractor.swift in Sources */,
 				D8953EBD1F88114F00A1F424 /* NewVisitInteractor.swift in Sources */,
 				D8039E261FABF458006E394B /* ListPickerInteractor.swift in Sources */,
@@ -1359,6 +1389,7 @@
 				D8083D1D1FE49A7800D1C5F1 /* SettingsService.swift in Sources */,
 				D83DC6C81F7F841F00F91792 /* StartDisplayData.swift in Sources */,
 				D8D79AAE1FC3F0CD008AC5C1 /* RouteRouter.swift in Sources */,
+				D88DFE4D1FFABCD00048CA54 /* RouteDashboardPresenter.swift in Sources */,
 				D8D79AAC1FC3F0CD008AC5C1 /* RouteDisplayData.swift in Sources */,
 				D83DC6CB1F7F841F00F91792 /* StartPresenter.swift in Sources */,
 				D8DBE3DF1FF4FC1900AA6482 /* MapPresenter.swift in Sources */,
@@ -1434,6 +1465,7 @@
 				D82A53E81FF0DE11000D9339 /* HtmlServiceInterface.swift in Sources */,
 				D8D1A0471FAF16B000926CEF /* LookupObject.swift in Sources */,
 				D8953EBE1F88114F00A1F424 /* NewVisitModuleApi.swift in Sources */,
+				D88DFE4F1FFABCD00048CA54 /* RouteDashboardModuleApi.swift in Sources */,
 				D81431A51F8DDB2600EAF5FD /* DatePickerPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
