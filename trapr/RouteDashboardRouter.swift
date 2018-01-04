@@ -8,6 +8,7 @@
 
 import Foundation
 import Viperit
+import UIKit
 
 // MARK: - RouteDashboardRouter class
 final class RouteDashboardRouter: Router {
@@ -15,6 +16,20 @@ final class RouteDashboardRouter: Router {
 
 // MARK: - RouteDashboardRouter API
 extension RouteDashboardRouter: RouteDashboardRouterApi {
+    
+    /**
+     Add a MapViewController instance as a child of the RouteDashboard view
+     */
+    func addMapAsChildView(containerView: UIView) {
+        
+        let mapViewController = StationMapViewController()
+        mapViewController.delegate = presenter as? StationMapDelegate
+        
+        _view.addChildViewController(mapViewController)
+        containerView.addSubview(mapViewController.view)
+        mapViewController.view.autoPinEdgesToSuperviewEdges()
+        mapViewController.didMove(toParentViewController: _view)
+    }
 }
 
 // MARK: - RouteDashboard Viper Components

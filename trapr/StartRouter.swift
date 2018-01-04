@@ -27,6 +27,17 @@ extension StartRouter: StartRouterApi {
         module.router.show(from: _view, embedInNavController: true, setupData: setupData)
     }
     
+    func showRouteDashboardModule(route: Route?) {
+        let module = AppModules.routeDashboard.build()
+        
+        let setupData = RouteDashboardSetup()
+        setupData.route = route
+        //setupData.delegate = ...
+        
+        // show modally
+        module.router.show(from: _view, embedInNavController: true, setupData: setupData)
+    }
+    
     func showRouteModule(route: Route?) {
         let module = AppModules.route.build()
         

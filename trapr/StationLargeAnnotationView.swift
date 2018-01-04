@@ -9,34 +9,46 @@
 import Foundation
 import MapKit
 
-class StationLargeAnnotationView: MKPinAnnotationView {
+class StationLargeAnnotationView: MKPinAnnotationView, StationAnnotationView {
 
+    private var stationMapAnnotation: StationMapAnnotation?
+    
     override var annotation: MKAnnotation? {
         willSet {
     
-            guard let stationMapAnnotation = newValue as? StationMapAnnotation else { return }
-            canShowCallout = true
+            stationMapAnnotation = newValue as? StationMapAnnotation
+            guard stationMapAnnotation != nil else { return }
+            
             calloutOffset = CGPoint(x: -5, y: 5)
             rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             
-            pinTintColor = stationMapAnnotation.highlighted ? UIColor.trpMapHighlightedStation : UIColor.trpMapDefaultStation
+            pinTintColor = stationMapAnnotation!.highlighted ? UIColor.trpMapHighlightedStation : UIColor.trpMapDefaultStation
             
-            if let title = stationMapAnnotation.title {
+            if let title = stationMapAnnotation!.title {
                 self.label.text = title
             }
 
         }
     }
-    
-    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
-        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        
-        self.addSubview(self.label)
+    var state: HighlightState {
+        return self.stationMapAnnotation!.highlighted ? .highlighted : .unhighlighted
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    var station: Station {
+        return self.stationMapAnnotation!.station
     }
+
+    func toggleState() {
+        if let _ = stationMapAnnotation {
+            print("toggle")
+            // toggle highlighted state
+            self.stationMapAnnotation!.highlighted = !self.stationMapAnnotation!.highlighted
+            
+            pinTintColor = stationMapAnnotation!.highlighted ? UIColor.trpMapHighlightedStation : UIColor.trpMapDefaultStation
+        }
+    }
+    
+    //MARK: - Subviews
     
     var label: UILabel = {
         let label = UILabel()
@@ -52,4 +64,17 @@ class StationLargeAnnotationView: MKPinAnnotationView {
         label.font = UIFont.trpLabelSmall
         return label
     }()
+    
+    // MARK: - Initialisation
+    
+    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        
+        self.addSubview(self.label)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }

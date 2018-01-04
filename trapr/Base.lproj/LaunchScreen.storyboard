@@ -38,11 +38,6 @@
                                     <constraint firstAttribute="width" constant="60" id="Dca-6l-MMW"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WeX-zS-MPg">
-                                <rect key="frame" x="76" y="405" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.14117647058823529" green="0.75294117647058822" blue="0.6470588235294118" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.070588235294117646" green="0.42352941176470588" blue="0.074509803921568626" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.93725490196078431" green="0.93694382905960083" blue="0.95754462480545044" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

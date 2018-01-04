@@ -10,14 +10,20 @@ import Viperit
 
 //MARK: - RouteDashboardRouter API
 protocol RouteDashboardRouterApi: RouterProtocol {
+    func addMapAsChildView(containerView: UIView)
 }
 
 //MARK: - RouteDashboardView API
 protocol RouteDashboardViewApi: UserInterfaceProtocol {
+    func displayTitle(_ title: String)
+    func displayRouteName(_ name: String?)
+    func displayStationsOnMap(stations: [Station], highlightedStations: [Station]?)
+    func getMapContainerView() -> UIView
 }
 
 //MARK: - RouteDashboardPresenter API
 protocol RouteDashboardPresenterApi: PresenterProtocol {
+    func didSelectClose()
 }
 
 //MARK: - RouteDashboardInteractor API

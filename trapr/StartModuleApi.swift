@@ -14,6 +14,7 @@ protocol StartRouterApi: RouterProtocol {
     func showVisitModule(visitSummary: VisitSummary)
     func showNewVisitModule(delegate: NewVisitDelegate)
     func showRouteModule(route: Route?)
+    func showRouteDashboardModule(route: Route?)
     func showSideMenu()
     func showProfile()
 }

@@ -9,9 +9,13 @@
 import Foundation
 import MapKit
 
-class StationSmallAnnotationView: MKAnnotationView {
+class StationSmallAnnotationView: MKAnnotationView, StationAnnotationView {
     
     private var stationMapAnnotation: StationMapAnnotation?
+    
+    internal var radius: Int {
+        return 20
+    }
     
     override var annotation: MKAnnotation? {
         willSet {
@@ -19,12 +23,26 @@ class StationSmallAnnotationView: MKAnnotationView {
             stationMapAnnotation = newValue as? StationMapAnnotation
             guard stationMapAnnotation != nil else { return }
             
-            canShowCallout = true
             calloutOffset = CGPoint(x: -5, y: 5)
             rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             
-            self.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
+            self.frame = CGRect(x: 0, y: 0, width: radius, height: radius)
             self.backgroundColor = UIColor.clear
+        }
+    }
+
+    var state: HighlightState {
+        return self.stationMapAnnotation!.highlighted ? .highlighted : .unhighlighted
+    }
+    
+    var station: Station {
+        return self.stationMapAnnotation!.station
+    }
+    
+    func toggleState() {
+        if let _ = stationMapAnnotation {
+            self.stationMapAnnotation!.highlighted = !self.stationMapAnnotation!.highlighted
+            self.setNeedsDisplay()
         }
     }
     

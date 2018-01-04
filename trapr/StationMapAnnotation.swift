@@ -14,8 +14,10 @@ class StationMapAnnotation: NSObject, MKAnnotation {
     let coordinate: CLLocationCoordinate2D
     var subtitle: String?
     var highlighted: Bool
+    var station: Station!
     
     init(station: Station, highlighted: Bool) {
+        self.station = station
         self.highlighted = highlighted
         self.title = station.longCode
         self.coordinate = CLLocationCoordinate2D(latitude: station.latitude, longitude: station.longitude)

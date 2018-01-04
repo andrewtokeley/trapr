@@ -35,6 +35,8 @@ final class MapPresenter: Presenter {
     
     //MARK: - Presenter
     
+    
+    
     override func setupView(data: Any) {
         
         view.setTitle(title: "Map")
@@ -44,26 +46,10 @@ final class MapPresenter: Presenter {
             self.stations = setup.stations
             self.highlightedStations = setup.highlightedStations
             self.showingHighlightedOnly = setup.showHighlightedOnly
+        
+            router.addMapAsChildView(containerView: view.getMapContainerView())
             
-            if self.stations.count > 0 {
-
-                // display all the station
-                view.addStationsToMap(stations: self.stations, highlightedStations: self.highlightedStations, annotationStyle: .markers)
-                
-                if self.showingHighlightedOnly {
-                    view.showOnlyHighlighted()
-                } else {
-                    view.showAll()
-                }
-                    
-                // centre on the first route station
-                if (self.highlightedStations?.count ?? 0) > 0 {
-                    view.setVisibleRegionToHighlightedStations()
-                } else {
-                    view.setVisibleRegionToAllStations()
-                }
-
-            }
+            view.setVisibleRegionToAllStations()
         }
     }
 }
@@ -76,14 +62,14 @@ extension MapPresenter: MapPresenterApi {
     }
     
     func didChangeZoomLevel(zoom: Double) {
-        print(zoom)
-        let styleForZoom = self.annotationStyleForZoomLevel(zoom: zoom)
-        
-        if self.annotationStyle != styleForZoom {
-            self.annotationStyle =  styleForZoom
-            print("change style \(styleForZoom)")
-            view.setAnnotationStyle(annotationStyle: self.annotationStyle)
-        }
+//
+//        let styleForZoom = self.annotationStyleForZoomLevel(zoom: zoom)
+//
+//        if self.annotationStyle != styleForZoom {
+//            self.annotationStyle =  styleForZoom
+//            print("change style \(styleForZoom)")
+//            view.setAnnotationStyle(annotationStyle: self.annotationStyle)
+//        }
         
     }
     
@@ -119,6 +105,30 @@ extension MapPresenter: MapPresenterApi {
             showingHighlightedOnly = true
         }
     }
+}
+
+extension MapPresenter: StationMapDelegate {
+    
+    func stationMap(_ stationMap: StationMapViewController, annotationViewClassAt zoomLevel: ZoomLevel) -> AnyClass? {
+        
+        if zoomLevel == .close {
+            return StationLargeAnnotationView.self
+        } else if zoomLevel == .far {
+            return StationSmallAnnotationView.self
+        } else {
+            return StationDotAnnotationView.self
+        }
+    }
+    
+    func stationMapStations(_ stationMap: StationMapViewController) -> [Station] {
+        
+        return self.stations
+    }
+    
+    func stationMap(_ stationMap: StationMapViewController, isHighlighted station: Station) -> Bool {
+        return self.highlightedStations?.contains(station) ?? false
+    }
+    
 }
 
 // MARK: - Map Viper Components

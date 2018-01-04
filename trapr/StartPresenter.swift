@@ -84,7 +84,8 @@ extension StartPresenter: StartPresenterApi {
     }
     
     func didSelectRoute(route: Route) {
-        router.showRouteModule(route: route)
+        //router.showRouteModule(route: route)
+        router.showRouteDashboardModule(route: route)
     }
     
     func setRecentVisits(visits: [VisitSummary]?) {
