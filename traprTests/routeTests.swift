@@ -33,6 +33,42 @@ class RouteTests: XCTestCase {
         
     }
     
+    func testReorderingStationsOnRoute() {
+        
+        let traplineLW = dataPopulatorService.createTrapline(code: "LW", numberOfStations: 3)
+        let traplineAA = dataPopulatorService.createTrapline(code: "AA", numberOfStations: 4)
+        
+        // Create a new Route with Stations in the order of LW01, LW02, AA01, LW03, AA03, AA04
+        let route = Route(name: "TestRoute", stations: [
+            traplineLW.stations[0],
+            traplineLW.stations[1],
+            traplineAA.stations[0],
+            traplineLW.stations[2],
+            traplineAA.stations[2],
+            traplineAA.stations[3]
+            ])
+        routeService.add(route: route)
+    
+        // reorder with AA traps first
+        let stationOrder = [
+            traplineAA.stations[0]: 0,
+            traplineAA.stations[2]: 1,
+            traplineAA.stations[3]: 2,
+            traplineLW.stations[0]: 3,
+            traplineLW.stations[1]: 4,
+            traplineLW.stations[2]: 5,
+        ]
+    
+        let updatedRoute = ServiceFactory.sharedInstance.routeService.reorderStations(route: route, stationOrder: stationOrder)
+    
+        XCTAssertTrue(updatedRoute.stations[0].longCode == "AA01")
+        XCTAssertTrue(updatedRoute.stations[1].longCode == "AA03")
+        XCTAssertTrue(updatedRoute.stations[2].longCode == "AA04")
+        XCTAssertTrue(updatedRoute.stations[3].longCode == "LW01")
+        XCTAssertTrue(updatedRoute.stations[4].longCode == "LW02")
+        XCTAssertTrue(updatedRoute.stations[5].longCode == "LW03")
+    }
+    
     func testAddingRouteStations() {
         
         let traplineLW = dataPopulatorService.createTrapline(code: "LW", numberOfStations: 3)

@@ -19,28 +19,6 @@ enum ZoomLevel: Double {
 final class MapView: UserInterface {
     
     var delegate: StationMapDelegate?
-//    
-//    fileprivate var stationMapAnnotations = [StationMapAnnotation]()
-//    fileprivate var highlightedMapAnnotations = [StationMapAnnotation]()
-//    fileprivate var annotationStyle = AnnotationStyle.dots
-//    fileprivate var showingHighlightedOnly: Bool = false
-//    
-//    fileprivate var toggleHighlightModeEnabled: Bool = false
-//    fileprivate var locationManager = CLLocationManager()
-//    
-//    fileprivate var currentZoomLevel: ZoomLevel {
-//        let zoom = map.region.span.latitudeDelta
-//        
-//        if zoom < ZoomLevel.close.rawValue { return ZoomLevel.close }
-//        
-//        else if zoom < ZoomLevel.far.rawValue { return ZoomLevel.far }
-//        
-//        else if zoom <= ZoomLevel.distant.rawValue {
-//            return ZoomLevel.distant
-//        } else {
-//            return ZoomLevel.distant
-//        }
-//    }
     
     //MARK: - Subviews
     lazy var mapViewControllerHost: UIView = {
@@ -112,21 +90,25 @@ extension MapView: MapViewApi {
     }
     
     func showOnlyHighlighted() {
-        mapViewController?.showOnlyHighlighted()
+        //mapViewController?.showOnlyHighlighted()
     }
-    
+
     func showAll() {
-        mapViewController?.showAll()
+        //mapViewController?.showAll()
     }
     
     func setTitle(title: String) {
         self.title = title
     }
     
-    func enableToggleHighlightMode(_ enable: Bool) {
-        mapViewController?.enableToggleHighlightMode(enable)
+    func reapplyStylingToAnnotationViews() {
+        mapViewController?.reapplyStylingToAnnotationViews()
     }
     
+    func enableToggleHighlightMode(_ enable: Bool) {
+        //mapViewController?.enableToggleHighlightMode(enable)
+    }
+
     func displayMenuOptions(options: [OptionItem]) {
         let menu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -147,49 +129,6 @@ extension MapView: MapViewApi {
     }
 }
 
-//MARK: - MKMapViewDelegate
-//extension MapView: MKMapViewDelegate {
-//
-//    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-//
-//        if self.toggleHighlightModeEnabled {
-//            if let annotationView = view as? StationAnnotationView {
-//
-//                annotationView.toggleState()
-//                if annotationView.state == .highlighted {
-//                    delegate?.map(self, didHighlight: annotationView.station)
-//                } else if annotationView.state == .unhighlighted {
-//                    delegate?.map(self, didUnhighlight: annotationView.station)
-//                }
-//
-//                mapView.deselectAnnotation(view.annotation!, animated: false)
-//            }
-//        }
-//    }
-//
-//    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-//        //self.title = String(mapView.region.span.latitudeDelta)
-//        presenter.didChangeZoomLevel(zoom: mapView.region.span.latitudeDelta)
-//    }
-//
-//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//
-//        guard let annotation = annotation as? StationMapAnnotation else { return nil }
-//
-//        guard let _ = delegate else { return nil}
-//
-//        // dequeue the annotation view for this zoom level
-//        let view = mapView.dequeueReusableAnnotationView(withIdentifier: String(describing: currentZoomLevel), for: annotation)
-//
-//        view.annotation = annotation
-//
-//        // only show the callout if we're not in highlight toggle mode
-//        view.canShowCallout = !toggleHighlightModeEnabled
-//
-//        return view
-//    }
-//
-//}
 
 // MARK: - MapView Viper Components API
 private extension MapView {

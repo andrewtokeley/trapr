@@ -41,42 +41,67 @@ final class StartPresenter: Presenter {
 extension StartPresenter: StartPresenterApi {
     
     func didSelectRouteMenu(routeIndex: Int) {
-        // for now all routes have the same options
-        routeMenuOptions.removeAll()
-        routeMenuOptions.append("Edit")
-        routeMenuOptions.append("Visit")
-        routeMenuOptions.append("Map")
-        routeMenuOptions.append("Delete")
-        view.setRouteMenu(options: routeMenuOptions)
+        
+        if let route = self.routes?[routeIndex] {
+            _view.displayMenuOptions(options: [
+                OptionItem(title: "Edit", isEnabled: true, isDestructive: false),
+                OptionItem(title: "Visit", isEnabled: true, isDestructive: false),
+                OptionItem(title: "Delete", isEnabled: true, isDestructive: true)
+                ], actionHandler: {
+                    (title) in
+                    if title == "Edit" {
+                        self.router.showRouteModule(route: route)
+                    } else if title == "Visit" {
+                        self.didSelectNewVisit(route: route)
+                    } else if title == "Delete" {
+                        self._view.presentConfirmation(title: "Delete Route", message: "Are you sure you want to delete this route?", response: {
+                            (ok) in
+                            if ok {
+                                self.interactor.deleteRoute(route: route)
+                                self.interactor.initialiseHomeModule()
+                            }
+                        })
+                    }
+            })
+        }
+        
+//        // for now all routes have the same options
+//        routeMenuOptions.removeAll()
+//        routeMenuOptions.append("Edit")
+//        routeMenuOptions.append("Visit")
+//        routeMenuOptions.append("Map")
+//        routeMenuOptions.append("Delete")
+//        view.setRouteMenu(options: routeMenuOptions)
     }
 
     func didSelectRouteMenuItem(routeIndex: Int, menuItemIndex: Int) {
         
-        if let route = self.routes?[routeIndex] {
-            if menuItemIndex == ROUTE_MENU_EDIT {
-                router.showRouteModule(route: route)
-            } else if menuItemIndex == ROUTE_MENU_DELETE {
-                interactor.deleteRoute(route: route)
-                interactor.initialiseHomeModule()
-            } else if menuItemIndex == ROUTE_MENU_VISIT {
-                let visitSummary = VisitSummary(dateOfVisit: Date(), route: route)
-                router.showVisitModule(visitSummary: visitSummary)
-            } else if menuItemIndex == ROUTE_MENU_MAP {
-                router.showMap(route: route)
-            }
-        }
+//        if let route = self.routes?[routeIndex] {
+//            if menuItemIndex == ROUTE_MENU_EDIT {
+//
+//            } else if menuItemIndex == ROUTE_MENU_DELETE {
+//
+//            } else if menuItemIndex == ROUTE_MENU_VISIT {
+//                let visitSummary = VisitSummary(dateOfVisit: Date(), route: route)
+//                router.showVisitModule(visitSummary: visitSummary)
+//            } else if menuItemIndex == ROUTE_MENU_MAP {
+//                router.showMap(route: route)
+//            }
+//        }
     }
     
     func didSelectMenu() {
         router.showSideMenu()
     }
     
-    func didSelectNewVisit() {
-        //router.showNewVisitModule(delegate: self)
+    func didSelectNewVisit(route: Route) {
+        let visitSummary = VisitSummary(dateOfVisit: Date(), route: route)
+        self.router.showVisitModule(visitSummary: visitSummary)
     }
     
     func didSelectNewRoute() {
-        router.showRouteModule(route: nil)
+        //router.showRouteModule(route: nil)
+        router.showRouteDashboardModule(route: nil)
     }
     
     func didSelectVisitSummary(visitSummary: VisitSummary) {
@@ -84,7 +109,6 @@ extension StartPresenter: StartPresenterApi {
     }
     
     func didSelectRoute(route: Route) {
-        //router.showRouteModule(route: route)
         router.showRouteDashboardModule(route: route)
     }
     

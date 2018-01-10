@@ -10,22 +10,43 @@ import MapKit
 
 class StationMapAnnotation: NSObject, MKAnnotation {
     
+    /**
+    Title of the annotation - typically appears underneath the annotation view
+    */
     let title: String?
+    
+    /**
+    Inner text of the annotation, if supported, appears inside the annotation view
+    */
+    let innerText: String?
+    
+    /**
+    Coordinates of the annotation that control where on the map it's view appear
+    */
     let coordinate: CLLocationCoordinate2D
+    
+    /**
+    Subtitle of the annotation, typically only used on the callout
+    */
     var subtitle: String?
-    var highlighted: Bool
+    
+    /**
+    The Station that the annotation view represents. This property can not be nil.
+    */
     var station: Station!
     
-    init(station: Station, highlighted: Bool) {
+    /**
+    Initialise the annotation with content to display
+    */
+    init(station: Station, titleText: String? = nil, innerText: String? = nil) {
         self.station = station
-        self.highlighted = highlighted
-        self.title = station.longCode
+        self.innerText = innerText
+        self.title = titleText
         self.coordinate = CLLocationCoordinate2D(latitude: station.latitude, longitude: station.longitude)
-        if station.traps.count > 0 {
-            self.subtitle = "\(station.traps.count) traps"
-        } else {
-            self.subtitle = "No traps"
-        }
+        
+        // not used at the moment
+        self.subtitle = nil
+        
         super.init()
     }
     

@@ -6,6 +6,7 @@ target "trapr" do
     pod "RealmSwift"
     pod "iCarousel"
     pod "CSVImporter", "1.7.1"
+    
 end
 
 target "traprTests" do

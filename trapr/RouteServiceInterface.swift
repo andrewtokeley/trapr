@@ -19,9 +19,22 @@ protocol RouteServiceInterface: RealmServiceInterface {
      */
     func add(route: Route)
     
+    func addStationToRoute(route: Route, station: Station)
+    
+    func removeStationFromRoute(route: Route, station: Station)
+    
+    /**
+    Merge existing stations with the stations provided
+    */
     func updateStations(route: Route, stations: [Station])
     
+    func replaceStationsOn(route: Route, withStations stations: [Station]) -> Route
+    
+    func reorderStations(route: Route, stationOrder: [Station: Int]) -> Route
+    
     func getAll() -> [Route]
+    
+    func getById(id: String) -> Route?
     
     func delete(route: Route)
     

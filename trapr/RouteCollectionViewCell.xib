@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -57,6 +56,17 @@
                             <action selector="menuButtonClickedWithSender:" destination="z3p-64-3yG" eventType="touchUpInside" id="RAh-dx-gQK"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tvx-tn-lsc">
+                        <rect key="frame" x="198" y="87" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="5aq-q3-ZzI"/>
+                            <constraint firstAttribute="width" constant="25" id="a49-G5-hra"/>
+                        </constraints>
+                        <state key="normal" image="walker.png"/>
+                        <connections>
+                            <action selector="visitButtonClick:" destination="z3p-64-3yG" eventType="touchUpInside" id="z9v-lV-6Fy"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <constraints>
@@ -67,11 +77,13 @@
                 <constraint firstAttribute="trailing" secondItem="iSz-39-fKl" secondAttribute="trailing" constant="20" id="Kq8-GB-grx"/>
                 <constraint firstAttribute="trailing" secondItem="EWb-S4-EKO" secondAttribute="trailing" id="RQZ-UP-fdp"/>
                 <constraint firstItem="YP9-34-ajn" firstAttribute="leading" secondItem="WIl-a3-H73" secondAttribute="trailing" id="WGO-Tq-05C"/>
+                <constraint firstItem="tsS-cW-Jnc" firstAttribute="bottom" secondItem="tvx-tn-lsc" secondAttribute="bottom" constant="8" id="Xuh-Ac-49w"/>
                 <constraint firstItem="EWb-S4-EKO" firstAttribute="top" secondItem="z3p-64-3yG" secondAttribute="top" constant="20" id="ghc-S6-kAa"/>
                 <constraint firstAttribute="trailing" secondItem="PiL-Dh-uQK" secondAttribute="trailing" constant="20" id="hfi-0i-rCR"/>
                 <constraint firstItem="iSz-39-fKl" firstAttribute="leading" secondItem="z3p-64-3yG" secondAttribute="leading" constant="20" id="nsE-dU-iyh"/>
                 <constraint firstItem="PiL-Dh-uQK" firstAttribute="top" secondItem="iSz-39-fKl" secondAttribute="bottom" id="t80-fk-Csa"/>
                 <constraint firstItem="PiL-Dh-uQK" firstAttribute="leading" secondItem="z3p-64-3yG" secondAttribute="leading" constant="20" id="uen-DM-Efn"/>
+                <constraint firstItem="tsS-cW-Jnc" firstAttribute="trailing" secondItem="tvx-tn-lsc" secondAttribute="trailing" constant="6" id="vN8-bf-eUE"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="tsS-cW-Jnc"/>
             <size key="customSize" width="229" height="120"/>
@@ -87,5 +99,6 @@
     <resources>
         <image name="clock.png" width="16" height="16"/>
         <image name="show.png" width="16" height="16"/>
+        <image name="walker.png" width="32" height="32"/>
     </resources>
 </document>

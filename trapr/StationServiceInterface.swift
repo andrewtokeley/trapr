@@ -13,5 +13,6 @@ protocol StationServiceInterface {
     func getAll() -> [Station] 
     func getTraplines(from stations: [Station]) -> [Trapline]
     func getDescription(stations: [Station], includeStationCodes: Bool) -> String
-    func reverseOrder(stations: [Station]) -> [Station] 
+    func reverseOrder(stations: [Station]) -> [Station]
+    func isStationCentral(station: Station) -> Bool
 }

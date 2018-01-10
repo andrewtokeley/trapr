@@ -7,14 +7,10 @@
 //
 
 import Foundation
+import UIKit
+import MapKit
 
-enum HighlightState {
-    case highlighted
-    case unhighlighted
+class StationAnnotationView: MKAnnotationView {
+
 }
 
-protocol StationAnnotationView {
-    func toggleState()
-    var state: HighlightState { get }
-    var station: Station { get }
-}

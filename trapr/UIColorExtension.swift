@@ -13,6 +13,10 @@ extension UIColor
 {
     //MARK: - App colour scheme
     
+    public class var trpButtonBackgroundTransparent: UIColor {
+        return UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)
+    }
+    
     public class var trpMapDefaultStation: UIColor {
         return UIColor(red: 61/255, green: 133/255, blue: 198/255, alpha: 1)
     }

@@ -8,8 +8,15 @@
 
 import Foundation
 
-class StationDotAnnotationView: StationSmallAnnotationView {
-    override var radius: Int {
-        return 3
-    }
+class StationDotAnnotationView: StationCircleAnnotationView {
+//    override var radius: Int {
+//        return 5
+//    }
+//    override var showInnerText: Bool {
+//        return false
+//    }
+//    
+//    override var showTitle: Bool {
+//        return false
+//    }
 }

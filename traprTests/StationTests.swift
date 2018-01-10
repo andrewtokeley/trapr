@@ -26,10 +26,22 @@ class StationTests: XCTestCase {
         super.tearDown()
     }
     
-    func testReverseOrder() {
-        let trapline = ServiceFactory.sharedInstance.dataPopulatorService.createTrapline(code: "LW", numberOfStations: 10)
+    func testIsCentralStation() {
+        let trapline10 = ServiceFactory.sharedInstance.dataPopulatorService.createTrapline(code: "LW", numberOfStations: 10)
+        let trapline9 = ServiceFactory.sharedInstance.dataPopulatorService.createTrapline(code: "AA", numberOfStations: 9)
+        let trapline1 = ServiceFactory.sharedInstance.dataPopulatorService.createTrapline(code: "BB", numberOfStations: 1)
         
-        //XCTAssertTrue(trapline.stations[0].c)
+        // with 10 stations the 5th one is central
+        XCTAssertTrue(ServiceFactory.sharedInstance.stationService.isStationCentral(station: trapline10.stations[4]))
+        XCTAssertFalse(ServiceFactory.sharedInstance.stationService.isStationCentral(station: trapline10.stations[5]))
+        
+        // with 9 stations the 4th is central
+        XCTAssertTrue(ServiceFactory.sharedInstance.stationService.isStationCentral(station: trapline9.stations[3]))
+        XCTAssertFalse(ServiceFactory.sharedInstance.stationService.isStationCentral(station: trapline9.stations[4]))
+        
+        // with 1 station, the only one is considered central
+        XCTAssertTrue(ServiceFactory.sharedInstance.stationService.isStationCentral(station: trapline1.stations[0]))
+        
     }
     func testStationDescriptions() {
         

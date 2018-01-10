@@ -17,34 +17,41 @@ class RouteCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var routeTrapLinesLabel: UILabel!
     @IBOutlet weak var daysSinceLastVisitLabel: UILabel!
     @IBOutlet weak var menuButton: UIButton!
+    
+    @IBAction func visitButtonClick(_ sender: Any) {
+        delegate?.routeCollectionViewCellVisitClicked(self)
+    }
+    
     @IBAction func menuButtonClicked(sender: UIButton) {
         
-        if let numberOfActions = delegate?.routeCollectionViewCell(numberOfActionsFor: self) {
-            
-            let menu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            
-            for i in 0...numberOfActions - 1 {
-                
-                if let actionText = delegate?.routeCollectionViewCell(self, actionTextAt: i) {
-                    var style = UIAlertActionStyle.default
-                    if actionText.lowercased().contains("delete") {
-                        style = UIAlertActionStyle.destructive
-                    }
-                    let action = UIAlertAction(title: actionText, style: style, handler: {
-                        (action) in
-                        self.delegate?.routeCollectionViewCell(self, didSelectActionWith: actionText)
-                    })
-                    
-                    menu.addAction(action)
-                }
-            }
-            
-            // always add a cancel
-            menu.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            
-            delegate?.routeCollectionViewCell(hostingViewControllerFor: self).present(menu, animated: true, completion: nil)
-            
-        }
+        delegate?.routeCollectionViewCellMenuClicked(self)
+        
+//        if let numberOfActions = delegate?.routeCollectionViewCell(numberOfActionsFor: self) {
+//
+//            let menu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//
+//            for i in 0...numberOfActions - 1 {
+//
+//                if let actionText = delegate?.routeCollectionViewCell(self, actionTextAt: i) {
+//                    var style = UIAlertActionStyle.default
+//                    if actionText.lowercased().contains("delete") {
+//                        style = UIAlertActionStyle.destructive
+//                    }
+//                    let action = UIAlertAction(title: actionText, style: style, handler: {
+//                        (action) in
+//                        self.delegate?.routeCollectionViewCell(self, didSelectActionWith: actionText)
+//                    })
+//
+//                    menu.addAction(action)
+//                }
+//            }
+//
+//            // always add a cancel
+//            menu.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+//
+//            delegate?.routeCollectionViewCell(hostingViewControllerFor: self).present(menu, animated: true, completion: nil)
+//
+//        }
     }
     
     override func awakeFromNib() {

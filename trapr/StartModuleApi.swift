@@ -34,7 +34,7 @@ protocol StartPresenterApi: PresenterProtocol {
     func didSelectMenu()
     func didSelectRouteMenu(routeIndex: Int)
     func didSelectRouteMenuItem(routeIndex: Int, menuItemIndex: Int)
-    func didSelectNewVisit()
+    func didSelectNewVisit(route: Route)
     func didSelectNewRoute()
     func didSelectVisitSummary(visitSummary: VisitSummary)
     func didSelectRoute(route: Route)

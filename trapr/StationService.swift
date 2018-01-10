@@ -14,6 +14,24 @@ class StationService: RealmService, StationServiceInterface {
         return Array(realm.objects(Station.self))
     }
     
+    func isStationCentral(station: Station) -> Bool {
+        
+        
+        if let stationsOnTrapline = station.trapline?.stations {
+            
+            if stationsOnTrapline.count == 1 {
+                return true
+            } else {
+                if let position = stationsOnTrapline.index(of: station) {
+                    // subtract to get into 0 based array comparison
+                    let centralPosition = Int(Double(stationsOnTrapline.count) / 2.0) - 1
+                    return position == centralPosition
+                }
+            }
+        }
+        return false
+    }
+    
     func reverseOrder(stations: [Station]) -> [Station] {
         var reordered = [Station]()
         for i in stride(from: stations.count - 1, through: 0, by: -1) {

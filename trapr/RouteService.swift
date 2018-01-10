@@ -18,9 +18,52 @@ class RouteService: RealmService, RouteServiceInterface {
     }
     
     func save(route: Route) {
+        
         try! realm.write {
-            realm.add(route, update: true)
+            let _ = realm.create(Route.self, value: route, update: true)
         }
+    }
+    
+    func addStationToRoute(route: Route, station: Station) {
+        
+        // for now just add to the end - should be smarter to get the order right
+        try! realm.write {
+            route.stations.append(station)
+        }
+    }
+    
+    func removeStationFromRoute(route: Route, station: Station) {
+        if let index = route.stations.index(of: station) {
+            try! realm.write {
+                route.stations.remove(at: index)
+            }
+        }
+    }
+    
+    func reorderStations(route: Route, stationOrder: [Station: Int]) -> Route {
+        
+        guard stationOrder.count == route.stations.count else { return route }
+        
+        // flatten out the stations in the right order
+        let stations = stationOrder.sorted(by: { $0.value < $1.value }).map({ $0.key })
+        
+        // replace the route stations with the merged stations
+        try! realm.write {
+            route.stations.removeAll()
+            route.stations.append(objectsIn: stations)
+        }
+        
+        return route
+    }
+    
+    func replaceStationsOn(route: Route, withStations stations: [Station]) -> Route {
+        
+        try! realm.write {
+            route.stations.removeAll()
+            route.stations.append(objectsIn: stations)
+        }
+        
+        return route
     }
     
     func updateStations(route: Route, stations: [Station]) {
@@ -63,6 +106,10 @@ class RouteService: RealmService, RouteServiceInterface {
     
     func getAll() -> [Route] {
         return Array(realm.objects(Route.self))
+    }
+    
+    func getById(id: String) -> Route? {
+        return realm.object(ofType: Route.self, forPrimaryKey: id)
     }
     
     func delete(route: Route) {

@@ -109,25 +109,44 @@ extension MapPresenter: MapPresenterApi {
 
 extension MapPresenter: StationMapDelegate {
     
-    func stationMap(_ stationMap: StationMapViewController, annotationViewClassAt zoomLevel: ZoomLevel) -> AnyClass? {
-        
-        if zoomLevel == .close {
-            return StationLargeAnnotationView.self
-        } else if zoomLevel == .far {
-            return StationSmallAnnotationView.self
-        } else {
-            return StationDotAnnotationView.self
+    func stationMap(_ stationMap: StationMapViewController, didSelect annotationView: StationAnnotationView) {
+        let annotation = annotationView.annotation as? StationMapAnnotation
+        if let traplineStations = annotation?.station.trapline?.stations {
+            self.highlightedStations = Array(traplineStations)
+            
+            //view.recolorAnnotationViews()
+            view.reapplyStylingToAnnotationViews()
         }
     }
     
+    func stationMap(_ stationMap: StationMapViewController, textForStation station: Station) -> String? {
+        if (self.highlightedStations?.contains(station) ?? false) {
+            return station.longCode
+        }
+        return nil
+    }
+    
+    func stationMap(_ stationMap: StationMapViewController, radiusForStation station: Station) -> Int {
+        return 5
+    }
+    
+    func stationMap(_ stationMap: StationMapViewController, annotationViewClassAt zoomLevel: ZoomLevel) -> AnyClass? {
+        return CircleAnnotationView.self
+    }
+    
     func stationMapStations(_ stationMap: StationMapViewController) -> [Station] {
-        
         return self.stations
     }
     
     func stationMap(_ stationMap: StationMapViewController, isHighlighted station: Station) -> Bool {
         return self.highlightedStations?.contains(station) ?? false
     }
+    
+//    func stationMap(_ stationMap: StationMapViewController, textForStation station: Station) -> String? {
+//        return station.longCode
+//
+//    }
+    
     
 }
 

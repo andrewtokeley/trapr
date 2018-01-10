@@ -271,6 +271,23 @@ extension StartView: SectionStripViewDelegate {
 
 //MARK: - RouteCollectionViewCellDelegate
 extension StartView: RouteCollectionViewCellDelegate {
+    
+    func routeCollectionViewCellVisitClicked(_ routeCollectionViewCell: RouteCollectionViewCell) {
+        if let index = routesCollectionView.indexPath(for: routeCollectionViewCell)?.row {
+            if let route = self.routes?[index] {
+                presenter.didSelectNewVisit(route: route)
+            }
+        }
+    }
+    
+    func routeCollectionViewCellMenuClicked(_ routeCollectionViewCell: RouteCollectionViewCell) {
+        
+        // make sure the presenter knows we're about to render the menu for the route
+        if let index = routesCollectionView.indexPath(for: routeCollectionViewCell)?.row {
+            presenter.didSelectRouteMenu(routeIndex: index)
+        }
+    }
+    
     func routeCollectionViewCell(numberOfActionsFor routeCollectionViewCell: RouteCollectionViewCell) -> Int {
         
         // make sure the presenter knows we're about to render the menu for the route

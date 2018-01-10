@@ -19,8 +19,7 @@ protocol MapViewApi: UserInterfaceProtocol {
     func getMapContainerView() -> UIView
     func setVisibleRegionToHighlightedStations()
     func setVisibleRegionToAllStations()
-    //func addStationsToMap(stations: [Station], highlightedStations: [Station]?, annotationStyle: AnnotationStyle)
-    //func setAnnotationStyle(annotationStyle: AnnotationStyle)
+    func reapplyStylingToAnnotationViews()
     func showOnlyHighlighted()
     func showAll()
     

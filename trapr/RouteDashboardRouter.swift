@@ -30,6 +30,18 @@ extension RouteDashboardRouter: RouteDashboardRouterApi {
         mapViewController.view.autoPinEdgesToSuperviewEdges()
         mapViewController.didMove(toParentViewController: _view)
     }
+    
+    func showVisitModule(route: Route) {
+        
+        let module = AppModules.visit.build()
+        
+        let visitSummary = VisitSummary(dateOfVisit: Date(), route: route)
+        
+        // Remove title from back button
+        _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        module.router.show(from: _view, embedInNavController: false, setupData: visitSummary)
+    }
 }
 
 // MARK: - RouteDashboard Viper Components

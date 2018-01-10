@@ -11,15 +11,40 @@ import Foundation
 protocol StationMapDelegate {
     // all optional
     
+    func stationMap(_ stationMap: StationMapViewController, didChangeZoomLevel zoomLevel: Double)
     func stationMapStations(_ stationMap: StationMapViewController) -> [Station]
     func stationMap(_ stationMap: StationMapViewController, isHighlighted station: Station) -> Bool
     func stationMap(_ stationMap: StationMapViewController, annotationViewClassAt zoomLevel: ZoomLevel) -> AnyClass?
-    func stationMap(_ stationMap: StationMapViewController, didHighlight station: Station)
-    func stationMap(_ stationMap: StationMapViewController, didUnhighlight station: Station)
+    func stationMap(_ stationMap: StationMapViewController, radiusForStation station: Station) -> Int
+    func stationMap(_ stationMap: StationMapViewController, didSelect annotationView: StationAnnotationView)
+    func stationMap(_ stationMap: StationMapViewController, didHighlight annotationView: StationAnnotationView)
+    func stationMap(_ stationMap: StationMapViewController, didUnhighlight annotationView: StationAnnotationView)
+    func stationMap(_ stationMap: StationMapViewController, textForStation station: Station) -> String?
+    func stationMap(_ stationMap: StationMapViewController, innerTextForStation station: Station) -> String?
 }
 
 //MARK: - Default implementations for optional methods
 extension StationMapDelegate {
+    
+    func stationMap(_ stationMap: StationMapViewController, radiusForStation station: Station) -> Int {
+        return 10
+    }
+    
+    func stationMap(_ stationMap: StationMapViewController, didSelect annotationView: StationAnnotationView) {
+        //do nothing
+    }
+    
+    func stationMap(_ stationMap: StationMapViewController, textForStation station: Station) -> String? {
+        return nil
+    }
+    
+    func stationMap(_ stationMap: StationMapViewController, innerTextForStation station: Station) -> String? {
+        return nil
+    }
+    
+    func stationMap(_ stationMap: StationMapViewController, didChangeZoomLevel zoomLevel: Double) {
+        //do nothing
+    }
     
     func stationMap(_ stationMap: StationMapViewController, isHighlighted station: Station) -> Bool {
         return false
@@ -29,16 +54,16 @@ extension StationMapDelegate {
         return [Station]()
     }
     
-    func stationMap(_ stationMap: StationMapViewController, didHighlight station: Station) {
-        // do nothing
+    func stationMap(_ stationMap: StationMapViewController, didHighlight annotationView: StationAnnotationView) {
+        //do nothing
     }
     
-    func stationMap(_ stationMap: StationMapViewController, didUnhighlight station: Station) {
-        // do nothing
+    func stationMap(_ stationMap: StationMapViewController, didUnhighlight annotationView: StationAnnotationView) {
+        //do nothing
     }
     
     func stationMap(_ stationMap: StationMapViewController, annotationViewClassAt zoomLevel: ZoomLevel) -> AnyClass? {
-        return StationSmallAnnotationView.self
+        return StationCircleAnnotationView.self
     }
 }
 

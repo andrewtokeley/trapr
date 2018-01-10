@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 
 protocol RouteCollectionViewCellDelegate {
+    
+    func routeCollectionViewCellMenuClicked(_ routeCollectionViewCell: RouteCollectionViewCell)
+    func routeCollectionViewCellVisitClicked(_ routeCollectionViewCell: RouteCollectionViewCell)
     func routeCollectionViewCell(_ routeCollectionViewCell: RouteCollectionViewCell, didSelectActionWith title: String)
     func routeCollectionViewCell(_ routeCollectionViewCell: RouteCollectionViewCell, actionTextAt index: Int) -> String?
     func routeCollectionViewCell(numberOfActionsFor routeCollectionViewCell: RouteCollectionViewCell) -> Int

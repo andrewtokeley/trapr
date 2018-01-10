@@ -25,7 +25,6 @@ final class VisitLogPresenter: Presenter {
     
     func saveVisit() {
         if let visit = self.currentVisit {
-            print("save")
             let _ = interactor.saveVisit(visit: visit)
         }
     }
