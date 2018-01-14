@@ -13,7 +13,7 @@ class Trap: Object {
     
     
     // Primary key
-    dynamic var id: String = UUID().uuidString
+    @objc dynamic var id: String = UUID().uuidString
     override static func primaryKey() -> String? {
         return "id"
     }
@@ -30,22 +30,22 @@ class Trap: Object {
     /**
      The type of trap. e.g. Possum Master, Pelifeed...
      */
-    dynamic var type: TrapType?
+    @objc dynamic var type: TrapType?
     
     /**
     Latitude of the trap location
     */
-    dynamic var latitude: Double = 0
+    @objc dynamic var latitude: Double = 0
     
     /**
     Longitude of the trap location
     */
-    dynamic var longitude: Double = 0
+    @objc dynamic var longitude: Double = 0
     
     /**
      Notes about the trap
     */
-    dynamic var notes: String?
+    @objc dynamic var notes: String?
     
     var longDescription: String {
         let longCode = self.station?.longCode ?? ""

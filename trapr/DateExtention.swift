@@ -10,6 +10,23 @@ import Foundation
 
 extension Date {
     
+    //MARK: - Instance properties
+    var day: Int {
+        var components = Calendar.current.dateComponents([.day], from: self)
+        return components.day!
+    }
+    
+    var month: Int {
+        var components = Calendar.current.dateComponents([.month], from: self)
+        return components.month!
+    }
+    
+    var year: Int {
+        var components = Calendar.current.dateComponents([.year], from: self)
+        return components.year!
+    }
+    
+    //MARK: - Instance functions
     func toString(from format: String) -> String {
         
         let dateFormatter = DateFormatter()
@@ -27,22 +44,6 @@ extension Date {
         components.second = 0
         
         return Calendar.current.date(byAdding: components, to: self) ?? self
-    }
-    
-    static func dateFromComponents(_ day: Int?, _ month: Int?, _ year: Int?, _ hour: Int?, _ minute: Int?, _ second: Int?) -> Date? {
-        var components = DateComponents()
-        components.day = day
-        components.month = month
-        components.year = year
-        components.hour = hour
-        components.minute = minute
-        components.second = second
-        
-        return Calendar.current.date(from: components)
-    }
-    
-    static func dateFromComponents(_ day: Int, _ month: Int, _ year: Int) -> Date? {
-        return dateFromComponents(day, month, year, nil, nil, nil)
     }
     
     func dayStart() -> Date {
@@ -78,4 +79,23 @@ extension Date {
         
         return Date.dateFromComponents(dateComonentsOfSelf.day, dateComonentsOfSelf.month, dateComonentsOfSelf.year, hour, minute, second)
     }
+    
+    //MARK: - Static functions
+    static func dateFromComponents(_ day: Int?, _ month: Int?, _ year: Int?, _ hour: Int?, _ minute: Int?, _ second: Int?) -> Date? {
+        var components = DateComponents()
+        components.day = day
+        components.month = month
+        components.year = year
+        components.hour = hour
+        components.minute = minute
+        components.second = second
+        
+        return Calendar.current.date(from: components)
+    }
+    
+    static func dateFromComponents(_ day: Int, _ month: Int, _ year: Int) -> Date? {
+        return dateFromComponents(day, month, year, nil, nil, nil)
+    }
+    
+    
 }

@@ -36,8 +36,12 @@ final class RouteDashboardPresenter: Presenter {
             // load all the stations even if we don't display them all
             self.allStations = ServiceFactory.sharedInstance.stationService.getAll()
             
-            view.displayRouteName(setupData.route?.name)
-
+            if let routeName = setupData.route?.name {
+                view.displayRouteName(routeName)
+            } else {
+                view.displayRouteName(interactor.getRouteName())
+            }
+            
             // we take a copy of the route instance to allow properties to be updated before saving, otherwise everything has to be wrapped in realm.write {}
             if let route = setupData.route {
                 self.route = Route(value: route)
@@ -63,6 +67,12 @@ final class RouteDashboardPresenter: Presenter {
             } else {
                 view.setVisibleRegionToHighlightedStations()
             }
+            
+            let catchSummary = interactor.killCounts(frequency: .month, period: .year, route: self.route)
+            view.configureKillChart(catchSummary: catchSummary)
+            
+            let poisonSummary = interactor.poisonCounts(frequency: .month, period: .year, route: self.route)
+            view.configurePoisonChart(poisonSummary: poisonSummary)
         }
     }
     

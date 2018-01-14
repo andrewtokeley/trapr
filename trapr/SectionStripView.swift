@@ -24,7 +24,7 @@ class SectionStripView: UIView {
         actionButton.addTarget(self, action: #selector(actionButtonTap(sender:)), for: .touchUpInside)
     }
     
-    func actionButtonTap(sender: UIButton) {
+    @objc func actionButtonTap(sender: UIButton) {
         delegate?.sectionStrip(self, didSelectActionButton: actionButton)
     }
 }

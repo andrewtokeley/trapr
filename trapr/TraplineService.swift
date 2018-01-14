@@ -40,7 +40,7 @@ class TraplineService: RealmService, TraplineServiceInterface {
             var updatingTrap: Trap?
             
             // check if a trap exists of this type
-            updatingTrap = station.traps.filter({$0.type == trap.type }).first
+            updatingTrap = station.traps.first(where: { $0.type == trap.type } )
             
             // if not, create a new trap
             if updatingTrap == nil {

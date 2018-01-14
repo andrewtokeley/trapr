@@ -24,11 +24,11 @@ final class TraplineSelectView: UserInterface {
 
     //MARK: - Events
     
-    func nextButtonClick(sender: UIBarButtonItem) {
+    @objc func nextButtonClick(sender: UIBarButtonItem) {
         presenter.didSelectNext()
     }
     
-    func closeButtonClick(sender: UIBarButtonItem) {
+    @objc func closeButtonClick(sender: UIBarButtonItem) {
         presenter.didSelectClose()
     }
     
@@ -51,8 +51,8 @@ final class TraplineSelectView: UserInterface {
     lazy var nextButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: self.NEXT_BUTTON_TEXT, style: .plain, target: self, action: #selector(nextButtonClick(sender:)))
         
-        button.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.trpNavigationBarTint], for: .normal)
-        button.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.trpNavigationBarTintDisabled], for: .disabled)
+        button.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.trpNavigationBarTint], for: .normal)
+        button.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.trpNavigationBarTintDisabled], for: .disabled)
         
         return button
     }()

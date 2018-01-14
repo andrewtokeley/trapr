@@ -194,11 +194,11 @@ final class VisitLogView: UserInterface {
 
     //MARK: - Events
     
-    func createVisitButtonClick(sender: UIButton) {
+    @objc func createVisitButtonClick(sender: UIButton) {
         presenter.didSelectToRecordVisit()
     }
 
-    func removeVisit(sender: UIButton) {
+    @objc func removeVisit(sender: UIButton) {
         presenter.didSelectToRemoveVisit()
     }
     

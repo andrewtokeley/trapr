@@ -95,7 +95,7 @@ final class RoutePresenter: Presenter {
             view.displayNoSectionsText(text: NO_SECTIONS_TEXT)
             view.displayRouteName(name: "")
             view.setFocusToRouteName()
-            view.displayVisitFrequency(frequency: TimePeriod.month)
+            view.displayVisitFrequency(frequency: TimeFrequency.month)
         } else {
 
             view.displayRouteName(name: setupData.route!.name ?? "")
@@ -291,7 +291,7 @@ extension RoutePresenter: ListPickerDelegate {
         case LISTPICKER_TRAPLINE:
             return self.traplines.count
         case LISTPICKER_VISITFREQUENCY:
-            return TimePeriod.count
+            return TimeFrequency.count
         case LISTPICKER_STATIONS:
             // return the number of stations defined in the trapline this section represents!
             return self.traplineContext?.stations.count ?? 0
@@ -311,8 +311,8 @@ extension RoutePresenter: ListPickerDelegate {
             self.traplineContext = self.traplines[index]
             
         } else if listPicker.tag == LISTPICKER_VISITFREQUENCY {
-                self.currentRoute?.visitFrequencyRaw = TimePeriod.all[index].rawValue
-                view.displayVisitFrequency(frequency: self.currentRoute?.visitFrequency ?? TimePeriod.defaultValue)
+                self.currentRoute?.visitFrequencyRaw = TimeFrequency.all[index].rawValue
+                view.displayVisitFrequency(frequency: self.currentRoute?.visitFrequency ?? TimeFrequency.defaultValue)
         }
     }
     
@@ -358,7 +358,7 @@ extension RoutePresenter: ListPickerDelegate {
         if listPicker.tag == LISTPICKER_TRAPLINE {
             return self.traplines[index].code ?? ""
         } else if listPicker.tag == LISTPICKER_VISITFREQUENCY {
-            return TimePeriod.all[index].name
+            return TimeFrequency.all[index].name
         } else if listPicker.tag == LISTPICKER_STATIONS {
             return self.orderedStations[index].longCode
             //return self.traplineContext!.stations[index].longCode

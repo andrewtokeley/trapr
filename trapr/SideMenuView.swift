@@ -92,7 +92,7 @@ final class SideMenuView: UserInterface {
     
     //MARK: - Events
     
-    func closeButtonClick(sender: UIView) {
+    @objc func closeButtonClick(sender: UIView) {
         presenter.didSelectClose()
     }
     

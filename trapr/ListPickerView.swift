@@ -60,11 +60,11 @@ final class ListPickerView: UserInterface {
     
     //MARK: - Events
     
-    func doneButtonClick(sender: UIButton) {
+    @objc func doneButtonClick(sender: UIButton) {
         presenter.didSelectDone()
     }
     
-    func closeButtonClick(sender: UIButton) {
+    @objc func closeButtonClick(sender: UIButton) {
         presenter.didSelectClose()
     }
 }

@@ -92,6 +92,7 @@
                 <outlet property="menuButton" destination="EWb-S4-EKO" id="RaH-Zs-Bvk"/>
                 <outlet property="routeNameLabel" destination="iSz-39-fKl" id="FwL-2U-w6Z"/>
                 <outlet property="routeTrapLinesLabel" destination="PiL-Dh-uQK" id="6Ma-2d-18C"/>
+                <outlet property="visitButton" destination="tvx-tn-lsc" id="y3g-Sg-lOp"/>
             </connections>
             <point key="canvasLocation" x="57.5" y="-36"/>
         </collectionViewCell>

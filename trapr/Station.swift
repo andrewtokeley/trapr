@@ -14,7 +14,7 @@ class Station: Object {
     /**
      Primary key
     */
-    dynamic var id: String = UUID().uuidString
+    @objc dynamic var id: String = UUID().uuidString
     
     override static func primaryKey() -> String? {
         return "id"
@@ -25,7 +25,7 @@ class Station: Object {
      
      The station code's alphanumeric sort order determines the order in which the stations are located along a trapline. So, it's possible to have "01" followed by "01a", but we recommend sticking to numbers, if possible
     */
-    dynamic var code: String?
+    @objc dynamic var code: String?
     
     /**
      Read only, fully qualified station code, that is prefixed with the trapline code. e.g. LW01

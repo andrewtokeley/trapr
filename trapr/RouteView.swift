@@ -137,11 +137,11 @@ final class RouteView: UserInterface {
 
     //MARK: - Events
     
-    func closeButtonClick(sender: UIBarButtonItem) {
+    @objc func closeButtonClick(sender: UIBarButtonItem) {
         presenter.didSelectClose()
     }
     
-    func doneButtonClick(sender: UIButton) {
+    @objc func doneButtonClick(sender: UIButton) {
         presenter.didSelectDone()
     }
 }
@@ -284,7 +284,7 @@ extension RouteView: RouteViewApi {
         self.routeNameTextField.text = name
     }
     
-    func displayVisitFrequency(frequency: TimePeriod) {
+    func displayVisitFrequency(frequency: TimeFrequency) {
         self.visitFrequencyTableViewCell.detailTextLabel?.text = frequency.name
     }
     

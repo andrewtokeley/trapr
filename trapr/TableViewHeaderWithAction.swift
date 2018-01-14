@@ -47,7 +47,7 @@ class TableViewHeaderWithAction: UITableViewHeaderFooterView {
         }
     }
     
-    func actionButtonClick(sender: UIButton) {
+    @objc func actionButtonClick(sender: UIButton) {
         delegate?.tableViewHeaderWithAction(self, actionButtonClickedForSection: self.section)
     }
     

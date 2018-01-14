@@ -60,7 +60,14 @@ class StationTests: XCTestCase {
         
         let trapline = ServiceFactory.sharedInstance.dataPopulatorService.createTrapline(code: "LW", numberOfStations: 10)
         
-        let stations = [trapline.stations[0], trapline.stations[1], trapline.stations[4], trapline.stations[5], trapline.stations[6], trapline.stations[9]]
+        var stations = [Station]()
+        stations.append(trapline.stations[0])
+        stations.append(trapline.stations[1])
+        stations.append(trapline.stations[4])
+        stations.append(trapline.stations[5])
+        stations.append(trapline.stations[6])
+        stations.append(trapline.stations[9])
+        
         let result = ServiceFactory.sharedInstance.stationService.getDescription(stations: stations, includeStationCodes: true)
         
         let expected = "LW01-02, LW05-07, LW10"

@@ -42,12 +42,12 @@ class VisitService: RealmService, VisitServiceInterface {
     
     func getVisits(recordedBetween dateStart: Date, dateEnd: Date, route: Route) -> Results<Visit> {
         
-        return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@} AND route = %@", dateStart, dateEnd, route).sorted(byKeyPath: "visitDateTime", ascending: false)
+        return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@} AND route.id = %@", dateStart, dateEnd, route.id).sorted(byKeyPath: "visitDateTime", ascending: false)
     }
     
     func getVisits(recordedBetween dateStart: Date, dateEnd: Date, route: Route, trap: Trap) -> Results<Visit> {
         
-        return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@} AND route = %@ AND trap = %@", dateStart, dateEnd, route, trap).sorted(byKeyPath: "visitDateTime", ascending: false)
+        return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@} AND route.id = %@ AND trap = %@", dateStart, dateEnd, route.id, trap).sorted(byKeyPath: "visitDateTime", ascending: false)
     }
     
     func getVisits(recordedBetween dateStart: Date, dateEnd: Date, trap: Trap) -> Results<Visit> {
@@ -125,5 +125,53 @@ class VisitService: RealmService, VisitServiceInterface {
         }
         
         return summaries
+    }
+    
+    func poisonCount(monthOffset: Int, route: Route) -> Int {
+        
+        var count: Int = 0
+        
+        let dayInMonth = Date().add(0, monthOffset, 0)
+        let dayInNextMonth = dayInMonth.add(0, 1, 0)
+        
+        if let startOfMonth = Date.dateFromComponents(1, dayInMonth.month, dayInMonth.year)?.dayStart() {
+            if let endOfMonth = Date.dateFromComponents(1, dayInNextMonth.month, dayInNextMonth.year)?.dayStart().add(-1,0, 0) {
+                
+                let visits = getVisits(recordedBetween: startOfMonth, dateEnd: endOfMonth, route: route)
+                
+                for visit in visits {
+                    if visit.trap?.type?.killMethod == .poison {
+                        count += visit.baitAdded
+                    }
+                }
+            }
+        }
+        return count
+    }
+    
+    func killCounts(monthOffset: Int, route: Route) -> [Species: Int] {
+        
+        var counts = [Species: Int]()
+        
+        let dayInMonth = Date().add(0, monthOffset, 0)
+        let dayInNextMonth = dayInMonth.add(0, 1, 0)
+        
+        if let startOfMonth = Date.dateFromComponents(1, dayInMonth.month, dayInMonth.year)?.dayStart() {
+            if let endOfMonth = Date.dateFromComponents(1, dayInNextMonth.month, dayInNextMonth.year)?.dayStart().add(-1, 0, 0) {
+                //print ("from \(startOfMonth) to \(endOfMonth)")
+                let visits = getVisits(recordedBetween: startOfMonth, dateEnd: endOfMonth, route: route)
+                
+                for visit in visits {
+                    if let species = visit.catchSpecies {
+                        if let _ = counts[species] {
+                            counts[species]! += 1
+                        } else {
+                            counts[species] = 1
+                        }
+                    }
+                }
+            }
+        }
+        return counts
     }
 }

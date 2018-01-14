@@ -9,12 +9,13 @@
 import Foundation
 import RealmSwift
 
-enum TimePeriod: Int {
+enum TimeFrequency: Int {
     case week = 0
     case fortnight = 1
     case month = 2
     case twoMonths = 3
     case sixMonths = 4
+    case year = 5
     
     var name: String {
         switch self {
@@ -23,19 +24,20 @@ enum TimePeriod: Int {
         case .month: return "Monthly"
         case .twoMonths: return "Every 2 months"
         case .sixMonths: return "Every 6 months"
+        case .year: return "Annually"
         }
     }
     
     static var count: Int {
-        return TimePeriod.all.count
+        return TimeFrequency.all.count
     }
     
-    static var all: [TimePeriod] {
-        return [.week, .fortnight, .month, .twoMonths, sixMonths]
+    static var all: [TimeFrequency] {
+        return [.week, .fortnight, .month, .twoMonths, .sixMonths, .year]
     }
     
-    static var defaultValue: TimePeriod {
-        return TimePeriod.month
+    static var defaultValue: TimeFrequency {
+        return TimeFrequency.month
     }
 }
 
@@ -43,21 +45,20 @@ class Route: Object {
     
     //MARK: - Persisted Properties
     
-    dynamic var id: String = UUID().uuidString
+    @objc dynamic var id: String = UUID().uuidString
     let stations = List<Station>()
-    dynamic var name: String?
-    dynamic var visitFrequencyRaw: Int = 0
+    @objc dynamic var name: String?
+    @objc dynamic var visitFrequencyRaw: Int = 0
     
     
     //MARK: - Read-Only Properties
     
-    var traplines: List<Trapline> {
-        let traplines = ServiceFactory.sharedInstance.stationService.getTraplines(from: Array(self.stations))
-        return List<Trapline>(traplines)
+    var traplines: [Trapline] {
+        return ServiceFactory.sharedInstance.stationService.getTraplines(from: Array(self.stations))
     }
     
-    var visitFrequency: TimePeriod {
-        return TimePeriod(rawValue: visitFrequencyRaw) ?? .month
+    var visitFrequency: TimeFrequency {
+        return TimeFrequency(rawValue: visitFrequencyRaw) ?? .month
     }
     
     var shortDescription: String {

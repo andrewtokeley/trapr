@@ -17,7 +17,7 @@ protocol RouteRouterApi: RouterProtocol {
 protocol RouteViewApi: UserInterfaceProtocol {
     func setTitle(title: String?)
     func displayRouteName(name: String)
-    func displayVisitFrequency(frequency: TimePeriod)
+    func displayVisitFrequency(frequency: TimeFrequency)
     func setFocusToRouteName()
     func bindToGroupedTableViewData(groupedData: GroupedTableViewDatasource<Station>)
     func displayNoSectionsText(text: String)

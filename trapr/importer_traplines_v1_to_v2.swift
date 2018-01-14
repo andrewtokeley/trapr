@@ -129,7 +129,9 @@ class importer_traplines_v1_to_v2: DataImport {
             // ignore anything after "-"
             var code = traplineCode
             if let index = traplineCode.index(of: "-") {
-                code = traplineCode.substring(to: index).trimmingCharacters(in: .whitespacesAndNewlines)
+                code = traplineCode
+                
+                code = traplineCode[..<index].trimmingCharacters(in: .whitespacesAndNewlines)
             }
             
             // see if it exists

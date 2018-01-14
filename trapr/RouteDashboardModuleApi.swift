@@ -37,6 +37,9 @@ protocol RouteDashboardViewApi: UserInterfaceProtocol {
     func showEditDescription(_ show: Bool, description: String?)
     func showEditStationOptions(_ show: Bool)
     func showEditOrderOptions(_ show: Bool)
+
+    func configureKillChart(catchSummary: StackCount)
+    func configurePoisonChart(poisonSummary: StackCount) 
 }
 
 //MARK: - RouteDashboardPresenter API
@@ -52,6 +55,7 @@ protocol RouteDashboardPresenterApi: PresenterProtocol {
     func didSelectResetOrder()
     func didSelectClearOrder()
     func didSelectReverseOrder()
+    
 }
 
 //MARK: - RouteDashboardInteractor API
@@ -59,4 +63,8 @@ protocol RouteDashboardInteractorApi: InteractorProtocol {
     func addStationToRoute(route: Route, station: Station) -> Route
     func removeStationFromRoute(route: Route, station: Station) -> Route
     func deleteRoute(route: Route)
+    func getRouteName() -> String
+    func killCounts(frequency: TimeFrequency, period: TimeFrequency, route: Route) -> StackCount
+    func poisonCounts(frequency: TimeFrequency, period: TimeFrequency, route: Route) -> StackCount
+    //func killCounts(monthOffset: Int, route: Route) -> [Species: Int]
 }

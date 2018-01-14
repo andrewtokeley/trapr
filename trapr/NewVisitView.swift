@@ -27,7 +27,7 @@ final class NewVisitView: UserInterface {
     
     //MARK: - Events
     
-    func closeButtonAction(sender: UIBarButtonItem) {
+    @objc func closeButtonAction(sender: UIBarButtonItem) {
         presenter.didSelectCloseButton()
     }
     

@@ -11,7 +11,33 @@ import UIKit
 
 extension UIColor
 {
+    public class var trpChartBarStack1: UIColor {
+        return UIColor.trpNavigationBar
+    }
+    
+    public class var trpChartBarStack2: UIColor {
+        return UIColor(red: 147/255, green: 196/255, blue: 125/255, alpha: 1)
+    }
+    
+    public class var trpChartBarStack3: UIColor {
+        return UIColor(red: 182/255, green: 215/255, blue: 168/255, alpha: 1)
+    }
+    
+    /**
+     Use for poison count barchart
+    */
+    public class var trpChartBarStack4: UIColor {
+        return UIColor(red: 36/255, green: 192/255, blue: 165/255, alpha: 1)
+    }
+    
+    public class var trpStackChartColors: [UIColor] {
+        return [UIColor.trpChartBarStack1, UIColor.trpChartBarStack2, UIColor.trpChartBarStack3]
+    }
+    
     //MARK: - App colour scheme
+    public class var trpChartGridlines: UIColor {
+        return UIColor(red: 232/255, green: 232/255, blue: 232/255, alpha: 1)
+    }
     
     public class var trpButtonBackgroundTransparent: UIColor {
         return UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)

@@ -27,15 +27,15 @@ final class StationSelectView: UserInterface {
     
     //MARK: - Events
     
-    func editButtonClick(sender: UIBarButtonItem) {
+    @objc func editButtonClick(sender: UIBarButtonItem) {
         presenter.didSelectEdit()
     }
     
-    func closeButtonClick(sender: UIBarButtonItem) {
+    @objc func closeButtonClick(sender: UIBarButtonItem) {
         presenter.didSelectCloseButton()
     }
 
-    func doneButtonClick(sender: UIBarButtonItem) {
+    @objc func doneButtonClick(sender: UIBarButtonItem) {
         presenter.didSelectDone()
     }
     

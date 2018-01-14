@@ -190,11 +190,11 @@ final class VisitView: UserInterface {
     
     //MARK: - Events
     
-    func dateTap(sender: UILabel) {
+    @objc func dateTap(sender: UILabel) {
         presenter.didSelectDate()
     }
     
-    func showMoreMenu(sender: UIBarButtonItem) {
+    @objc func showMoreMenu(sender: UIBarButtonItem) {
         presenter.didSelectMenuButton()
     }
     

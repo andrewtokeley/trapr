@@ -59,7 +59,7 @@ class visitTests: XCTestCase {
         visitToUpdate.notes = NOTE
         
         // save to store
-        visitService.save(visit: visitToUpdate)
+        let _ = visitService.save(visit: visitToUpdate)
         
         // get the updated visit from the store and check properties stuck
         visits = visitService.getVisits(recordedOn: Date())
@@ -81,14 +81,44 @@ class visitTests: XCTestCase {
         XCTAssertTrue(visits.count == 1, "expected 1, was \(visits.count)")
     }
     
+    func testVisitKillCount() {
+        
+        createTestData()
+        if let possum = ServiceFactory.sharedInstance.speciesService.get(.possum), let rat = ServiceFactory.sharedInstance.speciesService.get(.rat) {
+            
+            // one possum caught this month
+            let possumCount = ServiceFactory.sharedInstance.visitService.killCount(monthOffset: 0, species: possum, route: self.route_LW_E!)
+            XCTAssertTrue(possumCount == 1)
+            
+            // one rat this month
+            let ratCount = ServiceFactory.sharedInstance.visitService.killCount(monthOffset: 0, species: possum, route: self.route_LW_E!)
+            XCTAssertTrue(ratCount == 1)
+            
+            // no rats last month
+            let noRatCount = ServiceFactory.sharedInstance.visitService.killCount(monthOffset: -1, species: rat, route: self.route_LW_E!)
+            XCTAssertTrue(noRatCount == 0)
+            
+            // one possum last month
+            let possumLastMonthCount = ServiceFactory.sharedInstance.visitService.killCount(monthOffset: -1, species: possum, route: self.route_LW_E!)
+            XCTAssertTrue(possumLastMonthCount == 1)
+                
+            
+        } else  {
+            XCTFail()
+        }
+        
+    }
+    
     //MARK: - Test Data
     
     /**
      Create...
      
      LW, E Route
-        - LW01 - one visit
-        - E01 - one visit
+        - LW01
+            - one visit today
+            - one visit a month ago
+        - E01 - one visit today
      
      GC Route
         - GC01 - no visits
@@ -130,13 +160,19 @@ class visitTests: XCTestCase {
         ServiceFactory.sharedInstance.routeService.add(route: self.route_GC!)
         ServiceFactory.sharedInstance.routeService.add(route: self.route_LW_E!)
         
-        // Visit LW01
+        // Visit LW01 - possum caught
         let visit1 = Visit(date: Date(), route: route_LW_E!, trap: trap1)
+        visit1.catchSpecies = ServiceFactory.sharedInstance.speciesService.get(.possum)
         visitService.add(visit: visit1)
         
-        // Visit E01
-        let visit2 = Visit(date: Date(), route: route_LW_E!, trap: trap2)
+        let visit2 = Visit(date: Date().add(0, -1, 0), route: route_LW_E!, trap: trap1)
+        visit2.catchSpecies = ServiceFactory.sharedInstance.speciesService.get(.possum)
         visitService.add(visit: visit2)
+        
+        // Visit E01
+        let visit3 = Visit(date: Date(), route: route_LW_E!, trap: trap2)
+        visit3.catchSpecies = ServiceFactory.sharedInstance.speciesService.get(.rat)
+        visitService.add(visit: visit3)
         
         //
     }

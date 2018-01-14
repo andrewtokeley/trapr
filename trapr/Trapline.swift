@@ -16,8 +16,8 @@ class Trapline: Object {
         return "code"
     }
     
-    dynamic var code: String? = nil // "LW"
-    dynamic var details: String? = nil // "Lowry Bay track"
+    @objc dynamic var code: String? = nil // "LW"
+    @objc dynamic var details: String? = nil // "Lowry Bay track"
     let stations = List<Station>() // LW01, LW02...    
     static func == (left: Trapline, right: Trapline) -> Bool {
         return left.code == right.code

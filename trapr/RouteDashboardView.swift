@@ -9,7 +9,7 @@
 import UIKit
 import Viperit
 import MapKit
-
+import Charts
 
 //MARK: RouteDashboardView Class
 final class RouteDashboardView: UserInterface {
@@ -17,13 +17,72 @@ final class RouteDashboardView: UserInterface {
     var mapBottomConstaint: NSLayoutConstraint?
     var mapTopConstraint: NSLayoutConstraint?
     
+    var killNumberOfBars: Int = 0
+    var poisonNumberOfBars: Int = 0
+    var poisonCountFunction: ((Int) -> Int)?
+    
     //MARK: - Constants
     
     //MARK: - Subviews
     
-//    lazy var barChartKills: BarChartView = {
-//        
-//    }()
+    lazy var barChartKillsTitle: UILabel = {
+        let label = UILabel()
+        label.text = "CATCH"
+        label.textAlignment = .center
+        label.font = UIFont.trpLabelSmall
+        return label
+    }()
+    
+    lazy var barChartKills: BarChartViewEx = {
+        let chart = BarChartViewEx()
+        chart.drawGridBackgroundEnabled = false
+        chart.chartDescription = nil
+        chart.legend.enabled = true
+        chart.legend.direction = .leftToRight
+        
+        // configure x axis
+        let xAxis = chart.xAxis
+        xAxis.labelPosition = .bottom
+        xAxis.drawGridLinesEnabled = false
+        xAxis.valueFormatter = self
+        xAxis.granularity = 1
+        xAxis.labelCount = 12
+        
+        let yAxis = chart.getAxis(.left)
+        yAxis.drawGridLinesEnabled = true
+        yAxis.gridColor = UIColor.trpChartGridlines
+        yAxis.granularity = 2
+        return chart
+    }()
+    
+    lazy var barChartPoisonTitle: UILabel = {
+        let label = UILabel()
+        label.text = "POISON"
+        label.textAlignment = .center
+        label.font = UIFont.trpLabelSmall
+        return label
+    }()
+    
+    lazy var barChartPoison: BarChartViewEx = {
+        let chart = BarChartViewEx()
+        chart.drawGridBackgroundEnabled = false
+        chart.chartDescription = nil
+        chart.legend.enabled = false
+        chart.legend.direction = .leftToRight
+        
+        // configure x axis
+        let xAxis = chart.xAxis
+        xAxis.labelPosition = .bottom
+        xAxis.drawGridLinesEnabled = false
+        xAxis.valueFormatter = self
+        xAxis.granularity = 1
+        xAxis.labelCount = 12
+
+        let yAxis = chart.getAxis(.left)
+        yAxis.drawGridLinesEnabled = true
+        yAxis.gridColor = UIColor.trpChartGridlines
+        return chart
+    }()
     
     lazy var editDescription: UILabel = {
         let label = UILabel()
@@ -105,6 +164,7 @@ final class RouteDashboardView: UserInterface {
         textField.delegate = self
         textField.clearButtonMode = .whileEditing
         textField.returnKeyType = UIReturnKeyType.done
+        textField.textColor = UIColor.white
         return textField
     }()
     
@@ -142,35 +202,35 @@ final class RouteDashboardView: UserInterface {
     
     //MARK: - Events
     
-    func resetOrder(sender: UIButton) {
+    @objc func resetOrder(sender: UIButton) {
         presenter.didSelectResetOrder()
     }
     
-    func clearOrder(sender: UIButton) {
+    @objc func clearOrder(sender: UIButton) {
         presenter.didSelectClearOrder()
     }
     
-    func reverseOrder(sender: UIButton) {
+    @objc func reverseOrder(sender: UIButton) {
         presenter.didSelectReverseOrder()
     }
     
-    func resetStations(sender: UIButton) {
+    @objc func resetStations(sender: UIButton) {
         presenter.didSelectResetStations()
     }
     
-    func closeButtonClick(sender: UIButton) {
+    @objc func closeButtonClick(sender: UIButton) {
         presenter.didSelectClose()
     }
     
-    func editButtonClick(sender: UIButton) {
+    @objc func editButtonClick(sender: UIButton) {
         presenter.didSelectEditMenu()
     }
 
-    func cancelEditButtonClick(sender: UIButton) {
+    @objc func cancelEditButtonClick(sender: UIButton) {
         presenter.didSelectEditCancel()
     }
     
-    func editDoneButtonClick(sender: UIButton) {
+    @objc func editDoneButtonClick(sender: UIButton) {
         presenter.didSelectEditDone()
     }
 
@@ -179,37 +239,44 @@ final class RouteDashboardView: UserInterface {
     }
     
     //MARK: - UIViewController
-    
+    @objc func viewClicked(sender: UIView) {
+        routeNameTextField.endEditing(true)
+
+    }
     override func loadView() {
         super.loadView()
         
         self.view.backgroundColor = UIColor.trpBackground
         
         // ensure the keyboard disappears when click view
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(viewClicked(sender:)))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
+        self.navigationController?.view.addGestureRecognizer(tap)
         
-        self.view.addSubview(routeNameTextField)
+        self.navigationItem.titleView = routeNameTextField
+        //self.view.addSubview(routeNameTextField)
         self.view.addSubview(mapViewControllerHost)
         self.view.addSubview(editDescription)
         self.view.addSubview(editStationOptions)
         self.view.addSubview(editOrderOptions)
+        self.view.addSubview(barChartKills)
+        self.view.addSubview(barChartKillsTitle)
+        self.view.addSubview(barChartPoison)
+        self.view.addSubview(barChartPoisonTitle)
         
         setConstraints()
     }
     
     func setConstraints() {
         
-        routeNameTextField.autoPin(toTopLayoutGuideOf: self, withInset: LayoutDimensions.spacingMargin)
-        routeNameTextField.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
-        routeNameTextField.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
-        routeNameTextField.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
-        
-        mapTopConstraint = mapViewControllerHost.autoPin(toTopLayoutGuideOf: self, withInset: LayoutDimensions.inputHeight + 2 * LayoutDimensions.spacingMargin)
+        //routeNameTextField.autoSetDimension(.width, toSize: self.view.frame.width * 0.8)
+
+        //mapTopConstraint = mapViewControllerHost.autoPin(toTopLayoutGuideOf: self, withInset: 0)
+        mapViewControllerHost.autoPin(toTopLayoutGuideOf: self, withInset: 0)
         mapViewControllerHost.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
         mapViewControllerHost.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
-        mapBottomConstaint = mapViewControllerHost.autoPinEdge(toSuperviewEdge: .bottom, withInset: 300)
+        mapBottomConstaint = mapViewControllerHost.autoPinEdge(toSuperviewEdge: .bottom, withInset: 350)
         
         editDescription.autoPinEdge(.left, to: .left, of: mapViewControllerHost)
         editDescription.autoPinEdge(.right, to: .right, of: mapViewControllerHost)
@@ -225,7 +292,24 @@ final class RouteDashboardView: UserInterface {
         editOrderOptions.autoPinEdge(.right, to: .right, of: mapViewControllerHost)
         editOrderOptions.autoPinEdge(.bottom, to: .bottom, of: mapViewControllerHost)
         editOrderOptions.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
+        
+        barChartKillsTitle.autoPinEdge(.top, to: .bottom, of: mapViewControllerHost, withOffset: LayoutDimensions.spacingMargin)
+        barChartKillsTitle.autoPinEdge(toSuperviewEdge: .left)
+        barChartKillsTitle.autoPinEdge(toSuperviewEdge: .right)
+        
+        barChartKills.autoPinEdge(.top, to: .bottom, of: barChartKillsTitle, withOffset: -LayoutDimensions.smallSpacingMargin)
+        barChartKills.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.smallSpacingMargin)
+        barChartKills.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.smallSpacingMargin)
+        barChartKills.autoSetDimension(.height, toSize: 150)
 
+        barChartPoisonTitle.autoPinEdge(.top, to: .bottom, of: barChartKills, withOffset: LayoutDimensions.smallSpacingMargin)
+        barChartPoisonTitle.autoPinEdge(toSuperviewEdge: .left)
+        barChartPoisonTitle.autoPinEdge(toSuperviewEdge: .right)
+        
+        barChartPoison.autoPinEdge(.top, to: .bottom, of: barChartPoisonTitle, withOffset: -LayoutDimensions.smallSpacingMargin)
+        barChartPoison.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.smallSpacingMargin)
+        barChartPoison.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.smallSpacingMargin)
+        barChartPoison.autoSetDimension(.height, toSize: 150)
     }
 }
 
@@ -242,6 +326,18 @@ extension RouteDashboardView: UITextFieldDelegate {
 
 //MARK: - RouteDashboardView API
 extension RouteDashboardView: RouteDashboardViewApi {
+    
+    func configureKillChart(catchSummary: StackCount) {
+        self.killNumberOfBars = catchSummary.counts.count
+        let yValues = catchSummary.counts.map({ $0.map( { Double($0) }) })
+        barChartKills.buildData(yValues: yValues, stackLabels: catchSummary.labels, stackColors: UIColor.trpStackChartColors )
+    }
+    
+    func configurePoisonChart(poisonSummary: StackCount) {
+        self.poisonNumberOfBars = poisonSummary.counts.count
+        let yValues = poisonSummary.counts.map({ $0.map( { Double($0) }) })
+        barChartPoison.buildData(yValues: yValues, stackLabels: poisonSummary.labels, stackColors: [UIColor.trpChartBarStack4])
+    }
     
     func showEditDescription(_ show: Bool, description: String? = nil) {
         editDescription.alpha = show ? 1 : 0
@@ -283,26 +379,21 @@ extension RouteDashboardView: RouteDashboardViewApi {
             self.mapBottomConstaint?.constant = 0
             self.view.layoutIfNeeded()
         })
-        UIView.animate(withDuration: 0.5, animations: {
-            self.mapTopConstraint?.constant = 0
-            self.view.layoutIfNeeded()
-        })
-        
+//        UIView.animate(withDuration: 0.5, animations: {
+//            self.mapTopConstraint?.constant = 0
+//            self.view.layoutIfNeeded()
+//        })
     }
     
     func displayCollapsedMap() {
         UIView.animate(withDuration: 0.5, animations: {
-            self.mapBottomConstaint?.constant = -300
-            self.view.layoutIfNeeded()
-        })
-        UIView.animate(withDuration: 0.5, animations: {
-            self.mapTopConstraint?.constant = LayoutDimensions.inputHeight + 2 * LayoutDimensions.spacingMargin
+            self.mapBottomConstaint?.constant = -350
             self.view.layoutIfNeeded()
         })
     }
     
     func displayTitle(_ title: String) {
-        self.title = title
+        //self.title = title
     }
     
     func displayRouteName(_ name: String?) {
@@ -327,6 +418,144 @@ extension RouteDashboardView: RouteDashboardViewApi {
     
     func enableToggleHighlightMode(_ enable: Bool) {
         //mapViewController?.enableToggleHighlightMode(enable)
+    }
+    
+//    func displayKillDataChart() {
+//        
+//        // assuming x is the number of months ago
+//        let values = [
+//            BarChartDataEntry(x: 0, yValues: [3,1,1]),
+//            BarChartDataEntry(x: -1, yValues: [0,0,0]),
+//            BarChartDataEntry(x: -2, yValues: [1,0,0]),
+//            BarChartDataEntry(x: -3, yValues: [1,0,0]),
+//            BarChartDataEntry(x: -4, yValues: [0,0,0]),
+//            BarChartDataEntry(x: -5, yValues: [1,0,0]),
+//            BarChartDataEntry(x: -6, yValues: [2,0,0]),
+//            BarChartDataEntry(x: -7, yValues: [0,1,0]),
+//            BarChartDataEntry(x: -8, yValues: [0,1,0]),
+//            BarChartDataEntry(x: -9, yValues: [0,1,0]),
+//            BarChartDataEntry(x: -10, yValues: [0,1,0]),
+//            BarChartDataEntry(x: -11, yValues: [1,1,1])
+//        ]
+//        let killDataSet = BarChartDataSet(values: values, label: nil)
+//        killDataSet.colors = [UIColor.trpChartBarStack1, UIColor.trpChartBarStack2, UIColor.trpChartBarStack3]
+//        killDataSet.stackLabels = ["Possum", "Rat", "Other"]
+//
+//        let data = BarChartData(dataSet: killDataSet)
+//        data.barWidth = 0.3
+//        data.setDrawValues(false)
+//        self.barChartKills.data = data
+//        
+//    }
+//    func displayPoisonDataChart() {
+//        
+//        // assuming x is the number of months ago
+//        let values = [
+//            BarChartDataEntry(x: 0, y: 5),
+//            BarChartDataEntry(x: -1, y: 15),
+//            BarChartDataEntry(x: -2, y: 5),
+//            BarChartDataEntry(x: -3, y: 0),
+//            BarChartDataEntry(x: -4, y: 0),
+//            BarChartDataEntry(x: -5, y: 4),
+//            BarChartDataEntry(x: -6, y: 3),
+//            BarChartDataEntry(x: -7, y: 5),
+//            BarChartDataEntry(x: -8, y: 6),
+//            BarChartDataEntry(x: -9, y: 10),
+//            BarChartDataEntry(x: -10, y: 12),
+//            BarChartDataEntry(x: -11, y: 1)
+//        ]
+//        let killDataSet = BarChartDataSet(values: values, label: nil)
+//        killDataSet.setColor(UIColor.trpMapDefaultStation)
+//        
+//        let data = BarChartData(dataSet: killDataSet)
+//        self.barChartPoison.data = data
+//        data.setDrawValues(false)
+//        data.barWidth = 0.3
+//    }
+}
+
+//extension RouteDashboardView: BarChartDelegate {
+//
+//    func chartNumberOfBars(_ chart: BarChartViewEx) -> Int {
+////        if chart == self.barChartKills {
+////            return killNumberOfBars
+////        } else if chart == self.barChartPoison {
+////            return poisonNumberOfBars
+////        } else {
+////            return 0
+////        }
+//        return killNumberOfBars
+//    }
+//    func chartNumberOfStacks(_ chart: BarChartViewEx) -> Int {
+////        if chart == self.barChartKills {
+////            return killSpecies.count
+////        } else if chart == self.barChartPoison {
+////            return 1
+////        } else {
+////            return 0
+////        }
+//        return killSpecies.count
+//    }
+//
+//    func chart(_ chart: BarChartViewEx, valuesAt barIndex: Int) -> [Double] {
+////        if chart == self.barChartKills {
+//        let kills = self.killCountFunction?(barIndex)
+//        if let values = kills?.values {
+//            return Array(values.map({ Double($0) }))
+//        } else {
+//            return [Double]()
+//        }
+////        } else if chart == self.barChartPoison {
+////            var value: Double = 0
+////            if let valueAsInt = self.poisonCountFunction?(barIndexPath.bar) {
+////                value = Double(valueAsInt)
+////            }
+////            return value
+////        } else {
+////            return 0
+////        }
+//    }
+//
+//    func chart(_ chart: BarChartViewEx, colorOfStack stackIndex: Int) -> UIColor {
+//        if stackIndex <= 2 {
+//            return [UIColor.trpChartBarStack1, UIColor.trpChartBarStack2, UIColor.trpChartBarStack3][stackIndex]
+//        }
+//        return UIColor.red
+//    }
+//
+//    func chart(_ chart: BarChartViewEx, titleOfStack stackIndex: Int) -> String {
+//        //if chart == barChartKills {
+//            return self.killSpecies[stackIndex].name ?? "?"
+//        //}
+//        //return ""
+//    }
+//
+//    func chart(_ chart: BarChartViewEx, xLabelFor barIndex: Int, axis: AxisBase?) -> String {
+//
+//        //if axis == self.barChartKills.xAxis {
+//            // bar 0 is the first bar, so should be 11 months ago
+//            // bar 11 is the current month
+//            let monthsAgo = 12 - (barIndex + 1)
+//            let displayMonth = Date().add(0, -Int(monthsAgo), 0)
+//            return displayMonth.toString(from: "MMMMM")
+//        //}
+//        //return String(barIndex)
+//    }
+//
+//}
+
+extension RouteDashboardView: IAxisValueFormatter {
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        var monthsOffset: Int
+        
+        if axis == barChartKills.xAxis {
+            monthsOffset = -(killNumberOfBars - (Int(value) + 1))
+        } else {
+            monthsOffset = -(poisonNumberOfBars - (Int(value) + 1))
+        }
+        
+        let displayMonth = Date().add(0, monthsOffset, 0)
+        return displayMonth.toString(from: "MMMMM")
     }
 }
 

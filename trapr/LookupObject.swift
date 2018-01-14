@@ -15,9 +15,9 @@ class LookupObject: Object {
         return "code"
     }
     
-    dynamic var code: String?
-    dynamic var name: String?
-    dynamic var order: Int = 0
+    @objc dynamic var code: String?
+    @objc dynamic var name: String?
+    @objc dynamic var order: Int = 0
     
     convenience init(code: String, name: String, order: Int) {
         self.init()

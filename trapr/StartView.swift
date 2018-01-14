@@ -92,7 +92,7 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
     
     //MARK: - Events
     
-    func menuButtonAction(sender: UIBarButtonItem) {
+    @objc func menuButtonAction(sender: UIBarButtonItem) {
         presenter.didSelectMenu()
     }
     

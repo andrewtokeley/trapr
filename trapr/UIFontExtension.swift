@@ -15,14 +15,14 @@ extension UIFont {
      Font definition, 25 Bold
      */
     public static var trpLabelBoldMedium: UIFont {
-        return UIFont.systemFont(ofSize: 25, weight: UIFontWeightBold)
+        return UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.bold)
     }
     
     /**
      Font definition, 30 Bold
      */
     public static var trpLabelBoldLarge: UIFont {
-        return UIFont.systemFont(ofSize: 30, weight: UIFontWeightBold)
+        return UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.bold)
     }
     
     /**

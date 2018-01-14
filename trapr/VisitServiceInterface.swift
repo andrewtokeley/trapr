@@ -77,4 +77,6 @@ protocol VisitServiceInterface: RealmServiceInterface {
      */
     func getVisitSummaries(recordedBetween startDate: Date, endDate: Date) -> [VisitSummary]
     
+    func killCounts(monthOffset: Int, route: Route) -> [Species: Int]
+    func poisonCount(monthOffset: Int, route: Route) -> Int 
 }

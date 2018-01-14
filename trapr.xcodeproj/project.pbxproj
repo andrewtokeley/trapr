@@ -252,6 +252,10 @@
 		D8DE38061FFCC88F00707A7D /* StationMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DE38051FFCC88F00707A7D /* StationMapViewController.swift */; };
 		D8DE38081FFCC8BC00707A7D /* StationMapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DE38071FFCC8BC00707A7D /* StationMapDelegate.swift */; };
 		D8E86B3E1FACF95B003BFD54 /* RealmServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E86B3D1FACF95B003BFD54 /* RealmServiceInterface.swift */; };
+		D8EA46032009499B0032224E /* BarChartDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA46022009499B0032224E /* BarChartDelegate.swift */; };
+		D8EA460720094B9F0032224E /* BarChartViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA460620094B9F0032224E /* BarChartViewEx.swift */; };
+		D8EA460C200AAF6B0032224E /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA460B200AAF6B0032224E /* OrderedDictionary.swift */; };
+		D8EA4610200AB9A20032224E /* StackCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA460F200AB9A20032224E /* StackCount.swift */; };
 		D8FA5CF51F8406D600EC890C /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FA5CF31F8406D600EC890C /* close.png */; };
 		D8FA5CF61F8406D600EC890C /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FA5CF41F8406D600EC890C /* close@2x.png */; };
 		D8FA5CF81F8409A700EC890C /* StationSelectSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FA5CF71F8409A700EC890C /* StationSelectSetupData.swift */; };
@@ -522,6 +526,10 @@
 		D8DE38051FFCC88F00707A7D /* StationMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationMapViewController.swift; sourceTree = "<group>"; };
 		D8DE38071FFCC8BC00707A7D /* StationMapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationMapDelegate.swift; sourceTree = "<group>"; };
 		D8E86B3D1FACF95B003BFD54 /* RealmServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmServiceInterface.swift; sourceTree = "<group>"; };
+		D8EA46022009499B0032224E /* BarChartDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartDelegate.swift; sourceTree = "<group>"; };
+		D8EA460620094B9F0032224E /* BarChartViewEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartViewEx.swift; sourceTree = "<group>"; };
+		D8EA460B200AAF6B0032224E /* OrderedDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedDictionary.swift; sourceTree = "<group>"; };
+		D8EA460F200AB9A20032224E /* StackCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackCount.swift; sourceTree = "<group>"; };
 		D8FA5CF31F8406D600EC890C /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
 		D8FA5CF41F8406D600EC890C /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
 		D8FA5CF71F8409A700EC890C /* StationSelectSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectSetupData.swift; sourceTree = "<group>"; };
@@ -873,6 +881,7 @@
 		D8B94D571F5EA1FE00D373EF /* trapr */ = {
 			isa = PBXGroup;
 			children = (
+				D8EA4601200949730032224E /* Charts */,
 				D8D79AB61FC5235E008AC5C1 /* Realm */,
 				D8039E2D1FABF64B006E394B /* Viper */,
 				D81DAAED1F68641E00C7C987 /* Services */,
@@ -885,6 +894,8 @@
 				D89714AB1F77FEED00E846B9 /* TrapSectionIndexPath.swift */,
 				D8D79AB21FC4B992008AC5C1 /* OptionItem.swift */,
 				D84C24652004806E000BCAF8 /* ObjectOrder.swift */,
+				D8EA460B200AAF6B0032224E /* OrderedDictionary.swift */,
+				D8EA460F200AB9A20032224E /* StackCount.swift */,
 			);
 			path = trapr;
 			sourceTree = "<group>";
@@ -1055,6 +1066,15 @@
 			name = StationMapViewController;
 			sourceTree = "<group>";
 		};
+		D8EA4601200949730032224E /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				D8EA46022009499B0032224E /* BarChartDelegate.swift */,
+				D8EA460620094B9F0032224E /* BarChartViewEx.swift */,
+			);
+			name = Charts;
+			sourceTree = "<group>";
+		};
 		D9137A3F9761619C4FFA1891 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1124,10 +1144,12 @@
 					D8B94D541F5EA1FE00D373EF = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = 2DTZ6ESMX9;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
 					D8B94D681F5EA1FE00D373EF = {
 						CreatedOnToolsVersion = 8.3.1;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 						TestTargetID = D8B94D541F5EA1FE00D373EF;
 					};
@@ -1327,6 +1349,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-trapr/Pods-trapr-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CSVImporter/CSVImporter.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/HandySwift/HandySwift.framework",
 				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
@@ -1337,6 +1360,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSVImporter.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandySwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
@@ -1406,6 +1430,7 @@
 				D81DAAF71F686EA800C7C987 /* ServiceFactory.swift in Sources */,
 				D8039E2F1FABF671006E394B /* RouterExtension.swift in Sources */,
 				D879269F1FB58FDE00240767 /* SectionStripView.swift in Sources */,
+				D8EA460720094B9F0032224E /* BarChartViewEx.swift in Sources */,
 				D80F7ECE1F6E79BF00814A52 /* TraplineServiceInterface.swift in Sources */,
 				D87E5BF51F88CCAA0055A3E0 /* TraplineSelectDelegate.swift in Sources */,
 				D879269A1FB5775900240767 /* Layout.swift in Sources */,
@@ -1435,12 +1460,14 @@
 				D8B57FF01FDA5582003437D9 /* importer_traplines_v1_to_v2.swift in Sources */,
 				D81431A71F8DDB2600EAF5FD /* DatePickerView.swift in Sources */,
 				D857B3A81F81B86A006E1402 /* VisitDisplayData.swift in Sources */,
+				D8EA4610200AB9A20032224E /* StackCount.swift in Sources */,
 				D8083D1B1FE49A4E00D1C5F1 /* SettingsServiceInterface.swift in Sources */,
 				D8D79AAF1FC3F0CD008AC5C1 /* RouteModuleApi.swift in Sources */,
 				D8DBE3E51FF50A1500AA6482 /* StationMapAnnotation.swift in Sources */,
 				D89A20DB1FDC98D200A813FB /* StationServiceInterface.swift in Sources */,
 				D8039E311FABF6B9006E394B /* ListPickerSetupData.swift in Sources */,
 				D80B6DD01F9F3DCD00F49E9E /* VisitLogView.swift in Sources */,
+				D8EA46032009499B0032224E /* BarChartDelegate.swift in Sources */,
 				D8C8A1EE1FCCBA070075E44E /* TrapOperatingStatus.swift in Sources */,
 				D8039E251FABF458006E394B /* ListPickerDisplayData.swift in Sources */,
 				D81DAAF11F68652E00C7C987 /* Trap.swift in Sources */,
@@ -1504,6 +1531,7 @@
 				D87C44F61F9059AF00CAFC7A /* SideMenuDisplayData.swift in Sources */,
 				D8FA5CF81F8409A700EC890C /* StationSelectSetupData.swift in Sources */,
 				D81DAAF31F68659100C7C987 /* VisitServiceInterface.swift in Sources */,
+				D8EA460C200AAF6B0032224E /* OrderedDictionary.swift in Sources */,
 				D87C44FB1F9059AF00CAFC7A /* SideMenuView.swift in Sources */,
 				D8083D181FE498F900D1C5F1 /* SettingsInteractor.swift in Sources */,
 				D8083D1F1FE49AB000D1C5F1 /* Settings.swift in Sources */,
@@ -1707,7 +1735,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = andrewtokeley.com.trapr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1721,7 +1750,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = andrewtokeley.com.trapr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1735,7 +1765,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = andrewtokeley.com.traprTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/trapr.app/trapr";
 			};
 			name = Debug;
@@ -1750,7 +1781,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = andrewtokeley.com.traprTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/trapr.app/trapr";
 			};
 			name = Release;

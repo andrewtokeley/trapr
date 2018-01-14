@@ -16,14 +16,14 @@ enum KillMethod: Int {
 
 class TrapType: LookupObject {
     
-    dynamic var killMethodRaw = 0
+    @objc dynamic var killMethodRaw = 0
     var killMethod: KillMethod {
         return KillMethod(rawValue: killMethodRaw) ?? .direct
     }
     
-    dynamic var defaultLure: Lure?
+    @objc dynamic var defaultLure: Lure?
     let availableLures = List<Lure>()
     let catchableSpecies = List<Species>()
-    dynamic var imageName: String?
+    @objc dynamic var imageName: String?
     
 }

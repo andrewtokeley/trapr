@@ -252,16 +252,16 @@ final class SettingsView: UserInterface {
     
     //MARK: - Events
     
-    func closeButtonClick(sender: UIBarButtonItem) {
+    @objc func closeButtonClick(sender: UIBarButtonItem) {
         
         presenter.didSelectClose()
     }
     
-    func mergeButtonClick(sender: UIButton) {
+    @objc func mergeButtonClick(sender: UIButton) {
         presenter.mergeWithTrapData()
     }
     
-    func resetAllButtonClick(sender: UIButton) {
+    @objc func resetAllButtonClick(sender: UIButton) {
         presenter.resetAllData()
     }
 }

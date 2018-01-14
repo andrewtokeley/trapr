@@ -88,15 +88,15 @@ final class DatePickerView: UserInterface {
     
     //MARK: Events
     
-    func cancelButtonClick(sender: UIView) {
+    @objc func cancelButtonClick(sender: UIView) {
         presenter.didSelectClose()
     }
     
-    func doneButtonClick(sender: UIButton) {
+    @objc func doneButtonClick(sender: UIButton) {
         presenter.didSelectDate(date: self.datePicker.date)
     }
     
-    func todayButtonClick(sender: UIButton) {
+    @objc func todayButtonClick(sender: UIButton) {
         presenter.didSelectToday()
     }
         

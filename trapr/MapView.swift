@@ -61,11 +61,11 @@ final class MapView: UserInterface {
     
     //MARK: - Events
     
-    func closeButtonClick(sender: UIBarButtonItem) {
+    @objc func closeButtonClick(sender: UIBarButtonItem) {
         presenter.didSelectClose()
     }
     
-    func showMoreMenu(sender: UIBarButtonItem) {
+    @objc func showMoreMenu(sender: UIBarButtonItem) {
         presenter.didSelectMenuButton()
     }
 }
