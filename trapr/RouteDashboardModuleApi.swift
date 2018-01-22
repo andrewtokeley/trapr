@@ -8,6 +8,12 @@
 
 import Viperit
 
+enum ResizeState {
+    case expand
+    case collapse
+    case hidden
+}
+
 //MARK: - RouteDashboardRouter API
 protocol RouteDashboardRouterApi: RouterProtocol {
     func addMapAsChildView(containerView: UIView)
@@ -15,12 +21,12 @@ protocol RouteDashboardRouterApi: RouterProtocol {
 }
 
 //MARK: - RouteDashboardView API
-protocol RouteDashboardViewApi: UserInterfaceProtocol {
+protocol RouteDashboardViewApi: class, UserInterfaceProtocol {
     func displayTitle(_ title: String)
-    func displayRouteName(_ name: String?)
     func displayFullScreenMap()
     func displayCollapsedMap()
     func setAlphaEditDoneButton(_ alpha: CGFloat)
+    func setMapResizeIconState(state: ResizeState)
     
     func setVisibleRegionToHighlightedStations()
     func setVisibleRegionToCentreOfStations(distance: Double)
@@ -37,9 +43,12 @@ protocol RouteDashboardViewApi: UserInterfaceProtocol {
     func showEditDescription(_ show: Bool, description: String?)
     func showEditStationOptions(_ show: Bool)
     func showEditOrderOptions(_ show: Bool)
-
+    var editDoneEnabled: Bool { get set }
+    
     func configureKillChart(catchSummary: StackCount)
-    func configurePoisonChart(poisonSummary: StackCount) 
+    func configurePoisonChart(poisonSummary: StackCount)
+    func showKillChart(_ show: Bool)
+    func showPoisonChart(_ show: Bool)
 }
 
 //MARK: - RouteDashboardPresenter API
@@ -55,6 +64,7 @@ protocol RouteDashboardPresenterApi: PresenterProtocol {
     func didSelectResetOrder()
     func didSelectClearOrder()
     func didSelectReverseOrder()
+    func didSelectResize()
     
 }
 
@@ -64,7 +74,8 @@ protocol RouteDashboardInteractorApi: InteractorProtocol {
     func removeStationFromRoute(route: Route, station: Station) -> Route
     func deleteRoute(route: Route)
     func getRouteName() -> String
-    func killCounts(frequency: TimeFrequency, period: TimeFrequency, route: Route) -> StackCount
-    func poisonCounts(frequency: TimeFrequency, period: TimeFrequency, route: Route) -> StackCount
+    func killCounts(frequency: TimeFrequency, period: TimeFrequency, route: Route) -> StackCount?
+    func poisonCounts(frequency: TimeFrequency, period: TimeFrequency, route: Route) -> StackCount?
+    func visitsExistForRoute(route: Route) -> Bool
     //func killCounts(monthOffset: Int, route: Route) -> [Species: Int]
 }

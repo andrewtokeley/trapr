@@ -14,18 +14,23 @@ protocol StartRouterApi: RouterProtocol {
     func showVisitModule(visitSummary: VisitSummary)
     func showNewVisitModule(delegate: NewVisitDelegate)
     func showRouteModule(route: Route?)
+    func showNewRouteModule()
     func showRouteDashboardModule(route: Route?)
     func showSideMenu()
     func showProfile()
+    func showLoadingScreen()
 }
 
 //MARK: - StartView API
 protocol StartViewApi: UserInterfaceProtocol {
+    func showLoadingScreen()
+    func hideLoadingScreen()
     func displayRoutes(routes: [Route]?)
     func displayRecentVisits(visits: [VisitSummary]?)
     func askForNewVisitDate(completion: (Date) -> Void)
     func setRouteMenu(options: [String])
     func setTitle(title: String, routesSectionTitle: String, routeSectionActionText: String, recentVisitsSectionTitle: String, recentVisitsSectionActionText: String)
+    func showNoRoutesLayout(show: Bool, message: String?)
 }
 
 //MARK: - StartPresenter API
@@ -46,4 +51,5 @@ protocol StartPresenterApi: PresenterProtocol {
 protocol StartInteractorApi: InteractorProtocol {
     func initialiseHomeModule()
     func deleteRoute(route: Route)
+    
 }

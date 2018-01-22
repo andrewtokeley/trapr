@@ -20,9 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Set global styles
         Styles.setAppearances()
         
-        ServiceFactory.sharedInstance.dataPopulatorService.createOrUpdateLookupData()
-        
         window = UIWindow(frame: UIScreen.main.bounds)
+ 
+        ServiceFactory.sharedInstance.dataPopulatorService.createOrUpdateLookupData()
         let module = AppModules.start.build()
         module.router.show(inWindow: window, embedInNavController: true, setupData: nil, makeKeyAndVisible: true)
         

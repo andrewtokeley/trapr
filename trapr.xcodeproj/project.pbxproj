@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5E21E305B912DE761C65F817 /* Pods_traprTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 091A08517706BFB528BF6370 /* Pods_traprTests.framework */; };
 		699D613385EE2884367110A5 /* Pods_trapr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7475BC73C1B9E9749C3B6277 /* Pods_trapr.framework */; };
+		D8005733201528C60084E950 /* StationMarkerAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8005732201528C50084E950 /* StationMarkerAnnotationView.swift */; };
+		D800573620154F9C0084E950 /* VerticallyCentredTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800573520154F9C0084E950 /* VerticallyCentredTextView.swift */; };
 		D80268831FA1757400A1372F /* VisitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80268821FA1757400A1372F /* VisitDelegate.swift */; };
 		D80344311FA192D400F44A17 /* StepperTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80344301FA192D400F44A17 /* StepperTableViewCellDelegate.swift */; };
 		D8039E251FABF458006E394B /* ListPickerDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8039E1F1FABF458006E394B /* ListPickerDisplayData.swift */; };
@@ -60,6 +62,13 @@
 		D81431A61F8DDB2600EAF5FD /* DatePickerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81431A01F8DDB2600EAF5FD /* DatePickerRouter.swift */; };
 		D81431A71F8DDB2600EAF5FD /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81431A11F8DDB2600EAF5FD /* DatePickerView.swift */; };
 		D81431AA1F8E020900EAF5FD /* DatePickerDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81431A91F8E020900EAF5FD /* DatePickerDisplayData.swift */; };
+		D815D790200CBA2A0086AFFE /* LoaderDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D815D78A200CBA2A0086AFFE /* LoaderDisplayData.swift */; };
+		D815D791200CBA2A0086AFFE /* LoaderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D815D78B200CBA2A0086AFFE /* LoaderPresenter.swift */; };
+		D815D792200CBA2A0086AFFE /* LoaderRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D815D78C200CBA2A0086AFFE /* LoaderRouter.swift */; };
+		D815D793200CBA2A0086AFFE /* LoaderModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D815D78D200CBA2A0086AFFE /* LoaderModuleApi.swift */; };
+		D815D794200CBA2A0086AFFE /* LoaderInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D815D78E200CBA2A0086AFFE /* LoaderInteractor.swift */; };
+		D815D795200CBA2A0086AFFE /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D815D78F200CBA2A0086AFFE /* LoaderView.swift */; };
+		D815D797200CBC6F0086AFFE /* LoaderPresenterSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D815D796200CBC6F0086AFFE /* LoaderPresenterSetupData.swift */; };
 		D81818701F7F795B008362BA /* AppModules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818186F1F7F795B008362BA /* AppModules.swift */; };
 		D81883791F6931C600A74B5E /* Species.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81883781F6931C600A74B5E /* Species.swift */; };
 		D81DAAEF1F68643400C7C987 /* VisitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAEE1F68643400C7C987 /* VisitService.swift */; };
@@ -76,6 +85,7 @@
 		D830895A1FA189AC007C9316 /* StepperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83089591FA189AC007C9316 /* StepperTableViewCell.swift */; };
 		D835E0741FAC0CC300A4664B /* SpeciesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835E0731FAC0CC300A4664B /* SpeciesService.swift */; };
 		D83853041F66555700481B57 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = D83853031F66555700481B57 /* plus.png */; };
+		D83D0B57200E8B70001E1F69 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D0B56200E8B70001E1F69 /* UIViewControllerExtension.swift */; };
 		D83DC6C81F7F841F00F91792 /* StartDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C11F7F841F00F91792 /* StartDisplayData.swift */; };
 		D83DC6C91F7F841F00F91792 /* StartInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C21F7F841F00F91792 /* StartInteractor.swift */; };
 		D83DC6CA1F7F841F00F91792 /* StartModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C31F7F841F00F91792 /* StartModuleApi.swift */; };
@@ -111,6 +121,12 @@
 		D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */; };
 		D8503DD01F669F8500ED0C84 /* Visit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DCF1F669F8500ED0C84 /* Visit.swift */; };
 		D8503DD81F67AF7800ED0C84 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = D8503DD71F67AF7800ED0C84 /* user.png */; };
+		D856F66D20111D3E00CA50C2 /* NewRouteDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66720111D3E00CA50C2 /* NewRouteDisplayData.swift */; };
+		D856F66E20111D3E00CA50C2 /* NewRoutePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66820111D3E00CA50C2 /* NewRoutePresenter.swift */; };
+		D856F66F20111D3E00CA50C2 /* NewRouteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66920111D3E00CA50C2 /* NewRouteRouter.swift */; };
+		D856F67020111D3E00CA50C2 /* NewRouteModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66A20111D3E00CA50C2 /* NewRouteModuleApi.swift */; };
+		D856F67120111D3E00CA50C2 /* NewRouteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66B20111D3E00CA50C2 /* NewRouteInteractor.swift */; };
+		D856F67220111D3E00CA50C2 /* NewRouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66C20111D3E00CA50C2 /* NewRouteView.swift */; };
 		D857B3A81F81B86A006E1402 /* VisitDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A41F81B86A006E1402 /* VisitDisplayData.swift */; };
 		D857B3A91F81B86A006E1402 /* VisitModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A51F81B86A006E1402 /* VisitModuleApi.swift */; };
 		D857B3AA1F81B86A006E1402 /* VisitRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A61F81B86A006E1402 /* VisitRouter.swift */; };
@@ -244,10 +260,8 @@
 		D8DBE3E31FF4FC1900AA6482 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBE3DD1FF4FC1900AA6482 /* MapView.swift */; };
 		D8DBE3E51FF50A1500AA6482 /* StationMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBE3E41FF50A1500AA6482 /* StationMapAnnotation.swift */; };
 		D8DBE3E71FF5BD0400AA6482 /* MapSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBE3E61FF5BD0400AA6482 /* MapSetupData.swift */; };
-		D8DBE3E91FF5C9D800AA6482 /* StationLargeAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBE3E81FF5C9D800AA6482 /* StationLargeAnnotationView.swift */; };
 		D8DBE3EC1FF5CD7300AA6482 /* circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8DBE3EA1FF5CD7300AA6482 /* circle@2x.png */; };
 		D8DBE3ED1FF5CD7300AA6482 /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = D8DBE3EB1FF5CD7300AA6482 /* circle.png */; };
-		D8DBE3EF1FF5DCEE00AA6482 /* StationCircleAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBE3EE1FF5DCEE00AA6482 /* StationCircleAnnotationView.swift */; };
 		D8DBE3F11FF764C900AA6482 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBE3F01FF764C900AA6482 /* UIViewExtension.swift */; };
 		D8DE38061FFCC88F00707A7D /* StationMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DE38051FFCC88F00707A7D /* StationMapViewController.swift */; };
 		D8DE38081FFCC8BC00707A7D /* StationMapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DE38071FFCC8BC00707A7D /* StationMapDelegate.swift */; };
@@ -278,6 +292,8 @@
 		97E006917605C37E780CC0B5 /* Pods-traprTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-traprTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-traprTests/Pods-traprTests.release.xcconfig"; sourceTree = "<group>"; };
 		A13BAE40424D5A9104CB3D85 /* Pods-trapr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trapr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-trapr/Pods-trapr.debug.xcconfig"; sourceTree = "<group>"; };
 		CB1480E579A12578A4F8D74D /* Pods-traprTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-traprTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-traprTests/Pods-traprTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D8005732201528C50084E950 /* StationMarkerAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationMarkerAnnotationView.swift; sourceTree = "<group>"; };
+		D800573520154F9C0084E950 /* VerticallyCentredTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticallyCentredTextView.swift; sourceTree = "<group>"; };
 		D80268821FA1757400A1372F /* VisitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitDelegate.swift; sourceTree = "<group>"; };
 		D80344301FA192D400F44A17 /* StepperTableViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperTableViewCellDelegate.swift; sourceTree = "<group>"; };
 		D8039E1F1FABF458006E394B /* ListPickerDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPickerDisplayData.swift; sourceTree = "<group>"; };
@@ -329,6 +345,13 @@
 		D81431A01F8DDB2600EAF5FD /* DatePickerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerRouter.swift; sourceTree = "<group>"; };
 		D81431A11F8DDB2600EAF5FD /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		D81431A91F8E020900EAF5FD /* DatePickerDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDisplayData.swift; sourceTree = "<group>"; };
+		D815D78A200CBA2A0086AFFE /* LoaderDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderDisplayData.swift; sourceTree = "<group>"; };
+		D815D78B200CBA2A0086AFFE /* LoaderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderPresenter.swift; sourceTree = "<group>"; };
+		D815D78C200CBA2A0086AFFE /* LoaderRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderRouter.swift; sourceTree = "<group>"; };
+		D815D78D200CBA2A0086AFFE /* LoaderModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderModuleApi.swift; sourceTree = "<group>"; };
+		D815D78E200CBA2A0086AFFE /* LoaderInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderInteractor.swift; sourceTree = "<group>"; };
+		D815D78F200CBA2A0086AFFE /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
+		D815D796200CBC6F0086AFFE /* LoaderPresenterSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderPresenterSetupData.swift; sourceTree = "<group>"; };
 		D818186F1F7F795B008362BA /* AppModules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModules.swift; sourceTree = "<group>"; };
 		D81883781F6931C600A74B5E /* Species.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Species.swift; sourceTree = "<group>"; };
 		D81DAAEE1F68643400C7C987 /* VisitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitService.swift; sourceTree = "<group>"; };
@@ -346,6 +369,7 @@
 		D835E0731FAC0CC300A4664B /* SpeciesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeciesService.swift; sourceTree = "<group>"; };
 		D83853001F64C66B00481B57 /* Trapr-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Trapr-Bridging-Header.h"; sourceTree = "<group>"; };
 		D83853031F66555700481B57 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
+		D83D0B56200E8B70001E1F69 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		D83DC6C11F7F841F00F91792 /* StartDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartDisplayData.swift; sourceTree = "<group>"; };
 		D83DC6C21F7F841F00F91792 /* StartInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartInteractor.swift; sourceTree = "<group>"; };
 		D83DC6C31F7F841F00F91792 /* StartModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartModuleApi.swift; sourceTree = "<group>"; };
@@ -381,6 +405,12 @@
 		D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtention.swift; sourceTree = "<group>"; };
 		D8503DCF1F669F8500ED0C84 /* Visit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Visit.swift; sourceTree = "<group>"; };
 		D8503DD71F67AF7800ED0C84 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
+		D856F66720111D3E00CA50C2 /* NewRouteDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRouteDisplayData.swift; sourceTree = "<group>"; };
+		D856F66820111D3E00CA50C2 /* NewRoutePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRoutePresenter.swift; sourceTree = "<group>"; };
+		D856F66920111D3E00CA50C2 /* NewRouteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRouteRouter.swift; sourceTree = "<group>"; };
+		D856F66A20111D3E00CA50C2 /* NewRouteModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRouteModuleApi.swift; sourceTree = "<group>"; };
+		D856F66B20111D3E00CA50C2 /* NewRouteInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRouteInteractor.swift; sourceTree = "<group>"; };
+		D856F66C20111D3E00CA50C2 /* NewRouteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRouteView.swift; sourceTree = "<group>"; };
 		D857B3A41F81B86A006E1402 /* VisitDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitDisplayData.swift; sourceTree = "<group>"; };
 		D857B3A51F81B86A006E1402 /* VisitModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitModuleApi.swift; sourceTree = "<group>"; };
 		D857B3A61F81B86A006E1402 /* VisitRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitRouter.swift; sourceTree = "<group>"; };
@@ -518,10 +548,8 @@
 		D8DBE3DD1FF4FC1900AA6482 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		D8DBE3E41FF50A1500AA6482 /* StationMapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationMapAnnotation.swift; sourceTree = "<group>"; };
 		D8DBE3E61FF5BD0400AA6482 /* MapSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSetupData.swift; sourceTree = "<group>"; };
-		D8DBE3E81FF5C9D800AA6482 /* StationLargeAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationLargeAnnotationView.swift; sourceTree = "<group>"; };
 		D8DBE3EA1FF5CD7300AA6482 /* circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle@2x.png"; sourceTree = "<group>"; };
 		D8DBE3EB1FF5CD7300AA6482 /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
-		D8DBE3EE1FF5DCEE00AA6482 /* StationCircleAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationCircleAnnotationView.swift; sourceTree = "<group>"; };
 		D8DBE3F01FF764C900AA6482 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		D8DE38051FFCC88F00707A7D /* StationMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationMapViewController.swift; sourceTree = "<group>"; };
 		D8DE38071FFCC8BC00707A7D /* StationMapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationMapDelegate.swift; sourceTree = "<group>"; };
@@ -564,6 +592,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D800573420152B210084E950 /* AnnotationViews */ = {
+			isa = PBXGroup;
+			children = (
+				D8005732201528C50084E950 /* StationMarkerAnnotationView.swift */,
+				D84C2461200028B5000BCAF8 /* CircleAnnotationView.swift */,
+				D84C24531FFDFF30000BCAF8 /* StationDotAnnotationView.swift */,
+				D88DFE541FFAE95F0048CA54 /* StationAnnotationView.swift */,
+			);
+			name = AnnotationViews;
+			sourceTree = "<group>";
+		};
 		D8039E1E1FABF428006E394B /* ListPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -585,6 +624,7 @@
 				D818186F1F7F795B008362BA /* AppModules.swift */,
 				D8039E2E1FABF671006E394B /* RouterExtension.swift */,
 				D84C246320008781000BCAF8 /* UserInterfaceExtension.swift */,
+				D83D0B56200E8B70001E1F69 /* UIViewControllerExtension.swift */,
 			);
 			name = Viper;
 			sourceTree = "<group>";
@@ -656,6 +696,20 @@
 				D87C44EE1F8F545F00CAFC7A /* DatePickerSetupData.swift */,
 			);
 			name = DatePicker;
+			sourceTree = "<group>";
+		};
+		D815D77D200CB9BE0086AFFE /* Loader */ = {
+			isa = PBXGroup;
+			children = (
+				D815D78A200CBA2A0086AFFE /* LoaderDisplayData.swift */,
+				D815D78B200CBA2A0086AFFE /* LoaderPresenter.swift */,
+				D815D78C200CBA2A0086AFFE /* LoaderRouter.swift */,
+				D815D78D200CBA2A0086AFFE /* LoaderModuleApi.swift */,
+				D815D78E200CBA2A0086AFFE /* LoaderInteractor.swift */,
+				D815D78F200CBA2A0086AFFE /* LoaderView.swift */,
+				D815D796200CBC6F0086AFFE /* LoaderPresenterSetupData.swift */,
+			);
+			name = Loader;
 			sourceTree = "<group>";
 		};
 		D81DAAED1F68641E00C7C987 /* Services */ = {
@@ -735,6 +789,19 @@
 				D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		D856F66620111D2500CA50C2 /* NewRoute */ = {
+			isa = PBXGroup;
+			children = (
+				D856F66720111D3E00CA50C2 /* NewRouteDisplayData.swift */,
+				D856F66820111D3E00CA50C2 /* NewRoutePresenter.swift */,
+				D856F66920111D3E00CA50C2 /* NewRouteRouter.swift */,
+				D856F66A20111D3E00CA50C2 /* NewRouteModuleApi.swift */,
+				D856F66B20111D3E00CA50C2 /* NewRouteInteractor.swift */,
+				D856F66C20111D3E00CA50C2 /* NewRouteView.swift */,
+			);
+			name = NewRoute;
 			sourceTree = "<group>";
 		};
 		D857B39D1F81B7D8006E1402 /* Visit */ = {
@@ -931,6 +998,7 @@
 				D873C86F1FC6873A00F581D8 /* UIImageExtention.swift */,
 				D8DBE3F01FF764C900AA6482 /* UIViewExtension.swift */,
 				D8B94D611F5EA1FE00D373EF /* LaunchScreen.storyboard */,
+				D800573520154F9C0084E950 /* VerticallyCentredTextView.swift */,
 			);
 			name = Design;
 			sourceTree = "<group>";
@@ -938,6 +1006,8 @@
 		D8B94D7D1F5EA67300D373EF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D856F66620111D2500CA50C2 /* NewRoute */,
+				D815D77D200CB9BE0086AFFE /* Loader */,
 				D8DE38041FFCC87200707A7D /* StationMapViewController */,
 				D88DFE451FFABCB20048CA54 /* RouteDashboard */,
 				D8DBE3D71FF4FC0000AA6482 /* Map */,
@@ -1039,6 +1109,7 @@
 		D8DBE3D71FF4FC0000AA6482 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				D800573420152B210084E950 /* AnnotationViews */,
 				D8DBE3D81FF4FC1900AA6482 /* MapDisplayData.swift */,
 				D8DBE3DC1FF4FC1900AA6482 /* MapInteractor.swift */,
 				D8DBE3DB1FF4FC1900AA6482 /* MapModuleApi.swift */,
@@ -1047,12 +1118,7 @@
 				D8DBE3E61FF5BD0400AA6482 /* MapSetupData.swift */,
 				D8DBE3DD1FF4FC1900AA6482 /* MapView.swift */,
 				D8DBE3E41FF50A1500AA6482 /* StationMapAnnotation.swift */,
-				D8DBE3E81FF5C9D800AA6482 /* StationLargeAnnotationView.swift */,
-				D8DBE3EE1FF5DCEE00AA6482 /* StationCircleAnnotationView.swift */,
-				D88DFE541FFAE95F0048CA54 /* StationAnnotationView.swift */,
 				D88DFE561FFB4D920048CA54 /* MapDelegate.swift */,
-				D84C24531FFDFF30000BCAF8 /* StationDotAnnotationView.swift */,
-				D84C2461200028B5000BCAF8 /* CircleAnnotationView.swift */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -1398,9 +1464,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8DBE3EF1FF5DCEE00AA6482 /* StationCircleAnnotationView.swift in Sources */,
 				D8039E281FABF458006E394B /* ListPickerPresenter.swift in Sources */,
 				D80F7ED01F6E7A9300814A52 /* TraplineService.swift in Sources */,
+				D815D795200CBA2A0086AFFE /* LoaderView.swift in Sources */,
 				D8DBE3E71FF5BD0400AA6482 /* MapSetupData.swift in Sources */,
 				D84DDF511FB6C7D90079551D /* TraplineSelectSetupData.swift in Sources */,
 				D8B94D7A1F5EA54300D373EF /* Styles.swift in Sources */,
@@ -1414,6 +1480,7 @@
 				D857B3AA1F81B86A006E1402 /* VisitRouter.swift in Sources */,
 				D8083D151FE498F900D1C5F1 /* SettingsPresenter.swift in Sources */,
 				D8083D191FE498F900D1C5F1 /* SettingsView.swift in Sources */,
+				D856F67120111D3E00CA50C2 /* NewRouteInteractor.swift in Sources */,
 				D8C8A1F41FCD12900075E44E /* CommentsTableViewCell.swift in Sources */,
 				D830895A1FA189AC007C9316 /* StepperTableViewCell.swift in Sources */,
 				D80B6DCC1F9F3DCD00F49E9E /* VisitLogInteractor.swift in Sources */,
@@ -1457,10 +1524,13 @@
 				D87926A11FB5973700240767 /* SectionStripViewDelegate.swift in Sources */,
 				D88DFE4C1FFABCD00048CA54 /* RouteDashboardDisplayData.swift in Sources */,
 				D8C8A1FA1FCE85EF0075E44E /* VisitLogViewDelegate.swift in Sources */,
+				D856F66F20111D3E00CA50C2 /* NewRouteRouter.swift in Sources */,
 				D8B57FF01FDA5582003437D9 /* importer_traplines_v1_to_v2.swift in Sources */,
 				D81431A71F8DDB2600EAF5FD /* DatePickerView.swift in Sources */,
 				D857B3A81F81B86A006E1402 /* VisitDisplayData.swift in Sources */,
+				D856F66E20111D3E00CA50C2 /* NewRoutePresenter.swift in Sources */,
 				D8EA4610200AB9A20032224E /* StackCount.swift in Sources */,
+				D800573620154F9C0084E950 /* VerticallyCentredTextView.swift in Sources */,
 				D8083D1B1FE49A4E00D1C5F1 /* SettingsServiceInterface.swift in Sources */,
 				D8D79AAF1FC3F0CD008AC5C1 /* RouteModuleApi.swift in Sources */,
 				D8DBE3E51FF50A1500AA6482 /* StationMapAnnotation.swift in Sources */,
@@ -1469,17 +1539,22 @@
 				D80B6DD01F9F3DCD00F49E9E /* VisitLogView.swift in Sources */,
 				D8EA46032009499B0032224E /* BarChartDelegate.swift in Sources */,
 				D8C8A1EE1FCCBA070075E44E /* TrapOperatingStatus.swift in Sources */,
+				D8005733201528C60084E950 /* StationMarkerAnnotationView.swift in Sources */,
 				D8039E251FABF458006E394B /* ListPickerDisplayData.swift in Sources */,
 				D81DAAF11F68652E00C7C987 /* Trap.swift in Sources */,
 				D8DE38061FFCC88F00707A7D /* StationMapViewController.swift in Sources */,
 				D8D79AAD1FC3F0CD008AC5C1 /* RoutePresenter.swift in Sources */,
+				D83D0B57200E8B70001E1F69 /* UIViewControllerExtension.swift in Sources */,
 				D8503DC81F66807C00ED0C84 /* VisitPresenter.swift in Sources */,
 				D8083D341FE994B400D1C5F1 /* StatisticView.swift in Sources */,
 				D88DFE501FFABCD00048CA54 /* RouteDashboardInteractor.swift in Sources */,
 				D841CF271F8239CA004D0207 /* TraplineSelectInteractor.swift in Sources */,
 				D88DFE551FFAE95F0048CA54 /* StationAnnotationView.swift in Sources */,
+				D856F66D20111D3E00CA50C2 /* NewRouteDisplayData.swift in Sources */,
 				D8953EBD1F88114F00A1F424 /* NewVisitInteractor.swift in Sources */,
 				D8039E261FABF458006E394B /* ListPickerInteractor.swift in Sources */,
+				D856F67020111D3E00CA50C2 /* NewRouteModuleApi.swift in Sources */,
+				D815D792200CBA2A0086AFFE /* LoaderRouter.swift in Sources */,
 				D8DE38081FFCC8BC00707A7D /* StationMapDelegate.swift in Sources */,
 				D87926981FB556B800240767 /* RouteCollectionViewCell.swift in Sources */,
 				D8083D171FE498F900D1C5F1 /* SettingsModuleApi.swift in Sources */,
@@ -1488,6 +1563,7 @@
 				D82A53E61FF0DDF5000D9339 /* HtmlService.swift in Sources */,
 				D841CF291F8239CA004D0207 /* TraplineSelectPresenter.swift in Sources */,
 				D8039E291FABF458006E394B /* ListPickerRouter.swift in Sources */,
+				D815D793200CBA2A0086AFFE /* LoaderModuleApi.swift in Sources */,
 				D8083D1D1FE49A7800D1C5F1 /* SettingsService.swift in Sources */,
 				D83DC6C81F7F841F00F91792 /* StartDisplayData.swift in Sources */,
 				D8D79AAE1FC3F0CD008AC5C1 /* RouteRouter.swift in Sources */,
@@ -1497,15 +1573,17 @@
 				D8DBE3DF1FF4FC1900AA6482 /* MapPresenter.swift in Sources */,
 				D80B6DCD1F9F3DCD00F49E9E /* VisitLogModuleApi.swift in Sources */,
 				D8DBE3E11FF4FC1900AA6482 /* MapModuleApi.swift in Sources */,
+				D815D791200CBA2A0086AFFE /* LoaderPresenter.swift in Sources */,
 				D8039E2C1FABF577006E394B /* ListPickerDelegate.swift in Sources */,
 				D88DFE571FFB4D920048CA54 /* MapDelegate.swift in Sources */,
 				D8039E2A1FABF458006E394B /* ListPickerView.swift in Sources */,
 				D81DAAEF1F68643400C7C987 /* VisitService.swift in Sources */,
 				D8D79AB31FC4B992008AC5C1 /* OptionItem.swift in Sources */,
 				D835E0741FAC0CC300A4664B /* SpeciesService.swift in Sources */,
+				D815D790200CBA2A0086AFFE /* LoaderDisplayData.swift in Sources */,
 				D8953EC11F88114F00A1F424 /* NewVisitView.swift in Sources */,
 				D873C8701FC6873A00F581D8 /* UIImageExtention.swift in Sources */,
-				D8DBE3E91FF5C9D800AA6482 /* StationLargeAnnotationView.swift in Sources */,
+				D815D797200CBC6F0086AFFE /* LoaderPresenterSetupData.swift in Sources */,
 				D83DC6C91F7F841F00F91792 /* StartInteractor.swift in Sources */,
 				D81818701F7F795B008362BA /* AppModules.swift in Sources */,
 				D8083D211FE4E67D00D1C5F1 /* SideMenuDelegate.swift in Sources */,
@@ -1517,6 +1595,7 @@
 				D87C44F71F9059AF00CAFC7A /* SideMenuInteractor.swift in Sources */,
 				D8039E271FABF458006E394B /* ListPickerModuleApi.swift in Sources */,
 				D89714AA1F7751B300E846B9 /* DataPopulatorServiceInterface.swift in Sources */,
+				D856F67220111D3E00CA50C2 /* NewRouteView.swift in Sources */,
 				D84C2462200028B5000BCAF8 /* CircleAnnotationView.swift in Sources */,
 				D873C86E1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift in Sources */,
 				D8953EBF1F88114F00A1F424 /* NewVisitPresenter.swift in Sources */,
@@ -1539,6 +1618,7 @@
 				D80BCD3D1F91D041005F30FF /* MenuItemView.swift in Sources */,
 				D81431AA1F8E020900EAF5FD /* DatePickerDisplayData.swift in Sources */,
 				D80344311FA192D400F44A17 /* StepperTableViewCellDelegate.swift in Sources */,
+				D815D794200CBA2A0086AFFE /* LoaderInteractor.swift in Sources */,
 				D89311FF1F834F6E008DF09D /* StationSelectDisplayData.swift in Sources */,
 				D80F7EDB1F6EF89700814A52 /* Station.swift in Sources */,
 				D87C44F81F9059AF00CAFC7A /* SideMenuModuleApi.swift in Sources */,

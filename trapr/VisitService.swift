@@ -127,6 +127,13 @@ class VisitService: RealmService, VisitServiceInterface {
         return summaries
     }
     
+    func visitsExistForRoute(route: Route) -> Bool {
+        if let _ = realm.objects(Visit.self).filter("route.id = %@", route.id).first {
+            return true
+        }
+        return false
+    }
+    
     func poisonCount(monthOffset: Int, route: Route) -> Int {
         
         var count: Int = 0

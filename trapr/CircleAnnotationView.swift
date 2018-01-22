@@ -9,23 +9,23 @@
 import Foundation
 import MapKit
 
-class CircleAnnotationView: StationAnnotationView {
+class CircleAnnotationView: MKAnnotationView, StationAnnotationView {
     
     private var stationMapAnnotation: StationMapAnnotation?
     private var titleLabelCreated: Bool = false
     private var innerTextLabelCreated: Bool = false
     
-    var circleTintColor: UIColor = UIColor.blue {
+    var color: UIColor = UIColor.blue {
         didSet {
             self.setNeedsDisplay()
         }
     }
     
-    var title: String? = nil {
+    var  subText: String? = nil {
         didSet {
             // don't unnecessarily create the UILabel if it's not needed
-            if title != nil || titleLabelCreated {
-                titleLabel.text = title
+            if subText != nil || titleLabelCreated {
+                titleLabel.text = subText
             }
         }
     }
@@ -128,7 +128,7 @@ class CircleAnnotationView: StationAnnotationView {
         // make the circle slightly smaller to allow for border
         let circleRect = CGRect(x: rect.origin.x + BORDER_WIDTH, y: rect.origin.y + BORDER_WIDTH, width: rect.width - BORDER_WIDTH * 2, height: rect.height - BORDER_WIDTH * 2)
         let path = UIBezierPath(ovalIn: circleRect)
-        circleTintColor.setFill()
+        color.setFill()
         UIColor.white.setStroke()
         path.lineWidth = BORDER_WIDTH
         path.stroke()

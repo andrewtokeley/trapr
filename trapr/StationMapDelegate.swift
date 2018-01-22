@@ -9,22 +9,46 @@
 import Foundation
 
 protocol StationMapDelegate {
-    // all optional
+    
+    // Optional...
+   
+    func stationMapNumberOfAnnotationViews(_ stationMap: StationMapViewController) -> Int
+    func stationMap(_ stationMap: StationMapViewController, annotationViewClassAt index: Int) -> AnyClass?
+    func stationMap(_ stationMap: StationMapViewController, annotationViewIndexForStation index: Station) -> Int
+    
+    func stationMap(_ stationMap: StationMapViewController, annotationViewClassAt zoomLevel: ZoomLevel) -> AnyClass?
     
     func stationMap(_ stationMap: StationMapViewController, didChangeZoomLevel zoomLevel: Double)
     func stationMapStations(_ stationMap: StationMapViewController) -> [Station]
     func stationMap(_ stationMap: StationMapViewController, isHighlighted station: Station) -> Bool
-    func stationMap(_ stationMap: StationMapViewController, annotationViewClassAt zoomLevel: ZoomLevel) -> AnyClass?
+    
     func stationMap(_ stationMap: StationMapViewController, radiusForStation station: Station) -> Int
     func stationMap(_ stationMap: StationMapViewController, didSelect annotationView: StationAnnotationView)
     func stationMap(_ stationMap: StationMapViewController, didHighlight annotationView: StationAnnotationView)
     func stationMap(_ stationMap: StationMapViewController, didUnhighlight annotationView: StationAnnotationView)
     func stationMap(_ stationMap: StationMapViewController, textForStation station: Station) -> String?
     func stationMap(_ stationMap: StationMapViewController, innerTextForStation station: Station) -> String?
+    func stationMap(_ stationMap: StationMapViewController, showCalloutForStation station: Station) -> Bool
 }
 
 //MARK: - Default implementations for optional methods
 extension StationMapDelegate {
+    
+    func stationMapNumberOfAnnotationViews(_ stationMap: StationMapViewController) -> Int {
+        return 1
+    }
+    
+    func stationMap(_ stationMap: StationMapViewController, annotationViewClassAt index: Int) -> AnyClass? {
+        return CircleAnnotationView.self
+    }
+    
+    func stationMap(_ stationMap: StationMapViewController, annotationViewIndexForStation index: Station) -> Int {
+        return 0
+    }
+    
+    func stationMap(_ stationMap: StationMapViewController, showCalloutForStation station: Station) -> Bool {
+        return false
+    }
     
     func stationMap(_ stationMap: StationMapViewController, radiusForStation station: Station) -> Int {
         return 10
@@ -63,7 +87,7 @@ extension StationMapDelegate {
     }
     
     func stationMap(_ stationMap: StationMapViewController, annotationViewClassAt zoomLevel: ZoomLevel) -> AnyClass? {
-        return StationCircleAnnotationView.self
+        return CircleAnnotationView.self
     }
 }
 

@@ -21,6 +21,12 @@ final class RouteDashboardView: UserInterface {
     var poisonNumberOfBars: Int = 0
     var poisonCountFunction: ((Int) -> Int)?
     
+    var editDoneEnabled: Bool = false {
+        didSet {
+            self.editDoneButton.isEnabled = editDoneEnabled
+        }
+    }
+    
     //MARK: - Constants
     
     //MARK: - Subviews
@@ -51,7 +57,8 @@ final class RouteDashboardView: UserInterface {
         let yAxis = chart.getAxis(.left)
         yAxis.drawGridLinesEnabled = true
         yAxis.gridColor = UIColor.trpChartGridlines
-        yAxis.granularity = 2
+        yAxis.granularity = 1
+        chart.getAxis(.right).granularity = 1
         return chart
     }()
     
@@ -81,19 +88,34 @@ final class RouteDashboardView: UserInterface {
         let yAxis = chart.getAxis(.left)
         yAxis.drawGridLinesEnabled = true
         yAxis.gridColor = UIColor.trpChartGridlines
+        yAxis.granularity = 1
+        chart.getAxis(.right).granularity = 1
         return chart
     }()
     
-    lazy var editDescription: UILabel = {
-        let label = UILabel()
+    lazy var editDescription: VerticallyCentredTextView = {
+        let label = VerticallyCentredTextView()
+        
+        label.isEditable = false
         label.backgroundColor = UIColor.white
         label.tintColor = UIColor.trpTextDark
-        label.font = UIFont.trpLabelNormal
+        label.font = UIFont.trpLabelSmall
         label.alpha = 0 // hide initially
         label.textAlignment = .center
         return label
     }()
     
+//    lazy var editDescription: UILabel = {
+//        let label = UILabel()
+//        label.backgroundColor = UIColor.white
+//        label.tintColor = UIColor.trpTextDark
+//        label.font = UIFont.trpLabelSmall
+//        label.alpha = 0 // hide initially
+//        label.textAlignment = .center
+//        label.numberOfLines = 0
+//        return label
+//    }()
+//
     lazy var editStationOptions: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.white
@@ -175,12 +197,18 @@ final class RouteDashboardView: UserInterface {
     }()
     
     lazy var mapViewController: StationMapViewController? = {
+        let map = self.childViewControllers.first as? StationMapViewController
+        map?.showUserLocation(true)
         return self.childViewControllers.first as? StationMapViewController
     }()
     
     lazy var editDoneButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(editDoneButtonClick(sender:)))
-        return button
+        
+        let button = UIButton()
+        button.addTarget(self, action: #selector(editDoneButtonClick(sender:)), for: .touchUpInside)
+        button.setTitle("Save", for: .normal)
+        let barButton = UIBarButtonItem(customView: button)
+        return barButton
     }()
     
     lazy var editButton: UIBarButtonItem = {
@@ -198,7 +226,11 @@ final class RouteDashboardView: UserInterface {
         return view
     }()
     
-    
+    lazy var resizeButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(resizeButtonClick(sender:)), for: .touchUpInside)
+        return button
+    }()
     
     //MARK: - Events
     
@@ -234,8 +266,8 @@ final class RouteDashboardView: UserInterface {
         presenter.didSelectEditDone()
     }
 
-    func resizeButtonClick(sender: UIButton) {
-        //presenter.didSelectEdit()
+    @objc func resizeButtonClick(sender: UIButton) {
+        presenter.didSelectResize()
     }
     
     //MARK: - UIViewController
@@ -243,6 +275,7 @@ final class RouteDashboardView: UserInterface {
         routeNameTextField.endEditing(true)
 
     }
+    
     override func loadView() {
         super.loadView()
         
@@ -264,7 +297,7 @@ final class RouteDashboardView: UserInterface {
         self.view.addSubview(barChartKillsTitle)
         self.view.addSubview(barChartPoison)
         self.view.addSubview(barChartPoisonTitle)
-        
+        self.view.addSubview(resizeButton)
         setConstraints()
     }
     
@@ -281,7 +314,7 @@ final class RouteDashboardView: UserInterface {
         editDescription.autoPinEdge(.left, to: .left, of: mapViewControllerHost)
         editDescription.autoPinEdge(.right, to: .right, of: mapViewControllerHost)
         editDescription.autoPinEdge(.top, to: .top, of: mapViewControllerHost)
-        editDescription.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
+        editDescription.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight * 1.2)
         
         editStationOptions.autoPinEdge(.left, to: .left, of: mapViewControllerHost)
         editStationOptions.autoPinEdge(.right, to: .right, of: mapViewControllerHost)
@@ -310,6 +343,11 @@ final class RouteDashboardView: UserInterface {
         barChartPoison.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.smallSpacingMargin)
         barChartPoison.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.smallSpacingMargin)
         barChartPoison.autoSetDimension(.height, toSize: 150)
+        
+        resizeButton.autoPinEdge(.bottom, to: .bottom, of: mapViewControllerHost, withOffset: -LayoutDimensions.smallSpacingMargin)
+        resizeButton.autoPinEdge(.right, to: .right, of: mapViewControllerHost, withOffset: -LayoutDimensions.smallSpacingMargin)
+        resizeButton.autoSetDimension(.width, toSize: 30)
+        resizeButton.autoSetDimension(.height, toSize: 30)
     }
 }
 
@@ -327,6 +365,13 @@ extension RouteDashboardView: UITextFieldDelegate {
 //MARK: - RouteDashboardView API
 extension RouteDashboardView: RouteDashboardViewApi {
     
+    func setMapResizeIconState(state: ResizeState) {
+        resizeButton.alpha = state == .hidden ? 0 : 1
+        if state != .hidden {
+            resizeButton.setImage(UIImage(named: state == .collapse ? "collapse" : "expand" ), for: .normal)
+        }
+    }
+    
     func configureKillChart(catchSummary: StackCount) {
         self.killNumberOfBars = catchSummary.counts.count
         let yValues = catchSummary.counts.map({ $0.map( { Double($0) }) })
@@ -337,6 +382,16 @@ extension RouteDashboardView: RouteDashboardViewApi {
         self.poisonNumberOfBars = poisonSummary.counts.count
         let yValues = poisonSummary.counts.map({ $0.map( { Double($0) }) })
         barChartPoison.buildData(yValues: yValues, stackLabels: poisonSummary.labels, stackColors: [UIColor.trpChartBarStack4])
+    }
+    
+    func showKillChart(_ show: Bool) {
+        barChartKills.alpha = show ? 1 : 0
+        barChartKillsTitle.alpha = show ? 1 : 0
+    }
+    
+    func showPoisonChart(_ show: Bool) {
+        barChartPoison.alpha = show ? 1 : 0
+        barChartPoisonTitle.alpha = show ? 1 : 0
     }
     
     func showEditDescription(_ show: Bool, description: String? = nil) {
@@ -393,11 +448,7 @@ extension RouteDashboardView: RouteDashboardViewApi {
     }
     
     func displayTitle(_ title: String) {
-        //self.title = title
-    }
-    
-    func displayRouteName(_ name: String?) {
-        routeNameTextField.text = name
+        routeNameTextField.text = title
     }
     
     func setVisibleRegionToCentreOfStations(distance: Double) {

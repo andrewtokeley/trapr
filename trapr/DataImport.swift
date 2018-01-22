@@ -16,6 +16,7 @@ struct ErrorDescription {
 }
 
 struct ImportSummary {
+    var lineCount: Int = 0
     var summary: String?
 }
 
@@ -33,6 +34,5 @@ protocol DataImport {
     /**
      Import the data located at the file location, if a record exists it will be update, otherwise it will be added to the data store
     */
-    func importAndMerge(onError: ((ErrorDescription) -> Bool)?, onCompletion: ((ImportSummary) -> Void)?)
-    
+    func importAndMerge(onError: ((ErrorDescription) -> Bool)?, onProgress: ((Int) -> Void)?, onCompletion: ((ImportSummary) -> Void)?)
 }

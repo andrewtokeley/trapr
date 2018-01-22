@@ -9,11 +9,7 @@
 import Foundation
 
 class RouteDashboardSetup {
+    var newRouteName: String?
     var route: Route?
-    var delegate: RouteDashboardDelegate?
 }
 
-protocol RouteDashboardDelegate {
-    func routeDashboard(didUpdate route: Route)
-    func routeDashboard(didCreate route: Route)
-}

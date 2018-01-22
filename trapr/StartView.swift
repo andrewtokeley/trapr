@@ -27,6 +27,43 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
     fileprivate var routeMenuOptions: [String]?
     
     //MARK: - SubViews
+    lazy var loaderViewController: UIViewController = {
+        return LoaderView()
+    }()
+    
+//    lazy var noRouteWalker: UIImageView = {
+//        let imageView = UIImageView(image: UIImage(named: "walker")?.changeColor(UIColor.trpNavigationBar))
+//        imageView.contentMode = UIViewContentMode.scaleAspectFit
+//        return imageView
+//    }()
+    
+    lazy var noRouteLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        //label.font = UIFont.trpTableViewSectionHeading
+        label.textAlignment = .center
+        return label
+    }()
+    
+    lazy var noRoutesView: UIView = {
+        let view = UIView()
+        
+        let newRouteButton = UIButton()
+        newRouteButton.setTitle("Create your first Route", for: .normal)
+        newRouteButton.addTarget(self, action: #selector(newRouteButtonClick(sender:)), for: .touchUpInside)
+        
+        view.addSubview(noRouteLabel)
+        view.addSubview(newRouteButton)
+        
+        noRouteLabel.autoPin(toTopLayoutGuideOf: self, withInset: 150)
+        noRouteLabel.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
+        noRouteLabel.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
+        
+        newRouteButton.autoPinEdge(.top, to: .bottom, of: noRouteLabel, withOffset: LayoutDimensions.spacingMargin)
+        newRouteButton.autoAlignAxis(toSuperviewAxis: .vertical)
+        
+        return view
+    }()
     
     lazy var routesSection: SectionStripView = {
         let view = Bundle.main.loadNibNamed("SectionStripView", owner: nil, options: nil)?.first as! SectionStripView
@@ -96,6 +133,9 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
         presenter.didSelectMenu()
     }
     
+    @objc func newRouteButtonClick(sender: UIButton) {
+        presenter.didSelectNewRoute()
+    }
     //MARK: - UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -147,9 +187,6 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
     
     //MARK: - UIViewController
     
-    override func viewDidLoad() {
-        print("Start viewload")
-    }
     override func loadView() {
         super.loadView()
         
@@ -161,6 +198,7 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
         self.view.addSubview(routesSection)
         self.view.addSubview(recentVisitsTableView)
         self.view.addSubview(recentVisitsSection)
+        self.view.addSubview(noRoutesView)
         
         self.setConstraints()
     }
@@ -186,6 +224,12 @@ final class StartView: UserInterface, UICollectionViewDelegate, UICollectionView
         self.recentVisitsTableView.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.smallSpacingMargin)
         self.recentVisitsTableView.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.smallSpacingMargin)
         self.recentVisitsTableView.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
+        
+        self.noRoutesView.autoPinEdge(.top, to: .bottom, of: routesSection, withOffset: LayoutDimensions.spacingMargin)
+        self.noRoutesView.autoPinEdge(toSuperviewEdge: .left)
+        self.noRoutesView.autoPinEdge(toSuperviewEdge: .right)
+        self.noRoutesView.autoPinEdge(toSuperviewEdge: .bottom)
+        
     }
 }
 
@@ -299,13 +343,13 @@ extension StartView: RouteCollectionViewCellDelegate {
         return 0
     }
     
-    func routeCollectionViewCell(_ routeCollectionViewCell: RouteCollectionViewCell, didSelectActionWith title: String) {
-        if let _ = self.routeMenuOptions {
-            if let index = routesCollectionView.indexPath(for: routeCollectionViewCell)?.row {
-                presenter.didSelectRouteMenuItem(routeIndex: index, menuItemIndex: self.routeMenuOptions!.index(of: title)!)
-            }
-        }
-    }
+//    func routeCollectionViewCell(_ routeCollectionViewCell: RouteCollectionViewCell, didSelectActionWith title: String) {
+//        if let _ = self.routeMenuOptions {
+//            if let index = routesCollectionView.indexPath(for: routeCollectionViewCell)?.row {
+//                presenter.didSelectRouteMenuItem(routeIndex: index, menuItemIndex: self.routeMenuOptions!.index(of: title)!)
+//            }
+//        }
+//    }
     
     func routeCollectionViewCell(_ routeCollectionViewCell: RouteCollectionViewCell, actionTextAt index: Int) -> String? {
         return self.routeMenuOptions?[index]
@@ -319,6 +363,18 @@ extension StartView: RouteCollectionViewCellDelegate {
 
 //MARK: - StartViewAPI
 extension StartView: StartViewApi {
+    
+    func showLoadingScreen() {
+        
+        embed(childViewController: loaderViewController)
+    }
+    
+    func hideLoadingScreen() {
+        if loaderViewController.parent == self {
+            unembed(childViewController: loaderViewController)
+            present(loaderViewController, animated: false, completion: nil)
+        }
+    }
     
     func setRouteMenu(options: [String]) {
         self.routeMenuOptions = options
@@ -347,6 +403,12 @@ extension StartView: StartViewApi {
         self.recentVisitsSection.actionButton.setTitle(recentVisitsSectionActionText, for: .normal)
     }
     
+    func showNoRoutesLayout(show: Bool, message: String? = nil ) {
+        noRoutesView.alpha = show ? 1 : 0
+        recentVisitsSection.alpha = show ? 0 : 1
+        routesSection.alpha = show ? 0 : 1
+        noRouteLabel.text = message
+    }
 }
 
 // MARK: - StartView Viper Components API

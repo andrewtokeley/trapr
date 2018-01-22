@@ -18,3 +18,9 @@ protocol RouteCollectionViewCellDelegate {
     func routeCollectionViewCell(numberOfActionsFor routeCollectionViewCell: RouteCollectionViewCell) -> Int
     func routeCollectionViewCell(hostingViewControllerFor routeCollectionViewCell: RouteCollectionViewCell) -> UIViewController
 }
+
+extension RouteCollectionViewCellDelegate {
+    func routeCollectionViewCell(_ routeCollectionViewCell: RouteCollectionViewCell, didSelectActionWith title: String) {
+        // do nothing
+    }
+}

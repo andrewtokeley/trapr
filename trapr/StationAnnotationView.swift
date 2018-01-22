@@ -10,7 +10,21 @@ import Foundation
 import UIKit
 import MapKit
 
-class StationAnnotationView: MKAnnotationView {
-
+protocol StationAnnotationView: class {
+    
+    var innerText: String? { get set }
+    var subText: String? { get set }
+    var color: UIColor { get set }
+    var radius: Int { get set }
 }
 
+extension StationAnnotationView {
+    var radius: Int {
+        set {
+            // do nothing
+        }
+        get {
+            return 0
+        }
+    }
+}

@@ -45,5 +45,7 @@ class RouteCollectionViewCell: UICollectionViewCell {
         menuButton.setImage(image, for: .normal)
         menuButton.tintColor = UIColor.trpNavigationBar
 
+        // hide for now
+        menuButton.alpha = 0
     }
 }

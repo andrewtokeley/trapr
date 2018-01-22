@@ -20,10 +20,19 @@ final class StartPresenter: Presenter {
     fileprivate let ROUTE_MENU_MAP = 2
     fileprivate let ROUTE_MENU_DELETE = 3
     
+    open override func viewHasLoaded() {
+//        let traplines = ServiceFactory.sharedInstance.traplineService
+//        if traplines.getTraplines()?.count ?? 0 == 0 {
+//            router.showLoadingScreen()
+//        }
+        router.showLoadingScreen()
+    }
+    
     open override func viewIsAboutToAppear() {
-        view.setTitle(title: "Trapr", routesSectionTitle: "ROUTES", routeSectionActionText: "NEW", recentVisitsSectionTitle: "VISITS", recentVisitsSectionActionText: "")
         
-        interactor.initialiseHomeModule()
+            view.setTitle(title: "Trapr", routesSectionTitle: "ROUTES", routeSectionActionText: "NEW", recentVisitsSectionTitle: "VISITS", recentVisitsSectionActionText: "")
+            
+            interactor.initialiseHomeModule()
     }
 }
 
@@ -101,9 +110,10 @@ extension StartPresenter: StartPresenterApi {
     
     func didSelectNewRoute() {
         //router.showRouteModule(route: nil)
-        router.showRouteDashboardModule(route: nil)
+        //router.showRouteDashboardModule(route: nil)
+        router.showNewRouteModule()
     }
-    
+
     func didSelectVisitSummary(visitSummary: VisitSummary) {
         router.showVisitModule(visitSummary: visitSummary)
     }
@@ -117,8 +127,15 @@ extension StartPresenter: StartPresenterApi {
     }
 
     func setRoutes(routes: [Route]?) {
+        
         self.routes = routes
         view.displayRoutes(routes: routes)
+        
+        if routes?.count ?? 0 == 0 {
+            view.showNoRoutesLayout(show: true, message: "Before you can record any visits, add the Route you want to visit.")
+        } else {
+            view.showNoRoutesLayout(show: false, message: nil)
+        }
     }
     
 }

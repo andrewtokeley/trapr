@@ -37,6 +37,10 @@ class Styles {
         buttonAppearance.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
         buttonAppearance.setTitleColor(UIColor.trpButtonDisabled, for: .disabled)
         
+        let buttonInNavigationBar = UIButton.appearance(whenContainedInInstancesOf: [UINavigationBar.self])
+        buttonInNavigationBar.setTitleColor(UIColor.white, for: .normal)
+        buttonInNavigationBar.setTitleColor(UIColor.lightGray, for: .disabled)
+        
         let alertActionViewControllerView = UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self])
         alertActionViewControllerView.tintColor = UIColor.trpTextHighlight
         

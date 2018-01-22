@@ -43,6 +43,10 @@ class StationMapViewController: UIViewController {
         }
     }
     
+    fileprivate func reuseIdentifier(annotationViewIndex: Int) -> String {
+        return "view\(annotationViewIndex)"
+    }
+    
     //MARK: - Subviews
     
     lazy var map: MKMapView = {
@@ -52,11 +56,19 @@ class StationMapViewController: UIViewController {
         
         // only bother trying to register annotationviews if the delegate's been set up
         if let _ = self.delegate {
-            mapView.register(self.delegate?.stationMap(self, annotationViewClassAt: .close), forAnnotationViewWithReuseIdentifier: String(describing: ZoomLevel.close))
+//            mapView.register(self.delegate?.stationMap(self, annotationViewClassAt: .close), forAnnotationViewWithReuseIdentifier: String(describing: ZoomLevel.close))
+//            
+//            mapView.register(self.delegate?.stationMap(self, annotationViewClassAt: .far), forAnnotationViewWithReuseIdentifier: String(describing: ZoomLevel.far))
+//            
+//            mapView.register(self.delegate?.stationMap(self, annotationViewClassAt: .distant), forAnnotationViewWithReuseIdentifier: String(describing: ZoomLevel.distant))
             
-            mapView.register(self.delegate?.stationMap(self, annotationViewClassAt: .far), forAnnotationViewWithReuseIdentifier: String(describing: ZoomLevel.far))
-            
-            mapView.register(self.delegate?.stationMap(self, annotationViewClassAt: .distant), forAnnotationViewWithReuseIdentifier: String(describing: ZoomLevel.distant))
+            if let numberOfAnnotations = delegate?.stationMapNumberOfAnnotationViews(self) {
+                if numberOfAnnotations > 0 {
+                    for i in 0...numberOfAnnotations - 1 {
+                        mapView.register(self.delegate?.stationMap(self, annotationViewClassAt: i), forAnnotationViewWithReuseIdentifier: self.reuseIdentifier(annotationViewIndex: i))
+                    }
+                }
+            }
         }
         
         mapView.delegate = self
@@ -103,17 +115,17 @@ class StationMapViewController: UIViewController {
     func reapplyStylingToAnnotationViews() {
         for annotation in self.stationMapAnnotations {
             
-            if let annotationView = map.view(for: annotation) as? CircleAnnotationView {
+            if let annotationView = map.view(for: annotation) as? StationAnnotationView {
                 
                 // Make sure the right highlight colors are applied
                 if delegate?.stationMap(self, isHighlighted: annotation.station) ?? false {
-                    annotationView.circleTintColor = UIColor.trpMapHighlightedStation
+                    annotationView.color = UIColor.trpMapHighlightedStation
                 } else {
-                    annotationView.circleTintColor = UIColor.trpMapDefaultStation
+                    annotationView.color = UIColor.trpMapDefaultStation
                 }
             
                 // Apply content to annotationView properties
-                annotationView.title = delegate?.stationMap(self, textForStation: annotation.station)
+                annotationView.subText = delegate?.stationMap(self, textForStation: annotation.station)
                 annotationView.innerText = delegate?.stationMap(self, innerTextForStation: annotation.station)
                 if let radius = delegate?.stationMap(self, radiusForStation: annotation.station) {
                     if radius != annotationView.radius {
@@ -157,9 +169,11 @@ class StationMapViewController: UIViewController {
     func setVisibleRegionToCentreOfStations(distance: Double) {
         
         // ahem, the "centre"
-        let centre = self.stationMapAnnotations[Int(self.stationMapAnnotations.count/2)].coordinate
-        let region = MKCoordinateRegionMakeWithDistance(centre, distance, distance)
-        map.setRegion(region, animated: false)
+        if self.stationMapAnnotations.count > 0 {
+            let centre = self.stationMapAnnotations[Int(self.stationMapAnnotations.count/2)].coordinate
+            let region = MKCoordinateRegionMakeWithDistance(centre, distance, distance)
+            map.setRegion(region, animated: false)
+        }
     }
     
     //MARK: - Private functions
@@ -167,34 +181,34 @@ class StationMapViewController: UIViewController {
     /**
      Ensure that the
     */
-    fileprivate func thinAnnotations() {
-        
-        let visibleAnnotations = map.annotations(in: map.visibleMapRect)
-        var take: Int = 0
-        var every: Int = 1
-        
-        if currentZoomLevel == .distant {
-            take = 3
-            every = 4
-        } else if currentZoomLevel == .far {
-            take = 1
-            every = 3
-        } else if currentZoomLevel == .close {
-            take = 0
-            every = 1
-        }
-        
-        var i = 0
-        for annotation in visibleAnnotations {
-            if let stationMapAnnotation = annotation as? StationMapAnnotation {
-                let position = i % every
-                let view = map.view(for: stationMapAnnotation)
-                view?.alpha = position <= take ? 0 : 1
-            }
-            i += 1
-        }
-        
-    }
+//    fileprivate func thinAnnotations() {
+//
+//        let visibleAnnotations = map.annotations(in: map.visibleMapRect)
+//        var take: Int = 0
+//        var every: Int = 1
+//
+//        if currentZoomLevel == .distant {
+//            take = 3
+//            every = 4
+//        } else if currentZoomLevel == .far {
+//            take = 1
+//            every = 3
+//        } else if currentZoomLevel == .close {
+//            take = 0
+//            every = 1
+//        }
+//
+//        var i = 0
+//        for annotation in visibleAnnotations {
+//            if let stationMapAnnotation = annotation as? StationMapAnnotation {
+//                let position = i % every
+//                let view = map.view(for: stationMapAnnotation)
+//                view?.alpha = position <= take ? 0 : 1
+//            }
+//            i += 1
+//        }
+//
+//    }
     
     /**
     Ask the delegate for the details for each station that will appear on the map (or be hidden)
@@ -229,13 +243,14 @@ extension StationMapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
-            if let annotationView = view as? StationAnnotationView {
-                
-                delegate?.stationMap(self, didSelect: annotationView)
-                
-                // deselect so that the annotationview is selectable again
-                mapView.deselectAnnotation(view.annotation, animated: false)
-            }
+        if let annotationView = view as? StationAnnotationView, let annotation = view.annotation as? StationMapAnnotation {
+            
+            delegate?.stationMap(self, didSelect: annotationView)
+            
+            // deselect so that the annotationview is selectable again
+            mapView.deselectAnnotation(annotation, animated: false)
+            
+        }
         
     }
     
@@ -245,30 +260,36 @@ extension StationMapViewController: MKMapViewDelegate {
         
         guard delegate != nil else { return nil}
         
-        // dequeue the annotation view for this zoom level
-        if let view = mapView.dequeueReusableAnnotationView(withIdentifier: String(describing: currentZoomLevel!), for: annotation) as? CircleAnnotationView {
-            
-            // setting the annotation adds title and inner text to the annotationView, if they're defined on the annotation
-            view.annotation = annotation
-            
-            view.title = delegate?.stationMap(self, textForStation: annotation.station)
-            view.innerText = delegate?.stationMap(self, innerTextForStation: annotation.station)
-            
-            // set the appropriate color based on whether it's selected
-            if delegate?.stationMap(self, isHighlighted: annotation.station) ?? false {
-                view.circleTintColor = UIColor.trpMapHighlightedStation
-            } else {
-                view.circleTintColor = UIColor.trpMapDefaultStation
-            }
+        // dequeue the annotation right view
+       if let viewIndex = delegate?.stationMap(self, annotationViewIndexForStation: annotation.station) {
+        
+            if let view = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier(annotationViewIndex: viewIndex), for: annotation) as? StationAnnotationView {
+                
+                // setting the annotation adds title and inner text to the annotationView, if they're defined on the annotation
+                (view as? MKAnnotationView)?.annotation = annotation
 
-            // ask the delegate for the size of the circle
-            if let radius = delegate?.stationMap(self, radiusForStation: annotation.station) {
-                if view.radius != radius {
-                    view.radius = radius
+                // only show a callout if the delegate says so
+                (view as? MKAnnotationView)?.canShowCallout = delegate?.stationMap(self, showCalloutForStation: annotation.station) ?? false
+                
+                view.subText = delegate?.stationMap(self, textForStation: annotation.station)
+                view.innerText = delegate?.stationMap(self, innerTextForStation: annotation.station)
+                
+                // set the appropriate color based on whether it's selected
+                if delegate?.stationMap(self, isHighlighted: annotation.station) ?? false {
+                    view.color = UIColor.trpMapHighlightedStation
+                } else {
+                    view.color = UIColor.trpMapDefaultStation
                 }
-            }
 
-            return view
+                // ask the delegate for the size of the circle
+                if let radius = delegate?.stationMap(self, radiusForStation: annotation.station) {
+                    if view.radius != radius {
+                        view.radius = radius
+                    }
+                }
+
+                return (view as? MKAnnotationView)
+            }
         }
         return nil
     }

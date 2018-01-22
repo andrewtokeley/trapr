@@ -43,7 +43,6 @@ extension StartRouter: StartRouterApi {
         
         let setupData = RouteSetupData()
         setupData.route = route
-        //setupData.delegate = ...
         
         // show modally
         module.router.show(from: _view, embedInNavController: true, setupData: setupData)
@@ -61,6 +60,16 @@ extension StartRouter: StartRouterApi {
     func showNewVisitModule(delegate: NewVisitDelegate) {
         let module = AppModules.newVisit.build()
         module.router.show(from: _view, embedInNavController: true, setupData: delegate)
+    }
+    
+    func showLoadingScreen() {
+        let module = AppModules.loader.build()
+        
+//        let setupData = SideMenuSetupData()
+//        setupData.delegate = self
+        module.router.showAsModalOverlay(from: _view, setupData: nil)
+        
+        
     }
     
     func showSideMenu() {
@@ -81,6 +90,11 @@ extension StartRouter: StartRouterApi {
     func showMap(setupData: MapSetupData) {
         let module = AppModules.map.build()
         module.router.show(from: _view, embedInNavController: true, setupData: setupData)
+    }
+    
+    func showNewRouteModule() {
+        let module = AppModules.newRoute.build()
+        module.router.show(from: _view, embedInNavController: true, setupData: nil)
     }
 }
 

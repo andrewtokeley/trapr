@@ -8,7 +8,7 @@
 
 import Foundation
 
-class StationDotAnnotationView: StationCircleAnnotationView {
+class StationDotAnnotationView {
 //    override var radius: Int {
 //        return 5
 //    }

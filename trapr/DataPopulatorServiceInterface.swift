@@ -25,6 +25,8 @@ protocol DataPopulatorServiceInterface: RealmServiceInterface {
      */
     func mergeWithV1Data()
     
+    func mergeWithV1Data(progress: ((Float) -> Void)?, completion: ((ImportSummary) -> Void)?)
+    
     /**
      This method will delete everything, then import some random test data
      */

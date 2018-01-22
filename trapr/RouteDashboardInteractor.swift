@@ -17,7 +17,7 @@ final class RouteDashboardInteractor: Interactor {
 // MARK: - RouteDashboardInteractor API
 extension RouteDashboardInteractor: RouteDashboardInteractorApi {
     
-    func killCounts(frequency: TimeFrequency, period: TimeFrequency, route: Route) -> StackCount {
+    func killCounts(frequency: TimeFrequency, period: TimeFrequency, route: Route) -> StackCount? {
         
         // TODO: ignoring frequency/period for now, support quarterly charts perhaps?
         
@@ -69,7 +69,7 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
         
     }
     
-    func poisonCounts(frequency: TimeFrequency, period: TimeFrequency, route: Route) -> StackCount {
+    func poisonCounts(frequency: TimeFrequency, period: TimeFrequency, route: Route) -> StackCount? {
         
         let stackLabels = ["Poison"]
         var counts = [[Int]]()
@@ -103,6 +103,11 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
         let service = ServiceFactory.sharedInstance.routeService
         service.removeStationFromRoute(route: route, station: station)
         return service.getById(id: route.id)!
+    }
+    
+    func visitsExistForRoute(route: Route) -> Bool {
+        let service = ServiceFactory.sharedInstance.visitService
+        return service.visitsExistForRoute(route: route)
     }
     
 }

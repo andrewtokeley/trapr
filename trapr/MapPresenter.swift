@@ -110,7 +110,7 @@ extension MapPresenter: MapPresenterApi {
 extension MapPresenter: StationMapDelegate {
     
     func stationMap(_ stationMap: StationMapViewController, didSelect annotationView: StationAnnotationView) {
-        let annotation = annotationView.annotation as? StationMapAnnotation
+        let annotation = (annotationView as? MKAnnotationView)?.annotation as? StationMapAnnotation
         if let traplineStations = annotation?.station.trapline?.stations {
             self.highlightedStations = Array(traplineStations)
             

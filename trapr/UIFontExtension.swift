@@ -11,6 +11,7 @@ import UIKit
 
 extension UIFont {
     
+    
     /**
      Font definition, 25 Bold
      */
@@ -31,10 +32,10 @@ extension UIFont {
     public static var trpLabelNormal: UIFont {
         return UIFont.systemFont(ofSize: UIFont.labelFontSize)
     }
-//
-//    public static var trpText: UIFont {
-//        return UIFont.systemFont(ofSize: UIFont.labelFontSize)
-//    }
+
+    public static var trpAppNameFont: UIFont {
+        return UIFont.init(name: "Helvetica", size: 25) ?? trpLabelBoldLarge
+    }
 
     /**
      Font definition, Small system size

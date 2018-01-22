@@ -31,7 +31,7 @@ extension MapDelegate {
     }
     
     func map(_ map: MapViewApi, annotationViewClassAt zoomLevel: ZoomLevel) -> AnyClass? {
-        return StationCircleAnnotationView.self
+        return CircleAnnotationView.self
     }
     
     func mapHighlightedStations(_ map: MapViewApi) -> [Station]? {

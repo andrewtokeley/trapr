@@ -11,6 +11,15 @@ import UIKit
 
 extension UIColor
 {
+    
+    public class var trpProgressBarBackground: UIColor {
+        return UIColor(red: 147/255, green: 196/255, blue: 125/255, alpha: 1)
+    }
+    
+    public class var trpProgressBarForeground: UIColor {
+        return UIColor.white
+    }
+    
     public class var trpChartBarStack1: UIColor {
         return UIColor.trpNavigationBar
     }

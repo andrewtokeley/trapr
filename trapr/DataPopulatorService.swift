@@ -50,9 +50,25 @@ class DataPopulatorService: RealmService, DataPopulatorServiceInterface {
     }
     
     func mergeWithV1Data() {
+        mergeWithV1Data(progress: nil, completion: nil)
+    }
+    
+    func mergeWithV1Data(progress: ((Float) -> Void)?, completion: ((ImportSummary) -> Void)?) {
         if let path = Bundle.main.path(forResource: "trapLines_Dec_27_2017", ofType: "trl") {
+            
             let importer: DataImport = importer_traplines_v1_to_v2(fileURL: URL(fileURLWithPath: path))
-            importer.importAndMerge(onError: nil, onCompletion: nil)
+            
+            importer.validateFile(onError: nil, onCompletion: {
+                (summary) in
+                
+                    let recordsToImport = summary.lineCount
+                    importer.importAndMerge(onError: nil, onProgress: {
+                        (importedLines) in
+                        let progressRate:Float = Float(importedLines)/Float(recordsToImport)
+                        progress?(progressRate)
+                    }, onCompletion: completion)
+            })
+            
         }
     }
     

@@ -59,11 +59,11 @@ class importer_traplines_v1_to_v2: DataImport {
         self.contentString = contentString
     }
     
-    //MARK: - DataImport
-    
     private func checkColumnExists(columnHeading: TraplineFileHeaders, headerValues: [String]) -> Bool {
         return headerValues.contains(where: { $0 == columnHeading.rawValue })
     }
+    
+    //MARK: - DataImport
     
     func validateFile(onError: ((ErrorDescription) -> Void)?, onCompletion: ((ImportSummary) -> Void)?) {
         
@@ -77,27 +77,24 @@ class importer_traplines_v1_to_v2: DataImport {
             }
             
         }) { $0 }.onFinish { importedRecords in
-            let summary = ImportSummary(summary: "Done!")
+            let summary = ImportSummary(lineCount: importedRecords.count, summary: "\(importedRecords.count) records imported.")
             onCompletion?(summary)
         }
     }
     
-    func importAndMerge(onError: ((ErrorDescription) -> Bool)?, onCompletion: ((ImportSummary) -> Void)?) {
+    func importAndMerge(onError: ((ErrorDescription) -> Bool)?, onProgress: ((Int) -> Void)?, onCompletion: ((ImportSummary) -> Void)?) {
         
         self.importer?.startImportingRecords(structure: { (headerValues) -> Void in
-            
             // do nothing
-            print("header!")
+            print("header read")
         }) { $0 }.onFail {
-            
-            onCompletion?(ImportSummary(summary: "Done!"))
-            
+            print("fail")
+            onCompletion?(ImportSummary(lineCount: 0, summary: "Done!"))
         }.onProgress { importedDataLinesCount in
-                
-                print("\(importedDataLinesCount) lines were already imported.")
-                
+            print("progress, imported \(importedDataLinesCount) lines")
+            onProgress?(importedDataLinesCount)
         }.onFinish { importedRecords in
-            
+            print("import done")
             var summary = ImportSummary()
             
             for record in importedRecords {
