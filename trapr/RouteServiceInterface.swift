@@ -28,9 +28,13 @@ protocol RouteServiceInterface: RealmServiceInterface {
     */
     func updateStations(route: Route, stations: [Station])
     
+    func updateHiddenFlag(route: Route, isHidden: Bool)
+    
     func replaceStationsOn(route: Route, withStations stations: [Station]) -> Route
     
     func reorderStations(route: Route, stationOrder: [Station: Int]) -> Route
+    
+    func getAll(includeHidden: Bool) -> [Route]
     
     func getAll() -> [Route]
     

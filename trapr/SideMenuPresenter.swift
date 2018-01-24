@@ -27,7 +27,7 @@ final class SideMenuPresenter: Presenter {
         }
         
         // Get the menu items for this user context
-        self.menuItems = [SideBarMenuItem.Home, SideBarMenuItem.Map, SideBarMenuItem.Settings]
+        self.menuItems = [SideBarMenuItem.Map, SideBarMenuItem.Settings]
         self.separatorsAfter = nil
         
         view.displayMenuItems(menuItems: self.menuItems, separatorsAfter: self.separatorsAfter)

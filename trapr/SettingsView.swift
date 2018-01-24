@@ -21,13 +21,8 @@ final class SettingsView: UserInterface {
     let ROW_VISITS_EMAIL = 0
     let ROW_ORDERS_EMAIL = 1
 
-    let SECTION_VERSIONS =  2
-    let ROW_APP_VERSION = 0
-    let ROW_REALM_VERSION = 1
-    
-    let SECTION_TESTING =  3
-    let ROW_MERGE_TRAP_DATA = 0
-    let ROW_RESET_ALL = 1
+    let SECTION_HIDDEN_ROUTES = 2
+    let ROW_HIDDEN_ROUTES = 0
     
     let TEXTFIELD_TAG_NAME = 0
     let TEXTFIELD_TAG_VISIT_EMAIL = 1
@@ -50,12 +45,32 @@ final class SettingsView: UserInterface {
         return tableView
     }()
     
+    lazy var versionInfo: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.trpLabelSmall
+        label.textAlignment = .center
+        label.tintColor = UIColor.darkGray
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(versionInfoClicked(sender:)))
+        label.addGestureRecognizer(tap)
+        label.isUserInteractionEnabled = true
+        return label
+    }()
+    
+    @objc func versionInfoClicked(sender: UITapGestureRecognizer) {
+        presenter.didClickRealmLabel()
+        
+        let alert = UIAlertController(title: "Copied!", message: "Path to realm store has been copied to the clipboard.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     lazy var trapperNameTableViewCell: UITableViewCell = {
         
         let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: self.TABLEVIEW_CELL_ID)
         
         let label = UILabel()
-        label.text = "Username"
+        label.text = "Your name"
         
         cell.contentView.addSubview(label)
         cell.contentView.addSubview(self.trapperNameTextField)
@@ -94,7 +109,6 @@ final class SettingsView: UserInterface {
         
         let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: self.TABLEVIEW_CELL_ID)
         cell.selectionStyle = .none
-        cell.detailTextLabel?.text = "Recipient of visit emails."
         
         let label = UILabel()
         label.text = "Visits"
@@ -170,63 +184,15 @@ final class SettingsView: UserInterface {
         return textField
     }()
     
-    lazy var appVersionTableViewCell: UITableViewCell = {
+    lazy var hiddenRoutesTableViewCell: UITableViewCell = {
         
         let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: self.TABLEVIEW_CELL_ID)
-        cell.textLabel?.text = "App Version"
-        
+        cell.textLabel?.text = "Show on Dashboard"
+        cell.accessoryType = .disclosureIndicator
+        cell.selectionStyle = .none
         return cell
     }()
 
-    lazy var realmVersionTableViewCell: UITableViewCell = {
-        
-        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: self.TABLEVIEW_CELL_ID)
-        cell.textLabel?.text = "Realm Version"
-        
-        return cell
-    }()
-
-    lazy var mergeWithTrapDataButton: UIButton = {
-        
-        let button = UIButton(type: UIButtonType.custom)
-        button.setTitle("Merge", for: .normal)
-        button.addTarget(self, action: #selector(mergeButtonClick(sender:)), for: .touchUpInside)
-        return button
-    }()
-    
-    lazy var mergeWithTrapDataTableViewCell: UITableViewCell = {
-        
-        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: self.TABLEVIEW_CELL_ID)
-        
-        cell.contentView.addSubview(self.mergeWithTrapDataButton)
-        cell.detailTextLabel?.text = "Merge current trap data with embedded file."
-        
-        self.mergeWithTrapDataButton.autoPinEdgesToSuperviewEdges()
-        self.mergeWithTrapDataButton.autoSetDimension(.height, toSize: LayoutDimensions.tableCellHeight)
-        
-        return cell
-    }()
-    
-    lazy var resetAllButton: UIButton = {
-        
-        let button = UIButton(type: UIButtonType.custom)
-        button.setTitle("Reset All!", for: .normal)
-        button.addTarget(self, action: #selector(resetAllButtonClick(sender:)), for: .touchUpInside)
-        button.setTitleColor(UIColor.red, for: .normal)
-        return button
-    }()
-    
-    lazy var resetAllTableViewCell: UITableViewCell = {
-        
-        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: self.TABLEVIEW_CELL_ID)
-        
-        cell.contentView.addSubview(self.resetAllButton)
-        
-        self.resetAllButton.autoPinEdgesToSuperviewEdges()
-        self.resetAllButton.autoSetDimension(.height, toSize: LayoutDimensions.tableCellHeight)
-        
-        return cell
-    }()
     
     // MARK: - UIViewController
     
@@ -237,6 +203,7 @@ final class SettingsView: UserInterface {
         self.view.backgroundColor = UIColor.trpBackground
         self.navigationItem.leftBarButtonItem = closeButton
         self.view.addSubview(tableView)
+        self.view.addSubview(versionInfo)
         
         // ensure the keyboard disappears when click view
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
@@ -247,7 +214,13 @@ final class SettingsView: UserInterface {
     }
     
     func setConstraints() {
-        self.tableView.autoPinEdgesToSuperviewEdges()
+        self.tableView.autoPinEdge(toSuperviewEdge: .left)
+        self.tableView.autoPinEdge(toSuperviewEdge: .right)
+        self.tableView.autoPinEdge(toSuperviewEdge: .top)
+        self.tableView.autoPinEdge(toSuperviewEdge: .bottom, withInset: 100)
+        
+        self.versionInfo.autoPinEdges(toSuperviewMarginsExcludingEdge: .top)
+        self.versionInfo.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
     }
     
     //MARK: - Events
@@ -257,55 +230,50 @@ final class SettingsView: UserInterface {
         presenter.didSelectClose()
     }
     
-    @objc func mergeButtonClick(sender: UIButton) {
-        presenter.mergeWithTrapData()
-    }
-    
-    @objc func resetAllButtonClick(sender: UIButton) {
-        presenter.resetAllData()
-    }
 }
 
 //MARK: - UITableView
 
 extension SettingsView: UITableViewDelegate, UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == SECTION_HIDDEN_ROUTES && indexPath.row == ROW_HIDDEN_ROUTES {
+            presenter.didSelectHiddenRoutes()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == SECTION_USER {
             return "PROFILE"
-        } else if section == SECTION_VERSIONS {
-            return "VERSIONS"
         } else if section == SECTION_EMAILS {
-            return "EMAIL ADDRESSES"
-        } else if section == SECTION_TESTING {
-            return "TESTING"
+            return "EMAIL"
+        } else if section == SECTION_HIDDEN_ROUTES {
+            return "ROUTES"
         }
+
         return nil
     }
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == SECTION_USER {
-            return "Your username is used when sending data to your controller"
-        } else if section == SECTION_TESTING {
-            return "This is for testing purposes only - probably wouldn't click it unless you know what you're doing"
+            return "Your username is used when submitting your Visits"
         }
         return nil
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == SECTION_USER {
             return 1
-        } else if section == SECTION_VERSIONS {
-            return 2
-        } else if section == SECTION_TESTING {
-            return 2
         } else if section == SECTION_EMAILS {
             return 2
+        } else if section == SECTION_HIDDEN_ROUTES {
+            return 1
         }
+        
         return 0
     }
     
@@ -314,26 +282,16 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
         let section = indexPath.section
         let row = indexPath.row
         
-        if section == SECTION_USER && row == ROW_TRAPPER_NAME {
+        if section == SECTION_USER {
             return trapperNameTableViewCell
-        } else if section == SECTION_VERSIONS {
-            if row == ROW_APP_VERSION {
-                return self.appVersionTableViewCell
-            } else if row == ROW_REALM_VERSION {
-                return self.realmVersionTableViewCell
-            }
         } else if section == SECTION_EMAILS {
             if row == ROW_VISITS_EMAIL {
                 return visitsEmailTableViewCell
             } else if row == ROW_ORDERS_EMAIL {
                 return ordersEmailTableViewCell
             }
-        } else if section == SECTION_TESTING {
-            if row == ROW_MERGE_TRAP_DATA {
-                return self.mergeWithTrapDataTableViewCell
-            } else if row == ROW_RESET_ALL {
-                return self.resetAllTableViewCell
-            }
+        } else if section == SECTION_HIDDEN_ROUTES {
+            return hiddenRoutesTableViewCell
         }
         return UITableViewCell()
     }
@@ -377,12 +335,8 @@ extension SettingsView: SettingsViewApi {
         trapperNameTextField.becomeFirstResponder()
     }
     
-    func displayAppVersion(version: String) {
-        self.appVersionTableViewCell.detailTextLabel?.text = version
-    }
-    
-    func displayRealmVersion(version: String) {
-        self.realmVersionTableViewCell.detailTextLabel?.text = version
+    func displayVersionNumbers(appVersion: String, realmVersion: String) {
+        versionInfo.text = "App \(appVersion), Realm \(realmVersion)"
     }
     
     func displayEmailOrdersRecipient(emailAddress: String?) {

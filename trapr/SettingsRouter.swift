@@ -11,6 +11,19 @@ import Viperit
 
 // MARK: - ProfileRouter class
 final class SettingsRouter: Router {
+    
+    func showHiddenRoutes(delegate: ListPickerDelegate?) {
+        let module = AppModules.listPicker.build()
+        
+        let setupData = ListPickerSetupData()
+        setupData.enableMultiselect = true
+        setupData.delegate = delegate
+        setupData.includeSelectNone = false
+        
+        setupData.embedInNavController = false 
+        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
+    }
+    
 }
 
 // MARK: - ProfileRouter API

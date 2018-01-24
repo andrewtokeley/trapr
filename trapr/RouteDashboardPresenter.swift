@@ -329,6 +329,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
             OptionItem(title: "Add/Remove Stations", isEnabled: true, isDestructive: false),
             OptionItem(title: "Change Visit Order", isEnabled: true, isDestructive: false),
             OptionItem(title: "Visit", isEnabled: true, isDestructive: false),
+            OptionItem(title: "Hide", isEnabled: true, isDestructive: false),
             OptionItem(title: "Delete", isEnabled: true, isDestructive: true)]
         
         (view as? UserInterface)?.displayMenuOptions(options: menuOptions, actionHandler: {
@@ -336,6 +337,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
             if title == "Add/Remove Stations" { self.didSelectEditStations() }
             else if title == "Change Visit Order" { self.didSelectEditOrder() }
             else if title == "Visit" { self.didSelectVisit() }
+            else if title == "Hide" { self.didSelectHideRoute() }
             else if title == "Delete" { self.didSelectDeleteRoute() }
         })
     }
@@ -465,6 +467,18 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
             // this should be close enough to see all stations
             view.setVisibleRegionToCentreOfStations(distance: 500)
         }
+    }
+    
+    func didSelectHideRoute() {
+        _view.presentConfirmation(title: "Hide Route", message: "Hiding a route removes it from the dashboard. You can unhide routes from settings. Continue?", response: {
+            (response) in
+            if response {
+                self.route.isHidden = true
+                self.saveRoute()
+                self._view.dismiss(animated: true, completion: nil)
+            }
+        })
+        
     }
 }
 

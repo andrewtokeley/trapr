@@ -65,7 +65,8 @@ protocol RouteDashboardPresenterApi: PresenterProtocol {
     func didSelectClearOrder()
     func didSelectReverseOrder()
     func didSelectResize()
-    
+    func didSelectHideRoute()
+
 }
 
 //MARK: - RouteDashboardInteractor API

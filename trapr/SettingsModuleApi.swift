@@ -10,14 +10,14 @@ import Viperit
 
 //MARK: - ProfileRouter API
 protocol SettingsRouterApi: RouterProtocol {
+    func showHiddenRoutes(delegate: ListPickerDelegate?)
 }
 
 //MARK: - ProfileView API
 protocol SettingsViewApi: UserInterfaceProtocol {
     func setTitle(title: String?)
     func displayTrapperName(name: String?)
-    func displayAppVersion(version: String)
-    func displayRealmVersion(version: String)
+    func displayVersionNumbers(appVersion: String, realmVersion: String)
     func displayEmailVisitsRecipient(emailAddress: String?)
     func displayEmailOrdersRecipient(emailAddress: String?)
     func setFocusToRouteName()
@@ -29,12 +29,15 @@ protocol SettingsPresenterApi: PresenterProtocol {
     func didUpdateTrapperName(name: String?)
     func didUpdateEmailVisitsRecipient(emailAddress: String?)
     func didUpdateEmailOrdersRecipient(emailAddress: String?)
-    func mergeWithTrapData()
-    func resetAllData()
+    func didClickRealmLabel()
+    func didSelectHiddenRoutes()
+//    func mergeWithTrapData()
+//    func resetAllData()
 }
 
 //MARK: - ProfileInteractor API
 protocol SettingsInteractorApi: InteractorProtocol {
+    func updateDashboardRoutes(routes: [Route], showIndexes: [Int])
     func saveSettings(settings: Settings)
     func getSettings() -> Settings
 }

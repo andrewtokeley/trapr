@@ -105,17 +105,6 @@ final class RouteDashboardView: UserInterface {
         return label
     }()
     
-//    lazy var editDescription: UILabel = {
-//        let label = UILabel()
-//        label.backgroundColor = UIColor.white
-//        label.tintColor = UIColor.trpTextDark
-//        label.font = UIFont.trpLabelSmall
-//        label.alpha = 0 // hide initially
-//        label.textAlignment = .center
-//        label.numberOfLines = 0
-//        return label
-//    }()
-//
     lazy var editStationOptions: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.white
@@ -217,8 +206,11 @@ final class RouteDashboardView: UserInterface {
     }()
     
     lazy var cancelEditButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelEditButtonClick(sender:)))
-        return button
+        let button = UIButton()
+        button.setTitle("Cancel", for: .normal)
+        button.addTarget(self, action: #selector(cancelEditButtonClick(sender:)), for: .touchUpInside)
+        let barButton = UIBarButtonItem(customView: button)
+        return barButton
     }()
     
     lazy var closeButton: UIBarButtonItem = {

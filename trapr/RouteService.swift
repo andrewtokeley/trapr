@@ -104,6 +104,20 @@ class RouteService: RealmService, RouteServiceInterface {
         
     }
     
+    func updateHiddenFlag(route: Route, isHidden: Bool) {
+        try! realm.write {
+            route.isHidden = isHidden
+        }
+    }
+    
+    func getAll(includeHidden: Bool) -> [Route] {
+        if !includeHidden {
+            return Array(realm.objects(Route.self).filter( {$0.isHidden == false }))
+        } else {
+            return Array(realm.objects(Route.self))
+        }
+    }
+    
     func getAll() -> [Route] {
         return Array(realm.objects(Route.self))
     }

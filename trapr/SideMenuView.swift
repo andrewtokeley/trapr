@@ -150,6 +150,7 @@ extension SideMenuView: UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = menuItems[indexPath.row].name
         cell.imageView?.image = menuItems[indexPath.row].image
         cell.selectionStyle = .none
+        
         // add custom separator
         if (self.separatorsAfter?.contains(indexPath.row) ?? false) {
             let separator = UIImageView(frame: CGRect(x: 10, y: cell.bounds.height, width: tableView.bounds.width - 20, height: 1))

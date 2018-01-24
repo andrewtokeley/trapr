@@ -16,6 +16,20 @@ final class SettingsInteractor: Interactor {
 // MARK: - ProfileInteractor API
 extension SettingsInteractor: SettingsInteractorApi {
     
+    func updateDashboardRoutes(routes: [Route], showIndexes: [Int]) {
+        
+        for route in routes {
+            var show = false
+            if let index = routes.index(of: route) {
+                if showIndexes.contains(index) {
+                    // hide this one
+                    show = true
+                }
+            }
+            ServiceFactory.sharedInstance.routeService.updateHiddenFlag(route: route, isHidden: !show)
+        }
+    }
+    
     func saveSettings(settings: Settings) {
         ServiceFactory.sharedInstance.settingsService.addOrUpdate(settings: settings)
     }

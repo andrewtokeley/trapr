@@ -21,8 +21,11 @@ final class ListPickerView: UserInterface {
     //MARK: - Subviews
     
     lazy var doneButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneButtonClick(sender:)))
-        return button
+        let button = UIButton()
+        button.setTitle("Done", for: .normal)
+        button.addTarget(self, action: #selector(doneButtonClick(sender:)), for: .touchUpInside)
+        let barButton = UIBarButtonItem(customView: button)
+        return barButton
     }()
     
     lazy var closeButton: UIBarButtonItem = {
