@@ -21,7 +21,10 @@ final class LoaderPresenter: Presenter {
     override func viewHasAppeared() {
         
         view.updateProgressMessage(message: "Just setting a few things up...")
-        interactor.checkForUpdates()
+        
+        if !ServiceFactory.sharedInstance.runningInTestMode {
+            interactor.checkForUpdates()
+        }
     }
 }
 

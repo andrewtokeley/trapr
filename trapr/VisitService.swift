@@ -23,12 +23,23 @@ class VisitService: RealmService, VisitServiceInterface {
         }
     }
 
+    func deleteVisits(route: Route) {
+        let visits = getVisits(route: route)
+        try! realm.write {
+            realm.delete(visits)
+        }
+    }
+    
     func save(visit: Visit) -> Visit {
         var updated: Visit!
         try! realm.write {
             updated = realm.create(Visit.self, value: visit, update: true)
         }
         return updated
+    }
+    
+    func getVisits(route: Route) -> Results<Visit> {
+        return realm.objects(Visit.self).filter("route.id = %@", route.id).sorted(byKeyPath: "visitDateTime", ascending: false)
     }
     
     func getById(id: String) -> Visit? {
@@ -180,5 +191,13 @@ class VisitService: RealmService, VisitServiceInterface {
             }
         }
         return counts
+    }
+    
+    func updateDate(visit: Visit, date: Date) {
+        try! realm.write {
+            if let newDate = visit.visitDateTime.setDate(date.day, date.month, date.year) {
+                visit.visitDateTime = newDate
+            }
+        }
     }
 }

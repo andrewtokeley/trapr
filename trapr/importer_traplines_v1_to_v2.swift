@@ -82,7 +82,7 @@ class importer_traplines_v1_to_v2: DataImport {
         }
     }
     
-    func importAndMerge(onError: ((ErrorDescription) -> Bool)?, onProgress: ((Int) -> Void)?, onCompletion: ((ImportSummary) -> Void)?) {
+    func importAndMerge(onError: ((ErrorDescription) -> Bool)?, onProgress: ((Int) -> Void)? = nil, onCompletion: ((ImportSummary) -> Void)?) {
         
         self.importer?.startImportingRecords(structure: { (headerValues) -> Void in
             // do nothing
@@ -94,7 +94,7 @@ class importer_traplines_v1_to_v2: DataImport {
             print("progress, imported \(importedDataLinesCount) lines")
             onProgress?(importedDataLinesCount)
         }.onFinish { importedRecords in
-            print("import done")
+            print("import \(importedRecords.count) records")
             var summary = ImportSummary()
             
             for record in importedRecords {

@@ -30,7 +30,7 @@ protocol DataPopulatorServiceInterface: RealmServiceInterface {
     /**
      This method will delete everything, then import some random test data
      */
-    func replaceAllDataWithTestData()
+    func deleteAllDataReadyForTests()
 
     /**
      Test method that creates a test trapline - useful for unit testing, not intended to be used by app

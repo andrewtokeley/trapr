@@ -21,9 +21,16 @@ protocol VisitServiceInterface: RealmServiceInterface {
     
     func delete(visit: Visit)
     
+    /**
+     Delete all visits for a particular route.
+    */
+    func deleteVisits(route: Route)
+    
     func save(visit: Visit) -> Visit
     
     func getById(id: String) -> Visit?
+    
+    func getVisits(route: Route) -> Results<Visit>
     
     /**
      Gets all Visits recorded on a specific Trapline
@@ -80,5 +87,7 @@ protocol VisitServiceInterface: RealmServiceInterface {
     func visitsExistForRoute(route: Route) -> Bool
     
     func killCounts(monthOffset: Int, route: Route) -> [Species: Int]
-    func poisonCount(monthOffset: Int, route: Route) -> Int 
+    func poisonCount(monthOffset: Int, route: Route) -> Int
+    
+    func updateDate(visit: Visit, date: Date)
 }

@@ -26,6 +26,16 @@ final class RouteDashboardView: UserInterface {
             self.editDoneButton.isEnabled = editDoneEnabled
         }
     }
+    var editResetOrderEnabled: Bool = false {
+        didSet {
+            self.resetOrderButton.isEnabled = editDoneEnabled
+        }
+    }
+    var editReverseOrderEnabled: Bool = false {
+        didSet {
+            self.reverseOrderButton.isEnabled = editDoneEnabled
+        }
+    }
     
     //MARK: - Constants
     
@@ -161,6 +171,7 @@ final class RouteDashboardView: UserInterface {
         button.addTarget(self, action: #selector(reverseOrder(sender:)), for: .touchUpInside)
         return button
     }()
+    
     lazy var resetStationsButton: UIButton = {
         let button = UIButton()
         button.setTitle("Reset", for: .normal)
@@ -173,9 +184,8 @@ final class RouteDashboardView: UserInterface {
         let textField = UITextField()
         textField.placeholder = "Route name"
         textField.delegate = self
-        textField.clearButtonMode = .whileEditing
+        textField.textAlignment = .center
         textField.returnKeyType = UIReturnKeyType.done
-        textField.textColor = UIColor.white
         return textField
     }()
     
@@ -343,6 +353,7 @@ final class RouteDashboardView: UserInterface {
     }
 }
 
+//MARK: - UITextFieldDelegate
 extension RouteDashboardView: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         presenter.didUpdateRouteName(name: textField.text)
@@ -417,10 +428,10 @@ extension RouteDashboardView: RouteDashboardViewApi {
         self.mapViewController?.reload(forceRebuildOfAnnotations: forceAnnotationRebuild)
     }
     
-    func setAlphaEditDoneButton(_ alpha: CGFloat) {
-        //self.editDoneButton.alpha = alpha
-    }
-    
+//    func setAlphaEditDoneButton(_ alpha: CGFloat) {
+//        //self.editDoneButton.alpha = alpha
+//    }
+//    
     func displayFullScreenMap() {
         UIView.animate(withDuration: 0.5, animations: {
             self.mapBottomConstaint?.constant = 0
@@ -587,6 +598,7 @@ extension RouteDashboardView: RouteDashboardViewApi {
 //
 //}
 
+// MARK: - IAxisValueFormatter
 extension RouteDashboardView: IAxisValueFormatter {
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         var monthsOffset: Int

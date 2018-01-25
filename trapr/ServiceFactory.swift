@@ -12,10 +12,14 @@ import RealmSwift
 class ServiceFactory {
     
     static let sharedInstance = ServiceFactory()
+
+    var runningInTestMode: Bool {
+        return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+    }
     
     lazy var realm: Realm = {
         var result: Realm?
-        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
+        if runningInTestMode {
             result = DataService.sharedInstance.realmTestInstance
         } else {
             result = DataService.sharedInstance.realm

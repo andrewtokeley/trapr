@@ -39,8 +39,13 @@ protocol RouteServiceInterface: RealmServiceInterface {
     func getAll() -> [Route]
     
     func getById(id: String) -> Route?
-    
+
+    /**
+    Delete the route. Note this will not delete any visits that were recorded for the Route
+    */
     func delete(route: Route)
+    
+    func delete(route: Route, cascadeDelete: Bool)
     
     func save(route: Route)
     

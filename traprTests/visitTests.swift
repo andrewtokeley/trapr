@@ -28,7 +28,7 @@ class visitTests: XCTestCase {
         super.setUp()
         
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        ServiceFactory.sharedInstance.dataPopulatorService.resetAllData()
+        ServiceFactory.sharedInstance.dataPopulatorService.deleteAllDataReadyForTests()
         
     }
     
@@ -86,21 +86,14 @@ class visitTests: XCTestCase {
         createTestData()
         if let possum = ServiceFactory.sharedInstance.speciesService.get(.possum), let rat = ServiceFactory.sharedInstance.speciesService.get(.rat) {
             
-            // one possum caught this month
-            let possumCount = ServiceFactory.sharedInstance.visitService.killCount(monthOffset: 0, species: possum, route: self.route_LW_E!)
-            XCTAssertTrue(possumCount == 1)
-            
-            // one rat this month
-            let ratCount = ServiceFactory.sharedInstance.visitService.killCount(monthOffset: 0, species: possum, route: self.route_LW_E!)
-            XCTAssertTrue(ratCount == 1)
+            let killCountsThisMonth = ServiceFactory.sharedInstance.visitService.killCounts(monthOffset: 0, route: self.route_LW_E!)  //killCount(monthOffset: 0, species: possum, route: self.route_LW_E!)
+            XCTAssertTrue(killCountsThisMonth[possum] == 1)
+            XCTAssertTrue(killCountsThisMonth[rat] == 1)
             
             // no rats last month
-            let noRatCount = ServiceFactory.sharedInstance.visitService.killCount(monthOffset: -1, species: rat, route: self.route_LW_E!)
-            XCTAssertTrue(noRatCount == 0)
-            
-            // one possum last month
-            let possumLastMonthCount = ServiceFactory.sharedInstance.visitService.killCount(monthOffset: -1, species: possum, route: self.route_LW_E!)
-            XCTAssertTrue(possumLastMonthCount == 1)
+            let killCountsLastMonth = ServiceFactory.sharedInstance.visitService.killCounts(monthOffset: -1, route: self.route_LW_E!)
+            XCTAssertTrue(killCountsLastMonth[rat] == nil)
+            XCTAssertTrue(killCountsLastMonth[possum] == 1)
                 
             
         } else  {
@@ -116,9 +109,9 @@ class visitTests: XCTestCase {
      
      LW, E Route
         - LW01
-            - one visit today
-            - one visit a month ago
-        - E01 - one visit today
+            - one visit today (possum)
+            - one visit a month ago (possum)
+        - E01 - one visit today (rat)
      
      GC Route
         - GC01 - no visits
@@ -160,16 +153,17 @@ class visitTests: XCTestCase {
         ServiceFactory.sharedInstance.routeService.add(route: self.route_GC!)
         ServiceFactory.sharedInstance.routeService.add(route: self.route_LW_E!)
         
-        // Visit LW01 - possum caught
+        // Visit LW01 - possum caught this month
         let visit1 = Visit(date: Date(), route: route_LW_E!, trap: trap1)
         visit1.catchSpecies = ServiceFactory.sharedInstance.speciesService.get(.possum)
         visitService.add(visit: visit1)
         
+        // Visit LW01 - possum caught last month
         let visit2 = Visit(date: Date().add(0, -1, 0), route: route_LW_E!, trap: trap1)
         visit2.catchSpecies = ServiceFactory.sharedInstance.speciesService.get(.possum)
         visitService.add(visit: visit2)
         
-        // Visit E01
+        // Visit E01 - rat caugy this month
         let visit3 = Visit(date: Date(), route: route_LW_E!, trap: trap2)
         visit3.catchSpecies = ServiceFactory.sharedInstance.speciesService.get(.rat)
         visitService.add(visit: visit3)
@@ -177,8 +171,22 @@ class visitTests: XCTestCase {
         //
     }
     
+    func testDeleteAllRouteVisits() {
+        createTestData()
+        
+        if let route = self.route_LW_E {
+            let visitCountBefore = visitService.getVisits(route: route).count
+            visitService.deleteVisits(route: route)
+            let visitCountAfter = visitService.getVisits(route: route).count
+            XCTAssertTrue(visitCountBefore == 3)
+            XCTAssertTrue(visitCountAfter == 0)
+        }
+        
+    }
+    
     func testGetVisitSummary() {
         createTestData()
+        
         let summary = visitService.getVisitSummary(date: Date(), route: self.route_LW_E!)
         
         XCTAssert(summary.route == route_LW_E)

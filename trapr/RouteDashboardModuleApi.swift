@@ -25,7 +25,7 @@ protocol RouteDashboardViewApi: class, UserInterfaceProtocol {
     func displayTitle(_ title: String)
     func displayFullScreenMap()
     func displayCollapsedMap()
-    func setAlphaEditDoneButton(_ alpha: CGFloat)
+    //func setAlphaEditDoneButton(_ alpha: CGFloat)
     func setMapResizeIconState(state: ResizeState)
     
     func setVisibleRegionToHighlightedStations()
@@ -44,6 +44,8 @@ protocol RouteDashboardViewApi: class, UserInterfaceProtocol {
     func showEditStationOptions(_ show: Bool)
     func showEditOrderOptions(_ show: Bool)
     var editDoneEnabled: Bool { get set }
+    var editResetOrderEnabled: Bool { get set }
+    var editReverseOrderEnabled: Bool { get set }
     
     func configureKillChart(catchSummary: StackCount)
     func configurePoisonChart(poisonSummary: StackCount)

@@ -41,6 +41,9 @@ class Styles {
         buttonInNavigationBar.setTitleColor(UIColor.white, for: .normal)
         buttonInNavigationBar.setTitleColor(UIColor.lightGray, for: .disabled)
         
+        let textFieldInNavigationBar = UITextField.appearance(whenContainedInInstancesOf: [UINavigationBar.self])
+        textFieldInNavigationBar.textColor = UIColor.white
+        
         let alertActionViewControllerView = UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self])
         alertActionViewControllerView.tintColor = UIColor.trpTextHighlight
         

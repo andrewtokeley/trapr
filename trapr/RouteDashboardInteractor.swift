@@ -89,7 +89,9 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
     {
         // sometimes we're given a copy of the route, best to get from realm first.
         if let routeToDelete = ServiceFactory.sharedInstance.routeService.getById(id: route.id) {
-            ServiceFactory.sharedInstance.routeService.delete(route: routeToDelete)
+            
+            // cascade delete all the visits too
+            ServiceFactory.sharedInstance.routeService.delete(route: routeToDelete, cascadeDelete: true)
         }
     }
     

@@ -58,6 +58,14 @@ extension VisitInteractor: VisitInteractorApi {
             deleteVisit(visit: visit)
         }
     }
+    
+    func updateVisitDates(currentDate: Date, route: Route, newDate: Date) {
+        let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: currentDate, route: route)
+        for visit in visits {
+            ServiceFactory.sharedInstance.visitService.updateDate(visit: visit, date: newDate)
+        }
+    }
+    
 }
 
 // MARK: - Interactor Viper Components Api

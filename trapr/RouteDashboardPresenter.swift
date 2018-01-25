@@ -122,6 +122,14 @@ final class RouteDashboardPresenter: Presenter {
             ServiceFactory.sharedInstance.routeService.save(route: route)
         }
     }
+    
+    fileprivate func updateButtonStates() {
+        // don't enable Done until all the stations have been enabled
+        view.editDoneEnabled = self.proposedStationOrder.count == self.route.stations.count
+        view.editReverseOrderEnabled = self.proposedStationOrder.count == self.route.stations.count
+        
+    }
+    
 
 }
 
@@ -157,8 +165,7 @@ extension RouteDashboardPresenter: StationMapDelegate {
                         
                     }
                     
-                    // don't enable Done until all the stations have been enabled
-                    view.editDoneEnabled = self.proposedStationOrder.count == self.route.stations.count
+                    updateButtonStates()
                 }
                 
                 if isEditingStations {
@@ -291,6 +298,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
             self.proposedStationOrder = ObjectOrder(objects: Array(stations))
         }
         view.reapplyStylingToAnnotationViews()
+        updateButtonStates()
     }
     
     func didSelectClearOrder() {
@@ -301,6 +309,8 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
         self.clearInnerText = true
         view.reapplyStylingToAnnotationViews()
         self.clearInnerText = false
+        
+        updateButtonStates()
     }
     
     func didSelectReverseOrder() {
@@ -313,6 +323,8 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
             self.proposedStations = Array(stations)
         }
         view.reapplyStylingToAnnotationViews()
+        
+        updateButtonStates()
     }
     
     func didUpdateRouteName(name: String?) {

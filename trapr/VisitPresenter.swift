@@ -109,11 +109,14 @@ extension VisitPresenter: DatePickerDelegate {
     
     func datePicker(_ datePicker: DatePickerViewApi, didSelectDate date: Date) {
         
+        // update all the visit records to the new date (but keep the times)
+        interactor.updateVisitDates(currentDate: visitSummary.dateOfVisit, route: visitSummary.route, newDate: date)
+        
         visitSummary.dateOfVisit = date
         updateTitle()
         
         // re-fetch the visit for this date
-        interactor.retrieveVisit(date: visitSummary.dateOfVisit, route: visitSummary.route, trap: self.currentTrap)
+        //interactor.retrieveVisit(date: visitSummary.dateOfVisit, route: visitSummary.route, trap: self.currentTrap)
     }
 }
 

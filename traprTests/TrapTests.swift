@@ -21,7 +21,7 @@ class TrapTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        ServiceFactory.sharedInstance.dataPopulatorService.resetAllData()
+        ServiceFactory.sharedInstance.dataPopulatorService.deleteAllDataReadyForTests()
     }
     
     override func tearDown() {

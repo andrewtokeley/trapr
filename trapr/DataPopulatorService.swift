@@ -30,12 +30,11 @@ class DataPopulatorService: RealmService, DataPopulatorServiceInterface {
         mergeWithV1Data()
     }
 
-    func replaceAllDataWithTestData() {
+    func deleteAllDataReadyForTests() {
         try! realm.write {
             realm.deleteAll()
         }
         createOrUpdateLookupData()
-        createTestData()
     }
     
     func createOrUpdateLookupData() {

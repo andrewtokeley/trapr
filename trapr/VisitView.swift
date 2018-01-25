@@ -406,10 +406,10 @@ extension VisitView: VisitViewApi {
     
     func setTitle(title: String, subTitle: String) {
         self.titleLabel.text = title
-        self.titleLabel.sizeToFit()
+        //self.titleLabel.sizeToFit()
         
         self.subTitleLabel.text = subTitle
-        self.subTitleLabel.sizeToFit()
+        //self.subTitleLabel.sizeToFit()
     }
     
 //    func setStationText(text: String) {

@@ -80,6 +80,16 @@ extension Date {
         return Date.dateFromComponents(dateComonentsOfSelf.day, dateComonentsOfSelf.month, dateComonentsOfSelf.year, hour, minute, second)
     }
     
+    /**
+     Converts a date to have a specific day, the time components will remain unchanged.
+     */
+    func setDate(_ day: Int?, _ month: Int?, _ year: Int?) -> Date? {
+        
+        let timeComonentsOfSelf = Calendar.current.dateComponents([.hour, .minute, .second], from: self)
+        
+        return Date.dateFromComponents(day, month, year, timeComonentsOfSelf.hour, timeComonentsOfSelf.minute, timeComonentsOfSelf.second)
+    }
+    
     //MARK: - Static functions
     static func dateFromComponents(_ day: Int?, _ month: Int?, _ year: Int?, _ hour: Int?, _ minute: Int?, _ second: Int?) -> Date? {
         var components = DateComponents()

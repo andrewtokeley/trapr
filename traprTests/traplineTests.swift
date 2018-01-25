@@ -21,7 +21,7 @@ class traplineTests: XCTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
-        ServiceFactory.sharedInstance.dataPopulatorService.resetAllData()
+        ServiceFactory.sharedInstance.dataPopulatorService.deleteAllDataReadyForTests()
     }
     
     override func tearDown() {

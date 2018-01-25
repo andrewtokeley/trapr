@@ -127,6 +127,17 @@ class RouteService: RealmService, RouteServiceInterface {
     }
     
     func delete(route: Route) {
+        self.delete(route: route, cascadeDelete: false)
+    }
+    
+    func delete(route: Route, cascadeDelete: Bool) {
+        
+        if cascadeDelete {
+            // delete all the visits for this route too
+            let visitService = ServiceFactory.sharedInstance.visitService
+            visitService.deleteVisits(route: route)
+        }
+        
         try! realm.write {
             realm.delete(route)
         }
