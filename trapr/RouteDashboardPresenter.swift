@@ -53,7 +53,7 @@ final class RouteDashboardPresenter: Presenter {
                 
                 isNewRoute = false
                 self.route = Route(value: route)
-                view.displayTitle(self.route.name ?? route.longDescription)
+                view.displayTitle(self.route.name ?? route.longDescription, editable: true)
                 view.showEditNavigation(false)
                 
                 
@@ -63,7 +63,7 @@ final class RouteDashboardPresenter: Presenter {
                 isNewRoute = true
                 self.route = Route()
                 self.route.name = routeName
-                view.displayTitle(routeName)
+                view.displayTitle(routeName, editable: true)
                 
                 // start by showing the select station view
                 isEditingStations = true
@@ -105,6 +105,16 @@ final class RouteDashboardPresenter: Presenter {
     }
     
     //MARK: - Helpers
+    
+    fileprivate func setTitle() {
+        if isEditingOrder {
+            view.displayTitle("Order", editable: false)
+        } else if isEditingStations {
+            view.displayTitle("Stations", editable: false)
+        } else {
+            view.displayTitle(self.route.name ?? "New Route", editable: true)
+        }
+    }
     
     fileprivate func displayMap() {
         router.addMapAsChildView(containerView: view.getMapContainerView())
@@ -340,7 +350,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
         let menuOptions = [
             OptionItem(title: "Add/Remove Stations", isEnabled: true, isDestructive: false),
             OptionItem(title: "Change Visit Order", isEnabled: true, isDestructive: false),
-            OptionItem(title: "Visit", isEnabled: true, isDestructive: false),
+            OptionItem(title: "Visit History", isEnabled: true, isDestructive: false),
             OptionItem(title: "Hide", isEnabled: true, isDestructive: false),
             OptionItem(title: "Delete", isEnabled: true, isDestructive: true)]
         
@@ -348,7 +358,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
             (title) in
             if title == "Add/Remove Stations" { self.didSelectEditStations() }
             else if title == "Change Visit Order" { self.didSelectEditOrder() }
-            else if title == "Visit" { self.didSelectVisit() }
+            else if title == "Visit History" { self.didSelectVisitHistory() }
             else if title == "Hide" { self.didSelectHideRoute() }
             else if title == "Delete" { self.didSelectDeleteRoute() }
         })
@@ -373,15 +383,16 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
         _view.dismiss(animated: true, completion: nil)
     }
     
-    func didSelectVisit() {
+    func didSelectVisitHistory() {
         // because self.route may be an unmanaged copy, we need to get the right one from the datastore
         if let route = ServiceFactory.sharedInstance.routeService.getById(id: self.route.id) {
-            router.showVisitModule(route: route)
+            router.showVisitHistoryModule(route: route)
         }
     }
     
     func didSelectEditStations() {
         
+        view.displayTitle("Select Stations", editable: false)
         self.proposedStations = Array(self.route.stations)
         
         isEditingStations = true
@@ -408,12 +419,14 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
         
         isEditingOrder = true
         isEditingStations = false
+        setTitle()
         
         view.showEditNavigation(true)
         view.showEditOrderOptions(true)
         view.displayFullScreenMap()
         
         view.reloadMap(forceAnnotationRebuild: true)
+        
     }
     
     func didSelectEditDone() {
@@ -435,6 +448,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
         
         isEditingOrder = false
         isEditingStations = false
+        setTitle()
         
         view.showEditNavigation(false)
         view.displayCollapsedMap()
@@ -470,6 +484,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
             
             isEditingOrder = false
             isEditingStations = false
+            setTitle()
             
             view.showEditNavigation(false)
             view.displayCollapsedMap()
@@ -479,6 +494,8 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
             // this should be close enough to see all stations
             view.setVisibleRegionToCentreOfStations(distance: 500)
         }
+        
+        setTitle()
     }
     
     func didSelectHideRoute() {

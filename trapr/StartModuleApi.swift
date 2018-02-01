@@ -35,7 +35,8 @@ protocol StartViewApi: UserInterfaceProtocol {
 
 //MARK: - StartPresenter API
 protocol StartPresenterApi: PresenterProtocol {
-    
+    func didSelectEditMenu()
+    func didSelectLastVisited(route: Route)
     func didSelectMenu()
     func didSelectRouteMenu(routeIndex: Int)
     func didSelectRouteMenuItem(routeIndex: Int, menuItemIndex: Int)

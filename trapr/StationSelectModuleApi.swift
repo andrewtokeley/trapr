@@ -18,7 +18,7 @@ protocol StationSelectViewApi: UserInterfaceProtocol {
     
     // Presenter To View
     func initialiseView(groupedData:GroupedTableViewDatasource<Station>, traplines:[Trapline], stations: [Station], selectedStations: [Station]?, allowMultiselect: Bool)
-    func setTitle(title: String)
+    //func setTitle(title: String)
     func showCloseButton()
     func setDoneButtonAttributes(visible: Bool, enabled: Bool)
     func enableSorting(enabled: Bool)

@@ -53,7 +53,8 @@ final class StationSelectPresenter: Presenter {
     fileprivate var mode: ModuleMode?
     
     override func viewIsAboutToAppear() {
-        view.setTitle(title: TITLE)
+        
+        _view.setTitle(title: TITLE)
         
         view.setDoneButtonAttributes(visible: allowMultiselect, enabled: false)
         

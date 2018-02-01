@@ -103,9 +103,10 @@ class RouteTests: XCTestCase {
         let route = Route(name: "TestRoute", stations: Array(traplineLW.stations))
         
         let numberOfDays = ServiceFactory.sharedInstance.routeService.daysSinceLastVisit(route: route)
-        
         XCTAssertNil(numberOfDays)
         
+        let description = ServiceFactory.sharedInstance.routeService.daysSinceLastVisitDescription(route: route)
+        XCTAssertEqual(description == "Not Visited")
         
     }
     
@@ -120,6 +121,9 @@ class RouteTests: XCTestCase {
         let numberOfDays = ServiceFactory.sharedInstance.routeService.daysSinceLastVisit(route: route)
         
         XCTAssertTrue(numberOfDays == 0, "Expected 0, result \(numberOfDays!)")
+        
+        let description = ServiceFactory.sharedInstance.routeService.daysSinceLastVisitDescription(route: route)
+        XCTAssertEqual(description == "Today")
     }
     
     func testNumberOfDaysVisitedYesterday() {
@@ -133,5 +137,8 @@ class RouteTests: XCTestCase {
         let numberOfDays = ServiceFactory.sharedInstance.routeService.daysSinceLastVisit(route: route)
         
         XCTAssertTrue(numberOfDays == 1, "Expected 1, result \(numberOfDays!)")
+        
+        let description = ServiceFactory.sharedInstance.routeService.daysSinceLastVisitDescription(route: route)
+        XCTAssertEqual(description == "Yesterday")
     }
 }

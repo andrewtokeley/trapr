@@ -54,7 +54,7 @@ class DataPopulatorService: RealmService, DataPopulatorServiceInterface {
     
     func mergeWithV1Data(progress: ((Float) -> Void)?, completion: ((ImportSummary) -> Void)?) {
         if let path = Bundle.main.path(forResource: "trapLines_Dec_27_2017", ofType: "trl") {
-            
+            //trapLines_26_1_18
             let importer: DataImport = importer_traplines_v1_to_v2(fileURL: URL(fileURLWithPath: path))
             
             importer.validateFile(onError: nil, onCompletion: {

@@ -17,7 +17,7 @@ protocol DatePickerRouterApi: RouterProtocol {
 protocol DatePickerViewApi: UserInterfaceProtocol {
     func animateToAppear()
     func animateToDisappear()
-    func setTitle(title: String)
+    //func setTitle(title: String)
     func setDate(date: Date)
     func showElements(elements: [DatePickerElement])
 }

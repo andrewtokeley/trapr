@@ -91,6 +91,10 @@ class Route: Object {
         return ServiceFactory.sharedInstance.stationService.getDescription(stations: Array(self.stations), includeStationCodes: true)
     }
     
+    /**
+    Path (either local or remote) to route's hero image
+     */
+    //var imageUrlPath: String?
     
     //MARK: - Object overrides
     

@@ -24,7 +24,7 @@ final class ListPickerPresenter: Presenter {
             view.includeSelectNone(enable: setupData.includeSelectNone)
             
             view.showCloseButton(show: setupData.embedInNavController)
-            view.setTitle(title: setupData!.delegate?.listPickerTitle(_view as! ListPickerView) ?? "")
+            _view.setTitle(title: setupData!.delegate?.listPickerTitle(_view as! ListPickerView) ?? "")
             
             view.enableMultiselect(enable: setupData.enableMultiselect)
             view.showDoneButton(show: setupData.enableMultiselect)

@@ -15,6 +15,7 @@ enum SpeciesCode: String {
     case mouse = "MOU"
     case hedgehog = "HED"
     case cat = "CAT"
+    case stoat = "STO"
     case other = "OTHR"
 }
 
@@ -27,7 +28,8 @@ class SpeciesService: LookupService<Species> {
             realm.add(Species(code: SpeciesCode.mouse.rawValue, name: "Mouse", order: 2), update: true)
             realm.add(Species(code: SpeciesCode.hedgehog.rawValue, name: "Hedgehog", order: 3), update: true)
             realm.add(Species(code: SpeciesCode.cat.rawValue, name: "Cat", order: 4), update: true)
-            realm.add(Species(code: SpeciesCode.other.rawValue, name: "Other", order: 5), update: true)
+            realm.add(Species(code: SpeciesCode.stoat.rawValue, name: "Stoat", order: 5), update: true)
+            realm.add(Species(code: SpeciesCode.other.rawValue, name: "Other", order: 6), update: true)
         }
     }
 }

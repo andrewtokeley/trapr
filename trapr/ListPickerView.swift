@@ -177,10 +177,10 @@ extension ListPickerView: ListPickerViewApi {
         self.navigationItem.leftBarButtonItem = show ? closeButton : nil
     }
     
-    func setTitle(title: String) {
-        self.title = title
-    }
-    
+//    func setTitle(title: String) {
+//        self.title = title
+//    }
+//    
     func setSelectedIndices(indices: [Int]) {
         self.selectedIndices = indices
         self.tableView.reloadData()

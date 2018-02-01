@@ -20,7 +20,7 @@ enum TraplineFileHeaders: String {
 }
 
 /**
- These are the names given to trap types from the v1 app. Note some are incorrectly named, but are still mapped to the write type
+ These are the names given to trap types from the v1 app. Note some are incorrectly named, but are still mapped to the correct type
  */
 enum V1TrapTypeDescriptions: String {
     case possumMaster = "Possum Master"
@@ -37,27 +37,27 @@ class importer_traplines_v1_to_v2: DataImport {
         return ServiceFactory.sharedInstance.traplineService
     }
     
-    fileprivate var fileURL: URL?
-    fileprivate var contentString: String?
+//    fileprivate var fileURL: URL?
+//    fileprivate var contentString: String?
     
-    fileprivate var importer: CSVImporter<[String: String]>? {
-        if let url = self.fileURL {
-            return CSVImporter<[String: String]>(url: url)
-        } else if let contentString = self.contentString {
-            return CSVImporter<[String: String]>(contentString: contentString)
-        }
-        return nil
-    }
+//    fileprivate var importer: CSVImporter<[String: String]>? {
+//        if let url = self.fileURL {
+//            return CSVImporter<[String: String]>(url: url)
+//        } else if let contentString = self.contentString {
+//            return CSVImporter<[String: String]>(contentString: contentString)
+//        }
+//        return nil
+//    }
     
     // MARK: - Initialisers
     
-    required init(fileURL: URL) {
-        self.fileURL = fileURL
-    }
-
-    required init(contentString: String) {
-        self.contentString = contentString
-    }
+//    required init(fileURL: URL) {
+//        self.fileURL = fileURL
+//    }
+//
+//    required init(contentString: String) {
+//        self.contentString = contentString
+//    }
     
     private func checkColumnExists(columnHeading: TraplineFileHeaders, headerValues: [String]) -> Bool {
         return headerValues.contains(where: { $0 == columnHeading.rawValue })
@@ -65,11 +65,11 @@ class importer_traplines_v1_to_v2: DataImport {
     
     //MARK: - DataImport
     
-    func validateFile(onError: ((ErrorDescription) -> Void)?, onCompletion: ((ImportSummary) -> Void)?) {
+    override func validateFile(onError: ((ErrorDescription) -> Void)?, onCompletion: ((ImportSummary) -> Void)?) {
         
         self.importer?.startImportingRecords(structure: { (headerValues) -> Void in
-            // must have column called "Trap Line" and "Summary"
             
+            // must have column called "Trap Line" and "Summary"
             for heading in [TraplineFileHeaders.trapline_code, TraplineFileHeaders.trapline_summary] {
                 if !self.checkColumnExists(columnHeading: heading, headerValues: headerValues) {
                     onError?(ErrorDescription(lineNumber: 0, field: heading.rawValue, value: nil, reason: "Column heading, '\(heading.rawValue) is missing"))
@@ -82,19 +82,19 @@ class importer_traplines_v1_to_v2: DataImport {
         }
     }
     
-    func importAndMerge(onError: ((ErrorDescription) -> Bool)?, onProgress: ((Int) -> Void)? = nil, onCompletion: ((ImportSummary) -> Void)?) {
+    override func importAndMerge(onError: ((ErrorDescription) -> Bool)?, onProgress: ((Int) -> Void)? = nil, onCompletion: ((ImportSummary) -> Void)?) {
         
         self.importer?.startImportingRecords(structure: { (headerValues) -> Void in
             // do nothing
             print("header read")
         }) { $0 }.onFail {
             print("fail")
-            onCompletion?(ImportSummary(lineCount: 0, summary: "Done!"))
+            onCompletion?(ImportSummary(lineCount: 0, summary: "Fail"))
         }.onProgress { importedDataLinesCount in
             print("progress, imported \(importedDataLinesCount) lines")
             onProgress?(importedDataLinesCount)
         }.onFinish { importedRecords in
-            print("import \(importedRecords.count) records")
+            print("import complete, \(importedRecords.count) records imported")
             var summary = ImportSummary()
             
             for record in importedRecords {
@@ -124,12 +124,7 @@ class importer_traplines_v1_to_v2: DataImport {
         if let traplineCode = record[TraplineFileHeaders.trapline_code.rawValue] {
             
             // ignore anything after "-"
-            var code = traplineCode
-            if let index = traplineCode.index(of: "-") {
-                code = traplineCode
-                
-                code = traplineCode[..<index].trimmingCharacters(in: .whitespacesAndNewlines)
-            }
+            let code = convertV1TraplineCodeToV2(v1TraplineCode: traplineCode)
             
             // see if it exists
             trapline = self.traplineService.getTrapline(code: code)

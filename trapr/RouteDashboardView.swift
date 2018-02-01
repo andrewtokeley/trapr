@@ -26,11 +26,6 @@ final class RouteDashboardView: UserInterface {
             self.editDoneButton.isEnabled = editDoneEnabled
         }
     }
-    var editResetOrderEnabled: Bool = false {
-        didSet {
-            self.resetOrderButton.isEnabled = editDoneEnabled
-        }
-    }
     var editReverseOrderEnabled: Bool = false {
         didSet {
             self.reverseOrderButton.isEnabled = editDoneEnabled
@@ -348,8 +343,8 @@ final class RouteDashboardView: UserInterface {
         
         resizeButton.autoPinEdge(.bottom, to: .bottom, of: mapViewControllerHost, withOffset: -LayoutDimensions.smallSpacingMargin)
         resizeButton.autoPinEdge(.right, to: .right, of: mapViewControllerHost, withOffset: -LayoutDimensions.smallSpacingMargin)
-        resizeButton.autoSetDimension(.width, toSize: 30)
-        resizeButton.autoSetDimension(.height, toSize: 30)
+        resizeButton.autoSetDimension(.width, toSize: 20)
+        resizeButton.autoSetDimension(.height, toSize: 20)
     }
 }
 
@@ -371,7 +366,7 @@ extension RouteDashboardView: RouteDashboardViewApi {
     func setMapResizeIconState(state: ResizeState) {
         resizeButton.alpha = state == .hidden ? 0 : 1
         if state != .hidden {
-            resizeButton.setImage(UIImage(named: state == .collapse ? "collapse" : "expand" ), for: .normal)
+            resizeButton.setImage(UIImage(named: state == .collapse ? "collapse2" : "expand2" ), for: .normal)
         }
     }
     
@@ -388,13 +383,13 @@ extension RouteDashboardView: RouteDashboardViewApi {
     }
     
     func showKillChart(_ show: Bool) {
-        barChartKills.alpha = show ? 1 : 0
-        barChartKillsTitle.alpha = show ? 1 : 0
+//        barChartKills.alpha = show ? 1 : 0
+//        barChartKillsTitle.alpha = show ? 1 : 0
     }
     
     func showPoisonChart(_ show: Bool) {
-        barChartPoison.alpha = show ? 1 : 0
-        barChartPoisonTitle.alpha = show ? 1 : 0
+//        barChartPoison.alpha = show ? 1 : 0
+//        barChartPoisonTitle.alpha = show ? 1 : 0
     }
     
     func showEditDescription(_ show: Bool, description: String? = nil) {
@@ -450,8 +445,9 @@ extension RouteDashboardView: RouteDashboardViewApi {
         })
     }
     
-    func displayTitle(_ title: String) {
+    func displayTitle(_ title: String, editable: Bool) {
         routeNameTextField.text = title
+        routeNameTextField.isEnabled = editable
     }
     
     func setVisibleRegionToCentreOfStations(distance: Double) {

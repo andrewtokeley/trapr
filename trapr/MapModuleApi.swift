@@ -23,7 +23,7 @@ protocol MapViewApi: UserInterfaceProtocol {
     func showOnlyHighlighted()
     func showAll()
     
-    func setTitle(title: String)
+    //func setTitle(title: String)
     func displayMenuOptions(options: [OptionItem])
     func showUserLocation(_ show: Bool)
     func enableToggleHighlightMode(_ enable: Bool)

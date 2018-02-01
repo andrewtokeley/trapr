@@ -15,7 +15,8 @@ class StationMarkerAnnotationView: MKMarkerAnnotationView, StationAnnotationView
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         
         // hide the pin image for now
-        self.glyphImage = UIImage()
+        
+        self.glyphImage = UIImage(named: "circle")
         self.glyphTintColor = UIColor.white
     }
     

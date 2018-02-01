@@ -215,9 +215,9 @@ extension TraplineSelectView: TraplineSelectViewApi {
         self.routeNameTextField.placeholder = text
     }
     
-    func setTitle(title: String) {
-        self.title = title
-    }
+//    func setTitle(title: String) {
+//        self.title = title
+//    }
     
     func setRouteName(name: String?) {
         self.routeNameTextField.text = name

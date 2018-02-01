@@ -21,10 +21,6 @@ final class StartPresenter: Presenter {
     fileprivate let ROUTE_MENU_DELETE = 3
     
     open override func viewHasLoaded() {
-//        let traplines = ServiceFactory.sharedInstance.traplineService
-//        if traplines.getTraplines()?.count ?? 0 == 0 {
-//            router.showLoadingScreen()
-//        }
         router.showLoadingScreen()
     }
     
@@ -114,8 +110,33 @@ extension StartPresenter: StartPresenterApi {
         router.showNewRouteModule()
     }
 
+    func didSelectEditMenu() {
+        
+        let options = [
+            OptionItem(title: "New Route", isEnabled: true, isDestructive: false)
+        ]
+        
+        _view.displayMenuOptions(options: options, actionHandler: {
+            (menuTitle) in
+            if menuTitle == options[0].title {
+                self.didSelectNewRoute()
+            }
+        })
+    }
+    
     func didSelectVisitSummary(visitSummary: VisitSummary) {
         router.showVisitModule(visitSummary: visitSummary)
+    }
+    
+    func didSelectLastVisited(route: Route) {
+        
+        // get the VisitSummary for the latest visit on this route
+        if let visit = ServiceFactory.sharedInstance.visitService.getVisits(route: route).sorted(byKeyPath: "visitDateTime", ascending: false).first {
+            let visitSummary = VisitSummary(dateOfVisit: visit.visitDateTime, route: route)
+            
+            router.showVisitModule(visitSummary: visitSummary)
+        }
+        
     }
     
     func didSelectRoute(route: Route) {

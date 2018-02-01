@@ -39,7 +39,7 @@ final class MapPresenter: Presenter {
     
     override func setupView(data: Any) {
         
-        view.setTitle(title: "Map")
+        _view.setTitle(title: "Map")
         
         if let setup = data as? MapSetupData {
             
@@ -50,6 +50,7 @@ final class MapPresenter: Presenter {
             router.addMapAsChildView(containerView: view.getMapContainerView())
             
             view.setVisibleRegionToAllStations()
+            view.showUserLocation(true)
         }
     }
 }

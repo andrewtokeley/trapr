@@ -194,10 +194,10 @@ extension StationSelectView: StationSelectViewApi {
         }
     }
     
-    func setTitle(title: String) {
-        
-        self.title = title
-    }
+//    func setTitle(title: String) {
+//        
+//        self.title = title
+//    }
     
     func showCloseButton() {
         self.navigationItem.leftBarButtonItem = closeButton

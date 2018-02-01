@@ -27,7 +27,7 @@ final class TraplineSelectPresenter: Presenter {
     
     override func viewHasLoaded() {
         
-        view.setTitle(title: route?.name ?? TITLE)
+        _view.setTitle(title: route?.name ?? TITLE)
         view.setRouteName(name: route?.name)
         view.setRouteNamePlaceholderText(text: ROUTE_NAME)
         

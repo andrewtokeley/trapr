@@ -50,6 +50,7 @@ class TrapTypeService: LookupService<TrapType> {
 
         trapType.catchableSpecies.append(speciesService.get(.rat)!)
         trapType.catchableSpecies.append(speciesService.get(.mouse)!)
+        trapType.catchableSpecies.append(speciesService.get(.stoat)!)
         trapType.catchableSpecies.append(speciesService.get(.hedgehog)!)
         trapType.catchableSpecies.append(speciesService.get(.other)!)
         
@@ -72,6 +73,7 @@ class TrapTypeService: LookupService<TrapType> {
         trapType.catchableSpecies.append(speciesService.get(.possum)!)
         trapType.catchableSpecies.append(speciesService.get(.hedgehog)!)
         trapType.catchableSpecies.append(speciesService.get(.cat)!)
+        trapType.catchableSpecies.append(speciesService.get(.stoat)!)
         trapType.catchableSpecies.append(speciesService.get(.other)!)
         
         trapType.imageName = "timms"

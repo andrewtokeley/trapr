@@ -11,6 +11,10 @@ import Viperit
 
 extension UserInterface {
     
+    func setTitle(title: String?) {
+        self.title = title
+    }
+    
     func presentConfirmation(title: String = "Are you sure?", message: String? = nil, response: ((Bool) -> Void)?) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         

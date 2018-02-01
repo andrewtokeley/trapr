@@ -100,39 +100,48 @@ class VisitService: RealmService, VisitServiceInterface {
         return visitSummary
     }
 
-    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date) -> [VisitSummary] {
+    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date, route: Route) -> [VisitSummary] {
+        
+        var summaries = [VisitSummary]()
+        
+        // Get the visits recorded for this route - if none, no summary will be created
+        let visits = getVisits(recordedBetween: startDate, dateEnd: endDate, route: route)
+        
+        // Find the unique days where visits were recorded
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "ddMMyyyy"
+        var uniqueDates = [String]()
+        for visit in visits {
+            let visitDate = dateFormatter.string(from: visit.visitDateTime)
+            if !uniqueDates.contains(visitDate) {
+                uniqueDates.append(visitDate)
+            }
+        }
+        
+        // Create a VisitSummary for each day's visit
+        for aDate in uniqueDates {
+            
+            if let date = dateFormatter.date(from: aDate) {
+                let summary = getVisitSummary(date: date, route: route)
+                summary.visits = Array(getVisits(recordedOn: date, route: route))
+                summaries.append(summary)
+            }
+        }
+        return summaries
+    }
+    
+    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date, includeHidden: Bool = false) -> [VisitSummary] {
 
         var summaries = [VisitSummary]()
-
+        
         // For each Route
         let routeService = ServiceFactory.sharedInstance.routeService
-        let allRoutes = routeService.getAll()
+        let allRoutes = routeService.getAll(includeHidden: includeHidden)
         
         for route in allRoutes {
-            
-            // Get the visits recorded for this route - if none, no summary will be created
-            let visits = getVisits(recordedBetween: startDate, dateEnd: endDate, route: route)
-            
-            // Find the unique days where visits were recorded
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "ddMMyyyy"
-            var uniqueDates = [String]()
-            for visit in visits {
-                let visitDate = dateFormatter.string(from: visit.visitDateTime)
-                if !uniqueDates.contains(visitDate) {
-                    uniqueDates.append(visitDate)
-                }
-            }
-
-            // Create a VisitSummary for each day's visit
-            for aDate in uniqueDates {
-                
-                if let date = dateFormatter.date(from: aDate) {
-                    let summary = getVisitSummary(date: date, route: route)
-                    summary.visits = Array(getVisits(recordedOn: date, route: route))
-                    summaries.append(summary)
-                }
-            }
+        
+            let summariesForRoute = getVisitSummaries(recordedBetween: startDate, endDate: endDate, route: route)
+            summaries.append(contentsOf: summariesForRoute)
         }
         
         return summaries

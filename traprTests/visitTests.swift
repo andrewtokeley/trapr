@@ -205,7 +205,7 @@ class visitTests: XCTestCase {
     
     func testGetSummaries() {
         createTestData()
-        let summaries = visitService.getVisitSummaries(recordedBetween: Date().add(-1, 0,0), endDate: Date().add(1, 0, 0))
+        let summaries = visitService.getVisitSummaries(recordedBetween: Date().add(-1, 0,0), endDate: Date().add(1, 0, 0), includeHidden: true)
         
         // even though there are 2 route, only one has visits
         XCTAssert(summaries.count == 1)

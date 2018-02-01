@@ -76,11 +76,19 @@
 		D81DAAF31F68659100C7C987 /* VisitServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF21F68659100C7C987 /* VisitServiceInterface.swift */; };
 		D81DAAF51F6865DB00C7C987 /* Trapline.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF41F6865DB00C7C987 /* Trapline.swift */; };
 		D81DAAF71F686EA800C7C987 /* ServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF61F686EA800C7C987 /* ServiceFactory.swift */; };
+		D820AE0A20228889008925E8 /* VisitHistoryDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0420228889008925E8 /* VisitHistoryDisplayData.swift */; };
+		D820AE0B20228889008925E8 /* VisitHistoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0520228889008925E8 /* VisitHistoryPresenter.swift */; };
+		D820AE0C20228889008925E8 /* VisitHistoryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0620228889008925E8 /* VisitHistoryRouter.swift */; };
+		D820AE0D20228889008925E8 /* VisitHistoryModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0720228889008925E8 /* VisitHistoryModuleApi.swift */; };
+		D820AE0E20228889008925E8 /* VisitHistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0820228889008925E8 /* VisitHistoryInteractor.swift */; };
+		D820AE0F20228889008925E8 /* VisitHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0920228889008925E8 /* VisitHistoryView.swift */; };
 		D82A53E21FEF02CD000D9339 /* TrapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E11FEF02CD000D9339 /* TrapService.swift */; };
 		D82A53E41FEF04F2000D9339 /* TrapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E31FEF04F2000D9339 /* TrapTests.swift */; };
 		D82A53E61FF0DDF5000D9339 /* HtmlService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E51FF0DDF5000D9339 /* HtmlService.swift */; };
 		D82A53E81FF0DE11000D9339 /* HtmlServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E71FF0DE11000D9339 /* HtmlServiceInterface.swift */; };
 		D82A53EA1FF1F9B3000D9339 /* HtmlServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E91FF1F9B3000D9339 /* HtmlServiceTests.swift */; };
+		D82D7BCD201F95A3006B0C02 /* Clock2.png in Resources */ = {isa = PBXBuildFile; fileRef = D82D7BCB201F95A2006B0C02 /* Clock2.png */; };
+		D82D7BCE201F95A3006B0C02 /* Clock2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D82D7BCC201F95A2006B0C02 /* Clock2@2x.png */; };
 		D83089581FA18815007C9316 /* StepperTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D83089571FA18815007C9316 /* StepperTableViewCell.xib */; };
 		D830895A1FA189AC007C9316 /* StepperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83089591FA189AC007C9316 /* StepperTableViewCell.swift */; };
 		D835E0741FAC0CC300A4664B /* SpeciesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835E0731FAC0CC300A4664B /* SpeciesService.swift */; };
@@ -131,6 +139,10 @@
 		D857B3A91F81B86A006E1402 /* VisitModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A51F81B86A006E1402 /* VisitModuleApi.swift */; };
 		D857B3AA1F81B86A006E1402 /* VisitRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A61F81B86A006E1402 /* VisitRouter.swift */; };
 		D857B3AB1F81B86A006E1402 /* VisitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A71F81B86A006E1402 /* VisitView.swift */; };
+		D858D7BD2019D68A00EE052D /* expand2.png in Resources */ = {isa = PBXBuildFile; fileRef = D858D7B92019D68800EE052D /* expand2.png */; };
+		D858D7BE2019D68A00EE052D /* expand2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D858D7BA2019D68900EE052D /* expand2@2x.png */; };
+		D858D7BF2019D68A00EE052D /* collapse2.png in Resources */ = {isa = PBXBuildFile; fileRef = D858D7BB2019D68900EE052D /* collapse2.png */; };
+		D858D7C02019D68A00EE052D /* collapse2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D858D7BC2019D68A00EE052D /* collapse2@2x.png */; };
 		D86CE4781F91DBC5004A09EF /* MenuDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CE4771F91DBC5004A09EF /* MenuDivider.swift */; };
 		D86CE4831F92BC6F004A09EF /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE47B1F92BC6C004A09EF /* map.png */; };
 		D86CE4841F92BC6F004A09EF /* map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE47C1F92BC6D004A09EF /* map@2x.png */; };
@@ -194,6 +206,12 @@
 		D89A20DB1FDC98D200A813FB /* StationServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A20DA1FDC98D200A813FB /* StationServiceInterface.swift */; };
 		D89A20DD1FDC98DE00A813FB /* StationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A20DC1FDC98DE00A813FB /* StationService.swift */; };
 		D89EBD7C1FBE870D001203AC /* StationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89EBD7B1FBE870D001203AC /* StationTests.swift */; };
+		D8AB9AD5201A5E3C00FBEF55 /* don't_use_yet_trapLines_26_1_18.trl in Resources */ = {isa = PBXBuildFile; fileRef = D8AB9AD3201A5E3C00FBEF55 /* don't_use_yet_trapLines_26_1_18.trl */; };
+		D8AB9AD6201A5E3C00FBEF55 /* visits_26_1_18.vis in Resources */ = {isa = PBXBuildFile; fileRef = D8AB9AD4201A5E3C00FBEF55 /* visits_26_1_18.vis */; };
+		D8AB9AD8201A623E00FBEF55 /* importer_visits_v1_to_v2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB9AD7201A623E00FBEF55 /* importer_visits_v1_to_v2.swift */; };
+		D8AB9ADB201DAF3300FBEF55 /* RouteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB9ADA201DAF3300FBEF55 /* RouteTableViewCell.swift */; };
+		D8AB9ADD201DAF4B00FBEF55 /* RouteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8AB9ADC201DAF4B00FBEF55 /* RouteTableViewCell.xib */; };
+		D8AB9ADF201DB39E00FBEF55 /* RouteImage1.png in Resources */ = {isa = PBXBuildFile; fileRef = D8AB9ADE201DB39E00FBEF55 /* RouteImage1.png */; };
 		D8B1480A1F9552D9000AB414 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B148091F9552D9000AB414 /* Route.swift */; };
 		D8B1480C1F955E5B000AB414 /* routeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B1480B1F955E5B000AB414 /* routeTests.swift */; };
 		D8B57FE91FD66CDA003437D9 /* trapLines_Dec_5_2017.trl in Resources */ = {isa = PBXBuildFile; fileRef = D8B57FE81FD66CDA003437D9 /* trapLines_Dec_5_2017.trl */; };
@@ -238,6 +256,7 @@
 		D8D1BB041FF8637C00AD71E3 /* Logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D1BB021FF8637C00AD71E3 /* Logo@2x.png */; };
 		D8D1BB071FF8653500AD71E3 /* tree.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D1BB051FF8653500AD71E3 /* tree.png */; };
 		D8D1BB081FF8653500AD71E3 /* tree@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D1BB061FF8653500AD71E3 /* tree@2x.png */; };
+		D8D66D452022CDA400CBF3D7 /* ViewHistorySetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D66D442022CDA400CBF3D7 /* ViewHistorySetupData.swift */; };
 		D8D729DE1F61C9CC0082CD4A /* VisitSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */; };
 		D8D729E61F64BD580082CD4A /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D8D729E51F64BD580082CD4A /* Podfile */; };
 		D8D79AAC1FC3F0CD008AC5C1 /* RouteDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AA61FC3F0CD008AC5C1 /* RouteDisplayData.swift */; };
@@ -359,11 +378,19 @@
 		D81DAAF21F68659100C7C987 /* VisitServiceInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitServiceInterface.swift; sourceTree = "<group>"; };
 		D81DAAF41F6865DB00C7C987 /* Trapline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trapline.swift; sourceTree = "<group>"; };
 		D81DAAF61F686EA800C7C987 /* ServiceFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceFactory.swift; sourceTree = "<group>"; };
+		D820AE0420228889008925E8 /* VisitHistoryDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitHistoryDisplayData.swift; sourceTree = "<group>"; };
+		D820AE0520228889008925E8 /* VisitHistoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitHistoryPresenter.swift; sourceTree = "<group>"; };
+		D820AE0620228889008925E8 /* VisitHistoryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitHistoryRouter.swift; sourceTree = "<group>"; };
+		D820AE0720228889008925E8 /* VisitHistoryModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitHistoryModuleApi.swift; sourceTree = "<group>"; };
+		D820AE0820228889008925E8 /* VisitHistoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitHistoryInteractor.swift; sourceTree = "<group>"; };
+		D820AE0920228889008925E8 /* VisitHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitHistoryView.swift; sourceTree = "<group>"; };
 		D82A53E11FEF02CD000D9339 /* TrapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrapService.swift; sourceTree = "<group>"; };
 		D82A53E31FEF04F2000D9339 /* TrapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrapTests.swift; sourceTree = "<group>"; };
 		D82A53E51FF0DDF5000D9339 /* HtmlService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlService.swift; sourceTree = "<group>"; };
 		D82A53E71FF0DE11000D9339 /* HtmlServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlServiceInterface.swift; sourceTree = "<group>"; };
 		D82A53E91FF1F9B3000D9339 /* HtmlServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlServiceTests.swift; sourceTree = "<group>"; };
+		D82D7BCB201F95A2006B0C02 /* Clock2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Clock2.png; sourceTree = "<group>"; };
+		D82D7BCC201F95A2006B0C02 /* Clock2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Clock2@2x.png"; sourceTree = "<group>"; };
 		D83089571FA18815007C9316 /* StepperTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepperTableViewCell.xib; sourceTree = "<group>"; };
 		D83089591FA189AC007C9316 /* StepperTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperTableViewCell.swift; sourceTree = "<group>"; };
 		D835E0731FAC0CC300A4664B /* SpeciesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeciesService.swift; sourceTree = "<group>"; };
@@ -415,6 +442,10 @@
 		D857B3A51F81B86A006E1402 /* VisitModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitModuleApi.swift; sourceTree = "<group>"; };
 		D857B3A61F81B86A006E1402 /* VisitRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitRouter.swift; sourceTree = "<group>"; };
 		D857B3A71F81B86A006E1402 /* VisitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitView.swift; sourceTree = "<group>"; };
+		D858D7B92019D68800EE052D /* expand2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = expand2.png; sourceTree = "<group>"; };
+		D858D7BA2019D68900EE052D /* expand2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "expand2@2x.png"; sourceTree = "<group>"; };
+		D858D7BB2019D68900EE052D /* collapse2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = collapse2.png; sourceTree = "<group>"; };
+		D858D7BC2019D68A00EE052D /* collapse2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collapse2@2x.png"; sourceTree = "<group>"; };
 		D86CE4771F91DBC5004A09EF /* MenuDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuDivider.swift; sourceTree = "<group>"; };
 		D86CE47B1F92BC6C004A09EF /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
 		D86CE47C1F92BC6D004A09EF /* map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map@2x.png"; sourceTree = "<group>"; };
@@ -478,6 +509,12 @@
 		D89A20DA1FDC98D200A813FB /* StationServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationServiceInterface.swift; sourceTree = "<group>"; };
 		D89A20DC1FDC98DE00A813FB /* StationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationService.swift; sourceTree = "<group>"; };
 		D89EBD7B1FBE870D001203AC /* StationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationTests.swift; sourceTree = "<group>"; };
+		D8AB9AD3201A5E3C00FBEF55 /* don't_use_yet_trapLines_26_1_18.trl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "don't_use_yet_trapLines_26_1_18.trl"; sourceTree = "<group>"; };
+		D8AB9AD4201A5E3C00FBEF55 /* visits_26_1_18.vis */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = visits_26_1_18.vis; sourceTree = "<group>"; };
+		D8AB9AD7201A623E00FBEF55 /* importer_visits_v1_to_v2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = importer_visits_v1_to_v2.swift; sourceTree = "<group>"; };
+		D8AB9ADA201DAF3300FBEF55 /* RouteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTableViewCell.swift; sourceTree = "<group>"; };
+		D8AB9ADC201DAF4B00FBEF55 /* RouteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouteTableViewCell.xib; sourceTree = "<group>"; };
+		D8AB9ADE201DB39E00FBEF55 /* RouteImage1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RouteImage1.png; sourceTree = "<group>"; };
 		D8B148091F9552D9000AB414 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		D8B1480B1F955E5B000AB414 /* routeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = routeTests.swift; sourceTree = "<group>"; };
 		D8B57FE81FD66CDA003437D9 /* trapLines_Dec_5_2017.trl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trapLines_Dec_5_2017.trl; sourceTree = "<group>"; };
@@ -526,6 +563,7 @@
 		D8D1BB021FF8637C00AD71E3 /* Logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Logo@2x.png"; sourceTree = "<group>"; };
 		D8D1BB051FF8653500AD71E3 /* tree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree.png; sourceTree = "<group>"; };
 		D8D1BB061FF8653500AD71E3 /* tree@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tree@2x.png"; sourceTree = "<group>"; };
+		D8D66D442022CDA400CBF3D7 /* ViewHistorySetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHistorySetupData.swift; sourceTree = "<group>"; };
 		D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitSummary.swift; sourceTree = "<group>"; };
 		D8D729E51F64BD580082CD4A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D8D79AA61FC3F0CD008AC5C1 /* RouteDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDisplayData.swift; sourceTree = "<group>"; };
@@ -741,9 +779,24 @@
 			name = Services;
 			sourceTree = "<group>";
 		};
+		D820AE0320228861008925E8 /* VisitHistory */ = {
+			isa = PBXGroup;
+			children = (
+				D820AE0420228889008925E8 /* VisitHistoryDisplayData.swift */,
+				D820AE0520228889008925E8 /* VisitHistoryPresenter.swift */,
+				D820AE0620228889008925E8 /* VisitHistoryRouter.swift */,
+				D820AE0720228889008925E8 /* VisitHistoryModuleApi.swift */,
+				D820AE0820228889008925E8 /* VisitHistoryInteractor.swift */,
+				D820AE0920228889008925E8 /* VisitHistoryView.swift */,
+				D8D66D442022CDA400CBF3D7 /* ViewHistorySetupData.swift */,
+			);
+			name = VisitHistory;
+			sourceTree = "<group>";
+		};
 		D83DC6BF1F7F83D200F91792 /* Start */ = {
 			isa = PBXGroup;
 			children = (
+				D8AB9AD9201DAF1900FBEF55 /* RouteTableViewCell */,
 				D8083D2F1FE8F80B00D1C5F1 /* RouteSection */,
 				D8083D301FE8F92300D1C5F1 /* VisitSection */,
 				D83DC6C11F7F841F00F91792 /* StartDisplayData.swift */,
@@ -898,6 +951,15 @@
 			name = NewVisit;
 			sourceTree = "<group>";
 		};
+		D8AB9AD9201DAF1900FBEF55 /* RouteTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				D8AB9ADA201DAF3300FBEF55 /* RouteTableViewCell.swift */,
+				D8AB9ADC201DAF4B00FBEF55 /* RouteTableViewCell.xib */,
+			);
+			name = RouteTableViewCell;
+			sourceTree = "<group>";
+		};
 		D8B138B31FC3EA740093E809 /* Route */ = {
 			isa = PBXGroup;
 			children = (
@@ -915,10 +977,13 @@
 		D8B57FEA1FD76E3E003437D9 /* Import */ = {
 			isa = PBXGroup;
 			children = (
+				D8AB9AD3201A5E3C00FBEF55 /* don't_use_yet_trapLines_26_1_18.trl */,
+				D8AB9AD4201A5E3C00FBEF55 /* visits_26_1_18.vis */,
 				D8DBE3D11FF3276C00AA6482 /* trapLines_Dec_27_2017.trl */,
 				D8B57FE81FD66CDA003437D9 /* trapLines_Dec_5_2017.trl */,
 				D8B57FEB1FD76E6D003437D9 /* DataImport.swift */,
 				D8B57FEF1FDA5582003437D9 /* importer_traplines_v1_to_v2.swift */,
+				D8AB9AD7201A623E00FBEF55 /* importer_visits_v1_to_v2.swift */,
 			);
 			name = Import;
 			sourceTree = "<group>";
@@ -1006,6 +1071,7 @@
 		D8B94D7D1F5EA67300D373EF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D820AE0320228861008925E8 /* VisitHistory */,
 				D856F66620111D2500CA50C2 /* NewRoute */,
 				D815D77D200CB9BE0086AFFE /* Loader */,
 				D8DE38041FFCC87200707A7D /* StationMapViewController */,
@@ -1032,6 +1098,13 @@
 		D8B94D991F5F28F200D373EF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D82D7BCB201F95A2006B0C02 /* Clock2.png */,
+				D82D7BCC201F95A2006B0C02 /* Clock2@2x.png */,
+				D8AB9ADE201DB39E00FBEF55 /* RouteImage1.png */,
+				D858D7BB2019D68900EE052D /* collapse2.png */,
+				D858D7BC2019D68A00EE052D /* collapse2@2x.png */,
+				D858D7B92019D68800EE052D /* expand2.png */,
+				D858D7BA2019D68900EE052D /* expand2@2x.png */,
 				D84C246A2005DAB7000BCAF8 /* walker.png */,
 				D84C24692005DAB6000BCAF8 /* walker@2x.png */,
 				D84C245E1FFF3AD8000BCAF8 /* edit.png */,
@@ -1252,6 +1325,7 @@
 				D8DBE3D51FF37F0900AA6482 /* timms@2x.png in Resources */,
 				D8083D2B1FE6129A00D1C5F1 /* rip@2x.png in Resources */,
 				D87926921FB553A600240767 /* RouteCollectionViewCell.xib in Resources */,
+				D858D7BE2019D68A00EE052D /* expand2@2x.png in Resources */,
 				D8083D2C1FE6129A00D1C5F1 /* poison.png in Resources */,
 				D8B57FE91FD66CDA003437D9 /* trapLines_Dec_5_2017.trl in Resources */,
 				D8C8A1E71FCBA6210075E44E /* envelope.png in Resources */,
@@ -1277,7 +1351,10 @@
 				D84CE45B1F987CC30000D422 /* pelifeed@2x.png in Resources */,
 				D8083D251FE5C24300D1C5F1 /* header_image.png in Resources */,
 				D84C24591FFF2F49000BCAF8 /* collapse.png in Resources */,
+				D8AB9AD6201A5E3C00FBEF55 /* visits_26_1_18.vis in Resources */,
 				D8083D2E1FE6129A00D1C5F1 /* rip.png in Resources */,
+				D82D7BCD201F95A3006B0C02 /* Clock2.png in Resources */,
+				D82D7BCE201F95A3006B0C02 /* Clock2@2x.png in Resources */,
 				D83853041F66555700481B57 /* plus.png in Resources */,
 				D8B94D9D1F5F30CD00D373EF /* menu@2x.png in Resources */,
 				D8C8A1F21FCD10CB0075E44E /* CommentsTableViewCell.xib in Resources */,
@@ -1290,15 +1367,19 @@
 				D8FA5CF61F8406D600EC890C /* close@2x.png in Resources */,
 				D8DBE3D61FF37F0900AA6482 /* timms.png in Resources */,
 				D8D1BB041FF8637C00AD71E3 /* Logo@2x.png in Resources */,
+				D8AB9AD5201A5E3C00FBEF55 /* don't_use_yet_trapLines_26_1_18.trl in Resources */,
 				D87926951FB555A500240767 /* clock@2x.png in Resources */,
 				D8DBE3D21FF3276C00AA6482 /* trapLines_Dec_27_2017.trl in Resources */,
 				D8503DD81F67AF7800ED0C84 /* user.png in Resources */,
+				D858D7BD2019D68A00EE052D /* expand2.png in Resources */,
 				D8D729E61F64BD580082CD4A /* Podfile in Resources */,
+				D858D7BF2019D68A00EE052D /* collapse2.png in Resources */,
 				D86CE48A1F92BC6F004A09EF /* home.png in Resources */,
 				D879269D1FB58EA400240767 /* SectionStripView.xib in Resources */,
 				D8B94D9C1F5F30CD00D373EF /* menu.png in Resources */,
 				D8C8A1F81FCE1C4F0075E44E /* doc200.png in Resources */,
 				D8C8A1F71FCE1C4F0075E44E /* doc200@2x.png in Resources */,
+				D858D7C02019D68A00EE052D /* collapse2@2x.png in Resources */,
 				D814319A1F8CBD5E00EAF5FD /* show.png in Resources */,
 				D86CE4831F92BC6F004A09EF /* map.png in Resources */,
 				D814319B1F8CBD5E00EAF5FD /* show@2x.png in Resources */,
@@ -1307,7 +1388,9 @@
 				D86CE4861F92BC6F004A09EF /* sync.png in Resources */,
 				D8BC08471F6A541200B284EE /* lessthan.png in Resources */,
 				D8BC08461F6A541200B284EE /* greaterthan.png in Resources */,
+				D8AB9ADF201DB39E00FBEF55 /* RouteImage1.png in Resources */,
 				D8083D321FE8FA8E00D1C5F1 /* StatisticView.xib in Resources */,
+				D8AB9ADD201DAF4B00FBEF55 /* RouteTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1474,6 +1557,7 @@
 				D8953EBC1F88114F00A1F424 /* NewVisitDisplayData.swift in Sources */,
 				D89312031F834F6F008DF09D /* StationSelectRouter.swift in Sources */,
 				D87C44F91F9059AF00CAFC7A /* SideMenuPresenter.swift in Sources */,
+				D820AE0E20228889008925E8 /* VisitHistoryInteractor.swift in Sources */,
 				D873C8741FC9246F00F581D8 /* TableViewHeaderWithAction.swift in Sources */,
 				D8083D161FE498F900D1C5F1 /* SettingsRouter.swift in Sources */,
 				D88DFE511FFABCD00048CA54 /* RouteDashboardView.swift in Sources */,
@@ -1482,6 +1566,7 @@
 				D8083D191FE498F900D1C5F1 /* SettingsView.swift in Sources */,
 				D856F67120111D3E00CA50C2 /* NewRouteInteractor.swift in Sources */,
 				D8C8A1F41FCD12900075E44E /* CommentsTableViewCell.swift in Sources */,
+				D820AE0F20228889008925E8 /* VisitHistoryView.swift in Sources */,
 				D830895A1FA189AC007C9316 /* StepperTableViewCell.swift in Sources */,
 				D80B6DCC1F9F3DCD00F49E9E /* VisitLogInteractor.swift in Sources */,
 				D81431A61F8DDB2600EAF5FD /* DatePickerRouter.swift in Sources */,
@@ -1557,7 +1642,9 @@
 				D815D792200CBA2A0086AFFE /* LoaderRouter.swift in Sources */,
 				D8DE38081FFCC8BC00707A7D /* StationMapDelegate.swift in Sources */,
 				D87926981FB556B800240767 /* RouteCollectionViewCell.swift in Sources */,
+				D820AE0B20228889008925E8 /* VisitHistoryPresenter.swift in Sources */,
 				D8083D171FE498F900D1C5F1 /* SettingsModuleApi.swift in Sources */,
+				D820AE0C20228889008925E8 /* VisitHistoryRouter.swift in Sources */,
 				D84C24541FFDFF30000BCAF8 /* StationDotAnnotationView.swift in Sources */,
 				D82A53E21FEF02CD000D9339 /* TrapService.swift in Sources */,
 				D82A53E61FF0DDF5000D9339 /* HtmlService.swift in Sources */,
@@ -1577,6 +1664,7 @@
 				D8039E2C1FABF577006E394B /* ListPickerDelegate.swift in Sources */,
 				D88DFE571FFB4D920048CA54 /* MapDelegate.swift in Sources */,
 				D8039E2A1FABF458006E394B /* ListPickerView.swift in Sources */,
+				D8AB9AD8201A623E00FBEF55 /* importer_visits_v1_to_v2.swift in Sources */,
 				D81DAAEF1F68643400C7C987 /* VisitService.swift in Sources */,
 				D8D79AB31FC4B992008AC5C1 /* OptionItem.swift in Sources */,
 				D835E0741FAC0CC300A4664B /* SpeciesService.swift in Sources */,
@@ -1596,6 +1684,7 @@
 				D8039E271FABF458006E394B /* ListPickerModuleApi.swift in Sources */,
 				D89714AA1F7751B300E846B9 /* DataPopulatorServiceInterface.swift in Sources */,
 				D856F67220111D3E00CA50C2 /* NewRouteView.swift in Sources */,
+				D8AB9ADB201DAF3300FBEF55 /* RouteTableViewCell.swift in Sources */,
 				D84C2462200028B5000BCAF8 /* CircleAnnotationView.swift in Sources */,
 				D873C86E1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift in Sources */,
 				D8953EBF1F88114F00A1F424 /* NewVisitPresenter.swift in Sources */,
@@ -1632,6 +1721,7 @@
 				D89714A41F76197D00E846B9 /* RealmService.swift in Sources */,
 				D841CF261F8239CA004D0207 /* TraplineSelectDisplayData.swift in Sources */,
 				D8503DC41F66807C00ED0C84 /* VisitInteractor.swift in Sources */,
+				D820AE0A20228889008925E8 /* VisitHistoryDisplayData.swift in Sources */,
 				D8DBE3E21FF4FC1900AA6482 /* MapInteractor.swift in Sources */,
 				D80F7ED91F6E92C700814A52 /* TrapServiceInterface.swift in Sources */,
 				D89714AF1F7898A800E846B9 /* SideBarMenuItem.swift in Sources */,
@@ -1646,8 +1736,10 @@
 				D857B3A91F81B86A006E1402 /* VisitModuleApi.swift in Sources */,
 				D83DC6CA1F7F841F00F91792 /* StartModuleApi.swift in Sources */,
 				D84C24662004806F000BCAF8 /* ObjectOrder.swift in Sources */,
+				D820AE0D20228889008925E8 /* VisitHistoryModuleApi.swift in Sources */,
 				D841CF281F8239CA004D0207 /* TraplineSelectModuleApi.swift in Sources */,
 				D849B6221F96C91100CE2085 /* RouteService.swift in Sources */,
+				D8D66D452022CDA400CBF3D7 /* ViewHistorySetupData.swift in Sources */,
 				D8D79AB81FC52370008AC5C1 /* RLMResults.swift in Sources */,
 				D82A53E81FF0DE11000D9339 /* HtmlServiceInterface.swift in Sources */,
 				D8D1A0471FAF16B000926CEF /* LookupObject.swift in Sources */,

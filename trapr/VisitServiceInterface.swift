@@ -78,11 +78,23 @@ protocol VisitServiceInterface: RealmServiceInterface {
      - parameters:
         - startDate: Visits from and including this date will be returned
         - endDate: Visits up to and including this date will be returned
-     
+        - isHidden: Whether to return hidden routes
      - returns:
      Array of VisitSummary objects, or nil if no Visits have been recorded between the date range
      */
-    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date) -> [VisitSummary]
+    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date, includeHidden: Bool) -> [VisitSummary]
+    
+    /**
+     Get a summary of the visits recorded on a route within a given date range
+     
+     - parameters:
+     - startDate: Visits from and including this date will be returned
+     - endDate: Visits up to and including this date will be returned
+     - route: the Route to search for visits
+     - returns:
+     Array of VisitSummary objects
+     */
+    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date, route: Route) -> [VisitSummary]
     
     func visitsExistForRoute(route: Route) -> Bool
     

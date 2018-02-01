@@ -61,4 +61,7 @@ protocol RouteServiceInterface: RealmServiceInterface {
      Returns the number of days since the route was visited. If it has never been visited, nil is returned
      */
     func daysSinceLastVisit(route: Route) -> Int?
+    func daysSinceLastVisitDescription(route: Route) -> String
+    
+    
 }

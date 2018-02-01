@@ -323,9 +323,9 @@ extension SettingsView: UITextFieldDelegate {
 //MARK: - ProfileView API
 extension SettingsView: SettingsViewApi {
     
-    func setTitle(title: String?) {
-        self.title = title
-    }
+//    func setTitle(title: String?) {
+//        self.title = title
+//    }
     
     func displayTrapperName(name: String?) {
         trapperNameTextField.text = name

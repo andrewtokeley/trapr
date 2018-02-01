@@ -73,7 +73,7 @@ class TraplineService: RealmService, TraplineServiceInterface {
     }
     
     func getRecentTraplines() -> [Trapline]? {
-        let visitsInLast3Months = ServiceFactory.sharedInstance.visitService.getVisitSummaries(recordedBetween: Date().add(0, -3, 0), endDate: Date())
+        let visitsInLast3Months = ServiceFactory.sharedInstance.visitService.getVisitSummaries(recordedBetween: Date().add(0, -3, 0), endDate: Date(), includeHidden: false)
         
         var traplines = [Trapline]()
         for visitSummary in visitsInLast3Months {

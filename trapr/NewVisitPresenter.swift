@@ -21,7 +21,7 @@ final class NewVisitPresenter: Presenter {
     }
     
     override func viewHasLoaded() {
-        view.setTitle(title: "New Visit")
+        _view.setTitle(title: "New Visit")
         interactor.fetchRecentRoutes()
     }
 

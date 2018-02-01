@@ -17,12 +17,12 @@ enum ResizeState {
 //MARK: - RouteDashboardRouter API
 protocol RouteDashboardRouterApi: RouterProtocol {
     func addMapAsChildView(containerView: UIView)
-    func showVisitModule(route: Route)
+    func showVisitHistoryModule(route: Route)
 }
 
 //MARK: - RouteDashboardView API
 protocol RouteDashboardViewApi: class, UserInterfaceProtocol {
-    func displayTitle(_ title: String)
+    func displayTitle(_ title: String, editable: Bool)
     func displayFullScreenMap()
     func displayCollapsedMap()
     //func setAlphaEditDoneButton(_ alpha: CGFloat)
@@ -44,7 +44,6 @@ protocol RouteDashboardViewApi: class, UserInterfaceProtocol {
     func showEditStationOptions(_ show: Bool)
     func showEditOrderOptions(_ show: Bool)
     var editDoneEnabled: Bool { get set }
-    var editResetOrderEnabled: Bool { get set }
     var editReverseOrderEnabled: Bool { get set }
     
     func configureKillChart(catchSummary: StackCount)

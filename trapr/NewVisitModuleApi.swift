@@ -15,7 +15,7 @@ protocol NewVisitRouterApi: RouterProtocol {
 
 //MARK: - NewVisitView API
 protocol NewVisitViewApi: UserInterfaceProtocol {
-    func setTitle(title: String)
+    //func setTitle(title: String)
     func displayRecentRoutes(routes: [Route]?)
 }
 

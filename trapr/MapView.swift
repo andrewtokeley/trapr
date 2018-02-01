@@ -97,9 +97,9 @@ extension MapView: MapViewApi {
         //mapViewController?.showAll()
     }
     
-    func setTitle(title: String) {
-        self.title = title
-    }
+//    func setTitle(title: String) {
+//        self.title = title
+//    }
     
     func reapplyStylingToAnnotationViews() {
         mapViewController?.reapplyStylingToAnnotationViews()

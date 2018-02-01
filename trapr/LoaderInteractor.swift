@@ -17,6 +17,7 @@ final class LoaderInteractor: Interactor {
 extension LoaderInteractor: LoaderInteractorApi {
     
     func checkForUpdates() {
+
         ServiceFactory.sharedInstance.dataPopulatorService.mergeWithV1Data(
             progress: {
                 (progress) in

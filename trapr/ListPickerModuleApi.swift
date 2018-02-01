@@ -22,7 +22,7 @@ protocol ListPickerViewApi: UserInterfaceProtocol {
     
     func showDoneButton(show: Bool)
     func showCloseButton(show: Bool)
-    func setTitle(title: String)
+    //func setTitle(title: String)
     func setSelectedIndices(indices: [Int])
     func enableMultiselect(enable: Bool)
     func includeSelectNone(enable: Bool)

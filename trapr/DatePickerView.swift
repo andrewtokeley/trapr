@@ -173,9 +173,9 @@ extension DatePickerView: DatePickerViewApi {
         self.datePicker.date = date
     }
     
-    func setTitle(title: String) {
-        self.heading.text = title
-    }
+//    func setTitle(title: String) {
+//        self.heading.text = title
+//    }
     
     func animateToAppear() {
         UIView.animate(withDuration: 0.2, animations: {

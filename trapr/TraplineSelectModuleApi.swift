@@ -17,7 +17,7 @@ protocol TraplineSelectRouterApi: RouterProtocol {
 //MARK: - TraplineSelectView API
 protocol TraplineSelectViewApi: UserInterfaceProtocol {
     
-    func setTitle(title: String)
+    //func setTitle(title: String)
     func setRouteName(name: String?)
     func setRouteNamePlaceholderText(text: String)
     func setSelectedTraplinesDescription(description: String)

@@ -155,9 +155,9 @@ extension NewVisitView: UITableViewDelegate, UITableViewDataSource {
 //MARK: - NewVisitView API
 extension NewVisitView: NewVisitViewApi {
     
-    func setTitle(title: String) {
-        self.title = title
-    }
+//    func setTitle(title: String) {
+//        self.title = title
+//    }
     
     func displayRecentRoutes(routes: [Route]?) {
         self.routes = routes

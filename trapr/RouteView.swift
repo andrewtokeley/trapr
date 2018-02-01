@@ -276,9 +276,9 @@ extension RouteView: TableViewHeaderWithActionDelegate {
 //MARK: - RouteView API
 extension RouteView: RouteViewApi {
     
-    func setTitle(title: String?) {
-        self.title = title
-    }
+//    func setTitle(title: String?) {
+//        self.title = title
+//    }
     
     func displayRouteName(name: String) {
         self.routeNameTextField.text = name

@@ -19,7 +19,7 @@ extension StartInteractor: StartInteractorApi {
     func initialiseHomeModule() {
     
         // Get all the visits in the last 3 months
-        let visitSummaries = ServiceFactory.sharedInstance.visitService.getVisitSummaries(recordedBetween: Date().add(0, -3, 0), endDate: Date()).sorted(by: {
+        let visitSummaries = ServiceFactory.sharedInstance.visitService.getVisitSummaries(recordedBetween: Date().add(0, -3, 0), endDate: Date(), includeHidden: false).sorted(by: {
             (v1, v2) in
             v1.dateOfVisit > v2.dateOfVisit
         })

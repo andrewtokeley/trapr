@@ -137,7 +137,13 @@ class importTests: XCTestCase {
         """
         
         var importer = importer_traplines_v1_to_v2(contentString: csvData)
-        importer.importAndMerge(onError: nil, onCompletion: {
+        importer.importAndMerge(onError: {
+                (error) in
+                print(error.reason)
+                XCTFail()
+                return false
+        },
+        onCompletion: {
                 (importSummary) in
             
                 traplines = ServiceFactory.sharedInstance.traplineService.getTraplines()
@@ -267,4 +273,6 @@ class importTests: XCTestCase {
             }
         }
     }
+    
+    
 }

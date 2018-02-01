@@ -19,7 +19,7 @@ final class DatePickerPresenter: Presenter {
         
         view.setDate(date: initialDate)
 
-        view.setTitle(title: "")
+        _view.setTitle(title: "")
         
         let showTitle = delegate?.datePicker(view, showTextFor: .title) ?? false
         let showToday = delegate?.datePicker(view, showTextFor: .todayButton) ?? false
@@ -30,7 +30,7 @@ final class DatePickerPresenter: Presenter {
         if showNow { elementsToShow.append(.nowButton) }
         if showTitle {
             elementsToShow.append(.title)
-            view.setTitle(title: delegate?.datePicker(view, textFor: .title) ?? "")
+            _view.setTitle(title: delegate?.datePicker(view, textFor: .title) ?? "")
         }
         
         view.showElements(elements: elementsToShow)

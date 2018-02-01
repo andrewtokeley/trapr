@@ -173,4 +173,19 @@ class RouteService: RealmService, RouteServiceInterface {
         
         return numberOfDays
     }
+    
+    func daysSinceLastVisitDescription(route: Route) -> String {
+        var description: String = "Not Visited"
+        
+        if let days = daysSinceLastVisit(route: route) {
+            if days == 0 {
+                description = "Today"
+            } else if days == 1 {
+                description = "Yesterday"
+            } else {
+                description = "\(days) days"
+            }
+        }
+        return description
+    }
 }
