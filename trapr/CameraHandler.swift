@@ -69,14 +69,6 @@ extension CameraHandler: UIImagePickerControllerDelegate, UINavigationController
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        //TODO - move this to when user clicks on route image
-        let status = PHPhotoLibrary.authorizationStatus()
-        if status == .notDetermined  {
-            PHPhotoLibrary.requestAuthorization({status in
-                // nothing to do here, regardless of authorization
-            })
-        }
-        
         // this will return nothing if the user hasn't authorised access
         if let asset = info[UIImagePickerControllerPHAsset] as? PHAsset {
             self.imagePickedBlock?(asset)

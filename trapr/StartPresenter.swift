@@ -8,6 +8,7 @@
 
 import Foundation
 import Viperit
+import Photos
 
 // MARK: - StartPresenter Class
 final class StartPresenter: Presenter {
@@ -142,16 +143,30 @@ extension StartPresenter: StartPresenterApi {
     }
     
     func didSelectRouteImage(route: Route) {
-        CameraHandler.shared.showActionSheet(vc: _view)
-        CameraHandler.shared.imagePickedBlock = { (asset) in
-            
-            // save the url against the route
-            self.interactor.setRouteImage(route: route, asset: asset, completion: {
-                
-                // refresh page
-                self.interactor.initialiseHomeModule()
+        
+        // get permission to access photos
+        let status = PHPhotoLibrary.authorizationStatus()
+        
+        var authorized = status == PHAuthorizationStatus.authorized
+        
+        if !authorized  {
+            PHPhotoLibrary.requestAuthorization({status in
+                authorized = status == PHAuthorizationStatus.authorized
             })
-            
+        }
+        
+        if authorized {
+            CameraHandler.shared.showActionSheet(vc: _view)
+            CameraHandler.shared.imagePickedBlock = { (asset) in
+                
+                // save the url against the route
+                self.interactor.setRouteImage(route: route, asset: asset, completion: {
+                    
+                    // refresh page
+                    self.interactor.initialiseHomeModule()
+                })
+                
+            }
         }
     }
     
