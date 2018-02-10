@@ -13,13 +13,13 @@ protocol RouteTableViewCellDelegate {
     func didClickRouteName(_ sender: RouteTableViewCell)
     func didClickLastVisited(_ sender: RouteTableViewCell)
     func didClickVisit(_ sender: RouteTableViewCell)
+    func didClickRouteImage(_ sender: RouteTableViewCell)
 }
 
 class RouteTableViewCell: UITableViewCell {
     var delegate: RouteTableViewCellDelegate?
     
     @IBOutlet weak var routeNameButton: UIButton!
-    @IBOutlet weak var routeDescriptionLabel: UILabel!
     @IBOutlet weak var visitButton: UIButton!
     @IBOutlet weak var lastVisitedButton: UIButton!
     @IBOutlet weak var routeImageView: UIImageView!
@@ -40,8 +40,15 @@ class RouteTableViewCell: UITableViewCell {
         delegate?.didClickLastVisited(self)
     }
     
+    @objc func imageClicked(sender: UIImageView) {
+        delegate?.didClickRouteImage(self)
+    }
+    
     override func awakeFromNib() {
         visitButton.backgroundColor = UIColor.trpNavigationBar
         visitButton.setTitleColor(UIColor.white, for: .normal)
+        
+        let tap = UITapGestureRecognizer(target:self, action: #selector(imageClicked(sender:)))
+        routeImageView.addGestureRecognizer(tap)
     }
 }

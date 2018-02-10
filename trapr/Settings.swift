@@ -27,4 +27,10 @@ class Settings: Object {
     
     // Version of Realm database
     @objc dynamic var realmVersion: String?
+    
+    var documentDirectory: URL {
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        return URL(fileURLWithPath: documentDirectory)
+    }
+    
 }

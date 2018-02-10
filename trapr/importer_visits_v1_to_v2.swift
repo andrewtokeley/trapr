@@ -53,7 +53,7 @@ class importer_visits_v1_to_v2: DataImport {
     override func importAndMerge(onError: ((ErrorDescription) -> Bool)?, onProgress: ((Int) -> Void)?, onCompletion: ((ImportSummary) -> Void)?) {
         
         // Trap Line,Trap Name,Trap Type,Latitude,Longitude,Visit Date,Bait Added,Bait Removed,Bait Eaten,Catches,Species,Notes
-        let service = ServiceFactory.sharedInstance.visitService
+        //let service = ServiceFactory.sharedInstance.visitService
         
         //let visit = Visit(date: date, route: route, trap: trap)
 

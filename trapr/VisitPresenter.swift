@@ -12,14 +12,15 @@ import Viperit
 import MessageUI
 
 enum visitRecordMenuItem: String {
-    case sendReport = "Email report"
-    case deleteAllVisits = "Remove all visits..."
+    case sendReport = "Send report"
     case viewMap = "Map"
+    case deleteAllVisits = "Remove all visits..."
 }
 
 // MARK: - VisitPresenter Class
 final class VisitPresenter: Presenter {
     
+    fileprivate var settings: Settings?
     fileprivate var delegate: VisitDelegate?
     
     fileprivate var visitSummary: VisitSummary!
@@ -73,7 +74,8 @@ final class VisitPresenter: Presenter {
     }
     
     func menuSendToHandler() {
-        view.showVisitEmail(visitSummary: self.visitSummary)
+        self.settings = ServiceFactory.sharedInstance.settingsService.getSettings()
+        view.showVisitEmail(visitSummary: self.visitSummary, recipient: self.settings!.emailVisitsRecipient)
     }
     
     func menuShowMap() {
@@ -141,12 +143,23 @@ extension VisitPresenter: StationSelectDelegate {
 // MARK: - VisitPresenter API
 extension VisitPresenter: VisitPresenterApi {
     
+    func didSendEmailSuccessfully() {
+        // create a sync record
+        // NOTE: we can't know if someone has changed the recipient so we're just assuming it's what's in settings for now
+        let visitSync = VisitSync(visitSummary: self.visitSummary, syncDateTime: Date(), sentTo: self.settings?.emailVisitsRecipient)
+        
+        interactor.addVisitSync(visitSync: visitSync)
+    }
+    
     func visitLogDidScroll(contentOffsetY: CGFloat) {
         // tell the view to move!
     }
     
     func setVisitDelegate(delegate: VisitDelegate) {
         self.delegate = delegate
+    }
+    func didSelectInfoButton() {
+        _view.presentConfirmation(response: nil)
     }
     
     func didSelectMenuButton() {

@@ -67,8 +67,15 @@ class ServiceFactory {
         return TrapService(realm: self.realm)
     }()
     
+    lazy var visitSyncService: VisitSyncServiceInterface = {
+        return VisitSyncService(realm: self.realm)
+    }()
+    
     lazy var htmlService: HtmlServiceInterface = {
         return HtmlService()
     }()
     
+    lazy var savedImageService: SavedImageServiceInterface = {
+        return SavedImageService(realm: self.realm)
+    }()
 }

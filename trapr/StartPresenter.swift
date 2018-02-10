@@ -14,6 +14,7 @@ final class StartPresenter: Presenter {
     
     fileprivate var routeMenuOptions = [String]()
     fileprivate var routes: [Route]?
+    fileprivate var routeViewModels = [RouteViewModel]()
     
     fileprivate let ROUTE_MENU_EDIT = 0
     fileprivate let ROUTE_MENU_VISIT = 1
@@ -131,16 +132,27 @@ extension StartPresenter: StartPresenterApi {
     func didSelectLastVisited(route: Route) {
         
         // get the VisitSummary for the latest visit on this route
-        if let visit = ServiceFactory.sharedInstance.visitService.getVisits(route: route).sorted(byKeyPath: "visitDateTime", ascending: false).first {
-            let visitSummary = VisitSummary(dateOfVisit: visit.visitDateTime, route: route)
-            
+        if let visitSummary = ServiceFactory.sharedInstance.visitService.getVisitSummaryMostRecent(route: route) {
             router.showVisitModule(visitSummary: visitSummary)
         }
-        
     }
     
     func didSelectRoute(route: Route) {
         router.showRouteDashboardModule(route: route)
+    }
+    
+    func didSelectRouteImage(route: Route) {
+        CameraHandler.shared.showActionSheet(vc: _view)
+        CameraHandler.shared.imagePickedBlock = { (asset) in
+            
+            // save the url against the route
+            self.interactor.setRouteImage(route: route, asset: asset, completion: {
+                
+                // refresh page
+                self.interactor.initialiseHomeModule()
+            })
+            
+        }
     }
     
     func setRecentVisits(visits: [VisitSummary]?) {
@@ -150,7 +162,19 @@ extension StartPresenter: StartPresenterApi {
     func setRoutes(routes: [Route]?) {
         
         self.routes = routes
-        view.displayRoutes(routes: routes)
+        
+        // create an array of RouteViewModel instances
+        self.routeViewModels = [RouteViewModel]()
+        if let _  = routes {
+            for route in routes! {
+                let routeViewModel = RouteViewModel(route: route)
+                routeViewModel.visitSync = false
+                
+                routeViewModel.lastVisitedText = interactor.getLastVisitedDateDescription(route: route)
+                routeViewModels.append(routeViewModel)
+            }
+        }
+        view.displayRoutes(routeViewModels: self.routeViewModels)
         
         if routes?.count ?? 0 == 0 {
             view.showNoRoutesLayout(show: true, message: "Before you can record any visits, add the Route you want to visit.")

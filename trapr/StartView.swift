@@ -10,6 +10,16 @@ import UIKit
 import Viperit
 import PureLayout
 
+class RouteViewModel {
+    var route: Route
+    var lastVisitedText: String = ""
+    var visitSync: Bool = true
+    
+    init(route: Route) {
+        self.route = route
+    }
+}
+
 //MARK: StartView Class
 final class StartView: UserInterface { //, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -22,7 +32,7 @@ final class StartView: UserInterface { //, UICollectionViewDelegate, UICollectio
     let SECTIONSTRIP_ROUTES = 0
     let SECTIONSTRIP_RECENT_VISITS = 1
     
-    fileprivate var routes: [Route]?
+    fileprivate var routeViewModels: [RouteViewModel]?
     fileprivate var visitSummaries: [VisitSummary]?
     fileprivate var routeMenuOptions: [String]?
     
@@ -265,93 +275,64 @@ extension StartView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.routes?.count ?? 0
+        return self.routeViewModels?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: self.ROUTE_CELL_IDENTIFIER, for: indexPath) as! RouteTableViewCell
         
-        if let route = self.routes?[indexPath.row] {
-            cell.routeNameButton.setTitle(route.name, for: .normal)
-            cell.routeImageView.image = cell.routeImageView.image?.scaled(to: CGSize(width: self.view.bounds.width, height: 200), scalingMode: .aspectFill)
-            cell.routeDescriptionLabel.text = route.shortDescription
-            
-            let lastVisitedText = "\(ServiceFactory.sharedInstance.routeService.daysSinceLastVisitDescription(route: route))"
-            cell.lastVisitedButton.setTitle(lastVisitedText, for: .normal)
-            
-            cell.delegate = self
+        if let vm = self.routeViewModels?[indexPath.row] {
             
             cell.selectionStyle = .none
             cell.backgroundColor = UIColor.clear
+            cell.delegate = self
+            
+            cell.routeNameButton.setTitle(vm.route.name, for: .normal)
+            
+            if let imageUrl = vm.route.dashboardImage?.imageUrl {
+                cell.routeImageView.downloadedFrom(url: imageUrl, contentMode: .scaleAspectFill)
+            } else {
+                cell.routeImageView.image = indexPath.row % 2 == 0 ? UIImage(named: "RouteImage1") : UIImage(named: "RouteImage2")
+            }
+            
+            // scale image
+            //cell.routeImageView.image = cell.routeImageView.image?.scaled(to: CGSize(width: self.view.bounds.width, height: 200), scalingMode: .aspectFit)
+            
+            let lastVisitedText = NSMutableAttributedString(string: vm.lastVisitedText)
+            lastVisitedText.addAttributes([.foregroundColor: UIColor.trpButtonEnabled], range: NSMakeRange(0, lastVisitedText.length - 1))
+            
+            // add notSent in red if not sync'd
+            if !vm.visitSync {
+                let notSent = NSMutableAttributedString(string: " (not sent)", attributes: [.foregroundColor: UIColor.red])
+                lastVisitedText.append(notSent)
+            }
+            
+            cell.lastVisitedButton.setAttributedTitle(lastVisitedText, for: .normal)
+            
         }
         
-        
-//        let cell = tableView.dequeueReusableCell(withIdentifier: self.TABLEVIEW_CELL_RECENT_VISITS, for: indexPath) as! VisitSummaryTableViewCell
-//
-//        if let visit = self.visitSummaries?[indexPath.section] {
-//            cell.dateLabel.text = visit.dateOfVisit.toString(from: "dd MMM yyyy")
-//            cell.routeNameLabel.text = visit.route.name
-//
-//            var stats = [Statistic]()
-//            stats.append(Statistic(title: "POISON", statistic: String(visit.totalPoisonAdded), variance: -5.0))
-//
-//            for kills in visit.totalKillsBySpecies {
-//                stats.append(Statistic(title: kills.key, statistic: String(kills.value), variance: -5.0))
-//            }
-//
-//            cell.statistics = stats
-//
-//        }
-//        cell.accessoryType = .disclosureIndicator
-//        cell.selectionStyle = .none
-//
        return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if let summary = self.visitSummaries?[indexPath.section] {
-//            presenter.didSelectVisitSummary(visitSummary: summary)
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if let vm = self.routeViewModels?[indexPath.row] {
+//            presenter.didSelectRoute(route: vm.route)
 //        }
-        if let route = self.routes?[indexPath.row] {
-            presenter.didSelectRoute(route: route)
-        }
-    }
-    
-    // Make the background color show through
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let height = self.tableView(tableView, heightForHeaderInSection: section)
-//        let view = UIView(frame: CGRect(x: 0, y: 0, width:  self.view.frame.size.width, height: height))
-//        //view.backgroundColor = UIColor.red
-//        return view
 //    }
-//
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        let height = self.tableView(tableView, heightForFooterInSection: section)
-//        let view = UIView(frame: CGRect(x: 0, y: 0, width:  self.view.frame.size.width, height: height))
-//        //view.backgroundColor = UIColor.clear
-//        return view
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return section == 0 ? LayoutDimensions.spacingMargin : 0.01
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return LayoutDimensions.smallSpacingMargin
-//    }
-//
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 347
     }
 }
 
+// MARK: - RouteTableViewCellDelegate
 extension StartView: RouteTableViewCellDelegate {
     
     private func getRouteFromCell(cell: RouteTableViewCell) -> Route? {
         if let indexPath = self.routesTableView.indexPath(for: cell) {
-            if let route = self.routes?[indexPath.row] {
-                return route
+            if let vm = self.routeViewModels?[indexPath.row] {
+                return vm.route
             }
         }
         return nil
@@ -373,6 +354,13 @@ extension StartView: RouteTableViewCellDelegate {
         
         if let route = getRouteFromCell(cell: sender) {
             presenter.didSelectLastVisited(route: route)
+        }
+    }
+    
+    func didClickRouteImage(_ sender: RouteTableViewCell) {
+        
+        if let route = getRouteFromCell(cell: sender) {
+            presenter.didSelectRouteImage(route: route)
         }
     }
 }
@@ -456,11 +444,16 @@ extension StartView: StartViewApi {
         self.routeMenuOptions = options
     }
     
-    func displayRoutes(routes: [Route]?) {
-        self.routes = routes
+    func displayRoutes(routeViewModels: [RouteViewModel]?) {
+        self.routeViewModels = routeViewModels
         //routesCollectionView.reloadData()
         routesTableView.reloadData()
     }
+
+//    func updateImageForRoute(route: Route, imageUrl: URL) {
+//        
+//        
+//    }
     
     func displayRecentVisits(visits: [VisitSummary]?) {
         visitSummaries = visits

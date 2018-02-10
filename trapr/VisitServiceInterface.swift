@@ -26,6 +26,8 @@ protocol VisitServiceInterface: RealmServiceInterface {
     */
     func deleteVisits(route: Route)
     
+    func deleteVisits(visitSummary: VisitSummary)
+    
     func save(visit: Visit) -> Visit
     
     func getById(id: String) -> Visit?
@@ -95,6 +97,11 @@ protocol VisitServiceInterface: RealmServiceInterface {
      Array of VisitSummary objects
      */
     func getVisitSummaries(recordedBetween startDate: Date, endDate: Date, route: Route) -> [VisitSummary]
+    
+    /**
+    Returns a summary of the most recent visits for a given Route
+    */
+    func getVisitSummaryMostRecent(route: Route) -> VisitSummary?
     
     func visitsExistForRoute(route: Route) -> Bool
     

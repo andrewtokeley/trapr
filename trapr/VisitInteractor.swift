@@ -19,6 +19,10 @@ final class VisitInteractor: Interactor {
 // MARK: - VisitInteractor API
 extension VisitInteractor: VisitInteractorApi {
     
+    func addVisitSync(visitSync: VisitSync) {
+        ServiceFactory.sharedInstance.visitSyncService.add(visitSync: visitSync)
+    }
+    
     func retrieveVisit(date: Date, route: Route, trap: Trap) {
         
         let visits = Array(ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: date, route: route, trap: trap))

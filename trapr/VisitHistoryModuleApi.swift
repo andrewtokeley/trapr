@@ -15,16 +15,18 @@ protocol VisitHistoryRouterApi: RouterProtocol {
 
 //MARK: - VisitHistoryView API
 protocol VisitHistoryViewApi: UserInterfaceProtocol {
-    func displayVisitSummaries(visitSummaries: [VisitSummary])
+    func displayVisitSummaries(visitSummaries: [VisitSummary], fullReload: Bool)
     
 }
 
 //MARK: - VisitHistoryPresenter API
 protocol VisitHistoryPresenterApi: PresenterProtocol {
     func didSelectVisitSummary(visitSummary: VisitSummary)
+    func didSelectDeleteVisitSummary(visitSummary: VisitSummary)
 }
 
 //MARK: - VisitHistoryInteractor API
 protocol VisitHistoryInteractorApi: InteractorProtocol {
     func getVisitSummariesForRoute(route: Route) -> [VisitSummary]
+    func deleteVisitSummary(visitSummary: VisitSummary)
 }

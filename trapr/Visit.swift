@@ -9,8 +9,6 @@
 import Foundation
 import RealmSwift
 
-
-
 class Visit: Object {
     
     // Primary key

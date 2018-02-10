@@ -7,6 +7,7 @@
 //
 
 import Viperit
+import Photos
 
 //MARK: - StartRouter API
 protocol StartRouterApi: RouterProtocol {
@@ -25,7 +26,8 @@ protocol StartRouterApi: RouterProtocol {
 protocol StartViewApi: UserInterfaceProtocol {
     func showLoadingScreen()
     func hideLoadingScreen()
-    func displayRoutes(routes: [Route]?)
+    func displayRoutes(routeViewModels: [RouteViewModel]?)
+    //func updateImageForRoute(route: Route, imageUrl: Url)
     func displayRecentVisits(visits: [VisitSummary]?)
     func askForNewVisitDate(completion: (Date) -> Void)
     func setRouteMenu(options: [String])
@@ -44,6 +46,7 @@ protocol StartPresenterApi: PresenterProtocol {
     func didSelectNewRoute()
     func didSelectVisitSummary(visitSummary: VisitSummary)
     func didSelectRoute(route: Route)
+    func didSelectRouteImage(route: Route)
     func setRecentVisits(visits: [VisitSummary]?)
     func setRoutes(routes: [Route]?)
 }
@@ -51,6 +54,8 @@ protocol StartPresenterApi: PresenterProtocol {
 //MARK: - StartInteractor API
 protocol StartInteractorApi: InteractorProtocol {
     func initialiseHomeModule()
+    func setRouteImage(route: Route, asset: PHAsset, completion: (() -> Swift.Void)?)
     func deleteRoute(route: Route)
+    func getLastVisitedDateDescription(route: Route) -> String
     
 }

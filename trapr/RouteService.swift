@@ -104,6 +104,13 @@ class RouteService: RealmService, RouteServiceInterface {
         
     }
     
+    func updateDashboardImage(route: Route, savedImage: SavedImage) {
+    
+        try! realm.write {
+            route.dashboardImage = savedImage
+        }
+    }
+    
     func updateHiddenFlag(route: Route, isHidden: Bool) {
         try! realm.write {
             route.isHidden = isHidden

@@ -18,14 +18,23 @@ extension LoaderInteractor: LoaderInteractorApi {
     
     func checkForUpdates() {
 
-        ServiceFactory.sharedInstance.dataPopulatorService.mergeWithV1Data(
-            progress: {
-                (progress) in
-                self.presenter.importProgressReceived(progress: progress)
-        }, completion: {
-                (importSummary) in
-                self.presenter.importCompleted()
-        })
+        // if this is the first time the app is being used then there will be no traplines...
+        if let _ = ServiceFactory.sharedInstance.traplineService.getTraplines()?.count {
+            
+            // let the presenter know we're all good
+            self.presenter.importCompleted()
+            
+        } else {
+            
+            ServiceFactory.sharedInstance.dataPopulatorService.mergeWithV1Data(
+                progress: {
+                    (progress) in
+                    self.presenter.importProgressReceived(progress: progress)
+            }, completion: {
+                    (importSummary) in
+                    self.presenter.importCompleted()
+            })
+        }
     }
 }
 

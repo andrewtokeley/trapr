@@ -33,9 +33,12 @@ class Styles {
         let stepperAppearance = UIStepper.appearance()
         stepperAppearance.tintColor = UIColor.trpMenuBar
         
-        let buttonAppearance =  UIButton.appearance()
-        buttonAppearance.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
-        buttonAppearance.setTitleColor(UIColor.trpButtonDisabled, for: .disabled)
+//        let buttonAppearance =  UIButton.appearance()
+//        buttonAppearance.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
+//        buttonAppearance.setTitleColor(UIColor.trpButtonDisabled, for: .disabled)
+        
+//        let buttonAppearanceInTableViewRow =  UIButton.appearance(whenContainedInInstancesOf: [VisitSummaryTableViewCell.self])
+//        buttonAppearanceInTableViewRow.setTitleColor(UIColor.orange, for: .normal)
         
         let buttonInNavigationBar = UIButton.appearance(whenContainedInInstancesOf: [UINavigationBar.self])
         buttonInNavigationBar.setTitleColor(UIColor.white, for: .normal)

@@ -350,7 +350,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
         let menuOptions = [
             OptionItem(title: "Add/Remove Stations", isEnabled: true, isDestructive: false),
             OptionItem(title: "Change Visit Order", isEnabled: true, isDestructive: false),
-            OptionItem(title: "Visit History", isEnabled: true, isDestructive: false),
+            OptionItem(title: "Visits", isEnabled: true, isDestructive: false),
             OptionItem(title: "Hide", isEnabled: true, isDestructive: false),
             OptionItem(title: "Delete", isEnabled: true, isDestructive: true)]
         
@@ -358,7 +358,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
             (title) in
             if title == "Add/Remove Stations" { self.didSelectEditStations() }
             else if title == "Change Visit Order" { self.didSelectEditOrder() }
-            else if title == "Visit History" { self.didSelectVisitHistory() }
+            else if title == "Visits" { self.didSelectVisitHistory() }
             else if title == "Hide" { self.didSelectHideRoute() }
             else if title == "Delete" { self.didSelectDeleteRoute() }
         })

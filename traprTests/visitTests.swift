@@ -211,4 +211,27 @@ class visitTests: XCTestCase {
         XCTAssert(summaries.count == 1)
         
     }
+    
+    func testCreateVisitSync() {
+        createTestData()
+        let summaries = visitService.getVisitSummaries(recordedBetween: Date().add(-1, 0,0), endDate: Date().add(1, 0, 0), includeHidden: true)
+
+        let syncDate = Date()
+        let sentTo = "andrewtokeley@gmail.com"
+        let visitSync = VisitSync(visitSummary: summaries[0], syncDateTime: syncDate, sentTo: sentTo)
+            
+        let service = ServiceFactory.sharedInstance.visitSyncService
+        service.add(visitSync: visitSync)
+        
+        let visitSyncs = service.getVisitSyncs(visitSummary: summaries[0])
+        
+        XCTAssertTrue(visitSyncs?.count == 1)
+        XCTAssertTrue(visitSyncs?[0].sentTo == sentTo)
+        XCTAssertTrue(visitSyncs?[0].syncDateTime == syncDate)
+        
+        // even though there are 2 route, only one has visits
+        XCTAssert(summaries.count == 1)
+        
+    }
+    
 }

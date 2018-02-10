@@ -30,6 +30,8 @@ protocol RouteServiceInterface: RealmServiceInterface {
     
     func updateHiddenFlag(route: Route, isHidden: Bool)
     
+    func updateDashboardImage(route: Route, savedImage: SavedImage)
+    
     func replaceStationsOn(route: Route, withStations stations: [Station]) -> Route
     
     func reorderStations(route: Route, stationOrder: [Station: Int]) -> Route

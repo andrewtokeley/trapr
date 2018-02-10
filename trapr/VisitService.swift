@@ -23,6 +23,12 @@ class VisitService: RealmService, VisitServiceInterface {
         }
     }
 
+    func deleteVisits(visitSummary: VisitSummary) {
+        try! realm.write {
+            realm.delete(visitSummary.visits)
+        }
+    }
+    
     func deleteVisits(route: Route) {
         let visits = getVisits(route: route)
         try! realm.write {
@@ -145,6 +151,13 @@ class VisitService: RealmService, VisitServiceInterface {
         }
         
         return summaries
+    }
+    
+    func getVisitSummaryMostRecent(route: Route) -> VisitSummary? {
+        return getVisitSummaries(recordedBetween: Date().add(0, 0, -100), endDate: Date(), route: route).sorted(by: {
+            (v1, v2) in
+            v1.dateOfVisit > v2.dateOfVisit
+        }).first
     }
     
     func visitsExistForRoute(route: Route) -> Bool {

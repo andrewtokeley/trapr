@@ -13,6 +13,7 @@ import Viperit
 final class VisitHistoryView: UserInterface {
     fileprivate var visitSummaries = [VisitSummary]()
     fileprivate let CELL_REUSE_ID = "cell"
+    fileprivate var selectedRow: IndexPath?
     
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .grouped)
@@ -98,15 +99,38 @@ extension VisitHistoryView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedRow = indexPath
         presenter.didSelectVisitSummary(visitSummary: self.visitSummaries[indexPath.section])
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete", handler: {
+            (action, indexPath) in
+            if action.title == "Delete" {
+                self.presenter.didSelectDeleteVisitSummary(visitSummary: self.visitSummaries[indexPath.section])
+            }
+        })
+        delete.backgroundColor = UIColor.trpRed
+        
+        return [delete]
     }
 }
 
 //MARK: - VisitHistoryView API
 extension VisitHistoryView: VisitHistoryViewApi {
-    func displayVisitSummaries(visitSummaries: [VisitSummary]) {
+    func displayVisitSummaries(visitSummaries: [VisitSummary], fullReload: Bool) {
         self.visitSummaries = visitSummaries
-        self.tableView.reloadData()
+        if fullReload {
+            self.tableView.reloadData()
+        } else {
+            if let sectionToRefresh = self.selectedRow?.section {
+                tableView.reloadSections([sectionToRefresh], with: .none)
+            }
+        }
     }
 }
 

@@ -67,12 +67,22 @@ class Route: Object {
      */
     @objc dynamic var isHidden: Bool = false
     
+    @objc dynamic var dashboardImage: SavedImage?
+    
+    
+    
     //MARK: - Read-Only Properties
     
+    /**
+    Returns the traplines that are contained within the Route. Traplines that are only partially visited are also returned.
+    */
     var traplines: [Trapline] {
         return ServiceFactory.sharedInstance.stationService.getTraplines(from: Array(self.stations))
     }
     
+    /**
+    Returns the TimeFrequency at which visits should occur
+    */
     var visitFrequency: TimeFrequency {
         return TimeFrequency(rawValue: visitFrequencyRaw) ?? .month
     }

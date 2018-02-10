@@ -16,6 +16,11 @@ final class VisitHistoryInteractor: Interactor {
 // MARK: - VisitHistoryInteractor API
 extension VisitHistoryInteractor: VisitHistoryInteractorApi {
     
+    func deleteVisitSummary(visitSummary: VisitSummary) {
+        let service = ServiceFactory.sharedInstance.visitService
+        service.deleteVisits(visitSummary: visitSummary)
+    }
+    
     func getVisitSummariesForRoute(route: Route) -> [VisitSummary] {
         let service = ServiceFactory.sharedInstance.visitService
         

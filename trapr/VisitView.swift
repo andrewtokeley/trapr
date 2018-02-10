@@ -145,9 +145,24 @@ final class VisitView: UserInterface {
     }()
     
     lazy var showMenuButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(named:"show"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(showMoreMenu(sender:)))
-        return button
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 22, height: 22))
+        button.setImage(UIImage(named: "show"), for: .normal)
+        button.addTarget(self, action: #selector(showMoreMenu(sender:)), for: .touchUpInside)
+        let buttonItem = UIBarButtonItem(customView: button)
+        return buttonItem
     }()
+    
+//    lazy var infoButton: UIBarButtonItem = {
+//        let button = UIButton()
+//        let image = UIImage(named: "info")?.changeColor(UIColor.white)
+//        button.setImage(image, for: .normal)
+//        button.addTarget(self, action: #selector(infoMenu(sender:)), for: .touchUpInside)
+//        let buttonItem = UIBarButtonItem(customView: button)
+//
+//        buttonItem.customView?.autoSetDimension(.width, toSize: 22)
+//        buttonItem.customView?.autoSetDimension(.height, toSize: 22)
+//        return buttonItem
+//    }()
     
     lazy var titleView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
@@ -197,6 +212,10 @@ final class VisitView: UserInterface {
     @objc func showMoreMenu(sender: UIBarButtonItem) {
         presenter.didSelectMenuButton()
     }
+    
+//    @objc func infoMenu(sender: UIBarButtonItem) {
+//        presenter.didSelectInfoButton()
+//    }
     
 //    func didSelectStation(sender: UILabel) {
 //        //presenter.didSelectStation()
@@ -462,18 +481,16 @@ extension VisitView: VisitViewApi {
         self.present(menu, animated: true, completion: nil)
     }
     
-    func showVisitEmail(visitSummary: VisitSummary) {
+    func showVisitEmail(visitSummary: VisitSummary, recipient: String?) {
         if MFMailComposeViewController.canSendMail() {
-            
-            let settings = ServiceFactory.sharedInstance.settingsService.getSettings()
             
             let controller = MFMailComposeViewController()
             controller.mailComposeDelegate = self
             
             controller.setSubject("Data for \(visitSummary.route!.name!)")
             
-            if let _ = settings.emailVisitsRecipient {
-                controller.setToRecipients([settings.emailVisitsRecipient!])
+            if let _ = recipient {
+                controller.setToRecipients([recipient!])
             }
             
             if let html = ServiceFactory.sharedInstance.htmlService.getVisitsAsHtml(recordedOn: visitSummary.dateOfVisit, route: visitSummary.route) {
@@ -499,6 +516,11 @@ extension VisitView: VisitViewApi {
 
 extension VisitView: MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        
+        if result == MFMailComposeResult.sent {
+            // add a VisitSync record
+            presenter.didSendEmailSuccessfully()
+        }
         controller.dismiss(animated: true, completion: nil)
     }
 }

@@ -173,6 +173,9 @@
 		D87C44FA1F9059AF00CAFC7A /* SideMenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F41F9059AF00CAFC7A /* SideMenuRouter.swift */; };
 		D87C44FB1F9059AF00CAFC7A /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F51F9059AF00CAFC7A /* SideMenuView.swift */; };
 		D87E5BF51F88CCAA0055A3E0 /* TraplineSelectDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87E5BF41F88CCAA0055A3E0 /* TraplineSelectDelegate.swift */; };
+		D88BE098202C4DFF00098DBE /* SavedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88BE097202C4DFF00098DBE /* SavedImage.swift */; };
+		D88BE09A202C547E00098DBE /* SavedImageServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88BE099202C547E00098DBE /* SavedImageServiceInterface.swift */; };
+		D88BE09C202C54C700098DBE /* SavedImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88BE09B202C54C700098DBE /* SavedImageService.swift */; };
 		D88DFE4C1FFABCD00048CA54 /* RouteDashboardDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE461FFABCD00048CA54 /* RouteDashboardDisplayData.swift */; };
 		D88DFE4D1FFABCD00048CA54 /* RouteDashboardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE471FFABCD00048CA54 /* RouteDashboardPresenter.swift */; };
 		D88DFE4E1FFABCD00048CA54 /* RouteDashboardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE481FFABCD00048CA54 /* RouteDashboardRouter.swift */; };
@@ -212,6 +215,12 @@
 		D8AB9ADB201DAF3300FBEF55 /* RouteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB9ADA201DAF3300FBEF55 /* RouteTableViewCell.swift */; };
 		D8AB9ADD201DAF4B00FBEF55 /* RouteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8AB9ADC201DAF4B00FBEF55 /* RouteTableViewCell.xib */; };
 		D8AB9ADF201DB39E00FBEF55 /* RouteImage1.png in Resources */ = {isa = PBXBuildFile; fileRef = D8AB9ADE201DB39E00FBEF55 /* RouteImage1.png */; };
+		D8AF9EB02025A829002264D1 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = D8AF9EAE2025A829002264D1 /* info.png */; };
+		D8AF9EB12025A829002264D1 /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8AF9EAF2025A829002264D1 /* info@2x.png */; };
+		D8AF9EB32025BC67002264D1 /* RouteImage2.png in Resources */ = {isa = PBXBuildFile; fileRef = D8AF9EB22025BC67002264D1 /* RouteImage2.png */; };
+		D8AF9EB52026B058002264D1 /* VisitSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AF9EB42026B058002264D1 /* VisitSync.swift */; };
+		D8AF9EB72026B0DE002264D1 /* VisitSyncServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AF9EB62026B0DE002264D1 /* VisitSyncServiceInterface.swift */; };
+		D8AF9EB92026B261002264D1 /* VisitSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AF9EB82026B261002264D1 /* VisitSyncService.swift */; };
 		D8B1480A1F9552D9000AB414 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B148091F9552D9000AB414 /* Route.swift */; };
 		D8B1480C1F955E5B000AB414 /* routeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B1480B1F955E5B000AB414 /* routeTests.swift */; };
 		D8B57FE91FD66CDA003437D9 /* trapLines_Dec_5_2017.trl in Resources */ = {isa = PBXBuildFile; fileRef = D8B57FE81FD66CDA003437D9 /* trapLines_Dec_5_2017.trl */; };
@@ -228,6 +237,8 @@
 		D8B94D7C1F5EA56F00D373EF /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D7B1F5EA56F00D373EF /* UIColorExtension.swift */; };
 		D8B94D9C1F5F30CD00D373EF /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = D8B94D9A1F5F30CD00D373EF /* menu.png */; };
 		D8B94D9D1F5F30CD00D373EF /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8B94D9B1F5F30CD00D373EF /* menu@2x.png */; };
+		D8BB6F4B202917A6008AB3A2 /* CameraHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BB6F4A202917A6008AB3A2 /* CameraHandler.swift */; };
+		D8BB6F4D20291E9E008AB3A2 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BB6F4C20291E9E008AB3A2 /* UIImageViewExtension.swift */; };
 		D8BC08461F6A541200B284EE /* greaterthan.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08441F6A541200B284EE /* greaterthan.png */; };
 		D8BC08471F6A541200B284EE /* lessthan.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08451F6A541200B284EE /* lessthan.png */; };
 		D8BC084A1F6A542700B284EE /* greaterthan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08481F6A542700B284EE /* greaterthan@2x.png */; };
@@ -257,6 +268,8 @@
 		D8D1BB071FF8653500AD71E3 /* tree.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D1BB051FF8653500AD71E3 /* tree.png */; };
 		D8D1BB081FF8653500AD71E3 /* tree@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D1BB061FF8653500AD71E3 /* tree@2x.png */; };
 		D8D66D452022CDA400CBF3D7 /* ViewHistorySetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D66D442022CDA400CBF3D7 /* ViewHistorySetupData.swift */; };
+		D8D66D482022FBC400CBF3D7 /* information@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D66D462022FBC300CBF3D7 /* information@2x.png */; };
+		D8D66D492022FBC400CBF3D7 /* information.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D66D472022FBC400CBF3D7 /* information.png */; };
 		D8D729DE1F61C9CC0082CD4A /* VisitSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */; };
 		D8D729E61F64BD580082CD4A /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D8D729E51F64BD580082CD4A /* Podfile */; };
 		D8D79AAC1FC3F0CD008AC5C1 /* RouteDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AA61FC3F0CD008AC5C1 /* RouteDisplayData.swift */; };
@@ -476,6 +489,9 @@
 		D87C44F41F9059AF00CAFC7A /* SideMenuRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuRouter.swift; sourceTree = "<group>"; };
 		D87C44F51F9059AF00CAFC7A /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		D87E5BF41F88CCAA0055A3E0 /* TraplineSelectDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraplineSelectDelegate.swift; sourceTree = "<group>"; };
+		D88BE097202C4DFF00098DBE /* SavedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedImage.swift; sourceTree = "<group>"; };
+		D88BE099202C547E00098DBE /* SavedImageServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedImageServiceInterface.swift; sourceTree = "<group>"; };
+		D88BE09B202C54C700098DBE /* SavedImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedImageService.swift; sourceTree = "<group>"; };
 		D88DFE461FFABCD00048CA54 /* RouteDashboardDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDashboardDisplayData.swift; sourceTree = "<group>"; };
 		D88DFE471FFABCD00048CA54 /* RouteDashboardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDashboardPresenter.swift; sourceTree = "<group>"; };
 		D88DFE481FFABCD00048CA54 /* RouteDashboardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDashboardRouter.swift; sourceTree = "<group>"; };
@@ -515,6 +531,12 @@
 		D8AB9ADA201DAF3300FBEF55 /* RouteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTableViewCell.swift; sourceTree = "<group>"; };
 		D8AB9ADC201DAF4B00FBEF55 /* RouteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouteTableViewCell.xib; sourceTree = "<group>"; };
 		D8AB9ADE201DB39E00FBEF55 /* RouteImage1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RouteImage1.png; sourceTree = "<group>"; };
+		D8AF9EAE2025A829002264D1 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
+		D8AF9EAF2025A829002264D1 /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@2x.png"; sourceTree = "<group>"; };
+		D8AF9EB22025BC67002264D1 /* RouteImage2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RouteImage2.png; sourceTree = "<group>"; };
+		D8AF9EB42026B058002264D1 /* VisitSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSync.swift; sourceTree = "<group>"; };
+		D8AF9EB62026B0DE002264D1 /* VisitSyncServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSyncServiceInterface.swift; sourceTree = "<group>"; };
+		D8AF9EB82026B261002264D1 /* VisitSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSyncService.swift; sourceTree = "<group>"; };
 		D8B148091F9552D9000AB414 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		D8B1480B1F955E5B000AB414 /* routeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = routeTests.swift; sourceTree = "<group>"; };
 		D8B57FE81FD66CDA003437D9 /* trapLines_Dec_5_2017.trl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trapLines_Dec_5_2017.trl; sourceTree = "<group>"; };
@@ -535,6 +557,8 @@
 		D8B94D7B1F5EA56F00D373EF /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		D8B94D9A1F5F30CD00D373EF /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
 		D8B94D9B1F5F30CD00D373EF /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
+		D8BB6F4A202917A6008AB3A2 /* CameraHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraHandler.swift; sourceTree = "<group>"; };
+		D8BB6F4C20291E9E008AB3A2 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		D8BC08441F6A541200B284EE /* greaterthan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greaterthan.png; sourceTree = "<group>"; };
 		D8BC08451F6A541200B284EE /* lessthan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessthan.png; sourceTree = "<group>"; };
 		D8BC08481F6A542700B284EE /* greaterthan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greaterthan@2x.png"; sourceTree = "<group>"; };
@@ -564,6 +588,8 @@
 		D8D1BB051FF8653500AD71E3 /* tree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree.png; sourceTree = "<group>"; };
 		D8D1BB061FF8653500AD71E3 /* tree@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tree@2x.png"; sourceTree = "<group>"; };
 		D8D66D442022CDA400CBF3D7 /* ViewHistorySetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHistorySetupData.swift; sourceTree = "<group>"; };
+		D8D66D462022FBC300CBF3D7 /* information@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "information@2x.png"; sourceTree = "<group>"; };
+		D8D66D472022FBC400CBF3D7 /* information.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = information.png; sourceTree = "<group>"; };
 		D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitSummary.swift; sourceTree = "<group>"; };
 		D8D729E51F64BD580082CD4A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D8D79AA61FC3F0CD008AC5C1 /* RouteDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDisplayData.swift; sourceTree = "<group>"; };
@@ -753,6 +779,7 @@
 		D81DAAED1F68641E00C7C987 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D8BB6F4A202917A6008AB3A2 /* CameraHandler.swift */,
 				D80F7ED21F6E87D500814A52 /* DataPopulatorService.swift */,
 				D89714A91F7751B300E846B9 /* DataPopulatorServiceInterface.swift */,
 				D897149F1F70CFB800E846B9 /* DataService.swift */,
@@ -773,8 +800,12 @@
 				D80F7ED81F6E92C700814A52 /* TrapServiceInterface.swift */,
 				D81DAAEE1F68643400C7C987 /* VisitService.swift */,
 				D81DAAF21F68659100C7C987 /* VisitServiceInterface.swift */,
+				D8AF9EB82026B261002264D1 /* VisitSyncService.swift */,
+				D8AF9EB62026B0DE002264D1 /* VisitSyncServiceInterface.swift */,
 				D8B57FEA1FD76E3E003437D9 /* Import */,
 				D8D1A0451FAF12F600926CEF /* Lookups */,
+				D88BE099202C547E00098DBE /* SavedImageServiceInterface.swift */,
+				D88BE09B202C54C700098DBE /* SavedImageService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -840,6 +871,8 @@
 				D8BC084E1F6B143800B284EE /* TrapType.swift */,
 				D8503DCF1F669F8500ED0C84 /* Visit.swift */,
 				D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */,
+				D8AF9EB42026B058002264D1 /* VisitSync.swift */,
+				D88BE097202C4DFF00098DBE /* SavedImage.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1064,6 +1097,7 @@
 				D8DBE3F01FF764C900AA6482 /* UIViewExtension.swift */,
 				D8B94D611F5EA1FE00D373EF /* LaunchScreen.storyboard */,
 				D800573520154F9C0084E950 /* VerticallyCentredTextView.swift */,
+				D8BB6F4C20291E9E008AB3A2 /* UIImageViewExtension.swift */,
 			);
 			name = Design;
 			sourceTree = "<group>";
@@ -1071,25 +1105,25 @@
 		D8B94D7D1F5EA67300D373EF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				D820AE0320228861008925E8 /* VisitHistory */,
-				D856F66620111D2500CA50C2 /* NewRoute */,
-				D815D77D200CB9BE0086AFFE /* Loader */,
-				D8DE38041FFCC87200707A7D /* StationMapViewController */,
-				D88DFE451FFABCB20048CA54 /* RouteDashboard */,
-				D8DBE3D71FF4FC0000AA6482 /* Map */,
 				D806C7E91F9C881F0064C98F /* GroupedTableViewDatasource.swift */,
 				D81431A81F8DDB2E00EAF5FD /* DatePicker */,
 				D8039E1E1FABF428006E394B /* ListPicker */,
+				D815D77D200CB9BE0086AFFE /* Loader */,
+				D8DBE3D71FF4FC0000AA6482 /* Map */,
+				D856F66620111D2500CA50C2 /* NewRoute */,
 				D8953EB51F88110900A1F424 /* NewVisit */,
 				D8B138B31FC3EA740093E809 /* Route */,
+				D88DFE451FFABCB20048CA54 /* RouteDashboard */,
 				D879269B1FB58E7800240767 /* SectionStrip */,
 				D8083D0D1FE498D400D1C5F1 /* Settings */,
 				D87C44FC1F9059B900CAFC7A /* SideMenu */,
 				D83DC6BF1F7F83D200F91792 /* Start */,
+				D8DE38041FFCC87200707A7D /* StationMapViewController */,
 				D89311F81F834F44008DF09D /* StationSelect */,
 				D873C8721FC9244B00F581D8 /* TableViewHeaders */,
 				D841CF1F1F82398D004D0207 /* TrapSelect */,
 				D857B39D1F81B7D8006E1402 /* Visit */,
+				D820AE0320228861008925E8 /* VisitHistory */,
 				D80B6DC41F9F3D9200F49E9E /* VisitLog */,
 			);
 			name = Modules;
@@ -1098,44 +1132,42 @@
 		D8B94D991F5F28F200D373EF /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				D82D7BCB201F95A2006B0C02 /* Clock2.png */,
-				D82D7BCC201F95A2006B0C02 /* Clock2@2x.png */,
-				D8AB9ADE201DB39E00FBEF55 /* RouteImage1.png */,
-				D858D7BB2019D68900EE052D /* collapse2.png */,
-				D858D7BC2019D68A00EE052D /* collapse2@2x.png */,
-				D858D7B92019D68800EE052D /* expand2.png */,
-				D858D7BA2019D68900EE052D /* expand2@2x.png */,
-				D84C246A2005DAB7000BCAF8 /* walker.png */,
-				D84C24692005DAB6000BCAF8 /* walker@2x.png */,
-				D84C245E1FFF3AD8000BCAF8 /* edit.png */,
-				D84C245D1FFF3AD7000BCAF8 /* edit@2x.png */,
-				D84C24551FFF2F48000BCAF8 /* collapse.png */,
-				D84C24581FFF2F49000BCAF8 /* collapse@2x.png */,
-				D84C24561FFF2F49000BCAF8 /* expand.png */,
-				D84C24571FFF2F49000BCAF8 /* expand@2x.png */,
-				D8D1BB051FF8653500AD71E3 /* tree.png */,
-				D8D1BB061FF8653500AD71E3 /* tree@2x.png */,
-				D8D1BB011FF8637C00AD71E3 /* Logo.png */,
-				D8D1BB021FF8637C00AD71E3 /* Logo@2x.png */,
+				D8AF9EB22025BC67002264D1 /* RouteImage2.png */,
 				D8DBE3EB1FF5CD7300AA6482 /* circle.png */,
 				D8DBE3EA1FF5CD7300AA6482 /* circle@2x.png */,
-				D8DBE3D41FF37F0900AA6482 /* timms.png */,
-				D8DBE3D31FF37F0900AA6482 /* timms@2x.png */,
 				D87926941FB555A500240767 /* clock.png */,
 				D87926931FB555A400240767 /* clock@2x.png */,
+				D82D7BCB201F95A2006B0C02 /* Clock2.png */,
+				D82D7BCC201F95A2006B0C02 /* Clock2@2x.png */,
 				D8FA5CF31F8406D600EC890C /* close.png */,
 				D8FA5CF41F8406D600EC890C /* close@2x.png */,
+				D84C24551FFF2F48000BCAF8 /* collapse.png */,
+				D84C24581FFF2F49000BCAF8 /* collapse@2x.png */,
+				D858D7BB2019D68900EE052D /* collapse2.png */,
+				D858D7BC2019D68A00EE052D /* collapse2@2x.png */,
 				D8C8A1F61FCE1C4F0075E44E /* doc200.png */,
 				D8C8A1F51FCE1C4F0075E44E /* doc200@2x.png */,
+				D84C245E1FFF3AD8000BCAF8 /* edit.png */,
+				D84C245D1FFF3AD7000BCAF8 /* edit@2x.png */,
 				D8C8A1E51FCBA6210075E44E /* envelope.png */,
 				D8C8A1E61FCBA6210075E44E /* envelope@2x.png */,
+				D84C24561FFF2F49000BCAF8 /* expand.png */,
+				D84C24571FFF2F49000BCAF8 /* expand@2x.png */,
+				D858D7B92019D68800EE052D /* expand2.png */,
+				D858D7BA2019D68900EE052D /* expand2@2x.png */,
 				D8BC08441F6A541200B284EE /* greaterthan.png */,
 				D8BC08481F6A542700B284EE /* greaterthan@2x.png */,
 				D8083D241FE5C24200D1C5F1 /* header_image.png */,
 				D86CE4821F92BC6E004A09EF /* home.png */,
 				D86CE4811F92BC6E004A09EF /* home@2x.png */,
+				D8AF9EAE2025A829002264D1 /* info.png */,
+				D8AF9EAF2025A829002264D1 /* info@2x.png */,
+				D8D66D472022FBC400CBF3D7 /* information.png */,
+				D8D66D462022FBC300CBF3D7 /* information@2x.png */,
 				D8BC08451F6A541200B284EE /* lessthan.png */,
 				D8BC08491F6A542700B284EE /* lessthan@2x.png */,
+				D8D1BB011FF8637C00AD71E3 /* Logo.png */,
+				D8D1BB021FF8637C00AD71E3 /* Logo@2x.png */,
 				D86CE47B1F92BC6C004A09EF /* map.png */,
 				D86CE47C1F92BC6D004A09EF /* map@2x.png */,
 				D8B94D9A1F5F30CD00D373EF /* menu.png */,
@@ -1149,13 +1181,20 @@
 				D8B73C2E1F97F4D8000C231E /* possumMaster@2x.png */,
 				D8083D2A1FE6129A00D1C5F1 /* rip.png */,
 				D8083D271FE6129A00D1C5F1 /* rip@2x.png */,
+				D8AB9ADE201DB39E00FBEF55 /* RouteImage1.png */,
 				D86CE47D1F92BC6D004A09EF /* settings.png */,
 				D86CE4801F92BC6E004A09EF /* settings@2x.png */,
 				D81431981F8CBD5E00EAF5FD /* show.png */,
 				D81431991F8CBD5E00EAF5FD /* show@2x.png */,
 				D86CE47E1F92BC6D004A09EF /* sync.png */,
 				D86CE47F1F92BC6E004A09EF /* sync@2x.png */,
+				D8DBE3D41FF37F0900AA6482 /* timms.png */,
+				D8DBE3D31FF37F0900AA6482 /* timms@2x.png */,
+				D8D1BB051FF8653500AD71E3 /* tree.png */,
+				D8D1BB061FF8653500AD71E3 /* tree@2x.png */,
 				D8503DD71F67AF7800ED0C84 /* user.png */,
+				D84C246A2005DAB7000BCAF8 /* walker.png */,
+				D84C24692005DAB6000BCAF8 /* walker@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1333,6 +1372,7 @@
 				D8B73C311F97F4D8000C231E /* possumMaster.png in Resources */,
 				D84C245A1FFF2F49000BCAF8 /* expand.png in Resources */,
 				D8C8A1EA1FCBA6EC0075E44E /* VisitSummaryTableViewCell.xib in Resources */,
+				D8D66D482022FBC400CBF3D7 /* information@2x.png in Resources */,
 				D8FA5CF51F8406D600EC890C /* close.png in Resources */,
 				D8B94D631F5EA1FE00D373EF /* LaunchScreen.storyboard in Resources */,
 				D86CE4841F92BC6F004A09EF /* map@2x.png in Resources */,
@@ -1347,8 +1387,11 @@
 				D89714C01F7A0C5D00E846B9 /* ImageCollectionViewCell.xib in Resources */,
 				D84C245B1FFF2F49000BCAF8 /* expand@2x.png in Resources */,
 				D84C246C2005DAB7000BCAF8 /* walker.png in Resources */,
+				D8D66D492022FBC400CBF3D7 /* information.png in Resources */,
+				D8AF9EB02025A829002264D1 /* info.png in Resources */,
 				D8D1BB081FF8653500AD71E3 /* tree@2x.png in Resources */,
 				D84CE45B1F987CC30000D422 /* pelifeed@2x.png in Resources */,
+				D8AF9EB32025BC67002264D1 /* RouteImage2.png in Resources */,
 				D8083D251FE5C24300D1C5F1 /* header_image.png in Resources */,
 				D84C24591FFF2F49000BCAF8 /* collapse.png in Resources */,
 				D8AB9AD6201A5E3C00FBEF55 /* visits_26_1_18.vis in Resources */,
@@ -1383,6 +1426,7 @@
 				D814319A1F8CBD5E00EAF5FD /* show.png in Resources */,
 				D86CE4831F92BC6F004A09EF /* map.png in Resources */,
 				D814319B1F8CBD5E00EAF5FD /* show@2x.png in Resources */,
+				D8AF9EB12025A829002264D1 /* info@2x.png in Resources */,
 				D8083D2D1FE6129A00D1C5F1 /* poison@2x.png in Resources */,
 				D84C24601FFF3AD8000BCAF8 /* edit.png in Resources */,
 				D86CE4861F92BC6F004A09EF /* sync.png in Resources */,
@@ -1581,6 +1625,7 @@
 				D81DAAF51F6865DB00C7C987 /* Trapline.swift in Sources */,
 				D81DAAF71F686EA800C7C987 /* ServiceFactory.swift in Sources */,
 				D8039E2F1FABF671006E394B /* RouterExtension.swift in Sources */,
+				D88BE09A202C547E00098DBE /* SavedImageServiceInterface.swift in Sources */,
 				D879269F1FB58FDE00240767 /* SectionStripView.swift in Sources */,
 				D8EA460720094B9F0032224E /* BarChartViewEx.swift in Sources */,
 				D80F7ECE1F6E79BF00814A52 /* TraplineServiceInterface.swift in Sources */,
@@ -1589,6 +1634,7 @@
 				D8D79AB11FC3F0CD008AC5C1 /* RouteView.swift in Sources */,
 				D8B94D591F5EA1FE00D373EF /* AppDelegate.swift in Sources */,
 				D89714C21F7A0E4700E846B9 /* ImageCollectionViewCell.swift in Sources */,
+				D88BE098202C4DFF00098DBE /* SavedImage.swift in Sources */,
 				D80B6DCF1F9F3DCD00F49E9E /* VisitLogRouter.swift in Sources */,
 				D8DBE3F11FF764C900AA6482 /* UIViewExtension.swift in Sources */,
 				D80268831FA1757400A1372F /* VisitDelegate.swift in Sources */,
@@ -1624,6 +1670,7 @@
 				D80B6DD01F9F3DCD00F49E9E /* VisitLogView.swift in Sources */,
 				D8EA46032009499B0032224E /* BarChartDelegate.swift in Sources */,
 				D8C8A1EE1FCCBA070075E44E /* TrapOperatingStatus.swift in Sources */,
+				D8BB6F4B202917A6008AB3A2 /* CameraHandler.swift in Sources */,
 				D8005733201528C60084E950 /* StationMarkerAnnotationView.swift in Sources */,
 				D8039E251FABF458006E394B /* ListPickerDisplayData.swift in Sources */,
 				D81DAAF11F68652E00C7C987 /* Trap.swift in Sources */,
@@ -1644,6 +1691,7 @@
 				D87926981FB556B800240767 /* RouteCollectionViewCell.swift in Sources */,
 				D820AE0B20228889008925E8 /* VisitHistoryPresenter.swift in Sources */,
 				D8083D171FE498F900D1C5F1 /* SettingsModuleApi.swift in Sources */,
+				D8BB6F4D20291E9E008AB3A2 /* UIImageViewExtension.swift in Sources */,
 				D820AE0C20228889008925E8 /* VisitHistoryRouter.swift in Sources */,
 				D84C24541FFDFF30000BCAF8 /* StationDotAnnotationView.swift in Sources */,
 				D82A53E21FEF02CD000D9339 /* TrapService.swift in Sources */,
@@ -1716,11 +1764,13 @@
 				D8BC084F1F6B143800B284EE /* TrapType.swift in Sources */,
 				D81431A41F8DDB2600EAF5FD /* DatePickerModuleApi.swift in Sources */,
 				D857B3AB1F81B86A006E1402 /* VisitView.swift in Sources */,
+				D88BE09C202C54C700098DBE /* SavedImageService.swift in Sources */,
 				D89312011F834F6F008DF09D /* StationSelectModuleApi.swift in Sources */,
 				D8DBE3E31FF4FC1900AA6482 /* MapView.swift in Sources */,
 				D89714A41F76197D00E846B9 /* RealmService.swift in Sources */,
 				D841CF261F8239CA004D0207 /* TraplineSelectDisplayData.swift in Sources */,
 				D8503DC41F66807C00ED0C84 /* VisitInteractor.swift in Sources */,
+				D8AF9EB92026B261002264D1 /* VisitSyncService.swift in Sources */,
 				D820AE0A20228889008925E8 /* VisitHistoryDisplayData.swift in Sources */,
 				D8DBE3E21FF4FC1900AA6482 /* MapInteractor.swift in Sources */,
 				D80F7ED91F6E92C700814A52 /* TrapServiceInterface.swift in Sources */,
@@ -1739,12 +1789,14 @@
 				D820AE0D20228889008925E8 /* VisitHistoryModuleApi.swift in Sources */,
 				D841CF281F8239CA004D0207 /* TraplineSelectModuleApi.swift in Sources */,
 				D849B6221F96C91100CE2085 /* RouteService.swift in Sources */,
+				D8AF9EB72026B0DE002264D1 /* VisitSyncServiceInterface.swift in Sources */,
 				D8D66D452022CDA400CBF3D7 /* ViewHistorySetupData.swift in Sources */,
 				D8D79AB81FC52370008AC5C1 /* RLMResults.swift in Sources */,
 				D82A53E81FF0DE11000D9339 /* HtmlServiceInterface.swift in Sources */,
 				D8D1A0471FAF16B000926CEF /* LookupObject.swift in Sources */,
 				D8953EBE1F88114F00A1F424 /* NewVisitModuleApi.swift in Sources */,
 				D88DFE4F1FFABCD00048CA54 /* RouteDashboardModuleApi.swift in Sources */,
+				D8AF9EB52026B058002264D1 /* VisitSync.swift in Sources */,
 				D81431A51F8DDB2600EAF5FD /* DatePickerPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1843,6 +1895,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -1892,6 +1945,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
