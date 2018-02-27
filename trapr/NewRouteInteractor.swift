@@ -15,6 +15,11 @@ final class NewRouteInteractor: Interactor {
 
 // MARK: - NewRouteInteractor API
 extension NewRouteInteractor: NewRouteInteractorApi {
+    
+    	func retrieveTraplines() {
+        let traplines = ServiceFactory.sharedInstance.traplineService.getTraplines()
+        presenter.didFetchTraplines(traplines: traplines ?? [Trapline]())
+    }
 }
 
 // MARK: - Interactor Viper Components Api

@@ -18,6 +18,7 @@ enum AnnotationStyle {
 enum MapMenuItems: String {
     case showAll = "Show all stations"
     case showHighlighted = "Show route stations only"
+    case listMissing = "List Missing"
 }
 
 // MARK: - MapPresenter Class
@@ -93,6 +94,9 @@ extension MapPresenter: MapPresenterApi {
         } else {
             options = [OptionItem(title: MapMenuItems.showHighlighted.rawValue, isEnabled: true)]
         }
+        
+        options.append(OptionItem(title: MapMenuItems.listMissing.rawValue, isEnabled: true))
+        
         view.displayMenuOptions(options: options)
     }
     
@@ -104,6 +108,11 @@ extension MapPresenter: MapPresenterApi {
         if title == MapMenuItems.showHighlighted.rawValue {
             view.showOnlyHighlighted()
             showingHighlightedOnly = true
+        }
+        
+        if title == MapMenuItems.listMissing.rawValue {
+            let missing = ServiceFactory.sharedInstance.stationService.getMissingStations()
+            print(missing)
         }
     }
 }

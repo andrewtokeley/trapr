@@ -23,13 +23,24 @@ protocol RouteDashboardRouterApi: RouterProtocol {
 //MARK: - RouteDashboardView API
 protocol RouteDashboardViewApi: class, UserInterfaceProtocol {
     func displayTitle(_ title: String, editable: Bool)
+    
+    // Editing options
+    
+    func setTitleOfSelectAllStations(title: String)
+    func showEditStationOptions(_ show: Bool)
+    func showEditOrderOptions(_ show: Bool)
+    func enableSelectAllStationsButton(_ enable: Bool)
+    func enableEditDone(_ enable: Bool)
+    func enableReverseOrder(_ enable: Bool)
+    
     func displayFullScreenMap()
     func displayCollapsedMap()
-    //func setAlphaEditDoneButton(_ alpha: CGFloat)
+    
     func setMapResizeIconState(state: ResizeState)
     
     func setVisibleRegionToHighlightedStations()
     func setVisibleRegionToCentreOfStations(distance: Double)
+    func setVisibleRegionToStation(station: Station, distance: Double)
     func setVisibleRegionToAllStations()
     
     func enableToggleHighlightMode(_ enable: Bool)
@@ -41,15 +52,9 @@ protocol RouteDashboardViewApi: class, UserInterfaceProtocol {
     func showEditNavigation(_ show: Bool)
     
     func showEditDescription(_ show: Bool, description: String?)
-    func showEditStationOptions(_ show: Bool)
-    func showEditOrderOptions(_ show: Bool)
-    var editDoneEnabled: Bool { get set }
-    var editReverseOrderEnabled: Bool { get set }
     
     func configureKillChart(catchSummary: StackCount)
     func configurePoisonChart(poisonSummary: StackCount)
-    func showKillChart(_ show: Bool)
-    func showPoisonChart(_ show: Bool)
 }
 
 //MARK: - RouteDashboardPresenter API
@@ -61,13 +66,13 @@ protocol RouteDashboardPresenterApi: PresenterProtocol {
     func didSelectEditDone()
     func didSelectEditCancel()
     func didUpdateRouteName(name: String?)
-    func didSelectResetStations()
-    func didSelectResetOrder()
+    //func didSelectResetStations()
+    //func didSelectResetOrder()
     func didSelectClearOrder()
     func didSelectReverseOrder()
     func didSelectResize()
     func didSelectHideRoute()
-
+    func didSelectToSelectAllStations()
 }
 
 //MARK: - RouteDashboardInteractor API
@@ -79,5 +84,6 @@ protocol RouteDashboardInteractorApi: InteractorProtocol {
     func killCounts(frequency: TimeFrequency, period: TimeFrequency, route: Route) -> StackCount?
     func poisonCounts(frequency: TimeFrequency, period: TimeFrequency, route: Route) -> StackCount?
     func visitsExistForRoute(route: Route) -> Bool
+    func getStationSequence(_ from: Station, _ to:Station) -> [Station]?
     //func killCounts(monthOffset: Int, route: Route) -> [Species: Int]
 }

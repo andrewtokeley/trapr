@@ -66,16 +66,15 @@ final class StartView: UserInterface { //, UICollectionViewDelegate, UICollectio
         let newRouteButton = UIButton()
         newRouteButton.setTitle("Create your first Route", for: .normal)
         newRouteButton.addTarget(self, action: #selector(newRouteButtonClick(sender:)), for: .touchUpInside)
-        
+        newRouteButton.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
         view.addSubview(noRouteLabel)
         view.addSubview(newRouteButton)
         
-        noRouteLabel.autoPin(toTopLayoutGuideOf: self, withInset: 150)
-        noRouteLabel.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
-        noRouteLabel.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
-        
         newRouteButton.autoPinEdge(.top, to: .bottom, of: noRouteLabel, withOffset: LayoutDimensions.spacingMargin)
         newRouteButton.autoAlignAxis(toSuperviewAxis: .vertical)
+        
+        // hide initially
+        view.alpha = 0
         
         return view
     }()
@@ -226,42 +225,22 @@ final class StartView: UserInterface { //, UICollectionViewDelegate, UICollectio
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.rightBarButtonItem = self.editButton
         self.navigationItem.leftBarButtonItem = self.menuButtonItem
-        //self.view.addSubview(routesCollectionView)
+      
         self.view.addSubview(routesTableView)
-        
-//        self.view.addSubview(routesSection)
-//        self.view.addSubview(recentVisitsTableView)
-//        self.view.addSubview(recentVisitsSection)
         self.view.addSubview(noRoutesView)
         
         self.setConstraints()
     }
     
     func setConstraints() {
-        
-//        self.routesSection.autoPin(toTopLayoutGuideOf: self, withInset: LayoutDimensions.smallSpacingMargin)
-//        self.routesSection.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
-//        self.routesSection.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
-//        self.routesSection.autoSetDimension(.height, toSize: 40)
-
-//        routesCollectionView.autoPinEdge(.top, to: .bottom, of: routesSection, withOffset: LayoutDimensions.smallSpacingMargin)
-//        routesCollectionView.autoPinEdge(toSuperviewEdge: .left, withInset: -LayoutDimensions.smallSpacingMargin)
-//        routesCollectionView.autoPinEdge(toSuperviewEdge: .right, withInset: -LayoutDimensions.smallSpacingMargin)
-//        routesCollectionView.autoSetDimension(.height, toSize: 120)
-        
-//        self.recentVisitsSection.autoPinEdge(.top, to: .bottom, of: routesCollectionView, withOffset: LayoutDimensions.smallSpacingMargin)
-//        self.recentVisitsSection.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
-//        self.recentVisitsSection.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
-//        self.recentVisitsSection.autoSetDimension(.height, toSize: 40)
-//
-//        self.recentVisitsTableView.autoPinEdge(.top, to: .bottom, of: self.recentVisitsSection, withOffset: 0)
-//        self.recentVisitsTableView.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.smallSpacingMargin)
-//        self.recentVisitsTableView.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.smallSpacingMargin)
-//        self.recentVisitsTableView.autoPinEdge(toSuperviewEdge: .bottom, withInset: 0)
 
         self.routesTableView.autoPinEdgesToSuperviewEdges()
         
         self.noRoutesView.autoPinEdgesToSuperviewEdges()
+        
+        self.noRouteLabel.autoPin(toTopLayoutGuideOf: self, withInset: 150)
+        self.noRouteLabel.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
+        self.noRouteLabel.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
         
     }
 }
@@ -296,9 +275,6 @@ extension StartView: UITableViewDelegate, UITableViewDataSource {
                 cell.routeImageView.image = indexPath.row % 2 == 0 ? UIImage(named: "RouteImage1") : UIImage(named: "RouteImage2")
             }
             
-            // scale image
-            //cell.routeImageView.image = cell.routeImageView.image?.scaled(to: CGSize(width: self.view.bounds.width, height: 200), scalingMode: .aspectFit)
-            
             let lastVisitedText = NSMutableAttributedString(string: vm.lastVisitedText)
             lastVisitedText.addAttributes([.foregroundColor: UIColor.trpButtonEnabled], range: NSMakeRange(0, lastVisitedText.length - 1))
             
@@ -314,12 +290,6 @@ extension StartView: UITableViewDelegate, UITableViewDataSource {
         
        return cell
     }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if let vm = self.routeViewModels?[indexPath.row] {
-//            presenter.didSelectRoute(route: vm.route)
-//        }
-//    }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 347
@@ -377,54 +347,6 @@ extension StartView: SectionStripViewDelegate {
     }
 }
 
-//MARK: - RouteCollectionViewCellDelegate
-//extension StartView: RouteCollectionViewCellDelegate {
-//
-//    func routeCollectionViewCellVisitClicked(_ routeCollectionViewCell: RouteCollectionViewCell) {
-//        if let index = routesCollectionView.indexPath(for: routeCollectionViewCell)?.row {
-//            if let route = self.routes?[index] {
-//                presenter.didSelectNewVisit(route: route)
-//            }
-//        }
-//    }
-//
-//    func routeCollectionViewCellMenuClicked(_ routeCollectionViewCell: RouteCollectionViewCell) {
-//
-//        // make sure the presenter knows we're about to render the menu for the route
-//        if let index = routesCollectionView.indexPath(for: routeCollectionViewCell)?.row {
-//            presenter.didSelectRouteMenu(routeIndex: index)
-//        }
-//    }
-//
-//    func routeCollectionViewCell(numberOfActionsFor routeCollectionViewCell: RouteCollectionViewCell) -> Int {
-//
-//        // make sure the presenter knows we're about to render the menu for the route
-//        if let index = routesCollectionView.indexPath(for: routeCollectionViewCell)?.row {
-//            presenter.didSelectRouteMenu(routeIndex: index)
-//
-//            return self.routeMenuOptions!.count
-//        }
-//        return 0
-//    }
-//
-////    func routeCollectionViewCell(_ routeCollectionViewCell: RouteCollectionViewCell, didSelectActionWith title: String) {
-////        if let _ = self.routeMenuOptions {
-////            if let index = routesCollectionView.indexPath(for: routeCollectionViewCell)?.row {
-////                presenter.didSelectRouteMenuItem(routeIndex: index, menuItemIndex: self.routeMenuOptions!.index(of: title)!)
-////            }
-////        }
-////    }
-//
-//    func routeCollectionViewCell(_ routeCollectionViewCell: RouteCollectionViewCell, actionTextAt index: Int) -> String? {
-//        return self.routeMenuOptions?[index]
-//    }
-//
-//    func routeCollectionViewCell(hostingViewControllerFor routeCollectionViewCell: RouteCollectionViewCell) -> UIViewController {
-//        return self
-//    }
-//
-//}
-
 //MARK: - StartViewAPI
 extension StartView: StartViewApi {
     
@@ -446,18 +368,11 @@ extension StartView: StartViewApi {
     
     func displayRoutes(routeViewModels: [RouteViewModel]?) {
         self.routeViewModels = routeViewModels
-        //routesCollectionView.reloadData()
         routesTableView.reloadData()
     }
 
-//    func updateImageForRoute(route: Route, imageUrl: URL) {
-//        
-//        
-//    }
-    
     func displayRecentVisits(visits: [VisitSummary]?) {
         visitSummaries = visits
-        //recentVisitsTableView.reloadData()
     }
     
     func askForNewVisitDate(completion: (Date) -> Void) {
@@ -466,17 +381,10 @@ extension StartView: StartViewApi {
     
     func setTitle(title: String, routesSectionTitle: String, routeSectionActionText: String, recentVisitsSectionTitle: String, recentVisitsSectionActionText: String) {
         self.title = title
-//        self.routesSection.titleLabel.text = routesSectionTitle
-//        self.routesSection.actionButton.setTitle(routeSectionActionText, for: .normal)
-//
-//        self.recentVisitsSection.titleLabel.text = recentVisitsSectionTitle
-//        self.recentVisitsSection.actionButton.setTitle(recentVisitsSectionActionText, for: .normal)
     }
     
     func showNoRoutesLayout(show: Bool, message: String? = nil ) {
         noRoutesView.alpha = show ? 1 : 0
-//        recentVisitsSection.alpha = show ? 0 : 1
-//        routesSection.alpha = show ? 0 : 1
         noRouteLabel.text = message
     }
 }

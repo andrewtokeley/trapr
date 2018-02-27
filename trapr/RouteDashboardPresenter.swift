@@ -20,6 +20,7 @@ final class RouteDashboardPresenter: Presenter {
     var order: Int = 1
     var proposedStationOrder = ObjectOrder<Station>()
     var proposedStations = [Station]()
+    var previouslySelectedStation: Station?
     var zoomLevel: Double?
     var currentResizeButtonState: ResizeState = .collapse
     
@@ -39,7 +40,7 @@ final class RouteDashboardPresenter: Presenter {
     
     var route: Route!
     var allStations: [Station]!
-    var highlightedStations: [Station]?
+    //var highlightedStations: [Station]?
     
     override func setupView(data: Any) {
         
@@ -53,6 +54,7 @@ final class RouteDashboardPresenter: Presenter {
                 
                 isNewRoute = false
                 self.route = Route(value: route)
+                self.proposedStations = Array(route.stations)
                 view.displayTitle(self.route.name ?? route.longDescription, editable: true)
                 view.showEditNavigation(false)
                 
@@ -63,10 +65,16 @@ final class RouteDashboardPresenter: Presenter {
                 isNewRoute = true
                 self.route = Route()
                 self.route.name = routeName
+                
+                if let initialStation = setupData.station {
+                    self.proposedStations = [initialStation]
+                    self.previouslySelectedStation = initialStation
+                }
                 view.displayTitle(routeName, editable: true)
                 
                 // start by showing the select station view
                 isEditingStations = true
+                updateButtonStates()
                 view.showEditNavigation(true)
                 
             }
@@ -75,24 +83,24 @@ final class RouteDashboardPresenter: Presenter {
             
             if let catchSummary = interactor.killCounts(frequency: .month, period: .year, route: self.route) {
                 if !catchSummary.isZero {
-                    view.showKillChart(true)
+                    //view.showKillChart(true)
                     view.configureKillChart(catchSummary: catchSummary)
                 } else {
-                    view.showKillChart(false)
+                    //view.showKillChart(false)
                 }
             } else {
-                view.showKillChart(false)
+                //view.showKillChart(false)
             }
             
             if let poisonSummary = interactor.poisonCounts(frequency: .month, period: .year, route: self.route) {
                 if !poisonSummary.isZero {
-                    view.showPoisonChart(true)
+                    //view.showPoisonChart(true)
                     view.configurePoisonChart(poisonSummary: poisonSummary)
                 } else {
-                    view.showPoisonChart(false)
+                    //view.showPoisonChart(false)
                 }
             } else {
-                view.showPoisonChart(false)
+                //view.showPoisonChart(false)
             }
             
         }
@@ -116,13 +124,21 @@ final class RouteDashboardPresenter: Presenter {
         }
     }
     
+    /**
+    Add the map to the view - only called once
+    */
     fileprivate func displayMap() {
+        
         router.addMapAsChildView(containerView: view.getMapContainerView())
-        if isNewRoute {
+
+        if !isNewRoute && self.route.stations.count == 0 {
             view.setVisibleRegionToCentreOfStations(distance: 1000)
+//        } else if self.route.stations.count == 1 {
+//            view.setVisibleRegionToStation(station: self.route.stations.first!, distance: 150)
         } else {
             view.setVisibleRegionToHighlightedStations()
         }
+        
         self.currentResizeButtonState = .expand
         view.setMapResizeIconState(state: .expand)
     }
@@ -135,12 +151,63 @@ final class RouteDashboardPresenter: Presenter {
     
     fileprivate func updateButtonStates() {
         // don't enable Done until all the stations have been enabled
-        view.editDoneEnabled = self.proposedStationOrder.count == self.route.stations.count
-        view.editReverseOrderEnabled = self.proposedStationOrder.count == self.route.stations.count
+        if isEditingOrder {
+            view.enableEditDone(self.proposedStationOrder.count == self.route.stations.count)
+        } else if isEditingStations {
+            view.enableEditDone(self.proposedStations.count > 0)
+        }
+        view.enableReverseOrder(self.proposedStationOrder.count == self.route.stations.count)
+        
+        if self.proposedStations.count > 0 {
+            let traplinesDescription = ServiceFactory.sharedInstance.stationService.getDescription(stations: self.proposedStations, includeStationCodes: false)
+            let title = "Select All Stations on \(traplinesDescription)"
+            view.setTitleOfSelectAllStations(title: title)
+            view.enableSelectAllStationsButton(true)
+        } else {
+            view.setTitleOfSelectAllStations(title: "")
+            view.enableSelectAllStationsButton(false)
+        }
         
     }
     
-
+    private func switchFromEditToViewMode() {
+        
+        isEditingOrder = false
+        isEditingStations = false
+        
+        setTitle()
+        
+        view.showEditDescription(false, description: nil)
+        view.showEditOrderOptions(false)
+        view.showEditStationOptions(false)
+        view.showEditNavigation(false)
+        view.displayCollapsedMap()
+        view.reloadMap(forceAnnotationRebuild: true)
+        view.setMapResizeIconState(state: .expand)
+        //view.setVisibleRegionToCentreOfStations(distance: 500)
+        view.setVisibleRegionToHighlightedStations()
+    }
+    
+//    func setOrder(annotationView: StationAnnotationView) {
+//        
+//        if let annotation = (annotationView as? MKAnnotationView)?.annotation as? StationMapAnnotation {
+//            
+//            // Order not set yet
+//            if annotationView.innerText?.isEmpty ?? true {
+//                
+//                // mark this station as having the appropriate order. The add method is smart about where it positions the station, essentially filling in the gaps
+//                proposedStationOrder.add(annotation.station)
+//                
+//            } else {
+//                
+//                // Order has an ordering
+//                
+//                // remove this order from the station
+//                self.proposedStationOrder.remove(annotation.station)
+//            }
+//        }
+//        return order
+//    }
 }
 
 
@@ -153,56 +220,70 @@ extension RouteDashboardPresenter: StationMapDelegate {
     
     func stationMap(_ stationMap: StationMapViewController, didSelect annotationView: StationAnnotationView) {
       
-            if let annotation = (annotationView as? MKAnnotationView)?.annotation as? StationMapAnnotation {
-                
-                if isEditingOrder {
-                    
-                    if annotationView.innerText?.isEmpty ?? true {
-
-                        // mark this station as having the appropriate order
-                        let order = proposedStationOrder.add(annotation.station)
-                        annotationView.innerText = String(order + 1)
-                        
-                    } else {
-                        
-                        // if a user clickesd on a station that's already got an order number
-                        
-                        // remove this order from the station
-                        self.proposedStationOrder.remove(annotation.station)
-                        
-                        // clear it out
-                        annotationView.innerText = nil
-                        
-                    }
-                    
-                    updateButtonStates()
-                }
-                
-                if isEditingStations {
-                    
-                    // If unselecting a station...
-                    if annotationView.color == UIColor.trpMapHighlightedStation {
-                        
-                        if let index = self.proposedStations.index(of: annotation.station) {
-                            self.proposedStations.remove(at: index)
-                        }
-                        
-                        //self.route = interactor.removeStationFromRoute(route: self.route, station: annotation.station)
-                        
-                    }
-                    
-                    // if selecting a station
-                    if annotationView.color == UIColor.trpMapDefaultStation {
-                    
-                        // insert it in right right place
-                        self.proposedStations.append(annotation.station)
-                        //self.route = interactor.addStationToRoute(route: self.route, station: annotation.station)
-                    }
-                    
-                    // change the color
-                    annotationView.color = annotationView.color == UIColor.trpMapDefaultStation ? UIColor.trpMapHighlightedStation : UIColor.trpMapDefaultStation
-                }
+        if let annotation = (annotationView as? MKAnnotationView)?.annotation as? StationMapAnnotation {
             
+            if isEditingOrder {
+                
+                // Order not set yet
+                if annotationView.innerText?.isEmpty ?? true {
+                    
+                    // mark this station as having the appropriate order. The add method is smart about where it positions the station, essentially filling in the gaps
+                    let _ = proposedStationOrder.add(annotation.station)
+                    
+                } else {
+                    
+                    // Order has an ordering
+                    
+                    // remove this order from the station
+                    self.proposedStationOrder.remove(annotation.station)
+                }
+            }
+            
+            if isEditingStations {
+                
+                // If unselecting a station...
+                if annotationView.color == UIColor.trpMapHighlightedStation {
+                    
+                    if let index = self.proposedStations.index(of: annotation.station) {
+                        self.proposedStations.remove(at: index)
+                    }
+                }
+                
+                // if selecting a station
+                if annotationView.color == UIColor.trpMapDefaultStation {
+                    
+                    var addedSequence = false
+                    
+                    if self.previouslySelectedStation != nil {
+                        // find out if there are stations in between that can be filled in
+                        if let sequence = interactor.getStationSequence(self.previouslySelectedStation!, annotation.station) {
+                            
+                            for station in sequence {
+                                // don't add the first as it has already been added
+                                if station != sequence.first {
+                                    self.proposedStations.append(station)
+                                }
+                            }
+                            
+                            addedSequence = true
+                        }
+                    }
+                    
+                    // if we didn't add a sequence of stations just add the one that was selected
+                    if !addedSequence {
+                        self.proposedStations.append(annotation.station)
+                    }
+                }
+            }
+            
+            // redraw annotation colours and inner text
+            view.reapplyStylingToAnnotationViews()
+            
+            // update button states
+            self.updateButtonStates()
+            
+            // remember what this station was for the next time
+            self.previouslySelectedStation = annotation.station
         }
     }
     
@@ -233,7 +314,8 @@ extension RouteDashboardPresenter: StationMapDelegate {
     }
     
     func stationMap(_ stationMap: StationMapViewController, isHighlighted station: Station) -> Bool {
-        return self.route.stations.contains(station)
+        //return self.route.stations.contains(station) || self.proposedStations.contains(station)
+        return self.proposedStations.contains(station)
     }
 
     func stationMap(_ stationMap: StationMapViewController, textForStation station: Station) -> String? {
@@ -303,19 +385,19 @@ extension RouteDashboardPresenter: StationMapDelegate {
 // MARK: - RouteDashboardPresenter API
 extension RouteDashboardPresenter: RouteDashboardPresenterApi {
     
-    func didSelectResetOrder() {
-        if let stations = self.route?.stations {
-            self.proposedStationOrder = ObjectOrder(objects: Array(stations))
-        }
-        view.reapplyStylingToAnnotationViews()
-        updateButtonStates()
-    }
+//    func didSelectResetOrder() {
+//        if let stations = self.route?.stations {
+//            self.proposedStationOrder = ObjectOrder(objects: Array(stations))
+//        }
+//        view.reapplyStylingToAnnotationViews()
+//        updateButtonStates()
+//    }
     
     func didSelectClearOrder() {
         
         self.proposedStationOrder.removeAll()
         
-        // a little hacky!
+        // a little hacky to ensure no number appears in the marker
         self.clearInnerText = true
         view.reapplyStylingToAnnotationViews()
         self.clearInnerText = false
@@ -328,14 +410,14 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
         view.reapplyStylingToAnnotationViews()
     }
     
-    func didSelectResetStations() {
-        if let stations = self.route?.stations {
-            self.proposedStations = Array(stations)
-        }
-        view.reapplyStylingToAnnotationViews()
-        
-        updateButtonStates()
-    }
+//    func didSelectResetStations() {
+//        if let stations = self.route?.stations {
+//            self.proposedStations = Array(stations)
+//        }
+//        view.reapplyStylingToAnnotationViews()
+//        
+//        updateButtonStates()
+//    }
     
     func didUpdateRouteName(name: String?) {
         self.route.name = name
@@ -343,7 +425,12 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
     }
     
     func didSelectClose() {
-        _view.dismiss(animated: true, completion: nil)
+        if isEditing {
+            // this is essentially a Cancel action on the edit view
+            self.switchFromEditToViewMode()
+        } else {
+            _view.dismiss(animated: true, completion: nil)
+        }
     }
     
     func didSelectEditMenu() {
@@ -362,6 +449,24 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
             else if title == "Hide" { self.didSelectHideRoute() }
             else if title == "Delete" { self.didSelectDeleteRoute() }
         })
+    }
+    
+    func didSelectToSelectAllStations() {
+        let service = ServiceFactory.sharedInstance.stationService
+        
+        for trapline in service.getTraplines(from: self.proposedStations) {
+            
+            for station in trapline.stations {
+                
+                // add the station to the route
+                if !self.proposedStations.contains(station) {
+                    self.proposedStations.append(station)
+                }
+                
+            }
+        }
+        view.reapplyStylingToAnnotationViews()
+        view.setVisibleRegionToHighlightedStations()
     }
     
     func didSelectDeleteRoute() {
@@ -393,7 +498,11 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
     func didSelectEditStations() {
         
         view.displayTitle("Select Stations", editable: false)
-        self.proposedStations = Array(self.route.stations)
+        
+        // for new Routes we will have set a proposed first station already
+        if !isNewRoute {
+            self.proposedStations = Array(self.route.stations)
+        }
         
         isEditingStations = true
         isEditingOrder = false
@@ -431,30 +540,18 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
     
     func didSelectEditDone() {
 
-        view.showEditDescription(false, description: nil)
-        
         // save changes
         if isEditingOrder {
             
             self.route = ServiceFactory.sharedInstance.routeService.replaceStationsOn(route: self.route, withStations: self.proposedStationOrder.orderedObjects)
-            view.showEditOrderOptions(false)
         } else if isEditingStations {
            
             self.route = ServiceFactory.sharedInstance.routeService.replaceStationsOn(route: self.route, withStations: self.proposedStations)
-            view.showEditStationOptions(false)
         }
         
         saveRoute()
         
-        isEditingOrder = false
-        isEditingStations = false
-        setTitle()
-        
-        view.showEditNavigation(false)
-        view.displayCollapsedMap()
-        view.reloadMap(forceAnnotationRebuild: true)
-        view.setMapResizeIconState(state: .expand)
-        view.setVisibleRegionToCentreOfStations(distance: 500)
+        self.switchFromEditToViewMode()
     }
     
     func didSelectResize() {
@@ -476,7 +573,8 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
     func didSelectEditCancel() {
         
         if isNewRoute {
-            _view.dismiss(animated: true, completion: nil)
+            //_view.dismiss(animated: true, completion: nil)
+            _view.navigationController?.popViewController(animated: true)
         } else {
             view.showEditDescription(false, description: nil)
             view.showEditStationOptions(false)

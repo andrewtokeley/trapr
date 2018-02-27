@@ -28,6 +28,16 @@ class Station: Object {
     @objc dynamic var code: String?
     
     /**
+    Returns the station code as a number. If the station code contains non-numerics then nil is returned.
+    */
+    var codeAsNumber: Int? {
+        if let _ = code {
+            return Int(code!)
+        }
+        return nil
+    }
+    
+    /**
      Read only, fully qualified station code, that is prefixed with the trapline code. e.g. LW01
      */
     var longCode: String {
@@ -77,7 +87,7 @@ class Station: Object {
     }
     
     static func == (left: Station, right: Station) -> Bool {
-        return left.code == right.code
+        return left.id == right.id
     }
     
     

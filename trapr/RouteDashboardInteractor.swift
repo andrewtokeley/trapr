@@ -17,6 +17,10 @@ final class RouteDashboardInteractor: Interactor {
 // MARK: - RouteDashboardInteractor API
 extension RouteDashboardInteractor: RouteDashboardInteractorApi {
     
+    func getStationSequence(_ from: Station, _ to:Station) -> [Station]? {
+        return ServiceFactory.sharedInstance.stationService.getStationSequence(from, to)
+    }
+    
     func killCounts(frequency: TimeFrequency, period: TimeFrequency, route: Route) -> StackCount? {
         
         // TODO: ignoring frequency/period for now, support quarterly charts perhaps?

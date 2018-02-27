@@ -26,6 +26,71 @@ class StationTests: XCTestCase {
         super.tearDown()
     }
     
+    func testMissingStations() {
+        let trapline = Trapline()
+        trapline.code = "LW"
+        ServiceFactory.sharedInstance.traplineService.add(trapline: trapline)
+        
+        // unordered, with gaps
+        let stationCodes = ["08", "01", "02", "04", "05"]
+        for code in stationCodes {
+            let station = Station(code: code)
+            ServiceFactory.sharedInstance.traplineService.addStation(trapline: trapline, station: station)
+        }
+        
+        let missing = ServiceFactory.sharedInstance.stationService.getMissingStations()
+        
+        XCTAssertTrue(missing.count == 3)
+        XCTAssertTrue(missing[0] == "LW03")
+        XCTAssertTrue(missing[1] == "LW06")
+        XCTAssertTrue(missing[2] == "LW07")
+        
+    }
+    
+    func testStationSequenceForward() {
+        let trapline = ServiceFactory.sharedInstance.dataPopulatorService.createTrapline(code: "LW", numberOfStations: 10)
+        
+        if let sequence = ServiceFactory.sharedInstance.stationService.getStationSequence(trapline.stations.first!, trapline.stations.last!) {
+        
+            XCTAssertTrue(sequence.count == trapline.stations.count)
+            XCTAssertTrue(sequence.first == trapline.stations.first)
+            XCTAssertTrue(sequence.last == trapline.stations.last)
+            
+        } else {
+            
+            XCTFail()
+        }
+    }
+    
+    func testStationSequenceBackwards() {
+        let trapline = ServiceFactory.sharedInstance.dataPopulatorService.createTrapline(code: "LW", numberOfStations: 10)
+        
+        if let sequence = ServiceFactory.sharedInstance.stationService.getStationSequence(trapline.stations.last!, trapline.stations.first!) {
+            
+            XCTAssertTrue(sequence.count == trapline.stations.count)
+            XCTAssertTrue(sequence.first == trapline.stations.last)
+            XCTAssertTrue(sequence.last == trapline.stations.first)
+            
+        } else {
+            
+            XCTFail()
+        }
+    }
+    
+    func testStationSequencePartial() {
+        let trapline = ServiceFactory.sharedInstance.dataPopulatorService.createTrapline(code: "LW", numberOfStations: 10)
+        
+        if let sequence = ServiceFactory.sharedInstance.stationService.getStationSequence(trapline.stations[3], trapline.stations[6]) {
+            
+            XCTAssertTrue(sequence.count == 4) // 3rd,4th,5th and 6th stations
+            XCTAssertTrue(sequence.first == trapline.stations[3])
+            XCTAssertTrue(sequence.last == trapline.stations[6])
+            
+        } else {
+            
+            XCTFail()
+        }
+    }
     func testIsCentralStation() {
         let trapline10 = ServiceFactory.sharedInstance.dataPopulatorService.createTrapline(code: "LW", numberOfStations: 10)
         let trapline9 = ServiceFactory.sharedInstance.dataPopulatorService.createTrapline(code: "AA", numberOfStations: 9)

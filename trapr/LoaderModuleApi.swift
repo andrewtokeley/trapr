@@ -28,5 +28,6 @@ protocol LoaderPresenterApi: PresenterProtocol {
 
 //MARK: - LoaderInteractor API
 protocol LoaderInteractorApi: InteractorProtocol {
-    func checkForUpdates()
+    func needsDataUpdate() -> Bool
+    func checkForDataUpdates()
 }

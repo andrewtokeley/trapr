@@ -16,25 +16,32 @@ final class LoaderInteractor: Interactor {
 // MARK: - LoaderInteractor API
 extension LoaderInteractor: LoaderInteractorApi {
     
-    func checkForUpdates() {
-
-        // if this is the first time the app is being used then there will be no traplines...
-        if let _ = ServiceFactory.sharedInstance.traplineService.getTraplines()?.count {
-            
-            // let the presenter know we're all good
-            self.presenter.importCompleted()
-            
-        } else {
-            
-            ServiceFactory.sharedInstance.dataPopulatorService.mergeWithV1Data(
-                progress: {
-                    (progress) in
-                    self.presenter.importProgressReceived(progress: progress)
-            }, completion: {
-                    (importSummary) in
-                    self.presenter.importCompleted()
-            })
-        }
+    /**
+    Determines whether the app data needs to be updated.
+    */
+    func needsDataUpdate() -> Bool {
+        
+        // for now we simply assume that if no traplines are present we need to update the app data
+        let traplines = ServiceFactory.sharedInstance.traplineService.getTraplines() ?? [Trapline]()
+        
+        // the only exception to this is if we're running in test mode. In this case don't suggest a data update
+        let runningInTestMode = !ServiceFactory.sharedInstance.runningInTestMode
+        
+        return traplines.count == 0 && !runningInTestMode
+    }
+    
+    /**
+    Checks for data updates. Note this does not check whether an update is required. Use needsDataUpdate for this purpose.
+     */
+    func checkForDataUpdates() {
+        ServiceFactory.sharedInstance.dataPopulatorService.mergeWithV1Data(
+            progress: {
+                (progress) in
+                self.presenter.importProgressReceived(progress: progress)
+        }, completion: {
+                (importSummary) in
+                self.presenter.importCompleted()
+        })
     }
 }
 

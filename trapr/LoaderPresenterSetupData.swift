@@ -9,5 +9,5 @@
 import Foundation
 
 class LoaderPresenterSetupData {
-    
+    var delegate: LoaderDelegate?
 }

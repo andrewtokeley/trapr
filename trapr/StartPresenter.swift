@@ -13,6 +13,8 @@ import Photos
 // MARK: - StartPresenter Class
 final class StartPresenter: Presenter {
     
+    fileprivate var showLoader: Bool = true
+    
     fileprivate var routeMenuOptions = [String]()
     fileprivate var routes: [Route]?
     fileprivate var routeViewModels = [RouteViewModel]()
@@ -22,27 +24,33 @@ final class StartPresenter: Presenter {
     fileprivate let ROUTE_MENU_MAP = 2
     fileprivate let ROUTE_MENU_DELETE = 3
     
-    open override func viewHasLoaded() {
-        router.showLoadingScreen()
+    override func setupView(data: Any) {
+        if let setup = data as? StartSetupData {
+            showLoader = setup.showLoader
+        }
     }
     
-    open override func viewIsAboutToAppear() {
-        
-            view.setTitle(title: "Trapr", routesSectionTitle: "ROUTES", routeSectionActionText: "NEW", recentVisitsSectionTitle: "VISITS", recentVisitsSectionActionText: "")
-            
+    override func viewHasLoaded() {
+        view.setTitle(title: "Trapr", routesSectionTitle: "ROUTES", routeSectionActionText: "NEW", recentVisitsSectionTitle: "VISITS", recentVisitsSectionActionText: "")
+    }
+    
+    override func viewIsAboutToAppear() {
+        if self.showLoader {
+            router.showLoadingScreen(delegate: self)
+            self.showLoader = false
+        } else {
             interactor.initialiseHomeModule()
+        }
     }
 }
 
-// MARK: - NewVisitDelegate
-//extension StartPresenter: NewVisitDelegate {
-//    func didSelectRoute(route: Route) {
-//
-//        let visitSummary = VisitSummary(dateOfVisit: Date(), route: route)
-//        router.showVisitModule(visitSummary: visitSummary)
-//
-//    }
-//}
+extension StartPresenter: LoaderDelegate {
+    
+    func loaderAboutToClose() {
+        // set up the view
+        interactor.initialiseHomeModule()
+    }
+}
 
 // MARK: - StartPresenter API
 extension StartPresenter: StartPresenterApi {
@@ -71,14 +79,6 @@ extension StartPresenter: StartPresenterApi {
                     }
             })
         }
-        
-//        // for now all routes have the same options
-//        routeMenuOptions.removeAll()
-//        routeMenuOptions.append("Edit")
-//        routeMenuOptions.append("Visit")
-//        routeMenuOptions.append("Map")
-//        routeMenuOptions.append("Delete")
-//        view.setRouteMenu(options: routeMenuOptions)
     }
 
     func didSelectRouteMenuItem(routeIndex: Int, menuItemIndex: Int) {
@@ -192,7 +192,7 @@ extension StartPresenter: StartPresenterApi {
         view.displayRoutes(routeViewModels: self.routeViewModels)
         
         if routes?.count ?? 0 == 0 {
-            view.showNoRoutesLayout(show: true, message: "Before you can record any visits, add the Route you want to visit.")
+            view.showNoRoutesLayout(show: true, message: "Before you get going, create a route to visit.")
         } else {
             view.showNoRoutesLayout(show: false, message: nil)
         }

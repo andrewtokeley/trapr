@@ -24,7 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  
         ServiceFactory.sharedInstance.dataPopulatorService.createOrUpdateLookupData()
         let module = AppModules.start.build()
-        module.router.show(inWindow: window, embedInNavController: true, setupData: nil, makeKeyAndVisible: true)
+        let setup = StartSetupData()
+        setup.showLoader = true
+        module.router.show(inWindow: window, embedInNavController: true, setupData: setup, makeKeyAndVisible: true)
         
         return true
     }

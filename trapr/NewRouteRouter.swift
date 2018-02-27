@@ -16,9 +16,15 @@ final class NewRouteRouter: Router {
 // MARK: - NewRouteRouter API
 extension NewRouteRouter: NewRouteRouterApi {
     
-    func showRouteDashboard(newRouteName: String) {
+    func showListPicker(setupData: ListPickerSetupData) {
+        let module = AppModules.listPicker.build()
+        module.router.show(from: _view, embedInNavController: setupData.embedInNavController, setupData: setupData)
+    }
+    
+    func showRouteDashboard(newRouteName: String, station: Station) {
         let setupData = RouteDashboardSetup()
         setupData.newRouteName = newRouteName
+        setupData.station = station
         let module = AppModules.routeDashboard.build()
         module.router.show(from: _view, embedInNavController: false, setupData: setupData)
     }

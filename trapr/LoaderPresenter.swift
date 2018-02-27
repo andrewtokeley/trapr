@@ -11,20 +11,34 @@ import Viperit
 
 // MARK: - LoaderPresenter Class
 final class LoaderPresenter: Presenter {
+
+    fileprivate var delegate: LoaderDelegate?
     
-//    override func setupView(data: Any) {
-//        if let setupData = data as? LoaderPresenterSetupData {
-//            
-//        }
-//    }
+    override func setupView(data: Any) {
+        if let setupData = data as? LoaderPresenterSetupData {
+            self.delegate = setupData.delegate
+        }
+    }
     
     override func viewHasAppeared() {
         
-        view.updateProgressMessage(message: "Just setting a few things up...")
-        
-        if !ServiceFactory.sharedInstance.runningInTestMode {
-            interactor.checkForUpdates()
+        if interactor.needsDataUpdate() {
+            view.updateProgressMessage(message: "Just setting a few things up...")
+            interactor.checkForDataUpdates()
+        } else {
+            fade()
         }
+    }
+    
+    fileprivate func fade() {
+        view.fade(completion: {
+            self._view.dismiss(animated: true, completion: {
+                
+                self.delegate?.loaderAboutToClose()
+                
+                self._view.dismiss(animated: true, completion: nil)
+            })
+        })
     }
 }
 
@@ -38,12 +52,7 @@ extension LoaderPresenter: LoaderPresenterApi {
     
     func importCompleted() {
         view.updateProgress(progress: 1)
-        view.fade(completion: {
-            self._view.dismiss(animated: true, completion: {
-                //self.router.showStartModule()
-                self._view.dismiss(animated: true, completion: nil)
-            })
-        })
+        fade()
     }
     
 }

@@ -49,6 +49,8 @@
 		D80B6DCF1F9F3DCD00F49E9E /* VisitLogRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B6DC91F9F3DCD00F49E9E /* VisitLogRouter.swift */; };
 		D80B6DD01F9F3DCD00F49E9E /* VisitLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B6DCA1F9F3DCD00F49E9E /* VisitLogView.swift */; };
 		D80BCD3D1F91D041005F30FF /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80BCD3C1F91D041005F30FF /* MenuItemView.swift */; };
+		D80C14FB202F8C10005EBD10 /* StartSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80C14FA202F8C10005EBD10 /* StartSetupData.swift */; };
+		D80C14FD202F9416005EBD10 /* LoaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80C14FC202F9416005EBD10 /* LoaderDelegate.swift */; };
 		D80F7ECE1F6E79BF00814A52 /* TraplineServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ECD1F6E79BF00814A52 /* TraplineServiceInterface.swift */; };
 		D80F7ED01F6E7A9300814A52 /* TraplineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ECF1F6E7A9300814A52 /* TraplineService.swift */; };
 		D80F7ED31F6E87D500814A52 /* DataPopulatorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ED21F6E87D500814A52 /* DataPopulatorService.swift */; };
@@ -364,6 +366,8 @@
 		D80B6DC91F9F3DCD00F49E9E /* VisitLogRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitLogRouter.swift; sourceTree = "<group>"; };
 		D80B6DCA1F9F3DCD00F49E9E /* VisitLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitLogView.swift; sourceTree = "<group>"; };
 		D80BCD3C1F91D041005F30FF /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
+		D80C14FA202F8C10005EBD10 /* StartSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSetupData.swift; sourceTree = "<group>"; };
+		D80C14FC202F9416005EBD10 /* LoaderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderDelegate.swift; sourceTree = "<group>"; };
 		D80F7ECD1F6E79BF00814A52 /* TraplineServiceInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraplineServiceInterface.swift; sourceTree = "<group>"; };
 		D80F7ECF1F6E7A9300814A52 /* TraplineService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraplineService.swift; sourceTree = "<group>"; };
 		D80F7ED21F6E87D500814A52 /* DataPopulatorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataPopulatorService.swift; sourceTree = "<group>"; };
@@ -772,6 +776,7 @@
 				D815D78E200CBA2A0086AFFE /* LoaderInteractor.swift */,
 				D815D78F200CBA2A0086AFFE /* LoaderView.swift */,
 				D815D796200CBC6F0086AFFE /* LoaderPresenterSetupData.swift */,
+				D80C14FC202F9416005EBD10 /* LoaderDelegate.swift */,
 			);
 			name = Loader;
 			sourceTree = "<group>";
@@ -836,6 +841,7 @@
 				D83DC6C41F7F841F00F91792 /* StartPresenter.swift */,
 				D83DC6C51F7F841F00F91792 /* StartRouter.swift */,
 				D83DC6C61F7F841F00F91792 /* StartView.swift */,
+				D80C14FA202F8C10005EBD10 /* StartSetupData.swift */,
 			);
 			name = Start;
 			sourceTree = "<group>";
@@ -1679,12 +1685,14 @@
 				D83D0B57200E8B70001E1F69 /* UIViewControllerExtension.swift in Sources */,
 				D8503DC81F66807C00ED0C84 /* VisitPresenter.swift in Sources */,
 				D8083D341FE994B400D1C5F1 /* StatisticView.swift in Sources */,
+				D80C14FB202F8C10005EBD10 /* StartSetupData.swift in Sources */,
 				D88DFE501FFABCD00048CA54 /* RouteDashboardInteractor.swift in Sources */,
 				D841CF271F8239CA004D0207 /* TraplineSelectInteractor.swift in Sources */,
 				D88DFE551FFAE95F0048CA54 /* StationAnnotationView.swift in Sources */,
 				D856F66D20111D3E00CA50C2 /* NewRouteDisplayData.swift in Sources */,
 				D8953EBD1F88114F00A1F424 /* NewVisitInteractor.swift in Sources */,
 				D8039E261FABF458006E394B /* ListPickerInteractor.swift in Sources */,
+				D80C14FD202F9416005EBD10 /* LoaderDelegate.swift in Sources */,
 				D856F67020111D3E00CA50C2 /* NewRouteModuleApi.swift in Sources */,
 				D815D792200CBA2A0086AFFE /* LoaderRouter.swift in Sources */,
 				D8DE38081FFCC8BC00707A7D /* StationMapDelegate.swift in Sources */,

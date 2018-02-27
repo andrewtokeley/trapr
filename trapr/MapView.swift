@@ -89,6 +89,10 @@ extension MapView: MapViewApi {
         mapViewController?.setVisibleRegionToAllStations()
     }
     
+    func setVisibleRegionToStation(station: Station, distance: CLLocationDistance) {
+        mapViewController?.setVisibleRegionToStation(station: station, distance: distance)
+    }
+    
     func showOnlyHighlighted() {
         //mapViewController?.showOnlyHighlighted()
     }
@@ -96,10 +100,6 @@ extension MapView: MapViewApi {
     func showAll() {
         //mapViewController?.showAll()
     }
-    
-//    func setTitle(title: String) {
-//        self.title = title
-//    }
     
     func reapplyStylingToAnnotationViews() {
         mapViewController?.reapplyStylingToAnnotationViews()

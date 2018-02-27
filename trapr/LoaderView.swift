@@ -29,6 +29,7 @@ final class LoaderView: UserInterface {
         let progressBar = UIProgressView(progressViewStyle: .default)
         progressBar.trackTintColor = UIColor.trpProgressBarBackground
         progressBar.progressTintColor = UIColor.trpProgressBarForeground
+        progressBar.alpha = 0
         return progressBar
     }()
     
@@ -36,6 +37,7 @@ final class LoaderView: UserInterface {
         let progressMessage = UILabel()
         progressMessage.textColor = UIColor.white
         progressMessage.font = UIFont.trpLabelSmall
+        progressMessage.alpha = 0
         return progressMessage
     }()
     
@@ -92,6 +94,9 @@ extension LoaderView: LoaderViewApi {
     }
     
     func updateProgressMessage(message: String?) {
+        if self.progressMessage.alpha == 0 {
+            self.progressMessage.alpha = 1
+        }
         self.progressMessage.text = message
     }
 }

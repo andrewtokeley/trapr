@@ -43,7 +43,7 @@ class StationMapAnnotation: NSObject, MKAnnotation {
         self.innerText = innerText
         self.title = titleText
         self.coordinate = CLLocationCoordinate2D(latitude: station.latitude, longitude: station.longitude)
-        
+        print("\(station.latitude),\(station.longitude)")
         // not used at the moment
         self.subtitle = nil
         

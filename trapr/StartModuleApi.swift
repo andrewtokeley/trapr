@@ -19,7 +19,7 @@ protocol StartRouterApi: RouterProtocol {
     func showRouteDashboardModule(route: Route?)
     func showSideMenu()
     func showProfile()
-    func showLoadingScreen()
+    func showLoadingScreen(delegate: LoaderDelegate)
 }
 
 //MARK: - StartView API

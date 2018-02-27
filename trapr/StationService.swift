@@ -14,6 +14,48 @@ class StationService: RealmService, StationServiceInterface {
         return Array(realm.objects(Station.self))
     }
     
+    func getMissingStations() -> [String] {
+        var missingStations = [String]()
+        let traplines = getTraplines(from: getAll())
+        for trapline in traplines {
+            let stations = Array(trapline.stations).sorted(by: { ($0.codeAsNumber ?? 0) < ($1.codeAsNumber ?? 0) }, stable: true)
+            if stations.count > 0 {
+                if let firstStationCode = Int(stations.first!.code!), let lastStationCode = Int(stations.last!.code!) {
+                    
+                    // we expect to find all the stations between these codes
+                    for code in firstStationCode...lastStationCode {
+                        if stations.first(where: {Int($0.code!) == code}) == nil {
+                            missingStations.append(trapline.code! + String(format: "%02d", code))
+                        }
+                    }
+                }
+            }
+        }
+        return missingStations
+        
+    }
+    
+    func getStationSequence(_ from: Station, _ to:Station) -> [Station]? {
+        guard from.trapline != nil && to.trapline != nil else { return nil }
+        
+        // are the stations on the same line?
+        if from.trapline == to.trapline {
+            let stations = Array(from.trapline!.stations)
+            if let fromIndex = stations.index(of: from), let toIndex = stations.index(of: to) {
+                
+                var sequence = [Station]()
+                var index = fromIndex
+                for i in 0...abs(fromIndex-toIndex) {
+                    index = fromIndex + i * (fromIndex < toIndex ? 1 : -1)
+                    sequence.append(stations[index])
+                }
+                
+                return sequence
+            }
+        }
+        return nil
+    }
+    
     func isStationCentral(station: Station) -> Bool {
         
         

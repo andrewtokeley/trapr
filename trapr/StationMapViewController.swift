@@ -142,22 +142,33 @@ class StationMapViewController: UIViewController {
     }
     
     private var highlightedMapAnnotations: [StationMapAnnotation] {
+        var stations = [StationMapAnnotation]()
         
-        // find the highlighted annotations
-        var annotations = [StationMapAnnotation]()
-        if let stations = delegate?.stationMapStations(self) {
-            for station in stations {
-                if let annotation = self.stationMapAnnotations.first(where: { $0.station.code == station.code }) {
-                    annotations.append(annotation)
-                }
+        for annotation in self.stationMapAnnotations {
+            if delegate!.stationMap(self, isHighlighted: annotation.station) {
+                stations.append(annotation)
             }
         }
-        return annotations
+        return stations
     }
+    
+//    {
+//
+//        // find the highlighted annotations
+//        var annotations = [StationMapAnnotation]()
+//        if let stations = delegate?.stationMapStations(self) {
+//            for station in stations {
+//                if let annotation = self.stationMapAnnotations.first(where: { $0.station.code == station.code }) {
+//                    annotations.append(annotation)
+//                }
+//            }
+//        }
+//        return annotations
+//    }
     
     func setVisibleRegionToHighlightedStations() {
         guard delegate != nil else { return }
-        
+                        
         map.showAnnotations(self.highlightedMapAnnotations, animated: true)
     }
     
@@ -167,48 +178,35 @@ class StationMapViewController: UIViewController {
     }
     
     func setVisibleRegionToCentreOfStations(distance: Double) {
-        
+
         // ahem, the "centre"
         if self.stationMapAnnotations.count > 0 {
-            let centre = self.stationMapAnnotations[Int(self.stationMapAnnotations.count/2)].coordinate
-            let region = MKCoordinateRegionMakeWithDistance(centre, distance, distance)
+            let centre = self.stationMapAnnotations[Int(self.stationMapAnnotations.count/2)]
+            setVisibleRegionToStation(station: centre.station, distance: distance)
+        }
+    }
+    
+//    func setVisibleRegionToCentreOfStations(distance: Double) {
+//
+//        // ahem, the "centre"
+//        if self.stationMapAnnotations.count > 0 {
+//            let centre = self.stationMapAnnotations[Int(self.stationMapAnnotations.count/2)]
+//            let region = MKCoordinateRegionMakeWithDistance(centre.coordinate, distance, distance)
+//            map.setRegion(region, animated: false)
+//        }
+//    }
+    
+    func setVisibleRegionToStation(station: Station, distance: Double) {
+        
+        // get annotation for this station
+        if let annotation = self.stationMapAnnotations.filter({ $0.station == station }).first {
+            print("zoom to \(annotation.station.longCode)")
+            let region = MKCoordinateRegionMakeWithDistance(annotation.coordinate, distance, distance)
             map.setRegion(region, animated: false)
         }
     }
     
     //MARK: - Private functions
-    
-    /**
-     Ensure that the
-    */
-//    fileprivate func thinAnnotations() {
-//
-//        let visibleAnnotations = map.annotations(in: map.visibleMapRect)
-//        var take: Int = 0
-//        var every: Int = 1
-//
-//        if currentZoomLevel == .distant {
-//            take = 3
-//            every = 4
-//        } else if currentZoomLevel == .far {
-//            take = 1
-//            every = 3
-//        } else if currentZoomLevel == .close {
-//            take = 0
-//            every = 1
-//        }
-//
-//        var i = 0
-//        for annotation in visibleAnnotations {
-//            if let stationMapAnnotation = annotation as? StationMapAnnotation {
-//                let position = i % every
-//                let view = map.view(for: stationMapAnnotation)
-//                view?.alpha = position <= take ? 0 : 1
-//            }
-//            i += 1
-//        }
-//
-//    }
     
     /**
     Ask the delegate for the details for each station that will appear on the map (or be hidden)
@@ -227,8 +225,10 @@ class StationMapViewController: UIViewController {
             let innerText = delegate!.stationMap(self, innerTextForStation: station)
             let titleText = delegate!.stationMap(self, textForStation: station)
             let annotation = StationMapAnnotation(station: station, titleText: titleText, innerText: innerText)
-            
+        
             self.stationMapAnnotations.append(annotation)
+            
+            
         }
     }
 }

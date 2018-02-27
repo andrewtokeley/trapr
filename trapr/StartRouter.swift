@@ -62,12 +62,13 @@ extension StartRouter: StartRouterApi {
         module.router.show(from: _view, embedInNavController: true, setupData: delegate)
     }
     
-    func showLoadingScreen() {
+    func showLoadingScreen(delegate: LoaderDelegate) {
         let module = AppModules.loader.build()
         
-//        let setupData = SideMenuSetupData()
-//        setupData.delegate = self
-        module.router.showAsModalOverlay(from: _view, setupData: nil)
+        let setup = LoaderPresenterSetupData()
+        setup.delegate = delegate
+        
+        module.router.showAsModalOverlay(from: _view, setupData: setup)
         
         
     }

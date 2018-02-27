@@ -28,7 +28,7 @@
                             <action selector="routeNameButtonClicked:" destination="VNx-3y-vVV" eventType="touchUpInside" id="hAN-eA-1nU"/>
                         </connections>
                     </button>
-                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RouteImage1.png" translatesAutoresizingMaskIntoConstraints="NO" id="8Rp-mw-V45">
+                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8Rp-mw-V45">
                         <rect key="frame" x="0.0" y="57" width="552" height="200"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="5gb-4u-iX3"/>
@@ -109,6 +109,5 @@
     </objects>
     <resources>
         <image name="Clock2.png" width="32" height="32"/>
-        <image name="RouteImage1.png" width="1000" height="440"/>
     </resources>
 </document>
