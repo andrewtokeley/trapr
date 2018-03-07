@@ -23,6 +23,25 @@ final class RouteDashboardView: UserInterface {
     
     //MARK: - Subviews
     
+    lazy var scrollViewContentView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+
+        scrollView.addSubview(scrollViewContentView)
+        scrollView.contentSize = CGSize(width: 200, height: 400)
+        
+        scrollViewContentView.addSubview(barChartKills)
+        scrollViewContentView.addSubview(barChartKillsTitle)
+        scrollViewContentView.addSubview(barChartPoison)
+        scrollViewContentView.addSubview(barChartPoisonTitle)
+        
+        return scrollView
+    }()
+    
     lazy var barChartKillsTitle: UILabel = {
         let label = UILabel()
         label.text = "CATCH"
@@ -266,7 +285,10 @@ final class RouteDashboardView: UserInterface {
         routeNameTextField.endEditing(true)
 
     }
-    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("SCROLL: \(scrollView.contentSize)")
+    }
     override func loadView() {
         super.loadView()
         
@@ -287,10 +309,7 @@ final class RouteDashboardView: UserInterface {
         self.view.addSubview(editStationOptions)
         self.view.addSubview(editOrderOptions)
         
-        self.view.addSubview(barChartKills)
-        self.view.addSubview(barChartKillsTitle)
-        self.view.addSubview(barChartPoison)
-        self.view.addSubview(barChartPoisonTitle)
+        self.view.addSubview(scrollView)
         
         setConstraints()
     }
@@ -317,14 +336,21 @@ final class RouteDashboardView: UserInterface {
         editOrderOptions.autoPinEdge(.bottom, to: .bottom, of: mapViewControllerHost)
         editOrderOptions.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
         
-        barChartKillsTitle.autoPinEdge(.top, to: .bottom, of: mapViewControllerHost, withOffset: LayoutDimensions.spacingMargin)
+        scrollView.autoPinEdge(.top, to: .bottom, of: mapViewControllerHost, withOffset: LayoutDimensions.spacingMargin)
+        scrollView.autoPinEdge(toSuperviewEdge: .left)
+        scrollView.autoPinEdge(toSuperviewEdge: .right)
+        scrollView.autoPinEdge(toSuperviewEdge: .bottom)
+        
+        scrollViewContentView.autoPinEdgesToSuperviewEdges()
+        
+        barChartKillsTitle.autoPinEdge(toSuperviewEdge: .top)
         barChartKillsTitle.autoPinEdge(toSuperviewEdge: .left)
         barChartKillsTitle.autoPinEdge(toSuperviewEdge: .right)
         
         barChartKills.autoPinEdge(.top, to: .bottom, of: barChartKillsTitle, withOffset: -LayoutDimensions.smallSpacingMargin)
         barChartKills.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.smallSpacingMargin)
         barChartKills.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.smallSpacingMargin)
-        barChartKills.autoSetDimension(.height, toSize: 150)
+        barChartKills.autoSetDimension(.height, toSize: 250)
 
         barChartPoisonTitle.autoPinEdge(.top, to: .bottom, of: barChartKills, withOffset: LayoutDimensions.smallSpacingMargin)
         barChartPoisonTitle.autoPinEdge(toSuperviewEdge: .left)
@@ -333,7 +359,7 @@ final class RouteDashboardView: UserInterface {
         barChartPoison.autoPinEdge(.top, to: .bottom, of: barChartPoisonTitle, withOffset: -LayoutDimensions.smallSpacingMargin)
         barChartPoison.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.smallSpacingMargin)
         barChartPoison.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.smallSpacingMargin)
-        barChartPoison.autoSetDimension(.height, toSize: 150)
+        barChartPoison.autoSetDimension(.height, toSize: 250)
         
         resizeButton.autoPinEdge(.bottom, to: .bottom, of: mapViewControllerHost, withOffset: -LayoutDimensions.smallSpacingMargin)
         resizeButton.autoPinEdge(.right, to: .right, of: mapViewControllerHost, withOffset: -LayoutDimensions.smallSpacingMargin)

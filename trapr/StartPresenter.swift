@@ -31,7 +31,7 @@ final class StartPresenter: Presenter {
     }
     
     override func viewHasLoaded() {
-        view.setTitle(title: "Trapr", routesSectionTitle: "ROUTES", routeSectionActionText: "NEW", recentVisitsSectionTitle: "VISITS", recentVisitsSectionActionText: "")
+        view.setTitle(title: "Routes", routesSectionTitle: "ROUTES", routeSectionActionText: "NEW", recentVisitsSectionTitle: "VISITS", recentVisitsSectionActionText: "")
     }
     
     override func viewIsAboutToAppear() {

@@ -18,14 +18,17 @@ class Styles {
     static func setAppearances() {
         
         let barButtonItemAppearance = UIBarButtonItem.appearance()
-        barButtonItemAppearance.tintColor = UIColor.white
-        barButtonItemAppearance.setTitleTextAttributes([NSAttributedStringKey.foregroundColor : UIColor.white], for: UIControlState.normal)
+        barButtonItemAppearance.tintColor = UIColor.trpHighlightColor
+        barButtonItemAppearance.setTitleTextAttributes([NSAttributedStringKey.foregroundColor : UIColor.trpHighlightColor], for: UIControlState.normal)
         
         let navigationBarAppearance = UINavigationBar.appearance()
         navigationBarAppearance.barTintColor = UIColor.trpNavigationBar
-        navigationBarAppearance.isTranslucent = false
-        navigationBarAppearance.tintColor = UIColor.white
-        navigationBarAppearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        navigationBarAppearance.isTranslucent = true
+        navigationBarAppearance.tintColor = UIColor.trpHighlightColor
+        navigationBarAppearance.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.trpHighlightColor]
+        navigationBarAppearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.trpHighlightColor]
+//        navigationBarAppearance.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+//        navigationBarAppearance.shadowImage = UIImage()
         
         let labelAppearance = UILabel.appearance()
         labelAppearance.textColor = UIColor.trpTextDark
@@ -40,23 +43,25 @@ class Styles {
 //        let buttonAppearanceInTableViewRow =  UIButton.appearance(whenContainedInInstancesOf: [VisitSummaryTableViewCell.self])
 //        buttonAppearanceInTableViewRow.setTitleColor(UIColor.orange, for: .normal)
         
+//        let buttonInUIBarButtonItem = UIButton.appearance(whenContainedInInstancesOf: [UIBarButtonItem.self])
+//        buttonInUIBarButtonItem
+        
         let buttonInNavigationBar = UIButton.appearance(whenContainedInInstancesOf: [UINavigationBar.self])
-        buttonInNavigationBar.setTitleColor(UIColor.white, for: .normal)
+        buttonInNavigationBar.setTitleColor(UIColor.trpTextHighlight, for: .normal)
         buttonInNavigationBar.setTitleColor(UIColor.lightGray, for: .disabled)
         
         let textFieldInNavigationBar = UITextField.appearance(whenContainedInInstancesOf: [UINavigationBar.self])
-        textFieldInNavigationBar.textColor = UIColor.white
+        textFieldInNavigationBar.textColor = UIColor.trpTextHighlight
         
         let alertActionViewControllerView = UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self])
         alertActionViewControllerView.tintColor = UIColor.trpTextHighlight
         
         if let menuControllerButton = NSClassFromString("UICalloutBarButton") as? UIButton.Type {
             menuControllerButton.appearance().setTitleColor(UIColor.lightGray, for: UIControlState.normal)
-            menuControllerButton.appearance().setTitleColor(UIColor.white, for: UIControlState.highlighted)
-            //menuControllerButton.appearance().backgroundColor = UIColor.trpTextDark
+            menuControllerButton.appearance().setTitleColor(UIColor.trpTextHighlight, for: UIControlState.highlighted)
         }
 
-        let tableViewCellAppearance = UITableViewCell.appearance()
-        tableViewCellAppearance.tintColor = UIColor.trpNavigationBar
+//        let tableViewCellAppearance = UITableViewCell.appearance()
+//        tableViewCellAppearance.tintColor = UIColor.trpNavigationBar
     }
 }

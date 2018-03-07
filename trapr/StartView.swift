@@ -32,11 +32,32 @@ final class StartView: UserInterface { //, UICollectionViewDelegate, UICollectio
     let SECTIONSTRIP_ROUTES = 0
     let SECTIONSTRIP_RECENT_VISITS = 1
     
+    let TABLEVIEW_SCROLL_TITLE_TRIGGER: CGFloat = -80
+    let TABLEVIEW_SCROLL_BULGE_LIMIT: CGFloat = -50
+    let TABLEVIEW_SECTION_HEADING_SIZE_MAX_SIZE_INCREASE: CGFloat = 5
+    
     fileprivate var routeViewModels: [RouteViewModel]?
     fileprivate var visitSummaries: [VisitSummary]?
     fileprivate var routeMenuOptions: [String]?
     
     //MARK: - SubViews
+    
+    lazy var routeSectionTitleView: UIView = {
+        let view = UIView()
+        view.addSubview(routeSectionTitleLabel)
+        
+        routeSectionTitleLabel.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
+        
+        return view
+    }()
+    
+    lazy var routeSectionTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Routes"
+        label.font = UIFont.trpLabelBoldLarge
+        return label
+    }()
+    
     lazy var loaderViewController: UIViewController = {
         return LoaderView()
     }()
@@ -127,9 +148,11 @@ final class StartView: UserInterface { //, UICollectionViewDelegate, UICollectio
         let nibcell = UINib(nibName: "RouteTableViewCell", bundle: nil)
         tableView.register(nibcell, forCellReuseIdentifier: self.ROUTE_CELL_IDENTIFIER)
         tableView.separatorStyle = .none
-        
+        tableView.backgroundColor = UIColor.trpBackground
         tableView.delegate = self
         tableView.dataSource = self
+        
+        (tableView as UIScrollView).delegate = self
         
         return tableView
     }()
@@ -217,6 +240,10 @@ final class StartView: UserInterface { //, UICollectionViewDelegate, UICollectio
 //    }
     
     //MARK: - UIViewController
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+    }
     
     override func loadView() {
         super.loadView()
@@ -226,6 +253,8 @@ final class StartView: UserInterface { //, UICollectionViewDelegate, UICollectio
         self.navigationItem.rightBarButtonItem = self.editButton
         self.navigationItem.leftBarButtonItem = self.menuButtonItem
       
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        
         self.view.addSubview(routesTableView)
         self.view.addSubview(noRoutesView)
         
@@ -245,12 +274,42 @@ final class StartView: UserInterface { //, UICollectionViewDelegate, UICollectio
     }
 }
 
+extension StartView: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //let offset = scrollView.contentOffset.y
+        //print(offset)
+       
+        
+//        if offset < 0 && offset >= TABLEVIEW_SCROLL_BULGE_LIMIT {
+//            // percentage traveled between rest state and the maximum effective drag
+//            let delta = abs(offset / TABLEVIEW_SCROLL_BULGE_LIMIT)
+//            print("delta: \(delta)")
+//
+//            // scale factor to apply to size - a percentage of the maximum size increase
+//            let maxScale = (30 + TABLEVIEW_SECTION_HEADING_SIZE_MAX_SIZE_INCREASE) / 30
+//            print("maxScale: \(maxScale)")
+//
+//            let scale = (maxScale - 1) * delta + 1
+//            print("scale: \(scale)")
+//
+//            routeSectionTitleLabel.transform = CGAffineTransform(scaleX: scale, y: scale)
+//        }
+    }
+}
 //MARK: - UITableView
 extension StartView: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
         //return self.visitSummaries?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        if section == 0 {
+//            return routeSectionTitleView
+//        }
+        return nil
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -279,10 +338,10 @@ extension StartView: UITableViewDelegate, UITableViewDataSource {
             lastVisitedText.addAttributes([.foregroundColor: UIColor.trpButtonEnabled], range: NSMakeRange(0, lastVisitedText.length - 1))
             
             // add notSent in red if not sync'd
-            if !vm.visitSync {
-                let notSent = NSMutableAttributedString(string: " (not sent)", attributes: [.foregroundColor: UIColor.red])
-                lastVisitedText.append(notSent)
-            }
+//            if !vm.visitSync {
+//                let notSent = NSMutableAttributedString(string: " (not sent)", attributes: [.foregroundColor: UIColor.red])
+//                lastVisitedText.append(notSent)
+//            }
             
             cell.lastVisitedButton.setAttributedTitle(lastVisitedText, for: .normal)
             
@@ -351,7 +410,6 @@ extension StartView: SectionStripViewDelegate {
 extension StartView: StartViewApi {
     
     func showLoadingScreen() {
-        
         embed(childViewController: loaderViewController)
     }
     

@@ -61,7 +61,8 @@ extension UIColor
     }
     
     public class var trpNavigationBar: UIColor {
-        return UIColor(red: 18/255, green: 108/255, blue: 19/255, alpha: 1) 
+        //return UIColor(red: 18/255, green: 108/255, blue: 19/255, alpha: 1)
+        return trpBackground
     }
     
     public class var trpTextHighlight: UIColor {
@@ -80,8 +81,12 @@ extension UIColor
         return UIColor.lightGray
     }
     
+    public class var trpHighlightColor: UIColor {
+        return UIColor(red: 18/255, green: 108/255, blue: 19/255, alpha: 1)
+    }
+    
     public class var trpNavigationBarTint: UIColor {
-        return UIColor.white
+        return trpHighlightColor
     }
 
     public class var trpNavigationBarTintDisabled: UIColor {

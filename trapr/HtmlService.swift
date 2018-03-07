@@ -43,7 +43,12 @@ class HtmlService: HtmlServiceInterface {
     
         let visitsFromRealm = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: date, route: route)
         
-        let visits = Array(visitsFromRealm).sorted(by: { $0.order < $1.order })
+        //let visits = Array(visitsFromRealm).sorted(by: { $0.order < $1.order })
+        let visitArray = Array(visitsFromRealm)
+        let visits = visitArray.sorted(by: {
+            (visit1, visit2) in
+            return visit1.order < visit2.order
+        }, stable: true)
         
         var html = "<html><table style=\'border-collapse : collapse;\'>"
         

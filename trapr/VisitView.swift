@@ -145,10 +145,13 @@ final class VisitView: UserInterface {
     }()
     
     lazy var showMenuButton: UIBarButtonItem = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 22, height: 22))
-        button.setImage(UIImage(named: "show"), for: .normal)
-        button.addTarget(self, action: #selector(showMoreMenu(sender:)), for: .touchUpInside)
-        let buttonItem = UIBarButtonItem(customView: button)
+        var buttonItem = UIBarButtonItem(image: UIImage(named: "show"), style: .plain, target: self, action: #selector(showMoreMenu(sender:)))
+        
+//        return view
+//        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 22, height: 22))
+//        button.setImage(UIImage(named: "show"), for: .normal)
+//        button.addTarget(self, action: #selector(showMoreMenu(sender:)), for: .touchUpInside)
+//        let buttonItem = UIBarButtonItem(customView: button)
         return buttonItem
     }()
     
@@ -228,6 +231,7 @@ final class VisitView: UserInterface {
         
         self.view.backgroundColor = UIColor.trpBackground
         self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         
         self.view.addSubview(self.visitContainerView)
         self.view.addSubview(self.navigationSection)

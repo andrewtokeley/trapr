@@ -39,8 +39,19 @@ extension StartInteractor: StartInteractorApi {
         // Get all the (unhidden) routes
         let routes = ServiceFactory.sharedInstance.routeService.getAll(includeHidden: false)
         
+        // order by last visit
+        let orderedRoutes = routes.sorted(by: {
+            (r1, r2) in
+            
+            let lastVisited1 = self.getLastVisitedDateDescription(route: r1)
+            let lastVisited2 = self.getLastVisitedDateDescription(route: r2)
+            
+            return lastVisited1 > lastVisited2
+            
+        }, stable: true)
+        
         // Let the presenter know what routes to display
-        presenter.setRoutes(routes: routes)
+        presenter.setRoutes(routes: orderedRoutes)
     }
     
     func deleteRoute(route: Route) {

@@ -45,7 +45,7 @@ class RouteTableViewCell: UITableViewCell {
     }
     
     override func awakeFromNib() {
-        visitButton.backgroundColor = UIColor.trpNavigationBar
+        visitButton.backgroundColor = UIColor.trpHighlightColor
         visitButton.setTitleColor(UIColor.white, for: .normal)
         
         let tap = UITapGestureRecognizer(target:self, action: #selector(imageClicked(sender:)))

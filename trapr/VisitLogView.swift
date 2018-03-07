@@ -51,7 +51,7 @@ final class VisitLogView: UserInterface {
         let button = UIButton(type: UIButtonType.custom)
         button.alpha = 0
         button.setTitle("Record a Visit", for: .normal)
-        button.backgroundColor = UIColor.trpNavigationBar
+        button.backgroundColor = UIColor.trpHighlightColor
         button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(createVisitButtonClick(sender:)), for: .touchUpInside)
         return button

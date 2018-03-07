@@ -47,7 +47,7 @@ class Visit: Object {
      
      Note, realm still won't be able to sort on this as it's not persisted to the database
     */
-    var order: String {
+    @objc var order: String {
         let code = trap?.station?.longCode ?? "_"
         let trapOrder = String(trap?.type?.order ?? 0)
         return "\(code)_\(trapOrder)"
