@@ -14,7 +14,7 @@ final class VisitHistoryPresenter: Presenter {
     private var route: Route!
     private var visitSummaries = [VisitSummary]()
     override func setupView(data: Any) {
-        _view.setTitle(title: "Visit History")
+        _view.setTitle(title: "Visits")
         
         if let setupData = data as? VisitHistorySetupData, let route = setupData.route {
             self.route = route

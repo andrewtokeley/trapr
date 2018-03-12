@@ -21,7 +21,7 @@ extension UIColor
     }
     
     public class var trpChartBarStack1: UIColor {
-        return UIColor.trpNavigationBar
+        return UIColor.trpHighlightColor
     }
     
     public class var trpChartBarStack2: UIColor {
@@ -40,7 +40,7 @@ extension UIColor
     }
     
     public class var trpStackChartColors: [UIColor] {
-        return [UIColor.trpChartBarStack1, UIColor.trpChartBarStack2, UIColor.trpChartBarStack3]
+        return [UIColor.trpChartBarStack1, UIColor.trpChartBarStack2, UIColor.trpChartBarStack3, UIColor.trpChartBarStack4, UIColor.darkGray, UIColor.orange]
     }
     
     //MARK: - App colour scheme

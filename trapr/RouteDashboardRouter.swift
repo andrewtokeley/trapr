@@ -17,6 +17,15 @@ final class RouteDashboardRouter: Router {
 // MARK: - RouteDashboardRouter API
 extension RouteDashboardRouter: RouteDashboardRouterApi {
     
+    func showVisitModule(visitSummary: VisitSummary) {
+        let module = AppModules.visit.build()
+        
+        // Remove title from back button
+        _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        module.router.show(from: _view, embedInNavController: false, setupData: visitSummary)
+    }
+    
     /**
      Add a MapViewController instance as a child of the RouteDashboard view
      */

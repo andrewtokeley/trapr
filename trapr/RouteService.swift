@@ -125,6 +125,14 @@ class RouteService: RealmService, RouteServiceInterface {
         }
     }
     
+    func getMostRecentVisit(route: Route) -> Visit? {
+        
+        // find all the visits for this route, ordered from the most recent (the default ordering)
+        let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedBetween: Date().add(0, 0, -100), dateEnd: Date(), route: route)
+        
+        return visits.first
+    }
+    
     func getAll() -> [Route] {
         return Array(realm.objects(Route.self))
     }
@@ -164,11 +172,8 @@ class RouteService: RealmService, RouteServiceInterface {
         
         var numberOfDays: Int?
         
-        // find all the visits for this route, ordered from the most recent (the default ordering)
-        let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedBetween: Date().add(0, 0, -100), dateEnd: Date(), route: route)
-        
         // take the first result - this is the last visit
-        if let lastVisit = visits.first {
+        if let lastVisit = self.getMostRecentVisit(route: route) {
             let calendar = NSCalendar.current
             let lastVisitDate = calendar.startOfDay(for: lastVisit.visitDateTime)
             let today = calendar.startOfDay(for: Date())

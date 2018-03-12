@@ -36,6 +36,8 @@ protocol RouteServiceInterface: RealmServiceInterface {
     
     func reorderStations(route: Route, stationOrder: [Station: Int]) -> Route
     
+    func getMostRecentVisit(route: Route) -> Visit?
+    
     func getAll(includeHidden: Bool) -> [Route]
     
     func getAll() -> [Route]

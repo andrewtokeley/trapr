@@ -17,6 +17,20 @@ final class RouteDashboardInteractor: Interactor {
 // MARK: - RouteDashboardInteractor API
 extension RouteDashboardInteractor: RouteDashboardInteractorApi {
     
+    func lastVisitSummary(route: Route) -> VisitSummary? {
+        return ServiceFactory.sharedInstance.visitService.getVisitSummaryMostRecent(route: route)
+    }
+    
+    func lastVisitedText(route: Route) -> String {
+        var text:String? = "not visited"
+        
+        if let lastVisitSummary = lastVisitSummary(route: route) {
+            text = lastVisitSummary.visits.first?.visitDateTime.toString(from: "dd MMM yyyy, h:mm a")
+        }
+        
+        return text!
+    }
+    
     func getStationSequence(_ from: Station, _ to:Station) -> [Station]? {
         return ServiceFactory.sharedInstance.stationService.getStationSequence(from, to)
     }

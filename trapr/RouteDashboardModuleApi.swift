@@ -16,6 +16,7 @@ enum ResizeState {
 
 //MARK: - RouteDashboardRouter API
 protocol RouteDashboardRouterApi: RouterProtocol {
+    func showVisitModule(visitSummary: VisitSummary)
     func addMapAsChildView(containerView: UIView)
     func showVisitHistoryModule(route: Route)
 }
@@ -35,6 +36,7 @@ protocol RouteDashboardViewApi: class, UserInterfaceProtocol {
     
     func displayFullScreenMap()
     func displayCollapsedMap()
+    func displayLastVisitedDate(date: String)
     
     func setMapResizeIconState(state: ResizeState)
     
@@ -60,12 +62,15 @@ protocol RouteDashboardViewApi: class, UserInterfaceProtocol {
 //MARK: - RouteDashboardPresenter API
 protocol RouteDashboardPresenterApi: PresenterProtocol {
     func didSelectClose()
+    func didSelectCancel()
     func didSelectEditMenu()
     func didSelectEditStations()
     func didSelectEditOrder()
     func didSelectEditDone()
     func didSelectEditCancel()
     func didUpdateRouteName(name: String?)
+    func didSelectVisitHistory()
+    func didSelectLastVisited()
     //func didSelectResetStations()
     //func didSelectResetOrder()
     func didSelectClearOrder()
@@ -77,6 +82,9 @@ protocol RouteDashboardPresenterApi: PresenterProtocol {
 
 //MARK: - RouteDashboardInteractor API
 protocol RouteDashboardInteractorApi: InteractorProtocol {
+    func lastVisitedText(route: Route) -> String
+    func lastVisitSummary(route: Route) -> VisitSummary?
+    
     func addStationToRoute(route: Route, station: Station) -> Route
     func removeStationFromRoute(route: Route, station: Station) -> Route
     func deleteRoute(route: Route)

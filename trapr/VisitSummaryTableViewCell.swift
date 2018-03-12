@@ -19,8 +19,8 @@ class VisitSummaryTableViewCell: UITableViewCell {
     let CELL_IDENTIFIER = "cell"
     var delegate: VisitSummaryTableViewCellDelegate?
     
-    @IBOutlet weak var routeNameLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var subTitleLabel: UILabel!
     @IBOutlet weak var statisticsCollectionView: UICollectionView!
     
     var statistics = [Statistic]() {
@@ -30,8 +30,8 @@ class VisitSummaryTableViewCell: UITableViewCell {
     }
     
     override func awakeFromNib() {
-        routeNameLabel.font = UIFont.trpLabelNormal
-        routeNameLabel.textColor = UIColor.trpTextHighlight
+        titleLabel.font = UIFont.trpLabelNormal
+        titleLabel.textColor = UIColor.trpTextHighlight
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -39,10 +39,12 @@ class VisitSummaryTableViewCell: UITableViewCell {
         layout.sectionInset = UIEdgeInsetsMake(0, LayoutDimensions.spacingMargin, 0, LayoutDimensions.spacingMargin)
         layout.footerReferenceSize = CGSize.zero
         layout.headerReferenceSize = CGSize.zero
+        
         statisticsCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: self.CELL_IDENTIFIER)
         statisticsCollectionView.collectionViewLayout = layout
         
     }
+    
 }
 
 extension VisitSummaryTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -70,7 +72,7 @@ extension VisitSummaryTableViewCell: UICollectionViewDelegate, UICollectionViewD
         
         statisticView?.heading = self.statistics[indexPath.row].title?.uppercased()
         statisticView?.statistic = self.statistics[indexPath.row].statistic
-        statisticView?.showDivider(show: true)
+        statisticView?.showDivider(show: indexPath.row != statistics.count - 1)
         
         return cell
     }

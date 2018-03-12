@@ -54,14 +54,26 @@ extension VisitHistoryView: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.CELL_REUSE_ID, for: indexPath) as! VisitSummaryTableViewCell
         
         let visit = self.visitSummaries[indexPath.section]
-        cell.dateLabel.text = visit.dateOfVisit.toString(from: "dd MMM yyyy")
-        cell.routeNameLabel.text = visit.route.name
+        cell.titleLabel.text = visit.dateOfVisit.toString(from: "dd MMM yyyy")
+        cell.subTitleLabel.text = "test"
         
         var stats = [Statistic]()
         stats.append(Statistic(title: "POISON", statistic: String(visit.totalPoisonAdded), variance: -5.0))
         
+        var count = 0
+        var otherCount = 0
         for kills in visit.totalKillsBySpecies {
-            stats.append(Statistic(title: kills.key, statistic: String(kills.value), variance: -5.0))
+            if count < 2 {
+                stats.append(Statistic(title: kills.key, statistic: String(kills.value), variance: -5.0))
+            } else {
+               otherCount += kills.value
+            }
+            count += 1
+            
+            if count == visit.totalKillsBySpecies.count && otherCount != 0 {
+                stats.append(Statistic(title: "Other", statistic: String(otherCount), variance: -5.0))
+            }
+            
         }
         
         cell.statistics = stats

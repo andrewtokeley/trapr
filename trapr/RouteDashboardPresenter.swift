@@ -46,7 +46,7 @@ final class RouteDashboardPresenter: Presenter {
         
         if let setupData = data as? RouteDashboardSetup {
             
-            // load all the stations even if we don't display them all
+            // load all the stations for the map, even if we don't display them all
             self.allStations = ServiceFactory.sharedInstance.stationService.getAll()
             
             // EDITING EXISTING ROUTE
@@ -57,7 +57,6 @@ final class RouteDashboardPresenter: Presenter {
                 self.proposedStations = Array(route.stations)
                 view.displayTitle(self.route.name ?? route.longDescription, editable: true)
                 view.showEditNavigation(false)
-                
                 
             // NEW ROUTE
             } else if let routeName = setupData.newRouteName {
@@ -76,9 +75,10 @@ final class RouteDashboardPresenter: Presenter {
                 isEditingStations = true
                 updateButtonStates()
                 view.showEditNavigation(true)
-                
+                view.displayLastVisitedDate(date: "Not visited")
             }
-            
+
+            view.displayLastVisitedDate(date: interactor.lastVisitedText(route: route))
             self.displayMap()
             
             if let catchSummary = interactor.killCounts(frequency: .month, period: .year, route: self.route) {
@@ -262,10 +262,9 @@ extension RouteDashboardPresenter: StationMapDelegate {
                                 // don't add the first as it has already been added
                                 if station != sequence.first {
                                     self.proposedStations.append(station)
-                                }
+                                    addedSequence = true
+                                } 
                             }
-                            
-                            addedSequence = true
                         }
                     }
                     
@@ -424,13 +423,17 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
         saveRoute()
     }
     
-    func didSelectClose() {
-        if isEditing {
-            // this is essentially a Cancel action on the edit view
+    func didSelectCancel() {
+        if isNewRoute {
+            // go back to the New Route module
+            _view.navigationController?.popViewController(animated: true)
+        } else if isEditing {
             self.switchFromEditToViewMode()
-        } else {
-            _view.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    func didSelectClose() {
+        _view.dismiss(animated: true, completion: nil)
     }
     
     func didSelectEditMenu() {
@@ -486,6 +489,13 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
     private func deleteAndCloseRoute() {
         interactor.deleteRoute(route: self.route)
         _view.dismiss(animated: true, completion: nil)
+    }
+    
+    func didSelectLastVisited() {
+        
+        if let visitSummary = interactor.lastVisitSummary(route: self.route) {
+            router.showVisitModule(visitSummary: visitSummary)
+        }
     }
     
     func didSelectVisitHistory() {
@@ -560,6 +570,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
             view.displayCollapsedMap()
         } else {
             view.displayFullScreenMap()
+            
         }
         
         // toggle state

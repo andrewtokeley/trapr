@@ -17,34 +17,73 @@ final class RouteDashboardView: UserInterface {
     var mapBottomConstaint: NSLayoutConstraint?
     var mapTopConstraint: NSLayoutConstraint?
     
+    let MAP_HEIGHT_MIN: CGFloat = 350
+    let GRAPH_HEIGHT: CGFloat = 200
+    
+    let CELL_ID = "cell"
+    let ROW_LASTVISITED = 0
+    let ROW_VISITS = 1
+    
     var killNumberOfBars: Int = 0
     var poisonNumberOfBars: Int = 0
     var poisonCountFunction: ((Int) -> Int)?
     
+    var heightOfScrollableArea: CGFloat {
+        // 2 cell summary tableview, 2 graphs with headings + a little extra
+        return LayoutDimensions.inputHeight * 2 + GRAPH_HEIGHT * 2 + LayoutDimensions.inputHeight * 2 + LayoutDimensions.spacingMargin
+    }
+    
     //MARK: - Subviews
     
+    lazy var summaryTableView: UITableView = {
+        let tableView = UITableView(frame: CGRect.zero, style: .plain)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.backgroundColor = UIColor.clear
+        return tableView
+    }()
+    
+    lazy var visitsTableViewCell: UITableViewCell = {
+        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: CELL_ID)
+        cell.textLabel?.text = "Visits"
+        cell.accessoryType = .disclosureIndicator
+        cell.selectionStyle = .none
+        cell.backgroundColor = UIColor.clear
+        return cell
+    }()
+    
+    lazy var lastVisitTableViewCell: UITableViewCell = {
+        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: CELL_ID)
+        cell.textLabel?.text = "Last Visited"
+        cell.accessoryType = .disclosureIndicator
+        cell.selectionStyle = .none
+        cell.backgroundColor = UIColor.clear
+        return cell
+    }()
+    
     lazy var scrollViewContentView: UIView = {
-        let view = UIView()
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightOfScrollableArea))
         return view
     }()
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-
         scrollView.addSubview(scrollViewContentView)
-        scrollView.contentSize = CGSize(width: 200, height: 400)
         
+        scrollViewContentView.addSubview(summaryTableView)
         scrollViewContentView.addSubview(barChartKills)
         scrollViewContentView.addSubview(barChartKillsTitle)
         scrollViewContentView.addSubview(barChartPoison)
         scrollViewContentView.addSubview(barChartPoisonTitle)
+        
+        scrollView.contentSize = CGSize(width: scrollViewContentView.frame.width, height: heightOfScrollableArea)
         
         return scrollView
     }()
     
     lazy var barChartKillsTitle: UILabel = {
         let label = UILabel()
-        label.text = "CATCH"
+        label.text = "CATCHES"
         label.textAlignment = .center
         label.font = UIFont.trpLabelSmall
         return label
@@ -232,6 +271,15 @@ final class RouteDashboardView: UserInterface {
         return button
     }()
     
+    lazy var cancelButton: UIBarButtonItem = {
+        let cancelButton = UIButton()
+        cancelButton.setTitle("Cancel", for: .normal)
+        cancelButton.addTarget(self, action: #selector(cancelButtonClick(sender:)), for: .touchUpInside)
+        
+        var button = UIBarButtonItem(customView: cancelButton)
+        return button
+    }()
+    
     lazy var closeButton: UIBarButtonItem = {
         var view = UIBarButtonItem(image: UIImage(named: "close"), style: .plain, target: self, action: #selector(closeButtonClick(sender:)))
         return view
@@ -266,6 +314,10 @@ final class RouteDashboardView: UserInterface {
     
     @objc func closeButtonClick(sender: UIButton) {
         presenter.didSelectClose()
+    }
+    
+    @objc func cancelButtonClick(sender: UIButton) {
+        presenter.didSelectCancel()
     }
     
     @objc func editButtonClick(sender: UIButton) {
@@ -319,7 +371,7 @@ final class RouteDashboardView: UserInterface {
         mapTopConstraint = mapViewControllerHost.autoPin(toTopLayoutGuideOf: self, withInset: 0)
         mapViewControllerHost.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
         mapViewControllerHost.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
-        mapBottomConstaint = mapViewControllerHost.autoPinEdge(toSuperviewEdge: .bottom, withInset: 350)
+        mapBottomConstaint = mapViewControllerHost.autoPinEdge(toSuperviewEdge: .bottom, withInset: MAP_HEIGHT_MIN)
         
         editDescription.autoPinEdge(.left, to: .left, of: mapViewControllerHost)
         editDescription.autoPinEdge(.right, to: .right, of: mapViewControllerHost)
@@ -340,17 +392,22 @@ final class RouteDashboardView: UserInterface {
         scrollView.autoPinEdge(toSuperviewEdge: .left)
         scrollView.autoPinEdge(toSuperviewEdge: .right)
         scrollView.autoPinEdge(toSuperviewEdge: .bottom)
+
+        // Inside the scrollView...
         
-        scrollViewContentView.autoPinEdgesToSuperviewEdges()
+        summaryTableView.autoPinEdge(toSuperviewEdge: .top)
+        summaryTableView.autoPinEdge(toSuperviewEdge: .left)
+        summaryTableView.autoPinEdge(toSuperviewEdge: .right)
+        summaryTableView.autoSetDimension(.height, toSize: 100)
         
-        barChartKillsTitle.autoPinEdge(toSuperviewEdge: .top)
+        barChartKillsTitle.autoPinEdge(.top, to: .bottom, of: summaryTableView, withOffset: LayoutDimensions.smallSpacingMargin)
         barChartKillsTitle.autoPinEdge(toSuperviewEdge: .left)
         barChartKillsTitle.autoPinEdge(toSuperviewEdge: .right)
         
         barChartKills.autoPinEdge(.top, to: .bottom, of: barChartKillsTitle, withOffset: -LayoutDimensions.smallSpacingMargin)
         barChartKills.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.smallSpacingMargin)
         barChartKills.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.smallSpacingMargin)
-        barChartKills.autoSetDimension(.height, toSize: 250)
+        barChartKills.autoSetDimension(.height, toSize: GRAPH_HEIGHT)
 
         barChartPoisonTitle.autoPinEdge(.top, to: .bottom, of: barChartKills, withOffset: LayoutDimensions.smallSpacingMargin)
         barChartPoisonTitle.autoPinEdge(toSuperviewEdge: .left)
@@ -359,12 +416,50 @@ final class RouteDashboardView: UserInterface {
         barChartPoison.autoPinEdge(.top, to: .bottom, of: barChartPoisonTitle, withOffset: -LayoutDimensions.smallSpacingMargin)
         barChartPoison.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.smallSpacingMargin)
         barChartPoison.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.smallSpacingMargin)
-        barChartPoison.autoSetDimension(.height, toSize: 250)
+        barChartPoison.autoSetDimension(.height, toSize: GRAPH_HEIGHT)
         
+        // Overlayed on to map
         resizeButton.autoPinEdge(.bottom, to: .bottom, of: mapViewControllerHost, withOffset: -LayoutDimensions.smallSpacingMargin)
         resizeButton.autoPinEdge(.right, to: .right, of: mapViewControllerHost, withOffset: -LayoutDimensions.smallSpacingMargin)
         resizeButton.autoSetDimension(.width, toSize: 20)
         resizeButton.autoSetDimension(.height, toSize: 20)
+    }
+}
+
+//MARK: - SummaryTableView
+
+extension RouteDashboardView: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let row = indexPath.row
+        var cell: UITableViewCell?
+        
+        if row == ROW_LASTVISITED {
+            cell = lastVisitTableViewCell
+        } else { //if row == ROW_VISITS {
+            cell = visitsTableViewCell
+        }
+        
+        return cell!
+    }
+}
+
+extension RouteDashboardView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let row = indexPath.row
+        
+        if row == ROW_VISITS {
+            presenter.didSelectVisitHistory()
+        } else if row == ROW_LASTVISITED {
+            presenter.didSelectLastVisited()
+        }
     }
 }
 
@@ -417,6 +512,7 @@ extension RouteDashboardView: RouteDashboardViewApi {
     
     func showEditNavigation(_ show: Bool) {
         if show {
+            self.navigationItem.leftBarButtonItem = self.cancelButton
             self.navigationItem.rightBarButtonItem = self.editDoneButton
         } else {
             self.navigationItem.leftBarButtonItem = self.closeButton
@@ -443,8 +539,7 @@ extension RouteDashboardView: RouteDashboardViewApi {
     
     func displayCollapsedMap() {
         UIView.animate(withDuration: 0.5, animations: {
-            //self.mapTopConstraint?.constant = 0
-            self.mapBottomConstaint?.constant = -350
+            self.mapBottomConstaint?.constant = -self.MAP_HEIGHT_MIN
             self.view.layoutIfNeeded()
         })
     }
@@ -452,6 +547,10 @@ extension RouteDashboardView: RouteDashboardViewApi {
     func displayTitle(_ title: String, editable: Bool) {
         routeNameTextField.text = title
         routeNameTextField.isEnabled = editable
+    }
+    
+    func displayLastVisitedDate(date: String) {
+        lastVisitTableViewCell.detailTextLabel?.text = date
     }
     
     func setVisibleRegionToCentreOfStations(distance: Double) {
