@@ -36,7 +36,10 @@ protocol RouteDashboardViewApi: class, UserInterfaceProtocol {
     
     func displayFullScreenMap()
     func displayCollapsedMap()
-    func displayLastVisitedDate(date: String)
+    
+    func displayLastVisitedDate(date: String, allowSelection: Bool)
+    func displayStationSummary(summary: String)
+    func displayVisitNumber(number: String, allowSelection: Bool)
     
     func setMapResizeIconState(state: ResizeState)
     
@@ -82,8 +85,9 @@ protocol RouteDashboardPresenterApi: PresenterProtocol {
 
 //MARK: - RouteDashboardInteractor API
 protocol RouteDashboardInteractorApi: InteractorProtocol {
-    func lastVisitedText(route: Route) -> String
+    func lastVisitedText(route: Route) -> String?
     func lastVisitSummary(route: Route) -> VisitSummary?
+    func numberOfVisits(route: Route) -> Int
     
     func addStationToRoute(route: Route, station: Station) -> Route
     func removeStationFromRoute(route: Route, station: Station) -> Route

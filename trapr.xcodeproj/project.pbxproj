@@ -131,6 +131,8 @@
 		D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */; };
 		D8503DD01F669F8500ED0C84 /* Visit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DCF1F669F8500ED0C84 /* Visit.swift */; };
 		D8503DD81F67AF7800ED0C84 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = D8503DD71F67AF7800ED0C84 /* user.png */; };
+		D852E84D206F52D500255A2D /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = D852E84B206F52D400255A2D /* add.png */; };
+		D852E84F206F542200255A2D /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D852E84E206F542200255A2D /* add@2x.png */; };
 		D856F66D20111D3E00CA50C2 /* NewRouteDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66720111D3E00CA50C2 /* NewRouteDisplayData.swift */; };
 		D856F66E20111D3E00CA50C2 /* NewRoutePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66820111D3E00CA50C2 /* NewRoutePresenter.swift */; };
 		D856F66F20111D3E00CA50C2 /* NewRouteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66920111D3E00CA50C2 /* NewRouteRouter.swift */; };
@@ -449,6 +451,8 @@
 		D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtention.swift; sourceTree = "<group>"; };
 		D8503DCF1F669F8500ED0C84 /* Visit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Visit.swift; sourceTree = "<group>"; };
 		D8503DD71F67AF7800ED0C84 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
+		D852E84B206F52D400255A2D /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
+		D852E84E206F542200255A2D /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
 		D856F66720111D3E00CA50C2 /* NewRouteDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRouteDisplayData.swift; sourceTree = "<group>"; };
 		D856F66820111D3E00CA50C2 /* NewRoutePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRoutePresenter.swift; sourceTree = "<group>"; };
 		D856F66920111D3E00CA50C2 /* NewRouteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRouteRouter.swift; sourceTree = "<group>"; };
@@ -1138,6 +1142,8 @@
 		D8B94D991F5F28F200D373EF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D852E84E206F542200255A2D /* add@2x.png */,
+				D852E84B206F52D400255A2D /* add.png */,
 				D8AF9EB22025BC67002264D1 /* RouteImage2.png */,
 				D8DBE3EB1FF5CD7300AA6482 /* circle.png */,
 				D8DBE3EA1FF5CD7300AA6482 /* circle@2x.png */,
@@ -1366,6 +1372,7 @@
 				D86CE4851F92BC6F004A09EF /* settings.png in Resources */,
 				D86CE4871F92BC6F004A09EF /* sync@2x.png in Resources */,
 				D87926961FB555A500240767 /* clock.png in Resources */,
+				D852E84D206F52D500255A2D /* add.png in Resources */,
 				D84C245C1FFF2F49000BCAF8 /* collapse@2x.png in Resources */,
 				D8DBE3D51FF37F0900AA6482 /* timms@2x.png in Resources */,
 				D8083D2B1FE6129A00D1C5F1 /* rip@2x.png in Resources */,
@@ -1378,6 +1385,7 @@
 				D8B73C311F97F4D8000C231E /* possumMaster.png in Resources */,
 				D84C245A1FFF2F49000BCAF8 /* expand.png in Resources */,
 				D8C8A1EA1FCBA6EC0075E44E /* VisitSummaryTableViewCell.xib in Resources */,
+				D852E84F206F542200255A2D /* add@2x.png in Resources */,
 				D8D66D482022FBC400CBF3D7 /* information@2x.png in Resources */,
 				D8FA5CF51F8406D600EC890C /* close.png in Resources */,
 				D8B94D631F5EA1FE00D373EF /* LaunchScreen.storyboard in Resources */,

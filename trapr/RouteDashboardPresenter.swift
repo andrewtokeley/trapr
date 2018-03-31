@@ -13,8 +13,15 @@ import MapKit
 // MARK: - RouteDashboardPresenter Class
 final class RouteDashboardPresenter: Presenter {
     
+    let TEXT_NEVER_VISITED = "Never visited"
+    
     let MAP_CIRCLES = 0
     let MAP_MARKERS = 1
+    
+    let MENU_EDIT_STATIONS = "Add/Remove Stations"
+    let MENU_CHANGE_ORDER = "Change Visit Order"
+    let MENU_HIDE = "Hide from Dashboard"
+    let MENU_DELETE = "Delete"
     
     var newRouteFromStartModule: Bool = false
     var order: Int = 1
@@ -75,10 +82,20 @@ final class RouteDashboardPresenter: Presenter {
                 isEditingStations = true
                 updateButtonStates()
                 view.showEditNavigation(true)
-                view.displayLastVisitedDate(date: "Not visited")
+                //view.displayLastVisitedDate(date: TEXT_NEVER_VISITED, allowSelection: false)
             }
 
-            view.displayLastVisitedDate(date: interactor.lastVisitedText(route: route))
+            let lastVisitedText = interactor.lastVisitedText(route: route)
+            view.displayLastVisitedDate(date: lastVisitedText ?? TEXT_NEVER_VISITED, allowSelection: lastVisitedText != nil)
+            view.displayStationSummary(summary: self.route.longDescription)
+            
+            if interactor.visitsExistForRoute(route: self.route) {
+                let count = interactor.numberOfVisits(route: self.route)
+                view.displayVisitNumber(number: String(count), allowSelection: true)
+            } else {
+                view.displayVisitNumber(number: "-", allowSelection: false)
+            }
+            
             self.displayMap()
             
             if let catchSummary = interactor.killCounts(frequency: .month, period: .year, route: self.route) {
@@ -150,9 +167,12 @@ final class RouteDashboardPresenter: Presenter {
     }
     
     fileprivate func updateButtonStates() {
-        // don't enable Done until all the stations have been enabled
+        
         if isEditingOrder {
+            // don't enable Done until all the stations have been given an order
             view.enableEditDone(self.proposedStationOrder.count == self.route.stations.count)
+            print("route: \(self.route.stations.count), proposed: \(self.proposedStationOrder.count)")
+            
         } else if isEditingStations {
             view.enableEditDone(self.proposedStations.count > 0)
         }
@@ -177,11 +197,12 @@ final class RouteDashboardPresenter: Presenter {
         
         setTitle()
         
+        view.displayCollapsedMap()
         view.showEditDescription(false, description: nil)
         view.showEditOrderOptions(false)
         view.showEditStationOptions(false)
         view.showEditNavigation(false)
-        view.displayCollapsedMap()
+        
         view.reloadMap(forceAnnotationRebuild: true)
         view.setMapResizeIconState(state: .expand)
         //view.setVisibleRegionToCentreOfStations(distance: 500)
@@ -287,11 +308,12 @@ extension RouteDashboardPresenter: StationMapDelegate {
     }
     
     func stationMap(_ stationMap: StationMapViewController, radiusForStation station: Station) -> Int {
-        if isEditingOrder || isEditingStations {
-            // make it a little bigger target
-            return 15
+        if !isEditing {
+            return 5
         }
-        return 5
+        
+        // if we're editing radius isn't used
+        return 0
     }
     
     func stationMapStations(_ stationMap: StationMapViewController) -> [Station] {
@@ -333,7 +355,7 @@ extension RouteDashboardPresenter: StationMapDelegate {
                     return String(describing: order + 1)
                 }
             } else {
-                return nil
+                return ""
             }
         }
         
@@ -342,7 +364,7 @@ extension RouteDashboardPresenter: StationMapDelegate {
             if isMapExpanded {
                 return station.longCode
             } else {
-                return nil
+                return ""
             }
         }
         
@@ -350,7 +372,7 @@ extension RouteDashboardPresenter: StationMapDelegate {
             return station.longCode
         }
         
-        return nil
+        return ""
     }
     
 //    func stationMap(_ stationMap: StationMapViewController, annotationViewClassAt zoomLevel: ZoomLevel) -> AnyClass? {
@@ -438,19 +460,17 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
     
     func didSelectEditMenu() {
         let menuOptions = [
-            OptionItem(title: "Add/Remove Stations", isEnabled: true, isDestructive: false),
-            OptionItem(title: "Change Visit Order", isEnabled: true, isDestructive: false),
-            OptionItem(title: "Visits", isEnabled: true, isDestructive: false),
-            OptionItem(title: "Hide", isEnabled: true, isDestructive: false),
-            OptionItem(title: "Delete", isEnabled: true, isDestructive: true)]
+            OptionItem(title: MENU_EDIT_STATIONS, isEnabled: true, isDestructive: false),
+            OptionItem(title: MENU_CHANGE_ORDER, isEnabled: true, isDestructive: false),
+            OptionItem(title: MENU_HIDE, isEnabled: true, isDestructive: false),
+            OptionItem(title: MENU_DELETE, isEnabled: true, isDestructive: true)]
         
         (view as? UserInterface)?.displayMenuOptions(options: menuOptions, actionHandler: {
             (title) in
-            if title == "Add/Remove Stations" { self.didSelectEditStations() }
-            else if title == "Change Visit Order" { self.didSelectEditOrder() }
-            else if title == "Visits" { self.didSelectVisitHistory() }
-            else if title == "Hide" { self.didSelectHideRoute() }
-            else if title == "Delete" { self.didSelectDeleteRoute() }
+            if title == self.MENU_EDIT_STATIONS { self.didSelectEditStations() }
+            else if title == self.MENU_CHANGE_ORDER { self.didSelectEditOrder() }
+            else if title == self.MENU_HIDE { self.didSelectHideRoute() }
+            else if title == self.MENU_DELETE { self.didSelectDeleteRoute() }
         })
     }
     
@@ -570,13 +590,11 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
             view.displayCollapsedMap()
         } else {
             view.displayFullScreenMap()
-            
         }
         
         // toggle state
         self.currentResizeButtonState = self.currentResizeButtonState == .collapse ? .expand : .collapse
         view.setMapResizeIconState(state: self.currentResizeButtonState)
-        
         view.reloadMap(forceAnnotationRebuild: false)
         view.setVisibleRegionToHighlightedStations()
     }

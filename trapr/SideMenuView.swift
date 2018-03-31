@@ -56,7 +56,7 @@ final class SideMenuView: UserInterface {
     
     lazy var headerBackground: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.trpNavigationBar
+        view.backgroundColor = UIColor.trpHighlightColor
         
         let image = UIImageView(image: UIImage(named: "tree"))
         image.contentMode = .scaleAspectFit

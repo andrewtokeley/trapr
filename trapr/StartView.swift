@@ -62,8 +62,8 @@ final class StartView: UserInterface { //, UICollectionViewDelegate, UICollectio
         return LoaderView()
     }()
     
-    lazy var editButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(named: "show"), style: .plain, target: self, action: #selector(editButtonClick(sender:)))
+    lazy var addRouteButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(named: "add"), style: .plain, target: self, action: #selector(addRouteButtonClick(sender:)))
         return button
     }()
     
@@ -136,9 +136,9 @@ final class StartView: UserInterface { //, UICollectionViewDelegate, UICollectio
 //    }()
     
     lazy var menuButtonItem: UIBarButtonItem = {
-        
+
         var view = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(menuButtonAction(sender:)))
-        
+
         return view
     }()
     
@@ -179,8 +179,8 @@ final class StartView: UserInterface { //, UICollectionViewDelegate, UICollectio
     
     //MARK: - Events
     
-    @objc func editButtonClick(sender: UIBarButtonItem) {
-        presenter.didSelectEditMenu()
+    @objc func addRouteButtonClick(sender: UIBarButtonItem) {
+        presenter.didSelectNewRoute()
     }
     
     @objc func menuButtonAction(sender: UIBarButtonItem) {
@@ -190,6 +190,7 @@ final class StartView: UserInterface { //, UICollectionViewDelegate, UICollectio
     @objc func newRouteButtonClick(sender: UIButton) {
         presenter.didSelectNewRoute()
     }
+    
     //MARK: - UICollectionView
     
 //    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -250,7 +251,7 @@ final class StartView: UserInterface { //, UICollectionViewDelegate, UICollectio
         
         self.view.backgroundColor = UIColor.trpBackground
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationItem.rightBarButtonItem = self.editButton
+        self.navigationItem.rightBarButtonItem = self.addRouteButton
         self.navigationItem.leftBarButtonItem = self.menuButtonItem
       
         self.navigationController?.navigationBar.prefersLargeTitles = true

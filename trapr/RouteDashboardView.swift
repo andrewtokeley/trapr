@@ -20,17 +20,18 @@ final class RouteDashboardView: UserInterface {
     let MAP_HEIGHT_MIN: CGFloat = 350
     let GRAPH_HEIGHT: CGFloat = 200
     
+    let NUMBER_OF_SUMMARY_CELLS = 3
     let CELL_ID = "cell"
-    let ROW_LASTVISITED = 0
-    let ROW_VISITS = 1
+    let ROW_LASTVISITED = 1
+    let ROW_VISITS = 2
     
     var killNumberOfBars: Int = 0
     var poisonNumberOfBars: Int = 0
     var poisonCountFunction: ((Int) -> Int)?
     
     var heightOfScrollableArea: CGFloat {
-        // 2 cell summary tableview, 2 graphs with headings + a little extra
-        return LayoutDimensions.inputHeight * 2 + GRAPH_HEIGHT * 2 + LayoutDimensions.inputHeight * 2 + LayoutDimensions.spacingMargin
+        // 3 row tableview, 2 graphs with headings + a little extra
+        return LayoutDimensions.inputHeight * 3 + GRAPH_HEIGHT * 2 + LayoutDimensions.inputHeight * 2 + LayoutDimensions.spacingMargin
     }
     
     //MARK: - Subviews
@@ -41,6 +42,15 @@ final class RouteDashboardView: UserInterface {
         tableView.dataSource = self
         tableView.backgroundColor = UIColor.clear
         return tableView
+    }()
+    
+    lazy var routeSummaryTableViewCell: UITableViewCell = {
+        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: CELL_ID)
+        cell.textLabel?.text = "Stations"
+        cell.accessoryType = .none
+        cell.selectionStyle = .none
+        cell.backgroundColor = UIColor.clear
+        return cell
     }()
     
     lazy var visitsTableViewCell: UITableViewCell = {
@@ -356,7 +366,10 @@ final class RouteDashboardView: UserInterface {
         
         // make sure to add mapViewControllerHost before the other views which need to be on top of it
         self.view.addSubview(mapViewControllerHost)
-        self.view.addSubview(resizeButton)
+        
+        // not going to have this for now - bloat!
+        //self.view.addSubview(resizeButton)
+        
         self.view.addSubview(editDescription)
         self.view.addSubview(editStationOptions)
         self.view.addSubview(editOrderOptions)
@@ -398,7 +411,7 @@ final class RouteDashboardView: UserInterface {
         summaryTableView.autoPinEdge(toSuperviewEdge: .top)
         summaryTableView.autoPinEdge(toSuperviewEdge: .left)
         summaryTableView.autoPinEdge(toSuperviewEdge: .right)
-        summaryTableView.autoSetDimension(.height, toSize: 100)
+        summaryTableView.autoSetDimension(.height, toSize: CGFloat(NUMBER_OF_SUMMARY_CELLS) * LayoutDimensions.tableCellHeight * 1.2)
         
         barChartKillsTitle.autoPinEdge(.top, to: .bottom, of: summaryTableView, withOffset: LayoutDimensions.smallSpacingMargin)
         barChartKillsTitle.autoPinEdge(toSuperviewEdge: .left)
@@ -419,10 +432,10 @@ final class RouteDashboardView: UserInterface {
         barChartPoison.autoSetDimension(.height, toSize: GRAPH_HEIGHT)
         
         // Overlayed on to map
-        resizeButton.autoPinEdge(.bottom, to: .bottom, of: mapViewControllerHost, withOffset: -LayoutDimensions.smallSpacingMargin)
-        resizeButton.autoPinEdge(.right, to: .right, of: mapViewControllerHost, withOffset: -LayoutDimensions.smallSpacingMargin)
-        resizeButton.autoSetDimension(.width, toSize: 20)
-        resizeButton.autoSetDimension(.height, toSize: 20)
+//        resizeButton.autoPinEdge(.bottom, to: .bottom, of: mapViewControllerHost, withOffset: -LayoutDimensions.smallSpacingMargin)
+//        resizeButton.autoPinEdge(.right, to: .right, of: mapViewControllerHost, withOffset: -LayoutDimensions.smallSpacingMargin)
+//        resizeButton.autoSetDimension(.width, toSize: 20)
+//        resizeButton.autoSetDimension(.height, toSize: 20)
     }
 }
 
@@ -430,7 +443,7 @@ final class RouteDashboardView: UserInterface {
 
 extension RouteDashboardView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return NUMBER_OF_SUMMARY_CELLS
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -443,8 +456,10 @@ extension RouteDashboardView: UITableViewDataSource {
         
         if row == ROW_LASTVISITED {
             cell = lastVisitTableViewCell
-        } else { //if row == ROW_VISITS {
+        } else if row == ROW_VISITS {
             cell = visitsTableViewCell
+        } else {
+            cell = routeSummaryTableViewCell
         }
         
         return cell!
@@ -512,8 +527,9 @@ extension RouteDashboardView: RouteDashboardViewApi {
     
     func showEditNavigation(_ show: Bool) {
         if show {
-            self.navigationItem.leftBarButtonItem = self.cancelButton
             self.navigationItem.rightBarButtonItem = self.editDoneButton
+            self.navigationItem.leftBarButtonItem = self.cancelButton
+            
         } else {
             self.navigationItem.leftBarButtonItem = self.closeButton
             self.navigationItem.rightBarButtonItem = self.editButton
@@ -534,7 +550,7 @@ extension RouteDashboardView: RouteDashboardViewApi {
             self.mapBottomConstaint?.constant = 0
             self.view.layoutIfNeeded()
         })
-
+        
     }
     
     func displayCollapsedMap() {
@@ -542,6 +558,8 @@ extension RouteDashboardView: RouteDashboardViewApi {
             self.mapBottomConstaint?.constant = -self.MAP_HEIGHT_MIN
             self.view.layoutIfNeeded()
         })
+        
+        
     }
     
     func displayTitle(_ title: String, editable: Bool) {
@@ -549,8 +567,18 @@ extension RouteDashboardView: RouteDashboardViewApi {
         routeNameTextField.isEnabled = editable
     }
     
-    func displayLastVisitedDate(date: String) {
+    func displayLastVisitedDate(date: String, allowSelection: Bool) {
         lastVisitTableViewCell.detailTextLabel?.text = date
+        lastVisitTableViewCell.accessoryType = allowSelection ? .disclosureIndicator : .none
+    }
+    
+    func displayVisitNumber(number: String, allowSelection: Bool) {
+        visitsTableViewCell.detailTextLabel?.text = number
+        visitsTableViewCell.accessoryType = allowSelection ? .disclosureIndicator : .none
+    }
+    
+    func displayStationSummary(summary: String) {
+        routeSummaryTableViewCell.detailTextLabel?.text = summary
     }
     
     func setVisibleRegionToCentreOfStations(distance: Double) {

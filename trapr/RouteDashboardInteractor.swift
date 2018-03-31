@@ -21,14 +21,14 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
         return ServiceFactory.sharedInstance.visitService.getVisitSummaryMostRecent(route: route)
     }
     
-    func lastVisitedText(route: Route) -> String {
-        var text:String? = "not visited"
+    func lastVisitedText(route: Route) -> String? {
+        var text:String?
         
         if let lastVisitSummary = lastVisitSummary(route: route) {
             text = lastVisitSummary.visits.first?.visitDateTime.toString(from: "dd MMM yyyy, h:mm a")
         }
         
-        return text!
+        return text
     }
     
     func getStationSequence(_ from: Station, _ to:Station) -> [Station]? {
@@ -128,6 +128,15 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
     func visitsExistForRoute(route: Route) -> Bool {
         let service = ServiceFactory.sharedInstance.visitService
         return service.visitsExistForRoute(route: route)
+    }
+    
+    func numberOfVisits(route: Route) -> Int {
+        let service = ServiceFactory.sharedInstance.visitService
+        
+        // Get all the summaries from year dot, order with the most recent first
+        let visitSummaries = service.getVisitSummaries(recordedBetween: Date().add(0, 0, -100), endDate: Date(), route: route)
+        
+        return visitSummaries.count
     }
     
 }
