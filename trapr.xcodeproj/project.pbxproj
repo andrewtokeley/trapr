@@ -822,6 +822,7 @@
 		D820AE0320228861008925E8 /* VisitHistory */ = {
 			isa = PBXGroup;
 			children = (
+				D8083D301FE8F92300D1C5F1 /* VisitSection */,
 				D820AE0420228889008925E8 /* VisitHistoryDisplayData.swift */,
 				D820AE0520228889008925E8 /* VisitHistoryPresenter.swift */,
 				D820AE0620228889008925E8 /* VisitHistoryRouter.swift */,
@@ -838,7 +839,6 @@
 			children = (
 				D8AB9AD9201DAF1900FBEF55 /* RouteTableViewCell */,
 				D8083D2F1FE8F80B00D1C5F1 /* RouteSection */,
-				D8083D301FE8F92300D1C5F1 /* VisitSection */,
 				D83DC6C11F7F841F00F91792 /* StartDisplayData.swift */,
 				D83DC6C21F7F841F00F91792 /* StartInteractor.swift */,
 				D83DC6C31F7F841F00F91792 /* StartModuleApi.swift */,

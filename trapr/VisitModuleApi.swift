@@ -11,7 +11,8 @@ import Viperit
 //MARK: - VisitRouter API
 protocol VisitRouterApi: RouterProtocol {
     func showStationSelectModule(setupData: StationSelectSetupData)
-    func showEditRoute(setupData: TraplineSelectSetupData) 
+    func showEditRoute(setupData: TraplineSelectSetupData)
+    func showListPicker(setupData: ListPickerSetupData)
     func showDatePicker(setupData: DatePickerSetupData)
     func addVisitLogToView()
     func showMap(stations: [Station], highlightedStations: [Station]?)
@@ -36,7 +37,8 @@ protocol VisitViewApi: UserInterfaceProtocol {
 
 //MARK: - VisitPresenter API
 protocol VisitPresenterApi: PresenterProtocol {
-    
+    func didSelectToAddTrap(trapType: TrapType)
+    func didSelectToRemoveTrap(trap: Trap)
     func didSelectTrap(index: Int)
     func didSelectStation(index: Int)
     func didSelectMenuButton()
@@ -52,9 +54,19 @@ protocol VisitPresenterApi: PresenterProtocol {
 
 //MARK: - VisitInteractor API
 protocol VisitInteractorApi: InteractorProtocol {
+    
+    func deleteOrArchiveTrap(trap: Trap)
+    
+    /**
+     Return all the station's traps which are not archived or are archived but have a visit recorded for them on the specified date
+     */
+    func getTrapsToDisplay(route: Route, station: Station, date: Date) -> [Trap]
+    
+    func getUnusedTrapTypes(station: Station) -> [TrapType]
     func updateVisitDates(currentDate: Date, route: Route, newDate: Date)
     func retrieveVisit(date: Date, route: Route, trap: Trap)
     func addVisit(visit: Visit)
+    func addOrRestoreTrapToStation(station: Station, trapType: TrapType)
     func deleteVisit(visit: Visit)
     func deleteAllVisits(route: Route, date: Date)
     func addVisitSync(visitSync: VisitSync)

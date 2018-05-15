@@ -20,7 +20,6 @@ class VisitSummaryTableViewCell: UITableViewCell {
     var delegate: VisitSummaryTableViewCellDelegate?
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var subTitleLabel: UILabel!
     @IBOutlet weak var statisticsCollectionView: UICollectionView!
     
     var statistics = [Statistic]() {

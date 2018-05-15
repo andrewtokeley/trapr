@@ -64,6 +64,7 @@ class TraplineService: RealmService, TraplineServiceInterface {
         }
     }
     
+    
     func getTraplines() -> [Trapline]? {
         return Array(realm.objects(Trapline.self).sorted(byKeyPath: "code"))
     }

@@ -18,6 +18,11 @@ protocol StationServiceInterface {
     func getStationSequence(_ from: Station, _ to:Station) -> [Station]?
     
     /**
+     Return all the station's traps (on the route) which are not archived or are archived but have a visit recorded for them on the specified date
+     */
+    func getActiveOrHistoricTraps(route: Route, station: Station, date: Date) -> [Trap]
+    
+    /**
     Returns any missing Stations based on the station code, which is assummed to be sequenctial on it's trapline. The function returns an array of Station long descriptions, for example, AB04.
     */
     func getMissingStations() -> [String]

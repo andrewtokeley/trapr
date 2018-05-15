@@ -101,6 +101,10 @@ extension ListPickerView: UITableViewDelegate, UITableViewDataSource {
         } else {
             cell!.textLabel?.text = displayData.delegate?.listPicker(self, itemTextAt: adjRow(indexPath.row))
             cell!.detailTextLabel?.text = displayData.delegate?.listPicker(self, itemDetailAt: adjRow(indexPath.row))
+            
+            if let image = displayData.delegate?.listPicker(self, imageViewAt: adjRow(indexPath.row)) {
+                cell!.imageView?.image = image
+            }
         }
         
         cell!.accessoryType = selectedIndices.contains(adjRow(indexPath.row)) ? .checkmark : .none

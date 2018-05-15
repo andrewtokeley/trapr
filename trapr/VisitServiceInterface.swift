@@ -32,6 +32,17 @@ protocol VisitServiceInterface: RealmServiceInterface {
     
     func getById(id: String) -> Visit?
     
+    /**
+     Returns whether any visits have been recorded against this trap. Useful in cases where you want to check whether a trap can be deleted
+     
+     - parameters:
+     - trap: the trap to check
+     
+     - returns:
+     True if visits exists, otherwise false
+     */
+    func hasVisits(trap: Trap) -> Bool
+    
     func getVisits(route: Route) -> Results<Visit>
     
     /**

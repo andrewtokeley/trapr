@@ -25,7 +25,7 @@ extension LoaderInteractor: LoaderInteractorApi {
         let traplines = ServiceFactory.sharedInstance.traplineService.getTraplines() ?? [Trapline]()
         
         // the only exception to this is if we're running in test mode. In this case don't suggest a data update
-        let runningInTestMode = !ServiceFactory.sharedInstance.runningInTestMode
+        let runningInTestMode = ServiceFactory.sharedInstance.runningInTestMode
         
         return traplines.count == 0 && !runningInTestMode
     }

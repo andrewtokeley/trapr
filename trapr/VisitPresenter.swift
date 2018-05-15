@@ -13,7 +13,9 @@ import MessageUI
 
 enum visitRecordMenuItem: String {
     case sendReport = "Send report"
-    case viewMap = "Map"
+    case viewMap = "Show map"
+    case addTrap = "Add trap"
+    case archiveTrap = "Remove trap"
     case deleteAllVisits = "Remove all visits..."
 }
 
@@ -26,15 +28,27 @@ final class VisitPresenter: Presenter {
     fileprivate var visitSummary: VisitSummary!
     fileprivate var currentVisit: Visit?
     
+    fileprivate var trapsToDisplay = [Trap]()
+    fileprivate var unusedTrapTypes = [TrapType]()
+    
     fileprivate var currentTrap: Trap {
-        return self.visitSummary.route.stations[stationIndex].traps.sorted(byKeyPath: "type.order")[trapIndex]
+        if trapIndex >= trapsToDisplay.count {
+            trapIndex = 0
+        }
+        return trapsToDisplay[trapIndex]
     }
     
     fileprivate var currentStation: Station {
         return self.visitSummary.route.stations[stationIndex]
     }
     
-    fileprivate var stationIndex = 0
+    fileprivate var stationIndex = 0 {
+        didSet {
+            // whenever the current station changes, refresh the available trapTypes
+            self.unusedTrapTypes = interactor.getUnusedTrapTypes(station: currentStation)
+        }
+    }
+    
     fileprivate var trapIndex = 0
     
     open override func setupView(data: Any) {
@@ -143,6 +157,20 @@ extension VisitPresenter: StationSelectDelegate {
 // MARK: - VisitPresenter API
 extension VisitPresenter: VisitPresenterApi {
     
+    func didSelectToRemoveTrap(trap: Trap) {
+        interactor.deleteOrArchiveTrap(trap: trap)
+        
+        // refresh UI
+        didSelectStation(index: self.stationIndex)
+    }
+    
+    func didSelectToAddTrap(trapType: TrapType) {
+        interactor.addOrRestoreTrapToStation(station: self.currentStation, trapType: trapType)
+        
+        // refresh UI
+        didSelectStation(index: self.stationIndex)
+    }
+    
     func didSendEmailSuccessfully() {
         // create a sync record
         // NOTE: we can't know if someone has changed the recipient so we're just assuming it's what's in settings for now
@@ -170,6 +198,8 @@ extension VisitPresenter: VisitPresenterApi {
         let options = [
             OptionItem(title: visitRecordMenuItem.sendReport.rawValue, isEnabled: hasVisits),
             OptionItem(title: visitRecordMenuItem.viewMap.rawValue, isEnabled: true),
+            OptionItem(title: visitRecordMenuItem.addTrap.rawValue, isEnabled: unusedTrapTypes.count > 0),
+            OptionItem(title: visitRecordMenuItem.archiveTrap.rawValue, isEnabled: self.currentVisit == nil),
             OptionItem(title: visitRecordMenuItem.deleteAllVisits.rawValue, isEnabled: hasVisits, isDestructive: true)
         ]
         view.displayMenuOptions(options: options)
@@ -187,6 +217,18 @@ extension VisitPresenter: VisitPresenterApi {
             let count = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: self.visitSummary.dateOfVisit, route: self.visitSummary.route).count
             
             view.showConfirmation(title: "Remove All", message: "Are you sure you want to delete all \(count) visits on the \(self.visitSummary.dateOfVisit.toString(from: Styles.DATE_FORMAT_LONG)) for this route?", yes: { self.menuDeleteAllVisits() }, no: nil)
+        }
+        if title == visitRecordMenuItem.addTrap.rawValue {
+            
+            let setupData = ListPickerSetupData()
+            setupData.delegate = self
+            setupData.embedInNavController = true
+            setupData.includeSelectNone = false
+            
+            router.showListPicker(setupData: setupData)
+        }
+        if title == visitRecordMenuItem.archiveTrap.rawValue {
+            didSelectToRemoveTrap(trap: self.currentTrap)
         }
     }
     
@@ -221,9 +263,13 @@ extension VisitPresenter: VisitPresenterApi {
     func didSelectStation(index: Int) {
         self.stationIndex = index
         
-        // get the traps for the new station
-        view.setTraps(traps: Array(self.currentStation.traps.sorted(byKeyPath: "type.order")))
+        // note we don't always want to return all the traps of the station, only those not-archived or archived but with a visit recorded
+        self.trapsToDisplay = interactor.getTrapsToDisplay(route: self.visitSummary.route, station: self.currentStation, date: self.visitSummary.dateOfVisit)
+        view.setTraps(traps: self.trapsToDisplay)
     
+        // define the trapTypes that haven't been used yet - used if we add new TrapTypes to the Station
+        self.unusedTrapTypes = interactor.getUnusedTrapTypes(station: self.currentStation)
+        
         view.selectTrap(index: 0)
     }
 }
@@ -232,8 +278,8 @@ extension VisitPresenter: VisitLogDelegate {
     func didSelectToRemoveVisit() {
         if let visit = self.currentVisit {
             interactor.deleteVisit(visit: visit)
-            
             delegate?.didChangeVisit(visit: nil)
+            self.currentVisit = nil
         }
     }
     
@@ -246,6 +292,37 @@ extension VisitPresenter: VisitLogDelegate {
             
             interactor.addVisit(visit: newVisit)
         }
+    }
+}
+
+//MARK: - TraplineSelectDelegate
+extension VisitPresenter: ListPickerDelegate {
+    
+    func listPickerTitle(_ listPicker: ListPickerView) -> String {
+        return "Trap"
+    }
+    
+    func listPickerNumberOfRows(_ listPicker: ListPickerView) -> Int {
+        return self.unusedTrapTypes.count
+    }
+    
+    func listPickerHeaderText(_ listPicker: ListPickerView) -> String {
+        return "Trap"
+    }
+    
+    func listPicker(_ listPicker: ListPickerView, itemTextAt index: Int) -> String {
+        return self.unusedTrapTypes[index].name ?? "-"
+    }
+
+    func listPicker(_ listPicker: ListPickerView, imageViewAt index: Int) -> UIImage? {
+        if let imageName = self.unusedTrapTypes[index].imageName {
+            return UIImage(named: imageName)
+        }
+        return nil
+    }
+    
+    func listPicker(_ listPicker: ListPickerView, didSelectItemAt index: Int) {
+        didSelectToAddTrap(trapType: self.unusedTrapTypes[index])
     }
 }
 

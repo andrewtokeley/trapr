@@ -50,7 +50,7 @@ final class MapView: UserInterface {
         self.view.addSubview(mapViewControllerHost)
         
         self.navigationItem.leftBarButtonItem = closeButton
-        self.navigationItem.rightBarButtonItem = showMenuButton
+        //self.navigationItem.rightBarButtonItem = showMenuButton
         
         setConstraints()
     }

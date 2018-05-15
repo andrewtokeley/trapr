@@ -26,6 +26,46 @@ class StationTests: XCTestCase {
         super.tearDown()
     }
     
+    func testActiveOrHistoricTraps() {
+        
+        // create station with two traps
+        let trapline = Trapline()
+        ServiceFactory.sharedInstance.traplineService.add(trapline: trapline)
+
+        let station = Station()
+        station.code = "A"
+        let trap1 = station.addTrap(type: ServiceFactory.sharedInstance.trapTypeService.get(.pellibait)!)
+        trap1.notes = "trap1"
+        let trap2 = station.addTrap(type: ServiceFactory.sharedInstance.trapTypeService.get(.doc200)!)
+        trap2.notes = "trap2"
+        ServiceFactory.sharedInstance.traplineService.addStation(trapline: trapline, station: station)
+
+        let route = Route()
+        ServiceFactory.sharedInstance.routeService.add(route: route)
+        ServiceFactory.sharedInstance.routeService.addStationToRoute(route: route, station: station)
+        
+        // date
+        let date = Date.dateFromComponents(1, 1, 2018)!
+        
+        // archive trap2
+        ServiceFactory.sharedInstance.trapService.setArchiveState(trap: trap2, archive: true)
+        
+        // create a visit for trap1 in Jan
+        ServiceFactory.sharedInstance.dataPopulatorService.createVisit(1, 1, 1, date, route, trap1)
+        
+        // archive trap1
+        ServiceFactory.sharedInstance.trapService.setArchiveState(trap: trap1, archive: true)
+        
+        // make sure trap1 is returned (since it has a visit on the day) and trap2 isn't for this date (cause it's archived with no visits)
+        let traps_1 = ServiceFactory.sharedInstance.stationService.getActiveOrHistoricTraps(route: route, station: station, date: date)
+        XCTAssert(traps_1.count == 1)
+        XCTAssert(traps_1.first?.notes == "trap1")
+        
+        // test that neither are returned for a different day, since neither have visits for this day and both are archived
+        let traps_2 = ServiceFactory.sharedInstance.stationService.getActiveOrHistoricTraps(route: route, station: station, date: date.add(1, 0, 0))
+        XCTAssert(traps_2.count == 0)
+    }
+    
     func testMissingStations() {
         let trapline = Trapline()
         trapline.code = "LW"

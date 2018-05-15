@@ -55,7 +55,6 @@ extension VisitHistoryView: UITableViewDelegate, UITableViewDataSource {
         
         let visit = self.visitSummaries[indexPath.section]
         cell.titleLabel.text = visit.dateOfVisit.toString(from: "dd MMM yyyy")
-        cell.subTitleLabel.text = "test"
         
         var stats = [Statistic]()
         stats.append(Statistic(title: "POISON", statistic: String(visit.totalPoisonAdded), variance: -5.0))
@@ -107,7 +106,7 @@ extension VisitHistoryView: UITableViewDelegate, UITableViewDataSource {
     
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        return 125
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

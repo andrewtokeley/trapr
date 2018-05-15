@@ -19,6 +19,54 @@ final class VisitInteractor: Interactor {
 // MARK: - VisitInteractor API
 extension VisitInteractor: VisitInteractorApi {
     
+    func getTrapsToDisplay(route: Route, station: Station, date: Date) -> [Trap] {
+        return ServiceFactory.sharedInstance.stationService.getActiveOrHistoricTraps(route:route, station:station, date:date)
+    }
+    
+    func deleteOrArchiveTrap(trap: Trap) {
+        
+        let hasVisits = ServiceFactory.sharedInstance.visitService.hasVisits(trap: trap)
+        
+        if hasVisits {
+            //archive
+            ServiceFactory.sharedInstance.trapService.setArchiveState(trap: trap, archive: true)
+        } else {
+            // delete
+            ServiceFactory.sharedInstance.trapService.deleteTrap(trap: trap)
+        }
+    }
+    
+    func addOrRestoreTrapToStation(station: Station, trapType: TrapType) {
+        
+        // find out if the station has an archived trap of this type that we can restore
+        if let existingTrap = station.traps.filter({ $0.type == trapType }).first {
+            ServiceFactory.sharedInstance.trapService.setArchiveState(trap: existingTrap, archive: false)
+        } else {
+        
+            // create a trap of the correct type
+            let trap = Trap()
+            trap.type = trapType
+            trap.latitude = station.latitude
+            trap.longitude = station.longitude
+            
+            ServiceFactory.sharedInstance.traplineService.addTrap(station: station, trap: trap)
+            
+        }
+    }
+    
+    func getUnusedTrapTypes(station: Station) -> [TrapType] {
+        let allTrapTypes = ServiceFactory.sharedInstance.trapTypeService.getAll()
+        let existingTraps = station.traps
+        
+        let unusedTrapTypes = allTrapTypes.filter( {
+            (trapType) in
+            return !existingTraps.contains(where: {
+                    (trap: Trap) in
+                    return trap.type == trapType && !trap.archive }) } )
+        
+        return unusedTrapTypes
+    }
+    
     func addVisitSync(visitSync: VisitSync) {
         ServiceFactory.sharedInstance.visitSyncService.add(visitSync: visitSync)
     }

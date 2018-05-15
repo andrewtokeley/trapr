@@ -33,6 +33,11 @@ extension VisitRouter: VisitRouterApi {
         module.router.show(from: _view, embedInNavController: true, setupData: setupData)
     }
 
+    func showListPicker(setupData: ListPickerSetupData) {
+        let module = AppModules.listPicker.build()
+        module.router.show(from: _view, embedInNavController: setupData.embedInNavController, setupData: setupData)
+    }
+    
     func showDatePicker(setupData: DatePickerSetupData) {
         let module = AppModules.datePicker.build()
         module.router.showAsModalOverlay(from: _view, setupData: setupData)

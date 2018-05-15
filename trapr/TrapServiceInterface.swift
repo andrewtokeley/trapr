@@ -10,6 +10,8 @@ import Foundation
 
 protocol TrapServiceInterface: RealmServiceInterface {
     
-    //func getLurePercentageVarianceFromAverageBalance(trap: Trap, asAtDate: Date) -> Double
+    func setArchiveState(trap: Trap, archive: Bool)
+    func deleteTrap(trap: Trap)
     func getLureBalance(trap: Trap, asAtDate: Date) -> Int
+    
 }

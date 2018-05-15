@@ -10,6 +10,24 @@ import Foundation
 
 class StationService: RealmService, StationServiceInterface {
     
+    func getActiveOrHistoricTraps(route: Route, station: Station, date: Date) -> [Trap] {
+        var traps = [Trap]()
+        
+        for trap in station.traps {
+            if !trap.archive {
+                traps.append(trap)
+            } else {
+                // only add if there are visits for the trap on this day
+                let visit = ServiceFactory.sharedInstance.visitService.getVisits(recordedBetween: date.dayStart(), dateEnd: date.dayEnd(), route: route, trap: trap)
+                if visit.count != 0 {
+                    traps.append(trap)
+                }
+            }
+        }
+        
+        return traps
+    }
+    
     func getAll() -> [Station] {
         return Array(realm.objects(Station.self))
     }

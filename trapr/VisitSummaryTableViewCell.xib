@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="164" id="ToU-Bm-G1q" userLabel="Visit Summary Table View Header" customClass="VisitSummaryTableViewCell" customModule="trapr" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="579" height="164"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="137" id="ToU-Bm-G1q" userLabel="Visit Summary Table View Header" customClass="VisitSummaryTableViewCell" customModule="trapr" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="579" height="137"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ToU-Bm-G1q" id="tbl-1a-Tap">
-                <rect key="frame" x="0.0" y="0.0" width="579" height="163.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="579" height="136.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MTY-Yc-kDf">
-                        <rect key="frame" x="20" y="32" width="539" height="15"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bu7-Dv-o04">
                         <rect key="frame" x="20" y="11" width="539" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -31,7 +25,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="WDS-7h-bSQ">
-                        <rect key="frame" x="20" y="73" width="539" height="80"/>
+                        <rect key="frame" x="20" y="46" width="539" height="80"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="80" id="aXC-wE-q8s"/>
@@ -50,22 +44,18 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="WDS-7h-bSQ" firstAttribute="leading" secondItem="tbl-1a-Tap" secondAttribute="leadingMargin" id="3r6-L7-tu2"/>
-                    <constraint firstItem="MTY-Yc-kDf" firstAttribute="top" secondItem="Bu7-Dv-o04" secondAttribute="bottom" id="8hP-hG-22M"/>
                     <constraint firstItem="WDS-7h-bSQ" firstAttribute="bottom" secondItem="tbl-1a-Tap" secondAttribute="bottomMargin" id="A0G-D4-ArV"/>
                     <constraint firstItem="WDS-7h-bSQ" firstAttribute="trailing" secondItem="tbl-1a-Tap" secondAttribute="trailingMargin" id="U0i-0y-oyf"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="MTY-Yc-kDf" secondAttribute="trailing" id="dcp-QA-zsj"/>
                     <constraint firstItem="Bu7-Dv-o04" firstAttribute="leading" secondItem="tbl-1a-Tap" secondAttribute="leadingMargin" id="fUO-Yy-3fB"/>
                     <constraint firstItem="Bu7-Dv-o04" firstAttribute="top" secondItem="tbl-1a-Tap" secondAttribute="topMargin" id="heQ-nq-638"/>
-                    <constraint firstItem="MTY-Yc-kDf" firstAttribute="leading" secondItem="tbl-1a-Tap" secondAttribute="leadingMargin" id="wX8-ny-1jC"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Bu7-Dv-o04" secondAttribute="trailing" id="zOM-Bc-NC7"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="statisticsCollectionView" destination="WDS-7h-bSQ" id="ZVt-FV-aoJ"/>
-                <outlet property="subTitleLabel" destination="MTY-Yc-kDf" id="wdv-Oe-cAd"/>
                 <outlet property="titleLabel" destination="Bu7-Dv-o04" id="GmH-ja-smn"/>
             </connections>
-            <point key="canvasLocation" x="53.5" y="51"/>
+            <point key="canvasLocation" x="53.5" y="37.5"/>
         </tableViewCell>
     </objects>
 </document>

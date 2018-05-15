@@ -16,16 +16,17 @@ fileprivate struct LureTotals {
 
 class TrapService: RealmService, TrapServiceInterface {
     
-//    func getLurePercentageVarianceFromAverageBalance(trap: Trap, asAtDate: Date) -> Double {
-//        
-//        // get the average balance for this trap
-//        let average = 10
-//        
-//        // get the balance at this date
-//        let balance = self.getLureBalance(trap: trap, asAtDate: asAtDate)
-//        
-//        return (balance - average) / average
-//    }
+    func setArchiveState(trap: Trap, archive: Bool) {
+        try! realm.write {
+            trap.archive = archive
+        }
+    }
+    
+    func deleteTrap(trap: Trap) {
+        try! realm.write {
+            realm.delete(trap)
+        }
+    }
     
     func getLureBalance(trap: Trap, asAtDate: Date) -> Int {
         

@@ -30,6 +30,11 @@ class Trap: Object {
     /**
      The type of trap. e.g. Possum Master, Pelifeed...
      */
+    @objc dynamic var archive: Bool = false
+    
+    /**
+     The type of trap. e.g. Possum Master, Pelifeed...
+     */
     @objc dynamic var type: TrapType?
     
     /**

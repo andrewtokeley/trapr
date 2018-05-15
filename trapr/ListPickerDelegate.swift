@@ -20,12 +20,16 @@ protocol ListPickerDelegate {
     // optional
     func listPickerHasChildListPicker(_ listPicker: ListPickerView) -> Bool
     func listPickerInitialMultiselectState(_ listPicker: ListPickerView) -> MultiselectOptions
+    
     func listPicker(_ listPicker: ListPickerView, itemDetailAt index: Int) -> String?
+    func listPicker(_ listPicker: ListPickerView, imageViewAt index: Int) -> UIImage?
+    
     func listPicker(_ listPicker: ListPickerView, isSelected index: Int) -> Bool
     
     func listPickerDidSelectNoSelection(_ listPicker: ListPickerView)
     func listPicker(_ listPicker: ListPickerView, didSelectItemAt index: Int)
     func listPicker(_ listPicker: ListPickerView, didSelectMultipleItemsAt indexes: [Int])
+    
 }
     
     //MARK: - Default implementations for optional methods
@@ -57,5 +61,9 @@ protocol ListPickerDelegate {
         
         func listPicker(_ listPicker: ListPickerView, didSelectMultipleItemsAt indexes: [Int]) {
             // do nothing
+        }
+        
+        func listPicker(_ listPicker: ListPickerView, imageViewAt index: Int) -> UIImage? {
+            return nil
         }
 }
