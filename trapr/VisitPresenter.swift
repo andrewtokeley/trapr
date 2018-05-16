@@ -160,15 +160,15 @@ extension VisitPresenter: VisitPresenterApi {
     func didSelectToRemoveTrap(trap: Trap) {
         interactor.deleteOrArchiveTrap(trap: trap)
         
-        // refresh UI
-        didSelectStation(index: self.stationIndex)
+        // refresh UI and select the same trapIndex if valid, otherwise the one befo
+        didSelectStation(index: self.stationIndex, trapIndex: trapIndex > 0 ? trapIndex - 1 : 0)
     }
     
     func didSelectToAddTrap(trapType: TrapType) {
         interactor.addOrRestoreTrapToStation(station: self.currentStation, trapType: trapType)
         
-        // refresh UI
-        didSelectStation(index: self.stationIndex)
+        // refresh UI and select the last trap (we are assuming this is where the new trap will be added)
+        didSelectStation(index: self.stationIndex, trapIndex: trapIndex + 1)
     }
     
     func didSendEmailSuccessfully() {
@@ -260,7 +260,7 @@ extension VisitPresenter: VisitPresenterApi {
         delegate?.didChangeVisit(visit: nil)
     }
     
-    func didSelectStation(index: Int) {
+    func didSelectStation(index: Int, trapIndex: Int = 0) {
         self.stationIndex = index
         
         // note we don't always want to return all the traps of the station, only those not-archived or archived but with a visit recorded
@@ -270,7 +270,7 @@ extension VisitPresenter: VisitPresenterApi {
         // define the trapTypes that haven't been used yet - used if we add new TrapTypes to the Station
         self.unusedTrapTypes = interactor.getUnusedTrapTypes(station: self.currentStation)
         
-        view.selectTrap(index: 0)
+        view.selectTrap(index: trapIndex)
     }
 }
 

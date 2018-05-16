@@ -40,7 +40,7 @@ protocol VisitPresenterApi: PresenterProtocol {
     func didSelectToAddTrap(trapType: TrapType)
     func didSelectToRemoveTrap(trap: Trap)
     func didSelectTrap(index: Int)
-    func didSelectStation(index: Int)
+    func didSelectStation(index: Int, trapIndex: Int)
     func didSelectMenuButton()
     func didSelectInfoButton()
     func didSelectMenuItem(title: String)

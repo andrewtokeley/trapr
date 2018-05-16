@@ -404,7 +404,7 @@ extension VisitView: iCarouselDelegate, iCarouselDataSource {
                 }
                 
                 self.lastSelectedStation = adjIndex
-                presenter.didSelectStation(index: adjIndex)
+                presenter.didSelectStation(index: adjIndex, trapIndex: 0)
                 
             }
         } else {
