@@ -11,11 +11,12 @@ import RealmSwift
 
 protocol TraplineServiceInterface: RealmServiceInterface {
     
-    func add(trapline: Trapline)
+    func add(trapline: Trapline) throws
     func addStation(trapline: Trapline, station: Station)
     func addTrap(station: Station, trap: Trap)
     func delete(trapline: Trapline)
     func getTraplines() -> [Trapline]?
+    func getTrapline(region: Region, code: String) -> Trapline?
     func getTrapline(code: String) -> Trapline?
     func getRecentTraplines() -> [Trapline]?
     

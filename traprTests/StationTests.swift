@@ -29,8 +29,8 @@ class StationTests: XCTestCase {
     func testActiveOrHistoricTraps() {
         
         // create station with two traps
-        let trapline = Trapline()
-        ServiceFactory.sharedInstance.traplineService.add(trapline: trapline)
+        let trapline = Trapline(region: Region(code: "TR", name:"Test Region"), code: "LW")
+        XCTAssertNoThrow(try ServiceFactory.sharedInstance.traplineService.add(trapline: trapline))
 
         let station = Station()
         station.code = "A"
@@ -67,9 +67,8 @@ class StationTests: XCTestCase {
     }
     
     func testMissingStations() {
-        let trapline = Trapline()
-        trapline.code = "LW"
-        ServiceFactory.sharedInstance.traplineService.add(trapline: trapline)
+        let trapline = Trapline(region: Region(code: "TR", name:"Test Region"), code: "LW")
+        XCTAssertNoThrow(try ServiceFactory.sharedInstance.traplineService.add(trapline: trapline))
         
         // unordered, with gaps
         let stationCodes = ["08", "01", "02", "04", "05"]

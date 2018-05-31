@@ -32,11 +32,10 @@ class traplineTests: XCTestCase {
     
     func testNewTrapline() {
         
-        let trapline = Trapline()
-        trapline.code = "LW"
+        let trapline = Trapline(region: Region(code: "TR", name:"Test Region"), code: "LW")
         trapline.details = "details"
         
-        traplineService.add(trapline: trapline)
+        XCTAssertNoThrow(try traplineService.add(trapline: trapline))
         
         let getTrapline = traplineService.getTraplines() ?? [Trapline]()
         
@@ -46,9 +45,8 @@ class traplineTests: XCTestCase {
     func testNewTraplines() {
         
         for i in 1...10 {
-            let trapline = Trapline()
-            trapline.code = "LW\(String(i))"
-            traplineService.add(trapline: trapline)
+            let trapline = Trapline(region: Region(code: "TR", name: "Test Region"), code:"LW\(String(i))")
+            XCTAssertNoThrow(try traplineService.add(trapline: trapline))
         }
         
         let getTraplines = traplineService.getTraplines() ?? [Trapline]()
@@ -58,9 +56,8 @@ class traplineTests: XCTestCase {
     
     func testAddingTrapStations() {
         
-        let trapline = Trapline()
-        trapline.code = "LW"
-        traplineService.add(trapline: trapline)
+        let trapline = Trapline(region: Region(code: "TR", name:"Test Region"), code: "LW")
+        XCTAssertNoThrow(try traplineService.add(trapline: trapline))
         
         traplineService.addStation(trapline: trapline, station: Station(code: "01"))
         traplineService.addStation(trapline: trapline, station: Station(code: "02"))
@@ -75,14 +72,11 @@ class traplineTests: XCTestCase {
     
     func testFindTrapline() {
         
-        let trapline1 = Trapline()
-        trapline1.code = "LW"
+        let trapline1 = Trapline(region: Region(code: "TR", name:"Test Region"), code: "LW")
+        let trapline2 = Trapline(region: Region(code: "TR", name:"Test Region"), code: "E")
         
-        let trapline2 = Trapline()
-        trapline2.code = "E"
-        
-        traplineService.add(trapline: trapline1)
-        traplineService.add(trapline: trapline2)
+        XCTAssertNoThrow(try traplineService.add(trapline: trapline1))
+        XCTAssertNoThrow(try traplineService.add(trapline: trapline2))
         
         if let getTrapline = traplineService.getTrapline(code: "E") {
             XCTAssertTrue(getTrapline.code == "E")

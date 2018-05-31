@@ -22,12 +22,15 @@ extension LoaderInteractor: LoaderInteractorApi {
     func needsDataUpdate() -> Bool {
         
         // for now we simply assume that if no traplines are present we need to update the app data
-        let traplines = ServiceFactory.sharedInstance.traplineService.getTraplines() ?? [Trapline]()
+        //let traplines = ServiceFactory.sharedInstance.traplineService.getTraplines() ?? [Trapline]()
         
         // the only exception to this is if we're running in test mode. In this case don't suggest a data update
         let runningInTestMode = ServiceFactory.sharedInstance.runningInTestMode
         
-        return traplines.count == 0 && !runningInTestMode
+        //return traplines.count == 0 && !runningInTestMode
+        
+        // FOR NOW, ALWAYS MERGE UNLESS IN TEST MODE!
+        return true && !runningInTestMode
     }
     
     /**

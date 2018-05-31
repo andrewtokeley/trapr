@@ -40,7 +40,7 @@ class importTests: XCTestCase {
         importer.validateFile(onError: { (error) in
             errorCount += 1
         }, onCompletion: { (importSummary) in
-            XCTAssert(errorCount == 2)
+            XCTAssert(errorCount == 4) // 4 mandatory headings not present
             expect.fulfill()
         })
         
@@ -58,8 +58,8 @@ class importTests: XCTestCase {
         
         // Create CSV with incorrect/missing Trap Line and Summary headings
         let csvData = """
-        Trap Line,Summary
-        AA,Summary for AA
+        Region Code,Region Name,Trap Line,Summary
+        TR,Test Region,AA,Summary for AA
         """
         
         let importer = importer_traplines_v1_to_v2(contentString: csvData)
@@ -89,12 +89,12 @@ class importTests: XCTestCase {
         
         let expect = expectation(description: "testImportSuccessMuktipleLines")
         
-        // Create CSV with incorrect/missing Trap Line and Summary headings
+        // CSV
         let csvData = """
-        Trap Line,Summary
-        AA,Summary for AA
-        BB,Summary for BB
-        CC,Summary for CC
+        Region Code,Region Name,Trap Line,Summary
+        TR,Test Region,AA,Summary for AA
+        TR,Test Region,BB,Summary for BB
+        TR,Test Region,CC,Summary for CC
         """
         
         let importer = importer_traplines_v1_to_v2(contentString: csvData)
@@ -130,10 +130,10 @@ class importTests: XCTestCase {
         
         // Create CSV with incorrect/missing Trap Line and Summary headings
         var csvData = """
-        Trap Line,Summary
-        AA,Summary for AA
-        BB,Summary for BB
-        CC,Summary for CC
+        Region Code,Region Name,Trap Line,Summary
+        TR,Test Region,AA,Summary for AA
+        TR,Test Region,BB,Summary for BB
+        TR,Test Region,CC,Summary for CC
         """
         
         var importer = importer_traplines_v1_to_v2(contentString: csvData)
@@ -150,9 +150,9 @@ class importTests: XCTestCase {
                 XCTAssertTrue(traplines?.count == 3, "Expected 3 get \(traplines?.count ?? 0)")
             
                 csvData = """
-                Trap Line,Summary
-                AA,Summary for AA Updated
-                DD,Summary for DD Added
+                Region Code,Region Name,Trap Line,Summary
+                TR,Test Region,AA,Summary for AA Updated
+                TR,Test Region,DD,Summary for DD Added
                 """
                 importer = importer_traplines_v1_to_v2(contentString: csvData)
                 importer.importAndMerge(onError: nil, onCompletion: {
@@ -184,12 +184,12 @@ class importTests: XCTestCase {
         
         // Create CSV with 3 stations, one repeated
         let csvData = """
-        Trap Line,Summary,Trap Name,Trap Type,Latitude,Longitude,Notes
-        AA,Summary for AA, AA01,Possum Master, 1.2, 1.3,Some notes about AA01 Pos Master
-        AA,Summary for AA, AA02,Possum Master, 1.2, 1.3,Some notes about AA02 Pos Master
-        AA,Summary for AA, AA02,Pelifeed, 22.2, 11.3,Some notes about AA02 Peli
-        BB,Summary for BB, BB01,Possum Master, 1.2, 1.3,Some notes about BB01 Pos Master
-        BB,Summary for BB, BB02,Haines Trap, 1.2, 1.3,Some notes about BB01 Pos Master
+        Region Code,Region Name,Trap Line,Summary,Trap Name,Trap Type,Latitude,Longitude,Notes
+        TR,Test Region,AA,Summary for AA, AA01,Possum Master, 1.2, 1.3,Some notes about AA01 Pos Master
+        TR,Test Region,AA,Summary for AA, AA02,Possum Master, 1.2, 1.3,Some notes about AA02 Pos Master
+        TR,Test Region,AA,Summary for AA, AA02,Pelifeed, 22.2, 11.3,Some notes about AA02 Peli
+        TR,Test Region,BB,Summary for BB, BB01,Possum Master, 1.2, 1.3,Some notes about BB01 Pos Master
+        TR,Test Region,BB,Summary for BB, BB02,Haines Trap, 1.2, 1.3,Some notes about BB01 Pos Master
         """
         
         let importer = importer_traplines_v1_to_v2(contentString: csvData)
@@ -228,9 +228,9 @@ class importTests: XCTestCase {
         let expect = expectation(description: "testImportingOverExisitingData")
         
         // Add LW01 Possum Master
-        let trapline = Trapline()
-        trapline.code = "LW"
-        ServiceFactory.sharedInstance.traplineService.add(trapline: trapline)
+        let trapline = Trapline(region: Region(code: "TR", name: "Test Region"), code: "LW")
+
+        XCTAssertNoThrow(try ServiceFactory.sharedInstance.traplineService.add(trapline: trapline))
         let station = Station(code: "01")
         ServiceFactory.sharedInstance.traplineService.addStation(trapline: trapline, station: station)
         let trap = Trap()
@@ -239,10 +239,10 @@ class importTests: XCTestCase {
         
         // CSV - add new trap and update notes on possum master trap
         let csvData = """
-        Trap Line,Summary,Trap Name,Trap Type,Latitude,Longitude,Notes
-        LW - line,Summary for LW,LW01,Possum Master, 1.2, 1.3,Some notes about LW01 Pos Master
-        LW - line,Summary for LW,LW01,Pellifeed, 1.2, 1.3,Some notes about LW01 Pel
-        LW - line,Summary for LW,LW02,Possum Master, 1.2, 1.3,Some notes about LW02 Pos Master
+        Region Code,Region Name,Trap Line,Summary,Trap Name,Trap Type,Latitude,Longitude,Notes
+        TR,Test Region,LW - line,Summary for LW,LW01,Possum Master, 1.2, 1.3,Some notes about LW01 Pos Master
+        TR,Test Region,LW - line,Summary for LW,LW01,Pellifeed, 1.2, 1.3,Some notes about LW01 Pel
+        TR,Test Region,LW - line,Summary for LW,LW02,Possum Master, 1.2, 1.3,Some notes about LW02 Pos Master
         """
         
         let importer = importer_traplines_v1_to_v2(contentString: csvData)

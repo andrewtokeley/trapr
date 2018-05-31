@@ -31,10 +31,17 @@ final class VisitPresenter: Presenter {
     fileprivate var trapsToDisplay = [Trap]()
     fileprivate var unusedTrapTypes = [TrapType]()
     
-    fileprivate var currentTrap: Trap {
+    fileprivate var currentTrap: Trap? {
+        
+        if trapsToDisplay.count == 0 {
+            return nil
+        }
+        
+        // shouldn't need this check but just in case
         if trapIndex >= trapsToDisplay.count {
             trapIndex = 0
         }
+        
         return trapsToDisplay[trapIndex]
     }
     
@@ -84,7 +91,9 @@ final class VisitPresenter: Presenter {
         interactor.deleteAllVisits(route: self.visitSummary.route, date: self.visitSummary.dateOfVisit)
         
         // grab a new visit for this day - it will be marked as new so the VisitLog will
-        interactor.retrieveVisit(date: visitSummary.dateOfVisit, route: self.visitSummary.route, trap: self.currentTrap)
+        if let trap = self.currentTrap {
+            interactor.retrieveVisit(date: visitSummary.dateOfVisit, route: self.visitSummary.route, trap: trap)
+        }
     }
     
     func menuSendToHandler() {
@@ -228,7 +237,9 @@ extension VisitPresenter: VisitPresenterApi {
             router.showListPicker(setupData: setupData)
         }
         if title == visitRecordMenuItem.archiveTrap.rawValue {
-            didSelectToRemoveTrap(trap: self.currentTrap)
+            if let trap = self.currentTrap {
+                didSelectToRemoveTrap(trap: trap)
+            }
         }
     }
     
@@ -243,7 +254,9 @@ extension VisitPresenter: VisitPresenterApi {
     
     func didSelectTrap(index: Int) {
         trapIndex = index
-        interactor.retrieveVisit(date: visitSummary.dateOfVisit, route: visitSummary.route, trap: self.currentTrap)
+        if let trap = self.currentTrap {
+            interactor.retrieveVisit(date: visitSummary.dateOfVisit, route: visitSummary.route, trap: trap)
+        }
     }
     
     func didFetchVisit(visit: Visit) {
@@ -287,10 +300,10 @@ extension VisitPresenter: VisitLogDelegate {
         
         // get the current time on the same day as the visitSummary
         if let date = self.visitSummary.dateOfVisit.setTimeToNow() {
-         
-            let newVisit = Visit(date: date , route: self.visitSummary.route, trap: self.currentTrap)
-            
-            interactor.addVisit(visit: newVisit)
+            if let trap = self.currentTrap {
+                let newVisit = Visit(date: date , route: self.visitSummary.route, trap: trap)
+                interactor.addVisit(visit: newVisit)
+            }
         }
     }
 }

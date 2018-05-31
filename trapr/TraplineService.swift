@@ -9,9 +9,18 @@
 import Foundation
 import RealmSwift
 
+enum TraplineServiceError: Error {
+    case traplineHasNoRegion
+}
+
 class TraplineService: RealmService, TraplineServiceInterface {
 
-    func add(trapline: Trapline) {
+    func add(trapline: Trapline) throws {
+        guard trapline.region != nil else {
+            // don't let a trapline be saved without defining a region
+            throw TraplineServiceError.traplineHasNoRegion
+        }
+        
         try! realm.write {
             realm.add(trapline, update: true)
         }
@@ -67,6 +76,10 @@ class TraplineService: RealmService, TraplineServiceInterface {
     
     func getTraplines() -> [Trapline]? {
         return Array(realm.objects(Trapline.self).sorted(byKeyPath: "code"))
+    }
+    
+    func getTrapline(region: Region, code: String) -> Trapline? {
+        return realm.objects(Trapline.self).filter({ (trapline) in return trapline.region == region && trapline.code == code }).first
     }
     
     func getTrapline(code: String) -> Trapline? {

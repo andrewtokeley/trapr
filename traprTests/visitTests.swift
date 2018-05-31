@@ -117,31 +117,31 @@ class visitTests: XCTestCase {
         - GC01 - no visits
     */
     func createTestData() {
+        let region = Region(code: "TR", name: "Test Region")
+        
         let possumMaster = TrapType()
         possumMaster.name = "Possum Master"
         
         // LW01
-        let trapline1 = Trapline()
-        trapline1.code = "LW"
-        traplineService.add(trapline: trapline1)
+        let trapline1 = Trapline(region: region, code: "LW")
+        
+        XCTAssertNoThrow(try traplineService.add(trapline: trapline1))
         
         let station1 = Station(code: "01")
         let trap1 = station1.addTrap(type: possumMaster)
         traplineService.addStation(trapline: trapline1, station: station1)
         
         // E01
-        let trapline2 = Trapline()
-        trapline2.code = "E"
-        traplineService.add(trapline: trapline2)
+        let trapline2 = Trapline(region: region, code: "E")
+        XCTAssertNoThrow(try traplineService.add(trapline: trapline2))
         
         let station2 = Station(code: "01")
         let trap2 = station2.addTrap(type: possumMaster)
         traplineService.addStation(trapline: trapline2, station: station2)
         
         // GC01
-        let trapline3 = Trapline()
-        trapline3.code = "GC"
-        traplineService.add(trapline: trapline3)
+        let trapline3 = Trapline(region: region, code: "GC")
+        XCTAssertNoThrow(try traplineService.add(trapline: trapline3))
         
         let station3 = Station(code: "01")
         let _ = station3.addTrap(type: possumMaster)

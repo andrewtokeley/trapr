@@ -78,4 +78,8 @@ class ServiceFactory {
     lazy var savedImageService: SavedImageServiceInterface = {
         return SavedImageService(realm: self.realm)
     }()
+    
+    lazy var regionService: RegionServiceInterface = {
+        return RegionService(realm: self.realm)
+    }()
 }

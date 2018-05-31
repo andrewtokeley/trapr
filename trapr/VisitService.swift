@@ -201,8 +201,8 @@ class VisitService: RealmService, VisitServiceInterface {
         let dayInNextMonth = dayInMonth.add(0, 1, 0)
         
         if let startOfMonth = Date.dateFromComponents(1, dayInMonth.month, dayInMonth.year)?.dayStart() {
-            if let endOfMonth = Date.dateFromComponents(1, dayInNextMonth.month, dayInNextMonth.year)?.dayStart().add(-1, 0, 0) {
-                //print ("from \(startOfMonth) to \(endOfMonth)")
+            if let endOfMonth = Date.dateFromComponents(1, dayInNextMonth.month, dayInNextMonth.year)?.dayStart() {
+                print ("from \(startOfMonth) to \(endOfMonth)")
                 let visits = getVisits(recordedBetween: startOfMonth, dateEnd: endOfMonth, route: route)
                 
                 for visit in visits {

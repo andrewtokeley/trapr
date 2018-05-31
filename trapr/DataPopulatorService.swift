@@ -14,6 +14,7 @@ class DataPopulatorService: RealmService, DataPopulatorServiceInterface {
     var possumMaster: TrapType!
     var pelifeed: TrapType!
     var doc200: TrapType!
+    var timms: TrapType!
     
     override init(realm: Realm) {
         super.init(realm: realm)
@@ -46,6 +47,7 @@ class DataPopulatorService: RealmService, DataPopulatorServiceInterface {
         possumMaster = trapTypeService.get(.possumMaster)
         pelifeed = trapTypeService.get(.pellibait)
         doc200 = trapTypeService.get(.doc200)
+        timms = trapTypeService.get(.timms)
     }
     
     func mergeWithV1Data() {
@@ -53,7 +55,7 @@ class DataPopulatorService: RealmService, DataPopulatorServiceInterface {
     }
     
     func mergeWithV1Data(progress: ((Float) -> Void)?, completion: ((ImportSummary) -> Void)?) {
-        if let path = Bundle.main.path(forResource: "trapLines_Dec_27_2017", ofType: "trl") {
+        if let path = Bundle.main.path(forResource: "trapLines_May_27_2018", ofType: "trl") {
             //trapLines_26_1_18
             let importer: DataImport = importer_traplines_v1_to_v2(fileURL: URL(fileURLWithPath: path))
             
@@ -61,11 +63,15 @@ class DataPopulatorService: RealmService, DataPopulatorServiceInterface {
                 (summary) in
                 
                     let recordsToImport = summary.lineCount
-                    importer.importAndMerge(onError: nil, onProgress: {
-                        (importedLines) in
-                        let progressRate:Float = Float(importedLines)/Float(recordsToImport)
-                        progress?(progressRate)
-                    }, onCompletion: completion)
+                
+                    importer.importAndMerge(
+                        onError: nil,
+                        onProgress: {
+                            (importedLines) in
+                            let progressRate:Float = Float(importedLines)/Float(recordsToImport)
+                            progress?(progressRate)
+                        },
+                        onCompletion: completion)
             })
             
         }
@@ -98,24 +104,28 @@ class DataPopulatorService: RealmService, DataPopulatorServiceInterface {
     
     func createTrapline(code: String, numberOfStations: Int, numberOfTrapsPerStation: Int) -> Trapline {
         
-        let trapline = Trapline()
-        trapline.code = code
-        ServiceFactory.sharedInstance.traplineService.add(trapline: trapline)
+        let trapline = Trapline(region: Region(code: "TR", name: "Test Region"), code: code)
         
-        for i in 1...numberOfStations {
-            let station = Station(code: String(format: "%02d", i))
-            
-            if 1 <= numberOfTrapsPerStation {
-                let _ = station.addTrap(type: pelifeed)
+        // if we successfully add this trapline then add stations to it
+        do {
+            try ServiceFactory.sharedInstance.traplineService.add(trapline: trapline)
+            for i in 1...numberOfStations {
+                let station = Station(code: String(format: "%02d", i))
+                
+                if 1 <= numberOfTrapsPerStation {
+                    let _ = station.addTrap(type: pelifeed)
+                }
+                if 2 <= numberOfTrapsPerStation {
+                    let _ = station.addTrap(type: possumMaster)
+                }
+                if numberOfTrapsPerStation >= 3 {
+                    let _ = station.addTrap(type: doc200)
+                }
+
+                ServiceFactory.sharedInstance.traplineService.addStation(trapline: trapline, station: station)
             }
-            if 2 <= numberOfTrapsPerStation {
-                let _ = station.addTrap(type: possumMaster)
-            }
-            if numberOfTrapsPerStation >= 3 {
-                let _ = station.addTrap(type: doc200)
-            }
-            
-            ServiceFactory.sharedInstance.traplineService.addStation(trapline: trapline, station: station)
+        } catch {
+            return Trapline()
         }
         
         return ServiceFactory.sharedInstance.traplineService.getTrapline(code: code) ?? trapline

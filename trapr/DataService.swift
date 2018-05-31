@@ -23,7 +23,7 @@ class DataService {
     
     static let sharedInstance = DataService()
     
-    private let CURRENT_SCHEMA_VERSION:UInt64 = 35
+    private let CURRENT_SCHEMA_VERSION:UInt64 = 36
     
     private var documentDirectory: URL {
         let url = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
@@ -175,6 +175,22 @@ class DataService {
                     migration.enumerateObjects(ofType: Trap.className()) { oldObject, newObject in
                         // default the archive property to false
                         newObject!["archive"] = false
+                    }
+                }
+                
+                if (oldSchemaVersion < 36) {
+                    // Region is added - we can assume someone on this version has only EHRP as the region of all their traplines
+                    
+                    // Create region
+                    let newRegion = migration.create(Region.className())
+                    newRegion["code"] = "EHRP"
+                    newRegion["name"] = "East Harbour Regional Park"
+                    
+                    // All traplines get configure with this region
+                    migration.enumerateObjects(ofType: Trapline.className()) { oldObject, newObject in
+                        // set the region and composite key directly
+                        newObject!["region"] = newRegion
+                        newObject!["id"] = "\(newRegion["code"]!)-\(newObject!["code"]!)"
                     }
                 }
                 

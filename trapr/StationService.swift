@@ -25,7 +25,7 @@ class StationService: RealmService, StationServiceInterface {
             }
         }
         
-        return traps
+        return traps.sorted(by: { $0.type?.order ?? 0 < $1.type?.order ?? 1 }, stable: true)
     }
     
     func getAll() -> [Station] {

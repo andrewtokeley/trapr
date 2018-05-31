@@ -17,6 +17,8 @@ enum TraplineFileHeaders: String {
     case trap_latitude = "Latitude"
     case trap_longitude = "Longitude"
     case trap_notes = "Notes"
+    case region_code = "Region Code"
+    case region_name = "Region Name"
 }
 
 /**
@@ -25,8 +27,9 @@ enum TraplineFileHeaders: String {
 enum V1TrapTypeDescriptions: String {
     case possumMaster = "Possum Master"
     case pelifeed = "Pelifeed"
-    case doc200 = "Haines Trap"
-    case timms = "Possum Trap (KBL)"
+    case doc200_1 = "Haines Trap"
+    case doc200_2 = "DOC200"
+    case timms = "Timms"
 }
 
 class importer_traplines_v1_to_v2: DataImport {
@@ -35,6 +38,10 @@ class importer_traplines_v1_to_v2: DataImport {
     
     fileprivate var traplineService: TraplineServiceInterface {
         return ServiceFactory.sharedInstance.traplineService
+    }
+    
+    fileprivate var regionService: RegionServiceInterface {
+        return ServiceFactory.sharedInstance.regionService
     }
     
 //    fileprivate var fileURL: URL?
@@ -69,8 +76,8 @@ class importer_traplines_v1_to_v2: DataImport {
         
         self.importer?.startImportingRecords(structure: { (headerValues) -> Void in
             
-            // must have column called "Trap Line" and "Summary"
-            for heading in [TraplineFileHeaders.trapline_code, TraplineFileHeaders.trapline_summary] {
+            // must have column called "Trap Line", "Summary", "Region Code", "Region Name"
+            for heading in [TraplineFileHeaders.trapline_code, TraplineFileHeaders.trapline_summary, TraplineFileHeaders.region_code, TraplineFileHeaders.region_name] {
                 if !self.checkColumnExists(columnHeading: heading, headerValues: headerValues) {
                     onError?(ErrorDescription(lineNumber: 0, field: heading.rawValue, value: nil, reason: "Column heading, '\(heading.rawValue) is missing"))
                 }
@@ -99,12 +106,15 @@ class importer_traplines_v1_to_v2: DataImport {
             
             for record in importedRecords {
                 
-                if let trapline = self.addOrUpdateTrapline(record) {
+                if let region = self.addOrUpdateRegion(record) {
                     
-                    if let station = self.addOrUpdateStation(record, trapline: trapline) {
+                    if let trapline = self.addOrUpdateTrapline(record, region: region) {
                     
-                        if let _ = self.addOrUpdateTrap(record, station: station) {
-                            
+                        if let station = self.addOrUpdateStation(record, trapline: trapline) {
+                        
+                            if let _ = self.addOrUpdateTrap(record, station: station) {
+                                
+                            }
                         }
                     }
                 }
@@ -117,7 +127,23 @@ class importer_traplines_v1_to_v2: DataImport {
     
     //MARK: - Add/Update functions
     
-    private func addOrUpdateTrapline(_ record: [String: String]) -> Trapline? {
+    private func addOrUpdateRegion(_ record: [String: String]) -> Region? {
+        
+        var region:Region?
+        
+        if let regionCode = record[TraplineFileHeaders.region_code.rawValue],
+            let regionName = record[TraplineFileHeaders.region_name.rawValue] {
+            
+            region = Region()
+            region!.code = regionCode
+            region!.name = regionName
+            
+            self.regionService.add(region: region!)
+        }
+        return region
+    }
+    
+    private func addOrUpdateTrapline(_ record: [String: String], region: Region) -> Trapline? {
         
         var trapline:Trapline?
         
@@ -126,8 +152,10 @@ class importer_traplines_v1_to_v2: DataImport {
             // ignore anything after "-"
             let code = convertV1TraplineCodeToV2(v1TraplineCode: traplineCode)
             
+            // get the trapline to add/update
             // see if it exists
-            trapline = self.traplineService.getTrapline(code: code)
+            //trapline = self.traplineService.getTrapline(code: code)
+            trapline = self.traplineService.getTrapline(region: region, code: code)
             
             if let _ = trapline {
                 // updating an existing trapline
@@ -136,17 +164,18 @@ class importer_traplines_v1_to_v2: DataImport {
                 
             } else {
                 // we're adding a new trapline
-                trapline = Trapline()
-                trapline?.code = code
+                trapline = Trapline(region: region, code: code)
             }
             
             trapline?.details = record[TraplineFileHeaders.trapline_summary.rawValue]
             
             // add/update trapline
-            self.traplineService.add(trapline: trapline!)
+            if let _ = try? self.traplineService.add(trapline: trapline!) {
+                return trapline
+            }
         }
         
-        return trapline
+        return nil
     }
     
     private func addOrUpdateStation(_ record: [String: String], trapline: Trapline) -> Station? {
@@ -187,7 +216,9 @@ class importer_traplines_v1_to_v2: DataImport {
             switch trapTypeName {
             case V1TrapTypeDescriptions.possumMaster.rawValue:
                 trap!.type = ServiceFactory.sharedInstance.trapTypeService.get(.possumMaster)
-            case V1TrapTypeDescriptions.doc200.rawValue:
+            case V1TrapTypeDescriptions.doc200_1.rawValue:
+                trap!.type = ServiceFactory.sharedInstance.trapTypeService.get(.doc200)
+            case V1TrapTypeDescriptions.doc200_2.rawValue:
                 trap!.type = ServiceFactory.sharedInstance.trapTypeService.get(.doc200)
             case V1TrapTypeDescriptions.pelifeed.rawValue:
                 trap!.type = ServiceFactory.sharedInstance.trapTypeService.get(.pellibait)
