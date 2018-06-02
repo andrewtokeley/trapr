@@ -19,6 +19,7 @@ protocol NewRouteViewApi: UserInterfaceProtocol {
     func displayRouteName(name: String?)
     func enableNextButton(enabled: Bool)
     func setTraplines(traplines: [Trapline])
+    func displaySelectedRegion(description: String?)
     func displaySelectedTrapline(description: String?)
     func displaySelectedStation(description: String?)
 }
@@ -28,13 +29,16 @@ protocol NewRoutePresenterApi: PresenterProtocol {
     func didUpdateRouteName(name: String?)
     func didSelectTraplineListPicker()
     func didSelectStationListPicker()
+    func didSelectRegionListPicker()
     func didSelectCancel()
     func didSelectNext()
     func didFetchTraplines(traplines: [Trapline])
+    func didFetchRegions(regions: [Region])
     func didFetchStations(stations: [Station])
 }
 
 //MARK: - NewRouteInteractor API
 protocol NewRouteInteractorApi: InteractorProtocol {
-    func retrieveTraplines()
+    func retrieveTraplines(region: Region)
+    func retrieveRegions()
 }

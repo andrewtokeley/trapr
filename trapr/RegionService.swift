@@ -23,4 +23,8 @@ class RegionService: RealmService, RegionServiceInterface {
             let _ = realm.create(Route.self, value: region, update: true)
         }
     }
+    
+    func getRegions() -> [Region]? {
+        return Array(realm.objects(Region.self).sorted(byKeyPath: "name"))
+    }
 }

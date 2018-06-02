@@ -26,4 +26,6 @@ protocol RegionServiceInterface: RealmServiceInterface {
      - region: the Region to add/update to the repository
      */
     func save(region: Region)
+    
+    func getRegions() -> [Region]?
 }

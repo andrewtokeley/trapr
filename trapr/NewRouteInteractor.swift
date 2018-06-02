@@ -16,9 +16,14 @@ final class NewRouteInteractor: Interactor {
 // MARK: - NewRouteInteractor API
 extension NewRouteInteractor: NewRouteInteractorApi {
     
-    	func retrieveTraplines() {
-        let traplines = ServiceFactory.sharedInstance.traplineService.getTraplines()
+    func retrieveTraplines(region: Region) {
+        let traplines = ServiceFactory.sharedInstance.traplineService.getTraplines(region: region)
         presenter.didFetchTraplines(traplines: traplines ?? [Trapline]())
+    }
+    
+    func retrieveRegions() {
+        let regions = ServiceFactory.sharedInstance.regionService.getRegions()
+        presenter.didFetchRegions(regions: regions ?? [Region]())
     }
 }
 

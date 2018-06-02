@@ -14,7 +14,9 @@ final class NewRouteView: UserInterface {
     
     fileprivate let SECTION_NAME = 0
     fileprivate let ROW_NAME = 0
-    fileprivate let SECTION_FIRSTSTATION = 1
+    fileprivate let SECTION_REGION = 1
+    fileprivate let ROW_REGION = 0
+    fileprivate let SECTION_FIRSTSTATION = 2
     fileprivate let ROW_TRAPLINE = 0
     fileprivate let ROW_STATION = 1
     fileprivate let TABLEVIEWCELL_ID = "cell"
@@ -41,6 +43,14 @@ final class NewRouteView: UserInterface {
         cell.contentView.addSubview(routeNameTextField)
         routeNameTextField.autoPinEdgesToSuperviewEdges()
         cell.selectionStyle = .none
+        return cell
+    }()
+    
+    lazy var tableViewCellRegion: UITableViewCell = {
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
+        cell.accessoryType = .disclosureIndicator
+        cell.selectionStyle = .none
+        cell.textLabel?.text = "Region"
         return cell
     }()
     
@@ -143,11 +153,12 @@ final class NewRouteView: UserInterface {
 extension NewRouteView: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == SECTION_NAME { return 1 }
+        if section == SECTION_REGION { return 1 }
         if section == SECTION_FIRSTSTATION { return 2 }
         return 0
     }
@@ -160,6 +171,10 @@ extension NewRouteView: UITableViewDelegate, UITableViewDataSource {
         if section == SECTION_NAME {
             if row == ROW_NAME {
                 return tableViewCellName
+            }
+        } else if section == SECTION_REGION {
+            if row == ROW_REGION {
+                return tableViewCellRegion
             }
         } else if section == SECTION_FIRSTSTATION {
             if row == ROW_TRAPLINE {
@@ -175,6 +190,9 @@ extension NewRouteView: UITableViewDelegate, UITableViewDataSource {
         if section == SECTION_FIRSTSTATION {
             return "Start of Route"
         }
+        if section == SECTION_REGION {
+            return "Region"
+        }
         return nil
     }
     
@@ -188,9 +206,12 @@ extension NewRouteView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == SECTION_FIRSTSTATION && indexPath.row == ROW_TRAPLINE {
             presenter.didSelectTraplineListPicker()
+        } else if indexPath.section == SECTION_REGION && indexPath.row == ROW_REGION {
+            presenter.didSelectRegionListPicker()
         } else {
             presenter.didSelectStationListPicker()
         }
+        
         
     }
 }
@@ -230,6 +251,10 @@ extension NewRouteView: NewRouteViewApi {
     
     func displaySelectedStation(description: String?) {
         tableViewCellStation.detailTextLabel?.text = description
+    }
+    
+    func displaySelectedRegion(description: String?) {
+        tableViewCellRegion.detailTextLabel?.text = description
     }
     
 }

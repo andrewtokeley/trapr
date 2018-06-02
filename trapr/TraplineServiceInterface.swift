@@ -16,6 +16,7 @@ protocol TraplineServiceInterface: RealmServiceInterface {
     func addTrap(station: Station, trap: Trap)
     func delete(trapline: Trapline)
     func getTraplines() -> [Trapline]?
+    func getTraplines(region: Region) -> [Trapline]?
     func getTrapline(region: Region, code: String) -> Trapline?
     func getTrapline(code: String) -> Trapline?
     func getRecentTraplines() -> [Trapline]?

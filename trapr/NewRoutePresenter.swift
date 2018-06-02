@@ -23,15 +23,29 @@ final class NewRoutePresenter: Presenter {
     
     fileprivate let LISTPICKER_TRAPLINE = 0
     fileprivate let LISTPICKER_STATION = 1
+    fileprivate let LISTPICKER_REGION = 2
     
     fileprivate var newRouteParameters = NewRouteParameters()
     
     fileprivate var traplines = [Trapline]()
-    fileprivate var selectedTrapline: Trapline?
     fileprivate var stations = [Station]()
-    
+    fileprivate var regions = [Region]()
+
+    fileprivate var selectedTrapline: Trapline?
+    fileprivate var selectedRegion: Region?
+
     override func viewIsAboutToAppear() {
         _view.setTitle(title: "New Route")
+        
+        // default to the first region
+        interactor.retrieveRegions()
+        
+        if let defaultRegion = self.regions.first {
+            self.selectedRegion = defaultRegion
+            interactor.retrieveTraplines(region: defaultRegion)
+            view.displaySelectedRegion(description: defaultRegion.name)
+        }
+        
         needsNavigationUpdate()
     }
 }
@@ -59,32 +73,55 @@ extension NewRoutePresenter: NewRoutePresenterApi {
         view.enableNextButton(enabled: newRouteParameters.complete)
     }
     
-    func didSelectTraplineListPicker() {
-        
-        // make sure the view knows what traplines to show
-        interactor.retrieveTraplines()
+    func didSelectRegionListPicker() {
+        // make sure the view knows what regions to show
+        interactor.retrieveRegions()
         
         let setup = ListPickerSetupData()
         setup.delegate = self
         setup.enableMultiselect = false
-        setup.tag = LISTPICKER_TRAPLINE
+        setup.tag = LISTPICKER_REGION
         setup.embedInNavController = false
         router.showListPicker(setupData: setup)
     }
     
+    func didSelectTraplineListPicker() {
+        
+        if let region = selectedRegion {
+         
+            // make sure the view knows what traplines to show for the selected region
+            interactor.retrieveTraplines(region: region)
+            
+            let setup = ListPickerSetupData()
+            setup.delegate = self
+            setup.enableMultiselect = false
+            setup.tag = LISTPICKER_TRAPLINE
+            setup.embedInNavController = false
+            router.showListPicker(setupData: setup)
+        }
+    }
+    
     func didSelectStationListPicker() {
-        let setup = ListPickerSetupData()
-        setup.delegate = self
-        setup.enableMultiselect = false
-        setup.tag = LISTPICKER_STATION
-        setup.embedInNavController = false
-        router.showListPicker(setupData: setup)
+        
+        if let _ = selectedTrapline {
+            
+            let setup = ListPickerSetupData()
+            setup.delegate = self
+            setup.enableMultiselect = false
+            setup.tag = LISTPICKER_STATION
+            setup.embedInNavController = false
+            router.showListPicker(setupData: setup)
+        }
     }
     
     func didFetchTraplines(traplines: [Trapline]) {
         self.traplines = traplines
         
         view.setTraplines(traplines: traplines)
+    }
+    
+    func didFetchRegions(regions: [Region]) {
+        self.regions = regions
     }
     
     func didFetchStations(stations: [Station]) {
@@ -101,22 +138,26 @@ extension NewRoutePresenter: ListPickerDelegate {
     func listPickerNumberOfRows(_ listPicker: ListPickerView) -> Int {
         if listPicker.tag == LISTPICKER_STATION { return stations.count }
         if listPicker.tag == LISTPICKER_TRAPLINE { return traplines.count }
+        if listPicker.tag == LISTPICKER_REGION { return regions.count}
         return 0
     }
     
     func listPickerTitle(_ listPicker: ListPickerView) -> String {
         if listPicker.tag == LISTPICKER_STATION { return "Station" }
         if listPicker.tag == LISTPICKER_TRAPLINE { return "Trapline" }
+        if listPicker.tag == LISTPICKER_REGION { return "Region" }
         return ""
     }
     
     func listPicker(_ listPicker: ListPickerView, itemTextAt index: Int) -> String {
         if listPicker.tag == LISTPICKER_STATION { return stations[index].longCode }
         if listPicker.tag == LISTPICKER_TRAPLINE { return traplines[index].code! }
+        if listPicker.tag == LISTPICKER_REGION { return regions[index].name! }
         return ""
     }
     
     func listPicker(_ listPicker: ListPickerView, didSelectItemAt index: Int) {
+        
         if listPicker.tag == LISTPICKER_TRAPLINE {
             if self.selectedTrapline != traplines[index] {
                 self.selectedTrapline = traplines[index]
@@ -135,6 +176,23 @@ extension NewRoutePresenter: ListPickerDelegate {
             newRouteParameters.initialStation = stations[index]
             view.displaySelectedStation(description: newRouteParameters.initialStation!.longCode)
             needsNavigationUpdate()
+        }
+        
+        if listPicker.tag == LISTPICKER_REGION {
+            if self.selectedRegion != regions[index] {
+                self.selectedRegion = regions[index]
+                
+                // refresh the traplines
+                interactor.retrieveTraplines(region: selectedRegion!)
+
+                self.newRouteParameters.initialStation = nil
+                
+                view.displaySelectedRegion(description: selectedRegion?.name)
+                view.displaySelectedTrapline(description: nil)
+                view.displaySelectedStation(description: nil)
+
+                needsNavigationUpdate()
+            }
         }
     }
     

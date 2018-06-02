@@ -78,6 +78,10 @@ class TraplineService: RealmService, TraplineServiceInterface {
         return Array(realm.objects(Trapline.self).sorted(byKeyPath: "code"))
     }
     
+    func getTraplines(region: Region) -> [Trapline]? {
+        return Array(realm.objects(Trapline.self).filter({ (trapline) in return trapline.region == region }))
+    }
+    
     func getTrapline(region: Region, code: String) -> Trapline? {
         return realm.objects(Trapline.self).filter({ (trapline) in return trapline.region == region && trapline.code == code }).first
     }
