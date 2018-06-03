@@ -37,13 +37,15 @@ final class NewRoutePresenter: Presenter {
     override func viewIsAboutToAppear() {
         _view.setTitle(title: "New Route")
         
-        // default to the first region
-        interactor.retrieveRegions()
-        
-        if let defaultRegion = self.regions.first {
-            self.selectedRegion = defaultRegion
-            interactor.retrieveTraplines(region: defaultRegion)
-            view.displaySelectedRegion(description: defaultRegion.name)
+        if self.selectedRegion == nil {
+            // default to the first region
+            interactor.retrieveRegions()
+            
+            if let defaultRegion = self.regions.first {
+                self.selectedRegion = defaultRegion
+                interactor.retrieveTraplines(region: defaultRegion)
+                view.displaySelectedRegion(description: defaultRegion.name)
+            }
         }
         
         needsNavigationUpdate()
