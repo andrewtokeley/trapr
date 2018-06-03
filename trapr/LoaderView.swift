@@ -44,7 +44,7 @@ final class LoaderView: UserInterface {
     override func loadView() {
         super.loadView()
         
-        self.view.backgroundColor = UIColor.trpNavigationBar
+        self.view.backgroundColor = UIColor.trpHighlightColor
         self.view.addSubview(self.appIcon)
         self.view.addSubview(self.appName)
         self.view.addSubview(self.progressBar)
@@ -90,6 +90,9 @@ extension LoaderView: LoaderViewApi {
     }
     
     func updateProgress(progress: Float) {
+        if self.progressBar.alpha == 0 {
+            self.progressBar.alpha = 1
+        }
         self.progressBar.setProgress(progress, animated: true)
     }
     

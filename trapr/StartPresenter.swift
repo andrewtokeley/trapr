@@ -44,6 +44,7 @@ final class StartPresenter: Presenter {
     }
 }
 
+// MARK: - LoaderDelegate
 extension StartPresenter: LoaderDelegate {
     
     func loaderAboutToClose() {

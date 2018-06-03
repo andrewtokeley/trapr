@@ -44,33 +44,11 @@ class importer_traplines_v1_to_v2: DataImport {
         return ServiceFactory.sharedInstance.regionService
     }
     
-//    fileprivate var fileURL: URL?
-//    fileprivate var contentString: String?
-    
-//    fileprivate var importer: CSVImporter<[String: String]>? {
-//        if let url = self.fileURL {
-//            return CSVImporter<[String: String]>(url: url)
-//        } else if let contentString = self.contentString {
-//            return CSVImporter<[String: String]>(contentString: contentString)
-//        }
-//        return nil
-//    }
-    
-    // MARK: - Initialisers
-    
-//    required init(fileURL: URL) {
-//        self.fileURL = fileURL
-//    }
-//
-//    required init(contentString: String) {
-//        self.contentString = contentString
-//    }
-    
     private func checkColumnExists(columnHeading: TraplineFileHeaders, headerValues: [String]) -> Bool {
         return headerValues.contains(where: { $0 == columnHeading.rawValue })
     }
     
-    //MARK: - DataImport
+    //MARK: - DataImport overrides
     
     override func validateFile(onError: ((ErrorDescription) -> Void)?, onCompletion: ((ImportSummary) -> Void)?) {
         
@@ -93,15 +71,15 @@ class importer_traplines_v1_to_v2: DataImport {
         
         self.importer?.startImportingRecords(structure: { (headerValues) -> Void in
             // do nothing
-            print("header read")
+            //print("header read")
         }) { $0 }.onFail {
-            print("fail")
+            //print("fail")
             onCompletion?(ImportSummary(lineCount: 0, summary: "Fail"))
         }.onProgress { importedDataLinesCount in
-            print("progress, imported \(importedDataLinesCount) lines")
+            //print("progress, imported \(importedDataLinesCount) lines")
             onProgress?(importedDataLinesCount)
         }.onFinish { importedRecords in
-            print("import complete, \(importedRecords.count) records imported")
+            //print("import complete, \(importedRecords.count) records imported")
             var summary = ImportSummary()
             
             for record in importedRecords {
@@ -119,7 +97,9 @@ class importer_traplines_v1_to_v2: DataImport {
                     }
                 }
             }
+            
             summary.summary = "Done"
+
             onCompletion?(summary)
             
         }
