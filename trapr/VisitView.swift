@@ -505,6 +505,18 @@ extension VisitView: VisitViewApi {
         }
     }
     
+    func confirmDeleteStationMethod() {
+        let alert = UIAlertController(title: "Remove Station", message: "Do you want to remove the station from this route, or permanently delete the station from your phone?", preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Remove from Route", style: .default, handler: { (action) in self.presenter.didSelectRemoveStation() })
+        let removeAction = UIAlertAction(title: "Delete from Phone", style: .destructive, handler: { (action) in self.presenter.didSelectDeleteStation() })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(deleteAction)
+        alert.addAction(removeAction)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     func showConfirmation(title: String, message: String, yes: (() -> Void)?, no: (() -> Void)?) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)

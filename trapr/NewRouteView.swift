@@ -14,11 +14,17 @@ final class NewRouteView: UserInterface {
     
     fileprivate let SECTION_NAME = 0
     fileprivate let ROW_NAME = 0
+    
     fileprivate let SECTION_REGION = 1
     fileprivate let ROW_REGION = 0
+    
+//    fileprivate let SECTION_ADDTRAPSONFIRSTVISIT = 3
+//    fileprivate let ROW_ADDTRAPSONFIRSTVISIT = 0
+    
     fileprivate let SECTION_FIRSTSTATION = 2
     fileprivate let ROW_TRAPLINE = 0
     fileprivate let ROW_STATION = 1
+    
     fileprivate let TABLEVIEWCELL_ID = "cell"
     
     fileprivate var traplines = [Trapline]()
@@ -54,6 +60,14 @@ final class NewRouteView: UserInterface {
         return cell
     }()
     
+    lazy var tableViewCellAddTrapsOnFirstVisit: UITableViewCell = {
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
+        cell.accessoryType = .disclosureIndicator
+        cell.selectionStyle = .none
+        cell.textLabel?.text = ""
+        return cell
+    }()
+
     lazy var tableViewCellTrapline: UITableViewCell = {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
         cell.accessoryType = .disclosureIndicator
@@ -159,6 +173,7 @@ extension NewRouteView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == SECTION_NAME { return 1 }
         if section == SECTION_REGION { return 1 }
+        //if section == SECTION_ADDTRAPSONFIRSTVISIT { return 0 }
         if section == SECTION_FIRSTSTATION { return 2 }
         return 0
     }
@@ -176,7 +191,12 @@ extension NewRouteView: UITableViewDelegate, UITableViewDataSource {
             if row == ROW_REGION {
                 return tableViewCellRegion
             }
-        } else if section == SECTION_FIRSTSTATION {
+//        } else if section == SECTION_ADDTRAPSONFIRSTVISIT {
+//            if row == ROW_TRAPLINE {
+//                return tableViewCellAddTrapsOnFirstVisit
+//            }
+        }
+        else if section == SECTION_FIRSTSTATION {
             if row == ROW_TRAPLINE {
                 return tableViewCellTrapline
             } else if row == ROW_STATION {
@@ -193,6 +213,9 @@ extension NewRouteView: UITableViewDelegate, UITableViewDataSource {
         if section == SECTION_REGION {
             return "Region"
         }
+//        if section == SECTION_ADDTRAPSONFIRSTVISIT {
+//            return "Traps"
+//        }
         return nil
     }
     
@@ -211,18 +234,12 @@ extension NewRouteView: UITableViewDelegate, UITableViewDataSource {
         } else {
             presenter.didSelectStationListPicker()
         }
-        
-        
     }
+    
 }
 
 //MARK: - UITextFieldDelegate
 extension NewRouteView: UITextFieldDelegate {
-    
-    
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        presenter.didUpdateRouteName(name: textField.text)
-//    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)

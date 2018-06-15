@@ -36,7 +36,6 @@ final class ListPickerView: UserInterface {
     lazy var tableView: UITableView = {
        
         let tableView = UITableView(frame: CGRect.zero, style: .grouped)
-        //tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.CELL_ID)
         tableView.delegate = self
         tableView.dataSource = self
         

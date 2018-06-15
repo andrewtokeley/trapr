@@ -9,8 +9,10 @@
 import Foundation
 
 protocol StationServiceInterface {
-    
-    func getAll() -> [Station] 
+    func delete(station: Station)
+    func searchStations(searchTerm: String, region: Region?) -> [Station]
+    func getAll() -> [Station]
+    func getAll(region: Region?) -> [Station]
     func getTraplines(from stations: [Station]) -> [Trapline]
     func getDescription(stations: [Station], includeStationCodes: Bool) -> String
     func reverseOrder(stations: [Station]) -> [Station]

@@ -19,7 +19,30 @@ protocol RouteServiceInterface: RealmServiceInterface {
      */
     func add(route: Route)
     
-    func addStationToRoute(route: Route, station: Station)
+    /**
+     Insert a station into a Route before the given index. If the station already exists it will not be inserted.
+     
+     - parameters:
+     - route: the Route to insert the station into
+     - station: the Station to insert
+     - index: the index before which to insert the station
+     
+     - returns:
+     True if the insertion was successful, otherwise false
+     */
+    func insertStationToRoute(route: Route, station: Station, at index: Int) -> Bool
+    
+    /**
+     Adds a station to the end of the Route's station array. If the station already exists it will not be added.
+     
+     - parameters:
+     - route: the Route to insert the station into
+     - station: the Station to insert
+     
+     - returns:
+     True if the addition was successful, otherwuse false.
+     */
+    func addStationToRoute(route: Route, station: Station) -> Bool
     
     func removeStationFromRoute(route: Route, station: Station)
     

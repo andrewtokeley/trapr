@@ -70,6 +70,11 @@ extension VisitRouter: VisitRouterApi {
 
     }
     
+    func showAddStation(setupData: StationSearchSetupData) {
+        let module = AppModules.stationSearch.build()
+        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
+    }
+    
 }
 
 //extension VisitRouter:

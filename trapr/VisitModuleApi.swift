@@ -16,6 +16,7 @@ protocol VisitRouterApi: RouterProtocol {
     func showDatePicker(setupData: DatePickerSetupData)
     func addVisitLogToView()
     func showMap(stations: [Station], highlightedStations: [Station]?)
+    func showAddStation(setupData: StationSearchSetupData) 
 }
 
 //MARK: - VisitView API
@@ -29,7 +30,9 @@ protocol VisitViewApi: UserInterfaceProtocol {
     func showVisitEmail(visitSummary: VisitSummary, recipient: String?)
     func showConfirmation(title: String, message: String, yes: (() -> Void)?, no: (() -> Void)?)
     func selectTrap(index: Int)
+    func confirmDeleteStationMethod()
     var getVisitContainerView: UIView { get }
+    
     //func setStationText(text: String)
     //func enableNavigation(previous: Bool, next: Bool)
     
@@ -41,6 +44,7 @@ protocol VisitPresenterApi: PresenterProtocol {
     func didSelectToRemoveTrap(trap: Trap)
     func didSelectTrap(index: Int)
     func didSelectStation(index: Int, trapIndex: Int)
+    func didSelectAddStation()
     func didSelectMenuButton()
     func didSelectInfoButton()
     func didSelectMenuItem(title: String)
@@ -49,7 +53,11 @@ protocol VisitPresenterApi: PresenterProtocol {
     func visitLogDidScroll(contentOffsetY: CGFloat)
     func didSendEmailSuccessfully()
     func didFetchVisit(visit: Visit)
+    //func didAddStation(station: Station)
     func didFindNoVisit()
+    func didUpdateRoute2(route: Route, selectedIndex: Int)
+    func didSelectRemoveStation()
+    func didSelectDeleteStation()
 }
 
 //MARK: - VisitInteractor API
@@ -70,4 +78,13 @@ protocol VisitInteractorApi: InteractorProtocol {
     func deleteVisit(visit: Visit)
     func deleteAllVisits(route: Route, date: Date)
     func addVisitSync(visitSync: VisitSync)
+    
+    func removeStationFromRoute(route: Route, station: Station)
+    func deleteStation(route: Route, station: Station)
+
+    /**
+     Insert the station before the given station index
+    */
+    func insertStation(route: Route, station: Station, at index: Int)
+    func addStation(route: Route, station: Station)
 }

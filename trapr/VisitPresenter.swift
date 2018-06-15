@@ -12,11 +12,11 @@ import Viperit
 import MessageUI
 
 enum visitRecordMenuItem: String {
-    case sendReport = "Send report"
+    case sendReport = "Send report..."
     case viewMap = "Show map"
-    case addTrap = "Add trap"
-    case archiveTrap = "Remove trap"
-    case deleteAllVisits = "Remove all visits..."
+    case addStation = "Add station..."
+    case removeStation = "Remove station..."
+    case deleteAllVisits = "Delete all visits..."
 }
 
 // MARK: - VisitPresenter Class
@@ -166,6 +166,16 @@ extension VisitPresenter: StationSelectDelegate {
 // MARK: - VisitPresenter API
 extension VisitPresenter: VisitPresenterApi {
     
+    func didUpdateRoute2(route: Route, selectedIndex: Int) {
+        self.visitSummary.route = route
+        
+        // update the navigation strip
+        let stations = route.stations
+        stationIndex = selectedIndex
+        view.setStations(stations: Array(stations), current:  stations[stationIndex])
+        view.updateCurrentStation(index: stationIndex, repeatedGroup: 2)
+    }
+    
     func didSelectToRemoveTrap(trap: Trap) {
         interactor.deleteOrArchiveTrap(trap: trap)
         
@@ -207,9 +217,12 @@ extension VisitPresenter: VisitPresenterApi {
         let options = [
             OptionItem(title: visitRecordMenuItem.sendReport.rawValue, isEnabled: hasVisits),
             OptionItem(title: visitRecordMenuItem.viewMap.rawValue, isEnabled: true),
-            OptionItem(title: visitRecordMenuItem.addTrap.rawValue, isEnabled: unusedTrapTypes.count > 0),
-            OptionItem(title: visitRecordMenuItem.archiveTrap.rawValue, isEnabled: self.currentVisit == nil),
+            //OptionItem(title: visitRecordMenuItem.addTrap.rawValue, isEnabled: unusedTrapTypes.count > 0),
+            //OptionItem(title: visitRecordMenuItem.archiveTrap.rawValue, isEnabled: self.currentVisit == nil),
+            OptionItem(title: visitRecordMenuItem.addStation.rawValue, isEnabled: true, isDestructive: false),
+            OptionItem(title: visitRecordMenuItem.removeStation.rawValue, isEnabled: true, isDestructive: false),
             OptionItem(title: visitRecordMenuItem.deleteAllVisits.rawValue, isEnabled: hasVisits, isDestructive: true)
+            
         ]
         view.displayMenuOptions(options: options)
     }
@@ -223,23 +236,31 @@ extension VisitPresenter: VisitPresenterApi {
         }
         if title == visitRecordMenuItem.deleteAllVisits.rawValue {
             
-            let count = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: self.visitSummary.dateOfVisit, route: self.visitSummary.route).count
+//            let count = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: self.visitSummary.dateOfVisit, route: self.visitSummary.route).count
             
-            view.showConfirmation(title: "Remove All", message: "Are you sure you want to delete all \(count) visits on the \(self.visitSummary.dateOfVisit.toString(from: Styles.DATE_FORMAT_LONG)) for this route?", yes: { self.menuDeleteAllVisits() }, no: nil)
+            view.confirmDeleteStationMethod()
         }
-        if title == visitRecordMenuItem.addTrap.rawValue {
-            
-            let setupData = ListPickerSetupData()
-            setupData.delegate = self
-            setupData.embedInNavController = true
-            setupData.includeSelectNone = false
-            
-            router.showListPicker(setupData: setupData)
+//        if title == visitRecordMenuItem.addTrap.rawValue {
+//
+//            let setupData = ListPickerSetupData()
+//            setupData.delegate = self
+//            setupData.embedInNavController = true
+//            setupData.includeSelectNone = false
+//
+//            router.showListPicker(setupData: setupData)
+//        }
+//        if title == visitRecordMenuItem.archiveTrap.rawValue {
+//            if let trap = self.currentTrap {
+//                didSelectToRemoveTrap(trap: trap)
+//            }
+//        }
+        
+        if title == visitRecordMenuItem.addStation.rawValue {
+            didSelectAddStation()
         }
-        if title == visitRecordMenuItem.archiveTrap.rawValue {
-            if let trap = self.currentTrap {
-                didSelectToRemoveTrap(trap: trap)
-            }
+        
+        if title == visitRecordMenuItem.removeStation.rawValue {
+            view.confirmDeleteStationMethod()
         }
     }
     
@@ -257,6 +278,22 @@ extension VisitPresenter: VisitPresenterApi {
         if let trap = self.currentTrap {
             interactor.retrieveVisit(date: visitSummary.dateOfVisit, route: visitSummary.route, trap: trap)
         }
+    }
+    
+    func didSelectAddStation() {
+        let data = StationSearchSetupData()
+        data.delegate = self
+        data.region = self.visitSummary.route.stations.first?.trapline?.region
+        
+        router.showAddStation(setupData: data)
+    }
+    
+    func didSelectRemoveStation() {
+        interactor.removeStationFromRoute(route: self.visitSummary.route, station: self.currentStation)
+    }
+    
+    func didSelectDeleteStation() {
+        interactor.deleteStation(route: self.visitSummary.route, station: self.currentStation)
     }
     
     func didFetchVisit(visit: Visit) {
@@ -284,6 +321,28 @@ extension VisitPresenter: VisitPresenterApi {
         self.unusedTrapTypes = interactor.getUnusedTrapTypes(station: self.currentStation)
         
         view.selectTrap(index: trapIndex)
+    }
+
+//    func didAddStation(station: Station) {
+//        
+//    }
+}
+
+extension VisitPresenter: StationSearchDelegate {
+    func stationSearch(_ stationSearch: StationSearchView, didSelectStation station: Station) {
+        
+        if let route = self.visitSummary.route {
+        
+            // insert station after the current station
+            if stationIndex == route.stations.count - 1 {
+                // add to end
+                interactor.addStation(route: route, station: station)
+            } else {
+                // insert after the current index, i.e. before the next one!
+                let index = stationIndex + 1
+                interactor.insertStation(route: route, station: station, at: index)
+            }
+        }
     }
 }
 

@@ -10,6 +10,16 @@ import Foundation
 
 class StationService: RealmService, StationServiceInterface {
     
+    func delete(station: Station) {
+        try! realm.write {
+            realm.delete(station)
+        }
+    }
+    
+    func searchStations(searchTerm: String, region: Region?) -> [Station] {
+        return Array(realm.objects(Station.self).filter({ $0.longCode.uppercased().contains(searchTerm.uppercased())}).filter({ $0.trapline?.region == region }))
+    }
+    
     func getActiveOrHistoricTraps(route: Route, station: Station, date: Date) -> [Trap] {
         var traps = [Trap]()
         
@@ -30,6 +40,10 @@ class StationService: RealmService, StationServiceInterface {
     
     func getAll() -> [Station] {
         return Array(realm.objects(Station.self))
+    }
+    
+    func getAll(region: Region?) -> [Station] {
+        return Array(realm.objects(Station.self).filter({ $0.trapline?.region == region }))
     }
     
     func getMissingStations() -> [String] {

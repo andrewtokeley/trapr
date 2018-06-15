@@ -305,6 +305,14 @@
 		D8DBE3F11FF764C900AA6482 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBE3F01FF764C900AA6482 /* UIViewExtension.swift */; };
 		D8DE38061FFCC88F00707A7D /* StationMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DE38051FFCC88F00707A7D /* StationMapViewController.swift */; };
 		D8DE38081FFCC8BC00707A7D /* StationMapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DE38071FFCC8BC00707A7D /* StationMapDelegate.swift */; };
+		D8E73D8820C7AB630070C034 /* StationSearchDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D8220C7AB630070C034 /* StationSearchDisplayData.swift */; };
+		D8E73D8920C7AB630070C034 /* StationSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D8320C7AB630070C034 /* StationSearchPresenter.swift */; };
+		D8E73D8A20C7AB630070C034 /* StationSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D8420C7AB630070C034 /* StationSearchRouter.swift */; };
+		D8E73D8B20C7AB630070C034 /* StationSearchModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D8520C7AB630070C034 /* StationSearchModuleApi.swift */; };
+		D8E73D8C20C7AB630070C034 /* StationSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D8620C7AB630070C034 /* StationSearchInteractor.swift */; };
+		D8E73D8D20C7AB630070C034 /* StationSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D8720C7AB630070C034 /* StationSearchView.swift */; };
+		D8E73D8F20C7EECE0070C034 /* StationSearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D8E20C7EECE0070C034 /* StationSearchDelegate.swift */; };
+		D8E73D9120C7EFA00070C034 /* StationSearchSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D9020C7EFA00070C034 /* StationSearchSetupData.swift */; };
 		D8E86B3E1FACF95B003BFD54 /* RealmServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E86B3D1FACF95B003BFD54 /* RealmServiceInterface.swift */; };
 		D8EA46032009499B0032224E /* BarChartDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA46022009499B0032224E /* BarChartDelegate.swift */; };
 		D8EA460720094B9F0032224E /* BarChartViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA460620094B9F0032224E /* BarChartViewEx.swift */; };
@@ -633,6 +641,14 @@
 		D8DBE3F01FF764C900AA6482 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		D8DE38051FFCC88F00707A7D /* StationMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationMapViewController.swift; sourceTree = "<group>"; };
 		D8DE38071FFCC8BC00707A7D /* StationMapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationMapDelegate.swift; sourceTree = "<group>"; };
+		D8E73D8220C7AB630070C034 /* StationSearchDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSearchDisplayData.swift; sourceTree = "<group>"; };
+		D8E73D8320C7AB630070C034 /* StationSearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSearchPresenter.swift; sourceTree = "<group>"; };
+		D8E73D8420C7AB630070C034 /* StationSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSearchRouter.swift; sourceTree = "<group>"; };
+		D8E73D8520C7AB630070C034 /* StationSearchModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSearchModuleApi.swift; sourceTree = "<group>"; };
+		D8E73D8620C7AB630070C034 /* StationSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSearchInteractor.swift; sourceTree = "<group>"; };
+		D8E73D8720C7AB630070C034 /* StationSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSearchView.swift; sourceTree = "<group>"; };
+		D8E73D8E20C7EECE0070C034 /* StationSearchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSearchDelegate.swift; sourceTree = "<group>"; };
+		D8E73D9020C7EFA00070C034 /* StationSearchSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSearchSetupData.swift; sourceTree = "<group>"; };
 		D8E86B3D1FACF95B003BFD54 /* RealmServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmServiceInterface.swift; sourceTree = "<group>"; };
 		D8EA46022009499B0032224E /* BarChartDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartDelegate.swift; sourceTree = "<group>"; };
 		D8EA460620094B9F0032224E /* BarChartViewEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartViewEx.swift; sourceTree = "<group>"; };
@@ -1141,6 +1157,7 @@
 				D87C44FC1F9059B900CAFC7A /* SideMenu */,
 				D83DC6BF1F7F83D200F91792 /* Start */,
 				D8DE38041FFCC87200707A7D /* StationMapViewController */,
+				D8E73D8120C7AB2D0070C034 /* StationSearch */,
 				D89311F81F834F44008DF09D /* StationSelect */,
 				D873C8721FC9244B00F581D8 /* TableViewHeaders */,
 				D841CF1F1F82398D004D0207 /* TrapSelect */,
@@ -1266,6 +1283,21 @@
 				D8DE38071FFCC8BC00707A7D /* StationMapDelegate.swift */,
 			);
 			name = StationMapViewController;
+			sourceTree = "<group>";
+		};
+		D8E73D8120C7AB2D0070C034 /* StationSearch */ = {
+			isa = PBXGroup;
+			children = (
+				D8E73D8220C7AB630070C034 /* StationSearchDisplayData.swift */,
+				D8E73D8320C7AB630070C034 /* StationSearchPresenter.swift */,
+				D8E73D8420C7AB630070C034 /* StationSearchRouter.swift */,
+				D8E73D8520C7AB630070C034 /* StationSearchModuleApi.swift */,
+				D8E73D8620C7AB630070C034 /* StationSearchInteractor.swift */,
+				D8E73D8720C7AB630070C034 /* StationSearchView.swift */,
+				D8E73D8E20C7EECE0070C034 /* StationSearchDelegate.swift */,
+				D8E73D9020C7EFA00070C034 /* StationSearchSetupData.swift */,
+			);
+			name = StationSearch;
 			sourceTree = "<group>";
 		};
 		D8EA4601200949730032224E /* Charts */ = {
@@ -1656,6 +1688,9 @@
 				D8EA460720094B9F0032224E /* BarChartViewEx.swift in Sources */,
 				D80F7ECE1F6E79BF00814A52 /* TraplineServiceInterface.swift in Sources */,
 				D87E5BF51F88CCAA0055A3E0 /* TraplineSelectDelegate.swift in Sources */,
+				D8E73D8B20C7AB630070C034 /* StationSearchModuleApi.swift in Sources */,
+				D8E73D8920C7AB630070C034 /* StationSearchPresenter.swift in Sources */,
+				D8E73D8820C7AB630070C034 /* StationSearchDisplayData.swift in Sources */,
 				D89B4C1E20BA538700A4502D /* RegionService.swift in Sources */,
 				D879269A1FB5775900240767 /* Layout.swift in Sources */,
 				D8D79AB11FC3F0CD008AC5C1 /* RouteView.swift in Sources */,
@@ -1683,6 +1718,7 @@
 				D88DFE4C1FFABCD00048CA54 /* RouteDashboardDisplayData.swift in Sources */,
 				D8C8A1FA1FCE85EF0075E44E /* VisitLogViewDelegate.swift in Sources */,
 				D856F66F20111D3E00CA50C2 /* NewRouteRouter.swift in Sources */,
+				D8E73D8D20C7AB630070C034 /* StationSearchView.swift in Sources */,
 				D8B57FF01FDA5582003437D9 /* importer_traplines_v1_to_v2.swift in Sources */,
 				D81431A71F8DDB2600EAF5FD /* DatePickerView.swift in Sources */,
 				D857B3A81F81B86A006E1402 /* VisitDisplayData.swift in Sources */,
@@ -1699,6 +1735,7 @@
 				D8C8A1EE1FCCBA070075E44E /* TrapOperatingStatus.swift in Sources */,
 				D8BB6F4B202917A6008AB3A2 /* CameraHandler.swift in Sources */,
 				D8005733201528C60084E950 /* StationMarkerAnnotationView.swift in Sources */,
+				D8E73D9120C7EFA00070C034 /* StationSearchSetupData.swift in Sources */,
 				D8039E251FABF458006E394B /* ListPickerDisplayData.swift in Sources */,
 				D81DAAF11F68652E00C7C987 /* Trap.swift in Sources */,
 				D8DE38061FFCC88F00707A7D /* StationMapViewController.swift in Sources */,
@@ -1721,8 +1758,10 @@
 				D820AE0B20228889008925E8 /* VisitHistoryPresenter.swift in Sources */,
 				D8083D171FE498F900D1C5F1 /* SettingsModuleApi.swift in Sources */,
 				D8BB6F4D20291E9E008AB3A2 /* UIImageViewExtension.swift in Sources */,
+				D8E73D8A20C7AB630070C034 /* StationSearchRouter.swift in Sources */,
 				D820AE0C20228889008925E8 /* VisitHistoryRouter.swift in Sources */,
 				D84C24541FFDFF30000BCAF8 /* StationDotAnnotationView.swift in Sources */,
+				D8E73D8F20C7EECE0070C034 /* StationSearchDelegate.swift in Sources */,
 				D82A53E21FEF02CD000D9339 /* TrapService.swift in Sources */,
 				D82A53E61FF0DDF5000D9339 /* HtmlService.swift in Sources */,
 				D841CF291F8239CA004D0207 /* TraplineSelectPresenter.swift in Sources */,
@@ -1760,6 +1799,7 @@
 				D8D79AB51FC4BB6F008AC5C1 /* RouteSetupData.swift in Sources */,
 				D87C44F71F9059AF00CAFC7A /* SideMenuInteractor.swift in Sources */,
 				D8039E271FABF458006E394B /* ListPickerModuleApi.swift in Sources */,
+				D8E73D8C20C7AB630070C034 /* StationSearchInteractor.swift in Sources */,
 				D89714AA1F7751B300E846B9 /* DataPopulatorServiceInterface.swift in Sources */,
 				D856F67220111D3E00CA50C2 /* NewRouteView.swift in Sources */,
 				D8AB9ADB201DAF3300FBEF55 /* RouteTableViewCell.swift in Sources */,

@@ -24,11 +24,37 @@ class RouteService: RealmService, RouteServiceInterface {
         }
     }
     
-    func addStationToRoute(route: Route, station: Station) {
+    func insertStationToRoute(route: Route, station: Station, at index: Int) -> Bool {
         
-        // for now just add to the end - should be smarter to get the order right
-        try! realm.write {
-            route.stations.append(station)
+        // make sure the station isn't already part of the route
+        if !route.stations.contains(station) {
+            do {
+                try realm.write {
+                    route.stations.insert(station, at: index)
+                }
+                return true
+            } catch {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+    
+    func addStationToRoute(route: Route, station: Station) -> Bool {
+        
+        // make sure the station isn't already part of the route
+        if !route.stations.contains(station) {
+            do {
+                try realm.write {
+                    route.stations.append(station)
+                }
+                return true
+            } catch {
+                return false
+            }
+        } else {
+            return false
         }
     }
     

@@ -14,10 +14,52 @@ import Viperit
 final class VisitInteractor: Interactor {
 
     fileprivate var visits: [Visit]!
+    
+    fileprivate func refreshRoute(routeId: String, selectedIndex: Int) {
+        // retrieve the route from the database again (with the new station)
+        if let route = ServiceFactory.sharedInstance.routeService.getById(id: routeId) {
+            presenter.didUpdateRoute2(route: route, selectedIndex: selectedIndex)
+        }
+    }
 }
 
 // MARK: - VisitInteractor API
 extension VisitInteractor: VisitInteractorApi {
+    
+    func removeStationFromRoute(route: Route, station: Station) {
+        if let index = route.stations.index(of: station) {
+            ServiceFactory.sharedInstance.routeService.removeStationFromRoute(route: route, station: station)
+            if index < route.stations.count {
+                refreshRoute(routeId: route.id, selectedIndex: index)
+            } else {
+                refreshRoute(routeId: route.id, selectedIndex: route.stations.count - 1)
+            }
+        }
+    }
+    
+    func deleteStation(route:Route, station: Station) {
+        if let index = route.stations.index(of: station) {
+            ServiceFactory.sharedInstance.stationService.delete(station: station)
+            
+            if index < route.stations.count {
+                refreshRoute(routeId: route.id, selectedIndex: index)
+            } else {
+                refreshRoute(routeId: route.id, selectedIndex: route.stations.count - 1)
+            }
+        }
+    }
+    
+    func insertStation(route: Route, station: Station, at index: Int) {
+        if ServiceFactory.sharedInstance.routeService.insertStationToRoute(route: route, station: station, at: index) {
+            refreshRoute(routeId: route.id, selectedIndex: index)
+        }
+    }
+    
+    func addStation(route: Route, station: Station) {
+        if ServiceFactory.sharedInstance.routeService.addStationToRoute(route: route, station: station) {
+            refreshRoute(routeId: route.id, selectedIndex: route.stations.count - 1)
+        }
+    }
     
     func getTrapsToDisplay(route: Route, station: Station, date: Date) -> [Trap] {
         return ServiceFactory.sharedInstance.stationService.getActiveOrHistoricTraps(route:route, station:station, date:date)
