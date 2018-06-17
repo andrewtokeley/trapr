@@ -49,6 +49,32 @@ final class VisitPresenter: Presenter {
         return self.visitSummary.route.stations[stationIndex]
     }
     
+    /**
+     Determines how many times to repeat the stations in the carousel.
+     
+     - parameters:
+        - stations: the stations that will be presented.
+     
+     - returns:
+     1 if the number of stations is less than or equal to 3, otherwise 4.
+     */
+    fileprivate func repeatCount(_ stations: [Station]) -> Int {
+        return stations.count <= 3 ? 1 : 4
+    }
+    
+    /**
+     Determines which repeated station group should be displayed first. This is typically the "middle" group of repeated stations.
+     
+     - parameters:
+        - stations: the stations that will be presented.
+     
+     - returns:
+     1 if the number of stations is less than or equal to 3, otherwise 2.
+     */
+    fileprivate func repeatCountStartGroup(_ stations: [Station]) -> Int {
+        return stations.count <= 3 ? 1 : 2
+    }
+    
     fileprivate var stationIndex = 0 {
         didSet {
             // whenever the current station changes, refresh the available trapTypes
@@ -69,9 +95,9 @@ final class VisitPresenter: Presenter {
             self.updateTitle()
             
             // populate stations
-            let stations = self.visitSummary.route.stations
-            view.setStations(stations: Array(stations), current: stations[self.stationIndex])
-            view.updateCurrentStation(index: stationIndex, repeatedGroup: 2)
+            let stations = Array(self.visitSummary.route.stations)
+            view.setStations(stations: stations, current: stations[self.stationIndex], repeatCount: self.repeatCount(stations))
+            view.updateCurrentStation(index: stationIndex, repeatedGroup: self.repeatCountStartGroup(stations))
             
             router.addVisitLogToView()
         }
@@ -157,7 +183,7 @@ extension VisitPresenter: StationSelectDelegate {
             if let index = visitSummary?.route?.stations.index(where: { $0.longCode == station.longCode }) {
                 stationIndex = index
                 
-                view.updateCurrentStation(index: index, repeatedGroup: 2)
+                view.updateCurrentStation(index: index, repeatedGroup: self.repeatCountStartGroup(stations))
             }
         }
     }
@@ -170,10 +196,10 @@ extension VisitPresenter: VisitPresenterApi {
         self.visitSummary.route = route
         
         // update the navigation strip
-        let stations = route.stations
+        let stations = Array(route.stations)
         stationIndex = selectedIndex
-        view.setStations(stations: Array(stations), current:  stations[stationIndex])
-        view.updateCurrentStation(index: stationIndex, repeatedGroup: 2)
+        view.setStations(stations: stations, current:  stations[stationIndex], repeatCount: self.repeatCount(stations))
+        view.updateCurrentStation(index: stationIndex, repeatedGroup: self.repeatCountStartGroup(stations))
     }
     
     func didSelectToRemoveTrap(trap: Trap) {
@@ -236,25 +262,17 @@ extension VisitPresenter: VisitPresenterApi {
         }
         if title == visitRecordMenuItem.deleteAllVisits.rawValue {
             
-//            let count = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: self.visitSummary.dateOfVisit, route: self.visitSummary.route).count
+            let count = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: self.visitSummary.dateOfVisit, route: self.visitSummary.route).count
             
-            view.confirmDeleteStationMethod()
+            view.showConfirmation(title: "Delete All \(count) Visits", message: "Are you sure",
+                                  yes: {
+                                    self.menuDeleteAllVisits()
+            },
+                                  no: {
+                                    // do nothing
+            })
+            
         }
-//        if title == visitRecordMenuItem.addTrap.rawValue {
-//
-//            let setupData = ListPickerSetupData()
-//            setupData.delegate = self
-//            setupData.embedInNavController = true
-//            setupData.includeSelectNone = false
-//
-//            router.showListPicker(setupData: setupData)
-//        }
-//        if title == visitRecordMenuItem.archiveTrap.rawValue {
-//            if let trap = self.currentTrap {
-//                didSelectToRemoveTrap(trap: trap)
-//            }
-//        }
-        
         if title == visitRecordMenuItem.addStation.rawValue {
             didSelectAddStation()
         }
@@ -411,10 +429,10 @@ extension VisitPresenter: TraplineSelectDelegate {
         self.visitSummary.route = route
         
         // update the navigation strip
-        let stations = route.stations
+        let stations = Array(route.stations)
         stationIndex = stationIndex >= stations.count ? stations.count - 1 : stationIndex
-        view.setStations(stations: Array(stations), current:  stations[stationIndex])
-        view.updateCurrentStation(index: stationIndex, repeatedGroup: 2)
+        view.setStations(stations: stations, current:  stations[stationIndex], repeatCount: self.repeatCount(stations))
+        view.updateCurrentStation(index: stationIndex, repeatedGroup: self.repeatCountStartGroup(stations))
     }
 }
 

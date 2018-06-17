@@ -19,7 +19,7 @@ final class VisitView: UserInterface {
     
     fileprivate var trapCarouselViews = [UIView]()
     fileprivate let CAROUSEL_STATIONS_TAG = 0
-    fileprivate let CAROUSEL_STATIONS_LABEL_TAG = 1
+    fileprivate let CAROUSEL_STATIONS_LABEL_TAG = 10
     
     fileprivate let CAROUSEL_TRAPS_TAG = 1
     fileprivate let CAROUSEL_TRAPS_IMAGE_TAG = 20
@@ -40,7 +40,8 @@ final class VisitView: UserInterface {
     
     fileprivate var heightConstraintForTrapsCarousel: NSLayoutConstraint?
     
-    let INFINITE_SCROLL_MULTIPLIER = 4
+    fileprivate var repeatCount: Int = 1
+    
     let TRAPTYPE_REUSE_ID = "cell"
     
     //MARK: - Subviews
@@ -300,16 +301,7 @@ extension VisitView: VisitLogViewDelegate {
                 if let label = view.viewWithTag(self.CAROUSEL_TRAPS_LABEL_TAG) as? UILabel {
                     label.alpha = 1 - min(offSet/MIN_HEADER * 3, 1)
                 }
-
             }
-//            self.trapsCarousel.frame.size.height = CAROUSEL_TRAPS_HEIGHT - offSet
-//            print("trapsCarouself height = \(CAROUSEL_TRAPS_HEIGHT - offSet)")
-//            self.dividingLineAfterTrapSelector.frame.origin.y = self.trapsCarousel.frame.origin.y + self.trapsCarousel.frame.size.height
-//
-//            self.visitContainerView.frame.origin.y = self.dividingLineAfterTrapSelector.frame.origin.y
-//
-//            scrollView.frame.size.height = self.view.frame.height - self.dividingLineAfterTrapSelector.frame.origin.y
-            
         }
         self.previousScrollOffset = scrollView.contentOffset.y
     }
@@ -324,7 +316,7 @@ extension VisitView: iCarouselDelegate, iCarouselDataSource {
     
     func numberOfItems(in carousel: iCarousel) -> Int {
         if (carousel.tag == CAROUSEL_STATIONS_TAG) {
-            return numberOfStations() * INFINITE_SCROLL_MULTIPLIER
+            return numberOfStations() * self.repeatCount
         } else {
             return self.currentTraps?.count ?? 0
         }
@@ -347,10 +339,12 @@ extension VisitView: iCarouselDelegate, iCarouselDataSource {
         
         // set properties on view
         if carousel.tag == CAROUSEL_STATIONS_TAG {
+            print("\(index) for stations carousel")
             if let label = usableView.viewWithTag(self.CAROUSEL_STATIONS_LABEL_TAG) as? UILabel {
                 
                 let adjustedIndex = index % numberOfStations()
                 label.text = self.stations?[adjustedIndex].longCode
+                print("label text \(label.text)")
             }
         } else {
             
@@ -439,12 +433,14 @@ extension VisitView: VisitViewApi {
 //        //self.stationLabel.text = text
 //    }
     
-    func setStations(stations: [Station], current: Station) {
+    func setStations(stations: [Station], current: Station, repeatCount: Int) {
         self.stations = stations
+        self.repeatCount = repeatCount
         
         if let index = stations.index(of: current) {
             // start in the middle of the "infinite" list of stations.
-            self.stationsCarousel.currentItemIndex = index * INFINITE_SCROLL_MULTIPLIER/2
+            self.stationsCarousel.currentItemIndex = index * self.repeatCount/2
+            print("POSITION \(index * self.repeatCount/2)")
         }
         self.stationsCarousel.reloadData()
     }

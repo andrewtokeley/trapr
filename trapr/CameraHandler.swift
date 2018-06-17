@@ -73,6 +73,10 @@ extension CameraHandler: UIImagePickerControllerDelegate, UINavigationController
         if let asset = info[UIImagePickerControllerPHAsset] as? PHAsset {
             self.imagePickedBlock?(asset)
         }
+//        else if let asset = info[UIImagePickerControllerOriginalImage] as? UIImage {
+//            self.imagePickedBlock?(asset)
+//        }
+        
         
         currentVC.dismiss(animated: true, completion: nil)
     }

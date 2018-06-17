@@ -22,7 +22,7 @@ protocol VisitRouterApi: RouterProtocol {
 //MARK: - VisitView API
 protocol VisitViewApi: UserInterfaceProtocol {
     func setTitle(title: String, subTitle: String)
-    func setStations(stations: [Station], current: Station)
+    func setStations(stations: [Station], current: Station, repeatCount: Int)
     func setTraps(traps: [Trap])
     func displayMenuOptions(options: [OptionItem])
     func updateDisplayFor(visit: Visit)
