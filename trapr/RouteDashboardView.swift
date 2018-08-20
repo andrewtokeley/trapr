@@ -501,15 +501,31 @@ extension RouteDashboardView: RouteDashboardViewApi {
     }
     
     func configureKillChart(catchSummary: StackCount) {
-        self.killNumberOfBars = catchSummary.counts.count
-        let yValues = catchSummary.counts.map({ $0.map( { Double($0) }) })
-        barChartKills.buildData(yValues: yValues, stackLabels: catchSummary.labels, stackColors: UIColor.trpStackChartColors )
+        if !catchSummary.isZero {
+            barChartKills.alpha = 1
+            barChartKillsTitle.alpha = 1
+            self.killNumberOfBars = catchSummary.counts.count
+            let yValues = catchSummary.counts.map({ $0.map( { Double($0) }) })
+            
+            barChartKills.buildData(yValues: yValues, stackLabels: catchSummary.labels, stackColors: UIColor.trpStackChartColors )
+        } else {
+            barChartKills.alpha = 0
+            barChartKillsTitle.alpha = 0
+        }
     }
     
     func configurePoisonChart(poisonSummary: StackCount) {
-        self.poisonNumberOfBars = poisonSummary.counts.count
-        let yValues = poisonSummary.counts.map({ $0.map( { Double($0) }) })
-        barChartPoison.buildData(yValues: yValues, stackLabels: poisonSummary.labels, stackColors: [UIColor.trpChartBarStack4])
+        
+        if !poisonSummary.isZero {
+            barChartPoison.alpha = 1
+            barChartPoisonTitle.alpha = 1
+            self.poisonNumberOfBars = poisonSummary.counts.count
+            let yValues = poisonSummary.counts.map({ $0.map( { Double($0) }) })
+            barChartPoison.buildData(yValues: yValues, stackLabels: poisonSummary.labels, stackColors: [UIColor.trpChartBarStack4])
+        } else {
+            barChartPoison.alpha = 0
+            barChartPoisonTitle.alpha = 0
+        }
     }
     
     func showEditDescription(_ show: Bool, description: String? = nil) {

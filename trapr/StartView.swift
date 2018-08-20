@@ -354,6 +354,20 @@ extension StartView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 347
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let changeImage = UITableViewRowAction(style: UITableViewRowActionStyle.default, title: "Change Picture...", handler: {
+            (row, index) in
+            
+            
+        })
+        changeImage.backgroundColor = UIColor.trpHighlightColor
+        return [changeImage]
+    }
 }
 
 // MARK: - RouteTableViewCellDelegate

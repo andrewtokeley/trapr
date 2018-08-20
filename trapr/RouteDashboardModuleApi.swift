@@ -7,6 +7,7 @@
 //
 
 import Viperit
+import Photos
 
 enum ResizeState {
     case expand
@@ -88,7 +89,7 @@ protocol RouteDashboardInteractorApi: InteractorProtocol {
     func lastVisitedText(route: Route) -> String?
     func lastVisitSummary(route: Route) -> VisitSummary?
     func numberOfVisits(route: Route) -> Int
-    
+    func setRouteImage(route: Route, asset: PHAsset, completion: (() -> Swift.Void)?)
     func addStationToRoute(route: Route, station: Station) -> Route
     func removeStationFromRoute(route: Route, station: Station) -> Route
     func deleteRoute(route: Route)

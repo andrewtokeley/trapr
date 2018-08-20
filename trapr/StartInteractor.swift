@@ -17,16 +17,16 @@ final class StartInteractor: Interactor {
 // MARK: - StartInteractor API
 extension StartInteractor: StartInteractorApi {
     
-    func setRouteImage(route: Route, asset: PHAsset, completion: (() -> Swift.Void)?) {
-        
-        ServiceFactory.sharedInstance.savedImageService.addOrUpdateSavedImage(asset: asset, completion: {
-            (savedImage) in
-                // let presenter know we've got a new image.
-                ServiceFactory.sharedInstance.routeService.updateDashboardImage(route: route, savedImage: savedImage)
-            
-                completion?()
-            })
-    }
+//    func setRouteImage(route: Route, asset: PHAsset, completion: (() -> Swift.Void)?) {
+//        
+//        ServiceFactory.sharedInstance.savedImageService.addOrUpdateSavedImage(asset: asset, completion: {
+//            (savedImage) in
+//                // let presenter know we've got a new image.
+//                ServiceFactory.sharedInstance.routeService.updateDashboardImage(route: route, savedImage: savedImage)
+//            
+//                completion?()
+//            })
+//    }
     
     func getLastVisitedDateDescription(route: Route) -> String {
         

@@ -54,7 +54,7 @@ protocol StartPresenterApi: PresenterProtocol {
 //MARK: - StartInteractor API
 protocol StartInteractorApi: InteractorProtocol {
     func initialiseHomeModule()
-    func setRouteImage(route: Route, asset: PHAsset, completion: (() -> Swift.Void)?)
+    //func setRouteImage(route: Route, asset: PHAsset, completion: (() -> Swift.Void)?)
     func deleteRoute(route: Route)
     func getLastVisitedDateDescription(route: Route) -> String
     

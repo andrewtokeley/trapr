@@ -8,6 +8,7 @@
 
 import Foundation
 import Viperit
+import Photos
 
 // MARK: - RouteDashboardInteractor Class
 final class RouteDashboardInteractor: Interactor {
@@ -16,6 +17,17 @@ final class RouteDashboardInteractor: Interactor {
 
 // MARK: - RouteDashboardInteractor API
 extension RouteDashboardInteractor: RouteDashboardInteractorApi {
+    
+    func setRouteImage(route: Route, asset: PHAsset, completion: (() -> Swift.Void)?) {
+        
+        ServiceFactory.sharedInstance.savedImageService.addOrUpdateSavedImage(asset: asset, completion: {
+            (savedImage) in
+            // let presenter know we've got a new image.
+            ServiceFactory.sharedInstance.routeService.updateDashboardImage(route: route, savedImage: savedImage)
+            
+            completion?()
+        })
+    }
     
     func lastVisitSummary(route: Route) -> VisitSummary? {
         return ServiceFactory.sharedInstance.visitService.getVisitSummaryMostRecent(route: route)

@@ -9,6 +9,7 @@
 import Foundation
 import Viperit
 import MapKit
+import Photos
 
 // MARK: - RouteDashboardPresenter Class
 final class RouteDashboardPresenter: Presenter {
@@ -22,6 +23,7 @@ final class RouteDashboardPresenter: Presenter {
     let MENU_CHANGE_ORDER = "Change Visit Order"
     let MENU_HIDE = "Hide from Dashboard"
     let MENU_DELETE = "Delete"
+    let MENU_UPDATE_DASHBOARD_IMAGE = "Update Dashboard Image"
     
     var newRouteFromStartModule: Bool = false
     var order: Int = 1
@@ -99,27 +101,12 @@ final class RouteDashboardPresenter: Presenter {
             self.displayMap()
             
             if let catchSummary = interactor.killCounts(frequency: .month, period: .year, route: self.route) {
-                if !catchSummary.isZero {
-                    //view.showKillChart(true)
-                    view.configureKillChart(catchSummary: catchSummary)
-                } else {
-                    //view.showKillChart(false)
-                }
-            } else {
-                //view.showKillChart(false)
+                view.configureKillChart(catchSummary: catchSummary)
             }
             
             if let poisonSummary = interactor.poisonCounts(frequency: .month, period: .year, route: self.route) {
-                if !poisonSummary.isZero {
-                    //view.showPoisonChart(true)
-                    view.configurePoisonChart(poisonSummary: poisonSummary)
-                } else {
-                    //view.showPoisonChart(false)
-                }
-            } else {
-                //view.showPoisonChart(false)
+                view.configurePoisonChart(poisonSummary: poisonSummary)
             }
-            
         }
     }
     
@@ -208,27 +195,34 @@ final class RouteDashboardPresenter: Presenter {
         //view.setVisibleRegionToCentreOfStations(distance: 500)
         view.setVisibleRegionToHighlightedStations()
     }
+  
+    func didSelectUpdateDasboardImage() {
+        // get permission to access photos
+        let status = PHPhotoLibrary.authorizationStatus()
+
+        var authorized = status == PHAuthorizationStatus.authorized
+
+        if !authorized  {
+            PHPhotoLibrary.requestAuthorization({status in
+                authorized = status == PHAuthorizationStatus.authorized
+                self.selectImage()
+            })
+        }
+        self.selectImage()
+    }
     
-//    func setOrder(annotationView: StationAnnotationView) {
-//        
-//        if let annotation = (annotationView as? MKAnnotationView)?.annotation as? StationMapAnnotation {
-//            
-//            // Order not set yet
-//            if annotationView.innerText?.isEmpty ?? true {
-//                
-//                // mark this station as having the appropriate order. The add method is smart about where it positions the station, essentially filling in the gaps
-//                proposedStationOrder.add(annotation.station)
-//                
-//            } else {
-//                
-//                // Order has an ordering
-//                
-//                // remove this order from the station
-//                self.proposedStationOrder.remove(annotation.station)
-//            }
-//        }
-//        return order
-//    }
+    func selectImage() {
+        CameraHandler.shared.showActionSheet(vc: self._view)
+        CameraHandler.shared.imagePickedBlock = { (asset) in
+            
+            // save the url against the route
+            self.interactor.setRouteImage(route: self.route, asset: asset, completion: {
+                
+                // may
+                
+            })
+        }
+    }
 }
 
 
@@ -463,6 +457,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
             OptionItem(title: MENU_EDIT_STATIONS, isEnabled: true, isDestructive: false),
             OptionItem(title: MENU_CHANGE_ORDER, isEnabled: true, isDestructive: false),
             OptionItem(title: MENU_HIDE, isEnabled: true, isDestructive: false),
+            OptionItem(title: MENU_UPDATE_DASHBOARD_IMAGE, isEnabled: true, isDestructive: false),
             OptionItem(title: MENU_DELETE, isEnabled: true, isDestructive: true)]
         
         (view as? UserInterface)?.displayMenuOptions(options: menuOptions, actionHandler: {
@@ -471,6 +466,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
             else if title == self.MENU_CHANGE_ORDER { self.didSelectEditOrder() }
             else if title == self.MENU_HIDE { self.didSelectHideRoute() }
             else if title == self.MENU_DELETE { self.didSelectDeleteRoute() }
+            else if title == self.MENU_UPDATE_DASHBOARD_IMAGE { self.didSelectUpdateDasboardImage() }
         })
     }
     
@@ -505,6 +501,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
         }
     
     }
+    
     
     private func deleteAndCloseRoute() {
         interactor.deleteRoute(route: self.route)
@@ -634,7 +631,6 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
                 self._view.dismiss(animated: true, completion: nil)
             }
         })
-        
     }
 }
 
