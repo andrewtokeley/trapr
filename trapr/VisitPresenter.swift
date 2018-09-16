@@ -15,6 +15,8 @@ enum visitRecordMenuItem: String {
     case sendReport = "Send report..."
     case viewMap = "Show map"
     case addStation = "Add station..."
+    case addTrap = "Add trap..."
+    case archiveTrap = "Remove trap..."
     case removeStation = "Remove station..."
     case deleteAllVisits = "Delete all visits..."
 }
@@ -203,10 +205,17 @@ extension VisitPresenter: VisitPresenterApi {
     }
     
     func didSelectToRemoveTrap(trap: Trap) {
-        interactor.deleteOrArchiveTrap(trap: trap)
         
-        // refresh UI and select the same trapIndex if valid, otherwise the one befo
-        didSelectStation(index: self.stationIndex, trapIndex: trapIndex > 0 ? trapIndex - 1 : 0)
+        _view.presentConfirmation(title: "Remove Trap", message: "Are you sure you want to remove this trap from the station?", response: {
+            result in
+                if result {
+                    self.interactor.deleteOrArchiveTrap(trap: trap)
+                    
+                    // refresh UI and select the same trapIndex if valid, otherwise the one befo
+                    self.didSelectStation(index: self.stationIndex, trapIndex: self.trapIndex > 0 ? self.trapIndex - 1 : 0)
+                }
+        })
+
     }
     
     func didSelectToAddTrap(trapType: TrapType) {
@@ -243,8 +252,8 @@ extension VisitPresenter: VisitPresenterApi {
         let options = [
             OptionItem(title: visitRecordMenuItem.sendReport.rawValue, isEnabled: hasVisits),
             OptionItem(title: visitRecordMenuItem.viewMap.rawValue, isEnabled: true),
-            //OptionItem(title: visitRecordMenuItem.addTrap.rawValue, isEnabled: unusedTrapTypes.count > 0),
-            //OptionItem(title: visitRecordMenuItem.archiveTrap.rawValue, isEnabled: self.currentVisit == nil),
+            OptionItem(title: visitRecordMenuItem.addTrap.rawValue, isEnabled: unusedTrapTypes.count > 0),
+            OptionItem(title: visitRecordMenuItem.archiveTrap.rawValue, isEnabled: self.currentVisit == nil),
             OptionItem(title: visitRecordMenuItem.addStation.rawValue, isEnabled: true, isDestructive: false),
             OptionItem(title: visitRecordMenuItem.removeStation.rawValue, isEnabled: true, isDestructive: false),
             OptionItem(title: visitRecordMenuItem.deleteAllVisits.rawValue, isEnabled: hasVisits, isDestructive: true)
@@ -279,6 +288,19 @@ extension VisitPresenter: VisitPresenterApi {
         
         if title == visitRecordMenuItem.removeStation.rawValue {
             view.confirmDeleteStationMethod()
+        }
+        
+        if title == visitRecordMenuItem.addTrap.rawValue {
+            let setupData = ListPickerSetupData()
+            setupData.delegate = self
+            setupData.embedInNavController = false
+            self.router.showListPicker(setupData: setupData)
+        }
+        
+        if title == visitRecordMenuItem.archiveTrap.rawValue {
+            if let trap = self.currentTrap {
+                self.didSelectToRemoveTrap(trap: trap)
+            }
         }
     }
     
