@@ -25,6 +25,34 @@ class VisitSummary {
      */
     var visits = [Visit]()
     
+    /**
+     The number of traps visited
+     */
+    var numberOfTrapsVisited: Int {
+        return visits.count
+    }
+    
+    /**
+     Returns true if all the traps have been visited on the route
+     */
+    var allTrapsVisited: Bool {
+        return numberOfTrapsVisited == route.numberOfTraps
+    }
+
+    /**
+     Returns the number of seconds between the first and last visit (regardless of whether all the traps have been visited)
+     */
+    var timeTaken: TimeInterval {
+        
+        let orderedVisits = visits.sorted(by: { $0.visitDateTime < $1.visitDateTime }, stable: true)
+        
+        if let firstVisit = orderedVisits.first, let lastVisit = orderedVisits.last {
+            return lastVisit.visitDateTime.timeIntervalSince(firstVisit.visitDateTime)
+        } else {
+            return 0
+        }
+    }
+    
     var totalPoisonAdded: Int {
         var count = 0
         for visit in visits {

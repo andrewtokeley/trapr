@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -18,8 +18,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="579" height="136.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bu7-Dv-o04">
-                        <rect key="frame" x="20" y="11" width="539" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28 Sept, 2018" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bu7-Dv-o04">
+                        <rect key="frame" x="20" y="11" width="200" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="200" id="98E-oW-BgE"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -41,18 +44,29 @@
                             <outlet property="delegate" destination="ToU-Bm-G1q" id="vz1-Sn-1GH"/>
                         </connections>
                     </collectionView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1h 20m" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6N6-gt-PIg">
+                        <rect key="frame" x="409" y="11" width="150" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="150" id="RkP-bG-wgS"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="6N6-gt-PIg" firstAttribute="top" secondItem="tbl-1a-Tap" secondAttribute="topMargin" id="2Ee-a1-Ts6"/>
                     <constraint firstItem="WDS-7h-bSQ" firstAttribute="leading" secondItem="tbl-1a-Tap" secondAttribute="leadingMargin" id="3r6-L7-tu2"/>
                     <constraint firstItem="WDS-7h-bSQ" firstAttribute="bottom" secondItem="tbl-1a-Tap" secondAttribute="bottomMargin" id="A0G-D4-ArV"/>
+                    <constraint firstItem="6N6-gt-PIg" firstAttribute="trailing" secondItem="tbl-1a-Tap" secondAttribute="trailingMargin" id="Cxu-Ky-DID"/>
                     <constraint firstItem="WDS-7h-bSQ" firstAttribute="trailing" secondItem="tbl-1a-Tap" secondAttribute="trailingMargin" id="U0i-0y-oyf"/>
                     <constraint firstItem="Bu7-Dv-o04" firstAttribute="leading" secondItem="tbl-1a-Tap" secondAttribute="leadingMargin" id="fUO-Yy-3fB"/>
                     <constraint firstItem="Bu7-Dv-o04" firstAttribute="top" secondItem="tbl-1a-Tap" secondAttribute="topMargin" id="heQ-nq-638"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="Bu7-Dv-o04" secondAttribute="trailing" id="zOM-Bc-NC7"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="statisticsCollectionView" destination="WDS-7h-bSQ" id="ZVt-FV-aoJ"/>
+                <outlet property="timeTakenLabel" destination="6N6-gt-PIg" id="K6Z-tI-iiy"/>
                 <outlet property="titleLabel" destination="Bu7-Dv-o04" id="GmH-ja-smn"/>
             </connections>
             <point key="canvasLocation" x="53.5" y="37.5"/>

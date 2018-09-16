@@ -81,6 +81,23 @@ class Route: Object {
     }
     
     /**
+     Returns the number of active traps defined on the route
+     */
+    var numberOfTraps: Int {
+        var count: Int = 0
+        for trapline in traplines {
+            for station in trapline.stations {
+                for trap in station.traps {
+                    if !trap.archive {
+                        count+=1
+                    }
+                }
+            }
+        }
+        return count
+    }
+    
+    /**
     Returns the TimeFrequency at which visits should occur
     */
     var visitFrequency: TimeFrequency {

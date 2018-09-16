@@ -20,10 +20,11 @@ final class RouteDashboardView: UserInterface {
     let MAP_HEIGHT_MIN: CGFloat = 350
     let GRAPH_HEIGHT: CGFloat = 200
     
-    let NUMBER_OF_SUMMARY_CELLS = 3
+    let NUMBER_OF_SUMMARY_CELLS = 4
     let CELL_ID = "cell"
     let ROW_LASTVISITED = 1
     let ROW_VISITS = 2
+    let ROW_TIMES = 3
     
     var killNumberOfBars: Int = 0
     var poisonNumberOfBars: Int = 0
@@ -65,6 +66,15 @@ final class RouteDashboardView: UserInterface {
     lazy var lastVisitTableViewCell: UITableViewCell = {
         let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: CELL_ID)
         cell.textLabel?.text = "Last Visited"
+        cell.accessoryType = .disclosureIndicator
+        cell.selectionStyle = .none
+        cell.backgroundColor = UIColor.clear
+        return cell
+    }()
+    
+    lazy var timesTableViewCell: UITableViewCell = {
+        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: CELL_ID)
+        cell.textLabel?.text = "Times"
         cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .none
         cell.backgroundColor = UIColor.clear
@@ -458,6 +468,8 @@ extension RouteDashboardView: UITableViewDataSource {
             cell = lastVisitTableViewCell
         } else if row == ROW_VISITS {
             cell = visitsTableViewCell
+        } else if row == ROW_TIMES {
+            cell = timesTableViewCell
         } else {
             cell = routeSummaryTableViewCell
         }
@@ -474,6 +486,8 @@ extension RouteDashboardView: UITableViewDelegate {
             presenter.didSelectVisitHistory()
         } else if row == ROW_LASTVISITED {
             presenter.didSelectLastVisited()
+        } else if row == ROW_TIMES {
+            presenter.didSelectTimes()
         }
     }
 }
@@ -593,8 +607,14 @@ extension RouteDashboardView: RouteDashboardViewApi {
         visitsTableViewCell.accessoryType = allowSelection ? .disclosureIndicator : .none
     }
     
-    func displayStationSummary(summary: String) {
+    func displayStationSummary(summary: String, numberOfStations: Int) {
         routeSummaryTableViewCell.detailTextLabel?.text = summary
+        routeSummaryTableViewCell.textLabel?.text = "Stations (\(numberOfStations))"
+    }
+    
+    func displayTimes(description: String, allowSelection: Bool) {
+        timesTableViewCell.detailTextLabel?.text = description
+        timesTableViewCell.accessoryType = allowSelection ? .disclosureIndicator : .none
     }
     
     func setVisibleRegionToCentreOfStations(distance: Double) {

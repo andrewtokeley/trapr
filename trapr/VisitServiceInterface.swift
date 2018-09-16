@@ -110,6 +110,11 @@ protocol VisitServiceInterface: RealmServiceInterface {
     func getVisitSummaries(recordedBetween startDate: Date, endDate: Date, route: Route) -> [VisitSummary]
     
     /**
+     Return a selection of statistical summaries across a set of VisitSummary instances
+    */
+    func getStatistics(visitSummaries: [VisitSummary]) -> VisitSummariesStatistics?
+    
+    /**
     Returns a summary of the most recent visits for a given Route
     */
     func getVisitSummaryMostRecent(route: Route) -> VisitSummary?

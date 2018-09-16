@@ -33,6 +33,18 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
         return ServiceFactory.sharedInstance.visitService.getVisitSummaryMostRecent(route: route)
     }
     
+    func timeDescription(route: Route) -> String {
+        
+        // get the times for all visitSummaries
+        let summaries = ServiceFactory.sharedInstance.visitService.getVisitSummaries(recordedBetween: Date().add(0, 0, -100), endDate: Date(), route: route)
+        
+        if let visitStatistics = ServiceFactory.sharedInstance.visitService.getStatistics(visitSummaries: summaries) {
+            return "Fastest: \(visitStatistics.fastestTimeTaken.formatInTimeUnits()!) | Average: \(visitStatistics.averageTimeTaken.formatInTimeUnits()!)"
+        } else {
+            return "-"
+        }
+    }
+    
     func lastVisitedText(route: Route) -> String? {
         var text:String?
         
@@ -127,7 +139,7 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
     
     func addStationToRoute(route: Route, station: Station) -> Route {
         let service = ServiceFactory.sharedInstance.routeService
-        service.addStationToRoute(route: route, station: station)
+        let _ = service.addStationToRoute(route: route, station: station)
         return service.getById(id: route.id)!
     }
     

@@ -19,6 +19,7 @@ class VisitSummaryTableViewCell: UITableViewCell {
     let CELL_IDENTIFIER = "cell"
     var delegate: VisitSummaryTableViewCellDelegate?
     
+    @IBOutlet weak var timeTakenLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var statisticsCollectionView: UICollectionView!
     
@@ -31,6 +32,9 @@ class VisitSummaryTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         titleLabel.font = UIFont.trpLabelNormal
         titleLabel.textColor = UIColor.trpTextHighlight
+        
+        timeTakenLabel.font = UIFont.trpLabelNormal
+        timeTakenLabel.textColor = UIColor.darkGray
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal

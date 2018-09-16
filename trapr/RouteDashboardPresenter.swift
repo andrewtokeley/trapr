@@ -89,7 +89,11 @@ final class RouteDashboardPresenter: Presenter {
 
             let lastVisitedText = interactor.lastVisitedText(route: route)
             view.displayLastVisitedDate(date: lastVisitedText ?? TEXT_NEVER_VISITED, allowSelection: lastVisitedText != nil)
-            view.displayStationSummary(summary: self.route.longDescription)
+            
+            let times = interactor.timeDescription(route: route)
+            view.displayTimes(description: times, allowSelection: false)
+            
+            view.displayStationSummary(summary: self.route.longDescription, numberOfStations: self.route.stations.count)
             
             if interactor.visitsExistForRoute(route: self.route) {
                 let count = interactor.numberOfVisits(route: self.route)
@@ -513,6 +517,10 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
         if let visitSummary = interactor.lastVisitSummary(route: self.route) {
             router.showVisitModule(visitSummary: visitSummary)
         }
+    }
+    
+    func didSelectTimes() {
+        
     }
     
     func didSelectVisitHistory() {

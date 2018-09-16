@@ -157,6 +157,19 @@ class VisitService: RealmService, VisitServiceInterface {
         return summaries
     }
     
+    func getStatistics(visitSummaries: [VisitSummary]) -> VisitSummariesStatistics? {
+    
+        // ignore times that are outliers, under 2 mins. These are clearly not manual times.
+        let orderedSummaries = visitSummaries.filter({ $0.timeTaken > 120 }).sorted(by: { $0.timeTaken < $1.timeTaken }, stable: true)
+        let totalTimeTaken = visitSummaries.reduce(0, { $0 + $1.timeTaken })
+        let averageTimeTaken = totalTimeTaken/Double(orderedSummaries.count)
+        if let fastestTime = orderedSummaries.first?.timeTaken {
+            return VisitSummariesStatistics(averageTimeTaken: averageTimeTaken, fastestTimeTaken: fastestTime)
+        }
+        
+        return nil
+    }
+    
     func getVisitSummaryMostRecent(route: Route) -> VisitSummary? {
         return getVisitSummaries(recordedBetween: Date().add(0, 0, -100), endDate: Date(), route: route).sorted(by: {
             (v1, v2) in

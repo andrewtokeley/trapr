@@ -252,6 +252,8 @@
 		D8BC084A1F6A542700B284EE /* greaterthan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08481F6A542700B284EE /* greaterthan@2x.png */; };
 		D8BC084B1F6A542700B284EE /* lessthan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08491F6A542700B284EE /* lessthan@2x.png */; };
 		D8BC084F1F6B143800B284EE /* TrapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BC084E1F6B143800B284EE /* TrapType.swift */; };
+		D8C3786B21463F8A00B02E86 /* VisitSummariesStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C3786A21463F8A00B02E86 /* VisitSummariesStatistics.swift */; };
+		D8C3786D2146431900B02E86 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C3786C2146431900B02E86 /* TimeIntervalExtension.swift */; };
 		D8C51A731F96D67200D3571A /* MultiselectTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C51A721F96D67200D3571A /* MultiselectTableViewHeader.swift */; };
 		D8C8A1E21FCB9F7F0075E44E /* VisitSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8A1E11FCB9F7F0075E44E /* VisitSummaryTableViewCell.swift */; };
 		D8C8A1E71FCBA6210075E44E /* envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C8A1E51FCBA6210075E44E /* envelope.png */; };
@@ -588,6 +590,8 @@
 		D8BC08481F6A542700B284EE /* greaterthan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greaterthan@2x.png"; sourceTree = "<group>"; };
 		D8BC08491F6A542700B284EE /* lessthan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lessthan@2x.png"; sourceTree = "<group>"; };
 		D8BC084E1F6B143800B284EE /* TrapType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrapType.swift; sourceTree = "<group>"; };
+		D8C3786A21463F8A00B02E86 /* VisitSummariesStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSummariesStatistics.swift; sourceTree = "<group>"; };
+		D8C3786C2146431900B02E86 /* TimeIntervalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtension.swift; sourceTree = "<group>"; };
 		D8C51A721F96D67200D3571A /* MultiselectTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiselectTableViewHeader.swift; sourceTree = "<group>"; };
 		D8C8A1E11FCB9F7F0075E44E /* VisitSummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSummaryTableViewCell.swift; sourceTree = "<group>"; };
 		D8C8A1E51FCBA6210075E44E /* envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = envelope.png; sourceTree = "<group>"; };
@@ -908,6 +912,7 @@
 				D8BC084E1F6B143800B284EE /* TrapType.swift */,
 				D8503DCF1F669F8500ED0C84 /* Visit.swift */,
 				D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */,
+				D8C3786A21463F8A00B02E86 /* VisitSummariesStatistics.swift */,
 				D8AF9EB42026B058002264D1 /* VisitSync.swift */,
 				D88BE097202C4DFF00098DBE /* SavedImage.swift */,
 			);
@@ -1136,6 +1141,7 @@
 				D8B94D611F5EA1FE00D373EF /* LaunchScreen.storyboard */,
 				D800573520154F9C0084E950 /* VerticallyCentredTextView.swift */,
 				D8BB6F4C20291E9E008AB3A2 /* UIImageViewExtension.swift */,
+				D8C3786C2146431900B02E86 /* TimeIntervalExtension.swift */,
 			);
 			name = Design;
 			sourceTree = "<group>";
@@ -1729,6 +1735,7 @@
 				D8D79AAF1FC3F0CD008AC5C1 /* RouteModuleApi.swift in Sources */,
 				D8DBE3E51FF50A1500AA6482 /* StationMapAnnotation.swift in Sources */,
 				D89A20DB1FDC98D200A813FB /* StationServiceInterface.swift in Sources */,
+				D8C3786B21463F8A00B02E86 /* VisitSummariesStatistics.swift in Sources */,
 				D8039E311FABF6B9006E394B /* ListPickerSetupData.swift in Sources */,
 				D80B6DD01F9F3DCD00F49E9E /* VisitLogView.swift in Sources */,
 				D8EA46032009499B0032224E /* BarChartDelegate.swift in Sources */,
@@ -1751,6 +1758,7 @@
 				D8953EBD1F88114F00A1F424 /* NewVisitInteractor.swift in Sources */,
 				D8039E261FABF458006E394B /* ListPickerInteractor.swift in Sources */,
 				D80C14FD202F9416005EBD10 /* LoaderDelegate.swift in Sources */,
+				D8C3786D2146431900B02E86 /* TimeIntervalExtension.swift in Sources */,
 				D856F67020111D3E00CA50C2 /* NewRouteModuleApi.swift in Sources */,
 				D815D792200CBA2A0086AFFE /* LoaderRouter.swift in Sources */,
 				D8DE38081FFCC8BC00707A7D /* StationMapDelegate.swift in Sources */,

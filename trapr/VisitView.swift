@@ -339,12 +339,12 @@ extension VisitView: iCarouselDelegate, iCarouselDataSource {
         
         // set properties on view
         if carousel.tag == CAROUSEL_STATIONS_TAG {
-            print("\(index) for stations carousel")
+            //print("\(index) for stations carousel")
             if let label = usableView.viewWithTag(self.CAROUSEL_STATIONS_LABEL_TAG) as? UILabel {
                 
                 let adjustedIndex = index % numberOfStations()
                 label.text = self.stations?[adjustedIndex].longCode
-                print("label text \(label.text)")
+                //print("label text \(label.text)")
             }
         } else {
             

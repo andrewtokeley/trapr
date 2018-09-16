@@ -28,7 +28,7 @@ class Trap: Object {
     }
     
     /**
-     The type of trap. e.g. Possum Master, Pelifeed...
+     True if the trap has been archived
      */
     @objc dynamic var archive: Bool = false
     

@@ -39,8 +39,9 @@ protocol RouteDashboardViewApi: class, UserInterfaceProtocol {
     func displayCollapsedMap()
     
     func displayLastVisitedDate(date: String, allowSelection: Bool)
-    func displayStationSummary(summary: String)
+    func displayStationSummary(summary: String, numberOfStations: Int)
     func displayVisitNumber(number: String, allowSelection: Bool)
+    func displayTimes(description: String, allowSelection: Bool)
     
     func setMapResizeIconState(state: ResizeState)
     
@@ -75,6 +76,7 @@ protocol RouteDashboardPresenterApi: PresenterProtocol {
     func didUpdateRouteName(name: String?)
     func didSelectVisitHistory()
     func didSelectLastVisited()
+    func didSelectTimes()
     //func didSelectResetStations()
     //func didSelectResetOrder()
     func didSelectClearOrder()
@@ -88,6 +90,7 @@ protocol RouteDashboardPresenterApi: PresenterProtocol {
 protocol RouteDashboardInteractorApi: InteractorProtocol {
     func lastVisitedText(route: Route) -> String?
     func lastVisitSummary(route: Route) -> VisitSummary?
+    func timeDescription(route: Route) -> String
     func numberOfVisits(route: Route) -> Int
     func setRouteImage(route: Route, asset: PHAsset, completion: (() -> Swift.Void)?)
     func addStationToRoute(route: Route, station: Station) -> Route
@@ -98,5 +101,6 @@ protocol RouteDashboardInteractorApi: InteractorProtocol {
     func poisonCounts(frequency: TimeFrequency, period: TimeFrequency, route: Route) -> StackCount?
     func visitsExistForRoute(route: Route) -> Bool
     func getStationSequence(_ from: Station, _ to:Station) -> [Station]?
+    
     //func killCounts(monthOffset: Int, route: Route) -> [Species: Int]
 }
