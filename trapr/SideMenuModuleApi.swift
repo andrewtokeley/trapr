@@ -17,7 +17,7 @@ protocol SideMenuRouterApi: RouterProtocol {
 //MARK: - SideMenuView API
 protocol SideMenuViewApi: UserInterfaceProtocol {
     func displayMenuItems(menuItems: [SideBarMenuItem], separatorsAfter: [Int]?)
-    func displayUserDetails()
+    func displayUserDetails(userName: String, emailAddress: String)
     func showSideBar()
     func hideSideBar(completion: (() -> Void)?)
     //func moveSideBar(positionX: CGFloat)

@@ -29,6 +29,7 @@ enum AppModules: String, ViperitModule {
     case newRoute
     case visitHistory
     case stationSearch
+    case signIn
     
     var viewType: ViperitViewType {
         return .code

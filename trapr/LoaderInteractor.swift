@@ -8,6 +8,7 @@
 
 import Foundation
 import Viperit
+import FirebaseAuth
 
 // MARK: - LoaderInteractor Class
 final class LoaderInteractor: Interactor {
@@ -15,6 +16,16 @@ final class LoaderInteractor: Interactor {
 
 // MARK: - LoaderInteractor API
 extension LoaderInteractor: LoaderInteractorApi {
+    
+    func verifySignIn(result: ((Bool) -> Void)?) {
+        
+        // may turn this into an async call, hence why using a closure to return the result
+        if Auth.auth().currentUser != nil {
+            result?(true)
+        } else  {
+            result?(false)
+        }
+    }
     
     /**
     Determines whether the app data needs to be updated.

@@ -7,7 +7,10 @@ target "trapr" do
     pod "iCarousel"
     pod "CSVImporter", "1.7.1"
     pod "Charts"
-    
+    pod "Firebase/Auth"
+    pod "GoogleSignIn"
+    pod "Firebase/Core"
+    pod "FirebaseUI/Google"
 end
 
 target "traprTests" do

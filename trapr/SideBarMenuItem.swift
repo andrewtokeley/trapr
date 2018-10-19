@@ -14,6 +14,7 @@ enum SideBarMenuItem: Int {
     case Map
     case Sync
     case Settings
+    case SignOut
     case Divider
     
     var isDivider: Bool {
@@ -26,6 +27,7 @@ enum SideBarMenuItem: Int {
         case .Map: return "Map"
         case .Settings: return "Settings"
         case .Sync: return "Synchronize Data"
+        case .SignOut: return "Sign Out"
         default: return "-"
         }
     }

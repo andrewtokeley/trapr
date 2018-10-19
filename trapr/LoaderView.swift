@@ -8,6 +8,8 @@
 
 import UIKit
 import Viperit
+import Firebase
+import GoogleSignIn
 
 //MARK: LoaderView Class
 final class LoaderView: UserInterface {
@@ -33,6 +35,12 @@ final class LoaderView: UserInterface {
         return progressBar
     }()
     
+    lazy var googleSignInButton: GIDSignInButton = {
+        let googleSignInButton = GIDSignInButton()
+        googleSignInButton.alpha = 0
+        return googleSignInButton
+    }()
+    
     lazy var progressMessage: UILabel = {
         let progressMessage = UILabel()
         progressMessage.textColor = UIColor.white
@@ -49,6 +57,10 @@ final class LoaderView: UserInterface {
         self.view.addSubview(self.appName)
         self.view.addSubview(self.progressBar)
         self.view.addSubview(self.progressMessage)
+        self.view.addSubview(self.googleSignInButton)
+        
+        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance()?.delegate = self
         
         setConstraints()
     }
@@ -69,6 +81,16 @@ final class LoaderView: UserInterface {
         
         self.progressMessage.autoPinEdge(.top, to: .bottom, of: self.progressBar, withOffset: LayoutDimensions.spacingMargin)
         self.progressMessage.autoAlignAxis(toSuperviewAxis: .vertical)
+        
+        self.googleSignInButton.autoPinEdge(.top, to: .bottom, of: self.progressMessage, withOffset: LayoutDimensions.spacingMargin)
+        self.googleSignInButton.autoAlignAxis(toSuperviewAxis: .vertical)
+        
+    }
+}
+
+extension LoaderView: GIDSignInUIDelegate {
+    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
+        self.presenter.signInStarted()
     }
 }
 
@@ -82,11 +104,16 @@ extension LoaderView: LoaderViewApi {
                         self.appName.alpha = 0
                         self.progressBar.alpha = 0
                         self.progressMessage.alpha = 0
+                        
         },
                        completion: {
                         (result) in
                         completion?()
         })
+    }
+    
+    func showSignInButton(show: Bool) {
+        self.googleSignInButton.alpha = show ? 1 : 0
     }
     
     func updateProgress(progress: Float) {
@@ -101,6 +128,40 @@ extension LoaderView: LoaderViewApi {
             self.progressMessage.alpha = 1
         }
         self.progressMessage.text = message
+    }
+}
+
+extension LoaderView: GIDSignInDelegate {
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+        // ...
+        if let error = error {
+            
+            // Handle the error
+            self.presenter.signInFailed()
+            print(error)
+            return
+        }
+        
+        guard let authentication = user.authentication else { return }
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                       accessToken: authentication.accessToken)
+        
+        Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
+            if let error = error {
+                // ...
+                print(error)
+                self.presenter.signInFailed()
+                return
+            }
+            
+            self.presenter.signInComplete()
+        }
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        // Perform any operations when the user disconnects from app here.
+        // ...
     }
 }
 

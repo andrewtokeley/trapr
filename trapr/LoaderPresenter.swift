@@ -19,8 +19,21 @@ final class LoaderPresenter: Presenter {
             self.delegate = setupData.delegate
         }
     }
-    
-    override func viewHasAppeared() {
+    override func viewHasLoaded() {
+        
+        // check whether there is a user signed in
+        interactor.verifySignIn(result: {(result) in
+            if result {
+                self.view.showSignInButton(show: false)
+                self.checkForUpdates()
+            } else {
+                self.view.showSignInButton(show: true)
+            }
+        })
+        
+    }
+
+    fileprivate func checkForUpdates() {
         
         if interactor.needsDataUpdate() {
             view.updateProgressMessage(message: "Just setting a few things up...")
@@ -55,6 +68,20 @@ extension LoaderPresenter: LoaderPresenterApi {
         fade()
     }
     
+    func signInStarted() {
+        // hide the signin button
+        view.showSignInButton(show: false)
+    }
+    
+    func signInFailed() {
+        // hide the signin button
+        view.showSignInButton(show: true)
+    }
+    
+    func signInComplete() {
+        // fade the UI and close view
+        fade()
+    }
 }
 
 // MARK: - Loader Viper Components

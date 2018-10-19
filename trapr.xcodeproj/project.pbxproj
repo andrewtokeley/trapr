@@ -127,6 +127,7 @@
 		D84CE45A1F987CC30000D422 /* pelifeed.png in Resources */ = {isa = PBXBuildFile; fileRef = D84CE4581F987CC30000D422 /* pelifeed.png */; };
 		D84CE45B1F987CC30000D422 /* pelifeed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D84CE4591F987CC30000D422 /* pelifeed@2x.png */; };
 		D84DDF511FB6C7D90079551D /* TraplineSelectSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84DDF501FB6C7D90079551D /* TraplineSelectSetupData.swift */; };
+		D85013CA2175E6B900F582F8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D85013C92175E6B900F582F8 /* GoogleService-Info.plist */; };
 		D8503DC41F66807C00ED0C84 /* VisitInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DBB1F66807C00ED0C84 /* VisitInteractor.swift */; };
 		D8503DC81F66807C00ED0C84 /* VisitPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DBF1F66807C00ED0C84 /* VisitPresenter.swift */; };
 		D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */; };
@@ -252,6 +253,12 @@
 		D8BC084A1F6A542700B284EE /* greaterthan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08481F6A542700B284EE /* greaterthan@2x.png */; };
 		D8BC084B1F6A542700B284EE /* lessthan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08491F6A542700B284EE /* lessthan@2x.png */; };
 		D8BC084F1F6B143800B284EE /* TrapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BC084E1F6B143800B284EE /* TrapType.swift */; };
+		D8BCF0222176B01A0090AD82 /* SignInDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BCF01C2176B01A0090AD82 /* SignInDisplayData.swift */; };
+		D8BCF0232176B01A0090AD82 /* SignInPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BCF01D2176B01A0090AD82 /* SignInPresenter.swift */; };
+		D8BCF0242176B01A0090AD82 /* SignInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BCF01E2176B01A0090AD82 /* SignInRouter.swift */; };
+		D8BCF0252176B01A0090AD82 /* SignInModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BCF01F2176B01A0090AD82 /* SignInModuleApi.swift */; };
+		D8BCF0262176B01A0090AD82 /* SignInInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BCF0202176B01A0090AD82 /* SignInInteractor.swift */; };
+		D8BCF0272176B01A0090AD82 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BCF0212176B01A0090AD82 /* SignInView.swift */; };
 		D8C3786B21463F8A00B02E86 /* VisitSummariesStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C3786A21463F8A00B02E86 /* VisitSummariesStatistics.swift */; };
 		D8C3786D2146431900B02E86 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C3786C2146431900B02E86 /* TimeIntervalExtension.swift */; };
 		D8C51A731F96D67200D3571A /* MultiselectTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C51A721F96D67200D3571A /* MultiselectTableViewHeader.swift */; };
@@ -461,6 +468,7 @@
 		D84CE4581F987CC30000D422 /* pelifeed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pelifeed.png; sourceTree = "<group>"; };
 		D84CE4591F987CC30000D422 /* pelifeed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pelifeed@2x.png"; sourceTree = "<group>"; };
 		D84DDF501FB6C7D90079551D /* TraplineSelectSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraplineSelectSetupData.swift; sourceTree = "<group>"; };
+		D85013C92175E6B900F582F8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D8503DBB1F66807C00ED0C84 /* VisitInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitInteractor.swift; sourceTree = "<group>"; };
 		D8503DBF1F66807C00ED0C84 /* VisitPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitPresenter.swift; sourceTree = "<group>"; };
 		D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtention.swift; sourceTree = "<group>"; };
@@ -590,6 +598,12 @@
 		D8BC08481F6A542700B284EE /* greaterthan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greaterthan@2x.png"; sourceTree = "<group>"; };
 		D8BC08491F6A542700B284EE /* lessthan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lessthan@2x.png"; sourceTree = "<group>"; };
 		D8BC084E1F6B143800B284EE /* TrapType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrapType.swift; sourceTree = "<group>"; };
+		D8BCF01C2176B01A0090AD82 /* SignInDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInDisplayData.swift; sourceTree = "<group>"; };
+		D8BCF01D2176B01A0090AD82 /* SignInPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPresenter.swift; sourceTree = "<group>"; };
+		D8BCF01E2176B01A0090AD82 /* SignInRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInRouter.swift; sourceTree = "<group>"; };
+		D8BCF01F2176B01A0090AD82 /* SignInModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInModuleApi.swift; sourceTree = "<group>"; };
+		D8BCF0202176B01A0090AD82 /* SignInInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInInteractor.swift; sourceTree = "<group>"; };
+		D8BCF0212176B01A0090AD82 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		D8C3786A21463F8A00B02E86 /* VisitSummariesStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSummariesStatistics.swift; sourceTree = "<group>"; };
 		D8C3786C2146431900B02E86 /* TimeIntervalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtension.swift; sourceTree = "<group>"; };
 		D8C51A721F96D67200D3571A /* MultiselectTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiselectTableViewHeader.swift; sourceTree = "<group>"; };
@@ -1067,6 +1081,7 @@
 			isa = PBXGroup;
 			children = (
 				D83853001F64C66B00481B57 /* Trapr-Bridging-Header.h */,
+				D85013C92175E6B900F582F8 /* GoogleService-Info.plist */,
 				D8D729E51F64BD580082CD4A /* Podfile */,
 				D8B94D571F5EA1FE00D373EF /* trapr */,
 				D8B94D6C1F5EA1FE00D373EF /* traprTests */,
@@ -1149,6 +1164,7 @@
 		D8B94D7D1F5EA67300D373EF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D8BCF01B2176AFED0090AD82 /* SignIn */,
 				D806C7E91F9C881F0064C98F /* GroupedTableViewDatasource.swift */,
 				D81431A81F8DDB2E00EAF5FD /* DatePicker */,
 				D8039E1E1FABF428006E394B /* ListPicker */,
@@ -1244,6 +1260,19 @@
 				D84C24692005DAB6000BCAF8 /* walker@2x.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		D8BCF01B2176AFED0090AD82 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				D8BCF01C2176B01A0090AD82 /* SignInDisplayData.swift */,
+				D8BCF01D2176B01A0090AD82 /* SignInPresenter.swift */,
+				D8BCF01E2176B01A0090AD82 /* SignInRouter.swift */,
+				D8BCF01F2176B01A0090AD82 /* SignInModuleApi.swift */,
+				D8BCF0202176B01A0090AD82 /* SignInInteractor.swift */,
+				D8BCF0212176B01A0090AD82 /* SignInView.swift */,
+			);
+			name = SignIn;
 			sourceTree = "<group>";
 		};
 		D8D1A0451FAF12F600926CEF /* Lookups */ = {
@@ -1359,7 +1388,6 @@
 				D8B94D661F5EA1FE00D373EF /* Frameworks */,
 				D8B94D671F5EA1FE00D373EF /* Resources */,
 				0A2B8859EAB0DE16451D9450 /* [CP] Embed Pods Frameworks */,
-				2F9366D05CFF284D9BED1789 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1484,6 +1512,7 @@
 				D86CE48A1F92BC6F004A09EF /* home.png in Resources */,
 				D879269D1FB58EA400240767 /* SectionStripView.xib in Resources */,
 				D8B94D9C1F5F30CD00D373EF /* menu.png in Resources */,
+				D85013CA2175E6B900F582F8 /* GoogleService-Info.plist in Resources */,
 				D8C8A1F81FCE1C4F0075E44E /* doc200.png in Resources */,
 				D8C8A1F71FCE1C4F0075E44E /* doc200@2x.png in Resources */,
 				D858D7C02019D68A00EE052D /* collapse2@2x.png in Resources */,
@@ -1536,21 +1565,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-traprTests/Pods-traprTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2F9366D05CFF284D9BED1789 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-traprTests/Pods-traprTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		367FB6A19C05F5F0A01D84EA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1575,9 +1589,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-trapr/Pods-trapr-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1607,23 +1628,33 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-trapr/Pods-trapr-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CSVImporter/CSVImporter.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/HandySwift/HandySwift.framework",
 				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Viperit/Viperit.framework",
 				"${BUILT_PRODUCTS_DIR}/iCarousel/iCarousel.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSVImporter.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandySwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Viperit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iCarousel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1691,6 +1722,7 @@
 				D8039E2F1FABF671006E394B /* RouterExtension.swift in Sources */,
 				D88BE09A202C547E00098DBE /* SavedImageServiceInterface.swift in Sources */,
 				D879269F1FB58FDE00240767 /* SectionStripView.swift in Sources */,
+				D8BCF0242176B01A0090AD82 /* SignInRouter.swift in Sources */,
 				D8EA460720094B9F0032224E /* BarChartViewEx.swift in Sources */,
 				D80F7ECE1F6E79BF00814A52 /* TraplineServiceInterface.swift in Sources */,
 				D87E5BF51F88CCAA0055A3E0 /* TraplineSelectDelegate.swift in Sources */,
@@ -1799,6 +1831,7 @@
 				D815D797200CBC6F0086AFFE /* LoaderPresenterSetupData.swift in Sources */,
 				D83DC6C91F7F841F00F91792 /* StartInteractor.swift in Sources */,
 				D81818701F7F795B008362BA /* AppModules.swift in Sources */,
+				D8BCF0232176B01A0090AD82 /* SignInPresenter.swift in Sources */,
 				D8083D211FE4E67D00D1C5F1 /* SideMenuDelegate.swift in Sources */,
 				D8C8A1EC1FCBBD0B0075E44E /* VisitSummaryTableViewCellDelegate.swift in Sources */,
 				D806C7EA1F9C881F0064C98F /* GroupedTableViewDatasource.swift in Sources */,
@@ -1815,6 +1848,7 @@
 				D873C86E1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift in Sources */,
 				D8953EBF1F88114F00A1F424 /* NewVisitPresenter.swift in Sources */,
 				D8E86B3E1FACF95B003BFD54 /* RealmServiceInterface.swift in Sources */,
+				D8BCF0272176B01A0090AD82 /* SignInView.swift in Sources */,
 				D8DBE3DE1FF4FC1900AA6482 /* MapDisplayData.swift in Sources */,
 				D8503DD01F669F8500ED0C84 /* Visit.swift in Sources */,
 				D81431A31F8DDB2600EAF5FD /* DatePickerInteractor.swift in Sources */,
@@ -1834,6 +1868,7 @@
 				D81431AA1F8E020900EAF5FD /* DatePickerDisplayData.swift in Sources */,
 				D89B4C1C20BA524200A4502D /* RegionServiceInterface.swift in Sources */,
 				D80344311FA192D400F44A17 /* StepperTableViewCellDelegate.swift in Sources */,
+				D8BCF0262176B01A0090AD82 /* SignInInteractor.swift in Sources */,
 				D815D794200CBA2A0086AFFE /* LoaderInteractor.swift in Sources */,
 				D89311FF1F834F6E008DF09D /* StationSelectDisplayData.swift in Sources */,
 				D80F7EDB1F6EF89700814A52 /* Station.swift in Sources */,
@@ -1856,6 +1891,8 @@
 				D89714AF1F7898A800E846B9 /* SideBarMenuItem.swift in Sources */,
 				D83DC6CC1F7F841F00F91792 /* StartRouter.swift in Sources */,
 				D87C44ED1F8F4C2400CAFC7A /* DatePickerDelegate.swift in Sources */,
+				D8BCF0222176B01A0090AD82 /* SignInDisplayData.swift in Sources */,
+				D8BCF0252176B01A0090AD82 /* SignInModuleApi.swift in Sources */,
 				D8D1A0491FAF219E00926CEF /* LookupService.swift in Sources */,
 				D8B1480A1F9552D9000AB414 /* Route.swift in Sources */,
 				D89312001F834F6E008DF09D /* StationSelectInteractor.swift in Sources */,
@@ -1968,7 +2005,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inheritied)";
@@ -2021,7 +2058,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

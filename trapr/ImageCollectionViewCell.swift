@@ -9,9 +9,12 @@
 import Foundation
 import UIKit
 
+/**
+ Pretty sure this isn't being used anymore
+ */
 class ImageCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var image: UIImageView!
+    //@IBOutlet weak var image: UIImageView!
     @IBOutlet weak var label: UILabel!
     
 }

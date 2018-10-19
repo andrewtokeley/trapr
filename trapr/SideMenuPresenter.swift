@@ -8,6 +8,8 @@
 
 import Foundation
 import Viperit
+import FirebaseAuth
+import GoogleSignIn
 
 // MARK: - SideMenuPresenter Class
 final class SideMenuPresenter: Presenter {
@@ -27,9 +29,12 @@ final class SideMenuPresenter: Presenter {
         }
         
         // Get the menu items for this user context
-        self.menuItems = [SideBarMenuItem.Map, SideBarMenuItem.Settings]
+        self.menuItems = [SideBarMenuItem.Map, SideBarMenuItem.Settings, SideBarMenuItem.Divider, SideBarMenuItem.SignOut]
         self.separatorsAfter = nil
         
+        if let user = Auth.auth().currentUser {
+            view.displayUserDetails(userName: user.displayName ?? "", emailAddress: user.email ?? "")
+        }
         view.displayMenuItems(menuItems: self.menuItems, separatorsAfter: self.separatorsAfter)
         
     }
@@ -55,6 +60,23 @@ extension SideMenuPresenter: SideMenuPresenterApi {
                     setupData.stations = self.interactor.getStationsForMap()
                     setupData.showHighlightedOnly = false
                     self.delegate?.didSelectMenuItem(menu: .Map, setupData: setupData)
+                })
+            })
+        }
+        
+        if menuItems[menuItemIndex] == SideBarMenuItem.SignOut {
+            view.hideSideBar(completion: {
+                () in
+                self.router.dismiss(completion: {
+                    
+                    do {
+                        try Auth.auth().signOut()
+                        GIDSignIn.sharedInstance()?.signOut()
+                        self.delegate?.didSelectMenuItem(menu: .SignOut, setupData: nil)
+                    }
+                    catch {
+                        // if signout fails just ignore
+                    }
                 })
             })
         }

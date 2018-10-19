@@ -36,9 +36,14 @@ class Styles {
         let stepperAppearance = UIStepper.appearance()
         stepperAppearance.tintColor = UIColor.trpMenuBar
         
-        let buttonAppearance =  UIButton.appearance()
-        buttonAppearance.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
-        buttonAppearance.setTitleColor(UIColor.trpButtonDisabled, for: .disabled)
+//        let buttonAppearance =  UIButton.appearance()
+//        buttonAppearance.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
+//        buttonAppearance.setTitleColor(UIColor.trpButtonDisabled, for: .disabled)
+//        
+//        // this is to make sure the action button (Delete) stays white
+//        let buttonAppearanceInTableViewCell =  UIButton.appearance(whenContainedInInstancesOf: [UITableViewCell.self])
+//        buttonAppearanceInTableViewCell.setTitleColor(UIColor.white, for: .normal)
+//        
         
 //        let buttonAppearanceInTableViewRow =  UIButton.appearance(whenContainedInInstancesOf: [VisitSummaryTableViewCell.self])
 //        buttonAppearanceInTableViewRow.setTitleColor(UIColor.orange, for: .normal)

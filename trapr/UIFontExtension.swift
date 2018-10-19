@@ -33,6 +33,10 @@ extension UIFont {
         return UIFont.systemFont(ofSize: UIFont.labelFontSize)
     }
 
+    public static var trpLabelNormalBold: UIFont {
+        return UIFont.systemFont(ofSize: UIFont.labelFontSize, weight: UIFont.Weight.bold)
+    }
+    
     public static var trpAppNameFont: UIFont {
         return UIFont.init(name: "Helvetica", size: 25) ?? trpLabelBoldLarge
     }

@@ -17,13 +17,13 @@ class MenuItemView: UIView {
     
     init() {
         super.init(frame: CGRect.zero)
-        self.addSubview(image)
+        self.addSubview(menuImage)
         self.addSubview(label)
     }
     
     convenience init(item: SideBarMenuItem) {
         self.init()
-        self.image.image = item.image
+        self.menuImage.image = item.image
         self.label.text = item.name
     }
     
@@ -32,12 +32,12 @@ class MenuItemView: UIView {
         
         //menuItem.autoSetDimension(.height, toSize: 100)
         
-        image.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
-        image.autoSetDimension(.width, toSize: LayoutDimensions.spacingMargin)
-        image.autoSetDimension(.height, toSize: LayoutDimensions.spacingMargin)
-        image.autoAlignAxis(.horizontal, toSameAxisOf: self)
+        menuImage.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
+        menuImage.autoSetDimension(.width, toSize: LayoutDimensions.spacingMargin)
+        menuImage.autoSetDimension(.height, toSize: LayoutDimensions.spacingMargin)
+        menuImage.autoAlignAxis(.horizontal, toSameAxisOf: self)
 
-        label.autoPinEdge(.left, to: .right, of: image, withOffset: LayoutDimensions.spacingMargin * 2)
+        label.autoPinEdge(.left, to: .right, of: menuImage, withOffset: LayoutDimensions.spacingMargin * 2)
         label.autoAlignAxis(.horizontal, toSameAxisOf: self)
         label.autoPinEdge(toSuperviewMargin: .right)
     }
@@ -59,7 +59,7 @@ class MenuItemView: UIView {
 //        return view
 //    }()
     
-    lazy var image: UIImageView = {
+    lazy var menuImage: UIImageView = {
         
         // default image
         let image = UIImageView(image: UIImage(named: "close"))

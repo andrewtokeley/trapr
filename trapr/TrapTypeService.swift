@@ -64,8 +64,9 @@ class TrapTypeService: LookupService<TrapType> {
         trapType.name = "Timms Trap"
         trapType.order = 3
         trapType.killMethodRaw = KillMethod.direct.rawValue
-        trapType.defaultLure = lureService.get(.cereal)
+        trapType.defaultLure = lureService.get(.driedRabbit)
         
+        trapType.availableLures.append(lureService.get(.driedRabbit)!)
         trapType.availableLures.append(lureService.get(.cereal)!)
         trapType.availableLures.append(lureService.get(.apple)!)
         trapType.availableLures.append(lureService.get(.other)!)

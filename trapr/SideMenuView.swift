@@ -54,28 +54,47 @@ final class SideMenuView: UserInterface {
         return view
     }()
     
+    lazy var email: UILabel = {
+        let email = UILabel()
+        email.font = UIFont.trpLabelNormal
+        email.textColor = UIColor.white
+        //email.font = UIFont.trpLabelSmall
+        return email
+    }()
+    
+    lazy var userName: UILabel = {
+        let userName = UILabel()
+        userName.font = UIFont.trpLabelNormal
+        userName.textColor = UIColor.white
+        userName.font = UIFont.trpLabelNormalBold
+        return userName
+    }()
+    
+    lazy var image: UIImageView = {
+        let image = UIImageView(image: UIImage(named: "tree"))
+        image.contentMode = .scaleAspectFit
+        return image
+    }()
+    
     lazy var headerBackground: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.trpHighlightColor
         
-        let image = UIImageView(image: UIImage(named: "tree"))
-        image.contentMode = .scaleAspectFit
-        
-        let title = UILabel()
-        title.text = "Trapr"
-        title.font = UIFont.trpLabelNormal
-        title.textColor = UIColor.white
-        
         view.addSubview(image)
-        view.addSubview(title)
+        view.addSubview(userName)
+        view.addSubview(email)
         
-        title.autoPinEdge(toSuperviewEdge: .bottom, withInset: LayoutDimensions.smallSpacingMargin)
-        title.autoAlignAxis(toSuperviewAxis: .vertical)
-        image.autoAlignAxis(toSuperviewAxis: .vertical)
+        email.autoPinEdge(toSuperviewEdge: .bottom, withInset: LayoutDimensions.smallSpacingMargin)
+        email.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
+        
+        userName.autoPinEdge(.bottom, to: .top, of: email, withOffset: 0)
+        userName.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
+        
+        image.autoPinEdge(toSuperviewEdge: .top, withInset: LayoutDimensions.spacingMargin)
+        image.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
         image.autoSetDimension(.width, toSize: 60)
         image.autoSetDimension(.height, toSize: 60)
-        image.autoPinEdge(.bottom, to: .top, of: title, withOffset: -LayoutDimensions.smallSpacingMargin)
-
+        
         return view
     }()
     
@@ -170,15 +189,14 @@ extension SideMenuView: UITableViewDelegate, UITableViewDataSource {
 extension SideMenuView: SideMenuViewApi {
     
     func displayMenuItems(menuItems: [SideBarMenuItem], separatorsAfter: [Int]?) {
-
         self.menuItems = menuItems
         self.separatorsAfter = separatorsAfter
-        
         self.menuTableView.reloadData()
     }
     
-    func displayUserDetails() {
-        
+    func displayUserDetails(userName: String, emailAddress: String) {
+        self.userName.text = userName
+        self.email.text = emailAddress
     }
     
     func showSideBar() {

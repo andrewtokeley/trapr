@@ -120,15 +120,40 @@ extension VisitHistoryView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let delete = UITableViewRowAction(style: .destructive, title: "Delete", handler: {
-            (action, indexPath) in
-            if action.title == "Delete" {
-                self.presenter.didSelectDeleteVisitSummary(visitSummary: self.visitSummaries[indexPath.section])
-            }
-        })
-        delete.backgroundColor = UIColor.trpRed
         
-        return [delete]
+//        let kCellActionWidth = CGFloat(120.0)// The width you want of delete button
+//        let kCellHeight = tableView.frame.size.height // The height you want of delete button
+//        let whitespace = whitespaceString(width: kCellActionWidth) // add the padding
+        
+        
+        let deleteAction = UITableViewRowAction(style: .`default`, title: "Delete") {_,_ in
+            // do whatever the action you want
+            self.presenter.didSelectDeleteVisitSummary(visitSummary: self.visitSummaries[indexPath.section])
+        }
+//
+//        // create a color from patter image and set the color as a background color of action
+//        let view = UIView(frame: CGRect(x: tableView.frame.size.width-kCellActionWidth, y: 0, width: kCellActionWidth, height: kCellHeight))
+//        view.backgroundColor = UIColor.red
+//        let imageView = UIImageView(frame: CGRect(x: 10,
+//                                                  y: 10,
+//                                                  width: 20,
+//                                                  height: 20))
+//        imageView.image = UIImage(named: "settings")! // required image
+//        view.addSubview(imageView)
+//        let image = view.image()
+//
+//        deleteAction.backgroundColor = UIColor.init(patternImage: image)
+        return [deleteAction]
+    }
+    
+    fileprivate func whitespaceString(font: UIFont = UIFont.systemFont(ofSize: 15), width: CGFloat) -> String {
+        let kPadding: CGFloat = 20
+        let mutable = NSMutableString(string: "")
+        let attribute = [NSAttributedStringKey.font: font]
+        while mutable.size(withAttributes: attribute).width < width - (2 * kPadding) {
+            mutable.append(" ")
+        }
+        return mutable as String
     }
 }
 

@@ -63,11 +63,15 @@ extension StartRouter: StartRouterApi {
     }
     
     func showLoadingScreen(delegate: LoaderDelegate) {
-        let module = AppModules.loader.build()
         
+//        let module = AppModules.signIn.build()
+//        module.router.showAsModalOverlay(from: _view, setupData: nil)
+        
+        let module = AppModules.loader.build()
+
         let setup = LoaderPresenterSetupData()
         setup.delegate = delegate
-        
+
         module.router.showAsModalOverlay(from: _view, setupData: setup)
         
         
@@ -109,6 +113,11 @@ extension StartRouter: SideMenuDelegate {
         if menu == .Map {
             if let setup = setupData as? MapSetupData {
                 self.showMap(setupData: setup)
+            }
+        }
+        if menu == .SignOut {
+            if let delegate = presenter as? LoaderDelegate {
+                self.showLoadingScreen(delegate: delegate)
             }
         }
     }
