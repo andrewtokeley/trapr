@@ -36,13 +36,13 @@ class importer_traplines_v1_to_v2: DataImport {
     
     // MARK: - Properties
     
-    fileprivate var traplineService: TraplineServiceInterface {
-        return ServiceFactory.sharedInstance.traplineService
-    }
-    
-    fileprivate var regionService: RegionServiceInterface {
-        return ServiceFactory.sharedInstance.regionService
-    }
+//    fileprivate var traplineService: TraplineServiceInterface {
+//        return ServiceFactory.sharedInstance.traplineService
+//    }
+//
+//    fileprivate var regionService: RegionServiceInterface {
+//        return ServiceFactory.sharedInstance.regionService
+//    }
     
     private func checkColumnExists(columnHeading: TraplineFileHeaders, headerValues: [String]) -> Bool {
         return headerValues.contains(where: { $0 == columnHeading.rawValue })

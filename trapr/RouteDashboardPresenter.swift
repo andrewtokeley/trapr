@@ -475,7 +475,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
     }
     
     func didSelectToSelectAllStations() {
-        let service = ServiceFactory.sharedInstance.stationService
+        let service = ServiceFactory.sharedInstance.traplineService
         
         for trapline in service.getTraplines(from: self.proposedStations) {
             

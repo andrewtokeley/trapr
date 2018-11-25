@@ -14,17 +14,19 @@ final class SideMenuView: UserInterface {
     
     fileprivate let ANIMATION_DURATION_SECS = 0.3
     fileprivate let MENU_CELL_ID = "cell"
+    fileprivate let PROFILE_IMAGE_DIAMETER: CGFloat = 60
+    fileprivate let HEADER_HEIGHT: CGFloat = 170
     
-    fileprivate var menuItems: [SideBarMenuItem]!
+    fileprivate var menuItems = [SideBarMenuItem]()
     fileprivate var separatorsAfter: [Int]?
     
     fileprivate var sideBarWidth: CGFloat {
         return UIScreen.main.bounds.width * 0.7
     }
     
-    fileprivate var headerHeight: CGFloat {
-        return UIScreen.main.bounds.height * 0.2
-    }
+//    fileprivate var headerHeight: CGFloat {
+//        return UIScreen.main.bounds.height * 0.25
+//    }
     
     //MARK: - Subviews
     
@@ -73,6 +75,9 @@ final class SideMenuView: UserInterface {
     lazy var image: UIImageView = {
         let image = UIImageView(image: UIImage(named: "tree"))
         image.contentMode = .scaleAspectFit
+        image.layer.masksToBounds = false
+        image.layer.cornerRadius = PROFILE_IMAGE_DIAMETER/2
+        image.clipsToBounds = true
         return image
     }()
     
@@ -90,10 +95,10 @@ final class SideMenuView: UserInterface {
         userName.autoPinEdge(.bottom, to: .top, of: email, withOffset: 0)
         userName.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
         
-        image.autoPinEdge(toSuperviewEdge: .top, withInset: LayoutDimensions.spacingMargin)
+        image.autoPinEdge(toSuperviewEdge: .top, withInset: LayoutDimensions.spacingMargin * 2)
         image.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
-        image.autoSetDimension(.width, toSize: 60)
-        image.autoSetDimension(.height, toSize: 60)
+        image.autoSetDimension(.width, toSize: PROFILE_IMAGE_DIAMETER)
+        image.autoSetDimension(.height, toSize: PROFILE_IMAGE_DIAMETER)
         
         return view
     }()
@@ -147,9 +152,9 @@ final class SideMenuView: UserInterface {
         self.headerBackground.autoPinEdge(.top, to: .top, of: self.sideBar)
         self.headerBackground.autoPinEdge(.left, to: .left, of: self.sideBar)
         self.headerBackground.autoPinEdge(.right, to: .right, of: self.sideBar)
-        self.headerBackground.autoSetDimension(.height, toSize: self.headerHeight)
+        self.headerBackground.autoSetDimension(.height, toSize: HEADER_HEIGHT)
         
-        self.menuTableView.autoPinEdge(.top, to: .bottom, of: self.headerBackground, withOffset: 40)
+        self.menuTableView.autoPinEdge(.top, to: .bottom, of: self.headerBackground, withOffset: 20)
         self.menuTableView.autoPinEdge(.left, to: .left, of: self.sideBar)
         self.menuTableView.autoPinEdge(.right, to: .right, of: self.sideBar)
         self.menuTableView.autoPinEdge(.bottom, to: .bottom, of: self.sideBar)
@@ -183,6 +188,10 @@ extension SideMenuView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.didSelectMenuItem(menuItemIndex: indexPath.row)
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
+    }
 }
 
 //MARK: - SideMenuView API
@@ -194,9 +203,12 @@ extension SideMenuView: SideMenuViewApi {
         self.menuTableView.reloadData()
     }
     
-    func displayUserDetails(userName: String, emailAddress: String) {
+    func displayUserDetails(userName: String, emailAddress: String, imageUrl: URL?) {
         self.userName.text = userName
         self.email.text = emailAddress
+        if let url = imageUrl {
+            self.image.downloadedFrom(url: url)
+        }
     }
     
     func showSideBar() {

@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-protocol RegionServiceInterface: RealmServiceInterface {
+protocol RegionServiceInterface {
     
     /**
      Add or update a region to repository. The region will be updated if it is considered to already exist by the region code (primary key)

@@ -41,35 +41,37 @@ class HtmlService: HtmlServiceInterface {
     
     func getVisitsAsHtml(recordedOn date: Date, route: Route) -> String? {
     
-        let visitsFromRealm = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: date, route: route)
-        
-        //let visits = Array(visitsFromRealm).sorted(by: { $0.order < $1.order })
-        let visitArray = Array(visitsFromRealm)
-        let visits = visitArray.sorted(by: {
-            (visit1, visit2) in
-            return visit1.order < visit2.order
-        }, stable: true)
-        
         var html = "<html><table style=\'border-collapse : collapse;\'>"
         
-        // HEADING
-        html.append(htmlForHeadings(rowDefinitions: rowDefinitions))
-        
-        // ROUTE NAME AND DATE
-        if let route = visits.first?.route {
-            if let date = visits.first?.visitDateTime {
-                html.append(htmlForGroupHeader(route: route, date: date, colspan: rowDefinitions.count))
+        if let visitsFromRealm = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: date, route: route) {
+            
+            //let visits = Array(visitsFromRealm).sorted(by: { $0.order < $1.order })
+            let visitArray = Array(visitsFromRealm)
+            let visits = visitArray.sorted(by: {
+                (visit1, visit2) in
+                return visit1.order < visit2.order
+            }, stable: true)
+            
+            // HEADING
+            html.append(htmlForHeadings(rowDefinitions: rowDefinitions))
+            
+            // ROUTE NAME AND DATE
+            if let route = visits.first?.route {
+                if let date = visits.first?.visitDateTime {
+                    html.append(htmlForGroupHeader(route: route, date: date, colspan: rowDefinitions.count))
+                }
             }
-        }
-        
-        // VISITS
-        for visit in visits {
-            html.append(htmlForRow(rowDefinitions: rowDefinitions, visit: visit))
+            
+            // VISITS
+            for visit in visits {
+                html.append(htmlForRow(rowDefinitions: rowDefinitions, visit: visit))
+            }
+            
+            
         }
         
         // close tags
         html.append("</table></html>")
-        
         return html
     }
     

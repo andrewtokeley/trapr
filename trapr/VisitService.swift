@@ -23,6 +23,7 @@ class VisitService: RealmService, VisitServiceInterface {
         }
     }
 
+    
     func deleteVisits(visitSummary: VisitSummary) {
         try! realm.write {
             realm.delete(visitSummary.visits)
@@ -30,9 +31,10 @@ class VisitService: RealmService, VisitServiceInterface {
     }
     
     func deleteVisits(route: Route) {
-        let visits = getVisits(route: route)
-        try! realm.write {
-            realm.delete(visits)
+        if let visits = getVisits(route: route) {
+            try! realm.write {
+                realm.delete(visits)
+            }
         }
     }
     
@@ -48,7 +50,7 @@ class VisitService: RealmService, VisitServiceInterface {
         return realm.objects(Visit.self).filter("trap = %@", trap).count != 0
     }
     
-    func getVisits(route: Route) -> Results<Visit> {
+    func getVisits(route: Route) -> Results<Visit>? {
         return realm.objects(Visit.self).filter("route.id = %@", route.id).sorted(byKeyPath: "visitDateTime", ascending: false)
     }
     
@@ -56,26 +58,26 @@ class VisitService: RealmService, VisitServiceInterface {
         return realm.object(ofType: Visit.self, forPrimaryKey: id)
     }
 
-    func getVisits(recordedBetween dateStart: Date, dateEnd: Date) -> Results<Visit> {
+    func getVisits(recordedBetween dateStart: Date, dateEnd: Date) -> Results<Visit>? {
         
         return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@}", dateStart, dateEnd).sorted(byKeyPath: "visitDateTime", ascending: false)
     }
     
-    func getVisits(recordedBetween dateStart: Date, dateEnd: Date, route: Route) -> Results<Visit> {
+    func getVisits(recordedBetween dateStart: Date, dateEnd: Date, route: Route) -> Results<Visit>? {
         
         return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@} AND route.id = %@", dateStart, dateEnd, route.id).sorted(byKeyPath: "visitDateTime", ascending: false)
     }
     
-    func getVisits(recordedBetween dateStart: Date, dateEnd: Date, route: Route, trap: Trap) -> Results<Visit> {
+    func getVisits(recordedBetween dateStart: Date, dateEnd: Date, route: Route, trap: Trap) -> Results<Visit>? {
         
         return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@} AND route.id = %@ AND trap = %@", dateStart, dateEnd, route.id, trap).sorted(byKeyPath: "visitDateTime", ascending: false)
     }
     
-    func getVisits(recordedBetween dateStart: Date, dateEnd: Date, trap: Trap) -> Results<Visit> {
+    func getVisits(recordedBetween dateStart: Date, dateEnd: Date, trap: Trap) -> Results<Visit>? {
         return realm.objects(Visit.self).filter("visitDateTime BETWEEN {%@, %@} AND trap = %@", dateStart, dateEnd, trap).sorted(byKeyPath: "visitDateTime", ascending: false)
     }
     
-    func getVisits(recordedOn date: Date) -> Results<Visit> {
+    func getVisits(recordedOn date: Date) -> Results<Visit>? {
         
         let dateStart = date.dayStart()
         let dateEnd = date.dayEnd()
@@ -83,7 +85,7 @@ class VisitService: RealmService, VisitServiceInterface {
         return getVisits(recordedBetween: dateStart, dateEnd: dateEnd)
     }
     
-    func getVisits(recordedOn date: Date, route: Route) -> Results<Visit> {
+    func getVisits(recordedOn date: Date, route: Route) -> Results<Visit>? {
         
         let dateStart = date.dayStart()
         let dateEnd = date.dayEnd()
@@ -91,7 +93,7 @@ class VisitService: RealmService, VisitServiceInterface {
         return getVisits(recordedBetween: dateStart, dateEnd: dateEnd, route: route)
     }
     
-    func getVisits(recordedOn date: Date, route: Route, trap: Trap) -> Results<Visit> {
+    func getVisits(recordedOn date: Date, route: Route, trap: Trap) -> Results<Visit>? {
         
         let dateStart = date.dayStart()
         let dateEnd = date.dayEnd()
@@ -104,8 +106,9 @@ class VisitService: RealmService, VisitServiceInterface {
 
         let visitSummary = VisitSummary(dateOfVisit: date, route: route)
         
-        let visits = getVisits(recordedOn: date, route: route)
-        visitSummary.visits = Array(visits)
+        if let visits = getVisits(recordedOn: date, route: route) {
+            visitSummary.visits = Array(visits)
+        }
         
         return visitSummary
     }
@@ -115,28 +118,32 @@ class VisitService: RealmService, VisitServiceInterface {
         var summaries = [VisitSummary]()
         
         // Get the visits recorded for this route - if none, no summary will be created
-        let visits = getVisits(recordedBetween: startDate, dateEnd: endDate, route: route)
+        if let visits = getVisits(recordedBetween: startDate, dateEnd: endDate, route: route) {
         
-        // Find the unique days where visits were recorded
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "ddMMyyyy"
-        var uniqueDates = [String]()
-        for visit in visits {
-            let visitDate = dateFormatter.string(from: visit.visitDateTime)
-            if !uniqueDates.contains(visitDate) {
-                uniqueDates.append(visitDate)
+            // Find the unique days where visits were recorded
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "ddMMyyyy"
+            var uniqueDates = [String]()
+            for visit in visits {
+                let visitDate = dateFormatter.string(from: visit.visitDateTime)
+                if !uniqueDates.contains(visitDate) {
+                    uniqueDates.append(visitDate)
+                }
             }
-        }
-        
-        // Create a VisitSummary for each day's visit
-        for aDate in uniqueDates {
             
-            if let date = dateFormatter.date(from: aDate) {
-                let summary = getVisitSummary(date: date, route: route)
-                summary.visits = Array(getVisits(recordedOn: date, route: route))
-                summaries.append(summary)
+            // Create a VisitSummary for each day's visit
+            for aDate in uniqueDates {
+                
+                if let date = dateFormatter.date(from: aDate) {
+                    let summary = getVisitSummary(date: date, route: route)
+                    if let dayVisits = getVisits(recordedOn: date, route: route) {
+                        summary.visits = Array(dayVisits)
+                        summaries.append(summary)
+                    }
+                }
             }
         }
+        
         return summaries
     }
     
@@ -194,11 +201,12 @@ class VisitService: RealmService, VisitServiceInterface {
         if let startOfMonth = Date.dateFromComponents(1, dayInMonth.month, dayInMonth.year)?.dayStart() {
             if let endOfMonth = Date.dateFromComponents(1, dayInNextMonth.month, dayInNextMonth.year)?.dayStart().add(-1,0, 0) {
                 
-                let visits = getVisits(recordedBetween: startOfMonth, dateEnd: endOfMonth, route: route)
+                if let visits = getVisits(recordedBetween: startOfMonth, dateEnd: endOfMonth, route: route) {
                 
-                for visit in visits {
-                    if visit.trap?.type?.killMethod == .poison {
-                        count += visit.baitAdded
+                    for visit in visits {
+                        if visit.trap?.type?.killMethod == .poison {
+                            count += visit.baitAdded
+                        }
                     }
                 }
             }
@@ -216,14 +224,15 @@ class VisitService: RealmService, VisitServiceInterface {
         if let startOfMonth = Date.dateFromComponents(1, dayInMonth.month, dayInMonth.year)?.dayStart() {
             if let endOfMonth = Date.dateFromComponents(1, dayInNextMonth.month, dayInNextMonth.year)?.dayStart() {
                 print ("from \(startOfMonth) to \(endOfMonth)")
-                let visits = getVisits(recordedBetween: startOfMonth, dateEnd: endOfMonth, route: route)
+                if let visits = getVisits(recordedBetween: startOfMonth, dateEnd: endOfMonth, route: route) {
                 
-                for visit in visits {
-                    if let species = visit.catchSpecies {
-                        if let _ = counts[species] {
-                            counts[species]! += 1
-                        } else {
-                            counts[species] = 1
+                    for visit in visits {
+                        if let species = visit.catchSpecies {
+                            if let _ = counts[species] {
+                                counts[species]! += 1
+                            } else {
+                                counts[species] = 1
+                            }
                         }
                     }
                 }
@@ -239,4 +248,32 @@ class VisitService: RealmService, VisitServiceInterface {
             }
         }
     }
+    
+    // not implemented for Realm
+    func add(visit: _Visit, completion: ((_Visit?, Error?) -> Void)?) {}
+    func delete(visit: _Visit, completion: ((Error?) -> Void)?) {}
+    func deleteAll(completion: ((Error?) -> Void)?) {}
+    func delete(visitsOn routeId: String, completion: ((Error?) -> Void)?) {}
+    func delete(visitSummary: VisitSummary, completion: ((Error?) -> Void)?) {}
+    func save(visit: _Visit, completion: ((_Visit?, Error?) -> Void)?) {}
+    func get(id: String, completion: ((_Visit?, Error?) -> Void)?) {}
+    func hasVisits(stationId: String, trapTypeId: String, completion: ((Bool, Error?) -> Void)?) {}
+    func get(routeId: String, completion: (([_Visit], Error?) -> Void)?) {}
+    func get(recordedOn date: Date, completion: (([_Visit], Error?) -> Void)?) {}
+    func get(recordedOn date: Date, routeId: String, completion: (([_Visit], Error?) -> Void)?) {}
+    func get(recordedOn date: Date, routeId: String, trapTypeId: String, completion: (([_Visit], Error?) -> Void)?) {}
+    func get(recordedBetween dateStart: Date, dateEnd: Date, completion: (([_Visit], Error?) -> Void)?) {}
+    func get(recordedBetween dateStart: Date, dateEnd: Date, routeId: String, completion: (([_Visit], Error?) -> Void)?) {}
+    func get(recordedBetween dateStart: Date, dateEnd: Date, routeId: String, trapTypeId: String, completion: (([_Visit], Error?) -> Void)?) {}
+    func get(recordedBetween dateStart: Date, dateEnd: Date, trapTypeId: String, completion: (([_Visit], Error?) -> Void)?) {}
+//    func getSummary(date: Date, routeId: String, completion: ((VisitSummary?, Error?) -> Void)?) {}
+//    func getSummaries(recordedBetween startDate: Date, endDate: Date, includeHidden: Bool, completion: (([VisitSummary], Error?) -> Void)?) {}
+//    func getSummaries(recordedBetween startDate: Date, endDate: Date, routeId: String, completion: (([VisitSummary], Error?) -> Void)?) {}
+//    func getStatistics(visitSummaries: [VisitSummary], completion: ((VisitSummariesStatistics?, Error?) -> Void)?) {}
+//    func getSummaryMostRecent(routeId: String, completion: ((VisitSummary?, Error?) -> Void)?) {}
+    func visitsExistForRoute(routeId: String, completion: ((Bool, Error?) -> Void)?) {}
+    func killCounts(monthOffset: Int, route: Route, completion: (([Species : Int]) -> Void)?) {}
+    func poisonCount(monthOffset: Int, route: Route, completion: ((Int) -> Void)?) {}
+    func updateDate(visitId: String, date: Date, completion: ((Error?) -> Void)?) {}
+    
 }

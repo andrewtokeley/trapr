@@ -11,6 +11,57 @@ import RealmSwift
 
 class RouteService: RealmService, RouteServiceInterface {
     
+    func add(route: _Route, completion: ((_Route?, Error?) -> Void)?) {
+        
+    }
+    
+    func delete(routeId: String, completion: ((Error?) -> Void)?) {}
+    func delete(completion: ((Error?) -> Void)?) {}
+    
+    func insertStationToRoute(routeId: String, stationId: String, at index: Int, completion: ((Error?) -> Void)?) {
+        
+    }
+    
+    func addStationToRoute(routeId: String, stationId: String, completion: ((Error?) -> Void)?) {
+        
+    }
+    
+    func removeStationFromRoute(routeId: String, stationId: String, completion: ((Error?) -> Void)?) {
+        
+    }
+    
+    func updateStations(routeId: String, stationIds: [String], completion: ((Error?) -> Void)?) {
+        
+    }
+    
+    func updateHiddenFlag(routeId: String, isHidden: Bool, completion: ((Error?) -> Void)?) {
+        
+    }
+    
+    func updateDashboardImage(routeId: String, savedImage: SavedImage, completion: ((Error?) -> Void)?) {
+        
+    }
+    
+    func replaceStationsOn(routeId: String, stationIds: [String], completion: ((_Route?, Error?) -> Void)?) {
+        
+    }
+    
+    func reorderStations(routeId: String, stationOrder: [String : Int], completion: ((_Route?, Error?) -> Void)?) {
+        
+    }
+    
+    func get(includeHidden: Bool, completion: (([_Route], Error?) -> Void)?) {
+        
+    }
+    
+    func get(completion: (([_Route], Error?) -> Void)?) {
+        
+    }
+    
+    func get(routeId: String, completion: ((_Route?, Error?) -> Void)?) {
+        
+    }
+    
     func add(route: Route) {
         try! realm.write {
             realm.add(route)
@@ -154,9 +205,12 @@ class RouteService: RealmService, RouteServiceInterface {
     func getMostRecentVisit(route: Route) -> Visit? {
         
         // find all the visits for this route, ordered from the most recent (the default ordering)
-        let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedBetween: Date().add(0, 0, -100), dateEnd: Date(), route: route)
+        if let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedBetween: Date().add(0, 0, -100), dateEnd: Date(), route: route) {
         
-        return visits.first
+            return visits.first
+        } else {
+            return nil
+        }
     }
     
     func getAll() -> [Route] {

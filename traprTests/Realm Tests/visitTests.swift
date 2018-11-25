@@ -9,7 +9,7 @@
 import XCTest
 import RealmSwift
 
-@testable import trapr
+@testable import trapr_development
 
 class visitTests: XCTestCase {
     
@@ -28,7 +28,7 @@ class visitTests: XCTestCase {
         super.setUp()
         
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        ServiceFactory.sharedInstance.dataPopulatorService.deleteAllDataReadyForTests()
+        ServiceFactory.sharedInstance.dataPopulatorService.restoreDatabase()
         
     }
     
@@ -52,7 +52,7 @@ class visitTests: XCTestCase {
         var visits = visitService.getVisits(recordedOn: Date())
         
         // take a copy of the saved visit to enable batch updates to the objects before saving
-        let visitToUpdate = Visit(value: visits.first!)
+        let visitToUpdate = Visit(value: visits!.first!)
         
         // update some properties
         visitToUpdate.baitAdded = BAIT_ADDED
@@ -63,9 +63,9 @@ class visitTests: XCTestCase {
         
         // get the updated visit from the store and check properties stuck
         visits = visitService.getVisits(recordedOn: Date())
-        XCTAssertTrue(visits.count == 1, "expected 1, was \(visits.count)")
-        XCTAssertTrue(visits.first!.baitAdded == BAIT_ADDED, "expected \(BAIT_ADDED), was \(visits.first!.baitAdded)")
-        XCTAssertTrue(visits.first!.notes == NOTE, "expected \(NOTE), was \(visits.first!.notes!)")
+        XCTAssertTrue(visits!.count == 1, "expected 1, was \(visits!.count)")
+        XCTAssertTrue(visits!.first!.baitAdded == BAIT_ADDED, "expected \(BAIT_ADDED), was \(visits!.first!.baitAdded)")
+        XCTAssertTrue(visits!.first!.notes == NOTE, "expected \(NOTE), was \(visits!.first!.notes!)")
     }
     
     
@@ -78,7 +78,7 @@ class visitTests: XCTestCase {
         
         let visits = visitService.getVisits(recordedOn: Date())
         
-        XCTAssertTrue(visits.count == 1, "expected 1, was \(visits.count)")
+        XCTAssertTrue(visits!.count == 1, "expected 1, was \(visits!.count)")
     }
     
     func testVisitKillCount() {
@@ -172,12 +172,13 @@ class visitTests: XCTestCase {
     }
     
     func testDeleteAllRouteVisits() {
+        
         createTestData()
         
         if let route = self.route_LW_E {
-            let visitCountBefore = visitService.getVisits(route: route).count
+            let visitCountBefore = visitService.getVisits(route: route)!.count
             visitService.deleteVisits(route: route)
-            let visitCountAfter = visitService.getVisits(route: route).count
+            let visitCountAfter = visitService.getVisits(route: route)!.count
             XCTAssertTrue(visitCountBefore == 3)
             XCTAssertTrue(visitCountAfter == 0)
         }

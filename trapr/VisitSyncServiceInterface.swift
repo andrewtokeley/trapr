@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-protocol VisitSyncServiceInterface: RealmServiceInterface {
+protocol VisitSyncServiceInterface {
     
     /**
     Marks a VisitSummary as having been synchronised with server or emailed to a handler

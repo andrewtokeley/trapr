@@ -77,7 +77,7 @@ class Route: Object {
     Returns the traplines that are contained within the Route. Traplines that are only partially visited are also returned.
     */
     var traplines: [Trapline] {
-        return ServiceFactory.sharedInstance.stationService.getTraplines(from: Array(self.stations))
+        return ServiceFactory.sharedInstance.traplineService.getTraplines(from: Array(self.stations))
     }
     
     /**

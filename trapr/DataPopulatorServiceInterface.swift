@@ -8,12 +8,14 @@
 
 import Foundation
 
-protocol DataPopulatorServiceInterface: RealmServiceInterface {
+protocol DataPopulatorServiceInterface {
     
     /**
      This method should be called whenever the apps starts to ensure all the lookup data is present. It is non-destructive.
      */
     func createOrUpdateLookupData()
+    
+    func createOrUpdateLookupData(completion: (() -> Void)?)
     
     /**
      This method will delete everything, then import the latest embedded Trap/Visit data.
@@ -28,19 +30,39 @@ protocol DataPopulatorServiceInterface: RealmServiceInterface {
     func mergeWithV1Data(progress: ((Float) -> Void)?, completion: ((ImportSummary) -> Void)?)
     
     /**
-     This method will delete everything, then import some random test data
+     Merges the data stored in the app's embedded CSV file into the remote Firestore database.
      */
-    func deleteAllDataReadyForTests()
-
+    func mergeDataFromCSVToDatastore(progress: ((Float) -> Void)?, completion: ((ImportSummary) -> Void)?)
+    
+    /**
+     Delete all data from the datastore and then adds all default lookup data
+     
+     - parameters:
+        - completion: this block is called when the datastore has been restored
+     */
+    func restoreDatabase(completion: (() -> Void)?)
+    
+    /**
+     Delete all data from the datastore and then adds all default lookup data
+     */
+    func restoreDatabase()
+    
     /**
      Test method that creates a test trapline - useful for unit testing, not intended to be used by app
     */
     func createTrapline(code: String, numberOfStations: Int) -> Trapline
 
     /**
+     Add a specific instance of traline and stations to store. Only intended to be used for testing.
+     */
+    func createTraplineWithStations(trapline: _Trapline, stations: [_Station], completion: ((Error?) -> Void)?)
+    
+    /**
      Test method that creates a test trapline - useful for unit testing, not intended to be used by app
      */
     func createTrapline(code: String, numberOfStations: Int, numberOfTrapsPerStation: Int) -> Trapline
+    
+    func createTrapline(code: String, numberOfStations: Int, numberOfTrapsPerStation: Int, completion: ((_Trapline?) -> Void)?)
     
     /**
      Test method that creates a test visit - useful for unit testing, not intended to be used by app

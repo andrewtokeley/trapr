@@ -23,16 +23,53 @@ protocol LoaderViewApi: UserInterfaceProtocol {
 
 //MARK: - LoaderPresenter API
 protocol LoaderPresenterApi: PresenterProtocol {
+    
+    /**
+     (TO BE DEPRECATED) Called by the view to periodically let the presenter know the import progress
+     */
     func importProgressReceived(progress: Float)
+    
+    /**
+     (TO BE DEPRICATED) Called by the view to let the presenter know the import has completed
+     */
     func importCompleted()
+    
+    /**
+     Called by the view to let the presenter know that the user has selected the Sign In button to start the authentication process.
+     */
     func signInStarted()
-    func signInFailed()
+
+    /**
+     Called by the view to let the presenter know a user tried but failed to sign in
+     */
+    func signInFailed(error: Error)
+    
+    /**
+    Called by the view to let the presenter know the user has successfully authenticated themselves to the app.
+     */
     func signInComplete()
 }
 
 //MARK: - LoaderInteractor API
 protocol LoaderInteractorApi: InteractorProtocol {
+    
+    /**
+     Determines whether the app data needs to be updated.
+     */
     func needsDataUpdate() -> Bool
-    func verifySignIn(result: ((Bool) -> Void)?)
+    
+    /**
+     Checks for data updates. Note this does not check whether an update is required. Use needsDataUpdate for this purpose.
+     */
     func checkForDataUpdates()
+    
+    /**
+     Returns whether the user is already authenticated. This means they have logged in and been registered with the app already.
+     */
+    var isAuthenticated: Bool { get }
+    
+    /**
+    Calling this method ensures a user record exists database and that UserService.currentUser is instantiated for the authenticated user.
+    */
+    func registerAuthenticatedUser(completion: @escaping(User?) -> Void)
 }

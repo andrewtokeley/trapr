@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import FirebaseFirestore
      
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,7 +30,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         module.router.show(inWindow: window, embedInNavController: true, setupData: setup, makeKeyAndVisible: true)
         
         FirebaseApp.configure()
-
+        
+        let db = Firestore.firestore()
+        let settings = db.settings
+        settings.areTimestampsInSnapshotsEnabled = true
+        db.settings = settings
+        
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         //GIDSignIn.sharedInstance().delegate = self
         

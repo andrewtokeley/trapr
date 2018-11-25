@@ -101,6 +101,11 @@ extension StartRouter: StartRouterApi {
         let module = AppModules.newRoute.build()
         module.router.show(from: _view, embedInNavController: true, setupData: nil)
     }
+    
+    func showAdministrationModule() {
+        let module = AppModules.administration.build()
+        module.router.show(from: _view, embedInNavController: true, setupData: nil)
+    }
 }
 
 extension StartRouter: SideMenuDelegate {
@@ -119,6 +124,9 @@ extension StartRouter: SideMenuDelegate {
             if let delegate = presenter as? LoaderDelegate {
                 self.showLoadingScreen(delegate: delegate)
             }
+        }
+        if menu == .Administration {
+            self.showAdministrationModule()
         }
     }
 }

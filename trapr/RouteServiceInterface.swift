@@ -9,7 +9,27 @@
 import Foundation
 import RealmSwift
 
-protocol RouteServiceInterface: RealmServiceInterface {
+protocol RouteServiceInterface {
+    
+    func add(route: _Route, completion: ((_Route?, Error?) -> Void)?)
+    func delete(routeId: String, completion: ((Error?) -> Void)?)
+    func delete(completion: ((Error?) -> Void)?)
+    func insertStationToRoute(routeId: String, stationId: String, at index: Int, completion: ((Error?) -> Void)?)
+    func addStationToRoute(routeId: String, stationId: String, completion: ((Error?) -> Void)?)
+    func removeStationFromRoute(routeId: String, stationId: String, completion: ((Error?) -> Void)?)
+    func updateStations(routeId: String, stationIds: [String], completion: ((Error?) -> Void)?)
+    func replaceStationsOn(routeId: String, stationIds: [String], completion: ((_Route?, Error?) -> Void)?)
+    func reorderStations(routeId: String, stationOrder: [String: Int], completion: ((_Route?, Error?) -> Void)?)
+    func updateHiddenFlag(routeId: String, isHidden: Bool, completion: ((Error?) -> Void)?)
+    func updateDashboardImage(routeId: String, savedImage: SavedImage, completion: ((Error?) -> Void)?)
+    func get(includeHidden: Bool, completion: (([_Route], Error?) -> Void)?)
+    func get(completion: (([_Route], Error?) -> Void)?)
+    func get(routeId: String, completion: ((_Route?, Error?) -> Void)?)
+    ///should be in Visit service
+    //func getMostRecentVisit(route: Route) -> Visit?
+    
+    
+    // To be deprecated once Realm replaced
     
     /**
      Add a new Route to repository. If the Route exists it is updated

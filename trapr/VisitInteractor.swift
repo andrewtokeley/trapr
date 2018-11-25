@@ -115,23 +115,18 @@ extension VisitInteractor: VisitInteractorApi {
     
     func retrieveVisit(date: Date, route: Route, trap: Trap) {
         
-        let visits = Array(ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: date, route: route, trap: trap))
+        if let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: date, route: route, trap: trap) {
         
-        // Find the visit for the given trap
-        // NOTE: not supporting multiple visits to the same trap on the same day
-        if visits.count > 0 {
-            
-            // visit exists for this day
-            presenter.didFetchVisit(visit: visits[0])
-        } else {
-            // no visit exists
-            presenter.didFindNoVisit()
-            
-            // create a new Visit, with time now (but date the same as being requested)
-//            if let dateNow = date.setTimeToNow() {
-//                let newVisit = Visit(date: dateNow, route: route, trap: trap)
-//                presenter.didFetchVisit(visit: newVisit)
-//            }
+            // Find the visit for the given trap
+            // NOTE: not supporting multiple visits to the same trap on the same day
+            if visits.count > 0 {
+                
+                // visit exists for this day
+                presenter.didFetchVisit(visit: visits[0])
+            } else {
+                // no visit exists
+                presenter.didFindNoVisit()
+            }
         }
     }
     
@@ -147,16 +142,18 @@ extension VisitInteractor: VisitInteractorApi {
     }
     
     func deleteAllVisits(route: Route, date: Date) {
-        let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: date, route: route)
-        for visit in visits {
-            deleteVisit(visit: visit)
+        if let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: date, route: route) {
+            for visit in visits {
+                deleteVisit(visit: visit)
+            }
         }
     }
     
     func updateVisitDates(currentDate: Date, route: Route, newDate: Date) {
-        let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: currentDate, route: route)
-        for visit in visits {
-            ServiceFactory.sharedInstance.visitService.updateDate(visit: visit, date: newDate)
+        if let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: currentDate, route: route) {
+            for visit in visits {
+                ServiceFactory.sharedInstance.visitService.updateDate(visit: visit, date: newDate)
+            }
         }
     }
     

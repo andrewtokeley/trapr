@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol TrapServiceInterface: RealmServiceInterface {
+protocol TrapServiceInterface {
     
     func setArchiveState(trap: Trap, archive: Bool)
     func deleteTrap(trap: Trap)

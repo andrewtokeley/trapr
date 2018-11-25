@@ -86,7 +86,7 @@ final class VisitPresenter: Presenter {
     
     fileprivate var trapIndex = 0
     
-    open override func setupView(data: Any) {
+    override func setupView(data: Any) {
         if let summary = data as? VisitSummary {
             
             visitSummary = summary
@@ -247,7 +247,7 @@ extension VisitPresenter: VisitPresenterApi {
     func didSelectMenuButton() {
         
         // can send on if there's at least one visit
-        let hasVisits = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: self.visitSummary.dateOfVisit, route: self.visitSummary.route).count > 0
+        let hasVisits = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: self.visitSummary.dateOfVisit, route: self.visitSummary.route)?.count ?? 0 > 0
         
         let options = [
             OptionItem(title: visitRecordMenuItem.sendReport.rawValue, isEnabled: hasVisits),
@@ -271,16 +271,16 @@ extension VisitPresenter: VisitPresenterApi {
         }
         if title == visitRecordMenuItem.deleteAllVisits.rawValue {
             
-            let count = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: self.visitSummary.dateOfVisit, route: self.visitSummary.route).count
+            if let count = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: self.visitSummary.dateOfVisit, route: self.visitSummary.route)?.count {
             
-            view.showConfirmation(title: "Delete All \(count) Visits", message: "Are you sure",
-                                  yes: {
-                                    self.menuDeleteAllVisits()
-            },
-                                  no: {
-                                    // do nothing
-            })
-            
+                view.showConfirmation(title: "Delete All \(count) Visits", message: "Are you sure",
+                                      yes: {
+                                        self.menuDeleteAllVisits()
+                },
+                                      no: {
+                                        // do nothing
+                })
+            }
         }
         if title == visitRecordMenuItem.addStation.rawValue {
             didSelectAddStation()

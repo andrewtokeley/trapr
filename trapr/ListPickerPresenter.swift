@@ -15,7 +15,7 @@ final class ListPickerPresenter: Presenter {
     var setupData: ListPickerSetupData!
     var selectedIndices = [Int]()
     
-    open override func setupView(data: Any) {
+    public override func setupView(data: Any) {
         
         setupData = data as? ListPickerSetupData
         

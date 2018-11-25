@@ -9,5 +9,5 @@
 import Foundation
 
 protocol RealmServiceInterface {
-    var isTestService: Bool { get }
+    //var isTestService: Bool { get }
 }

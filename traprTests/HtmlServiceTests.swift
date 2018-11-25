@@ -7,7 +7,8 @@
 //
 
 import XCTest
-@testable import trapr
+
+@testable import trapr_development
 
 class HtmlServiceTests: XCTestCase {
     

@@ -12,24 +12,31 @@ import FirebaseAuth
 
 // MARK: - LoaderInteractor Class
 final class LoaderInteractor: Interactor {
+    
+    fileprivate let userService = ServiceFactory.sharedInstance.userService
+    
 }
 
 // MARK: - LoaderInteractor API
 extension LoaderInteractor: LoaderInteractorApi {
     
-    func verifySignIn(result: ((Bool) -> Void)?) {
+    var isAuthenticated: Bool {
+        return Auth.auth().currentUser != nil
+    }
+    
+    func registerAuthenticatedUser(completion: @escaping(User?) -> Void) {
         
-        // may turn this into an async call, hence why using a closure to return the result
-        if Auth.auth().currentUser != nil {
-            result?(true)
-        } else  {
-            result?(false)
+        // Make sure we have a record in the database for the user
+        if let authUser = Auth.auth().currentUser, let email = authUser.email {
+            let authenticatedUser = AuthenticatedUser(email: email)
+            
+            userService.registerAuthenticatedUser(authenticatedUser: authenticatedUser) { (user, error) in
+                
+                completion(user)
+            }
         }
     }
     
-    /**
-    Determines whether the app data needs to be updated.
-    */
     func needsDataUpdate() -> Bool {
         
         // for now we simply assume that if no traplines are present we need to update the app data
@@ -44,9 +51,7 @@ extension LoaderInteractor: LoaderInteractorApi {
         return true && !runningInTestMode
     }
     
-    /**
-    Checks for data updates. Note this does not check whether an update is required. Use needsDataUpdate for this purpose.
-     */
+    
     func checkForDataUpdates() {
         ServiceFactory.sharedInstance.dataPopulatorService.mergeWithV1Data(
             progress: {

@@ -7,7 +7,8 @@
 //
 
 import XCTest
-@testable import trapr
+
+@testable import trapr_development
 
 fileprivate class Station {
     var code: String

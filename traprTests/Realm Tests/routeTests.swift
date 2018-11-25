@@ -9,7 +9,7 @@
 import XCTest
 import RealmSwift
 
-@testable import trapr
+@testable import trapr_development
 
 class RouteTests: XCTestCase {
     
@@ -24,7 +24,7 @@ class RouteTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        ServiceFactory.sharedInstance.dataPopulatorService.deleteAllDataReadyForTests()
+        ServiceFactory.sharedInstance.dataPopulatorService.restoreDatabase()
     }
     
     override func tearDown() {

@@ -20,23 +20,27 @@ final class LoaderPresenter: Presenter {
         }
     }
     override func viewHasLoaded() {
-        
-        // check whether there is a user signed in
-        interactor.verifySignIn(result: {(result) in
-            if result {
-                self.view.showSignInButton(show: false)
-                self.checkForUpdates()
-            } else {
-                self.view.showSignInButton(show: true)
-            }
-        })
+
+        // check whether there is a user already authenticated
+        if interactor.isAuthenticated {
+            
+            // no need to show the signin button
+            self.view.showSignInButton(show: false)
+            
+            // TODO: won't need this and can replace with call to fade()
+            self.checkForUpdates()
+            
+        } else {
+            
+            self.view.showSignInButton(show: true)
+        }
         
     }
 
     fileprivate func checkForUpdates() {
         
         if interactor.needsDataUpdate() {
-            view.updateProgressMessage(message: "Just setting a few things up...")
+            view.updateProgressMessage(message: "Loading...")
             interactor.checkForDataUpdates()
         } else {
             fade()
@@ -64,7 +68,9 @@ extension LoaderPresenter: LoaderPresenterApi {
     }
     
     func importCompleted() {
+        // complete the progress meter
         view.updateProgress(progress: 1)
+        
         fade()
     }
     
@@ -73,15 +79,20 @@ extension LoaderPresenter: LoaderPresenterApi {
         view.showSignInButton(show: false)
     }
     
-    func signInFailed() {
+    func signInFailed(error: Error) {
         // hide the signin button
         view.showSignInButton(show: true)
+        view.updateProgressMessage(message: error.localizedDescription)
     }
     
     func signInComplete() {
-        // fade the UI and close view
-        fade()
+        // make sure the user is registered with the app
+        interactor.registerAuthenticatedUser { (user) in
+            // fade the UI and close view
+            self.fade()
+        }
     }
+
 }
 
 // MARK: - Loader Viper Components

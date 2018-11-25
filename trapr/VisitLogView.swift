@@ -189,7 +189,6 @@ final class VisitLogView: UserInterface {
         noVisitButton.autoAlignAxis(.vertical, toSameAxisOf: self.view)
         noVisitButton.autoSetDimension(.width, toSize: 250)
         noVisitButton.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
-        
     }
 
     //MARK: - Events

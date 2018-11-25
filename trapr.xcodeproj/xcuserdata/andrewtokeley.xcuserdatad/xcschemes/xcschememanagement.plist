@@ -4,7 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>trapr.xcscheme</key>
+		<key>trapr_development.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>31</integer>
+		</dict>
+		<key>trapr_production.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>

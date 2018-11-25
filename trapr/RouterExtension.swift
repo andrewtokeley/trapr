@@ -17,7 +17,7 @@ extension Router {
         }
         
         _view.modalTransitionStyle = .crossDissolve
-        _view.modalPresentationStyle = .overCurrentContext
+        _view.modalPresentationStyle = .overFullScreen
         
         let view = self._view
         

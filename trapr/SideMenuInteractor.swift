@@ -8,6 +8,7 @@
 
 import Foundation
 import Viperit
+import FirebaseAuth
 
 // MARK: - SideMenuInteractor Class
 final class SideMenuInteractor: Interactor {
@@ -15,6 +16,11 @@ final class SideMenuInteractor: Interactor {
 
 // MARK: - SideMenuInteractor API
 extension SideMenuInteractor: SideMenuInteractorApi {
+    
+    var isAuthenticated: Bool {
+        return Auth.auth().currentUser != nil
+    }
+    
     func getStationsForMap() -> [Station] {
         return ServiceFactory.sharedInstance.stationService.getAll()
     }

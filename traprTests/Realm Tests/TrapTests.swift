@@ -9,7 +9,7 @@
 import XCTest
 import RealmSwift
 
-@testable import trapr
+@testable import trapr_development
 
 class TrapTests: XCTestCase {
     
@@ -21,7 +21,7 @@ class TrapTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        ServiceFactory.sharedInstance.dataPopulatorService.deleteAllDataReadyForTests()
+        ServiceFactory.sharedInstance.dataPopulatorService.restoreDatabase()
     }
     
     override func tearDown() {

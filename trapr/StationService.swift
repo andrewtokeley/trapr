@@ -10,6 +10,28 @@ import Foundation
 
 class StationService: RealmService, StationServiceInterface {
     
+    // MARK: - StationServiceInterface
+    
+    // Not implemented in Realm
+    func add(station: _Station, completion: ((_Station?, Error?) -> Void)?) {}
+    func add(stations: [_Station], completion: (([_Station], Error?) -> Void)?) {}
+    func associateStationWithTrapline(stationId: String, traplineId: String, completion: ((Error?) -> Void)?) {}
+    func delete(stationId: String, completion: ((Error?) -> Void)?) {}
+    func deleteAll(completion: ((Error?) -> Void)?) {}
+    func searchStations(searchTerm: String, regionId: String, completion: (([_Station]) -> Void)?) {}
+    func get(completion: (([_Station]) -> Void)?) {}
+    func get(regionId: String, completion: (([_Station]) -> Void)?) {}
+    func get(traplineId: String, completion: (([_Station]) -> Void)?) {}
+    func get(routeId: String, completion: (([_Station]) -> Void)?) {}
+    func describe(stations: [_Station], includeStationCodes: Bool, completion: ((String) -> Void)?) {}
+    func reverseOrder(stations: [_Station]) -> [_Station] { return [_Station]()}
+    func isStationCentral(station: _Station, completion: ((Bool) -> Void)?) {}
+    func getStationSequence(_ from: _Station, _ to:_Station,  completion: (([_Station]?) -> Void)?) {}
+    func getTraplines(from stations: [_Station], completion: (([_Trapline]?) -> Void)?) {}
+    func getActiveOrHistoricTraps(route: _Route, station: _Station, date: Date, completion: (([_TrapType]?) -> Void)?) {}
+    func getMissingStations(completion: (([String]) -> Void)?) {}
+    func getDescription(stations: [_Station], includeStationCodes: Bool) -> String { return "" }
+    
     func delete(station: Station) {
         try! realm.write {
             realm.delete(station)
@@ -28,9 +50,10 @@ class StationService: RealmService, StationServiceInterface {
                 traps.append(trap)
             } else {
                 // only add if there are visits for the trap on this day
-                let visit = ServiceFactory.sharedInstance.visitService.getVisits(recordedBetween: date.dayStart(), dateEnd: date.dayEnd(), route: route, trap: trap)
-                if visit.count != 0 {
-                    traps.append(trap)
+                if let visit = ServiceFactory.sharedInstance.visitService.getVisits(recordedBetween: date.dayStart(), dateEnd: date.dayEnd(), route: route, trap: trap) {
+                    if visit.count != 0 {
+                        traps.append(trap)
+                    }
                 }
             }
         }
@@ -67,6 +90,8 @@ class StationService: RealmService, StationServiceInterface {
         
     }
     
+    
+    
     func getStationSequence(_ from: Station, _ to:Station) -> [Station]? {
         guard from.trapline != nil && to.trapline != nil else { return nil }
         
@@ -89,8 +114,6 @@ class StationService: RealmService, StationServiceInterface {
     }
     
     func isStationCentral(station: Station) -> Bool {
-        
-        
         if let stationsOnTrapline = station.trapline?.stations {
             
             if stationsOnTrapline.count == 1 {

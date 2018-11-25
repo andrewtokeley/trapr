@@ -28,16 +28,37 @@ final class SideMenuPresenter: Presenter {
             delegate = setupData.delegate
         }
         
-        // Get the menu items for this user context
-        self.menuItems = [SideBarMenuItem.Map, SideBarMenuItem.Settings, SideBarMenuItem.Divider, SideBarMenuItem.SignOut]
-        self.separatorsAfter = nil
-        
-        if let user = Auth.auth().currentUser {
-            view.displayUserDetails(userName: user.displayName ?? "", emailAddress: user.email ?? "")
+        // Get the current user roles
+        if let user = ServiceFactory.sharedInstance.userService.currentUser {
+            configureMenu(user: user)
+        } else {
+            // shouldn't happen
+            configureMenu(user: nil)
         }
-        view.displayMenuItems(menuItems: self.menuItems, separatorsAfter: self.separatorsAfter)
-        
     }
+    
+    private func configureMenu(user: User?) {
+        
+        self.menuItems = [
+            SideBarMenuItem.Map,
+            SideBarMenuItem.Settings]
+        
+        // TEMP, until I'm back online to log in as admin
+        //if user?.isInRole(role: .admin) ?? false {
+        if user?.isInRole(role: .contributor) ?? false {
+            self.menuItems.append(SideBarMenuItem.Administration)
+            self.separatorsAfter = [2]
+        } else {
+            self.separatorsAfter = [1]
+        }
+ 
+        // SignIn/Out always at the bottom
+        self.menuItems.append(user == nil ? SideBarMenuItem.SignIn : SideBarMenuItem.SignOut)
+        
+        view.displayUserDetails(userName: user?.displayName ?? "", emailAddress: user?.id ?? "", imageUrl: URL(fileURLWithPath: user?.imageUrl ?? "tree"))
+        view.displayMenuItems(menuItems: self.menuItems, separatorsAfter: self.separatorsAfter)
+    }
+    
 }
 
 // MARK: - SideMenuPresenter API
@@ -49,6 +70,14 @@ extension SideMenuPresenter: SideMenuPresenterApi {
                 () in
                 self.router.dismiss(completion: {
                     self.delegate?.didSelectMenuItem(menu: .Settings, setupData: nil)
+                })
+            })
+        }
+        if menuItems[menuItemIndex] == SideBarMenuItem.Administration {
+            view.hideSideBar(completion: {
+                () in
+                self.router.dismiss(completion: {
+                    self.delegate?.didSelectMenuItem(menu: .Administration, setupData: nil)
                 })
             })
         }

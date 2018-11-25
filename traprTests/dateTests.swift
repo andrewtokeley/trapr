@@ -7,7 +7,8 @@
 //
 
 import XCTest
-@testable import trapr
+
+@testable import trapr_development
 
 class dateTests: XCTestCase {
     
@@ -22,6 +23,10 @@ class dateTests: XCTestCase {
     }
     
     func testDateCreate() {
+//        guard isDevelopmentMode == true else {
+//            XCTFail("Test must only run in 'trap dev' target")
+//            return
+//        }
         
         if let date = Date.dateFromComponents(28, 8, 1968)
         {

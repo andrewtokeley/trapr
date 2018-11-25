@@ -9,9 +9,9 @@
 import XCTest
 import RealmSwift
 
-@testable import trapr
+@testable import trapr_development
 
-class traplineTests: XCTestCase {
+class TraplineTests: XCTestCase {
     
     lazy var traplineService: TraplineServiceInterface = {
         return ServiceFactory.sharedInstance.traplineService

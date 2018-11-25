@@ -25,13 +25,19 @@ class DataImport {
     
     var fileURL: URL?
     var contentString: String?
+    var traplineService: TraplineServiceInterface
+    var regionService: RegionServiceInterface
     
-    required init(fileURL: URL) {
+    required init(fileURL: URL, traplineService: TraplineServiceInterface, regionService: RegionServiceInterface) {
         self.fileURL = fileURL
+        self.regionService = regionService
+        self.traplineService = traplineService
     }
     
-    required init(contentString: String) {
+    required init(contentString: String, traplineService: TraplineServiceInterface, regionService: RegionServiceInterface) {
         self.contentString = contentString
+        self.regionService = regionService
+        self.traplineService = traplineService
     }
     
     var importer: CSVImporter<[String: String]>? {

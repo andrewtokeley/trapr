@@ -15,6 +15,8 @@ enum SideBarMenuItem: Int {
     case Sync
     case Settings
     case SignOut
+    case SignIn
+    case Administration
     case Divider
     
     var isDivider: Bool {
@@ -27,7 +29,9 @@ enum SideBarMenuItem: Int {
         case .Map: return "Map"
         case .Settings: return "Settings"
         case .Sync: return "Synchronize Data"
+        case .Administration: return "Administration"
         case .SignOut: return "Sign Out"
+        case .SignIn: return "Sign In"
         default: return "-"
         }
     }
@@ -37,7 +41,10 @@ enum SideBarMenuItem: Int {
         case .Home: return UIImage(named: "home")
         case .Map: return  UIImage(named: "map")
         case .Settings: return  UIImage(named: "settings")
+        case .Administration : return  UIImage(named: "settings")
         case .Sync: return  UIImage(named: "sync")
+        case .SignOut: return  UIImage(named: "exit")
+        case .SignIn: return  UIImage(named: "settings")?.changeColor(UIColor.white)
         default: return nil
         }
     }

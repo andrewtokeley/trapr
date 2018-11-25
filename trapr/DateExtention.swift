@@ -108,4 +108,30 @@ extension Date {
     }
     
     
+    static func localToUTC(date:String, fromFormat: String, toFormat: String) -> String {
+    
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = fromFormat
+        dateFormatter.calendar = NSCalendar.current
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.date
+        let dt = dateFormatter.date(from: date)
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        dateFormatter.dateFormat = toFormat
+        
+        return dateFormatter.string(from: dt!)
+    }
+    
+    func UTCToLocal(date:String, fromFormat: String, toFormat: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = fromFormat
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        
+        let dt = dateFormatter.date(from: date)
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = toFormat
+        
+        return dateFormatter.string(from: dt!)
+    }
+    
 }

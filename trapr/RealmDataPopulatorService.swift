@@ -9,7 +9,13 @@
 import Foundation
 import RealmSwift
 
-class DataPopulatorService: RealmService, DataPopulatorServiceInterface {
+class RealmDataPopulatorService: RealmService, DataPopulatorServiceInterface {
+    
+    // Not implemented for Realm
+    func createTraplineWithStations(trapline: _Trapline, stations: [_Station], completion: ((Error?) -> Void)?) {}
+    
+    func createTrapline(code: String, numberOfStations: Int, numberOfTrapsPerStation: Int, completion: ((_Trapline?) -> Void)?) {}
+    
     
     var possumMaster: TrapType!
     var pelifeed: TrapType!
@@ -31,11 +37,20 @@ class DataPopulatorService: RealmService, DataPopulatorServiceInterface {
         mergeWithV1Data()
     }
 
-    func deleteAllDataReadyForTests() {
+    func restoreDatabase(completion: (() -> Void)?) {
+        restoreDatabase()
+        completion?()
+    }
+    
+    func restoreDatabase() {
         try! realm.write {
             realm.deleteAll()
         }
         createOrUpdateLookupData()
+    }
+    
+    func createOrUpdateLookupData(completion: (() -> Void)?) {
+        completion?()
     }
     
     func createOrUpdateLookupData() {
@@ -50,6 +65,30 @@ class DataPopulatorService: RealmService, DataPopulatorServiceInterface {
         timms = trapTypeService.get(.timms)
     }
     
+    func mergeDataFromCSVToDatastore(progress: ((Float) -> Void)?, completion: ((ImportSummary) -> Void)?) {
+//        if let path = Bundle.main.path(forResource: "trapLines_May_27_2018", ofType: "trl") {
+
+//            let importer: DataImport = importer_traplines_v1_to_v2(fileURL: URL(fileURLWithPath: path), traplineService: ServiceFactory.sharedInstance.traplineFirestoreService, regionService: ServiceFactory.sharedInstance.regionFirestoreService)
+//
+//
+//            importer.validateFile(onError: nil, onCompletion: {
+//                (summary) in
+//
+//                let recordsToImport = summary.lineCount
+//
+//                importer.importAndMerge(
+//                    onError: nil,
+//                    onProgress: {
+//                        (importedLines) in
+//                        let progressRate:Float = Float(importedLines)/Float(recordsToImport)
+//                        progress?(progressRate)
+//                },
+//                    onCompletion: completion)
+//            })
+//
+//        }
+    }
+    
     func mergeWithV1Data() {
         mergeWithV1Data(progress: nil, completion: nil)
     }
@@ -57,7 +96,7 @@ class DataPopulatorService: RealmService, DataPopulatorServiceInterface {
     func mergeWithV1Data(progress: ((Float) -> Void)?, completion: ((ImportSummary) -> Void)?) {
         if let path = Bundle.main.path(forResource: "trapLines_May_27_2018", ofType: "trl") {
             //trapLines_26_1_18
-            let importer: DataImport = importer_traplines_v1_to_v2(fileURL: URL(fileURLWithPath: path))
+            let importer: DataImport = importer_traplines_v1_to_v2(fileURL: URL(fileURLWithPath: path), traplineService: ServiceFactory.sharedInstance.traplineService, regionService: ServiceFactory.sharedInstance.regionService)
             
             importer.validateFile(onError: nil, onCompletion: {
                 (summary) in

@@ -52,7 +52,12 @@ final class LoaderView: UserInterface {
     override func loadView() {
         super.loadView()
         
-        self.view.backgroundColor = UIColor.trpHighlightColor
+        #if DEVELOPMENT
+            self.view.backgroundColor = UIColor.red
+        #else
+            self.view.backgroundColor = UIColor.trpHighlightColor
+        #endif
+        
         self.view.addSubview(self.appIcon)
         self.view.addSubview(self.appName)
         self.view.addSubview(self.progressBar)
@@ -138,8 +143,7 @@ extension LoaderView: GIDSignInDelegate {
         if let error = error {
             
             // Handle the error
-            self.presenter.signInFailed()
-            print(error)
+            self.presenter.signInFailed(error: error)
             return
         }
         
@@ -149,12 +153,10 @@ extension LoaderView: GIDSignInDelegate {
         
         Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
             if let error = error {
-                // ...
-                print(error)
-                self.presenter.signInFailed()
+                self.presenter.signInFailed(error: error)
                 return
             }
-            
+            //let z = user.profile.imageURL(withDimension: 40)
             self.presenter.signInComplete()
         }
     }

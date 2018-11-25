@@ -17,7 +17,7 @@ protocol SideMenuRouterApi: RouterProtocol {
 //MARK: - SideMenuView API
 protocol SideMenuViewApi: UserInterfaceProtocol {
     func displayMenuItems(menuItems: [SideBarMenuItem], separatorsAfter: [Int]?)
-    func displayUserDetails(userName: String, emailAddress: String)
+    func displayUserDetails(userName: String, emailAddress: String, imageUrl: URL?)
     func showSideBar()
     func hideSideBar(completion: (() -> Void)?)
     //func moveSideBar(positionX: CGFloat)
@@ -33,5 +33,6 @@ protocol SideMenuPresenterApi: PresenterProtocol {
 
 //MARK: - SideMenuInteractor API
 protocol SideMenuInteractorApi: InteractorProtocol {
+    var isAuthenticated: Bool { get }
     func getStationsForMap() -> [Station]
 }

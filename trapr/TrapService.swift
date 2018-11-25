@@ -33,15 +33,18 @@ class TrapService: RealmService, TrapServiceInterface {
         var totals = LureTotals()
         
         // get all the visits for the trap
-        let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedBetween: Date().add(0, 0, -100).dayStart(), dateEnd: asAtDate.dayEnd(), trap: trap)
+        if let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedBetween: Date().add(0, 0, -100).dayStart(), dateEnd: asAtDate.dayEnd(), trap: trap) {
         
-        // total up how many added, eaten, removed
-        for visit in visits {
-            totals.added += visit.baitAdded
-            totals.removed += visit.baitRemoved
-            totals.eaten += visit.baitEaten
+            // total up how many added, eaten, removed
+            for visit in visits {
+                totals.added += visit.baitAdded
+                totals.removed += visit.baitRemoved
+                totals.eaten += visit.baitEaten
+            }
+            
+            return totals.added - (totals.eaten + totals.removed)
+        } else {
+            return 0
         }
-        
-        return totals.added - (totals.eaten + totals.removed)
     }
 }
