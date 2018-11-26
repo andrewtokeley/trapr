@@ -22,6 +22,18 @@ protocol DataPopulatorServiceInterface {
     */
     func resetAllData()
     
+    
+    /**
+     Merges all Trapline data, including, Regions, Traplines, Stations, Traps, Routes and Visits. It will not merge any lookup data.
+     
+     - parameters:
+        - completion: block called during processing. Block is passed, progress update text (String), progress percentage complete (Double) and and Errors.
+     
+     - remarks:
+     This method is idempotent and can be run multiple times with no risk of duplicating data on the server
+     */
+    func mergeAllRealmDataToServer(completion: ((String, Double, Error?) -> Void)?)
+    
     /**
      This method merges the latest embedded Trap/Visit data into the app. It does not remove existing data but will update existing traps/visits with new property values, if required.
      */

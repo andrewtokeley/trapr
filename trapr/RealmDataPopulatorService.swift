@@ -65,6 +65,8 @@ class RealmDataPopulatorService: RealmService, DataPopulatorServiceInterface {
         timms = trapTypeService.get(.timms)
     }
     
+    func mergeAllRealmDataToServer(completion: ((String, Double, Error?) -> Void)?) {}
+    
     func mergeDataFromCSVToDatastore(progress: ((Float) -> Void)?, completion: ((ImportSummary) -> Void)?) {
 //        if let path = Bundle.main.path(forResource: "trapLines_May_27_2018", ofType: "trl") {
 

@@ -337,7 +337,7 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
         
         if section == SECTION_DATETIME && row == ROW_DATETIME {
             cell = self.dateTimeTableViewCell
-            cell.detailTextLabel?.text = self.visit?.visitDateTime.toString(from: "hh:mm") ?? "-"
+            cell.detailTextLabel?.text = self.visit?.visitDateTime.toString(format: "hh:mm") ?? "-"
         } else if section == SECTION_DATETIME && row == ROW_TRAP_OPERATING_STATUS {
             cell = self.trapStatusTableViewCell
             cell.detailTextLabel?.text = self.visit?.trapOperatingStatus.name
@@ -415,7 +415,7 @@ extension VisitLogView: VisitLogViewApi {
     }
     
     func displayDateTime(date: Date) {
-        self.dateTimeTableViewCell.detailTextLabel?.text = date.toString(from: "hh:mm")
+        self.dateTimeTableViewCell.detailTextLabel?.text = date.toString(format: "hh:mm")
     }
     
     func displayLureBalanceMessage(message: String) {

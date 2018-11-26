@@ -62,6 +62,9 @@ protocol RouteDashboardViewApi: class, UserInterfaceProtocol {
     
     func configureKillChart(catchSummary: StackCount)
     func configurePoisonChart(poisonSummary: StackCount)
+    
+    func showSpinner()
+    func stopSpinner()
 }
 
 //MARK: - RouteDashboardPresenter API
@@ -101,6 +104,6 @@ protocol RouteDashboardInteractorApi: InteractorProtocol {
     func poisonCounts(frequency: TimeFrequency, period: TimeFrequency, route: Route) -> StackCount?
     func visitsExistForRoute(route: Route) -> Bool
     func getStationSequence(_ from: Station, _ to:Station) -> [Station]?
-    
+    //func firestoreSync(route: Route, completion: ((Error?) -> Void)?)
     //func killCounts(monthOffset: Int, route: Route) -> [Species: Int]
 }

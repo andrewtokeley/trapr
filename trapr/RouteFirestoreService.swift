@@ -10,6 +10,8 @@ import Foundation
 
 class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterface {
     
+    let stationService = ServiceFactory.sharedInstance.stationFirestoreService
+    
     func add(route: _Route, completion: ((_Route?, Error?) -> Void)?) {
         let _ = super.add(entity: route) { (route, error) in
             completion?(route, error)
@@ -45,13 +47,40 @@ class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterfa
     }
     
     func addStationToRoute(routeId: String, stationId: String, completion: ((Error?) -> Void)?) {
+        
+        let dispatchGroup = DispatchGroup()
+        var lastError: Error?
+        
+        // Update route.stationIds array
         self.get(routeId: routeId) { (route, error) in
             if let route = route {
-                route.stationIds.append(stationId)
+                // make sure we don't add twice
+                if !route.stationIds.contains(stationId) {
+                    route.stationIds.append(stationId)
+                }
+                dispatchGroup.enter()
                 self.update(entity: route, completion: { (error) in
-                    completion?(error)
+                    lastError = error
+                    dispatchGroup.leave()
                 })
             }
+        }
+        
+        // Update station.routeId field
+        self.stationService.get(stationId: stationId) { (station, error) in
+            
+            if let station = station {
+                station.routeId = routeId
+                dispatchGroup.enter()
+                self.stationService.add(station: station, completion: { (station, error) in
+                    lastError = error
+                    dispatchGroup.leave()
+                })
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            completion?(lastError)
         }
     }
     

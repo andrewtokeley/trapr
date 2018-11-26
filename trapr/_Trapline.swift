@@ -19,7 +19,7 @@ enum TraplineFields: String {
 class _Trapline: DocumentSerializable {
 
     /**
-     Unique key, across all regions, for the trapline. Can be nil if this is a new Trapline/
+     Composite primary key in the format regionCode-traplineCode, e.g. EHRP-LW.
      */
     var id: String?
     
@@ -60,7 +60,16 @@ class _Trapline: DocumentSerializable {
         return result
     }
     
+    /**
+     Initialise new Trapline.
+     
+     - parameters:
+        - code: regionally unique code
+        - regionCode: code of the region
+        - details: description of the trapline
+     */
     init(code: String, regionCode: String, details: String) {
+        self.id = "\(regionCode)-\(code)"
         self.code = code
         self.regionCode = regionCode
         self.details = details

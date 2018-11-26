@@ -34,13 +34,13 @@ class FirestoreEntityService<T: DocumentSerializable>  {
     }
         
     /**
-     Adds a new entity to firestore
+     Adds a new entity to firestore. If the document representing the entity already exists it is updated, otherwise a new document is created.
      
      - parameters:
         - entity: an object that represents a document in firestore that implements DocumentSerializable
         - completion: closure that is called after the add action is complete. The closure will be passed a String? representing the id of the newly added document or an Error? if something went wrong.
      - returns:
-     Returns the id of the document that has been created. If the method fails, there may be no document with this id in the database.
+     Returns the id of the document that has been created or update. If the method fails, there may be no document with this id in the database.
      */
     func add(entity: T, completion: ((T?, Error?) -> Void)?) -> String {
         
@@ -53,14 +53,16 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         addedEntity.id = reference.documentID
 
         // Set up to listen for events on the document
-        if let block = completion {
-            self.notifyOnceOnDocumentChange(reference) { (error) in
-                block(addedEntity, error)
-            }
-        }
+//        if let block = completion {
+//            self.notifyOnceOnDocumentChange(reference) { (error) in
+//                block(addedEntity, error)
+//            }
+//        }
         
         // add the data - the listener will know when it's complete
-        reference.setData(entity.dictionary)
+        reference.setData(entity.dictionary) { (error) in
+            completion?(addedEntity, error)
+        }
         
         // immediately return the reference documentid
         return reference.documentID
@@ -109,13 +111,15 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         
         let reference = self.documentReference(entity: entity)
         
-        if let block = completion {
-            self.notifyOnceOnDocumentChange(reference) { (error) in
-                block(error)
-            }
-        }
+//        if let block = completion {
+//            self.notifyOnceOnDocumentChange(reference) { (error) in
+//                block(error)
+//            }
+//        }
         
-        reference.updateData(entity.dictionary)
+        reference.updateData(entity.dictionary) { (error) in
+            completion?(error)
+        }
     }
     
     /**
@@ -123,12 +127,13 @@ class FirestoreEntityService<T: DocumentSerializable>  {
      
      */
     func notifyOnceOnDocumentChange(_ reference: DocumentReference, completion: ((Error?) -> Void)?) {
+        
         let dg = DispatchGroup()
         dg.enter()
         
         let listener = reference.addSnapshotListener() { (snapshot, error) in
-            completion?(error)
             dg.leave()
+            completion?(error)
         }
         dg.notify(queue: .main) {
             listener.remove()
@@ -268,15 +273,17 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         
         let reference = self.collection.document(entityId)
         
-        // Set up to listen for events on the document
-        if let block = completion {
-            self.notifyOnceOnDocumentChange(reference) { (error) in
-                block(error)
-            }
-        }
+//        // Set up to listen for events on the document
+//        if let block = completion {
+//            self.notifyOnceOnDocumentChange(reference) { (error) in
+//                block(error)
+//            }
+//        }
 
         // perform the delete - this will trigger the listener whether online or not
-        self.collection.document(entityId).delete()
+        reference.delete { (error) in
+            completion?(error)
+        }
     }
     
     /**

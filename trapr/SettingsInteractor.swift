@@ -11,10 +11,17 @@ import Viperit
 
 // MARK: - ProfileInteractor Class
 final class SettingsInteractor: Interactor {
+    fileprivate let dataPopulatorService = ServiceFactory.sharedInstance.dataPopulatorFirestoreService
 }
 
 // MARK: - ProfileInteractor API
 extension SettingsInteractor: SettingsInteractorApi {
+    
+    func firestoreSync(completion: ((String, Double, Error?) -> Void)?) {
+        dataPopulatorService.mergeAllRealmDataToServer { (message, percentage, error) in
+            completion?(message, percentage, error)
+        }
+    }
     
     func updateDashboardRoutes(routes: [Route], showIndexes: [Int]) {
         

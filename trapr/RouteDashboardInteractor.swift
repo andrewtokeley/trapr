@@ -12,11 +12,17 @@ import Photos
 
 // MARK: - RouteDashboardInteractor Class
 final class RouteDashboardInteractor: Interactor {
-    
+    let dataPopulatorService = ServiceFactory.sharedInstance.dataPopulatorFirestoreService
 }
 
 // MARK: - RouteDashboardInteractor API
 extension RouteDashboardInteractor: RouteDashboardInteractorApi {
+    
+//    func firestoreSync(route: Route, completion: ((Error?) -> Void)?) {
+//        self.dataPopulatorService.mergeLocalRealmDataToServer(route: route) { (error) in
+//            completion?(error)
+//        }
+//    }
     
     func setRouteImage(route: Route, asset: PHAsset, completion: (() -> Swift.Void)?) {
         
@@ -49,7 +55,7 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
         var text:String?
         
         if let lastVisitSummary = lastVisitSummary(route: route) {
-            text = lastVisitSummary.visits.first?.visitDateTime.toString(from: "dd MMM yyyy, h:mm a")
+            text = lastVisitSummary.visits.first?.visitDateTime.toString(format: "dd MMM yyyy, h:mm a")
         }
         
         return text

@@ -27,6 +27,16 @@ extension UserInterface {
         self.present(alert, animated: true, completion: nil)
     }
     
+    func presentMessage(title: String, message: String? = nil, response: ((Bool) -> Void)?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) in response?(true) })
+        
+        alert.addAction(ok)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     func displayMenuOptions(options: [OptionItem], actionHandler: ((String) -> Void)?) {
         let menu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         

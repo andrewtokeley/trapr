@@ -226,6 +226,8 @@
 		D88DFE531FFAC8FF0048CA54 /* RouteDashboardSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE521FFAC8FF0048CA54 /* RouteDashboardSetup.swift */; };
 		D88DFE551FFAE95F0048CA54 /* StationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE541FFAE95F0048CA54 /* StationAnnotationView.swift */; };
 		D88DFE571FFB4D920048CA54 /* MapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE561FFB4D920048CA54 /* MapDelegate.swift */; };
+		D891530621AB20E500389469 /* ModelConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D891530521AB20E500389469 /* ModelConverter.swift */; };
+		D891530721AB20E500389469 /* ModelConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D891530521AB20E500389469 /* ModelConverter.swift */; };
 		D89311FF1F834F6E008DF09D /* StationSelectDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311F91F834F6E008DF09D /* StationSelectDisplayData.swift */; };
 		D89312001F834F6E008DF09D /* StationSelectInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FA1F834F6E008DF09D /* StationSelectInteractor.swift */; };
 		D89312011F834F6F008DF09D /* StationSelectModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FB1F834F6E008DF09D /* StationSelectModuleApi.swift */; };
@@ -931,6 +933,7 @@
 		D88DFE521FFAC8FF0048CA54 /* RouteDashboardSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDashboardSetup.swift; sourceTree = "<group>"; };
 		D88DFE541FFAE95F0048CA54 /* StationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationAnnotationView.swift; sourceTree = "<group>"; };
 		D88DFE561FFB4D920048CA54 /* MapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDelegate.swift; sourceTree = "<group>"; };
+		D891530521AB20E500389469 /* ModelConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelConverter.swift; sourceTree = "<group>"; };
 		D89311F91F834F6E008DF09D /* StationSelectDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectDisplayData.swift; sourceTree = "<group>"; };
 		D89311FA1F834F6E008DF09D /* StationSelectInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectInteractor.swift; sourceTree = "<group>"; };
 		D89311FB1F834F6E008DF09D /* StationSelectModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectModuleApi.swift; sourceTree = "<group>"; };
@@ -1415,6 +1418,7 @@
 				D80F8DCD21969DC90035C668 /* _Visit.swift */,
 				D813AAFC219CA841005DF558 /* _VisitSummary.swift */,
 				D82F40AD2182436F00392DFD /* RealmModels */,
+				D891530521AB20E500389469 /* ModelConverter.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -2581,6 +2585,7 @@
 				D83D0B57200E8B70001E1F69 /* UIViewControllerExtension.swift in Sources */,
 				D8503DC81F66807C00ED0C84 /* VisitPresenter.swift in Sources */,
 				D8083D341FE994B400D1C5F1 /* StatisticView.swift in Sources */,
+				D891530621AB20E500389469 /* ModelConverter.swift in Sources */,
 				D80C14FB202F8C10005EBD10 /* StartSetupData.swift in Sources */,
 				D84311832183E5790003C2C6 /* LureFirestoreService.swift in Sources */,
 				D88DFE501FFABCD00048CA54 /* RouteDashboardInteractor.swift in Sources */,
@@ -2870,6 +2875,7 @@
 				D8C25D072181771F00C5DB64 /* StationMapViewController.swift in Sources */,
 				D8C25D082181771F00C5DB64 /* RoutePresenter.swift in Sources */,
 				D8C25D092181771F00C5DB64 /* UIViewControllerExtension.swift in Sources */,
+				D891530721AB20E500389469 /* ModelConverter.swift in Sources */,
 				D8C25D0A2181771F00C5DB64 /* VisitPresenter.swift in Sources */,
 				D84311842183E5790003C2C6 /* LureFirestoreService.swift in Sources */,
 				D8C25D0B2181771F00C5DB64 /* StatisticView.swift in Sources */,

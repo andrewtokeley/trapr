@@ -191,6 +191,7 @@ class VisitFirestoreService: FirestoreEntityService<_Visit>, VisitServiceInterfa
     
     
     // Not implemented for Firestore
+    func getVisits(route: Route, station: Station) -> [Visit] { return [Visit]() }
     func add(visit: Visit) {}
     func delete(visit: Visit) {}
     func deleteVisits(route: Route) {}

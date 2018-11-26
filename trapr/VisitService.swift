@@ -50,6 +50,14 @@ class VisitService: RealmService, VisitServiceInterface {
         return realm.objects(Visit.self).filter("trap = %@", trap).count != 0
     }
     
+    func getVisits(route: Route, station: Station) -> [Visit] {
+        
+        let visits = Array(realm.objects(Visit.self).filter("route.id = %@", route.id).sorted(byKeyPath: "visitDateTime", ascending: false)).filter { (visit) -> Bool in
+            return visit.trap?.station == station
+        }
+        return visits
+    }
+    
     func getVisits(route: Route) -> Results<Visit>? {
         return realm.objects(Visit.self).filter("route.id = %@", route.id).sorted(byKeyPath: "visitDateTime", ascending: false)
     }

@@ -661,6 +661,13 @@ extension RouteDashboardView: RouteDashboardViewApi {
         self.reverseOrderButton.isEnabled = enable
     }
     
+    func showSpinner() {
+        print("SHOW SPINNER")
+    }
+    
+    func stopSpinner() {
+        print("STOP SPINNER")
+    }
 }
 
 // MARK: - IAxisValueFormatter
@@ -675,7 +682,7 @@ extension RouteDashboardView: IAxisValueFormatter {
         }
         
         let displayMonth = Date().add(0, monthsOffset, 0)
-        return displayMonth.toString(from: "MMMMM")
+        return displayMonth.toString(format: "MMMMM")
     }
 }
 

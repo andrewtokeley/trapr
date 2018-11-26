@@ -16,6 +16,7 @@ protocol SettingsRouterApi: RouterProtocol {
 //MARK: - ProfileView API
 protocol SettingsViewApi: UserInterfaceProtocol {
     func setTitle(title: String?)
+    func setFirestoreSyncProgress(message: String, progress: Double)
     func displayTrapperName(name: String?)
     func displayVersionNumbers(appVersion: String, realmVersion: String)
     func displayEmailVisitsRecipient(emailAddress: String?)
@@ -31,6 +32,7 @@ protocol SettingsPresenterApi: PresenterProtocol {
     func didUpdateEmailOrdersRecipient(emailAddress: String?)
     func didClickRealmLabel()
     func didSelectHiddenRoutes()
+    func didSelectFirestoreSync()
 //    func mergeWithTrapData()
 //    func resetAllData()
 }
@@ -40,4 +42,5 @@ protocol SettingsInteractorApi: InteractorProtocol {
     func updateDashboardRoutes(routes: [Route], showIndexes: [Int])
     func saveSettings(settings: Settings)
     func getSettings() -> Settings
+    func firestoreSync(completion: ((String, Double, Error?) -> Void)?)
 }

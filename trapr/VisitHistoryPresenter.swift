@@ -42,7 +42,7 @@ extension VisitHistoryPresenter: VisitHistoryPresenterApi {
     
     func didSelectDeleteVisitSummary(visitSummary: VisitSummary) {
         let count = visitSummary.visits.count
-        let date = visitSummary.dateOfVisit.toString(from: Styles.DATE_FORMAT_LONG)
+        let date = visitSummary.dateOfVisit.toString(format: Styles.DATE_FORMAT_LONG)
         let message = "Are you sure you want to delete all \(count) visit records on \(date)"
         _view.presentConfirmation(title: "Delete", message: message, response: {
             (response) in

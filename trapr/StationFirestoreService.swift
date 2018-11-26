@@ -106,6 +106,12 @@ extension StationFirestoreService: StationServiceInterface {
         }
     }
     
+    func get(stationId: String, completion: ((_Station?, Error?) -> Void)?) {
+        super.get(id: stationId) { (station, error) in
+            completion?(station, error)
+        }
+    }
+    
     func get(completion: (([_Station]) -> Void)?) {
         super.get(orderByField: StationFields.number.rawValue) { (stations, error) in
             completion?(stations)

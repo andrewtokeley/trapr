@@ -54,7 +54,7 @@ extension VisitHistoryView: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.CELL_REUSE_ID, for: indexPath) as! VisitSummaryTableViewCell
         
         let visit = self.visitSummaries[indexPath.section]
-        cell.titleLabel.text = visit.dateOfVisit.toString(from: "dd MMM, yyyy")
+        cell.titleLabel.text = visit.dateOfVisit.toString(format: "dd MMM, yyyy")
         cell.timeTakenLabel.text = visit.timeTaken.formatInTimeUnits()
         
         var stats = [Statistic]()

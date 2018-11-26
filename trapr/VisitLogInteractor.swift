@@ -11,14 +11,15 @@ import Viperit
 
 // MARK: - VisitLogInteractor Class
 final class VisitLogInteractor: Interactor {
+    let visitService = ServiceFactory.sharedInstance.visitFirestoreService
 }
 
 // MARK: - VisitLogInteractor API
 extension VisitLogInteractor: VisitLogInteractorApi {
     
-    func deleteVisit(visit: Visit) {
-        ServiceFactory.sharedInstance.visitService.delete(visit: visit)
-    }
+//    func deleteVisit(visit: Visit) {
+//        ServiceFactory.sharedInstance.visitService.delete(visit: visit)
+//    }
     
     func retrieveSpeciesList(callback: ([Species]) -> Void) {
         
@@ -35,6 +36,12 @@ extension VisitLogInteractor: VisitLogInteractorApi {
     }
     
     func saveVisit(visit: Visit) -> Visit {
+
+        // TEMP
+        if let visitFS = ModelConverter.Visit(visit) {
+            visitService.add(visit: visitFS, completion: nil)
+        }
+        
         let service = ServiceFactory.sharedInstance.visitService
         return service.save(visit: visit)
     }

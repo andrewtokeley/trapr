@@ -29,7 +29,7 @@ struct TrapTypeStatus {
 class _Station: DocumentSerializable {
     
     /**
-     Primary key
+     Composite primary key in the format traplineCode-stationCodeFormated, e.g. EHRP-LW-01 for East Harbour Regional Park, trapline LW, station 01.
      */
     var id: String?
     
@@ -120,7 +120,8 @@ class _Station: DocumentSerializable {
         return result
     }
     
-    init(number: Int) {
+    init(traplineId: String, number: Int) {
+        self.id = "\(traplineId)-\(String(format: "%02d", number))"
         self.number = number
     }
     

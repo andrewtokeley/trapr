@@ -15,6 +15,7 @@ final class VisitLogPresenter: Presenter {
     var delegate: VisitLogDelegate?
     
     fileprivate var currentVisit: Visit?
+    
     fileprivate var species: [Species]?
     fileprivate var lures: [Lure]?
     

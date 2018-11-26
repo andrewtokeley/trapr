@@ -13,6 +13,8 @@ import Viperit
 // MARK: - VisitInteractor Class
 final class VisitInteractor: Interactor {
 
+    fileprivate let visitService = ServiceFactory.sharedInstance.visitFirestoreService
+    
     fileprivate var visits: [Visit]!
     
     fileprivate func refreshRoute(routeId: String, selectedIndex: Int) {
@@ -133,9 +135,19 @@ extension VisitInteractor: VisitInteractorApi {
     func addVisit(visit: Visit) {
         ServiceFactory.sharedInstance.visitService.add(visit: visit)
         presenter.didFetchVisit(visit: visit)
+        
+        // TEMP
+        if let visitFS = ModelConverter.Visit(visit) {
+            visitService.add(visit: visitFS, completion: nil)
+        }
     }
     
     func deleteVisit(visit: Visit) {
+        // TEMP
+        if let visitFS = ModelConverter.Visit(visit) {
+            visitService.delete(visit: visitFS, completion: nil)
+        }
+        
         if let visitToDelete = ServiceFactory.sharedInstance.visitService.getById(id: visit.id) {
             ServiceFactory.sharedInstance.visitService.delete(visit: visitToDelete)
         }

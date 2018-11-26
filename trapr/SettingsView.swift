@@ -24,6 +24,9 @@ final class SettingsView: UserInterface {
     let SECTION_HIDDEN_ROUTES = 2
     let ROW_HIDDEN_ROUTES = 0
     
+    let SECTION_FIRESTORE_SYNC = 3
+    let ROW_FIRESTORE_SYNC = 0
+    
     let TEXTFIELD_TAG_NAME = 0
     let TEXTFIELD_TAG_VISIT_EMAIL = 1
     let TEXTFIELD_TAG_ORDER_EMAIL = 2
@@ -192,7 +195,22 @@ final class SettingsView: UserInterface {
         cell.selectionStyle = .none
         return cell
     }()
+    
+    lazy var firestoreSyncButton: UIButton = {
+       
+        let button = UIButton()
+        button.setTitle("Firestore Sync", for: .normal)
+        button.setTitleColor(UIColor.red, for: .normal)
+        button.addTarget(self, action: #selector(firestoreSyncButtonClick(sender:)), for: UIControlEvents.touchUpInside)
+        return button
+    }()
 
+    lazy var firestoreSyncProgressBar: UIProgressView = {
+        let progress = UIProgressView(progressViewStyle: .default)
+        progress.trackTintColor = UIColor.trpProgressBarBackground
+        progress.progressTintColor = UIColor.trpProgressBarForeground
+        return progress
+    }()
     
     // MARK: - UIViewController
     
@@ -203,7 +221,9 @@ final class SettingsView: UserInterface {
         self.view.backgroundColor = UIColor.trpBackground
         self.navigationItem.leftBarButtonItem = closeButton
         self.view.addSubview(tableView)
+        self.view.addSubview(firestoreSyncButton)
         self.view.addSubview(versionInfo)
+        self.view.addSubview(firestoreSyncProgressBar)
         
         // ensure the keyboard disappears when click view
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
@@ -217,13 +237,25 @@ final class SettingsView: UserInterface {
         self.tableView.autoPinEdge(toSuperviewEdge: .left)
         self.tableView.autoPinEdge(toSuperviewEdge: .right)
         self.tableView.autoPinEdge(toSuperviewEdge: .top)
-        self.tableView.autoPinEdge(toSuperviewEdge: .bottom, withInset: 100)
+        self.tableView.autoPinEdge(toSuperviewEdge: .bottom, withInset: 200)
+        
+        self.firestoreSyncButton.autoPinEdge(.top, to: .bottom, of: self.tableView)
+        self.firestoreSyncButton.autoPinEdge(toSuperviewEdge: .left)
+        self.firestoreSyncButton.autoPinEdge(toSuperviewEdge: .right)
+        
+        self.firestoreSyncProgressBar.autoPinEdge(.top, to: .bottom, of: self.firestoreSyncButton, withOffset: LayoutDimensions.spacingMargin)
+        self.firestoreSyncProgressBar.autoPinEdge(toSuperviewEdge: .left)
+        self.firestoreSyncProgressBar.autoPinEdge(toSuperviewEdge: .right)
         
         self.versionInfo.autoPinEdges(toSuperviewMarginsExcludingEdge: .top)
         self.versionInfo.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
     }
     
     //MARK: - Events
+    
+    @objc func firestoreSyncButtonClick(sender: UIBarButtonItem) {
+        presenter.didSelectFirestoreSync()
+    }
     
     @objc func closeButtonClick(sender: UIBarButtonItem) {
         
@@ -323,9 +355,15 @@ extension SettingsView: UITextFieldDelegate {
 //MARK: - ProfileView API
 extension SettingsView: SettingsViewApi {
     
-//    func setTitle(title: String?) {
-//        self.title = title
-//    }
+    func setFirestoreSyncProgress(message: String, progress: Double) {
+        if progress > 0 && progress < 100 {
+            firestoreSyncProgressBar.alpha = 1
+            firestoreSyncProgressBar.setProgress(Float(progress), animated: true)
+        } else {
+            firestoreSyncProgressBar.alpha = 0
+        }
+        
+    }
     
     func displayTrapperName(name: String?) {
         trapperNameTextField.text = name

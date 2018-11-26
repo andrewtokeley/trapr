@@ -27,7 +27,7 @@ extension Date {
     }
     
     //MARK: - Instance functions
-    func toString(from format: String) -> String {
+    func toString(format: String) -> String {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format

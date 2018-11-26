@@ -56,6 +56,8 @@ protocol VisitServiceInterface {
     func hasVisits(trap: Trap) -> Bool
     func hasVisits(stationId: String, trapTypeId: String, completion: ((Bool, Error?) -> Void)?)
     
+    func getVisits(route: Route, station: Station) -> [Visit]
+    
     func getVisits(route: Route) -> Results<Visit>?
     func get(routeId: String, completion: (([_Visit], Error?) -> Void)?)
     

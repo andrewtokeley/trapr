@@ -19,6 +19,7 @@ class StationService: RealmService, StationServiceInterface {
     func delete(stationId: String, completion: ((Error?) -> Void)?) {}
     func deleteAll(completion: ((Error?) -> Void)?) {}
     func searchStations(searchTerm: String, regionId: String, completion: (([_Station]) -> Void)?) {}
+    func get(stationId: String, completion: ((_Station?, Error?) -> Void)?) {}
     func get(completion: (([_Station]) -> Void)?) {}
     func get(regionId: String, completion: (([_Station]) -> Void)?) {}
     func get(traplineId: String, completion: (([_Station]) -> Void)?) {}

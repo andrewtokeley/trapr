@@ -503,9 +503,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
         } else {
             deleteAndCloseRoute()
         }
-    
     }
-    
     
     private func deleteAndCloseRoute() {
         interactor.deleteRoute(route: self.route)

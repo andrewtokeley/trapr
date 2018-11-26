@@ -28,7 +28,7 @@ class HtmlService: HtmlServiceInterface {
     private let rowDefinitions = [
         RowDefinition<Visit>(title: "Trap", width: 80, alignment: "left", value: { $0.trap?.station?.longCode ?? "-"} ),
         RowDefinition<Visit>(title: "Type", width: 150, alignment: "left", value: { $0.trap?.type?.name ?? "-"} ),
-        RowDefinition<Visit>(title: "Time", width: 80, alignment: "left", value: { $0.visitDateTime.toString(from: Styles.DATE_FORMAT_TIME) } ),
+        RowDefinition<Visit>(title: "Time", width: 80, alignment: "left", value: { $0.visitDateTime.toString(format: Styles.DATE_FORMAT_TIME) } ),
         RowDefinition<Visit>(title: "Added", width: 80, alignment: "right", value: { String($0.baitAdded) }),
         RowDefinition<Visit>(title: "Eaten", width: 80, alignment: "right", value: { String($0.baitEaten) }),
         RowDefinition<Visit>(title: "Removed", width: 80, alignment: "right", value: { String($0.baitRemoved) }),
@@ -103,7 +103,7 @@ class HtmlService: HtmlServiceInterface {
     
     
     func htmlForGroupHeader(route: Route, date: Date, colspan: Int) -> String {
-        return "<tr style=\'border-bottom:2px solid black\'><td style=\'min-height:50px; border-bottom:1px solid black;\' colspan=\(colspan)><b>\(route.name ?? "Unknown Route") - \(date.toString(from: Styles.DATE_FORMAT_LONG))</b></br></td></tr>"
+        return "<tr style=\'border-bottom:2px solid black\'><td style=\'min-height:50px; border-bottom:1px solid black;\' colspan=\(colspan)><b>\(route.name ?? "Unknown Route") - \(date.toString(format: Styles.DATE_FORMAT_LONG))</b></br></td></tr>"
     }
     
     func htmlForRow(rowDefinitions: [RowDefinition<Visit>], visit: Visit) -> String {

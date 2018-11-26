@@ -29,7 +29,7 @@ enum VisitFields: String {
 class _Visit: DocumentSerializable {
     
     /**
-     Unique key, across all visits. Can be nil if this is a new Visit, not yet persisted to the datastore
+     Composite key in the format ddMMyyyy-stationId-trapTypeId
      */
     var id: String?
 
@@ -101,6 +101,8 @@ class _Visit: DocumentSerializable {
     }
     
     init(date: Date, routeId: String, traplineId: String, stationId: String, trapTypeId: String) {
+        let ddmmyyyy = date.toString(format: "ddMMYYYY")
+        self.id = "\(ddmmyyyy)-\(stationId)-\(trapTypeId)"
         self.visitDateTime = date
         self.routeId = routeId
         self.traplineId = traplineId

@@ -16,6 +16,7 @@ protocol StationServiceInterface {
     func associateStationWithTrapline(stationId: String, traplineId: String, completion: ((Error?) -> Void)?)
     
     func get(completion: (([_Station]) -> Void)?)
+    func get(stationId: String, completion: ((_Station?, Error?) -> Void)?)
     func get(regionId: String, completion: (([_Station]) -> Void)?)
     func get(routeId: String, completion: (([_Station]) -> Void)?)
     func get(traplineId: String, completion: (([_Station]) -> Void)?)

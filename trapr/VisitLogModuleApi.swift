@@ -46,5 +46,5 @@ protocol VisitLogInteractorApi: InteractorProtocol {
     func retrieveSpeciesList(callback: ([Species]) -> Swift.Void )
     func retrieveLuresList(callback: ([Lure]) -> Swift.Void )
     func saveVisit(visit: Visit) -> Visit
-    func deleteVisit(visit: Visit)
+    //func deleteVisit(visit: Visit)
 }

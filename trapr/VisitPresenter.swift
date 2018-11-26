@@ -139,7 +139,7 @@ final class VisitPresenter: Presenter {
 
     func updateTitle() {
         if let title = self.visitSummary.route.name {
-            let subTitle = self.visitSummary.dateOfVisit.toString(from: Styles.DATE_FORMAT_LONG)
+            let subTitle = self.visitSummary.dateOfVisit.toString(format: Styles.DATE_FORMAT_LONG)
             view.setTitle(title: title, subTitle: subTitle)
         }
     }
@@ -396,7 +396,7 @@ extension VisitPresenter: VisitLogDelegate {
     }
     
     func didSelectToCreateNewVisit() {
-        
+
         // get the current time on the same day as the visitSummary
         if let date = self.visitSummary.dateOfVisit.setTimeToNow() {
             if let trap = self.currentTrap {

@@ -81,6 +81,19 @@ extension SettingsPresenter: SettingsPresenterApi {
         _view.dismiss(animated: true, completion: nil)
     }
     
+    func didSelectFirestoreSync() {
+        _view.presentConfirmation(title: "Firestore Sync", message: "This will merge the route, stations and all visits to the server. Do you want to continue?", response: {
+            (response) in
+            if response {
+
+                self.interactor.firestoreSync { (message, progress, error) in
+                    self.view.setFirestoreSyncProgress(message: message, progress: progress)
+                    print("\(message): \(progress)")
+                }
+            }
+        })
+    }
+
     func didUpdateTrapperName(name: String?) {
         self.settings.username = name
     }
