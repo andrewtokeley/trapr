@@ -10,16 +10,17 @@ import Foundation
 import FirebaseFirestore
 
 enum FirestoreEntityServiceError: Error {
-    //case entityCreateFailed
-    //case cantUpdateEntity
     case entityHasNoId
     case notImplemented
     case deleteFailed
     case addFailed
     case updateFailed
+    case generalError
 }
 
 class FirestoreEntityService<T: DocumentSerializable>  {
+    
+    var source: FirestoreSource = .cache
     
     var firestore: Firestore
     private var entityCollectionName: String
@@ -145,12 +146,61 @@ class FirestoreEntityService<T: DocumentSerializable>  {
      
      - parameters:
         - id: the entity id that matches a documentId the collection
+        - source: (optional) unless specified data will be retrieved from the cache
         - completion: closure that is called after the get action is complete. The closure will be passed a fully instantiated entity or an Error if the get action failed.
      */
-    func get(id: String, completion: ((T?, Error?) -> Void)?) {
+    func get(id: String, source: FirestoreSource = .cache, completion: ((T?, Error?) -> Void)?) {
         let reference = self.collection.document(id)
-        reference.getDocument { (snapshot, error) in
+        reference.getDocument(source: source) { (snapshot, error) in
             completion?(self.getEntityFromDocumentSnapshot(snapshot: snapshot), error)
+        }
+    }
+    
+    /**
+     Get an array of entities matching the ids
+     
+     - parameters:
+     - ids: array of entity ids
+     - completion: closure that is called after the get action is complete. The closure will be passed a fully instantiated array of entities or an Error if the get action failed.
+     */
+    func get(ids: [String], completion: (([T], Error?) -> Void)?) {
+        
+        // currently no way to do this in a single call, need to get each document and merge
+        var results = [T]()
+        var lastError: Error?
+        
+        let dispatchGroup = DispatchGroup()
+        for id in ids {
+            dispatchGroup.enter()
+            self.get(id: id) { (result, error) in
+                if let error = error {
+                    lastError = error
+                } else if let result = result {
+                    results.append(result)
+                }
+                dispatchGroup.leave()
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            completion?(results, lastError)
+        }
+    }
+    
+    func get(source: FirestoreSource = .cache, limit: Int = 1000, completion: (([T], Error?) -> Void)?) {
+        self.collection.getDocuments(source: source) { (snapshot, error) in
+            if let error = error {
+                completion?([T](), error)
+            } else {
+                let entities = self.getEntitiesFromQuerySnapshot(snapshot: snapshot)
+                completion?(entities, nil)
+            }
+        }
+    }
+    
+    func get(orderByField: String, source: FirestoreSource = .cache, completion: (([T], Error?) -> Void)?) {
+        self.get(orderByField: orderByField, limit: 3000, source: source) { (result, error) in
+            completion?(result, error)
         }
     }
     
@@ -161,9 +211,9 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         - orderByField: the name of the field to order by (ascending)
         - completion: closure that is called after the get action is complete. The closure will be passed a fully instantiated entity or an Error if the get action failed.
      */
-    func get(orderByField: String, completion: (([T], Error?) -> Void)?) {
+    func get(orderByField: String, limit: Int, source: FirestoreSource = .cache, completion: (([T], Error?) -> Void)?) {
         
-        self.collection.order(by: orderByField).getDocuments { (snapshot, error) in
+        self.collection.order(by: orderByField).limit(to: limit).getDocuments(source: source) { (snapshot, error) in
             
             if let error = error {
                 completion?([T](), error)
@@ -184,8 +234,20 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         - completion: closure that is called after the get action is complete. The closure will be passed a fully instantiated entity or an Error if the get action failed.
      */
     func get(whereField: String, isEqualTo: Any, completion: (([T], Error?) -> Void)?) {
+        self.collection.whereField(whereField, isEqualTo: isEqualTo).getDocuments(source: self.source) { (snapshot, error) in
+            
+            if let error = error {
+                completion?([T](), error)
+            } else {
+                let entities = self.getEntitiesFromQuerySnapshot(snapshot: snapshot)
+                completion?(entities, nil)
+            }
+        }
+    }
+    
+    func get(whereField: String, isEqualTo: Any, orderByField: String, limit: Int, completion: (([T], Error?) -> Void)?) {
         
-        self.collection.whereField(whereField, isEqualTo: isEqualTo).getDocuments { (snapshot, error) in
+        self.collection.whereField(whereField, isEqualTo: isEqualTo).order(by: orderByField).limit(to: limit).getDocuments(source: self.source) { (snapshot, error) in
             
             if let error = error {
                 completion?([T](), error)
@@ -207,7 +269,7 @@ class FirestoreEntityService<T: DocumentSerializable>  {
      */
     func get(whereField: String, isGreaterThan: Any, completion: (([T], Error?) -> Void)?) {
         
-        self.collection.whereField(whereField, isGreaterThan: isGreaterThan).getDocuments { (snapshot, error) in
+        self.collection.whereField(whereField, isGreaterThan: isGreaterThan).getDocuments(source: self.source) { (snapshot, error) in
             
             if let error = error {
                 completion?([T](), error)
@@ -229,7 +291,7 @@ class FirestoreEntityService<T: DocumentSerializable>  {
      */
     func get(whereField: String, isLessThan: Any, completion: (([T], Error?) -> Void)?) {
         
-        self.collection.whereField(whereField, isLessThan: isLessThan).getDocuments { (snapshot, error) in
+        self.collection.whereField(whereField, isLessThan: isLessThan).getDocuments(source: self.source) { (snapshot, error) in
             
             if let error = error {
                 completion?([T](), error)
@@ -251,7 +313,7 @@ class FirestoreEntityService<T: DocumentSerializable>  {
      */
     func get(whereField: String, isGreaterThan: Any, andLessThan: Any, completion: (([T], Error?) -> Void)?) {
         
-        self.collection.whereField(whereField, isGreaterThan: isGreaterThan).whereField(whereField, isLessThan: andLessThan).getDocuments { (snapshot, error) in
+        self.collection.whereField(whereField, isGreaterThan: isGreaterThan).whereField(whereField, isLessThan: andLessThan).getDocuments(source: self.source) { (snapshot, error) in
             
             if let error = error {
                 completion?([T](), error)
@@ -337,29 +399,26 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         let dispatchGroup = DispatchGroup()
         print("deleting all documents from \(self.collection.collectionID)")
         dispatchGroup.enter()
-        self.collection.getDocuments { (snapshot, error) in
+        self.collection.getDocuments(source: self.source) { (snapshot, error) in
             lastError = error
             if let snapshot = snapshot {
                 print("\(self.collection.collectionID): \(snapshot.count) documents")
-                if snapshot.count > 0 {
-                    let entities = self.getEntitiesFromQuerySnapshot(snapshot: snapshot)
-                    print("\(self.collection.collectionID): \(entities.count) entities")
-                    for entity in entities {
-                        
-                        dispatchGroup.enter()
-                        self.delete(entity: entity) { (error) in
-                            lastError = error
-                            dispatchGroup.leave()
-                        }
+                let entities = self.getEntitiesFromQuerySnapshot(snapshot: snapshot)
+                print("\(self.collection.collectionID): \(entities.count) entities")
+                for entity in entities {
+                    dispatchGroup.enter()
+                    self.delete(entity: entity) { (error) in
+                        lastError = error
+                        dispatchGroup.leave()
                     }
-                } else {
-                    // noththing to delete?
-                    lastError = FirestoreEntityServiceError.deleteFailed
                 }
+                dispatchGroup.leave()
+            
             } else {
-                lastError = FirestoreEntityServiceError.deleteFailed
+                // leave straight away, nothing to delete or there was an error
+                lastError = error
+                dispatchGroup.leave()
             }
-            dispatchGroup.leave()
         }
         
         dispatchGroup.notify(queue: .main, execute: {

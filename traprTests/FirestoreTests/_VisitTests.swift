@@ -9,6 +9,7 @@
 import XCTest
 
 @testable import trapr_development
+@testable import Viperit
 
 class _VisitTests: XCTestCase {
 
@@ -46,6 +47,7 @@ class _VisitTests: XCTestCase {
         - a month ago (possum)
      - LW01 (Pellibait)
         - today (peli, 2, 4, 6)
+        - a month ago (10, 0, 0) opening balance
      - E01 (DOC200)
         - today (rat)
      
@@ -70,7 +72,7 @@ class _VisitTests: XCTestCase {
                         
                             // LW01 (Possum Master and Pellibait)
                             let trapline = _Trapline(code: "LW", regionCode: regionId, details: "Trapline1")
-                            let station = _Station(number: 1)
+                            let station = _Station(traplineId: trapline.id!, number: 1)
                             station.routeId = self.route1_Id
                             station.trapTypes.append(TrapTypeStatus(trapTpyeId: TrapTypeCode.possumMaster.rawValue, active: true))
                             station.trapTypes.append(TrapTypeStatus(trapTpyeId: TrapTypeCode.pellibait.rawValue, active: true))
@@ -92,39 +94,44 @@ class _VisitTests: XCTestCase {
                                         let visit = _Visit(date: self.lastMonth, routeId: self.route1_Id, traplineId: trapline.id!, stationId: station.id!, trapTypeId: TrapTypeCode.possumMaster.rawValue)
                                         visit.speciesId = SpeciesCode.possum.rawValue
                                         self.visitService.add(visit: visit) { (visit, error) in
-                                        
                                             
-                                        // E01 (DOC200)
-                                        let trapline = _Trapline(code: "E01", regionCode: regionId, details: "Trapline2")
-                                        let station = _Station(number: 1)
-                                        station.routeId = self.route1_Id
-                                        station.trapTypes.append(TrapTypeStatus(trapTpyeId: TrapTypeCode.doc200.rawValue, active: true))
-                                        self.dataPopulator.createTraplineWithStations(trapline: trapline, stations: [station]) { (error) in
-                                            
-                                            // E01 - Visit: Today, DOC200, Rat
-                                            let visit = _Visit(date: self.today, routeId: self.route1_Id, traplineId: trapline.id!, stationId: station.id!, trapTypeId: TrapTypeCode.doc200.rawValue)
-                                            visit.speciesId = SpeciesCode.rat.rawValue
+                                            // LW01 - Visit: Last Month, Pelibait, 10 opening balance
+                                            let visit = _Visit(date: self.lastMonth, routeId: self.route1_Id, traplineId: trapline.id!, stationId: station.id!, trapTypeId: TrapTypeCode.pellibait.rawValue)
+                                            visit.baitAdded = 10
                                             self.visitService.add(visit: visit) { (visit, error) in
-                                            
-                                                // GC01 (Pellibait)
-                                                let trapline = _Trapline(code: "GC01", regionCode: regionId, details: "Trapline3")
-                                                let station = _Station(number: 1)
-                                                station.routeId = self.route2_Id
-                                                station.trapTypes.append(TrapTypeStatus(trapTpyeId: TrapTypeCode.pellibait.rawValue, active: true))
+                                                
+                                                // E01 (DOC200)
+                                                let trapline = _Trapline(code: "E01", regionCode: regionId, details: "Trapline2")
+                                                    let station = _Station(traplineId: trapline.id!, number: 1)
+                                                station.routeId = self.route1_Id
+                                                station.trapTypes.append(TrapTypeStatus(trapTpyeId: TrapTypeCode.doc200.rawValue, active: true))
                                                 self.dataPopulator.createTraplineWithStations(trapline: trapline, stations: [station]) { (error) in
                                                     
-                                                    // GC01 - Visit: Today, Pellibait, 1, 2, 3
-                                                    let visit = _Visit(date: self.today, routeId: self.route2_Id, traplineId: trapline.id!, stationId: station.id!, trapTypeId: TrapTypeCode.pellibait.rawValue)
-                                                    visit.baitRemoved = 1
-                                                    visit.baitEaten = 2
-                                                    visit.baitAdded = 3
-                                                    
+                                                    // E01 - Visit: Today, DOC200, Rat
+                                                    let visit = _Visit(date: self.today, routeId: self.route1_Id, traplineId: trapline.id!, stationId: station.id!, trapTypeId: TrapTypeCode.doc200.rawValue)
+                                                    visit.speciesId = SpeciesCode.rat.rawValue
                                                     self.visitService.add(visit: visit) { (visit, error) in
-                                                        
-                                                        completion?()
+                                                    
+                                                        // GC01 (Pellibait)
+                                                        let trapline = _Trapline(code: "GC01", regionCode: regionId, details: "Trapline3")
+                                                        let station = _Station(traplineId: trapline.id!, number: 1)
+                                                        station.routeId = self.route2_Id
+                                                        station.trapTypes.append(TrapTypeStatus(trapTpyeId: TrapTypeCode.pellibait.rawValue, active: true))
+                                                        self.dataPopulator.createTraplineWithStations(trapline: trapline, stations: [station]) { (error) in
+                                                            
+                                                            // GC01 - Visit: Today, Pellibait, 1, 2, 3
+                                                            let visit = _Visit(date: self.today, routeId: self.route2_Id, traplineId: trapline.id!, stationId: station.id!, trapTypeId: TrapTypeCode.pellibait.rawValue)
+                                                            visit.baitRemoved = 1
+                                                            visit.baitEaten = 2
+                                                            visit.baitAdded = 3
+                                                            
+                                                            self.visitService.add(visit: visit) { (visit, error) in
+                                                                self.testDataCreated = true
+                                                                completion?()
+                                                            }
+                                                        }
                                                     }
                                                 }
-                                            }
                                             }
                                         }
                                     }
@@ -134,6 +141,8 @@ class _VisitTests: XCTestCase {
                     }
                 }
             }
+        } else {
+            completion?()
         }
     }
     
@@ -143,6 +152,7 @@ class _VisitTests: XCTestCase {
         self.visitService.deleteAll { (error) in
             let visit = _Visit(date: self.today, routeId: "r", traplineId: "tl", stationId: "s", trapTypeId: "tt")
             self.visitService.add(visit: visit, completion: { (visit, error) in
+                
                 XCTAssertNil(error)
                 
                 if let id = visit?.id {
@@ -150,7 +160,9 @@ class _VisitTests: XCTestCase {
                         XCTAssertNotNil(visit)
                         if let visit = visit {
                             XCTAssertTrue(visit.routeId == "r")
-                            XCTAssertTrue(visit.visitDateTime == self.today, "\(visit.visitDateTime) doesn't match \(self.today)")
+                            XCTAssertTrue(visit.visitDateTime.day == self.today.day, "\(visit.visitDateTime.day) doesn't match \(self.today.day)")
+                            XCTAssertTrue(visit.visitDateTime.month == self.today.month, "\(visit.visitDateTime.day) doesn't match \(self.today.day)")
+                            XCTAssertTrue(visit.visitDateTime.year == self.today.year, "\(visit.visitDateTime.day) doesn't match \(self.today.day)")
                         }
                         expect.fulfill()
                     }
@@ -162,6 +174,42 @@ class _VisitTests: XCTestCase {
             })
         }
 
+        waitForExpectations(timeout: 100) { (error) in
+            if let e = error {
+                XCTFail(e.localizedDescription)
+            }
+        }
+    }
+    
+    func testLureBalanceFutureDate() {
+        
+        let expect = expectation(description: "testLureBalanceFutureDate")
+        
+        self.createTestData {
+            self.stationService.getLureBalance(stationId: "EHRP-LW-01", trapTypeId: TrapTypeCode.pellibait.rawValue, asAtDate: self.today.add(10, 0, 0), completion: { (balance) in
+                XCTAssertTrue(balance == 10)
+                expect.fulfill()
+            })
+        }
+        
+        waitForExpectations(timeout: 100) { (error) in
+            if let e = error {
+                XCTFail(e.localizedDescription)
+            }
+        }
+    }
+    
+    func testLureBalanceBeforeAnyVisits() {
+        
+        let expect = expectation(description: "testLureBalanceBeforeAnyVisits")
+        
+        self.createTestData {
+            self.stationService.getLureBalance(stationId: "EHRP-LW-01", trapTypeId: TrapTypeCode.pellibait.rawValue, asAtDate: self.lastMonth.add(0, 0, -100), completion: { (balance) in
+                XCTAssertTrue(balance == 0)
+                expect.fulfill()
+            })
+        }
+        
         waitForExpectations(timeout: 100) { (error) in
             if let e = error {
                 XCTFail(e.localizedDescription)
@@ -250,7 +298,6 @@ class _VisitTests: XCTestCase {
                     
                     expect.fulfill()
                 })
-                expect.fulfill()
             })
         }
         
@@ -273,6 +320,41 @@ class _VisitTests: XCTestCase {
                 
                 expect.fulfill()
             }
+        }
+        
+        waitForExpectations(timeout: 100) { (error) in
+            if let e = error {
+                XCTFail(e.localizedDescription)
+            }
+        }
+    }
+    
+    func testGetKillCountsForCharts() {
+        let expect = expectation(description: "testGetKillCountsForCharts")
+        
+        createTestData() {
+            
+            let interactor = RouteDashboardInteractor()
+            self.visitSummaryService.get(recordedBetween: Date().add(0, 0, -100), endDate: Date(), routeId: self.route1_Id, completion: { (summaries, error) in
+                
+                if let stackCount = interactor.killCounts(visitSummaries: summaries) {
+                    XCTAssertTrue(stackCount.labels.count == 2) // RAT, POS
+                    if let possumIndex = stackCount.labels.firstIndex(of: SpeciesCode.possum.rawValue), let ratIndex = stackCount.labels.firstIndex(of: SpeciesCode.rat.rawValue) {
+                        
+                        // 1 pos + 1 rat kill in current month.
+                        XCTAssertTrue(stackCount.counts[11][possumIndex] == 1)
+                        XCTAssertTrue(stackCount.counts[11][ratIndex] == 1)
+                        
+                        // 1 pos last month
+                        XCTAssertTrue(stackCount.counts[10][possumIndex] == 1)
+                    } else {
+                        XCTFail()
+                    }
+                } else {
+                    XCTFail()
+                }
+                expect.fulfill()
+            })
         }
         
         waitForExpectations(timeout: 100) { (error) in

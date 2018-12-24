@@ -7,12 +7,18 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 class StationService: RealmService, StationServiceInterface {
     
     // MARK: - StationServiceInterface
     
     // Not implemented in Realm
+    func get(stationIds: [String], completion: (([_Station], Error?) -> Void)?) {}
+    func getLureBalance(stationId: String, trapTypeId: String, asAtDate: Date, completion: ((Int) -> Void)?) {}
+    func updateActiveState(station: _Station, trapTypeId: String, active: Bool, completion: ((_Station?, Error?) -> Void)?) {}
+    func addTrapTypeToStation(station: _Station, trapTypeId: String, completion:  (([_Station], Error?) -> Void)?) {}
+    func removeTrapType(station: _Station, trapTypeId: String, completion: ((_Station?, Error?) -> Void)?) {}
     func add(station: _Station, completion: ((_Station?, Error?) -> Void)?) {}
     func add(stations: [_Station], completion: (([_Station], Error?) -> Void)?) {}
     func associateStationWithTrapline(stationId: String, traplineId: String, completion: ((Error?) -> Void)?) {}
@@ -21,17 +27,19 @@ class StationService: RealmService, StationServiceInterface {
     func searchStations(searchTerm: String, regionId: String, completion: (([_Station]) -> Void)?) {}
     func get(stationId: String, completion: ((_Station?, Error?) -> Void)?) {}
     func get(completion: (([_Station]) -> Void)?) {}
+    func get(source: FirestoreSource,completion: (([_Station]) -> Void)?) {}
     func get(regionId: String, completion: (([_Station]) -> Void)?) {}
     func get(traplineId: String, completion: (([_Station]) -> Void)?) {}
     func get(routeId: String, completion: (([_Station]) -> Void)?) {}
-    func describe(stations: [_Station], includeStationCodes: Bool, completion: ((String) -> Void)?) {}
+    func description(stationIds: [String], completion: ((String?, String?, Error?) -> Void)?) { }
+    func description(stationIds: [String], includeStationCodes: Bool, completion: ((String?, Error?) -> Void)?) {}
+    func description(stations: [_Station], includeStationCodes: Bool) -> String { return "" }
     func reverseOrder(stations: [_Station]) -> [_Station] { return [_Station]()}
     func isStationCentral(station: _Station, completion: ((Bool) -> Void)?) {}
-    func getStationSequence(_ from: _Station, _ to:_Station,  completion: (([_Station]?) -> Void)?) {}
-    func getTraplines(from stations: [_Station], completion: (([_Trapline]?) -> Void)?) {}
-    func getActiveOrHistoricTraps(route: _Route, station: _Station, date: Date, completion: (([_TrapType]?) -> Void)?) {}
+    func getStationSequence(fromStationId: String, toStationId: String,  completion: (([_Station], Error?) -> Void)?) {}
+    func getTraplines(from stations: [_Station], completion: (([_Trapline]) -> Void)?) {}
+    func getActiveOrHistoricTraps(route: _Route, station: _Station, date: Date, completion: (([_TrapType]) -> Void)?) {}
     func getMissingStations(completion: (([String]) -> Void)?) {}
-    func getDescription(stations: [_Station], includeStationCodes: Bool) -> String { return "" }
     
     func delete(station: Station) {
         try! realm.write {

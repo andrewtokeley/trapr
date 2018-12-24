@@ -25,14 +25,14 @@ protocol LoaderViewApi: UserInterfaceProtocol {
 protocol LoaderPresenterApi: PresenterProtocol {
     
     /**
-     (TO BE DEPRECATED) Called by the view to periodically let the presenter know the import progress
+    Called by the view to periodically let the presenter know the import progress
      */
-    func importProgressReceived(progress: Float)
+    func loadProgressReceived(progress: Float, message: String )
     
     /**
      (TO BE DEPRICATED) Called by the view to let the presenter know the import has completed
      */
-    func importCompleted()
+    func loadCompleted()
     
     /**
      Called by the view to let the presenter know that the user has selected the Sign In button to start the authentication process.
@@ -54,14 +54,9 @@ protocol LoaderPresenterApi: PresenterProtocol {
 protocol LoaderInteractorApi: InteractorProtocol {
     
     /**
-     Determines whether the app data needs to be updated.
+     Primes the app's cache to allow it to work offline
      */
-    func needsDataUpdate() -> Bool
-    
-    /**
-     Checks for data updates. Note this does not check whether an update is required. Use needsDataUpdate for this purpose.
-     */
-    func checkForDataUpdates()
+    func primeCache()
     
     /**
      Returns whether the user is already authenticated. This means they have logged in and been registered with the app already.

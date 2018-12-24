@@ -15,6 +15,23 @@ class TraplineFirestoreService: FirestoreEntityService<_Trapline> {
 
 extension TraplineFirestoreService: TraplineServiceInterface {
     
+    func get(stations: [_Station], completion: (([_Trapline], Error?) -> Void)?) {
+        
+        // get unique traplineIds from stations
+        let traplineIds = stations.map { (station) -> String in
+            return station.traplineId ?? ""
+        }
+        let uniqueTraplineIds = Array(Set(traplineIds))
+        
+        super.get(ids: uniqueTraplineIds) { (traplines, error) in
+            completion?(traplines, error)
+        }
+    }
+    
+    func get(traplineId: String, completion: ((_Trapline?, Error?) -> Void)?) {
+        
+    }
+    
     func extractTraplineReferencesFromStations(stations: [_Station]) -> [String] {
         var result = [String]()
         
@@ -68,7 +85,12 @@ extension TraplineFirestoreService: TraplineServiceInterface {
             completion?(error)
         })
     }
-    
+
+    func get(source: FirestoreSource = .cache, completion: (([_Trapline]) -> Void)?) {
+        super.get(orderByField: TraplineFields.code.rawValue, source: source) { (traplines, error) in
+            completion?(traplines)
+        }
+    }
     func get(completion: (([_Trapline]) -> Void)?) {
         super.get(orderByField: "code") { (traplines, error) in
             completion?(traplines)

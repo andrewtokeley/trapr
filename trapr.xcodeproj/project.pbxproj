@@ -62,6 +62,7 @@
 		D80F8DD22196AED40035C668 /* VisitFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F8DD02196AED40035C668 /* VisitFirestoreService.swift */; };
 		D80F8DD42198AC2F0035C668 /* _VisitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F8DD32198AC2F0035C668 /* _VisitTests.swift */; };
 		D812291C20BD54B700989C06 /* DataPopulatorServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D812291B20BD54B700989C06 /* DataPopulatorServiceTests.swift */; };
+		D812FD7D21CF3F8600D2E90C /* _Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D812FD7C21CF3F8600D2E90C /* _Settings.swift */; };
 		D813AAFD219CA841005DF558 /* _VisitSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D813AAFC219CA841005DF558 /* _VisitSummary.swift */; };
 		D813AAFE219CA841005DF558 /* _VisitSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D813AAFC219CA841005DF558 /* _VisitSummary.swift */; };
 		D814319A1F8CBD5E00EAF5FD /* show.png in Resources */ = {isa = PBXBuildFile; fileRef = D81431981F8CBD5E00EAF5FD /* show.png */; };
@@ -82,6 +83,8 @@
 		D816648B21912734003DD85E /* _StationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D816648A21912734003DD85E /* _StationTests.swift */; };
 		D81818701F7F795B008362BA /* AppModules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818186F1F7F795B008362BA /* AppModules.swift */; };
 		D81883791F6931C600A74B5E /* Species.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81883781F6931C600A74B5E /* Species.swift */; };
+		D81D20B721B973F30025D047 /* VisitSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81D20B621B973F30025D047 /* VisitSetup.swift */; };
+		D81D20B821B973F30025D047 /* VisitSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81D20B621B973F30025D047 /* VisitSetup.swift */; };
 		D81DAAEF1F68643400C7C987 /* VisitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAEE1F68643400C7C987 /* VisitService.swift */; };
 		D81DAAF11F68652E00C7C987 /* Trap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF01F68652E00C7C987 /* Trap.swift */; };
 		D81DAAF31F68659100C7C987 /* VisitServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF21F68659100C7C987 /* VisitServiceInterface.swift */; };
@@ -692,6 +695,8 @@
 		D8DBE3EC1FF5CD7300AA6482 /* circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8DBE3EA1FF5CD7300AA6482 /* circle@2x.png */; };
 		D8DBE3ED1FF5CD7300AA6482 /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = D8DBE3EB1FF5CD7300AA6482 /* circle.png */; };
 		D8DBE3F11FF764C900AA6482 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBE3F01FF764C900AA6482 /* UIViewExtension.swift */; };
+		D8DC916C21CAD469006D8B57 /* CachePrimerServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DC916B21CAD469006D8B57 /* CachePrimerServiceInterface.swift */; };
+		D8DC916E21CAD4DF006D8B57 /* CachePrimerFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DC916D21CAD4DF006D8B57 /* CachePrimerFirestoreService.swift */; };
 		D8DE38061FFCC88F00707A7D /* StationMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DE38051FFCC88F00707A7D /* StationMapViewController.swift */; };
 		D8DE38081FFCC8BC00707A7D /* StationMapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DE38071FFCC8BC00707A7D /* StationMapDelegate.swift */; };
 		D8E73D8820C7AB630070C034 /* StationSearchDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D8220C7AB630070C034 /* StationSearchDisplayData.swift */; };
@@ -710,6 +715,8 @@
 		D8FA5CF51F8406D600EC890C /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FA5CF31F8406D600EC890C /* close.png */; };
 		D8FA5CF61F8406D600EC890C /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FA5CF41F8406D600EC890C /* close@2x.png */; };
 		D8FA5CF81F8409A700EC890C /* StationSelectSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FA5CF71F8409A700EC890C /* StationSelectSetupData.swift */; };
+		D8FDAF4421CD85CF00182175 /* CachePrimerFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DC916D21CAD4DF006D8B57 /* CachePrimerFirestoreService.swift */; };
+		D8FDAF4521CD85D200182175 /* CachePrimerServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DC916B21CAD469006D8B57 /* CachePrimerServiceInterface.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -782,6 +789,7 @@
 		D80F8DD02196AED40035C668 /* VisitFirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitFirestoreService.swift; sourceTree = "<group>"; };
 		D80F8DD32198AC2F0035C668 /* _VisitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VisitTests.swift; sourceTree = "<group>"; };
 		D812291B20BD54B700989C06 /* DataPopulatorServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPopulatorServiceTests.swift; sourceTree = "<group>"; };
+		D812FD7C21CF3F8600D2E90C /* _Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Settings.swift; sourceTree = "<group>"; };
 		D813AAFC219CA841005DF558 /* _VisitSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VisitSummary.swift; sourceTree = "<group>"; };
 		D81431981F8CBD5E00EAF5FD /* show.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = show.png; sourceTree = "<group>"; };
 		D81431991F8CBD5E00EAF5FD /* show@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "show@2x.png"; sourceTree = "<group>"; };
@@ -801,6 +809,7 @@
 		D816648A21912734003DD85E /* _StationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _StationTests.swift; sourceTree = "<group>"; };
 		D818186F1F7F795B008362BA /* AppModules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModules.swift; sourceTree = "<group>"; };
 		D81883781F6931C600A74B5E /* Species.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Species.swift; sourceTree = "<group>"; };
+		D81D20B621B973F30025D047 /* VisitSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSetup.swift; sourceTree = "<group>"; };
 		D81DAAEE1F68643400C7C987 /* VisitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitService.swift; sourceTree = "<group>"; };
 		D81DAAF01F68652E00C7C987 /* Trap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trap.swift; sourceTree = "<group>"; };
 		D81DAAF21F68659100C7C987 /* VisitServiceInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitServiceInterface.swift; sourceTree = "<group>"; };
@@ -1080,6 +1089,8 @@
 		D8DBE3EA1FF5CD7300AA6482 /* circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle@2x.png"; sourceTree = "<group>"; };
 		D8DBE3EB1FF5CD7300AA6482 /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
 		D8DBE3F01FF764C900AA6482 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		D8DC916B21CAD469006D8B57 /* CachePrimerServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachePrimerServiceInterface.swift; sourceTree = "<group>"; };
+		D8DC916D21CAD4DF006D8B57 /* CachePrimerFirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachePrimerFirestoreService.swift; sourceTree = "<group>"; };
 		D8DE38051FFCC88F00707A7D /* StationMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationMapViewController.swift; sourceTree = "<group>"; };
 		D8DE38071FFCC8BC00707A7D /* StationMapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationMapDelegate.swift; sourceTree = "<group>"; };
 		D8E73D8220C7AB630070C034 /* StationSearchDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSearchDisplayData.swift; sourceTree = "<group>"; };
@@ -1263,6 +1274,8 @@
 		D81DAAED1F68641E00C7C987 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D8DC916D21CAD4DF006D8B57 /* CachePrimerFirestoreService.swift */,
+				D8DC916B21CAD469006D8B57 /* CachePrimerServiceInterface.swift */,
 				D8BB6F4A202917A6008AB3A2 /* CameraHandler.swift */,
 				D8A4E958218CF42F0070413B /* DataPopulatorFirestoreService.swift */,
 				D89714A91F7751B300E846B9 /* DataPopulatorServiceInterface.swift */,
@@ -1407,18 +1420,19 @@
 				D843117F2183DEF20003C2C6 /* _Lure.swift */,
 				D8A4E966218D68BC0070413B /* _Region.swift */,
 				D8A4E96C218E330B0070413B /* _Route.swift */,
+				D812FD7C21CF3F8600D2E90C /* _Settings.swift */,
 				D82F40B1218244CF00392DFD /* _Species.swift */,
 				D8A4E969218D6DEF0070413B /* _Station.swift */,
 				D8A4E963218D41D30070413B /* _Trapline.swift */,
 				D843117C2183DE610003C2C6 /* _TrapType.swift */,
-				D8431185218423B50003C2C6 /* AuthenticatedUser.swift */,
-				D8C25C83217A578F00C5DB64 /* DocumentSerializable.swift */,
-				D8C25C81217A557800C5DB64 /* User.swift */,
-				D8A4E95F218CFDF40070413B /* UserStatistics.swift */,
 				D80F8DCD21969DC90035C668 /* _Visit.swift */,
 				D813AAFC219CA841005DF558 /* _VisitSummary.swift */,
-				D82F40AD2182436F00392DFD /* RealmModels */,
+				D8431185218423B50003C2C6 /* AuthenticatedUser.swift */,
+				D8C25C83217A578F00C5DB64 /* DocumentSerializable.swift */,
 				D891530521AB20E500389469 /* ModelConverter.swift */,
+				D8C25C81217A557800C5DB64 /* User.swift */,
+				D8A4E95F218CFDF40070413B /* UserStatistics.swift */,
+				D82F40AD2182436F00392DFD /* RealmModels */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1448,6 +1462,7 @@
 				D857B3A61F81B86A006E1402 /* VisitRouter.swift */,
 				D857B3A71F81B86A006E1402 /* VisitView.swift */,
 				D80268821FA1757400A1372F /* VisitDelegate.swift */,
+				D81D20B621B973F30025D047 /* VisitSetup.swift */,
 			);
 			name = Visit;
 			sourceTree = "<group>";
@@ -1902,7 +1917,7 @@
 				D8B94D531F5EA1FE00D373EF /* Resources */,
 				E47BD7212A05A0F1A304270D /* [CP] Embed Pods Frameworks */,
 				D8083D261FE5D5D000D1C5F1 /* Increment Build Number */,
-				2DF9397EE05ECCBF99B70CFD /* [CP] Copy Pods Resources */,
+				A6B45ABE5681B1E98316C375 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1943,7 +1958,7 @@
 				D8C25D922181771F00C5DB64 /* Resources */,
 				D8C25DE62181771F00C5DB64 /* [CP] Embed Pods Frameworks */,
 				D8C25DE82181771F00C5DB64 /* Increment Build Number */,
-				9E2154BBE5B6297930538D55 /* [CP] Copy Pods Resources */,
+				51E13FA20FE56343EB863CB8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2216,32 +2231,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-traprTests/Pods-traprTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2DF9397EE05ECCBF99B70CFD /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
-				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		367FB6A19C05F5F0A01D84EA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2260,7 +2249,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9E2154BBE5B6297930538D55 /* [CP] Copy Pods Resources */ = {
+		51E13FA20FE56343EB863CB8 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2284,6 +2273,32 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A6B45ABE5681B1E98316C375 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D8083D261FE5D5D000D1C5F1 /* Increment Build Number */ = {
@@ -2543,6 +2558,7 @@
 				D8D1A03C1FAF081E00926CEF /* TrapTypeService.swift in Sources */,
 				D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */,
 				D88DFE4E1FFABCD00048CA54 /* RouteDashboardRouter.swift in Sources */,
+				D8DC916E21CAD4DF006D8B57 /* CachePrimerFirestoreService.swift in Sources */,
 				D89312041F834F6F008DF09D /* StationSelectView.swift in Sources */,
 				D8C25C97217EDAA300C5DB64 /* AdministrationModuleApi.swift in Sources */,
 				D80F8DCE21969DC90035C668 /* _Visit.swift in Sources */,
@@ -2586,6 +2602,7 @@
 				D8503DC81F66807C00ED0C84 /* VisitPresenter.swift in Sources */,
 				D8083D341FE994B400D1C5F1 /* StatisticView.swift in Sources */,
 				D891530621AB20E500389469 /* ModelConverter.swift in Sources */,
+				D812FD7D21CF3F8600D2E90C /* _Settings.swift in Sources */,
 				D80C14FB202F8C10005EBD10 /* StartSetupData.swift in Sources */,
 				D84311832183E5790003C2C6 /* LureFirestoreService.swift in Sources */,
 				D88DFE501FFABCD00048CA54 /* RouteDashboardInteractor.swift in Sources */,
@@ -2672,8 +2689,10 @@
 				D8EA460C200AAF6B0032224E /* OrderedDictionary.swift in Sources */,
 				D87C44FB1F9059AF00CAFC7A /* SideMenuView.swift in Sources */,
 				D8083D181FE498F900D1C5F1 /* SettingsInteractor.swift in Sources */,
+				D8DC916C21CAD469006D8B57 /* CachePrimerServiceInterface.swift in Sources */,
 				D8083D1F1FE49AB000D1C5F1 /* Settings.swift in Sources */,
 				D8D1A0441FAF0DC300926CEF /* LureService.swift in Sources */,
+				D81D20B721B973F30025D047 /* VisitSetup.swift in Sources */,
 				D80BCD3D1F91D041005F30FF /* MenuItemView.swift in Sources */,
 				D81431AA1F8E020900EAF5FD /* DatePickerDisplayData.swift in Sources */,
 				D8A4E96A218D6DEF0070413B /* _Station.swift in Sources */,
@@ -2964,6 +2983,7 @@
 				D8C25D592181771F00C5DB64 /* OrderedDictionary.swift in Sources */,
 				D8C25D5A2181771F00C5DB64 /* SideMenuView.swift in Sources */,
 				D8C25D5B2181771F00C5DB64 /* SettingsInteractor.swift in Sources */,
+				D81D20B821B973F30025D047 /* VisitSetup.swift in Sources */,
 				D8C25D5C2181771F00C5DB64 /* Settings.swift in Sources */,
 				D8C25D5D2181771F00C5DB64 /* LureService.swift in Sources */,
 				D8A4E96B218D6DEF0070413B /* _Station.swift in Sources */,
@@ -2976,6 +2996,7 @@
 				D8C25D642181771F00C5DB64 /* Station.swift in Sources */,
 				D8C25D652181771F00C5DB64 /* AdministrationRouter.swift in Sources */,
 				D8C25D662181771F00C5DB64 /* SideMenuModuleApi.swift in Sources */,
+				D8FDAF4521CD85D200182175 /* CachePrimerServiceInterface.swift in Sources */,
 				D8C25D672181771F00C5DB64 /* DataService.swift in Sources */,
 				D8C25D682181771F00C5DB64 /* Lure.swift in Sources */,
 				D8C25D692181771F00C5DB64 /* TrapType.swift in Sources */,
@@ -3003,6 +3024,7 @@
 				D8C25D7D2181771F00C5DB64 /* UIColorExtension.swift in Sources */,
 				D8C25D7E2181771F00C5DB64 /* AdministrationPresenter.swift in Sources */,
 				D8C25D7F2181771F00C5DB64 /* RouteDashboardSetup.swift in Sources */,
+				D8FDAF4421CD85CF00182175 /* CachePrimerFirestoreService.swift in Sources */,
 				D8C25D802181771F00C5DB64 /* StationService.swift in Sources */,
 				D8C25D812181771F00C5DB64 /* VisitModuleApi.swift in Sources */,
 				D8C25D822181771F00C5DB64 /* StartModuleApi.swift in Sources */,

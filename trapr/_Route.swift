@@ -12,6 +12,7 @@ enum RouteFields: String {
     case name = "name"
     case hidden = "hidden"
     case stationIds = "stations"
+    case userId = "user"
 }
 class _Route: DocumentSerializable {
     
@@ -19,6 +20,7 @@ class _Route: DocumentSerializable {
     var name: String
     var hidden: Bool = false
     var stationIds = [String]()
+    var userId: String
     
     var dictionary: [String : Any] {
         var result = [String: Any]()
@@ -27,6 +29,7 @@ class _Route: DocumentSerializable {
         result[RouteFields.name.rawValue] = self.name
         result[RouteFields.hidden.rawValue] = self.hidden
         result[RouteFields.stationIds.rawValue] = self.stationIds
+        result[RouteFields.userId.rawValue] = self.userId
         
         return result
     }
@@ -34,6 +37,12 @@ class _Route: DocumentSerializable {
     init(id: String, name: String) {
         self.id = id
         self.name = name
+        
+        if let userId = ServiceFactory.sharedInstance.userService.currentUser?.id {
+            self.userId = userId
+        } else {
+            self.userId = "anon"
+        }
     }
     
     required init?(dictionary: [String: Any]) {
@@ -44,6 +53,10 @@ class _Route: DocumentSerializable {
             return nil
         }
         
+        // userId is mandatory but some old records won't have it set
+        let userId = dictionary[RouteFields.userId.rawValue] as? String ?? "anon"
+        self.userId = userId
+
         self.name = name
         self.hidden = hidden
         
@@ -51,5 +64,19 @@ class _Route: DocumentSerializable {
             self.stationIds = stationIds
         }
         
+    }
+}
+
+extension _Route: Equatable {
+    static func == (left: _Route, right: _Route) -> Bool {
+        return left.id == right.id
+    }
+}
+
+extension _Route: NSCopying {
+    func copy(with zone: NSZone? = nil) -> Any {
+        let route = _Route(dictionary: self.dictionary)
+        route?.id = self.id
+        return route
     }
 }

@@ -10,6 +10,8 @@ import Foundation
 
 protocol VisitSummaryServiceInterface {
     
+    func createNewVisitSummary(date: Date, routeId: String, completion: ((_VisitSummary?, Error?) -> Void)?)
+    
     /**
     Get a summary of the visits recorded on the specified day
     

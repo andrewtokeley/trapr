@@ -42,10 +42,10 @@ class ModelConverter {
                 if let traplineFS = ModelConverter.Trapline(station.trapline!) {
                     if let stationFS = ModelConverter.Station(station: station, traplineIdFS: traplineFS.id!) {
                         routeFS.stationIds.append(stationFS.id!)
-                        return routeFS
                     }
                 }
-            }            
+            }
+            return routeFS
         }
         return nil
     }

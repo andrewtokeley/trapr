@@ -11,10 +11,23 @@ import Viperit
 
 // MARK: - MapInteractor Class
 final class MapInteractor: Interactor {
+    let stationService = ServiceFactory.sharedInstance.stationFirestoreService
 }
 
 // MARK: - MapInteractor API
 extension MapInteractor: MapInteractorApi {
+    
+    func retrieveStationsToHighlight(selectedStationId: String) {
+        
+        stationService.get(stationId: selectedStationId) { (station, error) in
+            if let traplineId = station?.traplineId {
+                self.stationService.get(traplineId: traplineId, completion: { (stations) in
+                    self.presenter.didFetchStationsToHighlight(stations: stations)
+                })
+            }
+        }
+    }
+    
 }
 
 // MARK: - Interactor Viper Components Api

@@ -10,6 +10,13 @@ import Foundation
 import RealmSwift
 
 class RouteService: RealmService, RouteServiceInterface {
+    func daysSinceLastVisit(routeId: String, completion: ((Int?) -> Void)?) {
+        
+    }
+    
+    func daysSinceLastVisitDescription(routeId: String, completion: ((String) -> Void)?) {
+        
+    }
     
     func add(route: _Route, completion: ((_Route?, Error?) -> Void)?) {
         
@@ -18,25 +25,22 @@ class RouteService: RealmService, RouteServiceInterface {
     func delete(routeId: String, completion: ((Error?) -> Void)?) {}
     func delete(completion: ((Error?) -> Void)?) {}
     
-    func insertStationToRoute(routeId: String, stationId: String, at index: Int, completion: ((Error?) -> Void)?) {
+    func insertStationToRoute(routeId: String, stationId: String, at index: Int, completion: ((_Route?, Error?) -> Void)?) {
         
     }
     
-    func addStationToRoute(routeId: String, stationId: String, completion: ((Error?) -> Void)?) {
+    func addStationToRoute(routeId: String, stationId: String, completion: ((_Route?, Error?) -> Void)?) {
         
     }
     
-    func removeStationFromRoute(routeId: String, stationId: String, completion: ((Error?) -> Void)?) {
+    func removeStationFromRoute(routeId: String, stationId: String, completion: ((_Route?, Error?) -> Void)?) {
         
     }
     
-    func updateStations(routeId: String, stationIds: [String], completion: ((Error?) -> Void)?) {
+    func updateStations(routeId: String, stationIds: [String], completion: ((_Route?, Error?) -> Void)?) {
         
     }
-    
-    func updateHiddenFlag(routeId: String, isHidden: Bool, completion: ((Error?) -> Void)?) {
-        
-    }
+    func updateHiddenFlag(routeId: String, isHidden: Bool, completion: ((Error?) -> Void)?) { }
     
     func updateDashboardImage(routeId: String, savedImage: SavedImage, completion: ((Error?) -> Void)?) {
         

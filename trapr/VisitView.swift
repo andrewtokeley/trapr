@@ -28,8 +28,8 @@ final class VisitView: UserInterface {
     fileprivate let TAG_TRAP_IMAGE = 0
     fileprivate let TAG_TRAP_LABEL = 1
     
-    fileprivate var currentTraps: [Trap]?
-    fileprivate var stations: [Station]?
+    fileprivate var currentTraps: [_TrapType]?
+    fileprivate var stations: [_Station]?
     
     fileprivate var lastSelectedStation: Int = -1
     fileprivate var lastSelectedTrap: Int = -1
@@ -350,12 +350,12 @@ extension VisitView: iCarouselDelegate, iCarouselDataSource {
             
             if let imageView = usableView.viewWithTag(self.CAROUSEL_TRAPS_IMAGE_TAG) as? UIImageView {
                 
-                if let imageName = self.currentTraps?[index].type?.imageName {
+                if let imageName = self.currentTraps?[index].imageName {
             
                     imageView.image = UIImage(named: imageName)?.changeColor(UIColor.black)
                 }
                 if let label = usableView.viewWithTag(self.CAROUSEL_TRAPS_LABEL_TAG) as? UILabel {
-                    label.text = self.currentTraps?[index].type?.name?.uppercased()
+                    label.text = self.currentTraps?[index].name.uppercased()
                 }
             }
             if !self.trapCarouselViews.contains(usableView) {
@@ -398,11 +398,13 @@ extension VisitView: iCarouselDelegate, iCarouselDataSource {
                 }
                 
                 self.lastSelectedStation = adjIndex
+                print("view: presenter.didSelectStation")
                 presenter.didSelectStation(index: adjIndex, trapIndex: 0)
                 
             }
         } else {
             if adjIndex != self.lastSelectedTrap {
+                print("view: presenter.didSelectTrap")
                 presenter.didSelectTrap(index: adjIndex)
 //                if let imageCollectionViewCell = carousel.currentItemView as? ImageCollectionViewCell {
 //                    imageCollectionViewCell
@@ -433,7 +435,7 @@ extension VisitView: VisitViewApi {
 //        //self.stationLabel.text = text
 //    }
     
-    func setStations(stations: [Station], current: Station, repeatCount: Int) {
+    func setStations(stations: [_Station], current: _Station, repeatCount: Int) {
         self.stations = stations
         self.repeatCount = repeatCount
         
@@ -445,8 +447,8 @@ extension VisitView: VisitViewApi {
         self.stationsCarousel.reloadData()
     }
     
-    func setTraps(traps: [Trap]) {
-        currentTraps = traps
+    func setTraps(trapTypes: [_TrapType]) {
+        currentTraps = trapTypes
         self.trapsCarousel.reloadData()
     }
     
@@ -454,7 +456,7 @@ extension VisitView: VisitViewApi {
         trapsCarousel.currentItemIndex = index
     }
     
-    func updateDisplayFor(visit: Visit) {
+    func updateDisplayFor(visit: _Visit) {
         //print("Update for visit to \(visit.trap?.station?.longCode ?? "?"), trap \(visit.trap?.type?.name ?? "?")")
     }
     
@@ -481,24 +483,25 @@ extension VisitView: VisitViewApi {
         self.present(menu, animated: true, completion: nil)
     }
     
-    func showVisitEmail(visitSummary: VisitSummary, recipient: String?) {
-        if MFMailComposeViewController.canSendMail() {
-            
-            let controller = MFMailComposeViewController()
-            controller.mailComposeDelegate = self
-            
-            controller.setSubject("Data for \(visitSummary.route!.name!)")
-            
-            if let _ = recipient {
-                controller.setToRecipients([recipient!])
-            }
-            
-            if let html = ServiceFactory.sharedInstance.htmlService.getVisitsAsHtml(recordedOn: visitSummary.dateOfVisit, route: visitSummary.route) {
-                controller.setMessageBody(html, isHTML: true)
-            }
-            
-            self.present(controller, animated: true, completion: nil)
-        }
+    func showVisitEmail(visitSummary: _VisitSummary, recipient: String?) {
+        // TODO!
+//        if MFMailComposeViewController.canSendMail() {
+//
+//            let controller = MFMailComposeViewController()
+//            controller.mailComposeDelegate = self
+//
+//            controller.setSubject("Data for \(visitSummary.routeId!)")
+//
+//            if let _ = recipient {
+//                controller.setToRecipients([recipient!])
+//            }
+//
+//            if let html = ServiceFactory.sharedInstance.htmlService.getVisitsAsHtml(recordedOn: visitSummary.dateOfVisit, route: visitSummary.route!) {
+//                controller.setMessageBody(html, isHTML: true)
+//            }
+//
+//            self.present(controller, animated: true, completion: nil)
+//        }
     }
     
     func confirmDeleteStationMethod() {

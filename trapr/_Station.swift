@@ -26,13 +26,42 @@ struct TrapTypeStatus {
     var active: Bool
 }
 
+protocol LocatableEntity {
+    var locationId: String { get }
+    var title: String { get }
+    var subTitle: String { get }
+    var latitude: Double? { get set }
+    var longitude: Double? { get set }
+}
+
+extension _Station: LocatableEntity {
+    var title: String {
+        return self.codeFormated
+    }
+    
+    var subTitle: String {
+        return self.longCode
+    }
+    
+    /**
+     Always available id for location entity
+     */
+    var locationId: String {
+        if let id = self.id {
+            return id
+        }
+        return ""
+    }
+    
+}
+
 class _Station: DocumentSerializable {
     
     /**
      Composite primary key in the format traplineCode-stationCodeFormated, e.g. EHRP-LW-01 for East Harbour Regional Park, trapline LW, station 01.
      */
     var id: String?
-    
+
     /**
      A number, typically a leading zero number, e.g. "01" for the station. Code need only be unique for the trapline they are part of.
      
@@ -48,13 +77,6 @@ class _Station: DocumentSerializable {
     }
     
     /**
-     Read only, fully qualified station code, that is prefixed with the trapline code. e.g. LW01
-     */
-    //var longCode: String {
-    //    return traplineCode.appending(self.code)
-    //}
-    
-    /**
      Latitude of station
      */
     var latitude: Double?
@@ -63,6 +85,13 @@ class _Station: DocumentSerializable {
      Longitude of station
      */
     var longitude: Double?
+    
+    /**
+     Read only, fully qualified station code, that is prefixed with the trapline code. e.g. LW01
+     */
+    var longCode: String {
+        return "\(traplineCode ?? "**")\(codeFormated)"
+    }
     
     /// Route the station belongs to. Stations can only belong to one route.
     var routeId: String?
@@ -122,6 +151,7 @@ class _Station: DocumentSerializable {
     
     init(traplineId: String, number: Int) {
         self.id = "\(traplineId)-\(String(format: "%02d", number))"
+        self.traplineId = traplineId
         self.number = number
     }
     
@@ -176,3 +206,12 @@ extension _Station: Equatable {
     }
 }
 
+extension _Station: Hashable {
+    var hashValue: Int {
+        if let id = id {
+            return id.hashValue
+        } else {
+            return "sameforall".hashValue
+        }
+    }
+}

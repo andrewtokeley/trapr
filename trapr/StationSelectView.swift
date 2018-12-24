@@ -12,10 +12,10 @@ import Viperit
 //MARK: StationSelectView Class
 final class StationSelectView: UserInterface {
     
-    fileprivate var traplines = [Trapline]()
-    fileprivate var stations = [Station]()
-    fileprivate var selectedStations = [Station]()
-    fileprivate var groupedData: GroupedTableViewDatasource<Station>!
+    fileprivate var traplines = [_Trapline]()
+    fileprivate var stations = [_Station]()
+    fileprivate var selectedStationIds = [String]()
+    fileprivate var groupedData: GroupedTableViewDatasource<_Station>!
     
     fileprivate var allowMultiselect: Bool = false
     
@@ -214,27 +214,27 @@ extension StationSelectView: StationSelectViewApi {
         editButton.isEnabled = enabled
     }
     
-    func updateGroupedData(groupedData: GroupedTableViewDatasource<Station>) {
+    func updateGroupedData(groupedData: GroupedTableViewDatasource<_Station>) {
         self.groupedData = groupedData
         tableView.reloadData()
     }
     
-    func updateGroupedData(section: Int, groupedData: GroupedTableViewDatasource<Station>) {
+    func updateGroupedData(section: Int, groupedData: GroupedTableViewDatasource<_Station>) {
         self.groupedData = groupedData
         tableView.reloadSections([section] as IndexSet, with: .automatic)
     }
     
-    func updateSelectedStations(section: Int, selectedStations: [Station]) {
-        self.selectedStations = selectedStations
+    func updateSelectedStations(section: Int, selectedStationIds: [String]) {
+        self.selectedStationIds = selectedStationIds
         tableView.reloadSections([section] as IndexSet, with: .automatic)
     }
     
-    func initialiseView(groupedData: GroupedTableViewDatasource<Station>, traplines:[Trapline], stations: [Station], selectedStations: [Station]?, allowMultiselect: Bool) {
+    func initialiseView(groupedData: GroupedTableViewDatasource<_Station>, traplines:[_Trapline], stations: [_Station], selectedStationIds: [String]?, allowMultiselect: Bool) {
 
         self.groupedData = groupedData
         self.traplines = traplines
         self.stations = stations
-        self.selectedStations = selectedStations ?? [Station]()
+        self.selectedStationIds = selectedStationIds ?? [String]()
         self.allowMultiselect = allowMultiselect
         
         tableView.reloadData()

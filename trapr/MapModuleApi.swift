@@ -34,6 +34,8 @@ protocol MapViewApi: UserInterfaceProtocol {
 
 //MARK: - MapPresenter API
 protocol MapPresenterApi: PresenterProtocol {
+    func didFetchStationsToHighlight(stations: [LocatableEntity])
+    func didSelectStationOnMap(stationId: String)
     func didSelectClose()
     func didChangeZoomLevel(zoom: Double)
     func didSelectToViewHighlightedOnly()
@@ -44,4 +46,5 @@ protocol MapPresenterApi: PresenterProtocol {
 
 //MARK: - MapInteractor API
 protocol MapInteractorApi: InteractorProtocol {
+    func retrieveStationsToHighlight(selectedStationId: String)
 }

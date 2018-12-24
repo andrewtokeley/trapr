@@ -14,157 +14,177 @@ import Viperit
 final class VisitInteractor: Interactor {
 
     fileprivate let visitService = ServiceFactory.sharedInstance.visitFirestoreService
+    fileprivate let routeService = ServiceFactory.sharedInstance.routeFirestoreService
+    fileprivate let stationService = ServiceFactory.sharedInstance.stationFirestoreService
+    fileprivate let trapTypeService = ServiceFactory.sharedInstance.trapTypeFirestoreService
     
     fileprivate var visits: [Visit]!
     
     fileprivate func refreshRoute(routeId: String, selectedIndex: Int) {
         // retrieve the route from the database again (with the new station)
-        if let route = ServiceFactory.sharedInstance.routeService.getById(id: routeId) {
-            presenter.didUpdateRoute2(route: route, selectedIndex: selectedIndex)
-        }
+        self.routeService.get(routeId: routeId, completion: { (route, error) in
+            if let route = route  {
+                self.presenter.didUpdateRoute2(route: route, selectedIndex: selectedIndex)
+            }
+        })
     }
 }
 
 // MARK: - VisitInteractor API
 extension VisitInteractor: VisitInteractorApi {
     
-    func removeStationFromRoute(route: Route, station: Station) {
-        if let index = route.stations.index(of: station) {
-            ServiceFactory.sharedInstance.routeService.removeStationFromRoute(route: route, station: station)
-            if index < route.stations.count {
-                refreshRoute(routeId: route.id, selectedIndex: index)
-            } else {
-                refreshRoute(routeId: route.id, selectedIndex: route.stations.count - 1)
+    func numberOfVisits(routeId: String, date: Date, completion: ((Int) -> Void)?) {
+        
+        // Super inefficient way to test this!
+        var result = 0
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        visitService.get(recordedOn: date, routeId: routeId) { (visits, error) in
+            result = visits.count
+            dispatchGroup.leave()
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            completion?(result)
+        }
+    }
+    
+    func retrieveInitialState() {
+        trapTypeService.get { (trapTypes, error) in
+            self.presenter.didFetchInitialState(trapTypes: trapTypes)
+        }
+    }
+    
+    func removeStationFromRoute(route: _Route, stationId: String) {
+        
+        if let index = route.stationIds.firstIndex(of: stationId),
+            let routeId = route.id {
+            routeService.removeStationFromRoute(routeId: routeId, stationId: stationId) { (route, error) in
+                if let _ = error {
+                    //
+                } else {
+                    self.refreshRoute(routeId: routeId, selectedIndex: index)
+                }
             }
         }
     }
     
-    func deleteStation(route:Route, station: Station) {
-        if let index = route.stations.index(of: station) {
-            ServiceFactory.sharedInstance.stationService.delete(station: station)
+    func deleteStation(route: _Route, stationId: String) {
+        
+        if let index = route.stationIds.firstIndex(of: stationId), let routeId = route.id {
+            stationService.delete(stationId: stationId) { (error) in
+                if let _ = error {
+                    //
+                } else {
+                    self.refreshRoute(routeId: routeId, selectedIndex: index)
+                }
+            }
+        }
+    }
+    
+    func insertStation(routeId: String, stationId: String, at index: Int) {
+        routeService.insertStationToRoute(routeId: routeId, stationId: stationId, at: index) { (route, error) in
+            self.refreshRoute(routeId: routeId, selectedIndex: index)
+        }
+    }
+    
+    func addStation(route: _Route, station: _Station) {
+        if let routeId = route.id, let stationId = station.id {
+            routeService.addStationToRoute(routeId: routeId, stationId: stationId) { (updatedRoute, error) in
+                //
+                self.refreshRoute(routeId: routeId, selectedIndex: route.stationIds.count - 1)
+            }
+        }
+    }
+    func retrieveTrapsToDisplay(route: _Route, station: _Station, date: Date, completion: (([_TrapType]) -> Void)?) {
+        stationService.getActiveOrHistoricTraps(route: route, station: station, date: date) { (trapTypes) in
+            completion?(trapTypes)
+        }
+    }
+    
+    func getUnusedTrapTypes(allTrapTypes: [_TrapType], station: _Station) -> [_TrapType] {
+        let inActive = station.trapTypes.filter { !$0.active }
+
+        // want to filter all TrapTypes to remove the ones marked as inactive on the station.
+        return allTrapTypes.filter ( { (trapType) in
+            // return true if the trapType isn't in the inActive list
+            !inActive.contains { $0.trapTpyeId == trapType.id! }
+        })
+    }
+    
+    func deleteOrArchiveTrap(station: _Station, trapTypeId: String) {
+        
+        // check if the trap has visits - if it does just archive, otherwise delete
+        visitService.hasVisits(stationId: station.id!, trapTypeId: trapTypeId) { (hasVisits, error) in
             
-            if index < route.stations.count {
-                refreshRoute(routeId: route.id, selectedIndex: index)
+            if hasVisits {
+                self.stationService.updateActiveState(station: station, trapTypeId: trapTypeId, active: false, completion: { (station, error) in
+                    // let the presenter know
+                })
             } else {
-                refreshRoute(routeId: route.id, selectedIndex: route.stations.count - 1)
+                self.stationService.removeTrapType(station: station, trapTypeId: trapTypeId) { (station, error) in
+                    // let the presenter know
+                }
             }
         }
     }
     
-    func insertStation(route: Route, station: Station, at index: Int) {
-        if ServiceFactory.sharedInstance.routeService.insertStationToRoute(route: route, station: station, at: index) {
-            refreshRoute(routeId: route.id, selectedIndex: index)
-        }
-    }
-    
-    func addStation(route: Route, station: Station) {
-        if ServiceFactory.sharedInstance.routeService.addStationToRoute(route: route, station: station) {
-            refreshRoute(routeId: route.id, selectedIndex: route.stations.count - 1)
-        }
-    }
-    
-    func getTrapsToDisplay(route: Route, station: Station, date: Date) -> [Trap] {
-        return ServiceFactory.sharedInstance.stationService.getActiveOrHistoricTraps(route:route, station:station, date:date)
-    }
-    
-    func deleteOrArchiveTrap(trap: Trap) {
-        
-        let hasVisits = ServiceFactory.sharedInstance.visitService.hasVisits(trap: trap)
-        
-        if hasVisits {
-            //archive
-            ServiceFactory.sharedInstance.trapService.setArchiveState(trap: trap, archive: true)
-        } else {
-            // delete
-            ServiceFactory.sharedInstance.trapService.deleteTrap(trap: trap)
-        }
-    }
-    
-    func addOrRestoreTrapToStation(station: Station, trapType: TrapType) {
+    func addOrRestoreTrapToStation(station: _Station, trapTypeId: String) {
         
         // find out if the station has an archived trap of this type that we can restore
-        if let existingTrap = station.traps.filter({ $0.type == trapType }).first {
-            ServiceFactory.sharedInstance.trapService.setArchiveState(trap: existingTrap, archive: false)
+        if let _ = station.trapTypes.filter({ $0.trapTpyeId == trapTypeId }).first {
+            self.stationService.updateActiveState(station: station, trapTypeId: trapTypeId, active: true) { (station, error) in
+                    // let presenter know
+            }
         } else {
         
             // create a trap of the correct type
-            let trap = Trap()
-            trap.type = trapType
-            trap.latitude = station.latitude
-            trap.longitude = station.longitude
-            
-            ServiceFactory.sharedInstance.traplineService.addTrap(station: station, trap: trap)
-            
+            self.stationService.addTrapTypeToStation(station: station, trapTypeId: trapTypeId, completion: nil)
         }
-    }
-    
-    func getUnusedTrapTypes(station: Station) -> [TrapType] {
-        let allTrapTypes = ServiceFactory.sharedInstance.trapTypeService.getAll()
-        let existingTraps = station.traps
-        
-        let unusedTrapTypes = allTrapTypes.filter( {
-            (trapType) in
-            return !existingTraps.contains(where: {
-                    (trap: Trap) in
-                    return trap.type == trapType && !trap.archive }) } )
-        
-        return unusedTrapTypes
     }
     
     func addVisitSync(visitSync: VisitSync) {
         ServiceFactory.sharedInstance.visitSyncService.add(visitSync: visitSync)
     }
     
-    func retrieveVisit(date: Date, route: Route, trap: Trap) {
-        
-        if let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: date, route: route, trap: trap) {
-        
+    func retrieveVisit(date: Date, routeId: String, trapTypeId: String) {
+        print("interactor: retrieveVisit")
+        visitService.get(recordedOn: date, routeId: routeId, trapTypeId: trapTypeId) { (visits, error) in
             // Find the visit for the given trap
             // NOTE: not supporting multiple visits to the same trap on the same day
             if visits.count > 0 {
-                
                 // visit exists for this day
-                presenter.didFetchVisit(visit: visits[0])
+                self.presenter.didFetchVisit(visit: visits[0])
             } else {
                 // no visit exists
-                presenter.didFindNoVisit()
+                self.presenter.didFindNoVisit()
             }
         }
     }
     
-    func addVisit(visit: Visit) {
-        ServiceFactory.sharedInstance.visitService.add(visit: visit)
+    func addVisit(visit: _Visit) {
+        visitService.add(visit: visit, completion: nil)
         presenter.didFetchVisit(visit: visit)
-        
-        // TEMP
-        if let visitFS = ModelConverter.Visit(visit) {
-            visitService.add(visit: visitFS, completion: nil)
+    }
+    
+    func deleteVisit(visit: _Visit) {
+        visitService.delete(visit: visit) { (error) in
+            // let someone know at least!
         }
     }
     
-    func deleteVisit(visit: Visit) {
-        // TEMP
-        if let visitFS = ModelConverter.Visit(visit) {
-            visitService.delete(visit: visitFS, completion: nil)
-        }
-        
-        if let visitToDelete = ServiceFactory.sharedInstance.visitService.getById(id: visit.id) {
-            ServiceFactory.sharedInstance.visitService.delete(visit: visitToDelete)
-        }
+    func deleteAllVisits(routeId: String, date: Date) {
+        visitService.delete(routeId: routeId, date: date, completion: nil)
     }
     
-    func deleteAllVisits(route: Route, date: Date) {
-        if let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: date, route: route) {
+    func updateVisitDates(currentDate: Date, routeId: String, newDate: Date) {
+        visitService.get(recordedOn: currentDate, routeId: routeId) { (visits, error) in
             for visit in visits {
-                deleteVisit(visit: visit)
-            }
-        }
-    }
-    
-    func updateVisitDates(currentDate: Date, route: Route, newDate: Date) {
-        if let visits = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: currentDate, route: route) {
-            for visit in visits {
-                ServiceFactory.sharedInstance.visitService.updateDate(visit: visit, date: newDate)
+                if let id = visit.id {
+                    self.visitService.updateDate(visitId: id, date: newDate, completion: { (error) in
+                        //
+                    })
+                }
             }
         }
     }

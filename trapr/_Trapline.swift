@@ -95,6 +95,10 @@ class _Trapline: DocumentSerializable {
             self.lastVisited = lastVisited.dateValue()
         }
     }
-    
-    
+}
+
+extension _Trapline: Equatable {
+    static func == (left: _Trapline, right: _Trapline) -> Bool {
+        return left.id == right.id
+    }
 }

@@ -30,9 +30,9 @@ class dateTests: XCTestCase {
         
         if let date = Date.dateFromComponents(28, 8, 1968)
         {
-            XCTAssertTrue(date.toString(from: "d") == "28")
-            XCTAssertTrue(date.toString(from: "M") == "8")
-            XCTAssertTrue(date.toString(from: "y") == "1968")
+            XCTAssertTrue(date.toString(format: "d") == "28")
+            XCTAssertTrue(date.toString(format: "M") == "8")
+            XCTAssertTrue(date.toString(format: "y") == "1968")
         }
         else
         {
@@ -45,7 +45,7 @@ class dateTests: XCTestCase {
         let august = Date.dateFromComponents(10, 8, 2000)
         let nextDate = august?.add(0, 1, 0)
         
-        XCTAssertTrue(nextDate?.toString(from: "M") == "9")
+        XCTAssertTrue(nextDate?.toString(format: "M") == "9")
     }
 
     func testDateDayStart() {

@@ -11,26 +11,22 @@ import Viperit
 
 // MARK: - VisitHistoryInteractor Class
 final class VisitHistoryInteractor: Interactor {
+    let visitService = ServiceFactory.sharedInstance.visitFirestoreService
+    let visitSummaryService = ServiceFactory.sharedInstance.visitSummaryFirestoreService
 }
 
 // MARK: - VisitHistoryInteractor API
 extension VisitHistoryInteractor: VisitHistoryInteractorApi {
     
-    func deleteVisitSummary(visitSummary: VisitSummary) {
-        let service = ServiceFactory.sharedInstance.visitService
-        service.deleteVisits(visitSummary: visitSummary)
+    func deleteVisitSummary(visitSummary: _VisitSummary) {
+        visitService.delete(visitSummary: visitSummary, completion: nil)
     }
     
-    func getVisitSummariesForRoute(route: Route) -> [VisitSummary] {
-        let service = ServiceFactory.sharedInstance.visitService
-        
+    func getVisitSummariesForRoute(routeId: String, completion: (([_VisitSummary], Error?) -> Void)?) {
         // Get all the summaries from year dot, order with the most recent first
-        let visitSummaries = service.getVisitSummaries(recordedBetween: Date().add(0, 0, -100), endDate: Date(), route: route).sorted(by: {
-            (v1, v2) in
-            v1.dateOfVisit > v2.dateOfVisit
-        })
-        
-        return visitSummaries
+        visitSummaryService.get(recordedBetween: Date().add(0,0,-100), endDate: Date(), routeId: routeId) { (visitSummaries, error) in
+            completion?(visitSummaries, error)
+        }
     }
     
 }

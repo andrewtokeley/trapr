@@ -16,45 +16,52 @@ final class StartRouter: Router {
 // MARK: - StartRouter API
 extension StartRouter: StartRouterApi {
     
-    func showMap(route: Route) {
+    func showMap(route: _Route) {
         let module = AppModules.map.build()
         
         let setupData = MapSetupData()
+        
         setupData.stations = ServiceFactory.sharedInstance.stationService.getAll()
-        setupData.highlightedStations = Array(route.stations)
+        setupData.highlightedStations = setupData.stations.filter({ route.stationIds.contains( $0.locationId ) })
         setupData.showHighlightedOnly = true
         
         module.router.show(from: _view, embedInNavController: true, setupData: setupData)
     }
     
-    func showRouteDashboardModule(route: Route?) {
-        let module = AppModules.routeDashboard.build()
+    func showRouteDashboardModule(route: _Route?) {
+        if let route = route {
+            let module = AppModules.routeDashboard.build()
         
-        let setupData = RouteDashboardSetup()
-        setupData.route = route
-        //setupData.delegate = ...
+            let setupData = RouteDashboardSetup()
         
-        // show modally
-        module.router.show(from: _view, embedInNavController: true, setupData: setupData)
+            //TODO change method to accept _Route
+        
+            setupData.route = route
+            //setupData.delegate = ...
+        
+            // show modally
+            module.router.show(from: _view, embedInNavController: true, setupData: setupData)
+        }
     }
     
-    func showRouteModule(route: Route?) {
-        let module = AppModules.route.build()
-        
-        let setupData = RouteSetupData()
-        setupData.route = route
-        
-        // show modally
-        module.router.show(from: _view, embedInNavController: true, setupData: setupData)
+    func showRouteModule(route: _Route?) {
+//        let module = AppModules.route.build()
+//        
+//        let setupData = RouteSetupData()
+//        setupData.route = route
+//        
+//        // show modally
+//        module.router.show(from: _view, embedInNavController: true, setupData: setupData)
     }
     
-    func showVisitModule(visitSummary: VisitSummary) {
+    func showVisitModule(visitSummary: _VisitSummary) {
         let module = AppModules.visit.build()
         
         // Remove title from back button
         _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
-        module.router.show(from: _view, embedInNavController: false, setupData: visitSummary)
+        let setupData = VisitSetup()
+        setupData.visitSummary = visitSummary
+        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
     }
     
     func showNewVisitModule(delegate: NewVisitDelegate) {

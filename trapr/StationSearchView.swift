@@ -13,11 +13,11 @@ import Viperit
 final class StationSearchView: UserInterface {
     
     fileprivate let CELL_ID = "cell"
-    fileprivate var nearbyStations = [Station]()
+    fileprivate var nearbyStations = [_Station]()
     fileprivate var nearbyStationDistances = [String]()
-    fileprivate var otherStations = [Station]()
+    fileprivate var otherStations = [_Station]()
     fileprivate var displayingSearchResults = false
-    fileprivate var filteredStations = [Station]()
+    fileprivate var filteredStations = [_Station]()
     
     //MARK: Helpers
     
@@ -176,21 +176,21 @@ extension StationSearchView: UITableViewDelegate, UITableViewDataSource {
 //MARK: - StationSearchView API
 extension StationSearchView: StationSearchViewApi {
     
-    func showNearbyStations(stations: [Station], distances: [String]) {
+    func showNearbyStations(stations: [_Station], distances: [String]) {
         self.nearbyStations = stations
         self.nearbyStationDistances = distances
         self.displayingSearchResults = false
         tableView.reloadData()
     }
     
-    func showOtherStations(stations: [Station]) {
+    func showOtherStations(stations: [_Station]) {
         self.otherStations = stations
         self.displayingSearchResults = false
         tableView.reloadData()
     }
     
-    func showSearchResults(stations: [Station]) {
-        self.nearbyStations = [Station]()
+    func showSearchResults(stations: [_Station]) {
+        self.nearbyStations = [_Station]()
         self.otherStations = stations
         self.displayingSearchResults = true
         tableView.reloadData()

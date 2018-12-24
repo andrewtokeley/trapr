@@ -10,7 +10,9 @@ import Foundation
 
 class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterface {
     
-    let stationService = ServiceFactory.sharedInstance.stationFirestoreService
+    
+    //let stationService = ServiceFactory.sharedInstance.stationFirestoreService
+    let visitService = ServiceFactory.sharedInstance.visitFirestoreService
     
     func add(route: _Route, completion: ((_Route?, Error?) -> Void)?) {
         let _ = super.add(entity: route) { (route, error) in
@@ -30,7 +32,7 @@ class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterfa
         }
     }
     
-    func insertStationToRoute(routeId: String, stationId: String, at index: Int, completion: ((Error?) -> Void)?) {
+    func insertStationToRoute(routeId: String, stationId: String, at index: Int, completion: ((_Route?, Error?) -> Void)?) {
         self.get(routeId: routeId) { (route, error) in
             if let route = route {
                 if index >= 0 && index < route.stationIds.count {
@@ -40,73 +42,109 @@ class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterfa
                     route.stationIds.append(stationId)
                 }
                 self.update(entity: route, completion: { (error) in
-                    completion?(error)
+                    completion?(route, error)
                 })
             }
         }
     }
     
-    func addStationToRoute(routeId: String, stationId: String, completion: ((Error?) -> Void)?) {
+    func addStationToRoute(routeId: String, stationId: String, completion: ((_Route?, Error?) -> Void)?) {
         
         let dispatchGroup = DispatchGroup()
-        var lastError: Error?
+        var updateRoute: _Route?
         
         // Update route.stationIds array
         self.get(routeId: routeId) { (route, error) in
             if let route = route {
+                
+                updateRoute = route
+                
                 // make sure we don't add twice
-                if !route.stationIds.contains(stationId) {
-                    route.stationIds.append(stationId)
+                if !updateRoute!.stationIds.contains(stationId) {
+                    updateRoute!.stationIds.append(stationId)
                 }
                 dispatchGroup.enter()
-                self.update(entity: route, completion: { (error) in
-                    lastError = error
-                    dispatchGroup.leave()
+                self.update(entity: updateRoute!, completion: { (error) in
+                    completion?(updateRoute, error)
                 })
             }
         }
         
         // Update station.routeId field
-        self.stationService.get(stationId: stationId) { (station, error) in
-            
-            if let station = station {
-                station.routeId = routeId
-                dispatchGroup.enter()
-                self.stationService.add(station: station, completion: { (station, error) in
-                    lastError = error
-                    dispatchGroup.leave()
+//        self.stationService.get(stationId: stationId) { (station, error) in
+//
+//            if let station = station {
+//                station.routeId = routeId
+//                dispatchGroup.enter()
+//                self.stationService.add(station: station, completion: { (station, error) in
+//                    lastError = error
+//                    dispatchGroup.leave()
+//                })
+//            }
+//        }
+        
+//        dispatchGroup.notify(queue: .main) {
+//            completion?(updateRoute, lastError)
+//        }
+    }
+    
+    func removeStationFromRoute(routeId: String, stationId: String, completion: ((_Route?, Error?) -> Void)?) {
+        
+        self.get(routeId: routeId) { (route, error) in
+            if let route = route {
+                
+                // Remove from the Route record
+                route.stationIds.removeAll(where: { $0 == stationId })
+                self.update(entity: route, completion: { (error) in
+                    completion?(route, error)
+//                    // Remove from each Station record
+//                    self.setRouteForStations(routeId: routeId, stationIds: [stationId], completion: { (error) in
+//
+//                    })
                 })
+            } else {
+                completion?(nil, FirestoreEntityServiceError.generalError)
             }
         }
         
-        dispatchGroup.notify(queue: .main) {
-            completion?(lastError)
-        }
-    }
-    
-    func removeStationFromRoute(routeId: String, stationId: String, completion: ((Error?) -> Void)?) {
-        self.get(routeId: routeId) { (route, error) in
-            if let route = route {
-                route.stationIds.removeAll { $0 == stationId }
-                self.update(entity: route, completion: { (error) in
-                    completion?(error)
-                })
-            }
-        }
     }
     
     func replaceStationsOn(routeId: String, stationIds: [String], completion: ((_Route?, Error?) -> Void)?) {
+
         self.get(routeId: routeId) { (route, error) in
             if let route = route {
+                
+//                // For any stations that should no longer be part of the route, remove their references to the Route
+//                let stationsToRemove = route.stationIds.filter( { !stationIds.contains($0) } )
+//                print("Removing stations: \(stationsToRemove)")
+//                self.setRouteForStations(routeId: nil, stationIds: stationsToRemove, completion: nil )
+//
+//                // For any new stations on the route
+//                let stationsToAdd = stationIds.filter({ !route.stationIds.contains($0)})
+//                print("Adding stations: \(stationsToAdd)")
+//                self.setRouteForStations(routeId: routeId, stationIds: stationsToAdd, completion: nil)
+                
+                // update the route record
                 route.stationIds = stationIds
-                self.update(entity: route, completion: { (error) in
-                    completion?(route, error)
-                })
+                self.update(entity: route) { (  error) in
+                    completion?(route, nil)
+                }
             } else {
-                completion?(nil, error)
+                completion?(nil, FirestoreEntityServiceError.generalError)
             }
         }
     }
+    
+//    private func setRouteForStations(routeId: String?, stationIds: [String], completion: ((Error?) -> Void)?) {
+//
+//        self.stationService.get(stationIds: stationIds, completion: { (stations, error) in
+//            for station in stations {
+//                station.routeId = routeId
+//                self.stationService.add(station: station, completion: nil )
+//            }
+//            completion?(error)
+//        })
+//    }
     
     func reorderStations(routeId: String, stationOrder: [String : Int], completion: ((_Route?, Error?) -> Void)?) {
         self.get(routeId: routeId) { (route, error) in
@@ -119,7 +157,7 @@ class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterfa
                     completion?(route, error)
                 })
             } else {
-                completion?(nil, error)
+                completion?(nil, FirestoreEntityServiceError.generalError)
             }
         }
     }
@@ -156,9 +194,45 @@ class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterfa
             completion?(route, error)
         }
     }
-    
-    func updateStations(routeId: String, stationIds: [String], completion: ((Error?) -> Void)?) {
+        
+    func updateStations(routeId: String, stationIds: [String], completion: ((_Route?,  Error?) -> Void)?) {
         //
+    }
+    
+    
+    func daysSinceLastVisit(routeId: String, completion: ((Int?) -> Void)?) {
+        
+        visitService.getMostRecentVisit(routeId: routeId) { (lastVisit) in
+            
+            if let lastVisit = lastVisit {
+                let calendar = NSCalendar.current
+                let lastVisitDate = calendar.startOfDay(for: lastVisit.visitDateTime)
+                let today = calendar.startOfDay(for: Date())
+                
+                let components = calendar.dateComponents([.day], from: lastVisitDate, to: today)
+                
+                completion?(components.day)
+            } else {
+                completion?(nil)
+            }
+        }
+    }
+    
+    func daysSinceLastVisitDescription(routeId: String, completion: ((String) -> Void)?) {
+        var description: String = "Not Visited"
+        self.daysSinceLastVisit(routeId: routeId) { (days) in
+            
+            if let days = days {
+                if days == 0 {
+                    description = "Today"
+                } else if days == 1 {
+                    description = "Yesterday"
+                } else {
+                    description = "\(days) days"
+                }
+            }
+            completion?(description)
+        }
     }
     
     
@@ -233,11 +307,37 @@ class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterfa
     }
     
     func daysSinceLastVisit(route: Route) -> Int? {
-        return nil
+        
+        var numberOfDays: Int?
+        
+        // take the first result - this is the last visit
+        
+        if let lastVisit = self.getMostRecentVisit(route: route) {
+            let calendar = NSCalendar.current
+            let lastVisitDate = calendar.startOfDay(for: lastVisit.visitDateTime)
+            let today = calendar.startOfDay(for: Date())
+            
+            let components = calendar.dateComponents([.day], from: lastVisitDate, to: today)
+            
+            numberOfDays = components.day
+        }
+        
+        return numberOfDays
     }
     
     func daysSinceLastVisitDescription(route: Route) -> String {
-        return ""
+        var description: String = "Not Visited"
+        
+        if let days = daysSinceLastVisit(route: route) {
+            if days == 0 {
+                description = "Today"
+            } else if days == 1 {
+                description = "Yesterday"
+            } else {
+                description = "\(days) days"
+            }
+        }
+        return description
     }
     
     

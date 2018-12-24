@@ -17,6 +17,10 @@ final class RouteDashboardRouter: Router {
 // MARK: - RouteDashboardRouter API
 extension RouteDashboardRouter: RouteDashboardRouterApi {
     
+    func showVisitModule(visitSummary: _VisitSummary) {
+        // waiting on this one until I commit to converting Visit modules
+    }
+    
     func showVisitModule(visitSummary: VisitSummary) {
         let module = AppModules.visit.build()
         
@@ -38,6 +42,18 @@ extension RouteDashboardRouter: RouteDashboardRouterApi {
         containerView.addSubview(mapViewController.view)
         mapViewController.view.autoPinEdgesToSuperviewEdges()
         mapViewController.didMove(toParentViewController: _view)
+    }
+    
+    func showVisitHistoryModule(visitSummaries: [_VisitSummary]) {
+        let module = AppModules.visitHistory.build()
+        let setupData = VisitHistorySetupData()
+        setupData.visitSummaries = visitSummaries
+        setupData.route = nil
+        
+        // Remove title from back button
+        _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
     }
     
     func showVisitHistoryModule(route: Route) {

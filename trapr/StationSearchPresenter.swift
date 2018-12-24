@@ -14,7 +14,7 @@ import CoreLocation
 final class StationSearchPresenter: Presenter {
     
     fileprivate var delegate: StationSearchDelegate?
-    fileprivate var region: Region?
+    fileprivate var region: _Region?
     
     override func setupView(data: Any) {
         if let setupData = data as? StationSearchSetupData {
@@ -24,7 +24,7 @@ final class StationSearchPresenter: Presenter {
     }
     
     override func viewHasLoaded() {
-        interactor.fetchStations(searchTerm: "", region: self.region)
+        interactor.fetchStations(searchTerm: "", regionId: self.region!.id!)
         
         self.getNearbyStations()
         
@@ -40,7 +40,7 @@ final class StationSearchPresenter: Presenter {
 // MARK: - StationSearchPresenter API
 extension StationSearchPresenter: StationSearchPresenterApi {
     
-    func didSelectStation(station: Station) {
+    func didSelectStation(station: _Station) {
         delegate?.stationSearch(view as! StationSearchView, didSelectStation: station)
         _view.navigationController?.popViewController(animated: true)
     }
@@ -49,19 +49,19 @@ extension StationSearchPresenter: StationSearchPresenterApi {
         
         // clear the nearby stations, during search
         if searchTerm != "" {
-            view.showNearbyStations(stations: [Station](), distances: [String]())
+            view.showNearbyStations(stations: [_Station](), distances: [String]())
         } else {
             self.getNearbyStations()
         }
         
-        interactor.fetchStations(searchTerm: searchTerm, region: self.region)
+        interactor.fetchStations(searchTerm: searchTerm, regionId: self.region!.id!)
     }
     
-    func didFetchNearbyStations(stations: [Station], distances: [String]) {
+    func didFetchNearbyStations(stations: [_Station], distances: [String]) {
         view.showNearbyStations(stations: stations, distances: distances)
     }
     
-    func didFetchStations(stations: [Station], fromSearch: Bool) {
+    func didFetchStations(stations: [_Station], fromSearch: Bool) {
         if fromSearch {
             view.showSearchResults(stations: stations)
         } else {

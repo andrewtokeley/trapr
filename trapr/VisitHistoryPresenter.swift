@@ -11,25 +11,33 @@ import Viperit
 
 // MARK: - VisitHistoryPresenter Class
 final class VisitHistoryPresenter: Presenter {
-    private var route: Route!
-    private var visitSummaries = [VisitSummary]()
+    //private var route: Route!
+    //private var visitSummaries = [VisitSummary]()
+    private var visitSummaries = [_VisitSummary]()
+    
     override func setupView(data: Any) {
         _view.setTitle(title: "Visits")
         
-        if let setupData = data as? VisitHistorySetupData, let route = setupData.route {
-            self.route = route
+        if let setupData = data as? VisitHistorySetupData {
+            if let visitSummaries = setupData.visitSummaries {
+                self.visitSummaries = visitSummaries
+                view.displayVisitSummaries(visitSummaries: visitSummaries, fullReload: true)
+            }
             //self.refreshVisitSummaries(fullReload: true)
         }
     }
     
     private func refreshVisitSummaries(fullReload: Bool) {
-        visitSummaries = interactor.getVisitSummariesForRoute(route: self.route)
-        view.displayVisitSummaries(visitSummaries: visitSummaries, fullReload: fullReload)
+        if let routeId = self.visitSummaries.first?.routeId {
+            interactor.getVisitSummariesForRoute(routeId: routeId) { (visitSummaries, error) in
+                self.view.displayVisitSummaries(visitSummaries: visitSummaries, fullReload: fullReload)
+            }
+        }
     }
     
     override func viewIsAboutToAppear() {
         let currentSummaryCount = visitSummaries.count
-        visitSummaries = interactor.getVisitSummariesForRoute(route: self.route)
+        //visitSummaries = interactor.getVisitSummariesForRoute(route: self.route)
         let summaryDeleted = currentSummaryCount != self.visitSummaries.count
         
         // if we're coming back to this module and a summary was deleted (i.e. we drilled into a summary and deleted) then do a full refresh, rather than refreshing the summary that was edited
@@ -40,7 +48,7 @@ final class VisitHistoryPresenter: Presenter {
 // MARK: - VisitHistoryPresenter API
 extension VisitHistoryPresenter: VisitHistoryPresenterApi {
     
-    func didSelectDeleteVisitSummary(visitSummary: VisitSummary) {
+    func didSelectDeleteVisitSummary(visitSummary: _VisitSummary) {
         let count = visitSummary.visits.count
         let date = visitSummary.dateOfVisit.toString(format: Styles.DATE_FORMAT_LONG)
         let message = "Are you sure you want to delete all \(count) visit records on \(date)"
@@ -53,7 +61,7 @@ extension VisitHistoryPresenter: VisitHistoryPresenterApi {
         })
     }
     
-    func didSelectVisitSummary(visitSummary: VisitSummary) {
+    func didSelectVisitSummary(visitSummary: _VisitSummary) {
         router.showVisitModule(visitSummary: visitSummary)
     }
     

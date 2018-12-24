@@ -9,7 +9,7 @@
 import Foundation
 
 class MapSetupData {
-    var highlightedStations: [Station]?
-    var stations = [Station]()
+    var highlightedStations: [LocatableEntity]?
+    var stations = [LocatableEntity]()
     var showHighlightedOnly: Bool = true
 }

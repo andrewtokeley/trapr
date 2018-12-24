@@ -25,10 +25,10 @@ enum MapMenuItems: String {
 final class MapPresenter: Presenter {
     
     fileprivate var annotationStyle = AnnotationStyle.markers
-    fileprivate var stations = [Station]()
-    fileprivate var highlightedStations: [Station]?
+    fileprivate var stations = [LocatableEntity]()
+    fileprivate var highlightedStations: [LocatableEntity]?
     fileprivate var showingHighlightedOnly: Bool = false
-    
+     
     //MARK: - Helpers
     fileprivate func annotationStyleForZoomLevel(zoom: Double) -> AnnotationStyle {
         return zoom < 0.01 ? .markers : .dots
@@ -58,6 +58,10 @@ final class MapPresenter: Presenter {
 
 // MARK: - MapPresenter API
 extension MapPresenter: MapPresenterApi {
+    
+    func didSelectStationOnMap(stationId: String) {
+        interactor.retrieveStationsToHighlight(selectedStationId: stationId)
+    }
     
     func didSelectClose() {
         _view.dismiss(animated: true, completion: nil)
@@ -115,28 +119,42 @@ extension MapPresenter: MapPresenterApi {
             print(missing)
         }
     }
+    
+    func didFetchStationsToHighlight(stations: [LocatableEntity]) {
+        self.highlightedStations = stations
+        view.reapplyStylingToAnnotationViews()
+    }
 }
 
 extension MapPresenter: StationMapDelegate {
+//    func stationMap(_ stationMap: StationMapViewController, showCalloutForStation station: LocatableEntity) -> Bool {
+//        <#code#>
+//    }
+//
+//    func stationMap(_ stationMap: StationMapViewController, innerTextForStation station: LocatableEntity) -> String? {
+//        return nil
+//    }
+    
     
     func stationMap(_ stationMap: StationMapViewController, didSelect annotationView: StationAnnotationView) {
+        
+        // Highlight all the stations on the same trapline
         let annotation = (annotationView as? MKAnnotationView)?.annotation as? StationMapAnnotation
-        if let traplineStations = annotation?.station.trapline?.stations {
-            self.highlightedStations = Array(traplineStations)
+        if let stationId = annotation?.station.locationId {
             
-            //view.recolorAnnotationViews()
-            view.reapplyStylingToAnnotationViews()
+            self.didSelectStationOnMap(stationId: stationId)
+
         }
     }
     
-    func stationMap(_ stationMap: StationMapViewController, textForStation station: Station) -> String? {
-        if (self.highlightedStations?.contains(station) ?? false) {
-            return station.longCode
+    func stationMap(_ stationMap: StationMapViewController, textForStation station: LocatableEntity) -> String? {
+        if (self.highlightedStations?.contains(where: {$0.locationId == station.locationId } ) ?? false) {
+            return ""
         }
         return nil
     }
     
-    func stationMap(_ stationMap: StationMapViewController, radiusForStation station: Station) -> Int {
+    func stationMap(_ stationMap: StationMapViewController, radiusForStation station: LocatableEntity) -> Int {
         return 5
     }
     
@@ -144,12 +162,12 @@ extension MapPresenter: StationMapDelegate {
         return CircleAnnotationView.self
     }
     
-    func stationMapStations(_ stationMap: StationMapViewController) -> [Station] {
+    func stationMapStations(_ stationMap: StationMapViewController) -> [LocatableEntity] {
         return self.stations
     }
     
-    func stationMap(_ stationMap: StationMapViewController, isHighlighted station: Station) -> Bool {
-        return self.highlightedStations?.contains(station) ?? false
+    func stationMap(_ stationMap: StationMapViewController, isHighlighted station: LocatableEntity) -> Bool {
+        return self.highlightedStations?.contains(where: {$0.locationId == station.locationId } ) ?? false
     }
     
 //    func stationMap(_ stationMap: StationMapViewController, textForStation station: Station) -> String? {

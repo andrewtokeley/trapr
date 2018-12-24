@@ -40,6 +40,10 @@ class ServiceFactory {
         return result!
     }()
     
+    lazy var cachePrimerFirestoreService: CachePrimerServiceInterface = {
+        return CachePrimerFirestoreService()
+    }()
+    
     lazy var dataPopulatorService: DataPopulatorServiceInterface = {
         return RealmDataPopulatorService(realm: self.realm)
     }()

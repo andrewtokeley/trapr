@@ -11,18 +11,23 @@ import Viperit
 
 // MARK: - StationSelectInteractor Class
 final class StationSelectInteractor: Interactor {
+    let traplineService = ServiceFactory.sharedInstance.traplineFirestoreService
 }
 
 // MARK: - StationSelectInteractor API
 extension StationSelectInteractor: StationSelectInteractorApi {
     
-    func getDefaultStation() -> Station {
+    func getDefaultStation() -> _Station {
     
         // TODO: change so that it defaults to the first station of the last trapline visited
         
         // Assumes there are traplines loaded into the app and the first one returned has at least one station - fair assumption, but WARNING!
-        let traplines = ServiceFactory.sharedInstance.traplineService.getTraplines()
-        return traplines!.first!.stations.first!
+//        traplineService.get { (traplines) in
+//            let traplines = ServiceFactory.sharedInstance.traplineService.getTraplines()
+//            return traplines!.first!.stations.first!
+//        }
+        
+        return _Station(traplineId: "test", number: 0)
     }
 }
 

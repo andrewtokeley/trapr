@@ -28,7 +28,7 @@ final class LoaderPresenter: Presenter {
             self.view.showSignInButton(show: false)
             
             // TODO: won't need this and can replace with call to fade()
-            self.checkForUpdates()
+            self.primeCache()
             
         } else {
             
@@ -37,14 +37,8 @@ final class LoaderPresenter: Presenter {
         
     }
 
-    fileprivate func checkForUpdates() {
-        
-        if interactor.needsDataUpdate() {
-            view.updateProgressMessage(message: "Loading...")
-            interactor.checkForDataUpdates()
-        } else {
-            fade()
-        }
+    fileprivate func primeCache() {
+        interactor.primeCache()
     }
     
     fileprivate func fade() {
@@ -62,12 +56,12 @@ final class LoaderPresenter: Presenter {
 // MARK: - LoaderPresenter API
 extension LoaderPresenter: LoaderPresenterApi {
     
-    func importProgressReceived(progress: Float) {
-        // the importer stops reporting progress once all the data is read, but there's more work to do to update the database, so
-        view.updateProgress(progress: progress * 0.8)
+    func loadProgressReceived(progress: Float, message: String) {
+        view.updateProgress(progress: progress)
+        view.updateProgressMessage(message: message)
     }
     
-    func importCompleted() {
+    func loadCompleted() {
         // complete the progress meter
         view.updateProgress(progress: 1)
         

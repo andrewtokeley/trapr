@@ -16,13 +16,15 @@ final class VisitHistoryRouter: Router {
 // MARK: - VisitHistoryRouter API
 extension VisitHistoryRouter: VisitHistoryRouterApi {
     
-    func showVisitModule(visitSummary: VisitSummary) {
+    func showVisitModule(visitSummary: _VisitSummary) {
         let module = AppModules.visit.build()
         
         // Remove title from back button
         _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
-        module.router.show(from: _view, embedInNavController: false, setupData: visitSummary)
+        let setupData = VisitSetup()
+        setupData.visitSummary = visitSummary
+        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
     }
     
 }

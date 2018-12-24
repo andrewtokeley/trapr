@@ -14,11 +14,11 @@ final class TraplineSelectPresenter: Presenter {
     
     fileprivate var delegate: TraplineSelectDelegate?
     
-    fileprivate var route: Route?
+    fileprivate var route: _Route?
     fileprivate var routeName: String?
-    fileprivate var selectedTraplines = [Trapline]()
+    fileprivate var selectedTraplines = [_Trapline]()
     fileprivate var selectedTraplinesText: String {
-        return selectedTraplines.map({ (trapline) -> String in return trapline.code! }).joined(separator: ", ")
+        return selectedTraplines.map({ (trapline) -> String in return trapline.code }).joined(separator: ", ")
     }
     
     private let TITLE = "New Route"
@@ -33,17 +33,15 @@ final class TraplineSelectPresenter: Presenter {
         
         view.setSelectedTraplinesDescription(description: "")
         
-        if let traplines = interactor.getAllTraplines() {
-            
-            if let _ = route {
+        interactor.getAllTraplines { (traplines) in
+            if let _ = self.route {
                 self.selectedTraplines.removeAll()
-                self.selectedTraplines.append(contentsOf: route!.traplines)
-                view.setSelectedTraplinesDescription(description: route!.shortDescription)
+                //self.selectedTraplines.append(route.traplines)
+                //self.view.setSelectedTraplinesDescription(description: route?.name)
             }
-            view.updateDisplay(traplines: traplines, selected: self.selectedTraplines)
+            self.view.updateDisplay(traplines: traplines, selected: self.selectedTraplines)
+            self.view.setNextButtonState(enabled: self.selectedTraplines.count > 0)
         }
-        
-        view.setNextButtonState(enabled: self.selectedTraplines.count > 0)
     }
     
     override func setupView(data: Any) {
@@ -60,18 +58,18 @@ final class TraplineSelectPresenter: Presenter {
 //MARK: - StationSelectDelegate
 extension TraplineSelectPresenter: StationSelectDelegate {
     
-    func newStationsSelected(stations: [Station]) {
+    func newStationsSelected(stations: [_Station]) {
         
         if let _ = route {
             // we have a Route so need to update the stations on it
-            interactor.updateStations(route: route!, stations: stations)
+            interactor.updateStations(routeId: route!.id!, stationIds: stations.map({$0.id!}))
             self.delegate?.didUpdateRoute(route: route!)
             
         } else {
             
             // create a new route
-            
-            let route = Route(name: self.routeName!, stations: stations)
+            let route = _Route(id: UUID().uuidString, name: self.routeName!)
+            route.stationIds = stations.map({$0.id!})
             interactor.addRoute(route: route)
             
             self.delegate?.didCreateRoute(route: route)
@@ -90,13 +88,13 @@ extension TraplineSelectPresenter: TraplineSelectPresenterApi {
         self.routeName = name
     }
     
-    func didSelectTrapline(trapline: Trapline) {
+    func didSelectTrapline(trapline: _Trapline) {
         self.selectedTraplines.append(trapline)
         view.setSelectedTraplinesDescription(description: selectedTraplinesText)
         view.setNextButtonState(enabled: true)
     }
     
-    func didDeselectTrapline(trapline: Trapline) {
+    func didDeselectTrapline(trapline: _Trapline) {
         if let index = selectedTraplines.index(of: trapline) {
             selectedTraplines.remove(at: index)
             if selectedTraplines.count == 0 {
@@ -109,7 +107,7 @@ extension TraplineSelectPresenter: TraplineSelectPresenterApi {
     func didSelectNext() {
         if let _ = route {
             // this will show all stations and only select those in the route
-            router.showStationSelect(traplines: self.selectedTraplines, selectedStations: Array(route!.stations))
+//            router.showStationSelect(traplines: self.selectedTraplines, selectedStationIds: route!.stationIds)
         } else {
             // this will show and select all stations
             router.showStationSelect(traplines: self.selectedTraplines)

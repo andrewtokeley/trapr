@@ -16,7 +16,7 @@ final class StartPresenter: Presenter {
     fileprivate var showLoader: Bool = true
     
     fileprivate var routeMenuOptions = [String]()
-    fileprivate var routes: [Route]?
+    fileprivate var routes: [_Route]?
     fileprivate var routeViewModels = [RouteViewModel]()
     
     fileprivate let ROUTE_MENU_EDIT = 0
@@ -56,31 +56,31 @@ extension StartPresenter: LoaderDelegate {
 // MARK: - StartPresenter API
 extension StartPresenter: StartPresenterApi {
     
-    func didSelectRouteMenu(routeIndex: Int) {
-        
-        if let route = self.routes?[routeIndex] {
-            _view.displayMenuOptions(options: [
-                OptionItem(title: "Edit", isEnabled: true, isDestructive: false),
-                OptionItem(title: "Visit", isEnabled: true, isDestructive: false),
-                OptionItem(title: "Delete", isEnabled: true, isDestructive: true)
-                ], actionHandler: {
-                    (title) in
-                    if title == "Edit" {
-                        self.router.showRouteModule(route: route)
-                    } else if title == "Visit" {
-                        self.didSelectNewVisit(route: route)
-                    } else if title == "Delete" {
-                        self._view.presentConfirmation(title: "Delete Route", message: "Are you sure you want to delete this route?", response: {
-                            (ok) in
-                            if ok {
-                                self.interactor.deleteRoute(route: route)
-                                self.interactor.initialiseHomeModule()
-                            }
-                        })
-                    }
-            })
-        }
-    }
+//    func didSelectRouteMenu(routeIndex: Int) {
+//        
+//        if let route = self.routes?[routeIndex] {
+//            _view.displayMenuOptions(options: [
+//                OptionItem(title: "Edit", isEnabled: true, isDestructive: false),
+//                OptionItem(title: "Visit", isEnabled: true, isDestructive: false),
+//                OptionItem(title: "Delete", isEnabled: true, isDestructive: true)
+//                ], actionHandler: {
+//                    (title) in
+//                    if title == "Edit" {
+//                        self.router.showRouteModule(route: route)
+//                    } else if title == "Visit" {
+//                        self.didSelectNewVisit(route: route)
+//                    } else if title == "Delete" {
+//                        self._view.presentConfirmation(title: "Delete Route", message: "Are you sure you want to delete this route?", response: {
+//                            (ok) in
+//                            if ok {
+//                                self.interactor.deleteRoute(route: route)
+//                                self.interactor.initialiseHomeModule()
+//                            }
+//                        })
+//                    }
+//            })
+//        }
+//    }
 
     func didSelectRouteMenuItem(routeIndex: Int, menuItemIndex: Int) {
         
@@ -102,9 +102,12 @@ extension StartPresenter: StartPresenterApi {
         router.showSideMenu()
     }
     
-    func didSelectNewVisit(route: Route) {
-        let visitSummary = VisitSummary(dateOfVisit: Date(), route: route)
-        self.router.showVisitModule(visitSummary: visitSummary)
+    func didSelectNewVisit(routeId: String) {
+        interactor.getNewVisitSummary(date: Date(), routeId: routeId) { (visitSummary) in
+            if let visitSummary = visitSummary {
+                self.router.showVisitModule(visitSummary: visitSummary)
+            }
+        }
     }
     
     func didSelectNewRoute() {
@@ -127,23 +130,25 @@ extension StartPresenter: StartPresenterApi {
         })
     }
     
-    func didSelectVisitSummary(visitSummary: VisitSummary) {
+    func didSelectVisitSummary(visitSummary: _VisitSummary) {
         router.showVisitModule(visitSummary: visitSummary)
     }
     
-    func didSelectLastVisited(route: Route) {
+    func didSelectLastVisited(routeId: String) {
         
         // get the VisitSummary for the latest visit on this route
-        if let visitSummary = ServiceFactory.sharedInstance.visitService.getVisitSummaryMostRecent(route: route) {
-            router.showVisitModule(visitSummary: visitSummary)
+        interactor.getMostRecentVisitSummary(routeId: routeId) { (visitSummary) in
+            if let visitSummary = visitSummary {
+                self.router.showVisitModule(visitSummary: visitSummary)
+            }
         }
     }
     
-    func didSelectRoute(route: Route) {
+    func didSelectRoute(route: _Route) {
         router.showRouteDashboardModule(route: route)
     }
     
-    func didSelectRouteImage(route: Route) {
+    func didSelectRouteImage(route: _Route) {
         
         router.showRouteDashboardModule(route: route)
         
@@ -173,22 +178,24 @@ extension StartPresenter: StartPresenterApi {
 //        }
     }
     
-    func setRecentVisits(visits: [VisitSummary]?) {
+    func setRecentVisits(visits: [_VisitSummary]?) {
         view.displayRecentVisits(visits: visits)
     }
 
-    func setRoutes(routes: [Route]?) {
+    func setRoutes(routes: [_Route]?, lastVisitDescriptions: [String]) {
         
         self.routes = routes
         
         // create an array of RouteViewModel instances
         self.routeViewModels = [RouteViewModel]()
-        if let _  = routes {
-            for route in routes! {
+        if let routes  = routes {
+            var i = 0
+            for route in routes {
                 let routeViewModel = RouteViewModel(route: route)
                 routeViewModel.visitSync = false
                 
-                routeViewModel.lastVisitedText = interactor.getLastVisitedDateDescription(route: route)
+                routeViewModel.lastVisitedText = lastVisitDescriptions[i]
+                i += 1
                 routeViewModels.append(routeViewModel)
             }
         }

@@ -18,8 +18,12 @@ enum ResizeState {
 //MARK: - RouteDashboardRouter API
 protocol RouteDashboardRouterApi: RouterProtocol {
     func showVisitModule(visitSummary: VisitSummary)
+    func showVisitModule(visitSummary: _VisitSummary)
+    
     func addMapAsChildView(containerView: UIView)
+    
     func showVisitHistoryModule(route: Route)
+    func showVisitHistoryModule(visitSummaries: [_VisitSummary])
 }
 
 //MARK: - RouteDashboardView API
@@ -69,6 +73,14 @@ protocol RouteDashboardViewApi: class, UserInterfaceProtocol {
 
 //MARK: - RouteDashboardPresenter API
 protocol RouteDashboardPresenterApi: PresenterProtocol {
+    
+    // called by interactor
+    func didSaveStationEdits()
+    func didDeleteRoute()
+    func didFetchRouteInformation(information: RouteInformation)
+    func didFetchVisitInformation(information: VisitInformation)
+    
+    // called by view
     func didSelectClose()
     func didSelectCancel()
     func didSelectEditMenu()
@@ -91,19 +103,16 @@ protocol RouteDashboardPresenterApi: PresenterProtocol {
 
 //MARK: - RouteDashboardInteractor API
 protocol RouteDashboardInteractorApi: InteractorProtocol {
-    func lastVisitedText(route: Route) -> String?
-    func lastVisitSummary(route: Route) -> VisitSummary?
-    func timeDescription(route: Route) -> String
-    func numberOfVisits(route: Route) -> Int
-    func setRouteImage(route: Route, asset: PHAsset, completion: (() -> Swift.Void)?)
-    func addStationToRoute(route: Route, station: Station) -> Route
-    func removeStationFromRoute(route: Route, station: Station) -> Route
-    func deleteRoute(route: Route)
-    func getRouteName() -> String
-    func killCounts(frequency: TimeFrequency, period: TimeFrequency, route: Route) -> StackCount?
-    func poisonCounts(frequency: TimeFrequency, period: TimeFrequency, route: Route) -> StackCount?
-    func visitsExistForRoute(route: Route) -> Bool
-    func getStationSequence(_ from: Station, _ to:Station) -> [Station]?
-    //func firestoreSync(route: Route, completion: ((Error?) -> Void)?)
-    //func killCounts(monthOffset: Int, route: Route) -> [Species: Int]
+
+    func saveRoute(route: _Route)
+    func deleteRoute(routeId: String)
+    
+    func retrieveStations(completion: (([_Station]) -> Void)?)
+    func retrieveRouteInformation(route: _Route)
+    func retrieveVisitInformation(route: _Route)
+    
+    func getStationsDescription(stations: [_Station], includeStationCodes: Bool) -> String 
+    func setRouteImage(route: _Route, asset: PHAsset, completion: (() -> Swift.Void)?)
+    func updateStationsOnRoute(routeId: String, stationIds: [String])
+    func getStationSequence(fromStationId: String, toStationId: String, completion: (([_Station], Error?) -> Void)?)
 }

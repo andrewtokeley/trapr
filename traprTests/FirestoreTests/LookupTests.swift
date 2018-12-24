@@ -93,18 +93,14 @@ class LookupTests: XCTestCase {
                     self.trapTypeService.get(codes: [
                         TrapTypeCode.doc200.rawValue, TrapTypeCode.pellibait.rawValue]) { (trapTypes, error) in
                             
-                            if let trapTypes = trapTypes {
-                                XCTAssertTrue(trapTypes.count == 2)
-                                XCTAssertTrue(trapTypes.contains(where: { (trapType) -> Bool in
-                                    return trapType.id == TrapTypeCode.doc200.rawValue
-                                }))
-                                XCTAssertTrue(trapTypes.contains(where: { (trapType) -> Bool in
-                                    return trapType.id == TrapTypeCode.pellibait.rawValue
-                                }))
-                            } else {
-                                XCTFail()
-                            }
-                            
+                            XCTAssertTrue(trapTypes.count == 2)
+                            XCTAssertTrue(trapTypes.contains(where: { (trapType) -> Bool in
+                                return trapType.id == TrapTypeCode.doc200.rawValue
+                            }))
+                            XCTAssertTrue(trapTypes.contains(where: { (trapType) -> Bool in
+                                return trapType.id == TrapTypeCode.pellibait.rawValue
+                            }))
+                        
                             expect.fulfill()
                     }
                 })

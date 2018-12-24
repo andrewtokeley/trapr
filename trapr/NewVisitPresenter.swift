@@ -36,11 +36,11 @@ extension NewVisitPresenter: TraplineSelectDelegate {
 //    }
 //
     
-    func didUpdateRoute(route: Route) {
+    func didUpdateRoute(route: _Route) {
         // can ignore - may be getting rid of NewVisitModule
     }
     
-    func didCreateRoute(route: Route) {
+    func didCreateRoute(route: _Route) {
         delegate?.didSelectRoute(route: route)
         _view.dismiss(animated: true, completion: nil)
     }
@@ -60,8 +60,8 @@ extension NewVisitPresenter: NewVisitPresenterApi {
     func didSelectRecentRoute(route: Route) {
         
         //tell the delegate and close module
-        delegate?.didSelectRoute(route: route)
-        _view.dismiss(animated: true, completion: nil)
+//        delegate?.didSelectRoute(route: route)
+//        _view.dismiss(animated: true, completion: nil)
     }
     
     func didSelectOther() {
@@ -73,8 +73,8 @@ extension NewVisitPresenter: NewVisitPresenterApi {
     }
 
     func didSelectDeleteRoute(route: Route) {
-        ServiceFactory.sharedInstance.routeService.delete(route: route)
-        interactor.fetchRecentRoutes()
+//        ServiceFactory.sharedInstance.routeService.delete(route: route)
+//        interactor.fetchRecentRoutes()
     }
 }
 
@@ -92,6 +92,6 @@ private extension NewVisitPresenter {
 }
 
 protocol NewVisitDelegate {
-    func didSelectRoute(route: Route)
+    func didSelectRoute(route: _Route)
 }
 

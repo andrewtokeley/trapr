@@ -15,17 +15,17 @@ protocol StationSearchRouterApi: RouterProtocol {
 
 //MARK: - StationSearchView API
 protocol StationSearchViewApi: UserInterfaceProtocol {
-    func showNearbyStations(stations: [Station], distances: [String])
-    func showOtherStations(stations: [Station])
-    func showSearchResults(stations: [Station])
+    func showNearbyStations(stations: [_Station], distances: [String])
+    func showOtherStations(stations: [_Station])
+    func showSearchResults(stations: [_Station])
 }
 
 //MARK: - StationSearchPresenter API
 protocol StationSearchPresenterApi: PresenterProtocol {
-    func didSelectStation(station: Station)
+    func didSelectStation(station: _Station)
     func didEnterSearchTerm(searchTerm: String)
-    func didFetchNearbyStations(stations: [Station], distances: [String])
-    func didFetchStations(stations: [Station], fromSearch: Bool)
+    func didFetchNearbyStations(stations: [_Station], distances: [String])
+    func didFetchStations(stations: [_Station], fromSearch: Bool)
     func didSelectCancel()
     func didSelectAdd()
 }
@@ -33,5 +33,5 @@ protocol StationSearchPresenterApi: PresenterProtocol {
 //MARK: - StationSearchInteractor API
 protocol StationSearchInteractorApi: InteractorProtocol {
     func fetchNearbyStations(currentLocation: CLLocationCoordinate2D)
-    func fetchStations(searchTerm: String, region: Region?)
+    func fetchStations(searchTerm: String, regionId: String)
 }

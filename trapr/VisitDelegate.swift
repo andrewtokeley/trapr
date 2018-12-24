@@ -9,5 +9,5 @@
 import Foundation
 
 protocol VisitDelegate {
-    func didChangeVisit(visit: Visit?)
+    func didChangeVisit(visit: _Visit?)
 }

@@ -55,40 +55,44 @@ class _RouteTests: XCTestCase {
         
         let expect = expectation(description: "testAddingRouteStations")
         
-        print("0")
         self.setupTests {
-            print("1")
+            // Create LW01, LW02, LW03
             self.dataPupulatorService.createTrapline(code: "LW", numberOfStations: 3, numberOfTrapsPerStation: 1) { (traplineLW) in
                 
                 if let id = traplineLW?.id {
-                    print("2")
                     self.stationService.get(traplineId: id) { (stationsLW) in
                 
-                        print("3")
+                        // Create AA01, AA02, AA03, AA04
                         self.dataPupulatorService.createTrapline(code: "AA", numberOfStations: 4, numberOfTrapsPerStation: 1) { (traplineAA) in
                             
                             if let id = traplineAA?.id {
-                                print("4")
                                 self.stationService.get(traplineId: id, completion: { (stationsAA) in
                                     
                                     // Create a new Route with Stations in the order of LW01, LW02, AA01, LW03, AA03, AA04
                                     let newRoute = _Route(id: "ER", name: "East Ridge #1")
-                                    newRoute.stationIds = [stationsLW[0].id!, stationsLW[1].id!, stationsAA[0].id!, stationsLW[2].id!, stationsAA[2].id!, stationsAA[3].id!]
-                                    print("5")
                                     self.routeService.add(route: newRoute, completion: { (route, error) in
-                                        if let routeId = route?.id {
-                                            print("6")
-                                            self.routeService.get(routeId: routeId) { (route, error) in
+                                        
+                                        let stationIds = [stationsLW[0].id!, stationsLW[1].id!, stationsAA[0].id!, stationsLW[2].id!, stationsAA[2].id!, stationsAA[3].id!]
+                                        
+                                        // Add stations to Route
+                                        self.routeService.replaceStationsOn(routeId: route!.id!, stationIds: stationIds, completion: { (route, error) in
                                             
-                                                print("7")
-                                                XCTAssertNil(error)
-                                                XCTAssertTrue(route?.stationIds.count == 6)
-                                                expect.fulfill()
-                                            }
-                                        } else {
-                                            // route has no id
-                                            XCTFail()
-                                        }
+                                            // check route has stations
+                                            XCTAssertTrue(route?.stationIds.count == 6)
+                                            XCTAssertTrue(route?.stationIds.first == stationsLW[0].id)
+                                            XCTAssertTrue(route?.stationIds.last == stationsAA[3].id)
+                                            
+                                            // check each station refers to route
+                                            self.stationService.get(stationIds: stationIds, completion: { (stations, error) in
+                                                
+                                                for station in stations {
+                                                    XCTAssertNotNil(station.routeId)
+                                                    XCTAssertTrue(station.routeId == route?.id)
+                                                }
+                                            })
+                                            
+                                            expect.fulfill()
+                                        })
                                     })
 
                                 })

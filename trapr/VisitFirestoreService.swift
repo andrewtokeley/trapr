@@ -12,6 +12,12 @@ import FirebaseFirestore
 
 class VisitFirestoreService: FirestoreEntityService<_Visit>, VisitServiceInterface {
     
+    func get(id: String, completion: ((_Visit?, Error?) -> Void)?) {
+        super.get(id: id) { (visit, error) in
+            completion?(visit, error)
+        }
+    }
+    
     func add(visit: _Visit, completion: ((_Visit?, Error?) -> Void)?) {
         let _ = super.add(entity: visit) { (visit, error) in
             completion?(visit, error)
@@ -30,7 +36,7 @@ class VisitFirestoreService: FirestoreEntityService<_Visit>, VisitServiceInterfa
         }
     }
     
-    func delete(visitsOn routeId: String, completion: ((Error?) -> Void)?) {
+    func delete(routeId: String, completion: ((Error?) -> Void)?) {
         // get all visits on the route
         super.get(whereField: VisitFields.routeId.rawValue, isEqualTo: routeId) { (visits, error) in
             // delete them!
@@ -40,9 +46,14 @@ class VisitFirestoreService: FirestoreEntityService<_Visit>, VisitServiceInterfa
         }
     }
     
-    func delete(visitSummary: VisitSummary, completion: ((Error?) -> Void)?) {
-        // get all the visits in the VisitSummary
-        self.get(recordedOn: visitSummary.dateOfVisit, routeId: visitSummary.route.id) { (visits, error) in
+    func delete(visitSummary: _VisitSummary, completion: ((Error?) -> Void)?) {
+        self.delete(routeId: visitSummary.routeId!, date: visitSummary.dateOfVisit) { (error) in
+            completion?(error)
+        }
+    }
+    
+    func delete(routeId: String, date: Date, completion: ((Error?) -> Void)?) {
+        self.get(recordedOn: date, routeId: routeId) { (visits, error) in
             super.delete(entities: visits, completion: { (error) in
                 completion?(error)
             })
@@ -147,19 +158,25 @@ class VisitFirestoreService: FirestoreEntityService<_Visit>, VisitServiceInterfa
         }
     }
     
-    func get(recordedBetween dateStart: Date, dateEnd: Date, trapTypeId: String, completion: (([_Visit], Error?) -> Void)?) {
+    func get(recordedBetween dateStart: Date, dateEnd: Date, stationId: String, trapTypeId: String, completion: (([_Visit], Error?) -> Void)?) {
         
         let start = dateStart
         let end = dateEnd
         
         self.get(recordedBetween: start, dateEnd: end) { (visits, error) in
             
-            // further filter by routeId (Firestore can't do date range + other field filter)
+            // further filter by station and traptype (Firestore can't do date range + other field filter)
             let visitsFiltered = visits.filter({ (visit) -> Bool in
-                visit.trapTypeId == trapTypeId
+                visit.trapTypeId == trapTypeId && visit.stationId == stationId
             })
             completion?(visitsFiltered, error)
         }
+    }
+    
+    func getMostRecentVisit(routeId: String, completion: ((_Visit?) -> Void)?) {
+        super.get(whereField: VisitFields.routeId.rawValue, isEqualTo: routeId, orderByField: VisitFields.visitDate.rawValue, limit: 1, completion: { (visits, error) in
+            completion?(visits.first)
+        })
     }
     
 //    func getSummary(date: Date, routeId: String, completion: ((VisitSummary?, Error?) -> Void)?) {
@@ -177,12 +194,58 @@ class VisitFirestoreService: FirestoreEntityService<_Visit>, VisitServiceInterfa
         
     }
     
-    func killCounts(monthOffset: Int, route: Route, completion: (([Species : Int]) -> Void)?) {
+    func killCounts(monthOffset: Int, routeId: String, completion: (([String : Int]) -> Void)?) {
         
+//        var counts = [String: Int]()
+//
+//        let dayInMonth = Date().add(0, monthOffset, 0)
+//        let dayInNextMonth = dayInMonth.add(0, 1, 0)
+//
+//        if let startOfMonth = Date.dateFromComponents(1, dayInMonth.month, dayInMonth.year)?.dayStart(), let endOfMonth = Date.dateFromComponents(1, dayInNextMonth.month, dayInNextMonth.year)?.dayStart() {
+//            print ("from \(startOfMonth) to \(endOfMonth)")
+//
+//            self.get(recordedBetween: startOfMonth, dateEnd: endOfMonth, routeId: routeId) { (visits, error) in
+//                for visit in visits {
+//                    if let speciesId = visit.speciesId {
+//                        if let _ = counts[speciesId] {
+//                            counts[speciesId]! += 1
+//                        } else {
+//                            counts[speciesId] = 1
+//                        }
+//                    }
+//                }
+//                completion?(counts)
+//            }
+//        } else {
+//            completion?([String: Int]())
+//        }
+        completion?([String: Int]())
     }
     
-    func poisonCount(monthOffset: Int, route: Route, completion: ((Int) -> Void)?) {
+    func poisonCount(monthOffset: Int, routeId: String, completion: ((Int) -> Void)?) {
         
+//        var count: Int = 0
+//
+//        let dayInMonth = Date().add(0, monthOffset, 0)
+//        let dayInNextMonth = dayInMonth.add(0, 1, 0)
+//
+//        if let startOfMonth = Date.dateFromComponents(1, dayInMonth.month, dayInMonth.year)?.dayStart(), let endOfMonth = Date.dateFromComponents(1, dayInNextMonth.month, dayInNextMonth.year)?.dayStart().add(-1,0, 0) {
+//
+//            self.get(recordedBetween: startOfMonth, dateEnd: endOfMonth, routeId: routeId) { (visits, error) in
+//
+//                for visit in visits {
+//
+//                    if visit.trap?.type?.killMethod == .poison {
+//                        count += visit.baitAdded
+//                    }
+//                }
+//
+//                completion?(count)
+//            }
+//        } else {
+//            completion?(0)
+//        }
+    completion?(0)
     }
     
     func updateDate(visitId: String, date: Date, completion: ((Error?) -> Void)?) {

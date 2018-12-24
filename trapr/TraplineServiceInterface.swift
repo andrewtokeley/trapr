@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import FirebaseFirestore
 
 protocol TraplineServiceInterface {
     
@@ -16,7 +17,10 @@ protocol TraplineServiceInterface {
     func addTrap(station: _Station, trap: _TrapType, completion: ((Error?) -> Void)?)
     func delete(trapline: _Trapline, completion: ((Error?) -> Void)?)
     func deleteAll(completion: ((Error?) -> Void)?)
+    func get(stations: [_Station], completion: (([_Trapline], Error?) -> Void)?)
+    func get(traplineId: String, completion: ((_Trapline?, Error?) -> Void)?)
     func get(completion: (([_Trapline]) -> Void)?)
+    func get(source: FirestoreSource, completion: (([_Trapline]) -> Void)?)
     func get(regionId: String, completion: (([_Trapline]) -> Void)?)
     //func get(traplineCode: String, completion: ((_Trapline?) -> Void)?)
     func get(regionId: String, traplineCode: String, completion: ((_Trapline?) -> Void)?)

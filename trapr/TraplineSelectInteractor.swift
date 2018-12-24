@@ -11,22 +11,27 @@ import Viperit
 
 // MARK: - TraplineSelectInteractor Class
 final class TraplineSelectInteractor: Interactor {
+    let traplineService = ServiceFactory.sharedInstance.traplineFirestoreService
+    let routeService = ServiceFactory.sharedInstance.routeFirestoreService
 }
 
 // MARK: - TraplineSelectInteractor API
 extension TraplineSelectInteractor: TraplineSelectInteractorApi {
     
-    func getAllTraplines() -> [Trapline]? {
-        return ServiceFactory.sharedInstance.traplineService.getTraplines()
+    func getAllTraplines(completion: (([_Trapline]) -> Void)?) {
+        traplineService.get { (traplines) in
+            completion?(traplines)
+        }
     }
     
-    func addRoute(route: Route) {
-        ServiceFactory.sharedInstance.routeService.add(route: route)
+    func addRoute(route: _Route) {
+        routeService.add(route: route, completion: nil)
     }
     
-    func updateStations(route: Route, stations: [Station]) {
-        ServiceFactory.sharedInstance.routeService.updateStations(route: route, stations: stations)
+    func updateStations(routeId: String, stationIds: [String]) {
+        routeService.updateStations(routeId: routeId, stationIds: stationIds, completion: nil)
     }
+    
 }
 
 // MARK: - Interactor Viper Components Api

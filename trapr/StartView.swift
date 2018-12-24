@@ -11,11 +11,11 @@ import Viperit
 import PureLayout
 
 class RouteViewModel {
-    var route: Route
+    var route: _Route
     var lastVisitedText: String = ""
     var visitSync: Bool = true
     
-    init(route: Route) {
+    init(route: _Route) {
         self.route = route
     }
 }
@@ -37,7 +37,7 @@ final class StartView: UserInterface { //, UICollectionViewDelegate, UICollectio
     let TABLEVIEW_SECTION_HEADING_SIZE_MAX_SIZE_INCREASE: CGFloat = 5
     
     fileprivate var routeViewModels: [RouteViewModel]?
-    fileprivate var visitSummaries: [VisitSummary]?
+    fileprivate var visitSummaries: [_VisitSummary]?
     fileprivate var routeMenuOptions: [String]?
     
     //MARK: - SubViews
@@ -329,11 +329,11 @@ extension StartView: UITableViewDelegate, UITableViewDataSource {
             
             cell.routeNameButton.setTitle(vm.route.name, for: .normal)
             
-            if let imageUrl = vm.route.dashboardImage?.imageUrl {
-                cell.routeImageView.downloadedFrom(url: imageUrl, contentMode: .scaleAspectFill)
-            } else {
+//            if let imageUrl = vm.route.dashboardImage?.imageUrl {
+//                cell.routeImageView.downloadedFrom(url: imageUrl, contentMode: .scaleAspectFill)
+//            } else {
                 cell.routeImageView.image = indexPath.row % 2 == 0 ? UIImage(named: "RouteImage1") : UIImage(named: "RouteImage2")
-            }
+//            }
             
             let lastVisitedText = NSMutableAttributedString(string: vm.lastVisitedText)
             lastVisitedText.addAttributes([.foregroundColor: UIColor.trpButtonEnabled], range: NSMakeRange(0, lastVisitedText.length - 1))
@@ -373,7 +373,7 @@ extension StartView: UITableViewDelegate, UITableViewDataSource {
 // MARK: - RouteTableViewCellDelegate
 extension StartView: RouteTableViewCellDelegate {
     
-    private func getRouteFromCell(cell: RouteTableViewCell) -> Route? {
+    private func getRouteFromCell(cell: RouteTableViewCell) -> _Route? {
         if let indexPath = self.routesTableView.indexPath(for: cell) {
             if let vm = self.routeViewModels?[indexPath.row] {
                 return vm.route
@@ -384,7 +384,7 @@ extension StartView: RouteTableViewCellDelegate {
     
     func didClickVisit(_ sender: RouteTableViewCell) {
         if let route = getRouteFromCell(cell: sender) {
-            presenter.didSelectNewVisit(route: route)
+            presenter.didSelectNewVisit(routeId: route.id!)
         }
     }
     
@@ -397,7 +397,7 @@ extension StartView: RouteTableViewCellDelegate {
     func didClickLastVisited(_ sender: RouteTableViewCell) {
         
         if let route = getRouteFromCell(cell: sender) {
-            presenter.didSelectLastVisited(route: route)
+            presenter.didSelectLastVisited(routeId: route.id!)
         }
     }
     
@@ -444,7 +444,7 @@ extension StartView: StartViewApi {
         routesTableView.reloadData()
     }
 
-    func displayRecentVisits(visits: [VisitSummary]?) {
+    func displayRecentVisits(visits: [_VisitSummary]?) {
         visitSummaries = visits
     }
     

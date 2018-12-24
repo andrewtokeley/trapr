@@ -14,10 +14,10 @@ protocol RouteServiceInterface {
     func add(route: _Route, completion: ((_Route?, Error?) -> Void)?)
     func delete(routeId: String, completion: ((Error?) -> Void)?)
     func delete(completion: ((Error?) -> Void)?)
-    func insertStationToRoute(routeId: String, stationId: String, at index: Int, completion: ((Error?) -> Void)?)
-    func addStationToRoute(routeId: String, stationId: String, completion: ((Error?) -> Void)?)
-    func removeStationFromRoute(routeId: String, stationId: String, completion: ((Error?) -> Void)?)
-    func updateStations(routeId: String, stationIds: [String], completion: ((Error?) -> Void)?)
+    func insertStationToRoute(routeId: String, stationId: String, at index: Int, completion: ((_Route?, Error?) -> Void)?)
+    func addStationToRoute(routeId: String, stationId: String, completion: ((_Route?, Error?) -> Void)?)
+    func removeStationFromRoute(routeId: String, stationId: String, completion: ((_Route?, Error?) -> Void)?)
+    func updateStations(routeId: String, stationIds: [String], completion: ((_Route?, Error?) -> Void)?)
     func replaceStationsOn(routeId: String, stationIds: [String], completion: ((_Route?, Error?) -> Void)?)
     func reorderStations(routeId: String, stationOrder: [String: Int], completion: ((_Route?, Error?) -> Void)?)
     func updateHiddenFlag(routeId: String, isHidden: Bool, completion: ((Error?) -> Void)?)
@@ -25,6 +25,10 @@ protocol RouteServiceInterface {
     func get(includeHidden: Bool, completion: (([_Route], Error?) -> Void)?)
     func get(completion: (([_Route], Error?) -> Void)?)
     func get(routeId: String, completion: ((_Route?, Error?) -> Void)?)
+    
+    func daysSinceLastVisit(routeId: String, completion: ((Int?) -> Void)?)
+    func daysSinceLastVisitDescription(routeId: String, completion: ((String) -> Void)?)
+    
     ///should be in Visit service
     //func getMostRecentVisit(route: Route) -> Visit?
     

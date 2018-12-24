@@ -9,6 +9,43 @@
 import Foundation
 import RealmSwift
 
+extension Station: LocatableEntity {
+    
+    /**
+     Always available id for location entity
+     */
+    var locationId: String {
+        return id
+    }
+    
+    var latitude: Double? {
+        get {
+            return traps.first?.latitude
+        }
+        set {
+            // do nothing - just to get this to confirm to LocatableEntity
+        }
+    }
+    
+    var longitude: Double? {
+        get {
+            return traps.first?.longitude
+        }
+        set {
+            // do nothing - just to get this to confirm to LocatableEntity
+        }
+    }
+    
+    var title: String {
+        return self.code ?? "-"
+    }
+    
+    var subTitle: String {
+        return self.longCode
+    }
+    
+}
+
 class Station: Object {
     
     /**
@@ -44,13 +81,7 @@ class Station: Object {
         return trapline?.code!.appending(self.code!) ?? id
     }
     
-    var latitude: Double {
-        return traps.first?.latitude ?? 0
-    }
-
-    var longitude: Double {
-        return traps.first?.longitude ?? 0
-    }
+    
 
     /**
      Typically only used for debugging purposes to return the station's longCode

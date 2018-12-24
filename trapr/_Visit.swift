@@ -24,6 +24,7 @@ enum VisitFields: String {
     case trapSetStatusId = "trapSetStatus"
     case trapOperatingStatusId = "trapOperatingStatus"
     case notes = "notes"
+    case userId = "user"
 }
 
 class _Visit: DocumentSerializable {
@@ -54,6 +55,8 @@ class _Visit: DocumentSerializable {
     var trapSetStatus: TrapSetStatus {
         return TrapSetStatus(rawValue: trapSetStatusId) ?? .stillSet
     }
+    
+    var userId: String
     
     // optionals
     var lureId: String?
@@ -91,6 +94,7 @@ class _Visit: DocumentSerializable {
         result[VisitFields.traplineId.rawValue] = traplineId
         result[VisitFields.trapSetStatusId.rawValue] = trapSetStatusId
         result[VisitFields.trapOperatingStatusId.rawValue] = trapOperatingStatusId
+        result[VisitFields.userId.rawValue] = userId
         
         // these fields might be defined
         if let _ = notes { result[VisitFields.notes.rawValue] = notes }
@@ -109,6 +113,14 @@ class _Visit: DocumentSerializable {
         self.stationId = stationId
         self.trapTypeId = trapTypeId
         
+        if let userId = ServiceFactory.sharedInstance.userService.currentUser?.id {
+            self.userId = userId
+        } else {
+            // unauthenticated users shouldn't be abe to get here
+            self.userId = "anon"
+        }
+        
+        //self.userId =
         // TODO - see if we can avoid needing this for a new Visit
         //self.lure = trap.type?.defaultLure
     }
@@ -126,6 +138,10 @@ class _Visit: DocumentSerializable {
             return nil
         }
         
+        // userId is mandatory but some old records won't have it set
+        let userId = dictionary[VisitFields.userId.rawValue] as? String ?? "anon"
+        self.userId = userId
+
         // set mandatory fields
         self.visitDateTime = visitDate.dateValue()
         self.trapTypeId = trapTypeId

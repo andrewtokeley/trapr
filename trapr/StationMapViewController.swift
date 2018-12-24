@@ -196,11 +196,11 @@ class StationMapViewController: UIViewController {
 //        }
 //    }
     
-    func setVisibleRegionToStation(station: Station, distance: Double) {
+    func setVisibleRegionToStation(station: LocatableEntity, distance: Double) {
         
         // get annotation for this station
-        if let annotation = self.stationMapAnnotations.filter({ $0.station == station }).first {
-            print("zoom to \(annotation.station.longCode)")
+        if let annotation = self.stationMapAnnotations.filter({ $0.station.locationId == station.locationId }).first {
+            print("zoom to \(annotation.station.locationId)")
             let region = MKCoordinateRegionMakeWithDistance(annotation.coordinate, distance, distance)
             map.setRegion(region, animated: false)
         }

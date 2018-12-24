@@ -36,8 +36,8 @@ final class RoutePresenter: Presenter {
     }()
     
     fileprivate var isNew: Bool {
-        if let _ = self.setupData {
-            return self.setupData!.route == nil
+        if let setupData = self.setupData {
+            return setupData.route == nil
         }
         return true
     }
@@ -45,9 +45,9 @@ final class RoutePresenter: Presenter {
     fileprivate var groupedData: GroupedTableViewDatasource<Station>? {
         
         // construct the grouped data from the route stations
-        if let _ = currentRoute {
+        if let currentRoute = self.currentRoute {
             
-            let stations = Array(currentRoute!.stations)
+            let stations = Array(currentRoute.stations)
             
             let groupedData = GroupedTableViewDatasource<Station>(data: stations, selected: [Bool](repeatElement(false, count: stations.count)), sectionName: { (station) in return station.trapline!.code!}, cellLabelText: { (station) in return station.longCode})
             
@@ -70,8 +70,9 @@ final class RoutePresenter: Presenter {
     // MARK: - Presenter overrides
     override func setupView(data: Any) {
         if let setupData = data as? RouteSetupData {
+            
             self.setupData = setupData
-         
+            
             // we take a copy of the route instance to allow properties to be updated before saving, otherwise everything has to be wrapped in realm.write {}
             if let route = setupData.route {
                 self.currentRoute = Route(value: route)

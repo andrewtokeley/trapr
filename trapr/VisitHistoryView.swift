@@ -11,7 +11,7 @@ import Viperit
 
 //MARK: VisitHistoryView Class
 final class VisitHistoryView: UserInterface {
-    fileprivate var visitSummaries = [VisitSummary]()
+    fileprivate var visitSummaries = [_VisitSummary]()
     fileprivate let CELL_REUSE_ID = "cell"
     fileprivate var selectedRow: IndexPath?
     
@@ -159,7 +159,8 @@ extension VisitHistoryView: UITableViewDelegate, UITableViewDataSource {
 
 //MARK: - VisitHistoryView API
 extension VisitHistoryView: VisitHistoryViewApi {
-    func displayVisitSummaries(visitSummaries: [VisitSummary], fullReload: Bool) {
+    
+    func displayVisitSummaries(visitSummaries: [_VisitSummary], fullReload: Bool) {
         self.visitSummaries = visitSummaries
         if fullReload {
             self.tableView.reloadData()

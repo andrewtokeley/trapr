@@ -11,12 +11,12 @@ import Photos
 
 //MARK: - StartRouter API
 protocol StartRouterApi: RouterProtocol {
-    func showMap(route: Route)
-    func showVisitModule(visitSummary: VisitSummary)
+    func showMap(route: _Route)
+    func showVisitModule(visitSummary: _VisitSummary)
     func showNewVisitModule(delegate: NewVisitDelegate)
-    func showRouteModule(route: Route?)
+    func showRouteModule(route: _Route?)
     func showNewRouteModule()
-    func showRouteDashboardModule(route: Route?)
+    func showRouteDashboardModule(route: _Route?)
     func showSideMenu()
     func showProfile()
     func showLoadingScreen(delegate: LoaderDelegate)
@@ -28,7 +28,7 @@ protocol StartViewApi: UserInterfaceProtocol {
     func hideLoadingScreen()
     func displayRoutes(routeViewModels: [RouteViewModel]?)
     //func updateImageForRoute(route: Route, imageUrl: Url)
-    func displayRecentVisits(visits: [VisitSummary]?)
+    func displayRecentVisits(visits: [_VisitSummary]?)
     func askForNewVisitDate(completion: (Date) -> Void)
     func setRouteMenu(options: [String])
     func setTitle(title: String, routesSectionTitle: String, routeSectionActionText: String, recentVisitsSectionTitle: String, recentVisitsSectionActionText: String)
@@ -38,24 +38,26 @@ protocol StartViewApi: UserInterfaceProtocol {
 //MARK: - StartPresenter API
 protocol StartPresenterApi: PresenterProtocol {
     func didSelectEditMenu()
-    func didSelectLastVisited(route: Route)
+    func didSelectLastVisited(routeId: String)
     func didSelectMenu()
-    func didSelectRouteMenu(routeIndex: Int)
+    //func didSelectRouteMenu(routeIndex: Int)
     func didSelectRouteMenuItem(routeIndex: Int, menuItemIndex: Int)
-    func didSelectNewVisit(route: Route)
+    func didSelectNewVisit(routeId: String)
     func didSelectNewRoute()
-    func didSelectVisitSummary(visitSummary: VisitSummary)
-    func didSelectRoute(route: Route)
-    func didSelectRouteImage(route: Route)
-    func setRecentVisits(visits: [VisitSummary]?)
-    func setRoutes(routes: [Route]?)
+    func didSelectVisitSummary(visitSummary: _VisitSummary)
+    func didSelectRoute(route: _Route)
+    func didSelectRouteImage(route: _Route)
+    func setRecentVisits(visits: [_VisitSummary]?)
+    func setRoutes(routes: [_Route]?, lastVisitDescriptions: [String])
 }
 
 //MARK: - StartInteractor API
 protocol StartInteractorApi: InteractorProtocol {
     func initialiseHomeModule()
+    func getNewVisitSummary(date: Date, routeId: String, completion: ((_VisitSummary?) -> Void)?)
+    func getMostRecentVisitSummary(routeId: String, completion: ((_VisitSummary?) -> Void)?)
     //func setRouteImage(route: Route, asset: PHAsset, completion: (() -> Swift.Void)?)
-    func deleteRoute(route: Route)
-    func getLastVisitedDateDescription(route: Route) -> String
+    func deleteRoute(routeId: String)
+    func getLastVisitedDateDescription(routeId: String, completion: ((String) -> Void)?)
     
 }

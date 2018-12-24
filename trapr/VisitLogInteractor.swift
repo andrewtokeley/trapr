@@ -12,6 +12,10 @@ import Viperit
 // MARK: - VisitLogInteractor Class
 final class VisitLogInteractor: Interactor {
     let visitService = ServiceFactory.sharedInstance.visitFirestoreService
+    let speciesService = ServiceFactory.sharedInstance.speciesFirestoreService
+    let lureService = ServiceFactory.sharedInstance.lureFirestoreService
+    let trapTypeService = ServiceFactory.sharedInstance.trapTypeFirestoreService
+    let stationService = ServiceFactory.sharedInstance.stationFirestoreService
 }
 
 // MARK: - VisitLogInteractor API
@@ -21,29 +25,32 @@ extension VisitLogInteractor: VisitLogInteractorApi {
 //        ServiceFactory.sharedInstance.visitService.delete(visit: visit)
 //    }
     
-    func retrieveSpeciesList(callback: ([Species]) -> Void) {
-        
-        let service = ServiceFactory.sharedInstance.speciesService
-        let species = service.getAll()
-        callback(species)
-    }
-    
-    func retrieveLuresList(callback: ([Lure]) -> Void) {
-        
-        let service = ServiceFactory.sharedInstance.lureService
-        let species = service.getAll()
-        callback(species)
-    }
-    
-    func saveVisit(visit: Visit) -> Visit {
-
-        // TEMP
-        if let visitFS = ModelConverter.Visit(visit) {
-            visitService.add(visit: visitFS, completion: nil)
+    func getLureBalance(stationId: String, trapTypeId: String, asAtDate: Date, completion: ((Int) -> Void)?) {
+        stationService.getLureBalance(stationId: stationId, trapTypeId: trapTypeId, asAtDate: asAtDate) { (balance) in
+            completion?(balance)
         }
-        
-        let service = ServiceFactory.sharedInstance.visitService
-        return service.save(visit: visit)
+    }
+    
+    func retrieveTrapTypes(completion: (([_TrapType]) -> Void)? ) {
+        trapTypeService.get { (trapTypes, error) in
+            completion?(trapTypes)
+        }
+    }
+    
+    func retrieveSpeciesList(completion: (([_Species]) -> Void)?) {
+        speciesService.get { (species, error) in
+            completion?(species)
+        }
+    }
+    
+    func retrieveLuresList(completion: (([_Lure]) -> Void)?) {
+        lureService.get { (lures, error) in
+            completion?(lures)
+        }
+    }
+    
+    func saveVisit(visit: _Visit) {
+        visitService.add(visit: visit, completion: nil)
     }
 }
 

@@ -17,7 +17,7 @@ protocol VisitLogRouterApi: RouterProtocol {
 
 //MARK: - VisitLogView API
 protocol VisitLogViewApi: UserInterfaceProtocol {
-    func displayVisit(visit: Visit, showCatchSection: Bool)
+    func displayVisit(visit: _Visit, showCatchSection: Bool)
     func displayDateTime(date: Date)
     func displaySpecies(name: String)
     func displayNoVisitState()
@@ -43,8 +43,9 @@ protocol VisitLogPresenterApi: PresenterProtocol {
 
 //MARK: - VisitLogInteractor API
 protocol VisitLogInteractorApi: InteractorProtocol {
-    func retrieveSpeciesList(callback: ([Species]) -> Swift.Void )
-    func retrieveLuresList(callback: ([Lure]) -> Swift.Void )
-    func saveVisit(visit: Visit) -> Visit
-    //func deleteVisit(visit: Visit)
+    func retrieveTrapTypes(completion: (([_TrapType]) -> Void)? )
+    func retrieveSpeciesList(completion: (([_Species]) -> Void)? )
+    func retrieveLuresList(completion: (([_Lure]) -> Void)? )
+    func saveVisit(visit: _Visit)
+    func getLureBalance(stationId: String, trapTypeId: String, asAtDate: Date, completion: ((Int) -> Void)?)
 }

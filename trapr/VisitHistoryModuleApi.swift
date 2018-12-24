@@ -10,23 +10,23 @@ import Viperit
 
 //MARK: - VisitHistoryRouter API
 protocol VisitHistoryRouterApi: RouterProtocol {
-    func showVisitModule(visitSummary: VisitSummary)
+    func showVisitModule(visitSummary: _VisitSummary)
 }
 
 //MARK: - VisitHistoryView API
 protocol VisitHistoryViewApi: UserInterfaceProtocol {
-    func displayVisitSummaries(visitSummaries: [VisitSummary], fullReload: Bool)
+    func displayVisitSummaries(visitSummaries: [_VisitSummary], fullReload: Bool)
     
 }
 
 //MARK: - VisitHistoryPresenter API
 protocol VisitHistoryPresenterApi: PresenterProtocol {
-    func didSelectVisitSummary(visitSummary: VisitSummary)
-    func didSelectDeleteVisitSummary(visitSummary: VisitSummary)
+    func didSelectVisitSummary(visitSummary: _VisitSummary)
+    func didSelectDeleteVisitSummary(visitSummary: _VisitSummary)
 }
 
 //MARK: - VisitHistoryInteractor API
 protocol VisitHistoryInteractorApi: InteractorProtocol {
-    func getVisitSummariesForRoute(route: Route) -> [VisitSummary]
-    func deleteVisitSummary(visitSummary: VisitSummary)
+    func getVisitSummariesForRoute(routeId: String, completion: (([_VisitSummary], Error?) -> Void)?)
+    func deleteVisitSummary(visitSummary: _VisitSummary)
 }

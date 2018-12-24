@@ -10,5 +10,5 @@ import Foundation
 
 class StationSearchSetupData {
     var delegate: StationSearchDelegate?
-    var region: Region?
+    var region: _Region?
 }

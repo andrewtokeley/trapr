@@ -172,15 +172,17 @@ class VisitService: RealmService, VisitServiceInterface {
         return summaries
     }
     
+    // Not sure if we need this!
     func getStatistics(visitSummaries: [VisitSummary]) -> VisitSummariesStatistics? {
     
-        // ignore times that are outliers, under 2 mins. These are clearly not manual times.
-        let orderedSummaries = visitSummaries.filter({ $0.timeTaken > 120 }).sorted(by: { $0.timeTaken < $1.timeTaken }, stable: true)
-        let totalTimeTaken = visitSummaries.reduce(0, { $0 + $1.timeTaken })
-        let averageTimeTaken = totalTimeTaken/Double(orderedSummaries.count)
-        if let fastestTime = orderedSummaries.first?.timeTaken {
-            return VisitSummariesStatistics(averageTimeTaken: averageTimeTaken, fastestTimeTaken: fastestTime)
-        }
+//        // ignore times that are outliers, under 2 mins. These are clearly not manual times.
+//        let orderedSummaries = visitSummaries.filter({ $0.timeTaken > 120 }).sorted(by: { $0.timeTaken < $1.timeTaken }, stable: true)
+//        let totalTimeTaken = visitSummaries.reduce(0, { $0 + $1.timeTaken })
+//        let averageTimeTaken = totalTimeTaken/Double(orderedSummaries.count)
+//        if let fastestTime = orderedSummaries.first?.timeTaken {
+//            // TODO
+//            return VisitSummariesStatistics()
+//        }
         
         return nil
     }
@@ -259,10 +261,11 @@ class VisitService: RealmService, VisitServiceInterface {
     
     // not implemented for Realm
     func add(visit: _Visit, completion: ((_Visit?, Error?) -> Void)?) {}
+    func delete(routeId: String, date: Date, completion: ((Error?) -> Void)?) {}
     func delete(visit: _Visit, completion: ((Error?) -> Void)?) {}
     func deleteAll(completion: ((Error?) -> Void)?) {}
-    func delete(visitsOn routeId: String, completion: ((Error?) -> Void)?) {}
-    func delete(visitSummary: VisitSummary, completion: ((Error?) -> Void)?) {}
+    func delete(routeId: String, completion: ((Error?) -> Void)?) {}
+    func delete(visitSummary: _VisitSummary, completion: ((Error?) -> Void)?) {}
     func save(visit: _Visit, completion: ((_Visit?, Error?) -> Void)?) {}
     func get(id: String, completion: ((_Visit?, Error?) -> Void)?) {}
     func hasVisits(stationId: String, trapTypeId: String, completion: ((Bool, Error?) -> Void)?) {}
@@ -273,15 +276,16 @@ class VisitService: RealmService, VisitServiceInterface {
     func get(recordedBetween dateStart: Date, dateEnd: Date, completion: (([_Visit], Error?) -> Void)?) {}
     func get(recordedBetween dateStart: Date, dateEnd: Date, routeId: String, completion: (([_Visit], Error?) -> Void)?) {}
     func get(recordedBetween dateStart: Date, dateEnd: Date, routeId: String, trapTypeId: String, completion: (([_Visit], Error?) -> Void)?) {}
-    func get(recordedBetween dateStart: Date, dateEnd: Date, trapTypeId: String, completion: (([_Visit], Error?) -> Void)?) {}
+    func get(recordedBetween dateStart: Date, dateEnd: Date, stationId: String, trapTypeId: String, completion: (([_Visit], Error?) -> Void)?) {}
+    func getMostRecentVisit(routeId: String, completion: ((_Visit?) -> Void)?) {}
 //    func getSummary(date: Date, routeId: String, completion: ((VisitSummary?, Error?) -> Void)?) {}
 //    func getSummaries(recordedBetween startDate: Date, endDate: Date, includeHidden: Bool, completion: (([VisitSummary], Error?) -> Void)?) {}
 //    func getSummaries(recordedBetween startDate: Date, endDate: Date, routeId: String, completion: (([VisitSummary], Error?) -> Void)?) {}
 //    func getStatistics(visitSummaries: [VisitSummary], completion: ((VisitSummariesStatistics?, Error?) -> Void)?) {}
 //    func getSummaryMostRecent(routeId: String, completion: ((VisitSummary?, Error?) -> Void)?) {}
     func visitsExistForRoute(routeId: String, completion: ((Bool, Error?) -> Void)?) {}
-    func killCounts(monthOffset: Int, route: Route, completion: (([Species : Int]) -> Void)?) {}
-    func poisonCount(monthOffset: Int, route: Route, completion: ((Int) -> Void)?) {}
+    func killCounts(monthOffset: Int, routeId: String, completion: (([String : Int]) -> Void)?) {}
+    func poisonCount(monthOffset: Int, routeId: String, completion: ((Int) -> Void)?) {}
     func updateDate(visitId: String, date: Date, completion: ((Error?) -> Void)?) {}
     
 }

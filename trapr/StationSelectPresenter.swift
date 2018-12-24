@@ -18,15 +18,15 @@ enum ModuleMode {
 // MARK: - StationSelectPresenter Class
 final class StationSelectPresenter: Presenter {
     
-    fileprivate var traplines = [Trapline]()
-    fileprivate var stations = [Station]()
-    fileprivate var selectedStations = [Station]()
+    fileprivate var traplines = [_Trapline]()
+    fileprivate var stations = [_Station]()
+    fileprivate var selectedStationIds = [String]()
     fileprivate var allowMultiselect: Bool = false
     fileprivate var stationSelectDelegate: StationSelectDelegate?
     
     fileprivate var sortingEnabled = false
     
-    fileprivate var groupedData: GroupedTableViewDatasource<Station>!
+    fileprivate var groupedData: GroupedTableViewDatasource<_Station>!
     
     fileprivate var toggleState: [MultiselectOptions] {
         
@@ -73,24 +73,24 @@ final class StationSelectPresenter: Presenter {
     
     fileprivate func showStations(selectedOnly: Bool) {
         
-        let selectedStations = self.groupedData.dataItems(selectedOnly: true)
+        let selectedStationIds = self.groupedData.dataItems(selectedOnly: true).map({ $0.id! })
         
         // show all the stations or just the ones selected inside the groupdData instance
-        let stationsToShow = selectedOnly ? self.groupedData.dataItems(selectedOnly: true) : self.stations
+        let stationsToShow: [_Station] = selectedOnly ? self.groupedData.dataItems(selectedOnly: true) : self.stations
         
         // get a bool array for those selected
-        let selected = stationsToShow.map({ (station) in return selectedStations.contains(where: { (selected) in return selected.longCode == station.longCode }) })
+        let selected = stationsToShow.map({ (station) in return selectedStationIds.contains(where: { (selectedId) in return selectedId == station.id! }) })
         
-        // recreate the groupedData structure
-        self.groupedData = GroupedTableViewDatasource<Station>(data: stationsToShow, selected: selected, sectionName: {
+        self.groupedData = GroupedTableViewDatasource<_Station>(data: stationsToShow, selected: selected, sectionName: {
             (station) in
-            return station.trapline!.code!
+            return station.traplineId!
         }, cellLabelText: {
             (station) in
-            return station.code!
+            return station.codeFormated
         })
         
-        view.initialiseView(groupedData: self.groupedData, traplines: self.traplines, stations: self.stations, selectedStations: self.selectedStations, allowMultiselect: self.allowMultiselect)
+        
+        view.initialiseView(groupedData: self.groupedData, traplines: self.traplines, stations: self.stations, selectedStationIds: self.selectedStationIds, allowMultiselect: self.allowMultiselect)
     }
     
     override func setupView(data: Any) {
@@ -99,34 +99,28 @@ final class StationSelectPresenter: Presenter {
             self.traplines = setup.traplines
             self.stations = setup.stations
             self.allowMultiselect = setup.allowMultiselect
-            self.selectedStations = setup.selectedStations ?? [Station]()
+            self.selectedStationIds = setup.selectedStationIds ?? [String]()
             self.stationSelectDelegate = setup.stationSelectDelegate
             
             // initialize GroupedData
-            let selected = self.stations.map({ (station) in return self.selectedStations.contains(where: { (selected) in return selected.longCode == station.longCode }) })
-            
-            self.groupedData = GroupedTableViewDatasource<Station>(data: self.stations, selected: selected, sectionName: {
+            let selected = self.stations.map({ (station) in
+                self.selectedStationIds.contains(where: { (selectedId) -> Bool in
+                    selectedId == station.id
+                })
+            })
+
+            self.groupedData = GroupedTableViewDatasource<_Station>(data: self.stations, selected: selected, sectionName: {
                 (station) in
-                return station.trapline!.code!
+                return station.traplineId!
             }, cellLabelText: {
                 (station) in
-                return station.code!
+                return station.codeFormated
             })
-            
-//            if self.allowMultiselect {
-//
-//                // default to all stations being selected
-//                self.toggleState = Array(repeating: MultiselectToggle.selectNone, count: setup.traplines.count)
-//            } else {
-//
-//                // Hide toggle button if single select
-//                self.toggleState = Array(repeating: MultiselectToggle.none, count: setup.traplines.count)
-//            }
         }
     }
     
     fileprivate func updateNavigationItemState() {
-        view.setDoneButtonAttributes(visible: self.allowMultiselect, enabled: self.selectedStations.count > 0)
+        view.setDoneButtonAttributes(visible: self.allowMultiselect, enabled: self.selectedStationIds.count > 0)
     }
 }
 

@@ -10,8 +10,8 @@ import Viperit
 
 //MARK: - TraplineSelectRouter API
 protocol TraplineSelectRouterApi: RouterProtocol {
-    func showStationSelect(traplines: [Trapline])
-    func showStationSelect(traplines: [Trapline], selectedStations: [Station])
+    func showStationSelect(traplines: [_Trapline])
+    func showStationSelect(traplines: [_Trapline], selectedStations: [_Station])
 }
 
 //MARK: - TraplineSelectView API
@@ -21,7 +21,7 @@ protocol TraplineSelectViewApi: UserInterfaceProtocol {
     func setRouteName(name: String?)
     func setRouteNamePlaceholderText(text: String)
     func setSelectedTraplinesDescription(description: String)
-    func updateDisplay(traplines: [Trapline], selected: [Trapline]?)
+    func updateDisplay(traplines: [_Trapline], selected: [_Trapline]?)
     func setNextButtonState(enabled: Bool)
     func showCloseButton(show: Bool)
     
@@ -30,8 +30,8 @@ protocol TraplineSelectViewApi: UserInterfaceProtocol {
 //MARK: - TraplineSelectPresenter API
 protocol TraplineSelectPresenterApi: PresenterProtocol {
     func didChangeRouteName(name: String?)
-    func didSelectTrapline(trapline: Trapline)
-    func didDeselectTrapline(trapline: Trapline)
+    func didSelectTrapline(trapline: _Trapline)
+    func didDeselectTrapline(trapline: _Trapline)
     func didSelectNext()
     func didSelectClose()
 
@@ -39,7 +39,7 @@ protocol TraplineSelectPresenterApi: PresenterProtocol {
 
 //MARK: - TraplineSelectInteractor API
 protocol TraplineSelectInteractorApi: InteractorProtocol {
-    func getAllTraplines() -> [Trapline]?
-    func updateStations(route: Route, stations: [Station])
-    func addRoute(route: Route)
+    func getAllTraplines(completion: (([_Trapline]) -> Void)?)
+    func updateStations(routeId: String, stationIds: [String])
+    func addRoute(route: _Route)
 }

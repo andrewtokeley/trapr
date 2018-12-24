@@ -33,17 +33,18 @@ class StationMapAnnotation: NSObject, MKAnnotation {
     /**
     The Station that the annotation view represents. This property can not be nil.
     */
-    var station: Station!
+    //var station: Station!
+    var station: LocatableEntity
     
     /**
     Initialise the annotation with content to display
     */
-    init(station: Station, titleText: String? = nil, innerText: String? = nil) {
+    init(station: LocatableEntity, titleText: String? = nil, innerText: String? = nil) {
         self.station = station
         self.innerText = innerText
         self.title = titleText
-        self.coordinate = CLLocationCoordinate2D(latitude: station.latitude, longitude: station.longitude)
-        print("\(station.latitude),\(station.longitude)")
+        self.coordinate = CLLocationCoordinate2D(latitude: station.latitude ?? 0, longitude: station.longitude ?? 0)
+        print("\(station.latitude ?? 0),\(station.longitude ?? 0)")
         // not used at the moment
         self.subtitle = nil
         

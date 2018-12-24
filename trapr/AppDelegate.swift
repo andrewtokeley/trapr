@@ -18,6 +18,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+        FirebaseApp.configure()
+        
+        let db = Firestore.firestore()
+        let settings = db.settings
+        settings.areTimestampsInSnapshotsEnabled = true
+        db.settings = settings
+        
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        //GIDSignIn.sharedInstance().delegate = self
+
         // Set global styles
         Styles.setAppearances()
         
@@ -29,15 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setup.showLoader = true
         module.router.show(inWindow: window, embedInNavController: true, setupData: setup, makeKeyAndVisible: true)
         
-        FirebaseApp.configure()
-        
-        let db = Firestore.firestore()
-        let settings = db.settings
-        settings.areTimestampsInSnapshotsEnabled = true
-        db.settings = settings
-        
-        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        //GIDSignIn.sharedInstance().delegate = self
         
         return true
     }

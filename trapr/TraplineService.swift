@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import FirebaseFirestore
 
 enum TraplineServiceError: Error {
     case traplineHasNoRegion
@@ -23,6 +24,10 @@ extension TraplineService: TraplineServiceInterface {
     /**
      Not used for Realm
      */
+    
+    func get(stations: [_Station], completion: (([_Trapline], Error?) -> Void)?) {}
+    func get(traplineId: String, completion: ((_Trapline?, Error?) -> Void)?) {}
+    
     func extractTraplineReferencesFromStations(stations: [_Station]) -> [String] {
         return [String]()
     }
@@ -52,6 +57,8 @@ extension TraplineService: TraplineServiceInterface {
     }
     
     func get(completion: (([_Trapline]) -> Void)?) {
+}
+    func get(source: FirestoreSource, completion: (([_Trapline]) -> Void)?) {
         
     }
     

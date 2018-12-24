@@ -11,19 +11,30 @@ import Viperit
 
 // MARK: - NewRouteInteractor Class
 final class NewRouteInteractor: Interactor {
+    let traplineService = ServiceFactory.sharedInstance.traplineFirestoreService
+    let regionService = ServiceFactory.sharedInstance.regionFirestoreService
+    let stationService = ServiceFactory.sharedInstance.stationFirestoreService
 }
 
 // MARK: - NewRouteInteractor API
 extension NewRouteInteractor: NewRouteInteractorApi {
     
-    func retrieveTraplines(region: Region) {
-        let traplines = ServiceFactory.sharedInstance.traplineService.getTraplines(region: region)
-        presenter.didFetchTraplines(traplines: traplines ?? [Trapline]())
+    func retrieveTraplines(regionId: String) {
+        traplineService.get(regionId: regionId) { (traplines) in
+            self.presenter.didFetchTraplines(traplines: traplines)
+        }
+    }
+    
+    func retrieveStations(traplineId: String) {
+        stationService.get(traplineId: traplineId) { (stations) in
+            self.presenter.didFetchStations(stations: stations)
+        }
     }
     
     func retrieveRegions() {
-        let regions = ServiceFactory.sharedInstance.regionService.getRegions()
-        presenter.didFetchRegions(regions: regions ?? [Region]())
+        regionService.get { (regions, error) in
+            self.presenter.didFetchRegions(regions: regions)
+        }
     }
 }
 

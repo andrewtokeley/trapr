@@ -29,7 +29,7 @@ class _StationTests: XCTestCase {
         let expect = expectation(description: "testAdd")
         
         self.testSetUp {
-            let newStation = _Station(number: 1)
+            let newStation = _Station(traplineId: "traplineId", number: 1)
             newStation.routeId = "RO"
             newStation.latitude = 40
             newStation.longitude = 140
@@ -76,8 +76,7 @@ class _StationTests: XCTestCase {
                     // unordered, with gaps
                     let stationCodes = [8, 1, 2, 4, 5]
                     for number in stationCodes {
-                        let station = _Station(number: number)
-                        station.traplineId = trapline.id
+                        let station = _Station(traplineId: trapline.id!, number: number)
                         station.traplineCode = trapline.code
                         
                         dispatchGroup.enter()
@@ -123,11 +122,11 @@ class _StationTests: XCTestCase {
                 self.stationService.get(traplineId: trapline!.id!) { (stations) in
                     
                     XCTAssertNotNil(stations)
-                    self.stationService.getStationSequence(stations.first!, stations.last!) { (sequence) in
+                    self.stationService.getStationSequence(fromStationId: stations.first!.id!, toStationId: stations.last!.id!) { (sequence, error) in
                         
-                        XCTAssertTrue(sequence!.count == stations.count)
-                        XCTAssertTrue(sequence!.first == stations.first)
-                        XCTAssertTrue(sequence!.last == stations.last)
+                        XCTAssertTrue(sequence.count == stations.count)
+                        XCTAssertTrue(sequence.first == stations.first)
+                        XCTAssertTrue(sequence.last == stations.last)
                         
                         expect.fulfill()
                     }
@@ -156,11 +155,11 @@ class _StationTests: XCTestCase {
                 self.stationService.get(traplineId: trapline!.id!) { (stations) in
                     
                     XCTAssertNotNil(stations)
-                    self.stationService.getStationSequence(stations.last!, stations.first!) { (sequence) in
+                    self.stationService.getStationSequence(fromStationId: stations.last!.id!, toStationId: stations.first!.id!) { (sequence, error) in
                         
-                        XCTAssertTrue(sequence!.count == stations.count)
-                        XCTAssertTrue(sequence!.first == stations.last)
-                        XCTAssertTrue(sequence!.last == stations.first)
+                        XCTAssertTrue(sequence.count == stations.count)
+                        XCTAssertTrue(sequence.first == stations.last)
+                        XCTAssertTrue(sequence.last == stations.first)
                         
                         expect.fulfill()
                     }
@@ -188,11 +187,11 @@ class _StationTests: XCTestCase {
                 self.stationService.get(traplineId: trapline!.id!) { (stations) in
                     
                     XCTAssertNotNil(stations)
-                    self.stationService.getStationSequence(stations[3], stations[6]) { (sequence) in
+                    self.stationService.getStationSequence(fromStationId: stations[3].id!, toStationId: stations[6].id!) { (sequence, error) in
                         
-                        XCTAssertTrue(sequence!.count == 4)
-                        XCTAssertTrue(sequence!.first == stations[3])
-                        XCTAssertTrue(sequence!.last == stations[6])
+                        XCTAssertTrue(sequence.count == 4)
+                        XCTAssertTrue(sequence.first == stations[3])
+                        XCTAssertTrue(sequence.last == stations[6])
                         
                         expect.fulfill()
                     }
@@ -221,7 +220,7 @@ class _StationTests: XCTestCase {
                     
                         print("first: \(stations[0].number)")
                         
-                        let result = self.stationService.getDescription(stations: stations, includeStationCodes: true)
+                        let result = self.stationService.description(stations: stations, includeStationCodes: true)
                         
                         let expected = "LW01-10"
                         

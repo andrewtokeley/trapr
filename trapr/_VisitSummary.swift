@@ -37,6 +37,7 @@ class _VisitSummary {
         return visits.count
     }
     
+    
     /// The number of seconds between the first and last visit (regardless of whether all the traps have been visited)
     var timeTaken: TimeInterval {
         
@@ -50,6 +51,7 @@ class _VisitSummary {
     }
     
     // MARK: - Set by VisitSummaryService.get(...)
+    var route: _Route?
     
     /// The visits that were recorded on the specified day and Route.
     var visits = [_Visit]()
@@ -66,6 +68,7 @@ class _VisitSummary {
     /// Total number of kills of each species on this visit. The dictionary key is the rawValue of the SpeciesCode enum.
     var totalKillsBySpecies = [String: Int]()
     
+    var stationsOnRoute = [_Station]()
 //
 //    var totalPoisonAdded: Int {
 //        var count = 0
