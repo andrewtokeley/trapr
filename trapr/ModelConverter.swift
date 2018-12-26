@@ -36,7 +36,7 @@ class ModelConverter {
     
     static func Route(_ route: Route) -> _Route? {
         if let name = route.name {
-            let routeFS = _Route(id: route.id, name: name)
+            let routeFS = _Route(name: name, stationIds: [String]())
             for station in route.stations {
                 // get the FS id for the station
                 if let traplineFS = ModelConverter.Trapline(station.trapline!) {

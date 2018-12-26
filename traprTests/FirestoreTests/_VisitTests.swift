@@ -63,8 +63,8 @@ class _VisitTests: XCTestCase {
                 let regionId = "EHRP"
                 let region = _Region(id: regionId, name: "Eastbourne Harbour Regional Park", order: 0)
                 
-                let route1 = _Route(id: self.route1_Id, name: "Route1")
-                let route2 = _Route(id: self.route2_Id, name: "Route2")
+                let route1 = _Route(name: "Route1", stationIds: [String]())
+                let route2 = _Route(name: "Route2", stationIds: [String]())
                 
                 self.routeService.add(route: route1) { (route1, error) in
                     self.routeService.add(route: route2) { (route2, error) in

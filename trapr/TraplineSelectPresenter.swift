@@ -68,8 +68,7 @@ extension TraplineSelectPresenter: StationSelectDelegate {
         } else {
             
             // create a new route
-            let route = _Route(id: UUID().uuidString, name: self.routeName!)
-            route.stationIds = stations.map({$0.id!})
+            let route = _Route(name: self.routeName!, stationIds: stations.map({$0.id!}))
             interactor.addRoute(route: route)
             
             self.delegate?.didCreateRoute(route: route)

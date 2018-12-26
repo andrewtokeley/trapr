@@ -18,8 +18,8 @@ class RouteService: RealmService, RouteServiceInterface {
         
     }
     
-    func add(route: _Route, completion: ((_Route?, Error?) -> Void)?) {
-        
+    func add(route: _Route, completion: ((_Route?, Error?) -> Void)?) -> String {
+        return ""
     }
     
     func delete(routeId: String, completion: ((Error?) -> Void)?) {}

@@ -11,7 +11,7 @@ import RealmSwift
 
 protocol RouteServiceInterface {
     
-    func add(route: _Route, completion: ((_Route?, Error?) -> Void)?)
+    func add(route: _Route, completion: ((_Route?, Error?) -> Void)?) -> String
     func delete(routeId: String, completion: ((Error?) -> Void)?)
     func delete(completion: ((Error?) -> Void)?)
     func insertStationToRoute(routeId: String, stationId: String, at index: Int, completion: ((_Route?, Error?) -> Void)?)

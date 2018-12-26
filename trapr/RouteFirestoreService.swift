@@ -14,10 +14,11 @@ class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterfa
     //let stationService = ServiceFactory.sharedInstance.stationFirestoreService
     let visitService = ServiceFactory.sharedInstance.visitFirestoreService
     
-    func add(route: _Route, completion: ((_Route?, Error?) -> Void)?) {
-        let _ = super.add(entity: route) { (route, error) in
+    func add(route: _Route, completion: ((_Route?, Error?) -> Void)?) -> String {
+        let id = super.add(entity: route) { (route, error) in
             completion?(route, error)
         }
+        return id
     }
     
     func delete(routeId: String, completion: ((Error?) -> Void)?) {

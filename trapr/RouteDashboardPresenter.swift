@@ -99,6 +99,8 @@ final class RouteDashboardPresenter: Presenter {
                     self.proposedStationIds = [initialStation.id!]
                     self.previouslySelectedStationId = initialStation.id
                 }
+                self.refreshStationViews()
+                self.refreshVisitViews()
             }
         }
     }
@@ -296,7 +298,7 @@ extension RouteDashboardPresenter: StationMapDelegate {
                 // if selecting a station
                 if annotationView.color == UIColor.trpMapDefaultStation {
                     
-                    var addedSequence = false
+                    //var addedSequence = false
                     
                     if self.previouslySelectedStationId != nil {
                         // find out if there are stations in between that can be filled in
@@ -307,22 +309,25 @@ extension RouteDashboardPresenter: StationMapDelegate {
                                 if station != sequence.first {
                                     if let id = station.id {
                                         self.proposedStationIds.append(id)
-                                        addedSequence = true
+                                        //addedSequence = true
                                     }
                                 } 
                             }
+                            
+                            // redraw annotation colours and inner text
+                            self.view.reapplyStylingToAnnotationViews()
                         }
+                    } else {
+                        self.proposedStationIds.append(annotation.station.locationId)
+                        view.reapplyStylingToAnnotationViews()
                     }
                     
                     // if we didn't add a sequence of stations just add the one that was selected
-                    if !addedSequence {
-                        self.proposedStationIds.append(annotation.station.locationId)
-                    }
+//                    if !addedSequence {
+//                        self.proposedStationIds.append(annotation.station.locationId)
+//                    }
                 }
             }
-            
-            // redraw annotation colours and inner text
-            view.reapplyStylingToAnnotationViews()
             
             // update button states
             self.updateButtonStates()
@@ -423,6 +428,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
     func didDeleteRoute() {
         _view.dismiss(animated: true, completion: nil)
     }
+    
     /// Called by Interactor when we've finished saving station edits or reordering
     func didSaveStationEdits(){
         // make sure the most recent stations are referenced, RouteInformation is used
@@ -613,35 +619,44 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
     
     func didSelectEditDone() {
 
-        // save changes
-        if let routeId = self.routeInformation.routeId {
-            var stations: [_Station]!
-            
-            if isEditingOrder {
-                stations = self.allStations?.filter({ self.proposedStationOrder.orderedObjects.contains($0.locationId) }) ?? [_Station]()
-            } else {
-                stations = self.allStations?.filter({ self.proposedStationIds.contains($0.locationId) }) ?? [_Station]()
-            }
-            
-            // update local data so we don't have to rely on updates below completing to update the View
-            self.routeInformation.stations = stations
-            self.routeInformation.stationDescriptionsWithCodes = interactor.getStationsDescription(stations: stations, includeStationCodes: true)
-            self.routeInformation.stationDescriptionsWithCodes = interactor.getStationsDescription(stations: stations, includeStationCodes: false)
-            
-            // persist changes
-            if isEditingOrder {
-                self.interactor.updateStationsOnRoute(routeId: routeId, stationIds: self.proposedStationOrder.orderedObjects)
-            } else if isEditingStations {
-                self.interactor.updateStationsOnRoute(routeId: routeId, stationIds: self.proposedStationIds)
-            }
-            
-            isEditingOrder = false
-            isEditingStations = false
-            
-            self.switchFromEditToViewMode()
-            self.refreshStationViews()
-            
+    
+        var stations: [_Station]!
+        
+        if isEditingOrder {
+            stations = self.allStations?.filter({ self.proposedStationOrder.orderedObjects.contains($0.locationId) }) ?? [_Station]()
+        } else {
+            stations = self.allStations?.filter({ self.proposedStationIds.contains($0.locationId) }) ?? [_Station]()
         }
+        
+        // update local data so we don't have to rely on updates below completing to update the View
+        self.routeInformation.stations = stations
+        self.routeInformation.stationDescriptionsWithCodes = interactor.getStationsDescription(stations: stations, includeStationCodes: true)
+        self.routeInformation.stationDescriptionsWithCodes = interactor.getStationsDescription(stations: stations, includeStationCodes: false)
+        
+        // persist changes
+        if isNewRoute {
+            // create a new Route
+            let route = _Route(name: self.routeInformation.routeName, stationIds: stations.map({$0.id!}))
+            self.routeInformation.routeId = interactor.saveRoute(route: route)
+            
+        } else {
+            // update existing Route
+            if let routeId = self.routeInformation.routeId {
+                if isEditingOrder {
+                    self.interactor.updateStationsOnRoute(routeId: routeId, stationIds: self.proposedStationOrder.orderedObjects)
+                } else if isEditingStations {
+                    self.interactor.updateStationsOnRoute(routeId: routeId, stationIds: self.proposedStationIds)
+                }
+            }
+        }
+        
+        isEditingOrder = false
+        isEditingStations = false
+        isNewRoute = false
+        
+        self.switchFromEditToViewMode()
+        self.refreshStationViews()
+
     }
     
     func didSelectResize() {

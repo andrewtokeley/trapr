@@ -41,9 +41,10 @@ final class RouteDashboardInteractor: Interactor {
 // MARK: - RouteDashboardInteractor API
 extension RouteDashboardInteractor: RouteDashboardInteractorApi {
     
-    func saveRoute(route: _Route) {
-        routeService.add(route: route, completion: nil)
+    func saveRoute(route: _Route) -> String {
+        return routeService.add(route: route, completion: nil)
     }
+    
     func retrieveVisitInformation(route: _Route) {
         
         var information = VisitInformation()
@@ -193,6 +194,7 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
     func deleteRoute(routeId: String)
     {
         routeService.delete(routeId: routeId, completion: nil)
+        presenter.didDeleteRoute()
     }
     
     func updateStationsOnRoute(routeId: String, stationIds: [String]) {

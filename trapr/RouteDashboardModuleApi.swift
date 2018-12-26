@@ -104,7 +104,7 @@ protocol RouteDashboardPresenterApi: PresenterProtocol {
 //MARK: - RouteDashboardInteractor API
 protocol RouteDashboardInteractorApi: InteractorProtocol {
 
-    func saveRoute(route: _Route)
+    func saveRoute(route: _Route) -> String
     func deleteRoute(routeId: String)
     
     func retrieveStations(completion: (([_Station]) -> Void)?)

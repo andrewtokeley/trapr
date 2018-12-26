@@ -34,9 +34,9 @@ class _Route: DocumentSerializable {
         return result
     }
     
-    init(id: String, name: String) {
-        self.id = id
+    init(name: String, stationIds: [String]) {
         self.name = name
+        self.stationIds = stationIds
         
         if let userId = ServiceFactory.sharedInstance.userService.currentUser?.id {
             self.userId = userId
