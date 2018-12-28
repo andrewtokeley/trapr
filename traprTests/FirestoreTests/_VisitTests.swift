@@ -66,8 +66,8 @@ class _VisitTests: XCTestCase {
                 let route1 = _Route(name: "Route1", stationIds: [String]())
                 let route2 = _Route(name: "Route2", stationIds: [String]())
                 
-                self.routeService.add(route: route1) { (route1, error) in
-                    self.routeService.add(route: route2) { (route2, error) in
+                let _ = self.routeService.add(route: route1) { (route1, error) in
+                    let _ = self.routeService.add(route: route2) { (route2, error) in
                         self.regionService.add(lookup: region) { (error) in
                         
                             // LW01 (Possum Master and Pellibait)
@@ -288,11 +288,11 @@ class _VisitTests: XCTestCase {
         let expect = expectation(description: "testGetVisitForRouteAndTrapType")
         
         createTestData {
-            self.visitService.get(recordedOn: self.today, routeId: self.route1_Id, trapTypeId: TrapTypeCode.possumMaster.rawValue, completion: { (visits, error) in
+            self.visitService.get(recordedOn: self.today, routeId: self.route1_Id, stationId: "TODO", trapTypeId: TrapTypeCode.possumMaster.rawValue, completion: { (visits, error) in
                 
                 XCTAssertTrue(visits.count == 1)
                 
-                self.visitService.get(recordedOn: self.today, routeId: self.route1_Id, trapTypeId: TrapTypeCode.timms.rawValue, completion: { (visits, error) in
+                self.visitService.get(recordedOn: self.today, routeId: self.route1_Id, stationId: "TODO", trapTypeId: TrapTypeCode.timms.rawValue, completion: { (visits, error) in
                     
                     XCTAssertTrue(visits.count == 0)
                     

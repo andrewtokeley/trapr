@@ -272,7 +272,7 @@ class VisitService: RealmService, VisitServiceInterface {
     func get(routeId: String, completion: (([_Visit], Error?) -> Void)?) {}
     func get(recordedOn date: Date, completion: (([_Visit], Error?) -> Void)?) {}
     func get(recordedOn date: Date, routeId: String, completion: (([_Visit], Error?) -> Void)?) {}
-    func get(recordedOn date: Date, routeId: String, trapTypeId: String, completion: (([_Visit], Error?) -> Void)?) {}
+    func get(recordedOn date: Date, routeId: String, stationId: String, trapTypeId: String, completion: (([_Visit], Error?) -> Void)?) {}
     func get(recordedBetween dateStart: Date, dateEnd: Date, completion: (([_Visit], Error?) -> Void)?) {}
     func get(recordedBetween dateStart: Date, dateEnd: Date, routeId: String, completion: (([_Visit], Error?) -> Void)?) {}
     func get(recordedBetween dateStart: Date, dateEnd: Date, routeId: String, trapTypeId: String, completion: (([_Visit], Error?) -> Void)?) {}

@@ -113,16 +113,16 @@ class VisitFirestoreService: FirestoreEntityService<_Visit>, VisitServiceInterfa
         }
     }
     
-    func get(recordedOn date: Date, routeId: String, trapTypeId: String, completion: (([_Visit], Error?) -> Void)?) {
+    func get(recordedOn date: Date, routeId: String, stationId: String, trapTypeId: String, completion: (([_Visit], Error?) -> Void)?) {
         
         let start = date.dayStart()
         let end = date.dayEnd()
         
         self.get(recordedBetween: start, dateEnd: end) { (visits, error) in
             
-            // further filter by routeId (Firestore can't do date range + other field filter)
+            // further filter by routeId, stationId and RouteId (Firestore can't do date range + other field filter)
             let visitsFiltered = visits.filter({ (visit) -> Bool in
-                visit.routeId == routeId && visit.trapTypeId == trapTypeId
+                visit.routeId == routeId && visit.trapTypeId == trapTypeId && visit.stationId == stationId
             })
             completion?(visitsFiltered, error)
         }

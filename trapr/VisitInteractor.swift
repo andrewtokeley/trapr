@@ -147,9 +147,10 @@ extension VisitInteractor: VisitInteractorApi {
         ServiceFactory.sharedInstance.visitSyncService.add(visitSync: visitSync)
     }
     
-    func retrieveVisit(date: Date, routeId: String, trapTypeId: String) {
+    func retrieveVisit(date: Date, routeId: String, stationId: String, trapTypeId: String) {
         print("interactor: retrieveVisit")
-        visitService.get(recordedOn: date, routeId: routeId, trapTypeId: trapTypeId) { (visits, error) in
+        
+        visitService.get(recordedOn: date, routeId: routeId, stationId: stationId, trapTypeId: trapTypeId) { (visits, error) in
             // Find the visit for the given trap
             // NOTE: not supporting multiple visits to the same trap on the same day
             if visits.count > 0 {

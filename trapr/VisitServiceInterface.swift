@@ -86,7 +86,7 @@ protocol VisitServiceInterface {
     
     func get(recordedOn date: Date, routeId: String, completion: (([_Visit], Error?) -> Void)?)
     
-    func get(recordedOn date: Date, routeId: String, trapTypeId: String, completion: (([_Visit], Error?) -> Void)?)
+    func get(recordedOn date: Date, routeId: String, stationId: String, trapTypeId: String, completion: (([_Visit], Error?) -> Void)?)
     
     /**
      Gets all Visits recorded between the date range

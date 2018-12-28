@@ -20,21 +20,22 @@ final class LoaderPresenter: Presenter {
         }
     }
     override func viewHasLoaded() {
-
-        // check whether there is a user already authenticated
-        if interactor.isAuthenticated {
+        interactor.registerAuthenticatedUser { (user) in
             
-            // no need to show the signin button
-            self.view.showSignInButton(show: false)
-            
-            // TODO: won't need this and can replace with call to fade()
-            self.primeCache()
-            
-        } else {
-            
-            self.view.showSignInButton(show: true)
+            // check whether there is a user already authenticated
+            if self.interactor.isAuthenticated {
+                
+                // no need to show the signin button
+                self.view.showSignInButton(show: false)
+                
+                // TODO: won't need this and can replace with call to fade()
+                self.primeCache()
+                
+            } else {
+                
+                self.view.showSignInButton(show: true)
+            }
         }
-        
     }
 
     fileprivate func primeCache() {
@@ -82,8 +83,8 @@ extension LoaderPresenter: LoaderPresenterApi {
     func signInComplete() {
         // make sure the user is registered with the app
         interactor.registerAuthenticatedUser { (user) in
-            // fade the UI and close view
-            self.fade()
+            // make sure the newly signed in user gets their cache primed
+            self.primeCache()
         }
     }
 

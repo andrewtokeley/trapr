@@ -64,10 +64,13 @@ class CachePrimerFirestoreService: CachePrimerServiceInterface {
     
     /// Returns whether the app must prime the cache, for example, if this is the first time the app has been run we have to get some data in for the user to continue.
     private func mustPrimeCache(completion: ((Bool) -> Void)?) {
-        speciesService.source = .cache
-        speciesService.get { (species, error) in
-            completion?(species.count == 0)
-        }
+//        speciesService.source = .cache
+//        speciesService.get { (species, error) in
+//            completion?(species.count == 0)
+//        }
+        // TODO: should change to be smarter to only check if something's changed in core data
+        completion?(true)
     }
+    
     
 }

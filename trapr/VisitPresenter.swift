@@ -146,8 +146,8 @@ final class VisitPresenter: Presenter {
         interactor.deleteAllVisits(routeId: self.visitSummary.routeId, date: self.visitSummary.dateOfVisit)
         
         // grab a new visit for this day - it will be marked as new so the VisitLog will
-        if let trapTypeId = self.currentTrap?.id {
-            interactor.retrieveVisit(date: visitSummary.dateOfVisit, routeId: self.visitSummary.routeId, trapTypeId: trapTypeId)
+        if let trapTypeId = self.currentTrap?.id, let stationId = self.currentStation.id {
+            interactor.retrieveVisit(date: visitSummary.dateOfVisit, routeId: self.visitSummary.routeId, stationId: stationId, trapTypeId: trapTypeId)
         }
     }
     
@@ -347,8 +347,8 @@ extension VisitPresenter: VisitPresenterApi {
     func didSelectTrap(index: Int) {
         print("presenter: didSelectTrap")
         trapTypeIndex = index
-        if let trapTypeId = self.currentTrap?.id {
-            interactor.retrieveVisit(date: visitSummary.dateOfVisit, routeId: visitSummary.routeId, trapTypeId: trapTypeId)
+        if let trapTypeId = self.currentTrap?.id, let stationId = self.currentStation.id {
+            interactor.retrieveVisit(date: visitSummary.dateOfVisit, routeId: visitSummary.routeId, stationId: stationId, trapTypeId: trapTypeId)
         }
     }
     

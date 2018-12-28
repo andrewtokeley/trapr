@@ -40,6 +40,8 @@ class TrapTypeFirestoreService: LookupFirestoreService<_TrapType> {
             SpeciesCode.other.rawValue
         ]
         trap.defaultLure = LureCode.other.rawValue
+        trap.imageName = "poison"
+        
         return trap
     }
     
@@ -52,6 +54,7 @@ class TrapTypeFirestoreService: LookupFirestoreService<_TrapType> {
             LureCode.other.rawValue
         ]
         trap.defaultLure = LureCode.contracBloxPoison.rawValue
+        trap.imageName = "pelifeed"
         return trap
     }
     
@@ -71,7 +74,7 @@ class TrapTypeFirestoreService: LookupFirestoreService<_TrapType> {
             SpeciesCode.hedgehog.rawValue,
             SpeciesCode.other.rawValue
         ]
-        
+        trap.imageName = "doc200"
         return trap
     }
     
@@ -89,7 +92,7 @@ class TrapTypeFirestoreService: LookupFirestoreService<_TrapType> {
             SpeciesCode.cat.rawValue,
             SpeciesCode.other.rawValue
         ]
-        
+        trap.imageName = "possumMaster"
         return trap
     }
     
@@ -110,7 +113,7 @@ class TrapTypeFirestoreService: LookupFirestoreService<_TrapType> {
             SpeciesCode.stoat.rawValue,
             SpeciesCode.other.rawValue
         ]
-        
+        trap.imageName = "timms"
         return trap
     }
 }

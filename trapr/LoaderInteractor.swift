@@ -34,6 +34,9 @@ extension LoaderInteractor: LoaderInteractorApi {
                 
                 completion(user)
             }
+        } else {
+            // user isn't signed in
+            completion(nil)
         }
     }
     

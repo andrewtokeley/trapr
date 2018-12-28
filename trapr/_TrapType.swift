@@ -19,6 +19,7 @@ enum TrapTypeFields: String {
     case availableLures = "availableLures"
     case catchableSpecies = "catchableSpecies"
     case killMethod = "killMethod"
+    case imageName = "imageName"
 }
 
 class _TrapType: _Lookup {
@@ -34,6 +35,9 @@ class _TrapType: _Lookup {
         
         result[TrapTypeFields.killMethod.rawValue] = self.killMethod.rawValue
         
+        if let _ = self.imageName {
+            result[TrapTypeFields.imageName.rawValue] = self.imageName
+        }
         if let _ = self.defaultLure {
             result[TrapTypeFields.defaultLure.rawValue] = self.defaultLure
         }
@@ -49,6 +53,8 @@ class _TrapType: _Lookup {
     
     override init(id: String, name: String, order: Int) {
         super.init(id: id, name: name, order: order)
+        // default image name, even if not defined in store
+        self.imageName = "poison"
     }
     
     required init?(dictionary: [String : Any]) {
@@ -57,6 +63,9 @@ class _TrapType: _Lookup {
         super.init(dictionary: dictionary)
         
         // set the other fields
+        if let imageName = dictionary[TrapTypeFields.imageName.rawValue] as? String {
+            self.imageName = imageName
+        }
         if let killMethodId = dictionary[TrapTypeFields.killMethod.rawValue] as? String {
             self.killMethod = _KillMethod(rawValue: killMethodId) ?? _KillMethod.direct
         }

@@ -76,7 +76,7 @@ protocol VisitInteractorApi: InteractorProtocol {
     func retrieveTrapsToDisplay(route: _Route, station: _Station, date: Date, completion: (([_TrapType]) -> Void)?)
     
     func updateVisitDates(currentDate: Date, routeId: String, newDate: Date)
-    func retrieveVisit(date: Date, routeId: String, trapTypeId: String)
+    func retrieveVisit(date: Date, routeId: String, stationId: String, trapTypeId: String)
     func addVisit(visit: _Visit)
     func addOrRestoreTrapToStation(station: _Station, trapTypeId: String)
 

@@ -92,7 +92,7 @@ class DataPopulatorFirestoreService: FirestoreService, DataPopulatorServiceInter
         totalStepsToComplete += realmRoutes.count
         for realmRoute in realmRoutes {
             if let route = ModelConverter.Route(realmRoute) {
-                routeService.add(route: route) { (route, error) in
+                let _ = routeService.add(route: route) { (route, error) in
                     totalStepsCompleted += 1
                     if let route = route {
                         completion?("route \(route.id!).", self.progress(totalStepsCompleted, totalStepsToComplete), error)
