@@ -13,6 +13,7 @@ class LureFirestoreService: LookupFirestoreService<_Lure> {
     override func createOrUpdateDefaults(completion: (() -> Void)?) {
         
         let lures = [
+            _Lure(id: LureCode.cereal.rawValue, name: "Cereal", order: 0),
             _Lure(id: LureCode.cerealWithWireMesh.rawValue, name: "Cereal in Wire Mesh", order: 1),
             _Lure(id: LureCode.apple.rawValue, name: "Apple", order: 2),
             _Lure(id: LureCode.cinnamon.rawValue, name: "Cinnamom", order: 3),

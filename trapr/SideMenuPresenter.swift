@@ -85,10 +85,13 @@ extension SideMenuPresenter: SideMenuPresenterApi {
             view.hideSideBar(completion: {
                 () in
                 self.router.dismiss(completion: {
-                    let setupData = MapSetupData()
-                    setupData.stations = self.interactor.getStationsForMap()
-                    setupData.showHighlightedOnly = false
-                    self.delegate?.didSelectMenuItem(menu: .Map, setupData: setupData)
+                    self.interactor.getStationsForMap(completion: { (stations) in
+                        let setupData = MapSetupData()
+                        setupData.stations = stations
+                        setupData.showHighlightedOnly = false
+                        self.delegate?.didSelectMenuItem(menu: .Map, setupData: setupData)
+                    })
+
                 })
             })
         }

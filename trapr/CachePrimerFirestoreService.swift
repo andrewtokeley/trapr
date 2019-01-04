@@ -19,6 +19,17 @@ class CachePrimerFirestoreService: CachePrimerServiceInterface {
     let regionService = ServiceFactory.sharedInstance.regionFirestoreService
     let routeService = ServiceFactory.sharedInstance.routeFirestoreService
     
+    // MUST BE 7 MESSAGES!
+    private let loadingMessage = [
+        "One moment",
+        "One moment",
+        "Almost there",
+        "Almost there",
+        "and...",
+        "and...",
+        "Done!"
+    ]
+    
     func primeCache(progress: ((Double, String) -> Void)?) {
         
         self.mustPrimeCache { (result) in
@@ -30,25 +41,26 @@ class CachePrimerFirestoreService: CachePrimerServiceInterface {
                 let steps: Double = 6
                 var currentStep: Double = 0
                 // force reading from the server
-                progress?(currentStep/steps, "Species...")
+                progress?(currentStep/steps, self.loadingMessage[Int(currentStep)])
                 self.speciesService.get(source: .server, completion: { (species, error) in
                     currentStep += 1
-                    progress?(currentStep/steps, "Lures...")
+                    progress?(currentStep/steps, self.loadingMessage[Int(currentStep)])
                     self.lureService.get(source: .server, completion: { (species, error) in
                         currentStep += 1
-                        progress?(currentStep/steps, "TrapTypes...")
+                        progress?(currentStep/steps, self.loadingMessage[Int(currentStep)])
                         self.trapTypeService.get(source: .server, completion: { (species, error) in
                             currentStep += 1
-                            progress?(currentStep/steps, "Regions...")
+                            progress?(currentStep/steps, self.loadingMessage[Int(currentStep)])
                             self.regionService.get(source: .server, completion: { (species, error) in
                                 currentStep += 1
-                                progress?(currentStep/steps, "Traplines...")
+                                progress?(currentStep/steps, self.loadingMessage[Int(currentStep)])
                                 
                                 self.traplineService.get(source: .server, completion: { (species) in
                                     currentStep += 1
-                                    progress?(currentStep/steps, "Stations...")
+                                    progress?(currentStep/steps, self.loadingMessage[Int(currentStep)])
                                     self.stationService.get(source: .server, completion: { (stations) in
-                                        progress?(1, "Done")
+                                        currentStep += 1
+                                        progress?(1, self.loadingMessage[Int(currentStep)])
                                     })
                                 })
                             })

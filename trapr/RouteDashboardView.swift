@@ -609,7 +609,7 @@ extension RouteDashboardView: RouteDashboardViewApi {
     
     func displayStationSummary(summary: String, numberOfStations: Int) {
         routeSummaryTableViewCell.detailTextLabel?.text = summary
-        routeSummaryTableViewCell.textLabel?.text = "Stations (\(numberOfStations))"
+        //routeSummaryTableViewCell.textLabel?.text = "Stations (\(numberOfStations))"
     }
     
     func displayTimes(description: String, allowSelection: Bool) {

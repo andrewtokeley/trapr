@@ -12,6 +12,8 @@ import Viperit
 // MARK: - ProfileInteractor Class
 final class SettingsInteractor: Interactor {
     fileprivate let dataPopulatorService = ServiceFactory.sharedInstance.dataPopulatorFirestoreService
+    fileprivate let routeService = ServiceFactory.sharedInstance.routeFirestoreService
+    fileprivate let userSettingsService = ServiceFactory.sharedInstance.userSettingsService
 }
 
 // MARK: - ProfileInteractor API
@@ -23,7 +25,7 @@ extension SettingsInteractor: SettingsInteractorApi {
         }
     }
     
-    func updateDashboardRoutes(routes: [Route], showIndexes: [Int]) {
+    func updateDashboardRoutes(routes: [_Route], showIndexes: [Int]) {
         
         for route in routes {
             var show = false
@@ -32,19 +34,26 @@ extension SettingsInteractor: SettingsInteractorApi {
                     // hide this one
                     show = true
                 }
+                routeService.updateHiddenFlag(routeId: route.id! , isHidden: !show, completion: nil)
             }
-            ServiceFactory.sharedInstance.routeService.updateHiddenFlag(route: route, isHidden: !show)
+            
+        }
+    }
+    func save(settings: UserSettings) {
+        userSettingsService.add(userSettings: settings, completion: nil)
+    }
+
+    func get(completion: ((UserSettings?) -> Void)?) {
+        userSettingsService.get { (settings, error) in
+            completion?(settings)
         }
     }
     
-    func saveSettings(settings: Settings) {
-        ServiceFactory.sharedInstance.settingsService.addOrUpdate(settings: settings)
+    func getRoutes(completion: (([_Route]) -> Void)?) {
+        routeService.get { (routes, error) in
+            completion?(routes)
+        }
     }
-    
-    func getSettings() -> Settings {
-        return ServiceFactory.sharedInstance.settingsService.getSettings()
-    }
-    
 }
 
 // MARK: - Interactor Viper Components Api

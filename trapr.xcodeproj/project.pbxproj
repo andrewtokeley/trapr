@@ -681,6 +681,12 @@
 		D8D79AB31FC4B992008AC5C1 /* OptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AB21FC4B992008AC5C1 /* OptionItem.swift */; };
 		D8D79AB51FC4BB6F008AC5C1 /* RouteSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AB41FC4BB6F008AC5C1 /* RouteSetupData.swift */; };
 		D8D79AB81FC52370008AC5C1 /* RLMResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AB71FC52370008AC5C1 /* RLMResults.swift */; };
+		D8DA1B1521DDCBA1008EC4FD /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DA1B1421DDCBA1008EC4FD /* UserSettings.swift */; };
+		D8DA1B1621DDCBA1008EC4FD /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DA1B1421DDCBA1008EC4FD /* UserSettings.swift */; };
+		D8DA1B1821DDCECF008EC4FD /* UserSettingsServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DA1B1721DDCECF008EC4FD /* UserSettingsServiceInterface.swift */; };
+		D8DA1B1921DDCECF008EC4FD /* UserSettingsServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DA1B1721DDCECF008EC4FD /* UserSettingsServiceInterface.swift */; };
+		D8DA1B1B21DDCEF9008EC4FD /* UserSettingsFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DA1B1A21DDCEF9008EC4FD /* UserSettingsFirestoreService.swift */; };
+		D8DA1B1C21DDCEF9008EC4FD /* UserSettingsFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DA1B1A21DDCEF9008EC4FD /* UserSettingsFirestoreService.swift */; };
 		D8DBE3D21FF3276C00AA6482 /* trapLines_Dec_27_2017.trl in Resources */ = {isa = PBXBuildFile; fileRef = D8DBE3D11FF3276C00AA6482 /* trapLines_Dec_27_2017.trl */; };
 		D8DBE3D51FF37F0900AA6482 /* timms@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8DBE3D31FF37F0900AA6482 /* timms@2x.png */; };
 		D8DBE3D61FF37F0900AA6482 /* timms.png in Resources */ = {isa = PBXBuildFile; fileRef = D8DBE3D41FF37F0900AA6482 /* timms.png */; };
@@ -1075,6 +1081,9 @@
 		D8D79AB21FC4B992008AC5C1 /* OptionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionItem.swift; sourceTree = "<group>"; };
 		D8D79AB41FC4BB6F008AC5C1 /* RouteSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSetupData.swift; sourceTree = "<group>"; };
 		D8D79AB71FC52370008AC5C1 /* RLMResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLMResults.swift; sourceTree = "<group>"; };
+		D8DA1B1421DDCBA1008EC4FD /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		D8DA1B1721DDCECF008EC4FD /* UserSettingsServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsServiceInterface.swift; sourceTree = "<group>"; };
+		D8DA1B1A21DDCEF9008EC4FD /* UserSettingsFirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsFirestoreService.swift; sourceTree = "<group>"; };
 		D8DBE3D11FF3276C00AA6482 /* trapLines_Dec_27_2017.trl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trapLines_Dec_27_2017.trl; sourceTree = "<group>"; };
 		D8DBE3D31FF37F0900AA6482 /* timms@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timms@2x.png"; sourceTree = "<group>"; };
 		D8DBE3D41FF37F0900AA6482 /* timms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timms.png; sourceTree = "<group>"; };
@@ -1306,6 +1315,8 @@
 				D80F7ED81F6E92C700814A52 /* TrapServiceInterface.swift */,
 				D8C25C85217A62C400C5DB64 /* UserService.swift */,
 				D8C25C87217A62E100C5DB64 /* UserServiceInterface.swift */,
+				D8DA1B1A21DDCEF9008EC4FD /* UserSettingsFirestoreService.swift */,
+				D8DA1B1721DDCECF008EC4FD /* UserSettingsServiceInterface.swift */,
 				D80F8DD02196AED40035C668 /* VisitFirestoreService.swift */,
 				D81DAAEE1F68643400C7C987 /* VisitService.swift */,
 				D81DAAF21F68659100C7C987 /* VisitServiceInterface.swift */,
@@ -1431,6 +1442,7 @@
 				D8C25C83217A578F00C5DB64 /* DocumentSerializable.swift */,
 				D891530521AB20E500389469 /* ModelConverter.swift */,
 				D8C25C81217A557800C5DB64 /* User.swift */,
+				D8DA1B1421DDCBA1008EC4FD /* UserSettings.swift */,
 				D8A4E95F218CFDF40070413B /* UserStatistics.swift */,
 				D82F40AD2182436F00392DFD /* RealmModels */,
 			);
@@ -1917,7 +1929,7 @@
 				D8B94D531F5EA1FE00D373EF /* Resources */,
 				E47BD7212A05A0F1A304270D /* [CP] Embed Pods Frameworks */,
 				D8083D261FE5D5D000D1C5F1 /* Increment Build Number */,
-				0C6AE97004C99A734CF567D0 /* [CP] Copy Pods Resources */,
+				24FCEA0BB0DFC86FD9773289 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1958,7 +1970,7 @@
 				D8C25D922181771F00C5DB64 /* Resources */,
 				D8C25DE62181771F00C5DB64 /* [CP] Embed Pods Frameworks */,
 				D8C25DE82181771F00C5DB64 /* Increment Build Number */,
-				513414FA7172575065F8FEC5 /* [CP] Copy Pods Resources */,
+				ADCB0A7B6F220F4D99974EFA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2231,7 +2243,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-traprTests/Pods-traprTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		0C6AE97004C99A734CF567D0 /* [CP] Copy Pods Resources */ = {
+		24FCEA0BB0DFC86FD9773289 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2275,7 +2287,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		513414FA7172575065F8FEC5 /* [CP] Copy Pods Resources */ = {
+		ADCB0A7B6F220F4D99974EFA /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2523,6 +2535,7 @@
 				D8D729DE1F61C9CC0082CD4A /* VisitSummary.swift in Sources */,
 				D80B6DCE1F9F3DCD00F49E9E /* VisitLogPresenter.swift in Sources */,
 				D84C246420008781000BCAF8 /* UserInterfaceExtension.swift in Sources */,
+				D8DA1B1821DDCECF008EC4FD /* UserSettingsServiceInterface.swift in Sources */,
 				D81DAAF51F6865DB00C7C987 /* Trapline.swift in Sources */,
 				D81DAAF71F686EA800C7C987 /* ServiceFactory.swift in Sources */,
 				D8039E2F1FABF671006E394B /* RouterExtension.swift in Sources */,
@@ -2555,6 +2568,7 @@
 				D86CE4781F91DBC5004A09EF /* MenuDivider.swift in Sources */,
 				D841CF2A1F8239CA004D0207 /* TraplineSelectRouter.swift in Sources */,
 				D86DEC2F219D330200DCE730 /* VisitSummaryFirebaseService.swift in Sources */,
+				D8DA1B1521DDCBA1008EC4FD /* UserSettings.swift in Sources */,
 				D8D1A03C1FAF081E00926CEF /* TrapTypeService.swift in Sources */,
 				D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */,
 				D88DFE4E1FFABCD00048CA54 /* RouteDashboardRouter.swift in Sources */,
@@ -2664,6 +2678,7 @@
 				D841CF2B1F8239CA004D0207 /* TraplineSelectView.swift in Sources */,
 				D87C44FA1F9059AF00CAFC7A /* SideMenuRouter.swift in Sources */,
 				D8D79AB51FC4BB6F008AC5C1 /* RouteSetupData.swift in Sources */,
+				D8DA1B1B21DDCEF9008EC4FD /* UserSettingsFirestoreService.swift in Sources */,
 				D87C44F71F9059AF00CAFC7A /* SideMenuInteractor.swift in Sources */,
 				D8039E271FABF458006E394B /* ListPickerModuleApi.swift in Sources */,
 				D8E73D8C20C7AB630070C034 /* StationSearchInteractor.swift in Sources */,
@@ -2850,6 +2865,7 @@
 				D8C25CDF2181771F00C5DB64 /* MenuDivider.swift in Sources */,
 				D86DEC30219D330200DCE730 /* VisitSummaryFirebaseService.swift in Sources */,
 				D8C25CE02181771F00C5DB64 /* TraplineSelectRouter.swift in Sources */,
+				D8DA1B1921DDCECF008EC4FD /* UserSettingsServiceInterface.swift in Sources */,
 				D8C25CE12181771F00C5DB64 /* TrapTypeService.swift in Sources */,
 				D8C25CE22181771F00C5DB64 /* DateExtention.swift in Sources */,
 				D8C25CE32181771F00C5DB64 /* RouteDashboardRouter.swift in Sources */,
@@ -2970,6 +2986,7 @@
 				D8C25D4D2181771F00C5DB64 /* RealmServiceInterface.swift in Sources */,
 				D8A4E971218E3F640070413B /* StationFirestoreService.swift in Sources */,
 				D8C25D4E2181771F00C5DB64 /* AdministrationInteractor.swift in Sources */,
+				D8DA1B1C21DDCEF9008EC4FD /* UserSettingsFirestoreService.swift in Sources */,
 				D8C25D4F2181771F00C5DB64 /* MapDisplayData.swift in Sources */,
 				D8C25D502181771F00C5DB64 /* Visit.swift in Sources */,
 				D8C25D512181771F00C5DB64 /* DatePickerInteractor.swift in Sources */,
@@ -3005,6 +3022,7 @@
 				D8C25D6C2181771F00C5DB64 /* SavedImageService.swift in Sources */,
 				D8C25D6D2181771F00C5DB64 /* StationSelectModuleApi.swift in Sources */,
 				D8C25D6E2181771F00C5DB64 /* MapView.swift in Sources */,
+				D8DA1B1621DDCBA1008EC4FD /* UserSettings.swift in Sources */,
 				D8C25D6F2181771F00C5DB64 /* RealmService.swift in Sources */,
 				D8C25D702181771F00C5DB64 /* TraplineSelectDisplayData.swift in Sources */,
 				D843117E2183DE610003C2C6 /* _TrapType.swift in Sources */,

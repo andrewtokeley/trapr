@@ -14,8 +14,8 @@ final class SettingsView: UserInterface {
     
     let TABLEVIEW_CELL_ID = "cell"
     
-    let SECTION_USER =  0
-    let ROW_TRAPPER_NAME = 0
+//    let SECTION_USER =  0
+//    let ROW_TRAPPER_NAME = 0
 
     let SECTION_EMAILS = 1
     let ROW_VISITS_EMAIL = 0
@@ -24,8 +24,8 @@ final class SettingsView: UserInterface {
     let SECTION_HIDDEN_ROUTES = 2
     let ROW_HIDDEN_ROUTES = 0
     
-    let SECTION_FIRESTORE_SYNC = 3
-    let ROW_FIRESTORE_SYNC = 0
+//    let SECTION_FIRESTORE_SYNC = 3
+//    let ROW_FIRESTORE_SYNC = 0
     
     let TEXTFIELD_TAG_NAME = 0
     let TEXTFIELD_TAG_VISIT_EMAIL = 1
@@ -68,45 +68,45 @@ final class SettingsView: UserInterface {
         self.present(alert, animated: true, completion: nil)
     }
     
-    lazy var trapperNameTableViewCell: UITableViewCell = {
-        
-        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: self.TABLEVIEW_CELL_ID)
-        
-        let label = UILabel()
-        label.text = "Your name"
-        
-        cell.contentView.addSubview(label)
-        cell.contentView.addSubview(self.trapperNameTextField)
-        
-        cell.selectionStyle = .none
-        
-        label.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
-        label.autoAlignAxis(toSuperviewAxis: .horizontal)
-        label.autoSetDimension(.width, toSize: LayoutDimensions.tableViewLabelWidth * 1.5)
-        
-        self.trapperNameTextField.autoPinEdge(.left, to: .right, of: label, withOffset: LayoutDimensions.spacingMargin)
-        self.trapperNameTextField.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
-        self.trapperNameTextField.autoAlignAxis(toSuperviewAxis: .horizontal)
-        self.trapperNameTextField.autoSetDimension(.height, toSize: LayoutDimensions.tableCellHeight)
-        
-        return cell
-    }()
+//    lazy var trapperNameTableViewCell: UITableViewCell = {
+//
+//        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: self.TABLEVIEW_CELL_ID)
+//
+//        let label = UILabel()
+//        label.text = "Your name"
+//
+//        cell.contentView.addSubview(label)
+//        cell.contentView.addSubview(self.trapperNameTextField)
+//
+//        cell.selectionStyle = .none
+//
+//        label.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
+//        label.autoAlignAxis(toSuperviewAxis: .horizontal)
+//        label.autoSetDimension(.width, toSize: LayoutDimensions.tableViewLabelWidth * 1.5)
+//
+//        self.trapperNameTextField.autoPinEdge(.left, to: .right, of: label, withOffset: LayoutDimensions.spacingMargin)
+//        self.trapperNameTextField.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
+//        self.trapperNameTextField.autoAlignAxis(toSuperviewAxis: .horizontal)
+//        self.trapperNameTextField.autoSetDimension(.height, toSize: LayoutDimensions.tableCellHeight)
+//
+//        return cell
+//    }()
     
-    lazy var trapperNameTextField: UITextField = {
-        
-        let textField = UITextField()
-        textField.placeholder = "Name"
-        textField.textColor = UIColor.gray
-        textField.textAlignment = .right
-        textField.tag = self.TEXTFIELD_TAG_NAME
-        textField.delegate = self
-        let spacerView = UIView(frame:CGRect(x:0, y:0, width:LayoutDimensions.textIndentMargin, height:LayoutDimensions.textIndentMargin))
-        textField.leftViewMode = .always
-        textField.leftView = spacerView
-        textField.clearButtonMode = .whileEditing
-        textField.returnKeyType = UIReturnKeyType.done
-        return textField
-    }()
+//    lazy var trapperNameTextField: UITextField = {
+//
+//        let textField = UITextField()
+//        textField.placeholder = "Name"
+//        textField.textColor = UIColor.gray
+//        textField.textAlignment = .right
+//        textField.tag = self.TEXTFIELD_TAG_NAME
+//        textField.delegate = self
+//        let spacerView = UIView(frame:CGRect(x:0, y:0, width:LayoutDimensions.textIndentMargin, height:LayoutDimensions.textIndentMargin))
+//        textField.leftViewMode = .always
+//        textField.leftView = spacerView
+//        textField.clearButtonMode = .whileEditing
+//        textField.returnKeyType = UIReturnKeyType.done
+//        return textField
+//    }()
     
     lazy var visitsEmailTableViewCell: UITableViewCell = {
         
@@ -275,9 +275,10 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == SECTION_USER {
-            return "PROFILE"
-        } else if section == SECTION_EMAILS {
+//        if section == SECTION_USER {
+//            return "PROFILE"
+//        } else
+        if section == SECTION_EMAILS {
             return "EMAIL"
         } else if section == SECTION_HIDDEN_ROUTES {
             return "ROUTES"
@@ -286,21 +287,22 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
         return nil
     }
     
-    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        if section == SECTION_USER {
-            return "Your username is used when submitting your Visits"
-        }
-        return nil
-    }
+//    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+//        if section == SECTION_USER {
+//            return "Your username is used when submitting your Visits"
+//        }
+//        return nil
+//    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == SECTION_USER {
-            return 1
-        } else if section == SECTION_EMAILS {
+//        if section == SECTION_USER {
+//            return 1
+//        } else
+        if section == SECTION_EMAILS {
             return 2
         } else if section == SECTION_HIDDEN_ROUTES {
             return 1
@@ -314,9 +316,10 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
         let section = indexPath.section
         let row = indexPath.row
         
-        if section == SECTION_USER {
-            return trapperNameTableViewCell
-        } else if section == SECTION_EMAILS {
+//        if section == SECTION_USER {
+//            return trapperNameTableViewCell
+//        } else
+        if section == SECTION_EMAILS {
             if row == ROW_VISITS_EMAIL {
                 return visitsEmailTableViewCell
             } else if row == ROW_ORDERS_EMAIL {
@@ -335,9 +338,10 @@ extension SettingsView: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         let tag = textField.tag
         
-        if tag == TEXTFIELD_TAG_NAME {
-            presenter.didUpdateTrapperName(name: textField.text)
-        } else if tag == TEXTFIELD_TAG_ORDER_EMAIL {
+//        if tag == TEXTFIELD_TAG_NAME {
+//            presenter.didUpdateTrapperName(name: textField.text)
+//        } else
+        if tag == TEXTFIELD_TAG_ORDER_EMAIL {
             presenter.didUpdateEmailOrdersRecipient(emailAddress: textField.text)
         } else if tag == TEXTFIELD_TAG_VISIT_EMAIL {
             presenter.didUpdateEmailVisitsRecipient(emailAddress: textField.text)
@@ -365,13 +369,13 @@ extension SettingsView: SettingsViewApi {
         
     }
     
-    func displayTrapperName(name: String?) {
-        trapperNameTextField.text = name
-    }
+//    func displayTrapperName(name: String?) {
+//        trapperNameTextField.text = name
+//    }
     
-    func setFocusToRouteName() {
-        trapperNameTextField.becomeFirstResponder()
-    }
+//    func setFocusToRouteName() {
+//        trapperNameTextField.becomeFirstResponder()
+//    }
     
     func displayVersionNumbers(appVersion: String, realmVersion: String) {
         versionInfo.text = "App \(appVersion), Realm \(realmVersion)"

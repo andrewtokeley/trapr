@@ -17,17 +17,17 @@ protocol SettingsRouterApi: RouterProtocol {
 protocol SettingsViewApi: UserInterfaceProtocol {
     func setTitle(title: String?)
     func setFirestoreSyncProgress(message: String, progress: Double)
-    func displayTrapperName(name: String?)
+    //func displayTrapperName(name: String?)
     func displayVersionNumbers(appVersion: String, realmVersion: String)
     func displayEmailVisitsRecipient(emailAddress: String?)
     func displayEmailOrdersRecipient(emailAddress: String?)
-    func setFocusToRouteName()
+    //func setFocusToRouteName()
 }
 
 //MARK: - ProfilePresenter API
 protocol SettingsPresenterApi: PresenterProtocol {
     func didSelectClose()
-    func didUpdateTrapperName(name: String?)
+    //func didUpdateTrapperName(name: String?)
     func didUpdateEmailVisitsRecipient(emailAddress: String?)
     func didUpdateEmailOrdersRecipient(emailAddress: String?)
     func didClickRealmLabel()
@@ -39,8 +39,9 @@ protocol SettingsPresenterApi: PresenterProtocol {
 
 //MARK: - ProfileInteractor API
 protocol SettingsInteractorApi: InteractorProtocol {
-    func updateDashboardRoutes(routes: [Route], showIndexes: [Int])
-    func saveSettings(settings: Settings)
-    func getSettings() -> Settings
+    func updateDashboardRoutes(routes: [_Route], showIndexes: [Int])
+    func save(settings: UserSettings)
+    func get(completion: ((UserSettings?) -> Void)?)
+    func getRoutes(completion: (([_Route]) -> Void)?)
     func firestoreSync(completion: ((String, Double, Error?) -> Void)?)
 }

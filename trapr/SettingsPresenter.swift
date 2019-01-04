@@ -12,17 +12,20 @@ import Viperit
 // MARK: - ProfilePresenter Class
 final class SettingsPresenter: Presenter {
     
-    fileprivate var settings: Settings!
-    fileprivate var routes = [Route]()
+    fileprivate var settings: UserSettings!
+    //fileprivate var appSettings: ApplicationSettings!
+    
+    fileprivate var routes = [_Route]()
     
     override func viewHasLoaded() {
         // taking a shallow copy like this allows the object's properties to be updated - Realm doesn't allow this outside of realm.write
-        self.settings = Settings(value: interactor.getSettings())
-        view.displayTrapperName(name: settings.username)
-        view.displayVersionNumbers(appVersion: settings.appVersion ?? "-", realmVersion: settings.realmVersion ?? "-")
-        view.displayEmailOrdersRecipient(emailAddress: settings.emailOrdersRecipient)
-        view.displayEmailVisitsRecipient(emailAddress: settings.emailVisitsRecipient)
-        view.setTitle(title: "Settings")
+        interactor.get { (settings) in
+            self.settings = settings
+//            self.view.displayVersionNumbers(appVersion: settings.appVersion ?? "-", realmVersion: settings.realmVersion ?? "-")
+            self.view.displayEmailOrdersRecipient(emailAddress: self.settings.orderEmail)
+            self.view.displayEmailVisitsRecipient(emailAddress: self.settings.handlerEmail)
+            self.view.setTitle(title: "Settings")
+        }
     }
     
 }
@@ -38,15 +41,11 @@ extension SettingsPresenter: ListPickerDelegate {
     }
     
     func listPicker(_ listPicker: ListPickerView, itemTextAt index: Int) -> String {
-        return routes[index].name ?? routes[index].longDescription
-    }
-    
-    func listPicker(_ listPicker: ListPickerView, itemDetailAt index: Int) -> String? {
-        return routes[index].longDescription
+        return routes[index].name
     }
     
     func listPicker(_ listPicker: ListPickerView, isSelected index: Int) -> Bool {
-        return !routes[index].isHidden
+        return !routes[index].hidden
     }
     
     func listPickerNumberOfRows(_ listPicker: ListPickerView) -> Int {
@@ -65,9 +64,10 @@ extension SettingsPresenter: SettingsPresenterApi {
     func didSelectHiddenRoutes() {
         
         // make sure routes list
-        self.routes = ServiceFactory.sharedInstance.routeService.getAll()
-        
-        router.showHiddenRoutes(delegate: self)
+        interactor.getRoutes { (routes) in
+            self.routes = routes
+            self.router.showHiddenRoutes(delegate: self)
+        }
     }
     
     func didClickRealmLabel() {
@@ -77,7 +77,7 @@ extension SettingsPresenter: SettingsPresenterApi {
     func didSelectClose() {
         _view.view.endEditing(true)
 
-        interactor.saveSettings(settings: self.settings)
+        interactor.save(settings: self.settings)
         _view.dismiss(animated: true, completion: nil)
     }
     
@@ -94,16 +94,16 @@ extension SettingsPresenter: SettingsPresenterApi {
         })
     }
 
-    func didUpdateTrapperName(name: String?) {
-        self.settings.username = name
-    }
+//    func didUpdateTrapperName(name: String?) {
+//        self.settings.username = name
+//    }
     
     func didUpdateEmailOrdersRecipient(emailAddress: String?) {
-        self.settings.emailOrdersRecipient = emailAddress
+        self.settings.orderEmail = emailAddress
     }
     
     func didUpdateEmailVisitsRecipient(emailAddress: String?) {
-        self.settings.emailVisitsRecipient = emailAddress
+        self.settings.handlerEmail = emailAddress
     }
     
 }

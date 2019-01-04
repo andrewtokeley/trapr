@@ -9,12 +9,33 @@
 import UIKit
 import Viperit
 
+/// Extend the _Visit to include View specific details
+class VisitViewModel: _Visit {
+    
+    convenience init(visit: _Visit) {
+        self.init(date: visit.visitDateTime, routeId: visit.routeId, traplineId: visit.traplineId, stationId: visit.stationId, trapTypeId: visit.trapTypeId)
+        
+        // copy all the other properties
+        self.id = self.id
+        self.baitAdded = visit.baitAdded
+        self.baitEaten = visit.baitEaten
+        self.baitRemoved = visit.baitRemoved
+        self.lureId = visit.lureId
+        self.notes = visit.notes
+        self.speciesId = visit.speciesId
+        self.userId = visit.userId
+    }
+    
+    var lureName: String?
+    var speciesName: String?
+}
+
 //MARK: VisitLogView Class
 final class VisitLogView: UserInterface {
     
     var delegate: VisitLogViewDelegate?
     
-    fileprivate var visit: _Visit?
+    fileprivate var visit: VisitViewModel?
     
     fileprivate let SECTION_DATETIME = 0
     fileprivate let ROW_DATETIME = 0
@@ -347,14 +368,13 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
             cell.detailTextLabel?.text = self.visit?.trapOperatingStatus.name
         } else if section == SECTION_CATCH && row == ROW_CATCH {
             cell = self.killTableViewCell
-            // TODO - need a good way to convert id to name
-            cell.detailTextLabel?.text = self.visit?.speciesId ?? "None"
+            cell.detailTextLabel?.text = self.visit?.speciesName ?? self.visit?.speciesId ?? "None"
         } else if section == SECTION_CATCH && row == ROW_TRAP_SET_STATUS {
             cell = self.trapSetStatusTableViewCell
             cell.detailTextLabel?.text = self.visit?.trapSetStatus.name ?? "Not set"
         } else if section == SECTION_BAIT && row == ROW_BAIT_TYPE {
             cell = self.lureTableViewCell
-            cell.detailTextLabel?.text = self.visit?.lureId ?? "None"
+            cell.detailTextLabel?.text = self.visit?.lureName ?? self.visit?.lureId ?? "None"
         } else if section == SECTION_BAIT && row == ROW_ADDED {
             cell = self.addedTableViewCell
             (cell as! StepperTableViewCell).setCountValue(newValue: self.visit?.baitAdded ?? 0)
@@ -396,7 +416,7 @@ extension VisitLogView: VisitLogViewApi {
         self.noVisitButton.alpha = 1
     }
     
-    func displayVisit(visit: _Visit, showCatchSection: Bool) {
+    func displayVisit(visit: VisitViewModel, showCatchSection: Bool) {
         self.tableView.alpha = 1
         self.noVisitButton.alpha = 0
         

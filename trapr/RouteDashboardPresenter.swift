@@ -173,11 +173,12 @@ final class RouteDashboardPresenter: Presenter {
             // refresh the map, things might have changed, e.g. new/removed stations
             view.reloadMap(forceAnnotationRebuild: true)
             // rezoom
-            if !isNewRoute && self.routeInformation.stations.count == 0 {
-                view.setVisibleRegionToCentreOfStations(distance: 1000)
-            } else {
-                view.setVisibleRegionToHighlightedStations()
-            }
+//            if !isNewRoute && self.routeInformation.stations.count == 0 {
+//                view.setVisibleRegionToCentreOfStations(distance: 1000)
+//            } else {
+//                view.setVisibleRegionToHighlightedStations()
+//            }
+            view.setVisibleRegionToHighlightedStations()
         }
     }
     
@@ -576,7 +577,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
             }
         } else {
             
-            view.displayTitle("Select Stations", editable: false)
+            view.displayTitle("Stations", editable: false)
             
             // for new Routes we will have set a proposed first station already
             if !isNewRoute {
@@ -596,6 +597,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
             }
             view.showEditStationOptions(true)
             view.reloadMap(forceAnnotationRebuild: true)
+            view.setVisibleRegionToHighlightedStations()
         }
     }
     

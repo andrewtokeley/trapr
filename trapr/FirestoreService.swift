@@ -16,6 +16,7 @@ enum FirestoreEntityServiceError: Error {
     case addFailed
     case updateFailed
     case generalError
+    case entityNotFound
 }
 
 class FirestoreEntityService<T: DocumentSerializable>  {

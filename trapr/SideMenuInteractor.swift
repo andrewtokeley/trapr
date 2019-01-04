@@ -12,6 +12,7 @@ import FirebaseAuth
 
 // MARK: - SideMenuInteractor Class
 final class SideMenuInteractor: Interactor {
+    fileprivate let stationService = ServiceFactory.sharedInstance.stationFirestoreService
 }
 
 // MARK: - SideMenuInteractor API
@@ -21,8 +22,10 @@ extension SideMenuInteractor: SideMenuInteractorApi {
         return Auth.auth().currentUser != nil
     }
     
-    func getStationsForMap() -> [Station] {
-        return ServiceFactory.sharedInstance.stationService.getAll()
+    func getStationsForMap(completion: (([_Station]) -> Void)?) {
+        stationService.get { (stations) in
+            completion?(stations)
+        }
     }
 }
 

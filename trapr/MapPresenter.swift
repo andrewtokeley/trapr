@@ -149,7 +149,7 @@ extension MapPresenter: StationMapDelegate {
     
     func stationMap(_ stationMap: StationMapViewController, textForStation station: LocatableEntity) -> String? {
         if (self.highlightedStations?.contains(where: {$0.locationId == station.locationId } ) ?? false) {
-            return ""
+            return station.subTitle
         }
         return nil
     }

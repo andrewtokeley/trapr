@@ -24,6 +24,50 @@ extension VisitLogInteractor: VisitLogInteractorApi {
 //    func deleteVisit(visit: Visit) {
 //        ServiceFactory.sharedInstance.visitService.delete(visit: visit)
 //    }
+    func retrieveViewModel(visit: _Visit, completion: ((VisitViewModel) -> Void)?) {
+        let visitViewModel = VisitViewModel(visit: visit)
+        
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        if let lureId = visit.lureId {
+            self.getLureDescription(lureId: lureId) { (name) in
+                visitViewModel.lureName = name
+                dispatchGroup.leave()
+            }
+        } else {
+            self.getDefaultLureDescription(trapTypeId: visit.trapTypeId) { (name) in
+                visitViewModel.lureName = name
+                dispatchGroup.leave()
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            //
+            completion?(visitViewModel)
+        }
+    }
+    
+    func getDefaultLureDescription(trapTypeId: String, completion: ((String) -> Void)?) {
+        trapTypeService.get(id: trapTypeId) { (trapType, error) in
+            if let defaultLureId = trapType?.defaultLure {
+                self.getLureDescription(lureId: defaultLureId) { (description) in
+                    completion?(description)
+                }
+            } else {
+                completion?("None")
+            }
+        }
+    }
+    
+    func getLureDescription(lureId: String, completion: ((String) -> Void)?) {
+        lureService.get(id: lureId) { (lure, error) in
+            if let name = lure?.name {
+                completion?(name)
+            } else {
+                completion?("None")
+            }
+        }
+    }
     
     func getLureBalance(stationId: String, trapTypeId: String, asAtDate: Date, completion: ((Int) -> Void)?) {
         stationService.getLureBalance(stationId: stationId, trapTypeId: trapTypeId, asAtDate: asAtDate) { (balance) in
@@ -31,9 +75,13 @@ extension VisitLogInteractor: VisitLogInteractorApi {
         }
     }
     
-    func retrieveTrapTypes(completion: (([_TrapType]) -> Void)? ) {
+    func retrieveLookups(completion: (([_TrapType], [_Lure], [_Species]) -> Void)? ) {
         trapTypeService.get { (trapTypes, error) in
-            completion?(trapTypes)
+            self.lureService.get { (lures, error) in
+                self.speciesService.get { (species, error) in
+                    completion?(trapTypes, lures, species)
+                }
+            }
         }
     }
     

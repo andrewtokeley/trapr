@@ -144,4 +144,8 @@ class ServiceFactory {
         // TODO - toggle to test/prod FireStore
         return UserService(firestore: self.firestoreDatabase, collectionName: "users")
     }()
+    
+    lazy var userSettingsService: UserSettingsServiceInterface = {
+        return UserSettingsFirestoreService(firestore: self.firestoreDatabase, collectionName: "userSettings")
+    }()
 }
