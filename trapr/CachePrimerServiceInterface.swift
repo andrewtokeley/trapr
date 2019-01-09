@@ -10,4 +10,5 @@ import Foundation
 
 protocol CachePrimerServiceInterface {
     func primeCache(progress: ((Double, String) -> Void)?)
+    func cachePrimed(completion: ((Bool) -> Void)?)
 }

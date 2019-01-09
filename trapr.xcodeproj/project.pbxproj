@@ -51,6 +51,8 @@
 		D80BCD3D1F91D041005F30FF /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80BCD3C1F91D041005F30FF /* MenuItemView.swift */; };
 		D80C14FB202F8C10005EBD10 /* StartSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80C14FA202F8C10005EBD10 /* StartSetupData.swift */; };
 		D80C14FD202F9416005EBD10 /* LoaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80C14FC202F9416005EBD10 /* LoaderDelegate.swift */; };
+		D80D694221E066C900EDBE8D /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80D694121E066C900EDBE8D /* Reachability.swift */; };
+		D80D694321E1C38D00EDBE8D /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80D694121E066C900EDBE8D /* Reachability.swift */; };
 		D80F7ECE1F6E79BF00814A52 /* TraplineServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ECD1F6E79BF00814A52 /* TraplineServiceInterface.swift */; };
 		D80F7ED01F6E7A9300814A52 /* TraplineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ECF1F6E7A9300814A52 /* TraplineService.swift */; };
 		D80F7ED31F6E87D500814A52 /* RealmDataPopulatorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ED21F6E87D500814A52 /* RealmDataPopulatorService.swift */; };
@@ -786,6 +788,7 @@
 		D80BCD3C1F91D041005F30FF /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		D80C14FA202F8C10005EBD10 /* StartSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSetupData.swift; sourceTree = "<group>"; };
 		D80C14FC202F9416005EBD10 /* LoaderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderDelegate.swift; sourceTree = "<group>"; };
+		D80D694121E066C900EDBE8D /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		D80F7ECD1F6E79BF00814A52 /* TraplineServiceInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraplineServiceInterface.swift; sourceTree = "<group>"; };
 		D80F7ECF1F6E7A9300814A52 /* TraplineService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraplineService.swift; sourceTree = "<group>"; };
 		D80F7ED21F6E87D500814A52 /* RealmDataPopulatorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmDataPopulatorService.swift; sourceTree = "<group>"; };
@@ -1250,6 +1253,14 @@
 			name = VisitLog;
 			sourceTree = "<group>";
 		};
+		D80D694021E066B800EDBE8D /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				D80D694121E066C900EDBE8D /* Reachability.swift */,
+			);
+			name = Reachability;
+			sourceTree = "<group>";
+		};
 		D81431A81F8DDB2E00EAF5FD /* DatePicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -1283,6 +1294,7 @@
 		D81DAAED1F68641E00C7C987 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D80D694021E066B800EDBE8D /* Reachability */,
 				D8DC916D21CAD4DF006D8B57 /* CachePrimerFirestoreService.swift */,
 				D8DC916B21CAD469006D8B57 /* CachePrimerServiceInterface.swift */,
 				D8BB6F4A202917A6008AB3A2 /* CameraHandler.swift */,
@@ -1929,7 +1941,7 @@
 				D8B94D531F5EA1FE00D373EF /* Resources */,
 				E47BD7212A05A0F1A304270D /* [CP] Embed Pods Frameworks */,
 				D8083D261FE5D5D000D1C5F1 /* Increment Build Number */,
-				24FCEA0BB0DFC86FD9773289 /* [CP] Copy Pods Resources */,
+				25641664E76B5543FB624026 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1970,7 +1982,7 @@
 				D8C25D922181771F00C5DB64 /* Resources */,
 				D8C25DE62181771F00C5DB64 /* [CP] Embed Pods Frameworks */,
 				D8C25DE82181771F00C5DB64 /* Increment Build Number */,
-				ADCB0A7B6F220F4D99974EFA /* [CP] Copy Pods Resources */,
+				0BB1621E8C5D255BF5D3B7B7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2243,7 +2255,33 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-traprTests/Pods-traprTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		24FCEA0BB0DFC86FD9773289 /* [CP] Copy Pods Resources */ = {
+		0BB1621E8C5D255BF5D3B7B7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		25641664E76B5543FB624026 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2285,32 +2323,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		ADCB0A7B6F220F4D99974EFA /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
-				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D8083D261FE5D5D000D1C5F1 /* Increment Build Number */ = {
@@ -2654,6 +2666,7 @@
 				D83DC6CB1F7F841F00F91792 /* StartPresenter.swift in Sources */,
 				D8DBE3DF1FF4FC1900AA6482 /* MapPresenter.swift in Sources */,
 				D80B6DCD1F9F3DCD00F49E9E /* VisitLogModuleApi.swift in Sources */,
+				D80D694221E066C900EDBE8D /* Reachability.swift in Sources */,
 				D8DBE3E11FF4FC1900AA6482 /* MapModuleApi.swift in Sources */,
 				D815D791200CBA2A0086AFFE /* LoaderPresenter.swift in Sources */,
 				D8039E2C1FABF577006E394B /* ListPickerDelegate.swift in Sources */,
@@ -2855,6 +2868,7 @@
 				D8C25CD62181771F00C5DB64 /* AppDelegate.swift in Sources */,
 				D8C25CD72181771F00C5DB64 /* ImageCollectionViewCell.swift in Sources */,
 				D8C25CD82181771F00C5DB64 /* SavedImage.swift in Sources */,
+				D80D694321E1C38D00EDBE8D /* Reachability.swift in Sources */,
 				D843117B2183DD840003C2C6 /* TrapTypeFirestoreService.swift in Sources */,
 				D8C25CD92181771F00C5DB64 /* RegionFirestoreService.swift in Sources */,
 				D8C25CDA2181771F00C5DB64 /* VisitLogRouter.swift in Sources */,

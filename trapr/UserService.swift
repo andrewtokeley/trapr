@@ -36,7 +36,7 @@ class UserService: FirestoreEntityService<User>, UserServiceInterface {
     func registerAuthenticatedUser(authenticatedUser: AuthenticatedUser, completion: ((User?, Error?) -> Void)?) {
         
         // TODO - check it doesn't already exist!
-        
+        print("registerAuthenticatedUser started")
         // Create a new User record from the authenticated user
         let user = User(email: authenticatedUser.email)
         user.lastAuthenticated = Date()
@@ -44,7 +44,7 @@ class UserService: FirestoreEntityService<User>, UserServiceInterface {
         
         // This will add a new user if the user wasn't previously registered
         self.update(user: user, completion: { (error) in
-            
+            print("self.update completed")
             if let error = error {
                 completion?(nil, error)
             } else {
@@ -84,8 +84,15 @@ class UserService: FirestoreEntityService<User>, UserServiceInterface {
         if let id = user.id {
             firestore.collection("users").document(id).setData(user.dictionary, merge: true)
             { (error) in
-                completion?(error)
+                // this won't be raised if the user is offline
+                if let error = error {
+                    completion?(error)
+                }
             }
+            // assume all is good
+            completion?(nil)
+        } else {
+            completion?(FirestoreEntityServiceError.updateFailed)
         }
     }
 }

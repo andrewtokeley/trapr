@@ -27,11 +27,12 @@ extension LoaderInteractor: LoaderInteractorApi {
     func registerAuthenticatedUser(completion: @escaping(User?) -> Void) {
         
         // Make sure we have a record in the database for the user
+        print("interactor.registerAuthenticatedUser")
         if let authUser = Auth.auth().currentUser, let email = authUser.email {
             let authenticatedUser = AuthenticatedUser(email: email)
-            
+            print("userService.registerAuthenticatedUser call")
             userService.registerAuthenticatedUser(authenticatedUser: authenticatedUser) { (user, error) in
-                
+                print("got user")
                 completion(user)
             }
         } else {
@@ -44,7 +45,7 @@ extension LoaderInteractor: LoaderInteractorApi {
         cachePrimerService.primeCache { (progress, message) in
             self.presenter.loadProgressReceived(progress: Float(progress), message: message)
             if progress == 1 {
-                self.presenter.loadCompleted()
+                self.presenter.primeCacheCompleted()
             }
         }
     }

@@ -25,9 +25,9 @@ final class StartPresenter: Presenter {
     fileprivate let ROUTE_MENU_DELETE = 3
     
     override func setupView(data: Any) {
-        if let setup = data as? StartSetupData {
-            showLoader = setup.showLoader
-        }
+//        if let setup = data as? StartSetupData {
+//            //showLoader = setup.showLoader
+//        }
     }
     
     override func viewHasLoaded() {
@@ -35,12 +35,12 @@ final class StartPresenter: Presenter {
     }
     
     override func viewIsAboutToAppear() {
-        if self.showLoader {
-            router.showLoadingScreen(delegate: self)
-            self.showLoader = false
-        } else {
+//        if self.showLoader {
+//            router.showLoadingScreen(delegate: self)
+//            self.showLoader = false
+//        } else {
             interactor.initialiseHomeModule()
-        }
+//        }
     }
 }
 

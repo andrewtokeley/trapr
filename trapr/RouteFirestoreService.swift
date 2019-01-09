@@ -13,6 +13,7 @@ class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterfa
     
     //let stationService = ServiceFactory.sharedInstance.stationFirestoreService
     let visitService = ServiceFactory.sharedInstance.visitFirestoreService
+    let userService = ServiceFactory.sharedInstance.userService
     
     func add(route: _Route, completion: ((_Route?, Error?) -> Void)?) -> String {
         let id = super.add(entity: route) { (route, error) in
@@ -179,20 +180,40 @@ class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterfa
     }
     
     func get(includeHidden: Bool, completion: (([_Route], Error?) -> Void)?) {
-        super.get(whereField: RouteFields.hidden.rawValue, isEqualTo: includeHidden) { (routes, error) in
-            completion?(routes, error)
+        if let userId = userService.currentUser?.id {
+            super.collection.whereField(RouteFields.userId.rawValue, isEqualTo: userId).whereField(RouteFields.hidden.rawValue, isEqualTo: includeHidden).getDocuments(source: self.source) { (snapshot, error) in
+                
+                if let error = error {
+                    completion?([_Route](), error)
+                } else {
+                    let routes = super.getEntitiesFromQuerySnapshot(snapshot: snapshot)
+                    completion?(routes, nil)
+                }
+            }
         }
     }
     
     func get(completion: (([_Route], Error?) -> Void)?) {
-        super.get(orderByField: RouteFields.name.rawValue) { (routes, error) in
-            completion?(routes, error)
+        if let userId = userService.currentUser?.id {
+            super.collection.whereField(RouteFields.userId.rawValue, isEqualTo: userId).getDocuments(source: self.source) { (snapshot, error) in
+                
+                if let error = error {
+                    completion?([_Route](), error)
+                } else {
+                    let routes = super.getEntitiesFromQuerySnapshot(snapshot: snapshot)
+                    completion?(routes, nil)
+                }
+            }
         }
     }
     
     func get(routeId: String, completion: ((_Route?, Error?) -> Void)?) {
         super.get(id: routeId) { (route, error) in
-            completion?(route, error)
+            if route?.userId == self.userService.currentUser?.id {
+                completion?(route, nil)
+            } else {
+                completion?(nil, FirestoreEntityServiceError.generalError)
+            }
         }
     }
         

@@ -32,10 +32,9 @@ class CachePrimerFirestoreService: CachePrimerServiceInterface {
     
     func primeCache(progress: ((Double, String) -> Void)?) {
         
-        self.mustPrimeCache { (result) in
-            let mustPrime = result
+        self.cachePrimed { (cachePrimed) in
             
-            if mustPrime {
+            if !cachePrimed {
                 // there are 6 key entities to read into the cache
                 // Regions, Traplines, Stations, Lookups (3)
                 let steps: Double = 6
@@ -74,15 +73,14 @@ class CachePrimerFirestoreService: CachePrimerServiceInterface {
         }
     }
     
-    /// Returns whether the app must prime the cache, for example, if this is the first time the app has been run we have to get some data in for the user to continue.
-    private func mustPrimeCache(completion: ((Bool) -> Void)?) {
-//        speciesService.source = .cache
-//        speciesService.get { (species, error) in
-//            completion?(species.count == 0)
-//        }
-        // TODO: should change to be smarter to only check if something's changed in core data
-        completion?(true)
+    /// Returns whether the app has been primed already. If true, basic lookup and station data is present and the app will function fine, even if offline. If false, the cache must be primed before the app run.
+    func cachePrimed(completion: ((Bool) -> Void)?) {
+        
+        // Since primeCache loads all core data, we assume if there are species in the cache then the rest of the core data will be present too
+        speciesService.source = .cache
+        speciesService.get { (species, error) in
+            completion?(species.count != 0)
+        }
     }
-    
     
 }

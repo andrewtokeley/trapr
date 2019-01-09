@@ -22,8 +22,14 @@ protocol RouteServiceInterface {
     func reorderStations(routeId: String, stationOrder: [String: Int], completion: ((_Route?, Error?) -> Void)?)
     func updateHiddenFlag(routeId: String, isHidden: Bool, completion: ((Error?) -> Void)?)
     func updateDashboardImage(routeId: String, savedImage: SavedImage, completion: ((Error?) -> Void)?)
+    
+    /// Gets all routes belonging to the current user by hidden flag
     func get(includeHidden: Bool, completion: (([_Route], Error?) -> Void)?)
+    
+    /// Gets all routes belong to the current user
     func get(completion: (([_Route], Error?) -> Void)?)
+    
+    /// Gets specified route. Note it must be owned by the current user.
     func get(routeId: String, completion: ((_Route?, Error?) -> Void)?)
     
     func daysSinceLastVisit(routeId: String, completion: ((Int?) -> Void)?)

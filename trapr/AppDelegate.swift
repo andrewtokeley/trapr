@@ -32,13 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Styles.setAppearances()
         
         window = UIWindow(frame: UIScreen.main.bounds)
- 
-        ServiceFactory.sharedInstance.dataPopulatorService.createOrUpdateLookupData()
-        let module = AppModules.start.build()
-        let setup = StartSetupData()
-        setup.showLoader = true
-        module.router.show(inWindow: window, embedInNavController: true, setupData: setup, makeKeyAndVisible: true)
-        
+        let module = AppModules.loader.build()
+        module.router.show(inWindow: window)
         
         return true
     }

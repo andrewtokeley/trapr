@@ -30,9 +30,9 @@ protocol LoaderPresenterApi: PresenterProtocol {
     func loadProgressReceived(progress: Float, message: String )
     
     /**
-     (TO BE DEPRICATED) Called by the view to let the presenter know the import has completed
+     Called by the interactor to let the Presenter know the cache has been primed.
      */
-    func loadCompleted()
+    func primeCacheCompleted()
     
     /**
      Called by the view to let the presenter know that the user has selected the Sign In button to start the authentication process.
