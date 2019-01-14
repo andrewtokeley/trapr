@@ -12,6 +12,10 @@ import RealmSwift
 protocol VisitServiceInterface {
     
     /**
+    */
+    func extend(visit: _Visit, completion: ((VisitEx?) -> Void)?)
+
+    /**
      Record a new Visit
      
      - parameters:

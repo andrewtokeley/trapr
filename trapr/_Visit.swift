@@ -83,11 +83,10 @@ class _Visit: DocumentSerializable {
         var result = [String: Any]()
         
         // values for these fields will always exist
-        result[VisitFields.visitDate.rawValue] = visitDateTime
+        result[VisitFields.visitDate.rawValue] = Timestamp(date: visitDateTime)
         result[VisitFields.routeId.rawValue] = routeId
         result[VisitFields.stationId.rawValue] = stationId
-        result[VisitFields.visitDate.rawValue] = visitDateTime
-        result[VisitFields.baitAdded.rawValue] = baitAdded
+        	result[VisitFields.baitAdded.rawValue] = baitAdded
         result[VisitFields.baitEaten.rawValue] = baitEaten
         result[VisitFields.baitRemoved.rawValue] = baitRemoved
         result[VisitFields.trapTypeId.rawValue] = trapTypeId
@@ -177,3 +176,23 @@ class _Visit: DocumentSerializable {
     }
     
 }
+
+class VisitEx: _Visit {
+    
+    required init?(dictionary: [String : Any]) {
+        super.init(dictionary: dictionary)
+    }
+    
+    convenience init?(visit: _Visit) {
+        self.init(dictionary: visit.dictionary)
+    }
+    
+    var stationName: String?
+    var trapTypeName: String?
+    var speciesName: String?
+    
+    /// this property is used to sort visits by station code then trapType
+    var order: String?
+    
+}
+

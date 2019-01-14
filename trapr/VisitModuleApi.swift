@@ -27,7 +27,7 @@ protocol VisitViewApi: UserInterfaceProtocol {
     func displayMenuOptions(options: [OptionItem])
     func updateDisplayFor(visit: _Visit)
     func updateCurrentStation(index: Int, repeatedGroup: Int)
-    func showVisitEmail(visitSummary: _VisitSummary, recipient: String?)
+    func showVisitEmail(subject: String, html: String, recipient: String)
     func showConfirmation(title: String, message: String, yes: (() -> Void)?, no: (() -> Void)?)
     func selectTrap(index: Int)
     func confirmDeleteStationMethod()
@@ -66,6 +66,8 @@ protocol VisitPresenterApi: PresenterProtocol {
 protocol VisitInteractorApi: InteractorProtocol {
     
     func retrieveInitialState()
+    
+    func retrieveHtmlForVisit(date: Date, route: _Route, completion: ((String, String) -> Void)?)
     func deleteOrArchiveTrap(station: _Station, trapTypeId: String)
     func numberOfVisits(routeId: String, date: Date, completion: ((Int) -> Void)?)
     func getUnusedTrapTypes(allTrapTypes: [_TrapType], station: _Station) -> [_TrapType]

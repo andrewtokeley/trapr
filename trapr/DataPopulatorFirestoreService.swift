@@ -158,62 +158,62 @@ class DataPopulatorFirestoreService: FirestoreService, DataPopulatorServiceInter
     }
     
     // not used
-    func createOrUpdateLookupData() {}
+//    func createOrUpdateLookupData() {}
+//
+//    func createOrUpdateLookupData(completion: (() -> Void)?) {
+//        self.speciesService.createOrUpdateDefaults {
+//
+//            self.lureService.createOrUpdateDefaults {
+//
+//                // NOTE trapTypes must be added last as they rely on lures to be registered
+//                self.trapTypeService.createOrUpdateDefaults {
+//
+//                    completion?()
+//
+//                }
+//            }
+//        }
+//    }
     
-    func createOrUpdateLookupData(completion: (() -> Void)?) {
-        self.speciesService.createOrUpdateDefaults {
-            
-            self.lureService.createOrUpdateDefaults {
-                
-                // NOTE trapTypes must be added last as they rely on lures to be registered
-                self.trapTypeService.createOrUpdateDefaults {
-                    
-                    completion?()
-                    
-                }
-            }
-        }
-    }
+//    func resetAllData() {
+//
+//    }
+//
+//    func mergeWithV1Data() {
+//
+//    }
     
-    func resetAllData() {
-        
-    }
-    
-    func mergeWithV1Data() {
-        
-    }
-    
-    func mergeWithV1Data(progress: ((Float) -> Void)?, completion: ((ImportSummary) -> Void)?) {
-        
-    }
-    
-    func mergeDataFromCSVToDatastore(progress: ((Float) -> Void)?, completion: ((ImportSummary) -> Void)?) {
-        
-    }
+//    func mergeWithV1Data(progress: ((Float) -> Void)?, completion: ((ImportSummary) -> Void)?) {
+//
+//    }
+//
+//    func mergeDataFromCSVToDatastore(progress: ((Float) -> Void)?, completion: ((ImportSummary) -> Void)?) {
+//
+//    }
     
     
-    func restoreDatabase(){}
-    
-    func restoreDatabase(completion: (() -> Void)?) {
-        
-        speciesService.deleteAll { (error) in
-            self.userService.deleteAllUsers { (error) in
-                self.trapTypeService.deleteAll { (error) in
-                    self.lureService.deleteAll { (error) in
-                        self.traplineService.deleteAll { (error) in
-                            self.stationService.deleteAll { (error) in
-                                self.visitService.deleteAll { (error) in
-                                    self.createOrUpdateLookupData {
-                                        completion?()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    func restoreDatabase(){}
+//    
+//    func restoreDatabase(completion: (() -> Void)?) {
+//        
+//        speciesService.deleteAll { (error) in
+//            self.userService.deleteAllUsers { (error) in
+//                self.trapTypeService.deleteAll { (error) in
+//                    self.lureService.deleteAll { (error) in
+//                        self.traplineService.deleteAll { (error) in
+//                            self.stationService.deleteAll { (error) in
+//                                self.visitService.deleteAll { (error) in
+//                                    self.createOrUpdateLookupData {
+//                                        completion?()
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
     
 //    func createTrapline(code: String, numberOfStations: Int, completion: ((_Trapline?) -> Void)?) {
 //        createTrapline(code: code, numberOfStations: numberOfStations, numberOfTrapsPerStation: 2, completion: completion)
@@ -257,16 +257,16 @@ class DataPopulatorFirestoreService: FirestoreService, DataPopulatorServiceInter
     }
     
     
-    func createTrapline(code: String, numberOfStations: Int) -> Trapline {
-        return Trapline()
-    }
+//    func createTrapline(code: String, numberOfStations: Int) -> Trapline {
+//        return Trapline()
+//    }
     
-    func createTrapline(code: String, numberOfStations: Int, numberOfTrapsPerStation: Int) -> Trapline {
-        return Trapline()
-    }
+//    func createTrapline(code: String, numberOfStations: Int, numberOfTrapsPerStation: Int) -> Trapline {
+//        return Trapline()
+//    }
     
-    func createVisit(_ added: Int, _ removed: Int, _ eaten: Int, _ date: Date, _ route: Route, _ trap: Trap) {
-        
-    }
+//    func createVisit(_ added: Int, _ removed: Int, _ eaten: Int, _ date: Date, _ route: Route, _ trap: Trap) {
+//        
+//    }
     
 }

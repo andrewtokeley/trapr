@@ -14,6 +14,8 @@ import MessageUI
 //MARK: VisitView Class
 final class VisitView: UserInterface {
     
+    fileprivate let htmlService = ServiceFactory.sharedInstance.htmlService
+    
     fileprivate var CAROUSEL_TRAPS_HEIGHT: CGFloat = 100
     fileprivate var CAROUSEL_STATIONS_HEIGHT: CGFloat = 50
     
@@ -483,25 +485,41 @@ extension VisitView: VisitViewApi {
         self.present(menu, animated: true, completion: nil)
     }
     
+    func showVisitEmail(subject: String, html: String, recipient: String) {
+        if MFMailComposeViewController.canSendMail() {
+            
+            let controller = MFMailComposeViewController()
+            controller.mailComposeDelegate = self
+            
+            controller.setSubject(subject)
+            controller.setToRecipients([recipient])
+            controller.setMessageBody(html, isHTML: true)
+            
+            self.present(controller, animated: true, completion: nil)
+        }
+    }
+    
     func showVisitEmail(visitSummary: _VisitSummary, recipient: String?) {
-        // TODO!
-//        if MFMailComposeViewController.canSendMail() {
-//
-//            let controller = MFMailComposeViewController()
-//            controller.mailComposeDelegate = self
-//
-//            controller.setSubject("Data for \(visitSummary.routeId!)")
-//
-//            if let _ = recipient {
-//                controller.setToRecipients([recipient!])
-//            }
-//
-//            if let html = ServiceFactory.sharedInstance.htmlService.getVisitsAsHtml(recordedOn: visitSummary.dateOfVisit, route: visitSummary.route!) {
-//                controller.setMessageBody(html, isHTML: true)
-//            }
-//
-//            self.present(controller, animated: true, completion: nil)
-//        }
+        
+        if MFMailComposeViewController.canSendMail() {
+
+            let controller = MFMailComposeViewController()
+            controller.mailComposeDelegate = self
+
+            controller.setSubject("Data for \(visitSummary.routeId!)")
+
+            if let recipient = recipient {
+                controller.setToRecipients([recipient])
+            }
+
+            htmlService.getVisitsAsHtml(recordedOn: visitSummary.dateOfVisit, route: visitSummary.route!, completion: { (html) in
+                if let html = html {
+                    controller.setMessageBody(html, isHTML: true)
+                }
+            })
+            
+            self.present(controller, animated: true, completion: nil)
+        }
     }
     
     func confirmDeleteStationMethod() {

@@ -73,7 +73,6 @@ class CachePrimerFirestoreService: CachePrimerServiceInterface {
         }
     }
     
-    /// Returns whether the app has been primed already. If true, basic lookup and station data is present and the app will function fine, even if offline. If false, the cache must be primed before the app run.
     func cachePrimed(completion: ((Bool) -> Void)?) {
         
         // Since primeCache loads all core data, we assume if there are species in the cache then the rest of the core data will be present too

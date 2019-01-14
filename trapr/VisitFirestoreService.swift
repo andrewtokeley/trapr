@@ -12,6 +12,44 @@ import FirebaseFirestore
 
 class VisitFirestoreService: FirestoreEntityService<_Visit>, VisitServiceInterface {
     
+    private lazy var trapTypeService = { ServiceFactory.sharedInstance.trapTypeFirestoreService }()
+    private lazy var stationService = { ServiceFactory.sharedInstance.stationFirestoreService }()
+    private lazy var speciesService = { ServiceFactory.sharedInstance.speciesFirestoreService }()
+    
+    func extend(visit: _Visit, completion: ((VisitEx?) -> Void)?) {
+        
+        if let visitEx = VisitEx(visit: visit) {
+        
+            self.stationService.get(stationId: visit.stationId) { (station, error) in
+                visitEx.stationName = station?.longCode
+                
+                self.trapTypeService.get(id: visit.trapTypeId, completion: { (trapType, error) in
+                    visitEx.trapTypeName = trapType?.name
+                    
+                    let dispatchGroup = DispatchGroup()
+                    
+                    dispatchGroup.enter()
+                    if let speciesId = visit.speciesId {
+                        self.speciesService.get(id: speciesId, completion: { (species, error) in
+                            visitEx.speciesName = species?.name
+                            dispatchGroup.leave()
+                        })
+                    } else {
+                        dispatchGroup.leave()
+                    }
+                    
+                    visitEx.order = station!.id! + trapType!.id!
+                    
+                    dispatchGroup.notify(queue: .main, execute: {
+                        completion?(visitEx)
+                    })
+                })
+            }
+        } else {
+            completion?(nil)
+        }
+    }
+    
     func get(id: String, completion: ((_Visit?, Error?) -> Void)?) {
         super.get(id: id) { (visit, error) in
             completion?(visit, error)

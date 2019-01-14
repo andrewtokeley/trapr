@@ -9,11 +9,11 @@
 import Foundation
 import RealmSwift
 
-struct RowDefinition<T: Object> {
+struct RowDefinition<T: Any> {
     var title: String
     var width: Int
     var alignment: String
-    var value: (T) -> String
+    var value: (T) -> String?
 }
 
 struct TableHeadingDefinition {
@@ -22,63 +22,69 @@ struct TableHeadingDefinition {
     var alignment: String
 }
 
-class HtmlService: HtmlServiceInterface {
+class HtmlService {
+    fileprivate let routeService = ServiceFactory.sharedInstance.routeFirestoreService
+    fileprivate let visitService = ServiceFactory.sharedInstance.visitFirestoreService
+    fileprivate let trapTypeService = ServiceFactory.sharedInstance.trapTypeFirestoreService
+    fileprivate let stationService = ServiceFactory.sharedInstance.stationFirestoreService
+    fileprivate let speciesService = ServiceFactory.sharedInstance.speciesFirestoreService
     
-    private var PLACEHOLDER: String = "@"
-    private let rowDefinitions = [
-        RowDefinition<Visit>(title: "Trap", width: 80, alignment: "left", value: { $0.trap?.station?.longCode ?? "-"} ),
-        RowDefinition<Visit>(title: "Type", width: 150, alignment: "left", value: { $0.trap?.type?.name ?? "-"} ),
-        RowDefinition<Visit>(title: "Time", width: 80, alignment: "left", value: { $0.visitDateTime.toString(format: Styles.DATE_FORMAT_TIME) } ),
-        RowDefinition<Visit>(title: "Added", width: 80, alignment: "right", value: { String($0.baitAdded) }),
-        RowDefinition<Visit>(title: "Eaten", width: 80, alignment: "right", value: { String($0.baitEaten) }),
-        RowDefinition<Visit>(title: "Removed", width: 80, alignment: "right", value: { String($0.baitRemoved) }),
-        RowDefinition<Visit>(title: "Catch", width: 80, alignment: "right", value: { $0.catchSpecies == nil ? "" : "1" } ),
-        RowDefinition<Visit>(title: "Species", width: 150, alignment: "right", value: { $0.catchSpecies?.name ?? ""} ),
-        RowDefinition<Visit>(title: "Notes", width: 150, alignment: "right", value: { $0.notes ?? ""} )
+    fileprivate var PLACEHOLDER: String = "@"
+    fileprivate let rowDefinitions: [RowDefinition<VisitEx>] = [
+        RowDefinition<VisitEx>(title: "Trap", width: 80, alignment: "left", value: { $0.stationName } ),
+        RowDefinition<VisitEx>(title: "Type", width: 150, alignment: "left", value: { $0.trapTypeName } ),
+        RowDefinition<VisitEx>(title: "Time", width: 80, alignment: "left", value: { $0.visitDateTime.toString(format: Styles.DATE_FORMAT_TIME) } ),
+        RowDefinition<VisitEx>(title: "Added", width: 80, alignment: "right", value: { String($0.baitAdded) }),
+        RowDefinition<VisitEx>(title: "Eaten", width: 80, alignment: "right", value: { String($0.baitEaten) }),
+        RowDefinition<VisitEx>(title: "Removed", width: 80, alignment: "right", value: { String($0.baitRemoved) }),
+        RowDefinition<VisitEx>(title: "Catch", width: 80, alignment: "right", value: { $0.speciesId == nil ? "-" : "1" } ),
+        RowDefinition<VisitEx>(title: "Species", width: 150, alignment: "right", value: { $0.speciesName  } ),
+        RowDefinition<VisitEx>(title: "Notes", width: 150, alignment: "right", value: { $0.notes } )
     ]
     
-    //private var headings = [String]()
+}
+
+extension HtmlService: HtmlServiceInterface {
     
-    func getVisitsAsHtml(recordedOn date: Date, route: Route) -> String? {
-    
+    func getVisitsAsHtml(recordedOn date: Date, route: _Route, completion: ((String?) -> Void)?) {
+        
         var html = "<html><table style=\'border-collapse : collapse;\'>"
-        
-        if let visitsFromRealm = ServiceFactory.sharedInstance.visitService.getVisits(recordedOn: date, route: route) {
-            
-            //let visits = Array(visitsFromRealm).sorted(by: { $0.order < $1.order })
-            let visitArray = Array(visitsFromRealm)
-            let visits = visitArray.sorted(by: {
-                (visit1, visit2) in
-                return visit1.order < visit2.order
-            }, stable: true)
-            
+
+        self.visitService.get(recordedOn: date, routeId: route.id!) { (visits, error) in
+
             // HEADING
-            html.append(htmlForHeadings(rowDefinitions: rowDefinitions))
-            
+            html.append(self.htmlForHeadings(rowDefinitions: self.rowDefinitions))
+
             // ROUTE NAME AND DATE
-            if let route = visits.first?.route {
-                if let date = visits.first?.visitDateTime {
-                    html.append(htmlForGroupHeader(route: route, date: date, colspan: rowDefinitions.count))
-                }
-            }
-            
+            html.append(self.htmlForGroupHeader(route: route, date: date, colspan:
+                            self.rowDefinitions.count))
+
             // VISITS
+            let dispatchGroup = DispatchGroup()
+            
             for visit in visits {
-                html.append(htmlForRow(rowDefinitions: rowDefinitions, visit: visit))
+                dispatchGroup.enter()
+                self.visitService.extend(visit: visit, completion: { (visitEx) in
+                    if let visitEx = visitEx {
+                        html.append(self.htmlForRow(rowDefinitions: self.rowDefinitions, data: visitEx))
+                        dispatchGroup.leave()
+                    }
+                })
             }
-            
-            
-        }
         
-        // close tags
-        html.append("</table></html>")
-        return html
+            // close tags when visits all added
+            dispatchGroup.notify(queue: .main, execute: {
+                html.append("</table></html>")
+                completion?(html)
+            })
+        }
     }
+    
     
     /**
      
      */
-    func htmlForHeadings(rowDefinitions: [RowDefinition<Visit>]) -> String {
+    func htmlForHeadings(rowDefinitions: [RowDefinition<VisitEx>]) -> String {
      
         /**
          <tr>
@@ -91,7 +97,7 @@ class HtmlService: HtmlServiceInterface {
         
         // add <th> for each heading
         for definition in rowDefinitions  {
-            let th = "<th align=\'\(definition.alignment)\' style=\'min-height:20px; min-width:\(definition.width); border-bottom:2px double black;\'><p>\(definition.title)</p></th>"
+            let th = "<th align='\(definition.alignment)' style=\'min-height:20px; min-width:\(definition.width)px; border-bottom:2px double black;'><p>\(definition.title)</p></th>"
             html.append(th)
         }
         
@@ -102,20 +108,21 @@ class HtmlService: HtmlServiceInterface {
     }
     
     
-    func htmlForGroupHeader(route: Route, date: Date, colspan: Int) -> String {
-        return "<tr style=\'border-bottom:2px solid black\'><td style=\'min-height:50px; border-bottom:1px solid black;\' colspan=\(colspan)><b>\(route.name ?? "Unknown Route") - \(date.toString(format: Styles.DATE_FORMAT_LONG))</b></br></td></tr>"
+    func htmlForGroupHeader(route: _Route, date: Date, colspan: Int) -> String {
+        return "<tr style=\'border-bottom:2px solid black\'><td style=\'min-height:50px; border-bottom:1px solid black;\' colspan=\(colspan)><b>\(route.name) - \(date.toString(format: Styles.DATE_FORMAT_LONG))</b></br></td></tr>"
     }
-    
-    func htmlForRow(rowDefinitions: [RowDefinition<Visit>], visit: Visit) -> String {
+
+    func htmlForRow(rowDefinitions: [RowDefinition<VisitEx>], data: VisitEx) -> String {
         
         var html = "<tr>"
         let rowFormat = "<td align=\'%@\' style=\'min-width:%dpx; border-bottom:1px solid black;\'>%@</td>"
         
         for definition in self.rowDefinitions {
-            html.append(String(format: rowFormat, definition.alignment, definition.width, definition.value(visit)))
+            html.append(String(format: rowFormat, definition.alignment, definition.width, definition.value(data) ?? "" ))
         }
         
         html.append("</tr>")
         return html
     }
+
 }

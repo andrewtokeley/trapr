@@ -13,10 +13,12 @@ import Viperit
 // MARK: - VisitInteractor Class
 final class VisitInteractor: Interactor {
 
-    fileprivate let visitService = ServiceFactory.sharedInstance.visitFirestoreService
-    fileprivate let routeService = ServiceFactory.sharedInstance.routeFirestoreService
-    fileprivate let stationService = ServiceFactory.sharedInstance.stationFirestoreService
-    fileprivate let trapTypeService = ServiceFactory.sharedInstance.trapTypeFirestoreService
+    fileprivate lazy var visitService = { ServiceFactory.sharedInstance.visitFirestoreService }()
+    fileprivate lazy var routeService = { ServiceFactory.sharedInstance.routeFirestoreService }()
+    fileprivate lazy var stationService = { ServiceFactory.sharedInstance.stationFirestoreService }()
+    fileprivate lazy var  trapTypeService = { ServiceFactory.sharedInstance.trapTypeFirestoreService }()
+    fileprivate lazy var htmlService = { ServiceFactory.sharedInstance.htmlService }()
+    fileprivate lazy var userSettingsService = { ServiceFactory.sharedInstance.userSettingsService }()
     
     fileprivate var visits: [Visit]!
     
@@ -32,6 +34,18 @@ final class VisitInteractor: Interactor {
 
 // MARK: - VisitInteractor API
 extension VisitInteractor: VisitInteractorApi {
+    
+    func retrieveHtmlForVisit(date: Date, route: _Route, completion: ((String, String) -> Void)?) {
+        self.htmlService.getVisitsAsHtml(recordedOn: date, route: route) { (html) in
+            if let html = html {
+                self.userSettingsService.get(completion: { (settings, error) in
+                    if let recipient = settings?.handlerEmail {
+                        completion?(recipient, html)
+                    }
+                })
+            }
+        }
+    }
     
     func numberOfVisits(routeId: String, date: Date, completion: ((Int) -> Void)?) {
         

@@ -152,8 +152,14 @@ final class VisitPresenter: Presenter {
     }
     
     func menuSendToHandler() {
-        self.settings = ServiceFactory.sharedInstance.settingsService.getSettings()
-        view.showVisitEmail(visitSummary: self.visitSummary, recipient: self.settings!.emailVisitsRecipient)
+       
+        if let route = visitSummary.route {
+            interactor.retrieveHtmlForVisit(date: visitSummary.dateOfVisit, route: route) { (recipient, html) in
+                if let routeName = self.visitSummary.route?.name {
+                    self.view.showVisitEmail(subject: "Data for \(routeName)", html: html, recipient: recipient)
+                }
+            }
+        }
     }
     
     func menuShowMap() {

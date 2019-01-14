@@ -16,10 +16,10 @@ fileprivate struct LureTotals {
 }
 
 class StationFirestoreService: FirestoreEntityService<_Station> {
-    let traplineService = ServiceFactory.sharedInstance.traplineFirestoreService
-    let trapTypeFirestoreService = ServiceFactory.sharedInstance.trapTypeFirestoreService
-    let visitService = ServiceFactory.sharedInstance.visitFirestoreService
-    let routeService = ServiceFactory.sharedInstance.routeFirestoreService
+    private lazy var trapTypeService = { ServiceFactory.sharedInstance.trapTypeFirestoreService }()
+    private lazy var traplineService = { ServiceFactory.sharedInstance.traplineFirestoreService }()
+    private lazy var visitService = { ServiceFactory.sharedInstance.visitFirestoreService }()
+    private lazy var routeService = { ServiceFactory.sharedInstance.routeFirestoreService }()
 }
 
 extension StationFirestoreService: StationServiceInterface {
@@ -307,7 +307,7 @@ extension StationFirestoreService: StationServiceInterface {
           return status.trapTpyeId
         }
         
-        self.trapTypeFirestoreService.get(ids: codes) { (trapType, error) in
+        self.trapTypeService.get(ids: codes) { (trapType, error) in
             completion?(trapType)
         }
     }

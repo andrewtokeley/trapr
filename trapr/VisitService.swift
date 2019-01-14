@@ -11,6 +11,10 @@ import RealmSwift
 
 class VisitService: RealmService, VisitServiceInterface {
     
+    /// not implemented for Realm
+    func extend(visit: _Visit, completion: ((VisitEx?) -> Void)?) {
+    }
+    
     func add(visit: Visit) {
         try! realm.write {
             realm.add(visit)
