@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterface {
     
@@ -194,8 +195,14 @@ class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterfa
     }
     
     func get(completion: (([_Route], Error?) -> Void)?) {
+        get(source: self.source, completion: { (routes, error) in
+            completion?(routes, error)
+        })
+    }
+    
+    func get(source: FirestoreSource, completion: (([_Route], Error?) -> Void)?) {
         if let userId = userService.currentUser?.id {
-            super.collection.whereField(RouteFields.userId.rawValue, isEqualTo: userId).getDocuments(source: self.source) { (snapshot, error) in
+            super.collection.whereField(RouteFields.userId.rawValue, isEqualTo: userId).getDocuments(source: source) { (snapshot, error) in
                 
                 if let error = error {
                     completion?([_Route](), error)

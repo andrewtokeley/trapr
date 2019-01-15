@@ -160,6 +160,18 @@ extension NewRoutePresenter: ListPickerDelegate {
         return ""
     }
     
+    func listPicker(_ listPicker: ListPickerView, isSelected index: Int) -> Bool {
+        if listPicker.tag == LISTPICKER_TRAPLINE {
+            return self.traplines[index] == self.selectedTrapline
+        }
+        
+        if listPicker.tag == LISTPICKER_REGION {
+            return self.regions[index] == self.selectedRegion
+        }
+        
+        return false
+    }
+    
     func listPicker(_ listPicker: ListPickerView, didSelectItemAt index: Int) {
         
         if listPicker.tag == LISTPICKER_TRAPLINE {

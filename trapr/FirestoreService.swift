@@ -53,13 +53,6 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         
         // in case the entity doesn't already have an id this will ensure it does
         addedEntity.id = reference.documentID
-
-        // Set up to listen for events on the document
-//        if let block = completion {
-//            self.notifyOnceOnDocumentChange(reference) { (error) in
-//                block(addedEntity, error)
-//            }
-//        }
         
         // add the data - the listener will know when it's complete
         reference.setData(entity.dictionary) { (error) in
@@ -113,32 +106,8 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         
         let reference = self.documentReference(entity: entity)
         
-//        if let block = completion {
-//            self.notifyOnceOnDocumentChange(reference) { (error) in
-//                block(error)
-//            }
-//        }
-        
         reference.updateData(entity.dictionary) { (error) in
             completion?(error)
-        }
-    }
-    
-    /**
-     This will fire if the data is added to the cache or server. When online it's possible the update was a result of another user updating the same entity. Not sure it matters though, the caller of this update will still know an update successfully completed.
-     
-     */
-    func notifyOnceOnDocumentChange(_ reference: DocumentReference, completion: ((Error?) -> Void)?) {
-        
-        let dg = DispatchGroup()
-        dg.enter()
-        
-        let listener = reference.addSnapshotListener() { (snapshot, error) in
-            dg.leave()
-            completion?(error)
-        }
-        dg.notify(queue: .main) {
-            listener.remove()
         }
     }
     
@@ -188,6 +157,17 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         }
     }
     
+    /**
+     Retrieve an array of all entities.
+     
+     - important:
+     Be careful that you don't return too many large results. The default result set is 1000, but for large datasets this could still be too large. Consider whether you can filter the results
+     
+     - parameters:
+        - source: FirestoreSource value to determine where to get the data from. Default value is cache.
+        - limit: Limit on how many records to return. Default is 100.
+        - completion: closure that is called after the get action is complete. The closure will be passed a fully instantiated array of entities or an Error if the get action failed.
+     */
     func get(source: FirestoreSource = .cache, limit: Int = 1000, completion: (([T], Error?) -> Void)?) {
         self.collection.getDocuments(source: source) { (snapshot, error) in
             if let error = error {
@@ -199,6 +179,17 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         }
     }
     
+    /**
+     Retrieve an array of all entities ordered (ascending) by the given field.
+     
+     - important:
+     Be careful that you don't return too many large results. The default result set is 1000, but for large datasets this could still be too large. Consider whether you can filter the results
+     
+     - parameters:
+        - orderByField: the name of the first to order (always ascending)
+        - source: FirestoreSource value to determine where to get the data from. Default value is cache.
+        - completion: closure that is called after the get action is complete. The closure will be passed a fully instantiated array of entities or an Error if the get action failed.
+     */
     func get(orderByField: String, source: FirestoreSource = .cache, completion: (([T], Error?) -> Void)?) {
         self.get(orderByField: orderByField, limit: 3000, source: source) { (result, error) in
             completion?(result, error)
@@ -246,6 +237,16 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         }
     }
     
+    /**
+     Retrieves all documents from the Firestore that are located in the entities collection where the field is greater than the value supplied.
+     
+     - Parameters:
+        - whereField: the name of the field to compare with
+        - isEqualTo: value to compare against
+        - orderByField: the name of the field to order by (ascending)
+        - limit: maximum number of records that will be returned
+        - completion: closure that is called after the get action is complete. The closure will be passed a fully instantiated entity or an Error if the get action failed.
+     */
     func get(whereField: String, isEqualTo: Any, orderByField: String, limit: Int, completion: (([T], Error?) -> Void)?) {
         
         self.collection.whereField(whereField, isEqualTo: isEqualTo).order(by: orderByField).limit(to: limit).getDocuments(source: self.source) { (snapshot, error) in
@@ -336,13 +337,6 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         
         let reference = self.collection.document(entityId)
         
-//        // Set up to listen for events on the document
-//        if let block = completion {
-//            self.notifyOnceOnDocumentChange(reference) { (error) in
-//                block(error)
-//            }
-//        }
-
         // perform the delete - this will trigger the listener whether online or not
         reference.delete { (error) in
             completion?(error)

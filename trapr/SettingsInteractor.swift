@@ -19,11 +19,11 @@ final class SettingsInteractor: Interactor {
 // MARK: - ProfileInteractor API
 extension SettingsInteractor: SettingsInteractorApi {
     
-    func firestoreSync(completion: ((String, Double, Error?) -> Void)?) {
-        dataPopulatorService.mergeAllRealmDataToServer { (message, percentage, error) in
-            completion?(message, percentage, error)
-        }
-    }
+//    func firestoreSync(completion: ((String, Double, Error?) -> Void)?) {
+//        dataPopulatorService.mergeAllRealmDataToServer { (message, percentage, error) in
+//            completion?(message, percentage, error)
+//        }
+//    }
     
     func updateDashboardRoutes(routes: [_Route], showIndexes: [Int]) {
         

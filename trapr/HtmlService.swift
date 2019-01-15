@@ -16,20 +16,20 @@ struct RowDefinition<T: Any> {
     var value: (T) -> String?
 }
 
-struct TableHeadingDefinition {
-    var title: String
-    var width: Int
-    var alignment: String
-}
+//struct TableHeadingDefinition {
+//    var title: String
+//    var width: Int
+//    var alignment: String
+//}
 
 class HtmlService {
+    
     fileprivate let routeService = ServiceFactory.sharedInstance.routeFirestoreService
     fileprivate let visitService = ServiceFactory.sharedInstance.visitFirestoreService
     fileprivate let trapTypeService = ServiceFactory.sharedInstance.trapTypeFirestoreService
     fileprivate let stationService = ServiceFactory.sharedInstance.stationFirestoreService
     fileprivate let speciesService = ServiceFactory.sharedInstance.speciesFirestoreService
     
-    fileprivate var PLACEHOLDER: String = "@"
     fileprivate let rowDefinitions: [RowDefinition<VisitEx>] = [
         RowDefinition<VisitEx>(title: "Trap", width: 80, alignment: "left", value: { $0.stationName } ),
         RowDefinition<VisitEx>(title: "Type", width: 150, alignment: "left", value: { $0.trapTypeName } ),
@@ -41,7 +41,6 @@ class HtmlService {
         RowDefinition<VisitEx>(title: "Species", width: 150, alignment: "right", value: { $0.speciesName  } ),
         RowDefinition<VisitEx>(title: "Notes", width: 150, alignment: "right", value: { $0.notes } )
     ]
-    
 }
 
 extension HtmlService: HtmlServiceInterface {
@@ -82,7 +81,7 @@ extension HtmlService: HtmlServiceInterface {
     
     
     /**
-     
+     Get the headings row for the table
      */
     func htmlForHeadings(rowDefinitions: [RowDefinition<VisitEx>]) -> String {
      

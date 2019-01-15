@@ -44,6 +44,12 @@ final class ListPickerView: UserInterface {
     
     //MARK: - UIViewController
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        presenter.didSelectDone()
+    }
+    
     override func loadView() {
         super.loadView()
 

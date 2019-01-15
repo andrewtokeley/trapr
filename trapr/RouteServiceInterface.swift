@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import FirebaseFirestore
 
 protocol RouteServiceInterface {
     
@@ -28,6 +29,8 @@ protocol RouteServiceInterface {
     
     /// Gets all routes belong to the current user
     func get(completion: (([_Route], Error?) -> Void)?)
+    
+    func get(source: FirestoreSource, completion: (([_Route], Error?) -> Void)?)
     
     /// Gets specified route. Note it must be owned by the current user.
     func get(routeId: String, completion: ((_Route?, Error?) -> Void)?)

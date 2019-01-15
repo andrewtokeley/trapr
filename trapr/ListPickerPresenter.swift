@@ -27,7 +27,8 @@ final class ListPickerPresenter: Presenter {
             _view.setTitle(title: setupData!.delegate?.listPickerTitle(_view as! ListPickerView) ?? "")
             
             view.enableMultiselect(enable: setupData.enableMultiselect)
-            view.showDoneButton(show: setupData.enableMultiselect)
+            //view.showDoneButton(show: setupData.enableMultiselect)
+            view.showDoneButton(show: false)
             
             // get initial selec
             self.selectedIndices = initializeSelectedIndicies()

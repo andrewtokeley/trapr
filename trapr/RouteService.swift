@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import FirebaseFirestore
 
 class RouteService: RealmService, RouteServiceInterface {
     func daysSinceLastVisit(routeId: String, completion: ((Int?) -> Void)?) {
@@ -61,6 +62,7 @@ class RouteService: RealmService, RouteServiceInterface {
     func get(completion: (([_Route], Error?) -> Void)?) {
         
     }
+    func get(source: FirestoreSource, completion: (([_Route], Error?) -> Void)?) {}
     
     func get(routeId: String, completion: ((_Route?, Error?) -> Void)?) {
         

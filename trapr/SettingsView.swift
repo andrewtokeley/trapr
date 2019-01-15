@@ -12,24 +12,23 @@ import Viperit
 //MARK: ProfileView Class
 final class SettingsView: UserInterface {
     
+    /// Hide initially and only show if the presenter tells you to
+    var showHideRoutes = false
+    
     let TABLEVIEW_CELL_ID = "cell"
     
 //    let SECTION_USER =  0
 //    let ROW_TRAPPER_NAME = 0
 
-    let SECTION_EMAILS = 1
+    let SECTION_EMAILS = 0
     let ROW_VISITS_EMAIL = 0
     let ROW_ORDERS_EMAIL = 1
 
-    let SECTION_HIDDEN_ROUTES = 2
+    let SECTION_HIDDEN_ROUTES = 1
     let ROW_HIDDEN_ROUTES = 0
     
-//    let SECTION_FIRESTORE_SYNC = 3
-//    let ROW_FIRESTORE_SYNC = 0
-    
-    let TEXTFIELD_TAG_NAME = 0
-    let TEXTFIELD_TAG_VISIT_EMAIL = 1
-    let TEXTFIELD_TAG_ORDER_EMAIL = 2
+    let TEXTFIELD_TAG_VISIT_EMAIL = 0
+    let TEXTFIELD_TAG_ORDER_EMAIL = 1
     
     //MARK: - Subviews
     
@@ -68,45 +67,7 @@ final class SettingsView: UserInterface {
         self.present(alert, animated: true, completion: nil)
     }
     
-//    lazy var trapperNameTableViewCell: UITableViewCell = {
-//
-//        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: self.TABLEVIEW_CELL_ID)
-//
-//        let label = UILabel()
-//        label.text = "Your name"
-//
-//        cell.contentView.addSubview(label)
-//        cell.contentView.addSubview(self.trapperNameTextField)
-//
-//        cell.selectionStyle = .none
-//
-//        label.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
-//        label.autoAlignAxis(toSuperviewAxis: .horizontal)
-//        label.autoSetDimension(.width, toSize: LayoutDimensions.tableViewLabelWidth * 1.5)
-//
-//        self.trapperNameTextField.autoPinEdge(.left, to: .right, of: label, withOffset: LayoutDimensions.spacingMargin)
-//        self.trapperNameTextField.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
-//        self.trapperNameTextField.autoAlignAxis(toSuperviewAxis: .horizontal)
-//        self.trapperNameTextField.autoSetDimension(.height, toSize: LayoutDimensions.tableCellHeight)
-//
-//        return cell
-//    }()
-    
-//    lazy var trapperNameTextField: UITextField = {
-//
-//        let textField = UITextField()
-//        textField.placeholder = "Name"
-//        textField.textColor = UIColor.gray
-//        textField.textAlignment = .right
-//        textField.tag = self.TEXTFIELD_TAG_NAME
-//        textField.delegate = self
-//        let spacerView = UIView(frame:CGRect(x:0, y:0, width:LayoutDimensions.textIndentMargin, height:LayoutDimensions.textIndentMargin))
-//        textField.leftViewMode = .always
-//        textField.leftView = spacerView
-//        textField.clearButtonMode = .whileEditing
-//        textField.returnKeyType = UIReturnKeyType.done
-//        return textField
-//    }()
+
     
     lazy var visitsEmailTableViewCell: UITableViewCell = {
         
@@ -196,21 +157,21 @@ final class SettingsView: UserInterface {
         return cell
     }()
     
-    lazy var firestoreSyncButton: UIButton = {
-       
-        let button = UIButton()
-        button.setTitle("Firestore Sync", for: .normal)
-        button.setTitleColor(UIColor.red, for: .normal)
-        button.addTarget(self, action: #selector(firestoreSyncButtonClick(sender:)), for: UIControlEvents.touchUpInside)
-        return button
-    }()
-
-    lazy var firestoreSyncProgressBar: UIProgressView = {
-        let progress = UIProgressView(progressViewStyle: .default)
-        progress.trackTintColor = UIColor.trpProgressBarBackground
-        progress.progressTintColor = UIColor.trpProgressBarForeground
-        return progress
-    }()
+//    lazy var firestoreSyncButton: UIButton = {
+//
+//        let button = UIButton()
+//        button.setTitle("Firestore Sync", for: .normal)
+//        button.setTitleColor(UIColor.red, for: .normal)
+//        button.addTarget(self, action: #selector(firestoreSyncButtonClick(sender:)), for: UIControlEvents.touchUpInside)
+//        return button
+//    }()
+//
+//    lazy var firestoreSyncProgressBar: UIProgressView = {
+//        let progress = UIProgressView(progressViewStyle: .default)
+//        progress.trackTintColor = UIColor.trpProgressBarBackground
+//        progress.progressTintColor = UIColor.trpProgressBarForeground
+//        return progress
+//    }()
     
     // MARK: - UIViewController
     
@@ -221,9 +182,9 @@ final class SettingsView: UserInterface {
         self.view.backgroundColor = UIColor.trpBackground
         self.navigationItem.leftBarButtonItem = closeButton
         self.view.addSubview(tableView)
-        self.view.addSubview(firestoreSyncButton)
+        //self.view.addSubview(firestoreSyncButton)
         self.view.addSubview(versionInfo)
-        self.view.addSubview(firestoreSyncProgressBar)
+        //self.view.addSubview(firestoreSyncProgressBar)
         
         // ensure the keyboard disappears when click view
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
@@ -239,13 +200,13 @@ final class SettingsView: UserInterface {
         self.tableView.autoPinEdge(toSuperviewEdge: .top)
         self.tableView.autoPinEdge(toSuperviewEdge: .bottom, withInset: 200)
         
-        self.firestoreSyncButton.autoPinEdge(.top, to: .bottom, of: self.tableView)
-        self.firestoreSyncButton.autoPinEdge(toSuperviewEdge: .left)
-        self.firestoreSyncButton.autoPinEdge(toSuperviewEdge: .right)
+//        self.firestoreSyncButton.autoPinEdge(.top, to: .bottom, of: self.tableView)
+//        self.firestoreSyncButton.autoPinEdge(toSuperviewEdge: .left)
+//        self.firestoreSyncButton.autoPinEdge(toSuperviewEdge: .right)
         
-        self.firestoreSyncProgressBar.autoPinEdge(.top, to: .bottom, of: self.firestoreSyncButton, withOffset: LayoutDimensions.spacingMargin)
-        self.firestoreSyncProgressBar.autoPinEdge(toSuperviewEdge: .left)
-        self.firestoreSyncProgressBar.autoPinEdge(toSuperviewEdge: .right)
+//        self.firestoreSyncProgressBar.autoPinEdge(.top, to: .bottom, of: self.firestoreSyncButton, withOffset: LayoutDimensions.spacingMargin)
+//        self.firestoreSyncProgressBar.autoPinEdge(toSuperviewEdge: .left)
+//        self.firestoreSyncProgressBar.autoPinEdge(toSuperviewEdge: .right)
         
         self.versionInfo.autoPinEdges(toSuperviewMarginsExcludingEdge: .top)
         self.versionInfo.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
@@ -253,10 +214,10 @@ final class SettingsView: UserInterface {
     
     //MARK: - Events
     
-    @objc func firestoreSyncButtonClick(sender: UIBarButtonItem) {
-        presenter.didSelectFirestoreSync()
-    }
-    
+//    @objc func firestoreSyncButtonClick(sender: UIBarButtonItem) {
+//        presenter.didSelectFirestoreSync()
+//    }
+//
     @objc func closeButtonClick(sender: UIBarButtonItem) {
         
         presenter.didSelectClose()
@@ -275,9 +236,6 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        if section == SECTION_USER {
-//            return "PROFILE"
-//        } else
         if section == SECTION_EMAILS {
             return "EMAIL"
         } else if section == SECTION_HIDDEN_ROUTES {
@@ -287,21 +245,15 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
         return nil
     }
     
-//    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-//        if section == SECTION_USER {
-//            return "Your username is used when submitting your Visits"
-//        }
-//        return nil
-//    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        if self.showHideRoutes {
+            return 2
+        } else {
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if section == SECTION_USER {
-//            return 1
-//        } else
         if section == SECTION_EMAILS {
             return 2
         } else if section == SECTION_HIDDEN_ROUTES {
@@ -316,9 +268,6 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
         let section = indexPath.section
         let row = indexPath.row
         
-//        if section == SECTION_USER {
-//            return trapperNameTableViewCell
-//        } else
         if section == SECTION_EMAILS {
             if row == ROW_VISITS_EMAIL {
                 return visitsEmailTableViewCell
@@ -337,10 +286,6 @@ extension SettingsView: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         let tag = textField.tag
-        
-//        if tag == TEXTFIELD_TAG_NAME {
-//            presenter.didUpdateTrapperName(name: textField.text)
-//        } else
         if tag == TEXTFIELD_TAG_ORDER_EMAIL {
             presenter.didUpdateEmailOrdersRecipient(emailAddress: textField.text)
         } else if tag == TEXTFIELD_TAG_VISIT_EMAIL {
@@ -359,15 +304,15 @@ extension SettingsView: UITextFieldDelegate {
 //MARK: - ProfileView API
 extension SettingsView: SettingsViewApi {
     
-    func setFirestoreSyncProgress(message: String, progress: Double) {
-        if progress > 0 && progress < 100 {
-            firestoreSyncProgressBar.alpha = 1
-            firestoreSyncProgressBar.setProgress(Float(progress), animated: true)
-        } else {
-            firestoreSyncProgressBar.alpha = 0
-        }
+    //func setFirestoreSyncProgress(message: String, progress: Double) {
+//        if progress > 0 && progress < 100 {
+//            firestoreSyncProgressBar.alpha = 1
+//            firestoreSyncProgressBar.setProgress(Float(progress), animated: true)
+//        } else {
+//            firestoreSyncProgressBar.alpha = 0
+//        }
         
-    }
+    //}
     
 //    func displayTrapperName(name: String?) {
 //        trapperNameTextField.text = name
@@ -387,6 +332,11 @@ extension SettingsView: SettingsViewApi {
     
     func displayEmailVisitsRecipient(emailAddress: String?) {
         self.visitsEmailTextField.text = emailAddress
+    }
+    
+    func enableHideRoutes(enable: Bool) {
+        self.showHideRoutes = enable
+        self.tableView.reloadData()
     }
 }
 

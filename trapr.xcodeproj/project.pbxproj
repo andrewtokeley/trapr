@@ -1949,7 +1949,7 @@
 				D8B94D531F5EA1FE00D373EF /* Resources */,
 				E47BD7212A05A0F1A304270D /* [CP] Embed Pods Frameworks */,
 				D8083D261FE5D5D000D1C5F1 /* Increment Build Number */,
-				25641664E76B5543FB624026 /* [CP] Copy Pods Resources */,
+				9E92D85D0275EA74A7CD1679 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1990,7 +1990,7 @@
 				D8C25D922181771F00C5DB64 /* Resources */,
 				D8C25DE62181771F00C5DB64 /* [CP] Embed Pods Frameworks */,
 				D8C25DE82181771F00C5DB64 /* Increment Build Number */,
-				0BB1621E8C5D255BF5D3B7B7 /* [CP] Copy Pods Resources */,
+				61DA115870A6EF897BC2B4DE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2263,7 +2263,25 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-traprTests/Pods-traprTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		0BB1621E8C5D255BF5D3B7B7 /* [CP] Copy Pods Resources */ = {
+		367FB6A19C05F5F0A01D84EA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-traprTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		61DA115870A6EF897BC2B4DE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2289,7 +2307,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		25641664E76B5543FB624026 /* [CP] Copy Pods Resources */ = {
+		9E92D85D0275EA74A7CD1679 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2313,24 +2331,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		367FB6A19C05F5F0A01D84EA /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-traprTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D8083D261FE5D5D000D1C5F1 /* Increment Build Number */ = {
