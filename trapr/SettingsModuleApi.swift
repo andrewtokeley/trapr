@@ -28,14 +28,14 @@ protocol SettingsViewApi: UserInterfaceProtocol {
 //MARK: - ProfilePresenter API
 protocol SettingsPresenterApi: PresenterProtocol {
     func didSelectClose()
-    //func didUpdateTrapperName(name: String?)
     func didUpdateEmailVisitsRecipient(emailAddress: String?)
     func didUpdateEmailOrdersRecipient(emailAddress: String?)
-    func didClickRealmLabel()
+    //func didClickRealmLabel()
     func didSelectHiddenRoutes()
+    //func didUpdateTrapperName(name: String?)
     //func didSelectFirestoreSync()
-//    func mergeWithTrapData()
-//    func resetAllData()
+    //func mergeWithTrapData()
+    //func resetAllData()
 }
 
 //MARK: - ProfileInteractor API

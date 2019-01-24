@@ -130,8 +130,8 @@ class FirestoreEntityService<T: DocumentSerializable>  {
      Get an array of entities matching the ids
      
      - parameters:
-     - ids: array of entity ids
-     - completion: closure that is called after the get action is complete. The closure will be passed a fully instantiated array of entities or an Error if the get action failed.
+        - ids: array of entity ids
+        - completion: closure that is called after the get action is complete. The closure will be passed a fully instantiated array of entities or an Error if the get action failed.
      */
     func get(ids: [String], completion: (([T], Error?) -> Void)?) {
         

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RealmSwift
 import FirebaseFirestore
 
 protocol TraplineServiceInterface {
@@ -17,6 +16,8 @@ protocol TraplineServiceInterface {
     func addTrap(station: _Station, trap: _TrapType, completion: ((Error?) -> Void)?)
     func delete(trapline: _Trapline, completion: ((Error?) -> Void)?)
     func deleteAll(completion: ((Error?) -> Void)?)
+    func extractTraplineReferencesFromStations(stations: [_Station]) -> [String]
+    func extractTraplineCodesFromStations(stations: [_Station]) -> [String]
     func get(stations: [_Station], completion: (([_Trapline], Error?) -> Void)?)
     func get(traplineId: String, completion: ((_Trapline?, Error?) -> Void)?)
     func get(completion: (([_Trapline]) -> Void)?)
@@ -25,20 +26,6 @@ protocol TraplineServiceInterface {
     //func get(traplineCode: String, completion: ((_Trapline?) -> Void)?)
     func get(regionId: String, traplineCode: String, completion: ((_Trapline?) -> Void)?)
     func getRecentTraplines(completion: (([_Trapline]) -> Void)?)
-    func extractTraplineReferencesFromStations(stations: [_Station]) -> [String]
-    func extractTraplineCodesFromStations(stations: [_Station]) -> [String]
     
-    //MARK: - to be removed
-    
-    func add(trapline: Trapline) throws
-    func addStation(trapline: Trapline, station: Station)
-    func addTrap(station: Station, trap: Trap)
-    func delete(trapline: Trapline)
-    func getTraplines() -> [Trapline]?
-    func getTraplines(from stations: [Station]) -> [Trapline] 
-    func getTraplines(region: Region) -> [Trapline]?
-    func getTrapline(region: Region, code: String) -> Trapline?
-    func getTrapline(code: String) -> Trapline?
-    func getRecentTraplines() -> [Trapline]?
     
 }

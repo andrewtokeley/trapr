@@ -7,30 +7,28 @@
 //
 
 import Foundation
-import RealmSwift
-import Photos
 
-class SavedImage: Object {
+class SavedImage {
 
     /**
     Unique identifier for the image. This will be a composit of createddate and size information as we can't rely on localIdentifier. The value of the id is set in SavedImageService
     */
-    @objc dynamic var id: String?
-    override static func primaryKey() -> String? {
-        return "id"
-    }
+    var id: String?
     
     /**
     Reference to the location of the saved image
     */
-    @objc dynamic var imageName: String?
+    var imageName: String?
     
+    /**
+     Fully qualified path to the image stored on the phone
+    */
     var imageUrl: URL? {
-        if let name = imageName {
-            let settings = ServiceFactory.sharedInstance.settingsService.getSettings()
-            return settings.documentDirectory.appendingPathComponent(name)
+        if let imageName = imageName {
+            // document directory
+//            let documentDirectory =
+//            return documentDirectory.appendingPathComponent(imageName)
         }
         return nil
     }
-    
 }

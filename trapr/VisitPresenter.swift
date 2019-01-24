@@ -24,7 +24,7 @@ enum visitRecordMenuItem: String {
 // MARK: - VisitPresenter Class
 final class VisitPresenter: Presenter {
     
-    fileprivate var settings: Settings?
+    //fileprivate var settings: Settings?
     fileprivate var delegate: VisitDelegate?
     
     fileprivate var visitSummary: _VisitSummary!

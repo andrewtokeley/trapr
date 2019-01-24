@@ -13,7 +13,7 @@ import Photos
 protocol StartRouterApi: RouterProtocol {
     func showMap(route: _Route)
     func showVisitModule(visitSummary: _VisitSummary)
-    func showNewVisitModule(delegate: NewVisitDelegate)
+    //func showNewVisitModule(delegate: NewVisitDelegate)
     func showRouteModule(route: _Route?)
     func showNewRouteModule()
     func showRouteDashboardModule(route: _Route?)

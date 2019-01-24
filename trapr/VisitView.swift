@@ -563,7 +563,7 @@ private extension VisitView {
     var presenter: VisitPresenterApi {
         return _presenter as! VisitPresenterApi
     }
-    var displayData: VisitDisplayData {
-        return _displayData as! VisitDisplayData
-    }
+//    var displayData: VisitDisplayData {
+//        return _displayData as! VisitDisplayData
+//    }
 }

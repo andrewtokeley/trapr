@@ -19,16 +19,24 @@ extension RouteDashboardRouter: RouteDashboardRouterApi {
     
     func showVisitModule(visitSummary: _VisitSummary) {
         // waiting on this one until I commit to converting Visit modules
-    }
-    
-    func showVisitModule(visitSummary: VisitSummary) {
         let module = AppModules.visit.build()
         
         // Remove title from back button
         _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
-        module.router.show(from: _view, embedInNavController: false, setupData: visitSummary)
+        let setup = VisitSetup()
+        setup.visitSummary = visitSummary
+        module.router.show(from: _view, embedInNavController: false, setupData: setup)
     }
+    
+//    func showVisitModule(visitSummary: VisitSummary) {
+//        let module = AppModules.visit.build()
+//        
+//        // Remove title from back button
+//        _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+//        
+//        module.router.show(from: _view, embedInNavController: false, setupData: visitSummary)
+//    }
     
     /**
      Add a MapViewController instance as a child of the RouteDashboard view
@@ -48,7 +56,7 @@ extension RouteDashboardRouter: RouteDashboardRouterApi {
         let module = AppModules.visitHistory.build()
         let setupData = VisitHistorySetupData()
         setupData.visitSummaries = visitSummaries
-        setupData.route = nil
+        //setupData.route = nil
         
         // Remove title from back button
         _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -56,17 +64,17 @@ extension RouteDashboardRouter: RouteDashboardRouterApi {
         module.router.show(from: _view, embedInNavController: false, setupData: setupData)
     }
     
-    func showVisitHistoryModule(route: Route) {
-        
-        let module = AppModules.visitHistory.build()
-        let setupData = VisitHistorySetupData()
-        setupData.route = route
-        
-        // Remove title from back button
-        _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
-        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
-    }
+//    func showVisitHistoryModule(route: Route) {
+//        
+//        let module = AppModules.visitHistory.build()
+//        let setupData = VisitHistorySetupData()
+//        setupData.route = route
+//        
+//        // Remove title from back button
+//        _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+//        
+//        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
+//    }
 }
 
 // MARK: - RouteDashboard Viper Components

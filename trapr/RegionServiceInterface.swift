@@ -18,14 +18,9 @@ protocol RegionServiceInterface {
         - region: the Region to add/update to the repository
      */
     func add(region: Region)
-    
-    /**
-     Saves a region to repository. If the region doesn't exist, it will be added. A region is considered to already exist by matching the region code (primary key)
-     
-     - parameters:
-     - region: the Region to add/update to the repository
-     */
     func save(region: Region)
-    
-    func getRegions() -> [Region]?
+    /**
+     Return all regions
+     */
+    func getAllRegions() -> [Region]?
 }

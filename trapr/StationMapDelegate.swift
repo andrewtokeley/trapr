@@ -75,7 +75,7 @@ extension StationMapDelegate {
     }
     
     func stationMapStations(_ stationMap: StationMapViewController) -> [LocatableEntity] {
-        return [Station]()
+        return [_Station]()
     }
     
     func stationMap(_ stationMap: StationMapViewController, didHighlight annotationView: StationAnnotationView) {

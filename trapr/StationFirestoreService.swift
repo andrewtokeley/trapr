@@ -211,7 +211,7 @@ extension StationFirestoreService: StationServiceInterface {
     
     func get(traplineId: String, completion: (([_Station]) -> Void)?) {
         super.get(whereField: StationFields.traplineId.rawValue, isEqualTo: traplineId) { (stations, error) in
-            let ordered = stations.sorted(by: { $0.number < $1.number }, stable: true)
+            let ordered = stations.sorted(by: { $0.number < $1.number })
             completion?(ordered)
         }
     }
@@ -304,11 +304,11 @@ extension StationFirestoreService: StationServiceInterface {
         // need to add any inactive traps that have a visit recorded against them on the given date
         // TODO
         let codes = trapTypesStatus.map { (status) -> String in
-          return status.trapTpyeId
+            return status.trapTpyeId
         }
         
-        self.trapTypeService.get(ids: codes) { (trapType, error) in
-            completion?(trapType)
+        self.trapTypeService.get(ids: codes) { (trapTypes, error) in
+            completion?(trapTypes)
         }
     }
     
@@ -328,7 +328,7 @@ extension StationFirestoreService: StationServiceInterface {
                 
                 let stationsOnTrapline = stations.filter({ (station) -> Bool in
                     station.traplineId == traplineId
-                }).sorted(by: { $0.number < $1.number }, stable: true)
+                }).sorted(by: { $0.number < $1.number })
                 
                 if stationsOnTrapline.count > 0 {
                     
@@ -404,34 +404,33 @@ extension StationFirestoreService: StationServiceInterface {
         
         let traplineCodes = traplineService.extractTraplineCodesFromStations(stations: stations)
         let traplineIds = traplineService.extractTraplineReferencesFromStations(stations: stations)
-        if let traplinesDict = Dictionary(keys: traplineIds, values: traplineCodes) {
         
-            if !includeStationCodes {
-                // e.g. LW, E
-                return traplineCodes.joined(separator: ", ")
+        let traplinesDict = Dictionary(uniqueKeysWithValues: zip(traplineIds, traplineCodes))
+    
+        if !includeStationCodes {
+            // e.g. LW, E
+            return traplineCodes.joined(separator: ", ")
+            
+        } else {
+            
+            var traplineDescriptions = [String]()
+            
+            for trapline in traplinesDict {
                 
-            } else {
+                let stationsInTrapline = stations.filter { $0.traplineId == trapline.key }
                 
-                var traplineDescriptions = [String]()
+                // ["1-10", "20-30"]
+                var rangeDescriptions = stationsRangeDescriptions(for: stationsInTrapline)
                 
-                for trapline in traplinesDict {
-                    
-                    let stationsInTrapline = stations.filter { $0.traplineId == trapline.key }
-                    
-                    // ["1-10", "20-30"]
-                    var rangeDescriptions = stationsRangeDescriptions(for: stationsInTrapline)
-                    
-                    // ["LW1-10", "LW20-30"]
-                    rangeDescriptions = rangeDescriptions.map{ trapline.value + $0 }
-                    
-                    traplineDescriptions.append(rangeDescriptions.joined(separator: ", "))
-                    
-                }
-                // N05, LW01-10
-                return traplineDescriptions.joined(separator: ", ")
+                // ["LW1-10", "LW20-30"]
+                rangeDescriptions = rangeDescriptions.map{ trapline.value + $0 }
+                
+                traplineDescriptions.append(rangeDescriptions.joined(separator: ", "))
+                
             }
+            // N05, LW01-10
+            return traplineDescriptions.joined(separator: ", ")
         }
-        return ""
     }
     
     private func stationsRangeDescriptions(for stations: [_Station]) -> [String] {
@@ -471,18 +470,5 @@ extension StationFirestoreService: StationServiceInterface {
         
         return ranges
     }
-    
-    // MARK: - Not implemented in Firestore Service
-    func delete(station: Station) {}
-    func searchStations(searchTerm: String, region: Region?) -> [Station] { return [Station]() }
-    func getAll() -> [Station] { return [Station]() }
-    func getAll(region: Region?) -> [Station] { return [Station]() }
-    func getDescription(stations: [Station], includeStationCodes: Bool) -> String { return "" }
-    func reverseOrder(stations: [Station]) -> [Station] { return [Station]() }
-    func isStationCentral(station: Station) -> Bool { return false }
-    func getStationSequence(_ from: Station, _ to: Station) -> [Station]? { return nil }
-    func getTraplines(from stations: [Station]) -> [Trapline] { return [Trapline]() }
-    func getActiveOrHistoricTraps(route: Route, station: Station, date: Date) -> [Trap] { return [Trap]() }
-    func getMissingStations() -> [String] { return [String]() }
 }
 

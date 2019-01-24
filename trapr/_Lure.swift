@@ -8,6 +8,19 @@
 
 import Foundation
 
+enum LureCode: String {
+    case cereal = "CERE"
+    case cerealWithWireMesh = "CMSH"
+    case apple = "APPL"
+    case cinnamon = "CINN"
+    case plasticLure = "PLAS"
+    case driedRabbit = "RABB"
+    case egg = "EGG"
+    case contracBloxPoison = "CBLOX"
+    case contracRodenticidePoison = "CRODT"
+    case other = "OTHR"
+}
+
 class _Lure: _Lookup {
     
 }

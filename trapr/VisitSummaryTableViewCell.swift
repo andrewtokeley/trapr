@@ -17,7 +17,7 @@ struct Statistic {
 
 class VisitSummaryTableViewCell: UITableViewCell {
     let CELL_IDENTIFIER = "cell"
-    var delegate: VisitSummaryTableViewCellDelegate?
+    //var delegate: VisitSummaryTableViewCellDelegate?
     
     @IBOutlet weak var timeTakenLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!

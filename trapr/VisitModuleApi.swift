@@ -85,7 +85,7 @@ protocol VisitInteractorApi: InteractorProtocol {
     func deleteVisit(visit: _Visit)
     
     func deleteAllVisits(routeId: String, date: Date)
-    func addVisitSync(visitSync: VisitSync)
+    //func addVisitSync(visitSync: VisitSync)
     
     func removeStationFromRoute(route: _Route, stationId: String)
     func deleteStation(route: _Route, stationId: String)

@@ -174,7 +174,7 @@ class VisitSummaryFirebaseService: FirestoreService, VisitSummaryServiceInterfac
             }
             
             // for average and fastest times only consider when all traps were visited.
-            let fullyVisitedSummaries = visitSummaries.filter({ $0.numberOfTrapsOnRoute == $0.numberOfTrapsVisited }).sorted(by: { $0.timeTaken < $1.timeTaken }, stable: true)
+            let fullyVisitedSummaries = visitSummaries.filter({ $0.numberOfTrapsOnRoute == $0.numberOfTrapsVisited }).sorted(by: { $0.timeTaken < $1.timeTaken })
             
             // Average time
             let totalTimeTakenOnFullyVisitedSummaries = fullyVisitedSummaries.reduce(0, { $0 + $1.timeTaken })

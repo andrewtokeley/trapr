@@ -9,6 +9,6 @@
 import Foundation
 
 class VisitHistorySetupData {
-    var route: Route?
+    //var route: Route?
     var visitSummaries: [_VisitSummary]?
 }

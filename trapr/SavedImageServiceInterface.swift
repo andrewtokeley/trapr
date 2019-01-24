@@ -14,6 +14,6 @@ protocol SavedImageServiceInterface {
     /**
     Adds or updates a saved image record based on a source photo image URL. If the image is deemed to have already been saved locally (based on uniqueKey) an existing SavedImage record is returned, otherwise, a new SavedImage record will be created and returned.
     */
-    func addOrUpdateSavedImage(asset: PHAsset, completion: ((SavedImage) -> Swift.Void)?)
+    func addOrUpdateSavedImage(asset: PHAsset, completion: ((SavedImage?) -> Void)?)
     
 }

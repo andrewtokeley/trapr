@@ -75,9 +75,9 @@ extension SettingsPresenter: SettingsPresenterApi {
         }
     }
     
-    func didClickRealmLabel() {
-        UIPasteboard.general.string = ServiceFactory.sharedInstance.realm.configuration.fileURL?.relativePath
-    }
+//    func didClickRealmLabel() {
+//        UIPasteboard.general.string = ServiceFactory.sharedInstance.realm.configuration.fileURL?.relativePath
+//    }
     
     func didSelectClose() {
         _view.view.endEditing(true)

@@ -19,7 +19,7 @@ protocol DataPopulatorServiceInterface {
      - remarks:
      This method is idempotent and can be run multiple times with no risk of duplicating data on the server
      */
-    func mergeAllRealmDataToServer(completion: ((String, Double, Error?) -> Void)?)
+    //func mergeAllRealmDataToServer(completion: ((String, Double, Error?) -> Void)?)
     
     /**
      Add a specific instance of traline and stations to store. Only intended to be used for testing.

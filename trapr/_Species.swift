@@ -8,6 +8,16 @@
 
 import Foundation
 
+enum SpeciesCode: String {
+    case possum = "POS"
+    case rat = "RAT"
+    case mouse = "MOU"
+    case hedgehog = "HED"
+    case cat = "CAT"
+    case stoat = "STO"
+    case other = "OTHR"
+}
+
 class _Species: _Lookup {
     
 }

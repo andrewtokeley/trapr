@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RealmSwift
 import Viperit
 
 // MARK: - VisitInteractor Class
@@ -20,7 +19,7 @@ final class VisitInteractor: Interactor {
     fileprivate lazy var htmlService = { ServiceFactory.sharedInstance.htmlService }()
     fileprivate lazy var userSettingsService = { ServiceFactory.sharedInstance.userSettingsService }()
     
-    fileprivate var visits: [Visit]!
+    //fileprivate var visits: [Visit]!
     
     fileprivate func refreshRoute(routeId: String, selectedIndex: Int) {
         // retrieve the route from the database again (with the new station)
@@ -112,6 +111,7 @@ extension VisitInteractor: VisitInteractorApi {
     }
     func retrieveTrapsToDisplay(route: _Route, station: _Station, date: Date, completion: (([_TrapType]) -> Void)?) {
         stationService.getActiveOrHistoricTraps(route: route, station: station, date: date) { (trapTypes) in
+            print("interactOR: \(trapTypes)")
             completion?(trapTypes)
         }
     }
@@ -157,9 +157,9 @@ extension VisitInteractor: VisitInteractorApi {
         }
     }
     
-    func addVisitSync(visitSync: VisitSync) {
-        ServiceFactory.sharedInstance.visitSyncService.add(visitSync: visitSync)
-    }
+//    func addVisitSync(visitSync: VisitSync) {
+//        ServiceFactory.sharedInstance.visitSyncService.add(visitSync: visitSync)
+//    }
     
     func retrieveVisit(date: Date, routeId: String, stationId: String, trapTypeId: String) {
         print("interactor: retrieveVisit")

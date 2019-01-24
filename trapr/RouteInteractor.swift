@@ -15,10 +15,11 @@ final class RouteInteractor: Interactor {
 
 // MARK: - RouteInteractor API
 extension RouteInteractor: RouteInteractorApi {
-    func saveRoute(route: Route) {
-        let service = ServiceFactory.sharedInstance.routeService
-        service.save(route: route)
-    }
+//    func saveRoute(route: Route) {
+//        fatalError()
+////        let service = ServiceFactory.sharedInstance.routeService
+////        service.save(route: route)
+//    }
 }
 
 // MARK: - Interactor Viper Components Api

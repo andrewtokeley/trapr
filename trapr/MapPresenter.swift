@@ -114,10 +114,10 @@ extension MapPresenter: MapPresenterApi {
             showingHighlightedOnly = true
         }
         
-        if title == MapMenuItems.listMissing.rawValue {
-            let missing = ServiceFactory.sharedInstance.stationService.getMissingStations()
-            print(missing)
-        }
+//        if title == MapMenuItems.listMissing.rawValue {
+//            let missing = ServiceFactory.sharedInstance.stationService.getMissingStations()
+//            print(missing)
+//        }
     }
     
     func didFetchStationsToHighlight(stations: [LocatableEntity]) {

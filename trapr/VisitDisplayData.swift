@@ -12,6 +12,4 @@ import Viperit
 // MARK: - VisitDisplayData class
 final class VisitDisplayData: DisplayData {
     
-    var visitSummary: VisitSummary?
-
 }

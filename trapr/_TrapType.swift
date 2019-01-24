@@ -14,6 +14,14 @@ enum _KillMethod: String {
     case unknown = "UNKNOWN" // only used if user is recording a visit against a traptype that isn't in the system
 }
 
+enum TrapTypeCode: String {
+    case possumMaster = "POS"
+    case pellibait = "PEL"
+    case doc200 = "DOC200"
+    case timms = "TIMM"
+    case other = "OTHER"
+}
+
 enum TrapTypeFields: String {
     case defaultLure = "defaultLure"
     case availableLures = "availableLures"

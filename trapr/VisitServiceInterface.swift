@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import RealmSwift
+import FirebaseFirestore
 
 protocol VisitServiceInterface {
     
@@ -55,6 +55,8 @@ protocol VisitServiceInterface {
     /// Save a new visit to the data store.
     func save(visit: _Visit, completion: ((_Visit?, Error?) -> Void)?)
     
+    func get(source: FirestoreSource, completion: (([_Visit]) -> Void)?)
+    
     /**
      Get a visit record with the given id.
      
@@ -63,6 +65,7 @@ protocol VisitServiceInterface {
         - completion: closure with parameters, Visit and Error
     */
     func get(id: String, completion: ((_Visit?, Error?) -> Void)?)
+    
     
     /**
      Returns whether any visits have been recorded against this trap. Useful in cases where you want to check whether a trap can be deleted
@@ -165,30 +168,4 @@ protocol VisitServiceInterface {
     func poisonCount(monthOffset: Int, routeId: String, completion: ((Int) -> Void)?)
     func updateDate(visitId: String, date: Date, completion: ((Error?) -> Void)?)
     
-    func add(visit: Visit)
-    func delete(visit: Visit)
-    func deleteVisits(visitSummary: VisitSummary)
-    func getById(id: String) -> Visit?
-    func hasVisits(trap: Trap) -> Bool
-    func getVisits(route: Route, station: Station) -> [Visit]
-    func getVisits(route: Route) -> Results<Visit>?
-    func getVisits(recordedOn date: Date) -> Results<Visit>?
-    func getVisits(recordedOn date: Date, route: Route) -> Results<Visit>?
-    func getVisits(recordedOn date: Date, route: Route, trap: Trap) -> Results<Visit>?
-    func getVisits(recordedBetween dateStart: Date, dateEnd: Date) -> Results<Visit>?
-    func getVisits(recordedBetween dateStart: Date, dateEnd: Date, route: Route) -> Results<Visit>?
-    func getVisits(recordedBetween dateStart: Date, dateEnd: Date, route: Route, trap: Trap) -> Results<Visit>?
-    func getVisits(recordedBetween dateStart: Date, dateEnd: Date, trap: Trap) -> Results<Visit>?
-    func getVisitSummary(date: Date, route: Route) -> VisitSummary
-    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date, includeHidden: Bool) -> [VisitSummary]
-    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date, route: Route) -> [VisitSummary]
-    func getStatistics(visitSummaries: [VisitSummary]) -> VisitSummariesStatistics?
-    func getVisitSummaryMostRecent(route: Route) -> VisitSummary?
-    func visitsExistForRoute(route: Route) -> Bool
-    func killCounts(monthOffset: Int, route: Route) -> [Species: Int]
-    func save(visit: Visit) -> Visit
-    func deleteVisits(route: Route)
-    func poisonCount(monthOffset: Int, route: Route) -> Int
-    func updateDate(visit: Visit, date: Date)
-
 }

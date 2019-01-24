@@ -17,12 +17,12 @@ enum ResizeState {
 
 //MARK: - RouteDashboardRouter API
 protocol RouteDashboardRouterApi: RouterProtocol {
-    func showVisitModule(visitSummary: VisitSummary)
+    //func showVisitModule(visitSummary: VisitSummary)
     func showVisitModule(visitSummary: _VisitSummary)
     
     func addMapAsChildView(containerView: UIView)
     
-    func showVisitHistoryModule(route: Route)
+    //func showVisitHistoryModule(route: Route)
     func showVisitHistoryModule(visitSummaries: [_VisitSummary])
 }
 
@@ -51,7 +51,7 @@ protocol RouteDashboardViewApi: class, UserInterfaceProtocol {
     
     func setVisibleRegionToHighlightedStations()
     func setVisibleRegionToCentreOfStations(distance: Double)
-    func setVisibleRegionToStation(station: Station, distance: Double)
+    //func setVisibleRegionToStation(station: Station, distance: Double)
     func setVisibleRegionToAllStations()
     
     func enableToggleHighlightMode(_ enable: Bool)

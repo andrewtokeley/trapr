@@ -103,16 +103,16 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
     
     func setRouteImage(route: _Route, asset: PHAsset, completion: (() -> Swift.Void)?) {
         // TODO: update saved image service to Firebase too
-        ServiceFactory.sharedInstance.savedImageService.addOrUpdateSavedImage(asset: asset, completion: {
-            (savedImage) in
-            
-            // let presenter know we've got a new image.
-            if let routeId = route.id {
-                self.routeService.updateDashboardImage(routeId: routeId, savedImage: savedImage) { (error) in
-                    completion?()
-                }
-            }
-        })
+//        ServiceFactory.sharedInstance.savedImageService.addOrUpdateSavedImage(asset: asset, completion: {
+//            (savedImage) in
+//            
+//            // let presenter know we've got a new image.
+//            if let routeId = route.id {
+//                self.routeService.updateDashboardImage(routeId: routeId, savedImage: savedImage) { (error) in
+//                    completion?()
+//                }
+//            }
+//        })
     }
   
     func getStationSequence(fromStationId: String, toStationId: String, completion: (([_Station], Error?) -> Void)?)  {

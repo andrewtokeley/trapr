@@ -132,48 +132,5 @@ extension TraplineFirestoreService: TraplineServiceInterface {
 //        
 //        return results.count > 0 ? results : nil
 //    }
-    
-    //MARK: - Will be deleted
-    
-    func add(trapline: Trapline) throws {
         
-    }
-    
-    func addStation(trapline: Trapline, station: Station) {
-        
-    }
-    
-    func addTrap(station: Station, trap: Trap) {
-        
-    }
-    
-    func delete(trapline: Trapline) {
-        
-    }
-    
-    func getTraplines() -> [Trapline]? {
-        return nil
-    }
-    
-    func getTraplines(region: Region) -> [Trapline]? {
-        return nil
-    }
-    
-    func getTraplines(from stations: [Station]) -> [Trapline]
-    {
-        return [Trapline]()
-    }
-    
-    func getTrapline(region: Region, code: String) -> Trapline? {
-        return nil
-    }
-    
-    func getTrapline(code: String) -> Trapline? {
-        return nil
-    }
-    
-    func getRecentTraplines() -> [Trapline]? {
-        return nil
-    }
-    
 }

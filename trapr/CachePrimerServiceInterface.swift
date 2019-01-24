@@ -14,6 +14,7 @@ protocol CachePrimerServiceInterface {
      Loads core application data from server into local cache to enable offline use.
      
      Core data includes;
+     - Routes
      - Species
      - Lures
      - TrapTypes

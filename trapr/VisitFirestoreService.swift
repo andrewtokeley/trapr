@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RealmSwift // temporary until we get rid of sync calls
 import FirebaseFirestore
 
 class VisitFirestoreService: FirestoreEntityService<_Visit>, VisitServiceInterface {
@@ -15,6 +14,7 @@ class VisitFirestoreService: FirestoreEntityService<_Visit>, VisitServiceInterfa
     private lazy var trapTypeService = { ServiceFactory.sharedInstance.trapTypeFirestoreService }()
     private lazy var stationService = { ServiceFactory.sharedInstance.stationFirestoreService }()
     private lazy var speciesService = { ServiceFactory.sharedInstance.speciesFirestoreService }()
+    private lazy var userService = { ServiceFactory.sharedInstance.userService }()
     
     func extend(visit: _Visit, completion: ((VisitEx?) -> Void)?) {
         
@@ -47,6 +47,20 @@ class VisitFirestoreService: FirestoreEntityService<_Visit>, VisitServiceInterfa
             }
         } else {
             completion?(nil)
+        }
+    }
+    
+    func get(source: FirestoreSource, completion: (([_Visit]) -> Void)?) {
+        if let userId = userService.currentUser?.id {
+            super.collection.whereField(VisitFields.userId.rawValue, isEqualTo: userId).getDocuments(source: source) { (snapshot, error) in
+                
+                if let _ = error {
+                    completion?([_Visit]())
+                } else {
+                    let visits = super.getEntitiesFromQuerySnapshot(snapshot: snapshot)
+                    completion?(visits)
+                }
+            }
         }
     }
     
@@ -287,44 +301,7 @@ class VisitFirestoreService: FirestoreEntityService<_Visit>, VisitServiceInterfa
     }
     
     func updateDate(visitId: String, date: Date, completion: ((Error?) -> Void)?) {
-        
+        //TODO!
     }
-    
-    
-    // Not implemented for Firestore
-    func getVisits(route: Route, station: Station) -> [Visit] { return [Visit]() }
-    func add(visit: Visit) {}
-    func delete(visit: Visit) {}
-    func deleteVisits(route: Route) {}
-    func deleteVisits(visitSummary: VisitSummary) {    }
-    func save(visit: Visit) -> Visit { return Visit() }
-    func getById(id: String) -> Visit? { return nil }
-    func hasVisits(trap: Trap) -> Bool { return false }
-    func getVisits(route: Route) -> Results<Visit>? { return nil }
-    func getVisits(recordedOn date: Date) -> Results<Visit>? { return nil }
-    func getVisits(recordedOn date: Date, route: Route) -> Results<Visit>? { return nil }
-    func getVisits(recordedOn date: Date, route: Route, trap: Trap) -> Results<Visit>? { return nil }
-    func getVisits(recordedBetween dateStart: Date, dateEnd: Date) -> Results<Visit>? { return nil }
-    func getVisits(recordedBetween dateStart: Date, dateEnd: Date, route: Route) -> Results<Visit>? { return nil }
-    func getVisits(recordedBetween dateStart: Date, dateEnd: Date, route: Route, trap: Trap) -> Results<Visit>? { return nil    }
-    func getVisits(recordedBetween dateStart: Date, dateEnd: Date, trap: Trap) -> Results<Visit>? { return nil }
-    func getVisitSummary(date: Date, route: Route) -> VisitSummary { return VisitSummary(dateOfVisit: Date(), route: Route(name: "", stations: [Station()])) }
-    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date, includeHidden: Bool) -> [VisitSummary] { return [VisitSummary(dateOfVisit: Date(), route: Route(name: "", stations: [Station()]))] }
-    func getVisitSummaries(recordedBetween startDate: Date, endDate: Date, route: Route) -> [VisitSummary] { return [VisitSummary(dateOfVisit: Date(), route: Route(name: "", stations: [Station()]))] }
-    func getStatistics(visitSummaries: [VisitSummary]) -> VisitSummariesStatistics? { return nil }
-    func getVisitSummaryMostRecent(route: Route) -> VisitSummary? {
-        return nil
-    }
-    func visitsExistForRoute(route: Route) -> Bool {
-        return false
-    }
-    func killCounts(monthOffset: Int, route: Route) -> [Species : Int] {
-        return [Species: Int]()
-    }
-    func poisonCount(monthOffset: Int, route: Route) -> Int {
-        return 0
-    }
-    func updateDate(visit: Visit, date: Date) {
-        
-    }
+
 }

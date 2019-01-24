@@ -25,7 +25,7 @@ extension VisitHistoryInteractor: VisitHistoryInteractorApi {
     func getVisitSummariesForRoute(routeId: String, completion: (([_VisitSummary], Error?) -> Void)?) {
         // Get all the summaries from year dot, order with the most recent first
         visitSummaryService.get(recordedBetween: Date().add(0,0,-100), endDate: Date(), routeId: routeId) { (visitSummaries, error) in
-            completion?(visitSummaries, error)
+            completion?(visitSummaries.sorted(by: { $0.dateOfVisit > $1.dateOfVisit}), error)
         }
     }
     

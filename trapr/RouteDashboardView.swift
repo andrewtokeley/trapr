@@ -629,9 +629,9 @@ extension RouteDashboardView: RouteDashboardViewApi {
         mapViewController?.setVisibleRegionToAllStations()
     }
     
-    func setVisibleRegionToStation(station: Station, distance: Double) {
-        mapViewController?.setVisibleRegionToStation(station: station, distance: distance)
-    }
+//    func setVisibleRegionToStation(station: Station, distance: Double) {
+//        mapViewController?.setVisibleRegionToStation(station: station, distance: distance)
+//    }
     
     func getMapContainerView() -> UIView {
         return mapViewControllerHost

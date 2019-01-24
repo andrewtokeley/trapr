@@ -89,9 +89,9 @@ extension MapView: MapViewApi {
         mapViewController?.setVisibleRegionToAllStations()
     }
     
-    func setVisibleRegionToStation(station: Station, distance: CLLocationDistance) {
-        mapViewController?.setVisibleRegionToStation(station: station, distance: distance)
-    }
+//    func setVisibleRegionToStation(station: Station, distance: CLLocationDistance) {
+//        mapViewController?.setVisibleRegionToStation(station: station, distance: distance)
+//    }
     
     func showOnlyHighlighted() {
         //mapViewController?.showOnlyHighlighted()

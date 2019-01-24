@@ -41,7 +41,7 @@ class _VisitSummary {
     /// The number of seconds between the first and last visit (regardless of whether all the traps have been visited)
     var timeTaken: TimeInterval {
         
-        let orderedVisits = visits.sorted(by: { $0.visitDateTime < $1.visitDateTime }, stable: true)
+        let orderedVisits = visits.sorted(by: { $0.visitDateTime < $1.visitDateTime })
         
         if let firstVisit = orderedVisits.first, let lastVisit = orderedVisits.last {
             return lastVisit.visitDateTime.timeIntervalSince(firstVisit.visitDateTime)

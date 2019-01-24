@@ -30,9 +30,6 @@
 		D8083D171FE498F900D1C5F1 /* SettingsModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D111FE498F900D1C5F1 /* SettingsModuleApi.swift */; };
 		D8083D181FE498F900D1C5F1 /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D121FE498F900D1C5F1 /* SettingsInteractor.swift */; };
 		D8083D191FE498F900D1C5F1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D131FE498F900D1C5F1 /* SettingsView.swift */; };
-		D8083D1B1FE49A4E00D1C5F1 /* SettingsServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D1A1FE49A4E00D1C5F1 /* SettingsServiceInterface.swift */; };
-		D8083D1D1FE49A7800D1C5F1 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D1C1FE49A7800D1C5F1 /* SettingsService.swift */; };
-		D8083D1F1FE49AB000D1C5F1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D1E1FE49AB000D1C5F1 /* Settings.swift */; };
 		D8083D211FE4E67D00D1C5F1 /* SideMenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D201FE4E67D00D1C5F1 /* SideMenuDelegate.swift */; };
 		D8083D231FE4E6E500D1C5F1 /* SideMenuSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D221FE4E6E500D1C5F1 /* SideMenuSetupData.swift */; };
 		D8083D251FE5C24300D1C5F1 /* header_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D8083D241FE5C24200D1C5F1 /* header_image.png */; };
@@ -54,10 +51,6 @@
 		D80D694221E066C900EDBE8D /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80D694121E066C900EDBE8D /* Reachability.swift */; };
 		D80D694321E1C38D00EDBE8D /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80D694121E066C900EDBE8D /* Reachability.swift */; };
 		D80F7ECE1F6E79BF00814A52 /* TraplineServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ECD1F6E79BF00814A52 /* TraplineServiceInterface.swift */; };
-		D80F7ED01F6E7A9300814A52 /* TraplineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ECF1F6E7A9300814A52 /* TraplineService.swift */; };
-		D80F7ED31F6E87D500814A52 /* RealmDataPopulatorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ED21F6E87D500814A52 /* RealmDataPopulatorService.swift */; };
-		D80F7ED91F6E92C700814A52 /* TrapServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ED81F6E92C700814A52 /* TrapServiceInterface.swift */; };
-		D80F7EDB1F6EF89700814A52 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7EDA1F6EF89700814A52 /* Station.swift */; };
 		D80F8DCE21969DC90035C668 /* _Visit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F8DCD21969DC90035C668 /* _Visit.swift */; };
 		D80F8DCF21969DC90035C668 /* _Visit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F8DCD21969DC90035C668 /* _Visit.swift */; };
 		D80F8DD12196AED40035C668 /* VisitFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F8DD02196AED40035C668 /* VisitFirestoreService.swift */; };
@@ -84,13 +77,19 @@
 		D815D797200CBC6F0086AFFE /* LoaderPresenterSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D815D796200CBC6F0086AFFE /* LoaderPresenterSetupData.swift */; };
 		D816648B21912734003DD85E /* _StationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D816648A21912734003DD85E /* _StationTests.swift */; };
 		D81818701F7F795B008362BA /* AppModules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818186F1F7F795B008362BA /* AppModules.swift */; };
-		D81883791F6931C600A74B5E /* Species.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81883781F6931C600A74B5E /* Species.swift */; };
+		D8193D9621F1166D00C3BB5D /* VisitSummariesStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C3786A21463F8A00B02E86 /* VisitSummariesStatistics.swift */; };
+		D8193D9721F1166E00C3BB5D /* VisitSummariesStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C3786A21463F8A00B02E86 /* VisitSummariesStatistics.swift */; };
+		D8193D9821F1194900C3BB5D /* TrapOperatingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8A1ED1FCCBA070075E44E /* TrapOperatingStatus.swift */; };
+		D8193D9921F1194A00C3BB5D /* TrapOperatingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8A1ED1FCCBA070075E44E /* TrapOperatingStatus.swift */; };
+		D8193D9A21F1198400C3BB5D /* TrapSetStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8A1EF1FCCBAB90075E44E /* TrapSetStatus.swift */; };
+		D8193D9B21F1198500C3BB5D /* TrapSetStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8A1EF1FCCBAB90075E44E /* TrapSetStatus.swift */; };
+		D8193D9C21F1805D00C3BB5D /* SavedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88BE097202C4DFF00098DBE /* SavedImage.swift */; };
+		D8193D9D21F1805D00C3BB5D /* SavedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88BE097202C4DFF00098DBE /* SavedImage.swift */; };
+		D8193D9E21F1A8F000C3BB5D /* VisitDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A41F81B86A006E1402 /* VisitDisplayData.swift */; };
+		D8193D9F21F1A8F000C3BB5D /* VisitDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A41F81B86A006E1402 /* VisitDisplayData.swift */; };
 		D81D20B721B973F30025D047 /* VisitSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81D20B621B973F30025D047 /* VisitSetup.swift */; };
 		D81D20B821B973F30025D047 /* VisitSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81D20B621B973F30025D047 /* VisitSetup.swift */; };
-		D81DAAEF1F68643400C7C987 /* VisitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAEE1F68643400C7C987 /* VisitService.swift */; };
-		D81DAAF11F68652E00C7C987 /* Trap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF01F68652E00C7C987 /* Trap.swift */; };
 		D81DAAF31F68659100C7C987 /* VisitServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF21F68659100C7C987 /* VisitServiceInterface.swift */; };
-		D81DAAF51F6865DB00C7C987 /* Trapline.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF41F6865DB00C7C987 /* Trapline.swift */; };
 		D81DAAF71F686EA800C7C987 /* ServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF61F686EA800C7C987 /* ServiceFactory.swift */; };
 		D820AE0A20228889008925E8 /* VisitHistoryDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0420228889008925E8 /* VisitHistoryDisplayData.swift */; };
 		D820AE0B20228889008925E8 /* VisitHistoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0520228889008925E8 /* VisitHistoryPresenter.swift */; };
@@ -98,7 +97,6 @@
 		D820AE0D20228889008925E8 /* VisitHistoryModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0720228889008925E8 /* VisitHistoryModuleApi.swift */; };
 		D820AE0E20228889008925E8 /* VisitHistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0820228889008925E8 /* VisitHistoryInteractor.swift */; };
 		D820AE0F20228889008925E8 /* VisitHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0920228889008925E8 /* VisitHistoryView.swift */; };
-		D82A53E21FEF02CD000D9339 /* TrapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E11FEF02CD000D9339 /* TrapService.swift */; };
 		D82A53E41FEF04F2000D9339 /* TrapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E31FEF04F2000D9339 /* TrapTests.swift */; };
 		D82A53E61FF0DDF5000D9339 /* HtmlService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E51FF0DDF5000D9339 /* HtmlService.swift */; };
 		D82A53E81FF0DE11000D9339 /* HtmlServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E71FF0DE11000D9339 /* HtmlServiceInterface.swift */; };
@@ -115,7 +113,6 @@
 		D82F40B621825F2900392DFD /* LookupFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F40AB2182416400392DFD /* LookupFirestoreService.swift */; };
 		D83089581FA18815007C9316 /* StepperTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D83089571FA18815007C9316 /* StepperTableViewCell.xib */; };
 		D830895A1FA189AC007C9316 /* StepperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83089591FA189AC007C9316 /* StepperTableViewCell.swift */; };
-		D835E0741FAC0CC300A4664B /* SpeciesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835E0731FAC0CC300A4664B /* SpeciesService.swift */; };
 		D83853041F66555700481B57 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = D83853031F66555700481B57 /* plus.png */; };
 		D83D0B57200E8B70001E1F69 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D0B56200E8B70001E1F69 /* UIViewControllerExtension.swift */; };
 		D83DC6C81F7F841F00F91792 /* StartDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C11F7F841F00F91792 /* StartDisplayData.swift */; };
@@ -143,7 +140,6 @@
 		D8431187218423B50003C2C6 /* AuthenticatedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8431185218423B50003C2C6 /* AuthenticatedUser.swift */; };
 		D8431189218538570003C2C6 /* UserServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8431188218538560003C2C6 /* UserServiceTests.swift */; };
 		D849B6201F96C8E100CE2085 /* RouteServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D849B61F1F96C8E100CE2085 /* RouteServiceInterface.swift */; };
-		D849B6221F96C91100CE2085 /* RouteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D849B6211F96C91100CE2085 /* RouteService.swift */; };
 		D84C24541FFDFF30000BCAF8 /* StationDotAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84C24531FFDFF30000BCAF8 /* StationDotAnnotationView.swift */; };
 		D84C24591FFF2F49000BCAF8 /* collapse.png in Resources */ = {isa = PBXBuildFile; fileRef = D84C24551FFF2F48000BCAF8 /* collapse.png */; };
 		D84C245A1FFF2F49000BCAF8 /* expand.png in Resources */ = {isa = PBXBuildFile; fileRef = D84C24561FFF2F49000BCAF8 /* expand.png */; };
@@ -163,7 +159,6 @@
 		D8503DC41F66807C00ED0C84 /* VisitInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DBB1F66807C00ED0C84 /* VisitInteractor.swift */; };
 		D8503DC81F66807C00ED0C84 /* VisitPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DBF1F66807C00ED0C84 /* VisitPresenter.swift */; };
 		D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */; };
-		D8503DD01F669F8500ED0C84 /* Visit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DCF1F669F8500ED0C84 /* Visit.swift */; };
 		D8503DD81F67AF7800ED0C84 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = D8503DD71F67AF7800ED0C84 /* user.png */; };
 		D852E84D206F52D500255A2D /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = D852E84B206F52D400255A2D /* add.png */; };
 		D852E84F206F542200255A2D /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D852E84E206F542200255A2D /* add@2x.png */; };
@@ -173,7 +168,6 @@
 		D856F67020111D3E00CA50C2 /* NewRouteModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66A20111D3E00CA50C2 /* NewRouteModuleApi.swift */; };
 		D856F67120111D3E00CA50C2 /* NewRouteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66B20111D3E00CA50C2 /* NewRouteInteractor.swift */; };
 		D856F67220111D3E00CA50C2 /* NewRouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66C20111D3E00CA50C2 /* NewRouteView.swift */; };
-		D857B3A81F81B86A006E1402 /* VisitDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A41F81B86A006E1402 /* VisitDisplayData.swift */; };
 		D857B3A91F81B86A006E1402 /* VisitModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A51F81B86A006E1402 /* VisitModuleApi.swift */; };
 		D857B3AA1F81B86A006E1402 /* VisitRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A61F81B86A006E1402 /* VisitRouter.swift */; };
 		D857B3AB1F81B86A006E1402 /* VisitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A71F81B86A006E1402 /* VisitView.swift */; };
@@ -219,7 +213,6 @@
 		D87C44FA1F9059AF00CAFC7A /* SideMenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F41F9059AF00CAFC7A /* SideMenuRouter.swift */; };
 		D87C44FB1F9059AF00CAFC7A /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F51F9059AF00CAFC7A /* SideMenuView.swift */; };
 		D87E5BF51F88CCAA0055A3E0 /* TraplineSelectDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87E5BF41F88CCAA0055A3E0 /* TraplineSelectDelegate.swift */; };
-		D88BE098202C4DFF00098DBE /* SavedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88BE097202C4DFF00098DBE /* SavedImage.swift */; };
 		D88BE09A202C547E00098DBE /* SavedImageServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88BE099202C547E00098DBE /* SavedImageServiceInterface.swift */; };
 		D88BE09C202C54C700098DBE /* SavedImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88BE09B202C54C700098DBE /* SavedImageService.swift */; };
 		D88DFE4C1FFABCD00048CA54 /* RouteDashboardDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE461FFABCD00048CA54 /* RouteDashboardDisplayData.swift */; };
@@ -230,36 +223,20 @@
 		D88DFE511FFABCD00048CA54 /* RouteDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE4B1FFABCD00048CA54 /* RouteDashboardView.swift */; };
 		D88DFE531FFAC8FF0048CA54 /* RouteDashboardSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE521FFAC8FF0048CA54 /* RouteDashboardSetup.swift */; };
 		D88DFE551FFAE95F0048CA54 /* StationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE541FFAE95F0048CA54 /* StationAnnotationView.swift */; };
-		D88DFE571FFB4D920048CA54 /* MapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE561FFB4D920048CA54 /* MapDelegate.swift */; };
-		D891530621AB20E500389469 /* ModelConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D891530521AB20E500389469 /* ModelConverter.swift */; };
-		D891530721AB20E500389469 /* ModelConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D891530521AB20E500389469 /* ModelConverter.swift */; };
 		D89311FF1F834F6E008DF09D /* StationSelectDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311F91F834F6E008DF09D /* StationSelectDisplayData.swift */; };
 		D89312001F834F6E008DF09D /* StationSelectInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FA1F834F6E008DF09D /* StationSelectInteractor.swift */; };
 		D89312011F834F6F008DF09D /* StationSelectModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FB1F834F6E008DF09D /* StationSelectModuleApi.swift */; };
 		D89312021F834F6F008DF09D /* StationSelectPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FC1F834F6E008DF09D /* StationSelectPresenter.swift */; };
 		D89312031F834F6F008DF09D /* StationSelectRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FD1F834F6E008DF09D /* StationSelectRouter.swift */; };
 		D89312041F834F6F008DF09D /* StationSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FE1F834F6E008DF09D /* StationSelectView.swift */; };
-		D8953EBC1F88114F00A1F424 /* NewVisitDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8953EB61F88114E00A1F424 /* NewVisitDisplayData.swift */; };
-		D8953EBD1F88114F00A1F424 /* NewVisitInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8953EB71F88114E00A1F424 /* NewVisitInteractor.swift */; };
-		D8953EBE1F88114F00A1F424 /* NewVisitModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8953EB81F88114E00A1F424 /* NewVisitModuleApi.swift */; };
-		D8953EBF1F88114F00A1F424 /* NewVisitPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8953EB91F88114E00A1F424 /* NewVisitPresenter.swift */; };
-		D8953EC01F88114F00A1F424 /* NewVisitRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8953EBA1F88114E00A1F424 /* NewVisitRouter.swift */; };
-		D8953EC11F88114F00A1F424 /* NewVisitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8953EBB1F88114E00A1F424 /* NewVisitView.swift */; };
 		D897149E1F70CCCB00E846B9 /* TraplineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897149D1F70CCCB00E846B9 /* TraplineTests.swift */; };
-		D89714A01F70CFB800E846B9 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897149F1F70CFB800E846B9 /* DataService.swift */; };
 		D89714A21F737B6A00E846B9 /* visitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714A11F737B6A00E846B9 /* visitTests.swift */; };
-		D89714A41F76197D00E846B9 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714A31F76197C00E846B9 /* RealmService.swift */; };
 		D89714AA1F7751B300E846B9 /* DataPopulatorServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714A91F7751B300E846B9 /* DataPopulatorServiceInterface.swift */; };
 		D89714AC1F77FEED00E846B9 /* TrapSectionIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714AB1F77FEED00E846B9 /* TrapSectionIndexPath.swift */; };
 		D89714AF1F7898A800E846B9 /* SideBarMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714AE1F7898A800E846B9 /* SideBarMenuItem.swift */; };
 		D89714C01F7A0C5D00E846B9 /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D89714BF1F7A0C5D00E846B9 /* ImageCollectionViewCell.xib */; };
 		D89714C21F7A0E4700E846B9 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714C11F7A0E4700E846B9 /* ImageCollectionViewCell.swift */; };
 		D89A20DB1FDC98D200A813FB /* StationServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A20DA1FDC98D200A813FB /* StationServiceInterface.swift */; };
-		D89A20DD1FDC98DE00A813FB /* StationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A20DC1FDC98DE00A813FB /* StationService.swift */; };
-		D89B4C1A20BA3C1B00A4502D /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89B4C1920BA3C1B00A4502D /* Region.swift */; };
-		D89B4C1C20BA524200A4502D /* RegionServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89B4C1B20BA524200A4502D /* RegionServiceInterface.swift */; };
-		D89B4C1E20BA538700A4502D /* RegionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89B4C1D20BA538700A4502D /* RegionService.swift */; };
-		D89B4C2020BA567900A4502D /* trapLines_May_27_2018.trl in Resources */ = {isa = PBXBuildFile; fileRef = D89B4C1F20BA567900A4502D /* trapLines_May_27_2018.trl */; };
 		D89EBD7C1FBE870D001203AC /* StationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89EBD7B1FBE870D001203AC /* StationTests.swift */; };
 		D8A4E959218CF42F0070413B /* DataPopulatorFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4E958218CF42F0070413B /* DataPopulatorFirestoreService.swift */; };
 		D8A4E95A218CF47C0070413B /* DataPopulatorFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4E958218CF42F0070413B /* DataPopulatorFirestoreService.swift */; };
@@ -277,23 +254,14 @@
 		D8A4E970218E3F640070413B /* StationFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4E96F218E3F640070413B /* StationFirestoreService.swift */; };
 		D8A4E971218E3F640070413B /* StationFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4E96F218E3F640070413B /* StationFirestoreService.swift */; };
 		D8A4E973218FD8280070413B /* LookupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4E972218FD8280070413B /* LookupTests.swift */; };
-		D8AB9AD5201A5E3C00FBEF55 /* don't_use_yet_trapLines_26_1_18.trl in Resources */ = {isa = PBXBuildFile; fileRef = D8AB9AD3201A5E3C00FBEF55 /* don't_use_yet_trapLines_26_1_18.trl */; };
-		D8AB9AD6201A5E3C00FBEF55 /* visits_26_1_18.vis in Resources */ = {isa = PBXBuildFile; fileRef = D8AB9AD4201A5E3C00FBEF55 /* visits_26_1_18.vis */; };
-		D8AB9AD8201A623E00FBEF55 /* importer_visits_v1_to_v2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB9AD7201A623E00FBEF55 /* importer_visits_v1_to_v2.swift */; };
 		D8AB9ADB201DAF3300FBEF55 /* RouteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB9ADA201DAF3300FBEF55 /* RouteTableViewCell.swift */; };
 		D8AB9ADD201DAF4B00FBEF55 /* RouteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8AB9ADC201DAF4B00FBEF55 /* RouteTableViewCell.xib */; };
 		D8AB9ADF201DB39E00FBEF55 /* RouteImage1.png in Resources */ = {isa = PBXBuildFile; fileRef = D8AB9ADE201DB39E00FBEF55 /* RouteImage1.png */; };
 		D8AF9EB02025A829002264D1 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = D8AF9EAE2025A829002264D1 /* info.png */; };
 		D8AF9EB12025A829002264D1 /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8AF9EAF2025A829002264D1 /* info@2x.png */; };
 		D8AF9EB32025BC67002264D1 /* RouteImage2.png in Resources */ = {isa = PBXBuildFile; fileRef = D8AF9EB22025BC67002264D1 /* RouteImage2.png */; };
-		D8AF9EB52026B058002264D1 /* VisitSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AF9EB42026B058002264D1 /* VisitSync.swift */; };
-		D8AF9EB72026B0DE002264D1 /* VisitSyncServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AF9EB62026B0DE002264D1 /* VisitSyncServiceInterface.swift */; };
-		D8AF9EB92026B261002264D1 /* VisitSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AF9EB82026B261002264D1 /* VisitSyncService.swift */; };
-		D8B1480A1F9552D9000AB414 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B148091F9552D9000AB414 /* Route.swift */; };
 		D8B1480C1F955E5B000AB414 /* routeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B1480B1F955E5B000AB414 /* routeTests.swift */; };
-		D8B57FEC1FD76E6D003437D9 /* DataImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B57FEB1FD76E6D003437D9 /* DataImport.swift */; };
 		D8B57FEE1FDA500A003437D9 /* importTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B57FED1FDA500A003437D9 /* importTests.swift */; };
-		D8B57FF01FDA5582003437D9 /* importer_traplines_v1_to_v2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B57FEF1FDA5582003437D9 /* importer_traplines_v1_to_v2.swift */; };
 		D8B73C301F97F4D8000C231E /* possumMaster@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8B73C2E1F97F4D8000C231E /* possumMaster@2x.png */; };
 		D8B73C311F97F4D8000C231E /* possumMaster.png in Resources */ = {isa = PBXBuildFile; fileRef = D8B73C2F1F97F4D8000C231E /* possumMaster.png */; };
 		D8B94D591F5EA1FE00D373EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D581F5EA1FE00D373EF /* AppDelegate.swift */; };
@@ -310,7 +278,6 @@
 		D8BC08471F6A541200B284EE /* lessthan.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08451F6A541200B284EE /* lessthan.png */; };
 		D8BC084A1F6A542700B284EE /* greaterthan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08481F6A542700B284EE /* greaterthan@2x.png */; };
 		D8BC084B1F6A542700B284EE /* lessthan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08491F6A542700B284EE /* lessthan@2x.png */; };
-		D8BC084F1F6B143800B284EE /* TrapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BC084E1F6B143800B284EE /* TrapType.swift */; };
 		D8C25C82217A557800C5DB64 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C25C81217A557800C5DB64 /* User.swift */; };
 		D8C25C84217A579000C5DB64 /* DocumentSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C25C83217A578F00C5DB64 /* DocumentSerializable.swift */; };
 		D8C25C86217A62C400C5DB64 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C25C85217A62C400C5DB64 /* UserService.swift */; };
@@ -327,13 +294,10 @@
 		D8C25C9F218108BF00C5DB64 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C25C9E218108BF00C5DB64 /* FirestoreService.swift */; };
 		D8C25CA12181158600C5DB64 /* RegionFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C25CA02181158600C5DB64 /* RegionFirestoreService.swift */; };
 		D8C25CA52181771F00C5DB64 /* ListPickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8039E221FABF458006E394B /* ListPickerPresenter.swift */; };
-		D8C25CA62181771F00C5DB64 /* TraplineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ECF1F6E7A9300814A52 /* TraplineService.swift */; };
 		D8C25CA72181771F00C5DB64 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D815D78F200CBA2A0086AFFE /* LoaderView.swift */; };
 		D8C25CA82181771F00C5DB64 /* MapSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBE3E61FF5BD0400AA6482 /* MapSetupData.swift */; };
 		D8C25CA92181771F00C5DB64 /* TraplineSelectSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84DDF501FB6C7D90079551D /* TraplineSelectSetupData.swift */; };
 		D8C25CAA2181771F00C5DB64 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D791F5EA54300D373EF /* Styles.swift */; };
-		D8C25CAB2181771F00C5DB64 /* RealmDataPopulatorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ED21F6E87D500814A52 /* RealmDataPopulatorService.swift */; };
-		D8C25CAC2181771F00C5DB64 /* NewVisitDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8953EB61F88114E00A1F424 /* NewVisitDisplayData.swift */; };
 		D8C25CAD2181771F00C5DB64 /* StationSelectRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FD1F834F6E008DF09D /* StationSelectRouter.swift */; };
 		D8C25CAE2181771F00C5DB64 /* SideMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F31F9059AF00CAFC7A /* SideMenuPresenter.swift */; };
 		D8C25CAF2181771F00C5DB64 /* UserServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C25C87217A62E100C5DB64 /* UserServiceInterface.swift */; };
@@ -353,13 +317,10 @@
 		D8C25CBD2181771F00C5DB64 /* DatePickerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81431A01F8DDB2600EAF5FD /* DatePickerRouter.swift */; };
 		D8C25CBE2181771F00C5DB64 /* TrapSectionIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714AB1F77FEED00E846B9 /* TrapSectionIndexPath.swift */; };
 		D8C25CBF2181771F00C5DB64 /* SideMenuSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D221FE4E6E500D1C5F1 /* SideMenuSetupData.swift */; };
-		D8C25CC02181771F00C5DB64 /* Species.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81883781F6931C600A74B5E /* Species.swift */; };
 		D8C25CC12181771F00C5DB64 /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CE48B1F92C8EA004A09EF /* UIFontExtension.swift */; };
 		D8C25CC22181771F00C5DB64 /* SettingsDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D0E1FE498F900D1C5F1 /* SettingsDisplayData.swift */; };
-		D8C25CC32181771F00C5DB64 /* VisitSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */; };
 		D8C25CC42181771F00C5DB64 /* VisitLogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B6DC81F9F3DCD00F49E9E /* VisitLogPresenter.swift */; };
 		D8C25CC52181771F00C5DB64 /* UserInterfaceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84C246320008781000BCAF8 /* UserInterfaceExtension.swift */; };
-		D8C25CC62181771F00C5DB64 /* Trapline.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF41F6865DB00C7C987 /* Trapline.swift */; };
 		D8C25CC72181771F00C5DB64 /* ServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF61F686EA800C7C987 /* ServiceFactory.swift */; };
 		D8C25CC82181771F00C5DB64 /* RouterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8039E2E1FABF671006E394B /* RouterExtension.swift */; };
 		D8C25CC92181771F00C5DB64 /* SavedImageServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88BE099202C547E00098DBE /* SavedImageServiceInterface.swift */; };
@@ -371,13 +332,10 @@
 		D8C25CCF2181771F00C5DB64 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C25C9E218108BF00C5DB64 /* FirestoreService.swift */; };
 		D8C25CD02181771F00C5DB64 /* StationSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D8320C7AB630070C034 /* StationSearchPresenter.swift */; };
 		D8C25CD12181771F00C5DB64 /* StationSearchDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D8220C7AB630070C034 /* StationSearchDisplayData.swift */; };
-		D8C25CD22181771F00C5DB64 /* RegionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89B4C1D20BA538700A4502D /* RegionService.swift */; };
 		D8C25CD32181771F00C5DB64 /* DocumentSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C25C83217A578F00C5DB64 /* DocumentSerializable.swift */; };
 		D8C25CD42181771F00C5DB64 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87926991FB5775900240767 /* Layout.swift */; };
-		D8C25CD52181771F00C5DB64 /* RouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AAB1FC3F0CD008AC5C1 /* RouteView.swift */; };
 		D8C25CD62181771F00C5DB64 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D581F5EA1FE00D373EF /* AppDelegate.swift */; };
 		D8C25CD72181771F00C5DB64 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714C11F7A0E4700E846B9 /* ImageCollectionViewCell.swift */; };
-		D8C25CD82181771F00C5DB64 /* SavedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88BE097202C4DFF00098DBE /* SavedImage.swift */; };
 		D8C25CD92181771F00C5DB64 /* RegionFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C25CA02181158600C5DB64 /* RegionFirestoreService.swift */; };
 		D8C25CDA2181771F00C5DB64 /* VisitLogRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B6DC91F9F3DCD00F49E9E /* VisitLogRouter.swift */; };
 		D8C25CDB2181771F00C5DB64 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBE3F01FF764C900AA6482 /* UIViewExtension.swift */; };
@@ -386,46 +344,34 @@
 		D8C25CDE2181771F00C5DB64 /* DatePickerSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44EE1F8F545F00CAFC7A /* DatePickerSetupData.swift */; };
 		D8C25CDF2181771F00C5DB64 /* MenuDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CE4771F91DBC5004A09EF /* MenuDivider.swift */; };
 		D8C25CE02181771F00C5DB64 /* TraplineSelectRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D841CF241F8239CA004D0207 /* TraplineSelectRouter.swift */; };
-		D8C25CE12181771F00C5DB64 /* TrapTypeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D1A03B1FAF081E00926CEF /* TrapTypeService.swift */; };
 		D8C25CE22181771F00C5DB64 /* DateExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */; };
 		D8C25CE32181771F00C5DB64 /* RouteDashboardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE481FFABCD00048CA54 /* RouteDashboardRouter.swift */; };
 		D8C25CE42181771F00C5DB64 /* StationSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FE1F834F6E008DF09D /* StationSelectView.swift */; };
 		D8C25CE52181771F00C5DB64 /* AdministrationModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C25C91217EDAA300C5DB64 /* AdministrationModuleApi.swift */; };
-		D8C25CE62181771F00C5DB64 /* RouteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AAA1FC3F0CD008AC5C1 /* RouteInteractor.swift */; };
 		D8C25CE72181771F00C5DB64 /* VisitSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8A1E11FCB9F7F0075E44E /* VisitSummaryTableViewCell.swift */; };
-		D8C25CE82181771F00C5DB64 /* NewVisitRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8953EBA1F88114E00A1F424 /* NewVisitRouter.swift */; };
 		D8C25CE92181771F00C5DB64 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C61F7F841F00F91792 /* StartView.swift */; };
 		D8C25CEA2181771F00C5DB64 /* VisitLogDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B6DC51F9F3DCD00F49E9E /* VisitLogDisplayData.swift */; };
-		D8C25CEB2181771F00C5DB64 /* DataImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B57FEB1FD76E6D003437D9 /* DataImport.swift */; };
 		D8C25CEC2181771F00C5DB64 /* SectionStripViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87926A01FB5973700240767 /* SectionStripViewDelegate.swift */; };
 		D8C25CED2181771F00C5DB64 /* RouteDashboardDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE461FFABCD00048CA54 /* RouteDashboardDisplayData.swift */; };
 		D8C25CEE2181771F00C5DB64 /* VisitLogViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8A1F91FCE85EF0075E44E /* VisitLogViewDelegate.swift */; };
 		D8C25CEF2181771F00C5DB64 /* TraplineFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C25C9C218106C400C5DB64 /* TraplineFirestoreService.swift */; };
 		D8C25CF02181771F00C5DB64 /* NewRouteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66920111D3E00CA50C2 /* NewRouteRouter.swift */; };
 		D8C25CF12181771F00C5DB64 /* StationSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D8720C7AB630070C034 /* StationSearchView.swift */; };
-		D8C25CF22181771F00C5DB64 /* importer_traplines_v1_to_v2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B57FEF1FDA5582003437D9 /* importer_traplines_v1_to_v2.swift */; };
 		D8C25CF32181771F00C5DB64 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81431A11F8DDB2600EAF5FD /* DatePickerView.swift */; };
-		D8C25CF42181771F00C5DB64 /* VisitDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A41F81B86A006E1402 /* VisitDisplayData.swift */; };
 		D8C25CF52181771F00C5DB64 /* NewRoutePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66820111D3E00CA50C2 /* NewRoutePresenter.swift */; };
 		D8C25CF62181771F00C5DB64 /* StackCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA460F200AB9A20032224E /* StackCount.swift */; };
 		D8C25CF72181771F00C5DB64 /* VerticallyCentredTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800573520154F9C0084E950 /* VerticallyCentredTextView.swift */; };
-		D8C25CF82181771F00C5DB64 /* SettingsServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D1A1FE49A4E00D1C5F1 /* SettingsServiceInterface.swift */; };
-		D8C25CF92181771F00C5DB64 /* RouteModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AA91FC3F0CD008AC5C1 /* RouteModuleApi.swift */; };
 		D8C25CFA2181771F00C5DB64 /* StationMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBE3E41FF50A1500AA6482 /* StationMapAnnotation.swift */; };
 		D8C25CFB2181771F00C5DB64 /* StationServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A20DA1FDC98D200A813FB /* StationServiceInterface.swift */; };
-		D8C25CFC2181771F00C5DB64 /* VisitSummariesStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C3786A21463F8A00B02E86 /* VisitSummariesStatistics.swift */; };
 		D8C25CFD2181771F00C5DB64 /* ListPickerSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8039E301FABF6B9006E394B /* ListPickerSetupData.swift */; };
 		D8C25CFE2181771F00C5DB64 /* VisitLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B6DCA1F9F3DCD00F49E9E /* VisitLogView.swift */; };
 		D8C25CFF2181771F00C5DB64 /* BarChartDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA46022009499B0032224E /* BarChartDelegate.swift */; };
-		D8C25D002181771F00C5DB64 /* TrapOperatingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8A1ED1FCCBA070075E44E /* TrapOperatingStatus.swift */; };
 		D8C25D012181771F00C5DB64 /* CameraHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BB6F4A202917A6008AB3A2 /* CameraHandler.swift */; };
 		D8C25D022181771F00C5DB64 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C25C81217A557800C5DB64 /* User.swift */; };
 		D8C25D032181771F00C5DB64 /* StationMarkerAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8005732201528C50084E950 /* StationMarkerAnnotationView.swift */; };
 		D8C25D042181771F00C5DB64 /* StationSearchSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D9020C7EFA00070C034 /* StationSearchSetupData.swift */; };
 		D8C25D052181771F00C5DB64 /* ListPickerDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8039E1F1FABF458006E394B /* ListPickerDisplayData.swift */; };
-		D8C25D062181771F00C5DB64 /* Trap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF01F68652E00C7C987 /* Trap.swift */; };
 		D8C25D072181771F00C5DB64 /* StationMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DE38051FFCC88F00707A7D /* StationMapViewController.swift */; };
-		D8C25D082181771F00C5DB64 /* RoutePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AA71FC3F0CD008AC5C1 /* RoutePresenter.swift */; };
 		D8C25D092181771F00C5DB64 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D0B56200E8B70001E1F69 /* UIViewControllerExtension.swift */; };
 		D8C25D0A2181771F00C5DB64 /* VisitPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DBF1F66807C00ED0C84 /* VisitPresenter.swift */; };
 		D8C25D0B2181771F00C5DB64 /* StatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D331FE994B400D1C5F1 /* StatisticView.swift */; };
@@ -435,7 +381,6 @@
 		D8C25D0F2181771F00C5DB64 /* StationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE541FFAE95F0048CA54 /* StationAnnotationView.swift */; };
 		D8C25D102181771F00C5DB64 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C25C85217A62C400C5DB64 /* UserService.swift */; };
 		D8C25D112181771F00C5DB64 /* NewRouteDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66720111D3E00CA50C2 /* NewRouteDisplayData.swift */; };
-		D8C25D122181771F00C5DB64 /* NewVisitInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8953EB71F88114E00A1F424 /* NewVisitInteractor.swift */; };
 		D8C25D132181771F00C5DB64 /* ListPickerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8039E201FABF458006E394B /* ListPickerInteractor.swift */; };
 		D8C25D142181771F00C5DB64 /* LoaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80C14FC202F9416005EBD10 /* LoaderDelegate.swift */; };
 		D8C25D152181771F00C5DB64 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C3786C2146431900B02E86 /* TimeIntervalExtension.swift */; };
@@ -450,41 +395,29 @@
 		D8C25D1E2181771F00C5DB64 /* VisitHistoryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0620228889008925E8 /* VisitHistoryRouter.swift */; };
 		D8C25D1F2181771F00C5DB64 /* StationDotAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84C24531FFDFF30000BCAF8 /* StationDotAnnotationView.swift */; };
 		D8C25D202181771F00C5DB64 /* StationSearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D8E20C7EECE0070C034 /* StationSearchDelegate.swift */; };
-		D8C25D212181771F00C5DB64 /* TrapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E11FEF02CD000D9339 /* TrapService.swift */; };
 		D8C25D222181771F00C5DB64 /* HtmlService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E51FF0DDF5000D9339 /* HtmlService.swift */; };
 		D8C25D232181771F00C5DB64 /* TraplineSelectPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D841CF231F8239CA004D0207 /* TraplineSelectPresenter.swift */; };
 		D8C25D242181771F00C5DB64 /* ListPickerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8039E231FABF458006E394B /* ListPickerRouter.swift */; };
 		D8C25D252181771F00C5DB64 /* LoaderModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D815D78D200CBA2A0086AFFE /* LoaderModuleApi.swift */; };
-		D8C25D262181771F00C5DB64 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D1C1FE49A7800D1C5F1 /* SettingsService.swift */; };
 		D8C25D272181771F00C5DB64 /* StartDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C11F7F841F00F91792 /* StartDisplayData.swift */; };
-		D8C25D282181771F00C5DB64 /* RouteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AA81FC3F0CD008AC5C1 /* RouteRouter.swift */; };
 		D8C25D292181771F00C5DB64 /* RouteDashboardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE471FFABCD00048CA54 /* RouteDashboardPresenter.swift */; };
-		D8C25D2A2181771F00C5DB64 /* RouteDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AA61FC3F0CD008AC5C1 /* RouteDisplayData.swift */; };
 		D8C25D2B2181771F00C5DB64 /* StartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C41F7F841F00F91792 /* StartPresenter.swift */; };
 		D8C25D2C2181771F00C5DB64 /* MapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBE3D91FF4FC1900AA6482 /* MapPresenter.swift */; };
 		D8C25D2D2181771F00C5DB64 /* VisitLogModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B6DC71F9F3DCD00F49E9E /* VisitLogModuleApi.swift */; };
 		D8C25D2E2181771F00C5DB64 /* MapModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBE3DB1FF4FC1900AA6482 /* MapModuleApi.swift */; };
 		D8C25D2F2181771F00C5DB64 /* LoaderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D815D78B200CBA2A0086AFFE /* LoaderPresenter.swift */; };
 		D8C25D302181771F00C5DB64 /* ListPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8039E2B1FABF577006E394B /* ListPickerDelegate.swift */; };
-		D8C25D312181771F00C5DB64 /* MapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE561FFB4D920048CA54 /* MapDelegate.swift */; };
 		D8C25D322181771F00C5DB64 /* ListPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8039E241FABF458006E394B /* ListPickerView.swift */; };
-		D8C25D332181771F00C5DB64 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89B4C1920BA3C1B00A4502D /* Region.swift */; };
-		D8C25D342181771F00C5DB64 /* importer_visits_v1_to_v2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB9AD7201A623E00FBEF55 /* importer_visits_v1_to_v2.swift */; };
-		D8C25D352181771F00C5DB64 /* VisitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAEE1F68643400C7C987 /* VisitService.swift */; };
 		D8C25D362181771F00C5DB64 /* OptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AB21FC4B992008AC5C1 /* OptionItem.swift */; };
-		D8C25D372181771F00C5DB64 /* SpeciesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835E0731FAC0CC300A4664B /* SpeciesService.swift */; };
 		D8C25D382181771F00C5DB64 /* LoaderDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D815D78A200CBA2A0086AFFE /* LoaderDisplayData.swift */; };
-		D8C25D392181771F00C5DB64 /* NewVisitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8953EBB1F88114E00A1F424 /* NewVisitView.swift */; };
 		D8C25D3A2181771F00C5DB64 /* UIImageExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = D873C86F1FC6873A00F581D8 /* UIImageExtention.swift */; };
 		D8C25D3B2181771F00C5DB64 /* LoaderPresenterSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D815D796200CBC6F0086AFFE /* LoaderPresenterSetupData.swift */; };
 		D8C25D3C2181771F00C5DB64 /* StartInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C21F7F841F00F91792 /* StartInteractor.swift */; };
 		D8C25D3D2181771F00C5DB64 /* AppModules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818186F1F7F795B008362BA /* AppModules.swift */; };
 		D8C25D3E2181771F00C5DB64 /* SideMenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D201FE4E67D00D1C5F1 /* SideMenuDelegate.swift */; };
-		D8C25D3F2181771F00C5DB64 /* VisitSummaryTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8A1EB1FCBBD0B0075E44E /* VisitSummaryTableViewCellDelegate.swift */; };
 		D8C25D402181771F00C5DB64 /* GroupedTableViewDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D806C7E91F9C881F0064C98F /* GroupedTableViewDatasource.swift */; };
 		D8C25D412181771F00C5DB64 /* TraplineSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D841CF251F8239CA004D0207 /* TraplineSelectView.swift */; };
 		D8C25D422181771F00C5DB64 /* SideMenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F41F9059AF00CAFC7A /* SideMenuRouter.swift */; };
-		D8C25D432181771F00C5DB64 /* RouteSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AB41FC4BB6F008AC5C1 /* RouteSetupData.swift */; };
 		D8C25D442181771F00C5DB64 /* SideMenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F11F9059AF00CAFC7A /* SideMenuInteractor.swift */; };
 		D8C25D452181771F00C5DB64 /* ListPickerModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8039E211FABF458006E394B /* ListPickerModuleApi.swift */; };
 		D8C25D462181771F00C5DB64 /* StationSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D8620C7AB630070C034 /* StationSearchInteractor.swift */; };
@@ -493,73 +426,50 @@
 		D8C25D492181771F00C5DB64 /* RouteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB9ADA201DAF3300FBEF55 /* RouteTableViewCell.swift */; };
 		D8C25D4A2181771F00C5DB64 /* CircleAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84C2461200028B5000BCAF8 /* CircleAnnotationView.swift */; };
 		D8C25D4B2181771F00C5DB64 /* RouteCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D873C86D1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift */; };
-		D8C25D4C2181771F00C5DB64 /* NewVisitPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8953EB91F88114E00A1F424 /* NewVisitPresenter.swift */; };
-		D8C25D4D2181771F00C5DB64 /* RealmServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E86B3D1FACF95B003BFD54 /* RealmServiceInterface.swift */; };
 		D8C25D4E2181771F00C5DB64 /* AdministrationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C25C92217EDAA300C5DB64 /* AdministrationInteractor.swift */; };
 		D8C25D4F2181771F00C5DB64 /* MapDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBE3D81FF4FC1900AA6482 /* MapDisplayData.swift */; };
-		D8C25D502181771F00C5DB64 /* Visit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DCF1F669F8500ED0C84 /* Visit.swift */; };
 		D8C25D512181771F00C5DB64 /* DatePickerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D814319D1F8DDB2600EAF5FD /* DatePickerInteractor.swift */; };
 		D8C25D522181771F00C5DB64 /* RouteServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D849B61F1F96C8E100CE2085 /* RouteServiceInterface.swift */; };
 		D8C25D532181771F00C5DB64 /* MultiselectTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C51A721F96D67200D3571A /* MultiselectTableViewHeader.swift */; };
 		D8C25D542181771F00C5DB64 /* MapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBE3DA1FF4FC1900AA6482 /* MapRouter.swift */; };
-		D8C25D552181771F00C5DB64 /* TrapSetStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8A1EF1FCCBAB90075E44E /* TrapSetStatus.swift */; };
 		D8C25D562181771F00C5DB64 /* SideMenuDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F01F9059AF00CAFC7A /* SideMenuDisplayData.swift */; };
 		D8C25D572181771F00C5DB64 /* StationSelectSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FA5CF71F8409A700EC890C /* StationSelectSetupData.swift */; };
 		D8C25D582181771F00C5DB64 /* VisitServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DAAF21F68659100C7C987 /* VisitServiceInterface.swift */; };
 		D8C25D592181771F00C5DB64 /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA460B200AAF6B0032224E /* OrderedDictionary.swift */; };
 		D8C25D5A2181771F00C5DB64 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F51F9059AF00CAFC7A /* SideMenuView.swift */; };
 		D8C25D5B2181771F00C5DB64 /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D121FE498F900D1C5F1 /* SettingsInteractor.swift */; };
-		D8C25D5C2181771F00C5DB64 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8083D1E1FE49AB000D1C5F1 /* Settings.swift */; };
-		D8C25D5D2181771F00C5DB64 /* LureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D1A0431FAF0DC300926CEF /* LureService.swift */; };
 		D8C25D5E2181771F00C5DB64 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80BCD3C1F91D041005F30FF /* MenuItemView.swift */; };
 		D8C25D5F2181771F00C5DB64 /* DatePickerDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81431A91F8E020900EAF5FD /* DatePickerDisplayData.swift */; };
-		D8C25D602181771F00C5DB64 /* RegionServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89B4C1B20BA524200A4502D /* RegionServiceInterface.swift */; };
 		D8C25D612181771F00C5DB64 /* StepperTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80344301FA192D400F44A17 /* StepperTableViewCellDelegate.swift */; };
 		D8C25D622181771F00C5DB64 /* LoaderInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D815D78E200CBA2A0086AFFE /* LoaderInteractor.swift */; };
 		D8C25D632181771F00C5DB64 /* StationSelectDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311F91F834F6E008DF09D /* StationSelectDisplayData.swift */; };
-		D8C25D642181771F00C5DB64 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7EDA1F6EF89700814A52 /* Station.swift */; };
 		D8C25D652181771F00C5DB64 /* AdministrationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C25C90217EDAA300C5DB64 /* AdministrationRouter.swift */; };
 		D8C25D662181771F00C5DB64 /* SideMenuModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44F21F9059AF00CAFC7A /* SideMenuModuleApi.swift */; };
-		D8C25D672181771F00C5DB64 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897149F1F70CFB800E846B9 /* DataService.swift */; };
-		D8C25D682181771F00C5DB64 /* Lure.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D1A03F1FAF0CE800926CEF /* Lure.swift */; };
-		D8C25D692181771F00C5DB64 /* TrapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BC084E1F6B143800B284EE /* TrapType.swift */; };
 		D8C25D6A2181771F00C5DB64 /* DatePickerModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D814319E1F8DDB2600EAF5FD /* DatePickerModuleApi.swift */; };
 		D8C25D6B2181771F00C5DB64 /* VisitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A71F81B86A006E1402 /* VisitView.swift */; };
 		D8C25D6C2181771F00C5DB64 /* SavedImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88BE09B202C54C700098DBE /* SavedImageService.swift */; };
 		D8C25D6D2181771F00C5DB64 /* StationSelectModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FB1F834F6E008DF09D /* StationSelectModuleApi.swift */; };
 		D8C25D6E2181771F00C5DB64 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBE3DD1FF4FC1900AA6482 /* MapView.swift */; };
-		D8C25D6F2181771F00C5DB64 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714A31F76197C00E846B9 /* RealmService.swift */; };
 		D8C25D702181771F00C5DB64 /* TraplineSelectDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D841CF201F8239CA004D0207 /* TraplineSelectDisplayData.swift */; };
 		D8C25D712181771F00C5DB64 /* VisitInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DBB1F66807C00ED0C84 /* VisitInteractor.swift */; };
-		D8C25D722181771F00C5DB64 /* VisitSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AF9EB82026B261002264D1 /* VisitSyncService.swift */; };
 		D8C25D732181771F00C5DB64 /* VisitHistoryDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0420228889008925E8 /* VisitHistoryDisplayData.swift */; };
 		D8C25D742181771F00C5DB64 /* AdministrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C25C93217EDAA300C5DB64 /* AdministrationView.swift */; };
 		D8C25D752181771F00C5DB64 /* MapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBE3DC1FF4FC1900AA6482 /* MapInteractor.swift */; };
-		D8C25D762181771F00C5DB64 /* TrapServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F7ED81F6E92C700814A52 /* TrapServiceInterface.swift */; };
 		D8C25D772181771F00C5DB64 /* SideBarMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714AE1F7898A800E846B9 /* SideBarMenuItem.swift */; };
 		D8C25D782181771F00C5DB64 /* StartRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C51F7F841F00F91792 /* StartRouter.swift */; };
 		D8C25D792181771F00C5DB64 /* DatePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C44EC1F8F4C2400CAFC7A /* DatePickerDelegate.swift */; };
-		D8C25D7A2181771F00C5DB64 /* LookupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D1A0481FAF219E00926CEF /* LookupService.swift */; };
-		D8C25D7B2181771F00C5DB64 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B148091F9552D9000AB414 /* Route.swift */; };
 		D8C25D7C2181771F00C5DB64 /* StationSelectInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89311FA1F834F6E008DF09D /* StationSelectInteractor.swift */; };
 		D8C25D7D2181771F00C5DB64 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D7B1F5EA56F00D373EF /* UIColorExtension.swift */; };
 		D8C25D7E2181771F00C5DB64 /* AdministrationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C25C8F217EDAA300C5DB64 /* AdministrationPresenter.swift */; };
 		D8C25D7F2181771F00C5DB64 /* RouteDashboardSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE521FFAC8FF0048CA54 /* RouteDashboardSetup.swift */; };
-		D8C25D802181771F00C5DB64 /* StationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A20DC1FDC98DE00A813FB /* StationService.swift */; };
 		D8C25D812181771F00C5DB64 /* VisitModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857B3A51F81B86A006E1402 /* VisitModuleApi.swift */; };
 		D8C25D822181771F00C5DB64 /* StartModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C31F7F841F00F91792 /* StartModuleApi.swift */; };
 		D8C25D832181771F00C5DB64 /* ObjectOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84C24652004806E000BCAF8 /* ObjectOrder.swift */; };
 		D8C25D842181771F00C5DB64 /* VisitHistoryModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0720228889008925E8 /* VisitHistoryModuleApi.swift */; };
 		D8C25D852181771F00C5DB64 /* TraplineSelectModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D841CF221F8239CA004D0207 /* TraplineSelectModuleApi.swift */; };
-		D8C25D862181771F00C5DB64 /* RouteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D849B6211F96C91100CE2085 /* RouteService.swift */; };
-		D8C25D872181771F00C5DB64 /* VisitSyncServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AF9EB62026B0DE002264D1 /* VisitSyncServiceInterface.swift */; };
 		D8C25D882181771F00C5DB64 /* ViewHistorySetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D66D442022CDA400CBF3D7 /* ViewHistorySetupData.swift */; };
-		D8C25D892181771F00C5DB64 /* RLMResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AB71FC52370008AC5C1 /* RLMResults.swift */; };
 		D8C25D8A2181771F00C5DB64 /* HtmlServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E71FF0DE11000D9339 /* HtmlServiceInterface.swift */; };
-		D8C25D8B2181771F00C5DB64 /* LookupObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D1A0461FAF16B000926CEF /* LookupObject.swift */; };
-		D8C25D8C2181771F00C5DB64 /* NewVisitModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8953EB81F88114E00A1F424 /* NewVisitModuleApi.swift */; };
 		D8C25D8D2181771F00C5DB64 /* RouteDashboardModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88DFE491FFABCD00048CA54 /* RouteDashboardModuleApi.swift */; };
-		D8C25D8E2181771F00C5DB64 /* VisitSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AF9EB42026B058002264D1 /* VisitSync.swift */; };
 		D8C25D8F2181771F00C5DB64 /* DatePickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D814319F1F8DDB2600EAF5FD /* DatePickerPresenter.swift */; };
 		D8C25D932181771F00C5DB64 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE47D1F92BC6D004A09EF /* settings.png */; };
 		D8C25D942181771F00C5DB64 /* sync@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE47F1F92BC6E004A09EF /* sync@2x.png */; };
@@ -600,7 +510,6 @@
 		D8C25DB72181771F00C5DB64 /* RouteImage2.png in Resources */ = {isa = PBXBuildFile; fileRef = D8AF9EB22025BC67002264D1 /* RouteImage2.png */; };
 		D8C25DB82181771F00C5DB64 /* header_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D8083D241FE5C24200D1C5F1 /* header_image.png */; };
 		D8C25DB92181771F00C5DB64 /* collapse.png in Resources */ = {isa = PBXBuildFile; fileRef = D84C24551FFF2F48000BCAF8 /* collapse.png */; };
-		D8C25DBA2181771F00C5DB64 /* visits_26_1_18.vis in Resources */ = {isa = PBXBuildFile; fileRef = D8AB9AD4201A5E3C00FBEF55 /* visits_26_1_18.vis */; };
 		D8C25DBB2181771F00C5DB64 /* exit.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C25C89217C3DF800C5DB64 /* exit.png */; };
 		D8C25DBC2181771F00C5DB64 /* rip.png in Resources */ = {isa = PBXBuildFile; fileRef = D8083D2A1FE6129A00D1C5F1 /* rip.png */; };
 		D8C25DBD2181771F00C5DB64 /* Clock2.png in Resources */ = {isa = PBXBuildFile; fileRef = D82D7BCB201F95A2006B0C02 /* Clock2.png */; };
@@ -614,13 +523,10 @@
 		D8C25DC52181771F00C5DB64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8B94D5F1F5EA1FE00D373EF /* Assets.xcassets */; };
 		D8C25DC62181771F00C5DB64 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE4801F92BC6E004A09EF /* settings@2x.png */; };
 		D8C25DC72181771F00C5DB64 /* lessthan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08491F6A542700B284EE /* lessthan@2x.png */; };
-		D8C25DC82181771F00C5DB64 /* trapLines_May_27_2018.trl in Resources */ = {isa = PBXBuildFile; fileRef = D89B4C1F20BA567900A4502D /* trapLines_May_27_2018.trl */; };
 		D8C25DC92181771F00C5DB64 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FA5CF41F8406D600EC890C /* close@2x.png */; };
 		D8C25DCA2181771F00C5DB64 /* timms.png in Resources */ = {isa = PBXBuildFile; fileRef = D8DBE3D41FF37F0900AA6482 /* timms.png */; };
 		D8C25DCB2181771F00C5DB64 /* Logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D1BB021FF8637C00AD71E3 /* Logo@2x.png */; };
-		D8C25DCC2181771F00C5DB64 /* don't_use_yet_trapLines_26_1_18.trl in Resources */ = {isa = PBXBuildFile; fileRef = D8AB9AD3201A5E3C00FBEF55 /* don't_use_yet_trapLines_26_1_18.trl */; };
 		D8C25DCD2181771F00C5DB64 /* clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D87926931FB555A400240767 /* clock@2x.png */; };
-		D8C25DCE2181771F00C5DB64 /* trapLines_Dec_27_2017.trl in Resources */ = {isa = PBXBuildFile; fileRef = D8DBE3D11FF3276C00AA6482 /* trapLines_Dec_27_2017.trl */; };
 		D8C25DCF2181771F00C5DB64 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = D8503DD71F67AF7800ED0C84 /* user.png */; };
 		D8C25DD02181771F00C5DB64 /* expand2.png in Resources */ = {isa = PBXBuildFile; fileRef = D858D7B92019D68800EE052D /* expand2.png */; };
 		D8C25DD12181771F00C5DB64 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D8D729E51F64BD580082CD4A /* Podfile */; };
@@ -645,26 +551,17 @@
 		D8C25DE52181771F00C5DB64 /* RouteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8AB9ADC201DAF4B00FBEF55 /* RouteTableViewCell.xib */; };
 		D8C25DF32181A11E00C5DB64 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8C25DF22181A11E00C5DB64 /* GoogleService-Info.plist */; };
 		D8C25DF52181A12800C5DB64 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8C25DF42181A12800C5DB64 /* GoogleService-Info.plist */; };
-		D8C3786B21463F8A00B02E86 /* VisitSummariesStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C3786A21463F8A00B02E86 /* VisitSummariesStatistics.swift */; };
 		D8C3786D2146431900B02E86 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C3786C2146431900B02E86 /* TimeIntervalExtension.swift */; };
 		D8C51A731F96D67200D3571A /* MultiselectTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C51A721F96D67200D3571A /* MultiselectTableViewHeader.swift */; };
 		D8C8A1E21FCB9F7F0075E44E /* VisitSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8A1E11FCB9F7F0075E44E /* VisitSummaryTableViewCell.swift */; };
 		D8C8A1E71FCBA6210075E44E /* envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C8A1E51FCBA6210075E44E /* envelope.png */; };
 		D8C8A1E81FCBA6210075E44E /* envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C8A1E61FCBA6210075E44E /* envelope@2x.png */; };
 		D8C8A1EA1FCBA6EC0075E44E /* VisitSummaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8C8A1E91FCBA6EC0075E44E /* VisitSummaryTableViewCell.xib */; };
-		D8C8A1EC1FCBBD0B0075E44E /* VisitSummaryTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8A1EB1FCBBD0B0075E44E /* VisitSummaryTableViewCellDelegate.swift */; };
-		D8C8A1EE1FCCBA070075E44E /* TrapOperatingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8A1ED1FCCBA070075E44E /* TrapOperatingStatus.swift */; };
-		D8C8A1F01FCCBAB90075E44E /* TrapSetStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8A1EF1FCCBAB90075E44E /* TrapSetStatus.swift */; };
 		D8C8A1F21FCD10CB0075E44E /* CommentsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8C8A1F11FCD10CB0075E44E /* CommentsTableViewCell.xib */; };
 		D8C8A1F41FCD12900075E44E /* CommentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8A1F31FCD12900075E44E /* CommentsTableViewCell.swift */; };
 		D8C8A1F71FCE1C4F0075E44E /* doc200@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C8A1F51FCE1C4F0075E44E /* doc200@2x.png */; };
 		D8C8A1F81FCE1C4F0075E44E /* doc200.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C8A1F61FCE1C4F0075E44E /* doc200.png */; };
 		D8C8A1FA1FCE85EF0075E44E /* VisitLogViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8A1F91FCE85EF0075E44E /* VisitLogViewDelegate.swift */; };
-		D8D1A03C1FAF081E00926CEF /* TrapTypeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D1A03B1FAF081E00926CEF /* TrapTypeService.swift */; };
-		D8D1A0401FAF0CE800926CEF /* Lure.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D1A03F1FAF0CE800926CEF /* Lure.swift */; };
-		D8D1A0441FAF0DC300926CEF /* LureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D1A0431FAF0DC300926CEF /* LureService.swift */; };
-		D8D1A0471FAF16B000926CEF /* LookupObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D1A0461FAF16B000926CEF /* LookupObject.swift */; };
-		D8D1A0491FAF219E00926CEF /* LookupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D1A0481FAF219E00926CEF /* LookupService.swift */; };
 		D8D1BB031FF8637C00AD71E3 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D1BB011FF8637C00AD71E3 /* Logo.png */; };
 		D8D1BB041FF8637C00AD71E3 /* Logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D1BB021FF8637C00AD71E3 /* Logo@2x.png */; };
 		D8D1BB071FF8653500AD71E3 /* tree.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D1BB051FF8653500AD71E3 /* tree.png */; };
@@ -672,24 +569,14 @@
 		D8D66D452022CDA400CBF3D7 /* ViewHistorySetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D66D442022CDA400CBF3D7 /* ViewHistorySetupData.swift */; };
 		D8D66D482022FBC400CBF3D7 /* information@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D66D462022FBC300CBF3D7 /* information@2x.png */; };
 		D8D66D492022FBC400CBF3D7 /* information.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D66D472022FBC400CBF3D7 /* information.png */; };
-		D8D729DE1F61C9CC0082CD4A /* VisitSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */; };
 		D8D729E61F64BD580082CD4A /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D8D729E51F64BD580082CD4A /* Podfile */; };
-		D8D79AAC1FC3F0CD008AC5C1 /* RouteDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AA61FC3F0CD008AC5C1 /* RouteDisplayData.swift */; };
-		D8D79AAD1FC3F0CD008AC5C1 /* RoutePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AA71FC3F0CD008AC5C1 /* RoutePresenter.swift */; };
-		D8D79AAE1FC3F0CD008AC5C1 /* RouteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AA81FC3F0CD008AC5C1 /* RouteRouter.swift */; };
-		D8D79AAF1FC3F0CD008AC5C1 /* RouteModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AA91FC3F0CD008AC5C1 /* RouteModuleApi.swift */; };
-		D8D79AB01FC3F0CD008AC5C1 /* RouteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AAA1FC3F0CD008AC5C1 /* RouteInteractor.swift */; };
-		D8D79AB11FC3F0CD008AC5C1 /* RouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AAB1FC3F0CD008AC5C1 /* RouteView.swift */; };
 		D8D79AB31FC4B992008AC5C1 /* OptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AB21FC4B992008AC5C1 /* OptionItem.swift */; };
-		D8D79AB51FC4BB6F008AC5C1 /* RouteSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AB41FC4BB6F008AC5C1 /* RouteSetupData.swift */; };
-		D8D79AB81FC52370008AC5C1 /* RLMResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AB71FC52370008AC5C1 /* RLMResults.swift */; };
 		D8DA1B1521DDCBA1008EC4FD /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DA1B1421DDCBA1008EC4FD /* UserSettings.swift */; };
 		D8DA1B1621DDCBA1008EC4FD /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DA1B1421DDCBA1008EC4FD /* UserSettings.swift */; };
 		D8DA1B1821DDCECF008EC4FD /* UserSettingsServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DA1B1721DDCECF008EC4FD /* UserSettingsServiceInterface.swift */; };
 		D8DA1B1921DDCECF008EC4FD /* UserSettingsServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DA1B1721DDCECF008EC4FD /* UserSettingsServiceInterface.swift */; };
 		D8DA1B1B21DDCEF9008EC4FD /* UserSettingsFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DA1B1A21DDCEF9008EC4FD /* UserSettingsFirestoreService.swift */; };
 		D8DA1B1C21DDCEF9008EC4FD /* UserSettingsFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DA1B1A21DDCEF9008EC4FD /* UserSettingsFirestoreService.swift */; };
-		D8DBE3D21FF3276C00AA6482 /* trapLines_Dec_27_2017.trl in Resources */ = {isa = PBXBuildFile; fileRef = D8DBE3D11FF3276C00AA6482 /* trapLines_Dec_27_2017.trl */; };
 		D8DBE3D51FF37F0900AA6482 /* timms@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8DBE3D31FF37F0900AA6482 /* timms@2x.png */; };
 		D8DBE3D61FF37F0900AA6482 /* timms.png in Resources */ = {isa = PBXBuildFile; fileRef = D8DBE3D41FF37F0900AA6482 /* timms.png */; };
 		D8DBE3DE1FF4FC1900AA6482 /* MapDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DBE3D81FF4FC1900AA6482 /* MapDisplayData.swift */; };
@@ -715,7 +602,6 @@
 		D8E73D8D20C7AB630070C034 /* StationSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D8720C7AB630070C034 /* StationSearchView.swift */; };
 		D8E73D8F20C7EECE0070C034 /* StationSearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D8E20C7EECE0070C034 /* StationSearchDelegate.swift */; };
 		D8E73D9120C7EFA00070C034 /* StationSearchSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D9020C7EFA00070C034 /* StationSearchSetupData.swift */; };
-		D8E86B3E1FACF95B003BFD54 /* RealmServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E86B3D1FACF95B003BFD54 /* RealmServiceInterface.swift */; };
 		D8EA46032009499B0032224E /* BarChartDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA46022009499B0032224E /* BarChartDelegate.swift */; };
 		D8EA460720094B9F0032224E /* BarChartViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA460620094B9F0032224E /* BarChartViewEx.swift */; };
 		D8EA460C200AAF6B0032224E /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA460B200AAF6B0032224E /* OrderedDictionary.swift */; };
@@ -1227,7 +1113,6 @@
 			children = (
 				D8C8A1E11FCB9F7F0075E44E /* VisitSummaryTableViewCell.swift */,
 				D8C8A1E91FCBA6EC0075E44E /* VisitSummaryTableViewCell.xib */,
-				D8C8A1EB1FCBBD0B0075E44E /* VisitSummaryTableViewCellDelegate.swift */,
 				D8083D311FE8FA8E00D1C5F1 /* StatisticView.xib */,
 				D8083D331FE994B400D1C5F1 /* StatisticView.swift */,
 			);
@@ -1294,7 +1179,6 @@
 		D81DAAED1F68641E00C7C987 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				D8ABDD3A21E7C6D400723B62 /* Deprecate */,
 				D80D694021E066B800EDBE8D /* Reachability */,
 				D8DC916D21CAD4DF006D8B57 /* CachePrimerFirestoreService.swift */,
 				D8DC916B21CAD469006D8B57 /* CachePrimerServiceInterface.swift */,
@@ -1304,40 +1188,28 @@
 				D8C25C9E218108BF00C5DB64 /* FirestoreService.swift */,
 				D82A53E51FF0DDF5000D9339 /* HtmlService.swift */,
 				D82A53E71FF0DE11000D9339 /* HtmlServiceInterface.swift */,
-				D80F7ED21F6E87D500814A52 /* RealmDataPopulatorService.swift */,
-				D89714A31F76197C00E846B9 /* RealmService.swift */,
-				D8E86B3D1FACF95B003BFD54 /* RealmServiceInterface.swift */,
-				D89B4C1D20BA538700A4502D /* RegionService.swift */,
-				D89B4C1B20BA524200A4502D /* RegionServiceInterface.swift */,
-				D86DEC34219DF67300DCE730 /* RouteFirestoreService.swift */,
-				D849B6211F96C91100CE2085 /* RouteService.swift */,
+				D8C25CA02181158600C5DB64 /* RegionFirestoreService.swift */,
 				D849B61F1F96C8E100CE2085 /* RouteServiceInterface.swift */,
+				D86DEC34219DF67300DCE730 /* RouteFirestoreService.swift */,
 				D88BE09B202C54C700098DBE /* SavedImageService.swift */,
 				D88BE099202C547E00098DBE /* SavedImageServiceInterface.swift */,
 				D81DAAF61F686EA800C7C987 /* ServiceFactory.swift */,
-				D8083D1C1FE49A7800D1C5F1 /* SettingsService.swift */,
-				D8083D1A1FE49A4E00D1C5F1 /* SettingsServiceInterface.swift */,
 				D8A4E96F218E3F640070413B /* StationFirestoreService.swift */,
-				D89A20DC1FDC98DE00A813FB /* StationService.swift */,
 				D89A20DA1FDC98D200A813FB /* StationServiceInterface.swift */,
 				D8C25C9C218106C400C5DB64 /* TraplineFirestoreService.swift */,
-				D80F7ECF1F6E7A9300814A52 /* TraplineService.swift */,
 				D80F7ECD1F6E79BF00814A52 /* TraplineServiceInterface.swift */,
-				D82A53E11FEF02CD000D9339 /* TrapService.swift */,
-				D80F7ED81F6E92C700814A52 /* TrapServiceInterface.swift */,
 				D8C25C85217A62C400C5DB64 /* UserService.swift */,
 				D8C25C87217A62E100C5DB64 /* UserServiceInterface.swift */,
 				D8DA1B1A21DDCEF9008EC4FD /* UserSettingsFirestoreService.swift */,
 				D8DA1B1721DDCECF008EC4FD /* UserSettingsServiceInterface.swift */,
 				D80F8DD02196AED40035C668 /* VisitFirestoreService.swift */,
-				D81DAAEE1F68643400C7C987 /* VisitService.swift */,
 				D81DAAF21F68659100C7C987 /* VisitServiceInterface.swift */,
 				D86DEC2E219D330200DCE730 /* VisitSummaryFirebaseService.swift */,
 				D86DEC2B219D31DB00DCE730 /* VisitSummaryServiceInterface.swift */,
-				D8AF9EB82026B261002264D1 /* VisitSyncService.swift */,
-				D8AF9EB62026B0DE002264D1 /* VisitSyncServiceInterface.swift */,
-				D8B57FEA1FD76E3E003437D9 /* Import */,
-				D8D1A0451FAF12F600926CEF /* Lookups */,
+				D82F40A92182401D00392DFD /* SpeciesFirestoreService.swift */,
+				D82F40AB2182416400392DFD /* LookupFirestoreService.swift */,
+				D84311792183DD840003C2C6 /* TrapTypeFirestoreService.swift */,
+				D84311822183E5790003C2C6 /* LureFirestoreService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -1382,19 +1254,15 @@
 				D80F7EDA1F6EF89700814A52 /* Station.swift */,
 				D81DAAF01F68652E00C7C987 /* Trap.swift */,
 				D81DAAF41F6865DB00C7C987 /* Trapline.swift */,
-				D8C8A1ED1FCCBA070075E44E /* TrapOperatingStatus.swift */,
-				D8C8A1EF1FCCBAB90075E44E /* TrapSetStatus.swift */,
 				D8BC084E1F6B143800B284EE /* TrapType.swift */,
 				D8503DCF1F669F8500ED0C84 /* Visit.swift */,
 				D8D729DD1F61C9CC0082CD4A /* VisitSummary.swift */,
-				D8C3786A21463F8A00B02E86 /* VisitSummariesStatistics.swift */,
 				D8AF9EB42026B058002264D1 /* VisitSync.swift */,
-				D88BE097202C4DFF00098DBE /* SavedImage.swift */,
 			);
 			name = RealmModels;
 			sourceTree = "<group>";
 		};
-		D82F40B421824DD600392DFD /* Realm */ = {
+		D82F40B421824DD600392DFD /* RealmLookups */ = {
 			isa = PBXGroup;
 			children = (
 				D835E0731FAC0CC300A4664B /* SpeciesService.swift */,
@@ -1402,7 +1270,7 @@
 				D8D1A0431FAF0DC300926CEF /* LureService.swift */,
 				D8D1A0481FAF219E00926CEF /* LookupService.swift */,
 			);
-			name = Realm;
+			name = RealmLookups;
 			sourceTree = "<group>";
 		};
 		D83DC6BF1F7F83D200F91792 /* Start */ = {
@@ -1443,20 +1311,23 @@
 				D843117F2183DEF20003C2C6 /* _Lure.swift */,
 				D8A4E966218D68BC0070413B /* _Region.swift */,
 				D8A4E96C218E330B0070413B /* _Route.swift */,
+				D88BE097202C4DFF00098DBE /* SavedImage.swift */,
 				D812FD7C21CF3F8600D2E90C /* _Settings.swift */,
 				D82F40B1218244CF00392DFD /* _Species.swift */,
 				D8A4E969218D6DEF0070413B /* _Station.swift */,
 				D8A4E963218D41D30070413B /* _Trapline.swift */,
+				D8C8A1ED1FCCBA070075E44E /* TrapOperatingStatus.swift */,
+				D8C8A1EF1FCCBAB90075E44E /* TrapSetStatus.swift */,
 				D843117C2183DE610003C2C6 /* _TrapType.swift */,
 				D80F8DCD21969DC90035C668 /* _Visit.swift */,
 				D813AAFC219CA841005DF558 /* _VisitSummary.swift */,
+				D8C3786A21463F8A00B02E86 /* VisitSummariesStatistics.swift */,
 				D8431185218423B50003C2C6 /* AuthenticatedUser.swift */,
 				D8C25C83217A578F00C5DB64 /* DocumentSerializable.swift */,
 				D891530521AB20E500389469 /* ModelConverter.swift */,
 				D8C25C81217A557800C5DB64 /* User.swift */,
 				D8DA1B1421DDCBA1008EC4FD /* UserSettings.swift */,
 				D8A4E95F218CFDF40070413B /* UserStatistics.swift */,
-				D82F40AD2182436F00392DFD /* RealmModels */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1479,7 +1350,6 @@
 			children = (
 				D89714C11F7A0E4700E846B9 /* ImageCollectionViewCell.swift */,
 				D89714BF1F7A0C5D00E846B9 /* ImageCollectionViewCell.xib */,
-				D857B3A41F81B86A006E1402 /* VisitDisplayData.swift */,
 				D8503DBB1F66807C00ED0C84 /* VisitInteractor.swift */,
 				D857B3A51F81B86A006E1402 /* VisitModuleApi.swift */,
 				D8503DBF1F66807C00ED0C84 /* VisitPresenter.swift */,
@@ -1487,6 +1357,7 @@
 				D857B3A71F81B86A006E1402 /* VisitView.swift */,
 				D80268821FA1757400A1372F /* VisitDelegate.swift */,
 				D81D20B621B973F30025D047 /* VisitSetup.swift */,
+				D857B3A41F81B86A006E1402 /* VisitDisplayData.swift */,
 			);
 			name = Visit;
 			sourceTree = "<group>";
@@ -1556,7 +1427,7 @@
 			name = StationSelect;
 			sourceTree = "<group>";
 		};
-		D8953EB51F88110900A1F424 /* NewVisit */ = {
+		D8953EB51F88110900A1F424 /* NewVisit (Module) */ = {
 			isa = PBXGroup;
 			children = (
 				D8953EB61F88114E00A1F424 /* NewVisitDisplayData.swift */,
@@ -1566,7 +1437,7 @@
 				D8953EBA1F88114E00A1F424 /* NewVisitRouter.swift */,
 				D8953EBB1F88114E00A1F424 /* NewVisitView.swift */,
 			);
-			name = NewVisit;
+			name = "NewVisit (Module)";
 			sourceTree = "<group>";
 		};
 		D8A4E974218FDC3D0070413B /* FirestoreTests */ = {
@@ -1596,12 +1467,35 @@
 		D8ABDD3A21E7C6D400723B62 /* Deprecate */ = {
 			isa = PBXGroup;
 			children = (
+				D8D79AB61FC5235E008AC5C1 /* Realm */,
+				D8953EB51F88110900A1F424 /* NewVisit (Module) */,
+				D8B138B31FC3EA740093E809 /* Route (Module) */,
+				D82F40AD2182436F00392DFD /* RealmModels */,
+				D82F40B421824DD600392DFD /* RealmLookups */,
+				D8B57FEA1FD76E3E003437D9 /* Import */,
+				D80F7ED21F6E87D500814A52 /* RealmDataPopulatorService.swift */,
+				D8C8A1EB1FCBBD0B0075E44E /* VisitSummaryTableViewCellDelegate.swift */,
+				D88DFE561FFB4D920048CA54 /* MapDelegate.swift */,
+				D89714A31F76197C00E846B9 /* RealmService.swift */,
+				D8E86B3D1FACF95B003BFD54 /* RealmServiceInterface.swift */,
+				D89B4C1D20BA538700A4502D /* RegionService.swift */,
+				D89B4C1B20BA524200A4502D /* RegionServiceInterface.swift */,
 				D897149F1F70CFB800E846B9 /* DataService.swift */,
+				D849B6211F96C91100CE2085 /* RouteService.swift */,
+				D8083D1C1FE49A7800D1C5F1 /* SettingsService.swift */,
+				D8083D1A1FE49A4E00D1C5F1 /* SettingsServiceInterface.swift */,
+				D89A20DC1FDC98DE00A813FB /* StationService.swift */,
+				D80F7ECF1F6E7A9300814A52 /* TraplineService.swift */,
+				D82A53E11FEF02CD000D9339 /* TrapService.swift */,
+				D80F7ED81F6E92C700814A52 /* TrapServiceInterface.swift */,
+				D81DAAEE1F68643400C7C987 /* VisitService.swift */,
+				D8AF9EB82026B261002264D1 /* VisitSyncService.swift */,
+				D8AF9EB62026B0DE002264D1 /* VisitSyncServiceInterface.swift */,
 			);
 			name = Deprecate;
 			sourceTree = "<group>";
 		};
-		D8B138B31FC3EA740093E809 /* Route */ = {
+		D8B138B31FC3EA740093E809 /* Route (Module) */ = {
 			isa = PBXGroup;
 			children = (
 				D8D79AA61FC3F0CD008AC5C1 /* RouteDisplayData.swift */,
@@ -1612,7 +1506,7 @@
 				D8D79AAB1FC3F0CD008AC5C1 /* RouteView.swift */,
 				D8D79AB41FC4BB6F008AC5C1 /* RouteSetupData.swift */,
 			);
-			name = Route;
+			name = "Route (Module)";
 			sourceTree = "<group>";
 		};
 		D8B57FEA1FD76E3E003437D9 /* Import */ = {
@@ -1655,9 +1549,9 @@
 		D8B94D571F5EA1FE00D373EF /* trapr */ = {
 			isa = PBXGroup;
 			children = (
+				D8ABDD3A21E7C6D400723B62 /* Deprecate */,
 				D8FCD98921839B2500B3556C /* Firebase */,
 				D8EA4601200949730032224E /* Charts */,
-				D8D79AB61FC5235E008AC5C1 /* Realm */,
 				D8039E2D1FABF64B006E394B /* Viper */,
 				D81DAAED1F68641E00C7C987 /* Services */,
 				D8503DD11F669F8B00ED0C84 /* Model */,
@@ -1719,8 +1613,6 @@
 				D815D77D200CB9BE0086AFFE /* Loader */,
 				D8DBE3D71FF4FC0000AA6482 /* Map */,
 				D856F66620111D2500CA50C2 /* NewRoute */,
-				D8953EB51F88110900A1F424 /* NewVisit */,
-				D8B138B31FC3EA740093E809 /* Route */,
 				D88DFE451FFABCB20048CA54 /* RouteDashboard */,
 				D879269B1FB58E7800240767 /* SectionStrip */,
 				D8083D0D1FE498D400D1C5F1 /* Settings */,
@@ -1843,19 +1735,6 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
-		D8D1A0451FAF12F600926CEF /* Lookups */ = {
-			isa = PBXGroup;
-			children = (
-				D82F40B421824DD600392DFD /* Realm */,
-				D8C25CA02181158600C5DB64 /* RegionFirestoreService.swift */,
-				D82F40A92182401D00392DFD /* SpeciesFirestoreService.swift */,
-				D82F40AB2182416400392DFD /* LookupFirestoreService.swift */,
-				D84311792183DD840003C2C6 /* TrapTypeFirestoreService.swift */,
-				D84311822183E5790003C2C6 /* LureFirestoreService.swift */,
-			);
-			name = Lookups;
-			sourceTree = "<group>";
-		};
 		D8D79AB61FC5235E008AC5C1 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
@@ -1876,7 +1755,6 @@
 				D8DBE3E61FF5BD0400AA6482 /* MapSetupData.swift */,
 				D8DBE3DD1FF4FC1900AA6482 /* MapView.swift */,
 				D8DBE3E41FF50A1500AA6482 /* StationMapAnnotation.swift */,
-				D88DFE561FFB4D920048CA54 /* MapDelegate.swift */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -2092,7 +1970,6 @@
 				D8AF9EB32025BC67002264D1 /* RouteImage2.png in Resources */,
 				D8083D251FE5C24300D1C5F1 /* header_image.png in Resources */,
 				D84C24591FFF2F49000BCAF8 /* collapse.png in Resources */,
-				D8AB9AD6201A5E3C00FBEF55 /* visits_26_1_18.vis in Resources */,
 				D8C25C8B217C3DF900C5DB64 /* exit.png in Resources */,
 				D8083D2E1FE6129A00D1C5F1 /* rip.png in Resources */,
 				D82D7BCD201F95A3006B0C02 /* Clock2.png in Resources */,
@@ -2106,13 +1983,10 @@
 				D8B94D601F5EA1FE00D373EF /* Assets.xcassets in Resources */,
 				D86CE4881F92BC6F004A09EF /* settings@2x.png in Resources */,
 				D8BC084B1F6A542700B284EE /* lessthan@2x.png in Resources */,
-				D89B4C2020BA567900A4502D /* trapLines_May_27_2018.trl in Resources */,
 				D8FA5CF61F8406D600EC890C /* close@2x.png in Resources */,
 				D8DBE3D61FF37F0900AA6482 /* timms.png in Resources */,
 				D8D1BB041FF8637C00AD71E3 /* Logo@2x.png in Resources */,
-				D8AB9AD5201A5E3C00FBEF55 /* don't_use_yet_trapLines_26_1_18.trl in Resources */,
 				D87926951FB555A500240767 /* clock@2x.png in Resources */,
-				D8DBE3D21FF3276C00AA6482 /* trapLines_Dec_27_2017.trl in Resources */,
 				D8503DD81F67AF7800ED0C84 /* user.png in Resources */,
 				D858D7BD2019D68A00EE052D /* expand2.png in Resources */,
 				D8D729E61F64BD580082CD4A /* Podfile in Resources */,
@@ -2189,7 +2063,6 @@
 				D8C25DB72181771F00C5DB64 /* RouteImage2.png in Resources */,
 				D8C25DB82181771F00C5DB64 /* header_image.png in Resources */,
 				D8C25DB92181771F00C5DB64 /* collapse.png in Resources */,
-				D8C25DBA2181771F00C5DB64 /* visits_26_1_18.vis in Resources */,
 				D8C25DBB2181771F00C5DB64 /* exit.png in Resources */,
 				D8C25DBC2181771F00C5DB64 /* rip.png in Resources */,
 				D8C25DBD2181771F00C5DB64 /* Clock2.png in Resources */,
@@ -2203,13 +2076,10 @@
 				D8C25DC52181771F00C5DB64 /* Assets.xcassets in Resources */,
 				D8C25DC62181771F00C5DB64 /* settings@2x.png in Resources */,
 				D8C25DC72181771F00C5DB64 /* lessthan@2x.png in Resources */,
-				D8C25DC82181771F00C5DB64 /* trapLines_May_27_2018.trl in Resources */,
 				D8C25DC92181771F00C5DB64 /* close@2x.png in Resources */,
 				D8C25DCA2181771F00C5DB64 /* timms.png in Resources */,
 				D8C25DCB2181771F00C5DB64 /* Logo@2x.png in Resources */,
-				D8C25DCC2181771F00C5DB64 /* don't_use_yet_trapLines_26_1_18.trl in Resources */,
 				D8C25DCD2181771F00C5DB64 /* clock@2x.png in Resources */,
-				D8C25DCE2181771F00C5DB64 /* trapLines_Dec_27_2017.trl in Resources */,
 				D8C25DCF2181771F00C5DB64 /* user.png in Resources */,
 				D8C25DD02181771F00C5DB64 /* expand2.png in Resources */,
 				D8C25DD12181771F00C5DB64 /* Podfile in Resources */,
@@ -2248,15 +2118,11 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-traprTests/Pods-traprTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CSVImporter/CSVImporter.framework",
 				"${BUILT_PRODUCTS_DIR}/HandySwift/HandySwift.framework",
-				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
-				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSVImporter.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandySwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2374,8 +2240,6 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CSVImporter/CSVImporter.framework",
 				"${BUILT_PRODUCTS_DIR}/HandySwift/HandySwift.framework",
-				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
-				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
@@ -2398,8 +2262,6 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSVImporter.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandySwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
@@ -2446,8 +2308,6 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CSVImporter/CSVImporter.framework",
 				"${BUILT_PRODUCTS_DIR}/HandySwift/HandySwift.framework",
-				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
-				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
@@ -2470,8 +2330,6 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSVImporter.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandySwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
@@ -2520,15 +2378,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8193D9821F1194900C3BB5D /* TrapOperatingStatus.swift in Sources */,
 				D8039E281FABF458006E394B /* ListPickerPresenter.swift in Sources */,
-				D80F7ED01F6E7A9300814A52 /* TraplineService.swift in Sources */,
 				D815D795200CBA2A0086AFFE /* LoaderView.swift in Sources */,
 				D8DBE3E71FF5BD0400AA6482 /* MapSetupData.swift in Sources */,
 				D84DDF511FB6C7D90079551D /* TraplineSelectSetupData.swift in Sources */,
 				D8B94D7A1F5EA54300D373EF /* Styles.swift in Sources */,
 				D8A4E959218CF42F0070413B /* DataPopulatorFirestoreService.swift in Sources */,
-				D80F7ED31F6E87D500814A52 /* RealmDataPopulatorService.swift in Sources */,
-				D8953EBC1F88114F00A1F424 /* NewVisitDisplayData.swift in Sources */,
 				D89312031F834F6F008DF09D /* StationSelectRouter.swift in Sources */,
 				D87C44F91F9059AF00CAFC7A /* SideMenuPresenter.swift in Sources */,
 				D8A4E967218D68BC0070413B /* _Region.swift in Sources */,
@@ -2536,6 +2392,7 @@
 				D820AE0E20228889008925E8 /* VisitHistoryInteractor.swift in Sources */,
 				D8C25C94217EDAA300C5DB64 /* AdministrationDisplayData.swift in Sources */,
 				D873C8741FC9246F00F581D8 /* TableViewHeaderWithAction.swift in Sources */,
+				D8193D9C21F1805D00C3BB5D /* SavedImage.swift in Sources */,
 				D8083D161FE498F900D1C5F1 /* SettingsRouter.swift in Sources */,
 				D88DFE511FFABCD00048CA54 /* RouteDashboardView.swift in Sources */,
 				D857B3AA1F81B86A006E1402 /* VisitRouter.swift in Sources */,
@@ -2549,14 +2406,11 @@
 				D81431A61F8DDB2600EAF5FD /* DatePickerRouter.swift in Sources */,
 				D89714AC1F77FEED00E846B9 /* TrapSectionIndexPath.swift in Sources */,
 				D8083D231FE4E6E500D1C5F1 /* SideMenuSetupData.swift in Sources */,
-				D81883791F6931C600A74B5E /* Species.swift in Sources */,
 				D86CE48C1F92C8EA004A09EF /* UIFontExtension.swift in Sources */,
 				D8083D141FE498F900D1C5F1 /* SettingsDisplayData.swift in Sources */,
-				D8D729DE1F61C9CC0082CD4A /* VisitSummary.swift in Sources */,
 				D80B6DCE1F9F3DCD00F49E9E /* VisitLogPresenter.swift in Sources */,
 				D84C246420008781000BCAF8 /* UserInterfaceExtension.swift in Sources */,
 				D8DA1B1821DDCECF008EC4FD /* UserSettingsServiceInterface.swift in Sources */,
-				D81DAAF51F6865DB00C7C987 /* Trapline.swift in Sources */,
 				D81DAAF71F686EA800C7C987 /* ServiceFactory.swift in Sources */,
 				D8039E2F1FABF671006E394B /* RouterExtension.swift in Sources */,
 				D88BE09A202C547E00098DBE /* SavedImageServiceInterface.swift in Sources */,
@@ -2570,38 +2424,33 @@
 				D8E73D8820C7AB630070C034 /* StationSearchDisplayData.swift in Sources */,
 				D86DEC2C219D31DB00DCE730 /* VisitSummaryServiceInterface.swift in Sources */,
 				D86DEC35219DF67300DCE730 /* RouteFirestoreService.swift in Sources */,
-				D89B4C1E20BA538700A4502D /* RegionService.swift in Sources */,
 				D8C25C84217A579000C5DB64 /* DocumentSerializable.swift in Sources */,
 				D82F40B2218244CF00392DFD /* _Species.swift in Sources */,
 				D879269A1FB5775900240767 /* Layout.swift in Sources */,
-				D8D79AB11FC3F0CD008AC5C1 /* RouteView.swift in Sources */,
 				D8B94D591F5EA1FE00D373EF /* AppDelegate.swift in Sources */,
 				D89714C21F7A0E4700E846B9 /* ImageCollectionViewCell.swift in Sources */,
-				D88BE098202C4DFF00098DBE /* SavedImage.swift in Sources */,
 				D8C25CA12181158600C5DB64 /* RegionFirestoreService.swift in Sources */,
 				D843117A2183DD840003C2C6 /* TrapTypeFirestoreService.swift in Sources */,
 				D80B6DCF1F9F3DCD00F49E9E /* VisitLogRouter.swift in Sources */,
 				D8DBE3F11FF764C900AA6482 /* UIViewExtension.swift in Sources */,
 				D80268831FA1757400A1372F /* VisitDelegate.swift in Sources */,
+				D8193D9F21F1A8F000C3BB5D /* VisitDisplayData.swift in Sources */,
 				D89312021F834F6F008DF09D /* StationSelectPresenter.swift in Sources */,
 				D87C44EF1F8F545F00CAFC7A /* DatePickerSetupData.swift in Sources */,
 				D86CE4781F91DBC5004A09EF /* MenuDivider.swift in Sources */,
 				D841CF2A1F8239CA004D0207 /* TraplineSelectRouter.swift in Sources */,
 				D86DEC2F219D330200DCE730 /* VisitSummaryFirebaseService.swift in Sources */,
 				D8DA1B1521DDCBA1008EC4FD /* UserSettings.swift in Sources */,
-				D8D1A03C1FAF081E00926CEF /* TrapTypeService.swift in Sources */,
+				D8193D9A21F1198400C3BB5D /* TrapSetStatus.swift in Sources */,
 				D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */,
 				D88DFE4E1FFABCD00048CA54 /* RouteDashboardRouter.swift in Sources */,
 				D8DC916E21CAD4DF006D8B57 /* CachePrimerFirestoreService.swift in Sources */,
 				D89312041F834F6F008DF09D /* StationSelectView.swift in Sources */,
 				D8C25C97217EDAA300C5DB64 /* AdministrationModuleApi.swift in Sources */,
 				D80F8DCE21969DC90035C668 /* _Visit.swift in Sources */,
-				D8D79AB01FC3F0CD008AC5C1 /* RouteInteractor.swift in Sources */,
 				D8C8A1E21FCB9F7F0075E44E /* VisitSummaryTableViewCell.swift in Sources */,
-				D8953EC01F88114F00A1F424 /* NewVisitRouter.swift in Sources */,
 				D83DC6CD1F7F841F00F91792 /* StartView.swift in Sources */,
 				D80B6DCB1F9F3DCD00F49E9E /* VisitLogDisplayData.swift in Sources */,
-				D8B57FEC1FD76E6D003437D9 /* DataImport.swift in Sources */,
 				D8A4E96D218E330B0070413B /* _Route.swift in Sources */,
 				D87926A11FB5973700240767 /* SectionStripViewDelegate.swift in Sources */,
 				D88DFE4C1FFABCD00048CA54 /* RouteDashboardDisplayData.swift in Sources */,
@@ -2609,33 +2458,24 @@
 				D8C25C9D218106C400C5DB64 /* TraplineFirestoreService.swift in Sources */,
 				D856F66F20111D3E00CA50C2 /* NewRouteRouter.swift in Sources */,
 				D8E73D8D20C7AB630070C034 /* StationSearchView.swift in Sources */,
-				D8B57FF01FDA5582003437D9 /* importer_traplines_v1_to_v2.swift in Sources */,
 				D81431A71F8DDB2600EAF5FD /* DatePickerView.swift in Sources */,
-				D857B3A81F81B86A006E1402 /* VisitDisplayData.swift in Sources */,
 				D856F66E20111D3E00CA50C2 /* NewRoutePresenter.swift in Sources */,
 				D8EA4610200AB9A20032224E /* StackCount.swift in Sources */,
 				D800573620154F9C0084E950 /* VerticallyCentredTextView.swift in Sources */,
-				D8083D1B1FE49A4E00D1C5F1 /* SettingsServiceInterface.swift in Sources */,
-				D8D79AAF1FC3F0CD008AC5C1 /* RouteModuleApi.swift in Sources */,
 				D8DBE3E51FF50A1500AA6482 /* StationMapAnnotation.swift in Sources */,
 				D89A20DB1FDC98D200A813FB /* StationServiceInterface.swift in Sources */,
-				D8C3786B21463F8A00B02E86 /* VisitSummariesStatistics.swift in Sources */,
 				D8039E311FABF6B9006E394B /* ListPickerSetupData.swift in Sources */,
 				D80B6DD01F9F3DCD00F49E9E /* VisitLogView.swift in Sources */,
 				D8EA46032009499B0032224E /* BarChartDelegate.swift in Sources */,
-				D8C8A1EE1FCCBA070075E44E /* TrapOperatingStatus.swift in Sources */,
 				D8BB6F4B202917A6008AB3A2 /* CameraHandler.swift in Sources */,
 				D8C25C82217A557800C5DB64 /* User.swift in Sources */,
 				D8005733201528C60084E950 /* StationMarkerAnnotationView.swift in Sources */,
 				D8E73D9120C7EFA00070C034 /* StationSearchSetupData.swift in Sources */,
 				D8039E251FABF458006E394B /* ListPickerDisplayData.swift in Sources */,
-				D81DAAF11F68652E00C7C987 /* Trap.swift in Sources */,
 				D8DE38061FFCC88F00707A7D /* StationMapViewController.swift in Sources */,
-				D8D79AAD1FC3F0CD008AC5C1 /* RoutePresenter.swift in Sources */,
 				D83D0B57200E8B70001E1F69 /* UIViewControllerExtension.swift in Sources */,
 				D8503DC81F66807C00ED0C84 /* VisitPresenter.swift in Sources */,
 				D8083D341FE994B400D1C5F1 /* StatisticView.swift in Sources */,
-				D891530621AB20E500389469 /* ModelConverter.swift in Sources */,
 				D812FD7D21CF3F8600D2E90C /* _Settings.swift in Sources */,
 				D80C14FB202F8C10005EBD10 /* StartSetupData.swift in Sources */,
 				D84311832183E5790003C2C6 /* LureFirestoreService.swift in Sources */,
@@ -2645,7 +2485,6 @@
 				D8C25C86217A62C400C5DB64 /* UserService.swift in Sources */,
 				D856F66D20111D3E00CA50C2 /* NewRouteDisplayData.swift in Sources */,
 				D80F8DD12196AED40035C668 /* VisitFirestoreService.swift in Sources */,
-				D8953EBD1F88114F00A1F424 /* NewVisitInteractor.swift in Sources */,
 				D8039E261FABF458006E394B /* ListPickerInteractor.swift in Sources */,
 				D80C14FD202F9416005EBD10 /* LoaderDelegate.swift in Sources */,
 				D8C3786D2146431900B02E86 /* TimeIntervalExtension.swift in Sources */,
@@ -2661,16 +2500,12 @@
 				D820AE0C20228889008925E8 /* VisitHistoryRouter.swift in Sources */,
 				D84C24541FFDFF30000BCAF8 /* StationDotAnnotationView.swift in Sources */,
 				D8E73D8F20C7EECE0070C034 /* StationSearchDelegate.swift in Sources */,
-				D82A53E21FEF02CD000D9339 /* TrapService.swift in Sources */,
 				D82A53E61FF0DDF5000D9339 /* HtmlService.swift in Sources */,
 				D841CF291F8239CA004D0207 /* TraplineSelectPresenter.swift in Sources */,
 				D8039E291FABF458006E394B /* ListPickerRouter.swift in Sources */,
 				D815D793200CBA2A0086AFFE /* LoaderModuleApi.swift in Sources */,
-				D8083D1D1FE49A7800D1C5F1 /* SettingsService.swift in Sources */,
 				D83DC6C81F7F841F00F91792 /* StartDisplayData.swift in Sources */,
-				D8D79AAE1FC3F0CD008AC5C1 /* RouteRouter.swift in Sources */,
 				D88DFE4D1FFABCD00048CA54 /* RouteDashboardPresenter.swift in Sources */,
-				D8D79AAC1FC3F0CD008AC5C1 /* RouteDisplayData.swift in Sources */,
 				D83DC6CB1F7F841F00F91792 /* StartPresenter.swift in Sources */,
 				D8DBE3DF1FF4FC1900AA6482 /* MapPresenter.swift in Sources */,
 				D80B6DCD1F9F3DCD00F49E9E /* VisitLogModuleApi.swift in Sources */,
@@ -2680,45 +2515,34 @@
 				D8039E2C1FABF577006E394B /* ListPickerDelegate.swift in Sources */,
 				D8A4E964218D41D30070413B /* _Trapline.swift in Sources */,
 				D8A4E962218CFE080070413B /* UserStatistics.swift in Sources */,
-				D88DFE571FFB4D920048CA54 /* MapDelegate.swift in Sources */,
 				D8039E2A1FABF458006E394B /* ListPickerView.swift in Sources */,
-				D89B4C1A20BA3C1B00A4502D /* Region.swift in Sources */,
-				D8AB9AD8201A623E00FBEF55 /* importer_visits_v1_to_v2.swift in Sources */,
-				D81DAAEF1F68643400C7C987 /* VisitService.swift in Sources */,
 				D8D79AB31FC4B992008AC5C1 /* OptionItem.swift in Sources */,
-				D835E0741FAC0CC300A4664B /* SpeciesService.swift in Sources */,
 				D815D790200CBA2A0086AFFE /* LoaderDisplayData.swift in Sources */,
-				D8953EC11F88114F00A1F424 /* NewVisitView.swift in Sources */,
 				D873C8701FC6873A00F581D8 /* UIImageExtention.swift in Sources */,
 				D815D797200CBC6F0086AFFE /* LoaderPresenterSetupData.swift in Sources */,
 				D83DC6C91F7F841F00F91792 /* StartInteractor.swift in Sources */,
 				D81818701F7F795B008362BA /* AppModules.swift in Sources */,
 				D8083D211FE4E67D00D1C5F1 /* SideMenuDelegate.swift in Sources */,
-				D8C8A1EC1FCBBD0B0075E44E /* VisitSummaryTableViewCellDelegate.swift in Sources */,
 				D806C7EA1F9C881F0064C98F /* GroupedTableViewDatasource.swift in Sources */,
 				D841CF2B1F8239CA004D0207 /* TraplineSelectView.swift in Sources */,
 				D87C44FA1F9059AF00CAFC7A /* SideMenuRouter.swift in Sources */,
-				D8D79AB51FC4BB6F008AC5C1 /* RouteSetupData.swift in Sources */,
 				D8DA1B1B21DDCEF9008EC4FD /* UserSettingsFirestoreService.swift in Sources */,
 				D87C44F71F9059AF00CAFC7A /* SideMenuInteractor.swift in Sources */,
 				D8039E271FABF458006E394B /* ListPickerModuleApi.swift in Sources */,
 				D8E73D8C20C7AB630070C034 /* StationSearchInteractor.swift in Sources */,
+				D8193D9621F1166D00C3BB5D /* VisitSummariesStatistics.swift in Sources */,
 				D89714AA1F7751B300E846B9 /* DataPopulatorServiceInterface.swift in Sources */,
 				D856F67220111D3E00CA50C2 /* NewRouteView.swift in Sources */,
 				D8AB9ADB201DAF3300FBEF55 /* RouteTableViewCell.swift in Sources */,
 				D84C2462200028B5000BCAF8 /* CircleAnnotationView.swift in Sources */,
 				D873C86E1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift in Sources */,
-				D8953EBF1F88114F00A1F424 /* NewVisitPresenter.swift in Sources */,
-				D8E86B3E1FACF95B003BFD54 /* RealmServiceInterface.swift in Sources */,
 				D8C25C98217EDAA300C5DB64 /* AdministrationInteractor.swift in Sources */,
 				D8DBE3DE1FF4FC1900AA6482 /* MapDisplayData.swift in Sources */,
 				D8A4E970218E3F640070413B /* StationFirestoreService.swift in Sources */,
-				D8503DD01F669F8500ED0C84 /* Visit.swift in Sources */,
 				D81431A31F8DDB2600EAF5FD /* DatePickerInteractor.swift in Sources */,
 				D849B6201F96C8E100CE2085 /* RouteServiceInterface.swift in Sources */,
 				D8C51A731F96D67200D3571A /* MultiselectTableViewHeader.swift in Sources */,
 				D8DBE3E01FF4FC1900AA6482 /* MapRouter.swift in Sources */,
-				D8C8A1F01FCCBAB90075E44E /* TrapSetStatus.swift in Sources */,
 				D87C44F61F9059AF00CAFC7A /* SideMenuDisplayData.swift in Sources */,
 				D8FA5CF81F8409A700EC890C /* StationSelectSetupData.swift in Sources */,
 				D81DAAF31F68659100C7C987 /* VisitServiceInterface.swift in Sources */,
@@ -2726,65 +2550,46 @@
 				D87C44FB1F9059AF00CAFC7A /* SideMenuView.swift in Sources */,
 				D8083D181FE498F900D1C5F1 /* SettingsInteractor.swift in Sources */,
 				D8DC916C21CAD469006D8B57 /* CachePrimerServiceInterface.swift in Sources */,
-				D8083D1F1FE49AB000D1C5F1 /* Settings.swift in Sources */,
-				D8D1A0441FAF0DC300926CEF /* LureService.swift in Sources */,
 				D81D20B721B973F30025D047 /* VisitSetup.swift in Sources */,
 				D80BCD3D1F91D041005F30FF /* MenuItemView.swift in Sources */,
 				D81431AA1F8E020900EAF5FD /* DatePickerDisplayData.swift in Sources */,
 				D8A4E96A218D6DEF0070413B /* _Station.swift in Sources */,
-				D89B4C1C20BA524200A4502D /* RegionServiceInterface.swift in Sources */,
 				D80344311FA192D400F44A17 /* StepperTableViewCellDelegate.swift in Sources */,
 				D815D794200CBA2A0086AFFE /* LoaderInteractor.swift in Sources */,
 				D89311FF1F834F6E008DF09D /* StationSelectDisplayData.swift in Sources */,
-				D80F7EDB1F6EF89700814A52 /* Station.swift in Sources */,
 				D8C25C96217EDAA300C5DB64 /* AdministrationRouter.swift in Sources */,
 				D82F40AC2182416400392DFD /* LookupFirestoreService.swift in Sources */,
 				D87C44F81F9059AF00CAFC7A /* SideMenuModuleApi.swift in Sources */,
-				D89714A01F70CFB800E846B9 /* DataService.swift in Sources */,
-				D8D1A0401FAF0CE800926CEF /* Lure.swift in Sources */,
-				D8BC084F1F6B143800B284EE /* TrapType.swift in Sources */,
 				D81431A41F8DDB2600EAF5FD /* DatePickerModuleApi.swift in Sources */,
 				D857B3AB1F81B86A006E1402 /* VisitView.swift in Sources */,
 				D88BE09C202C54C700098DBE /* SavedImageService.swift in Sources */,
 				D89312011F834F6F008DF09D /* StationSelectModuleApi.swift in Sources */,
 				D8DBE3E31FF4FC1900AA6482 /* MapView.swift in Sources */,
-				D89714A41F76197D00E846B9 /* RealmService.swift in Sources */,
 				D841CF261F8239CA004D0207 /* TraplineSelectDisplayData.swift in Sources */,
 				D8503DC41F66807C00ED0C84 /* VisitInteractor.swift in Sources */,
 				D843117D2183DE610003C2C6 /* _TrapType.swift in Sources */,
-				D8AF9EB92026B261002264D1 /* VisitSyncService.swift in Sources */,
 				D820AE0A20228889008925E8 /* VisitHistoryDisplayData.swift in Sources */,
 				D82F40AF2182442400392DFD /* _Lookup.swift in Sources */,
 				D8C25C99217EDAA300C5DB64 /* AdministrationView.swift in Sources */,
 				D8DBE3E21FF4FC1900AA6482 /* MapInteractor.swift in Sources */,
-				D80F7ED91F6E92C700814A52 /* TrapServiceInterface.swift in Sources */,
 				D89714AF1F7898A800E846B9 /* SideBarMenuItem.swift in Sources */,
 				D83DC6CC1F7F841F00F91792 /* StartRouter.swift in Sources */,
 				D87C44ED1F8F4C2400CAFC7A /* DatePickerDelegate.swift in Sources */,
-				D8D1A0491FAF219E00926CEF /* LookupService.swift in Sources */,
-				D8B1480A1F9552D9000AB414 /* Route.swift in Sources */,
 				D84311802183DEF20003C2C6 /* _Lure.swift in Sources */,
 				D89312001F834F6E008DF09D /* StationSelectInteractor.swift in Sources */,
 				D8B94D7C1F5EA56F00D373EF /* UIColorExtension.swift in Sources */,
 				D8C25C95217EDAA300C5DB64 /* AdministrationPresenter.swift in Sources */,
 				D88DFE531FFAC8FF0048CA54 /* RouteDashboardSetup.swift in Sources */,
-				D89A20DD1FDC98DE00A813FB /* StationService.swift in Sources */,
 				D857B3A91F81B86A006E1402 /* VisitModuleApi.swift in Sources */,
 				D83DC6CA1F7F841F00F91792 /* StartModuleApi.swift in Sources */,
 				D84C24662004806F000BCAF8 /* ObjectOrder.swift in Sources */,
 				D813AAFD219CA841005DF558 /* _VisitSummary.swift in Sources */,
 				D820AE0D20228889008925E8 /* VisitHistoryModuleApi.swift in Sources */,
 				D841CF281F8239CA004D0207 /* TraplineSelectModuleApi.swift in Sources */,
-				D849B6221F96C91100CE2085 /* RouteService.swift in Sources */,
-				D8AF9EB72026B0DE002264D1 /* VisitSyncServiceInterface.swift in Sources */,
 				D8D66D452022CDA400CBF3D7 /* ViewHistorySetupData.swift in Sources */,
 				D8431186218423B50003C2C6 /* AuthenticatedUser.swift in Sources */,
-				D8D79AB81FC52370008AC5C1 /* RLMResults.swift in Sources */,
 				D82A53E81FF0DE11000D9339 /* HtmlServiceInterface.swift in Sources */,
-				D8D1A0471FAF16B000926CEF /* LookupObject.swift in Sources */,
-				D8953EBE1F88114F00A1F424 /* NewVisitModuleApi.swift in Sources */,
 				D88DFE4F1FFABCD00048CA54 /* RouteDashboardModuleApi.swift in Sources */,
-				D8AF9EB52026B058002264D1 /* VisitSync.swift in Sources */,
 				D81431A51F8DDB2600EAF5FD /* DatePickerPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2819,14 +2624,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8C25CA52181771F00C5DB64 /* ListPickerPresenter.swift in Sources */,
-				D8C25CA62181771F00C5DB64 /* TraplineService.swift in Sources */,
 				D8C25CA72181771F00C5DB64 /* LoaderView.swift in Sources */,
 				D8C25CA82181771F00C5DB64 /* MapSetupData.swift in Sources */,
 				D8C25CA92181771F00C5DB64 /* TraplineSelectSetupData.swift in Sources */,
 				D8C25CAA2181771F00C5DB64 /* Styles.swift in Sources */,
 				D8A4E95A218CF47C0070413B /* DataPopulatorFirestoreService.swift in Sources */,
-				D8C25CAB2181771F00C5DB64 /* RealmDataPopulatorService.swift in Sources */,
-				D8C25CAC2181771F00C5DB64 /* NewVisitDisplayData.swift in Sources */,
 				D8C25CAD2181771F00C5DB64 /* StationSelectRouter.swift in Sources */,
 				D8C25CAE2181771F00C5DB64 /* SideMenuPresenter.swift in Sources */,
 				D8A4E968218D68BC0070413B /* _Region.swift in Sources */,
@@ -2849,13 +2651,10 @@
 				D82F40B02182443200392DFD /* _Lookup.swift in Sources */,
 				D8C25CBE2181771F00C5DB64 /* TrapSectionIndexPath.swift in Sources */,
 				D8C25CBF2181771F00C5DB64 /* SideMenuSetupData.swift in Sources */,
-				D8C25CC02181771F00C5DB64 /* Species.swift in Sources */,
 				D8C25CC12181771F00C5DB64 /* UIFontExtension.swift in Sources */,
 				D8C25CC22181771F00C5DB64 /* SettingsDisplayData.swift in Sources */,
-				D8C25CC32181771F00C5DB64 /* VisitSummary.swift in Sources */,
 				D8C25CC42181771F00C5DB64 /* VisitLogPresenter.swift in Sources */,
 				D8C25CC52181771F00C5DB64 /* UserInterfaceExtension.swift in Sources */,
-				D8C25CC62181771F00C5DB64 /* Trapline.swift in Sources */,
 				D8C25CC72181771F00C5DB64 /* ServiceFactory.swift in Sources */,
 				D8C25CC82181771F00C5DB64 /* RouterExtension.swift in Sources */,
 				D8C25CC92181771F00C5DB64 /* SavedImageServiceInterface.swift in Sources */,
@@ -2869,13 +2668,10 @@
 				D86DEC36219DF67300DCE730 /* RouteFirestoreService.swift in Sources */,
 				D8C25CD02181771F00C5DB64 /* StationSearchPresenter.swift in Sources */,
 				D8C25CD12181771F00C5DB64 /* StationSearchDisplayData.swift in Sources */,
-				D8C25CD22181771F00C5DB64 /* RegionService.swift in Sources */,
 				D8C25CD32181771F00C5DB64 /* DocumentSerializable.swift in Sources */,
 				D8C25CD42181771F00C5DB64 /* Layout.swift in Sources */,
-				D8C25CD52181771F00C5DB64 /* RouteView.swift in Sources */,
 				D8C25CD62181771F00C5DB64 /* AppDelegate.swift in Sources */,
 				D8C25CD72181771F00C5DB64 /* ImageCollectionViewCell.swift in Sources */,
-				D8C25CD82181771F00C5DB64 /* SavedImage.swift in Sources */,
 				D80D694321E1C38D00EDBE8D /* Reachability.swift in Sources */,
 				D843117B2183DD840003C2C6 /* TrapTypeFirestoreService.swift in Sources */,
 				D8C25CD92181771F00C5DB64 /* RegionFirestoreService.swift in Sources */,
@@ -2888,51 +2684,39 @@
 				D86DEC30219D330200DCE730 /* VisitSummaryFirebaseService.swift in Sources */,
 				D8C25CE02181771F00C5DB64 /* TraplineSelectRouter.swift in Sources */,
 				D8DA1B1921DDCECF008EC4FD /* UserSettingsServiceInterface.swift in Sources */,
-				D8C25CE12181771F00C5DB64 /* TrapTypeService.swift in Sources */,
 				D8C25CE22181771F00C5DB64 /* DateExtention.swift in Sources */,
 				D8C25CE32181771F00C5DB64 /* RouteDashboardRouter.swift in Sources */,
 				D8C25CE42181771F00C5DB64 /* StationSelectView.swift in Sources */,
 				D80F8DCF21969DC90035C668 /* _Visit.swift in Sources */,
 				D8C25CE52181771F00C5DB64 /* AdministrationModuleApi.swift in Sources */,
-				D8C25CE62181771F00C5DB64 /* RouteInteractor.swift in Sources */,
 				D8C25CE72181771F00C5DB64 /* VisitSummaryTableViewCell.swift in Sources */,
-				D8C25CE82181771F00C5DB64 /* NewVisitRouter.swift in Sources */,
 				D8C25CE92181771F00C5DB64 /* StartView.swift in Sources */,
 				D8C25CEA2181771F00C5DB64 /* VisitLogDisplayData.swift in Sources */,
 				D8A4E96E218E330B0070413B /* _Route.swift in Sources */,
-				D8C25CEB2181771F00C5DB64 /* DataImport.swift in Sources */,
 				D8C25CEC2181771F00C5DB64 /* SectionStripViewDelegate.swift in Sources */,
 				D8C25CED2181771F00C5DB64 /* RouteDashboardDisplayData.swift in Sources */,
 				D8C25CEE2181771F00C5DB64 /* VisitLogViewDelegate.swift in Sources */,
 				D8C25CEF2181771F00C5DB64 /* TraplineFirestoreService.swift in Sources */,
 				D8C25CF02181771F00C5DB64 /* NewRouteRouter.swift in Sources */,
 				D8C25CF12181771F00C5DB64 /* StationSearchView.swift in Sources */,
-				D8C25CF22181771F00C5DB64 /* importer_traplines_v1_to_v2.swift in Sources */,
 				D8C25CF32181771F00C5DB64 /* DatePickerView.swift in Sources */,
-				D8C25CF42181771F00C5DB64 /* VisitDisplayData.swift in Sources */,
 				D8C25CF52181771F00C5DB64 /* NewRoutePresenter.swift in Sources */,
 				D8C25CF62181771F00C5DB64 /* StackCount.swift in Sources */,
 				D8C25CF72181771F00C5DB64 /* VerticallyCentredTextView.swift in Sources */,
-				D8C25CF82181771F00C5DB64 /* SettingsServiceInterface.swift in Sources */,
-				D8C25CF92181771F00C5DB64 /* RouteModuleApi.swift in Sources */,
 				D8C25CFA2181771F00C5DB64 /* StationMapAnnotation.swift in Sources */,
 				D8C25CFB2181771F00C5DB64 /* StationServiceInterface.swift in Sources */,
-				D8C25CFC2181771F00C5DB64 /* VisitSummariesStatistics.swift in Sources */,
 				D8C25CFD2181771F00C5DB64 /* ListPickerSetupData.swift in Sources */,
 				D8C25CFE2181771F00C5DB64 /* VisitLogView.swift in Sources */,
 				D82F40B521825F2600392DFD /* SpeciesFirestoreService.swift in Sources */,
 				D8C25CFF2181771F00C5DB64 /* BarChartDelegate.swift in Sources */,
-				D8C25D002181771F00C5DB64 /* TrapOperatingStatus.swift in Sources */,
 				D8C25D012181771F00C5DB64 /* CameraHandler.swift in Sources */,
 				D8C25D022181771F00C5DB64 /* User.swift in Sources */,
 				D8C25D032181771F00C5DB64 /* StationMarkerAnnotationView.swift in Sources */,
 				D8C25D042181771F00C5DB64 /* StationSearchSetupData.swift in Sources */,
 				D8C25D052181771F00C5DB64 /* ListPickerDisplayData.swift in Sources */,
-				D8C25D062181771F00C5DB64 /* Trap.swift in Sources */,
 				D8C25D072181771F00C5DB64 /* StationMapViewController.swift in Sources */,
-				D8C25D082181771F00C5DB64 /* RoutePresenter.swift in Sources */,
 				D8C25D092181771F00C5DB64 /* UIViewControllerExtension.swift in Sources */,
-				D891530721AB20E500389469 /* ModelConverter.swift in Sources */,
+				D8193D9D21F1805D00C3BB5D /* SavedImage.swift in Sources */,
 				D8C25D0A2181771F00C5DB64 /* VisitPresenter.swift in Sources */,
 				D84311842183E5790003C2C6 /* LureFirestoreService.swift in Sources */,
 				D8C25D0B2181771F00C5DB64 /* StatisticView.swift in Sources */,
@@ -2943,7 +2727,6 @@
 				D80F8DD22196AED40035C668 /* VisitFirestoreService.swift in Sources */,
 				D8C25D102181771F00C5DB64 /* UserService.swift in Sources */,
 				D8C25D112181771F00C5DB64 /* NewRouteDisplayData.swift in Sources */,
-				D8C25D122181771F00C5DB64 /* NewVisitInteractor.swift in Sources */,
 				D8C25D132181771F00C5DB64 /* ListPickerInteractor.swift in Sources */,
 				D8C25D142181771F00C5DB64 /* LoaderDelegate.swift in Sources */,
 				D8C25D152181771F00C5DB64 /* TimeIntervalExtension.swift in Sources */,
@@ -2958,44 +2741,33 @@
 				D8C25D1E2181771F00C5DB64 /* VisitHistoryRouter.swift in Sources */,
 				D8C25D1F2181771F00C5DB64 /* StationDotAnnotationView.swift in Sources */,
 				D8C25D202181771F00C5DB64 /* StationSearchDelegate.swift in Sources */,
-				D8C25D212181771F00C5DB64 /* TrapService.swift in Sources */,
 				D8C25D222181771F00C5DB64 /* HtmlService.swift in Sources */,
 				D8C25D232181771F00C5DB64 /* TraplineSelectPresenter.swift in Sources */,
 				D8C25D242181771F00C5DB64 /* ListPickerRouter.swift in Sources */,
 				D8C25D252181771F00C5DB64 /* LoaderModuleApi.swift in Sources */,
-				D8C25D262181771F00C5DB64 /* SettingsService.swift in Sources */,
 				D8C25D272181771F00C5DB64 /* StartDisplayData.swift in Sources */,
-				D8C25D282181771F00C5DB64 /* RouteRouter.swift in Sources */,
 				D8C25D292181771F00C5DB64 /* RouteDashboardPresenter.swift in Sources */,
-				D8C25D2A2181771F00C5DB64 /* RouteDisplayData.swift in Sources */,
 				D8C25D2B2181771F00C5DB64 /* StartPresenter.swift in Sources */,
 				D8C25D2C2181771F00C5DB64 /* MapPresenter.swift in Sources */,
 				D8C25D2D2181771F00C5DB64 /* VisitLogModuleApi.swift in Sources */,
+				D8193D9921F1194A00C3BB5D /* TrapOperatingStatus.swift in Sources */,
 				D8C25D2E2181771F00C5DB64 /* MapModuleApi.swift in Sources */,
 				D8C25D2F2181771F00C5DB64 /* LoaderPresenter.swift in Sources */,
 				D8A4E965218D41D30070413B /* _Trapline.swift in Sources */,
 				D8A4E961218CFE080070413B /* UserStatistics.swift in Sources */,
 				D8C25D302181771F00C5DB64 /* ListPickerDelegate.swift in Sources */,
-				D8C25D312181771F00C5DB64 /* MapDelegate.swift in Sources */,
 				D8C25D322181771F00C5DB64 /* ListPickerView.swift in Sources */,
-				D8C25D332181771F00C5DB64 /* Region.swift in Sources */,
-				D8C25D342181771F00C5DB64 /* importer_visits_v1_to_v2.swift in Sources */,
-				D8C25D352181771F00C5DB64 /* VisitService.swift in Sources */,
 				D8C25D362181771F00C5DB64 /* OptionItem.swift in Sources */,
-				D8C25D372181771F00C5DB64 /* SpeciesService.swift in Sources */,
 				D8C25D382181771F00C5DB64 /* LoaderDisplayData.swift in Sources */,
-				D8C25D392181771F00C5DB64 /* NewVisitView.swift in Sources */,
 				D8C25D3A2181771F00C5DB64 /* UIImageExtention.swift in Sources */,
 				D8C25D3B2181771F00C5DB64 /* LoaderPresenterSetupData.swift in Sources */,
 				D8C25D3C2181771F00C5DB64 /* StartInteractor.swift in Sources */,
 				D8C25D3D2181771F00C5DB64 /* AppModules.swift in Sources */,
 				D8C25D3E2181771F00C5DB64 /* SideMenuDelegate.swift in Sources */,
 				D82F40B621825F2900392DFD /* LookupFirestoreService.swift in Sources */,
-				D8C25D3F2181771F00C5DB64 /* VisitSummaryTableViewCellDelegate.swift in Sources */,
 				D8C25D402181771F00C5DB64 /* GroupedTableViewDatasource.swift in Sources */,
 				D8C25D412181771F00C5DB64 /* TraplineSelectView.swift in Sources */,
 				D8C25D422181771F00C5DB64 /* SideMenuRouter.swift in Sources */,
-				D8C25D432181771F00C5DB64 /* RouteSetupData.swift in Sources */,
 				D8C25D442181771F00C5DB64 /* SideMenuInteractor.swift in Sources */,
 				D8C25D452181771F00C5DB64 /* ListPickerModuleApi.swift in Sources */,
 				D8C25D462181771F00C5DB64 /* StationSearchInteractor.swift in Sources */,
@@ -3004,18 +2776,14 @@
 				D8C25D492181771F00C5DB64 /* RouteTableViewCell.swift in Sources */,
 				D8C25D4A2181771F00C5DB64 /* CircleAnnotationView.swift in Sources */,
 				D8C25D4B2181771F00C5DB64 /* RouteCollectionViewCellDelegate.swift in Sources */,
-				D8C25D4C2181771F00C5DB64 /* NewVisitPresenter.swift in Sources */,
-				D8C25D4D2181771F00C5DB64 /* RealmServiceInterface.swift in Sources */,
 				D8A4E971218E3F640070413B /* StationFirestoreService.swift in Sources */,
 				D8C25D4E2181771F00C5DB64 /* AdministrationInteractor.swift in Sources */,
 				D8DA1B1C21DDCEF9008EC4FD /* UserSettingsFirestoreService.swift in Sources */,
 				D8C25D4F2181771F00C5DB64 /* MapDisplayData.swift in Sources */,
-				D8C25D502181771F00C5DB64 /* Visit.swift in Sources */,
 				D8C25D512181771F00C5DB64 /* DatePickerInteractor.swift in Sources */,
 				D8C25D522181771F00C5DB64 /* RouteServiceInterface.swift in Sources */,
 				D8C25D532181771F00C5DB64 /* MultiselectTableViewHeader.swift in Sources */,
 				D8C25D542181771F00C5DB64 /* MapRouter.swift in Sources */,
-				D8C25D552181771F00C5DB64 /* TrapSetStatus.swift in Sources */,
 				D8C25D562181771F00C5DB64 /* SideMenuDisplayData.swift in Sources */,
 				D8C25D572181771F00C5DB64 /* StationSelectSetupData.swift in Sources */,
 				D8C25D582181771F00C5DB64 /* VisitServiceInterface.swift in Sources */,
@@ -3023,65 +2791,49 @@
 				D8C25D5A2181771F00C5DB64 /* SideMenuView.swift in Sources */,
 				D8C25D5B2181771F00C5DB64 /* SettingsInteractor.swift in Sources */,
 				D81D20B821B973F30025D047 /* VisitSetup.swift in Sources */,
-				D8C25D5C2181771F00C5DB64 /* Settings.swift in Sources */,
-				D8C25D5D2181771F00C5DB64 /* LureService.swift in Sources */,
+				D8193D9721F1166E00C3BB5D /* VisitSummariesStatistics.swift in Sources */,
 				D8A4E96B218D6DEF0070413B /* _Station.swift in Sources */,
 				D8C25D5E2181771F00C5DB64 /* MenuItemView.swift in Sources */,
 				D8C25D5F2181771F00C5DB64 /* DatePickerDisplayData.swift in Sources */,
-				D8C25D602181771F00C5DB64 /* RegionServiceInterface.swift in Sources */,
 				D8C25D612181771F00C5DB64 /* StepperTableViewCellDelegate.swift in Sources */,
 				D8C25D622181771F00C5DB64 /* LoaderInteractor.swift in Sources */,
 				D8C25D632181771F00C5DB64 /* StationSelectDisplayData.swift in Sources */,
-				D8C25D642181771F00C5DB64 /* Station.swift in Sources */,
 				D8C25D652181771F00C5DB64 /* AdministrationRouter.swift in Sources */,
 				D8C25D662181771F00C5DB64 /* SideMenuModuleApi.swift in Sources */,
 				D8FDAF4521CD85D200182175 /* CachePrimerServiceInterface.swift in Sources */,
-				D8C25D672181771F00C5DB64 /* DataService.swift in Sources */,
-				D8C25D682181771F00C5DB64 /* Lure.swift in Sources */,
-				D8C25D692181771F00C5DB64 /* TrapType.swift in Sources */,
 				D8C25D6A2181771F00C5DB64 /* DatePickerModuleApi.swift in Sources */,
 				D8C25D6B2181771F00C5DB64 /* VisitView.swift in Sources */,
 				D8C25D6C2181771F00C5DB64 /* SavedImageService.swift in Sources */,
 				D8C25D6D2181771F00C5DB64 /* StationSelectModuleApi.swift in Sources */,
 				D8C25D6E2181771F00C5DB64 /* MapView.swift in Sources */,
 				D8DA1B1621DDCBA1008EC4FD /* UserSettings.swift in Sources */,
-				D8C25D6F2181771F00C5DB64 /* RealmService.swift in Sources */,
 				D8C25D702181771F00C5DB64 /* TraplineSelectDisplayData.swift in Sources */,
 				D843117E2183DE610003C2C6 /* _TrapType.swift in Sources */,
 				D8C25D712181771F00C5DB64 /* VisitInteractor.swift in Sources */,
-				D8C25D722181771F00C5DB64 /* VisitSyncService.swift in Sources */,
 				D8C25D732181771F00C5DB64 /* VisitHistoryDisplayData.swift in Sources */,
 				D8C25D742181771F00C5DB64 /* AdministrationView.swift in Sources */,
 				D8C25D752181771F00C5DB64 /* MapInteractor.swift in Sources */,
-				D8C25D762181771F00C5DB64 /* TrapServiceInterface.swift in Sources */,
 				D8C25D772181771F00C5DB64 /* SideBarMenuItem.swift in Sources */,
 				D8C25D782181771F00C5DB64 /* StartRouter.swift in Sources */,
+				D8193D9E21F1A8F000C3BB5D /* VisitDisplayData.swift in Sources */,
 				D8C25D792181771F00C5DB64 /* DatePickerDelegate.swift in Sources */,
-				D8C25D7A2181771F00C5DB64 /* LookupService.swift in Sources */,
-				D8C25D7B2181771F00C5DB64 /* Route.swift in Sources */,
 				D84311812183DEF20003C2C6 /* _Lure.swift in Sources */,
 				D8C25D7C2181771F00C5DB64 /* StationSelectInteractor.swift in Sources */,
 				D8C25D7D2181771F00C5DB64 /* UIColorExtension.swift in Sources */,
 				D8C25D7E2181771F00C5DB64 /* AdministrationPresenter.swift in Sources */,
 				D8C25D7F2181771F00C5DB64 /* RouteDashboardSetup.swift in Sources */,
 				D8FDAF4421CD85CF00182175 /* CachePrimerFirestoreService.swift in Sources */,
-				D8C25D802181771F00C5DB64 /* StationService.swift in Sources */,
 				D8C25D812181771F00C5DB64 /* VisitModuleApi.swift in Sources */,
 				D8C25D822181771F00C5DB64 /* StartModuleApi.swift in Sources */,
 				D8C25D832181771F00C5DB64 /* ObjectOrder.swift in Sources */,
 				D813AAFE219CA841005DF558 /* _VisitSummary.swift in Sources */,
 				D8C25D842181771F00C5DB64 /* VisitHistoryModuleApi.swift in Sources */,
+				D8193D9B21F1198500C3BB5D /* TrapSetStatus.swift in Sources */,
 				D8C25D852181771F00C5DB64 /* TraplineSelectModuleApi.swift in Sources */,
-				D8C25D862181771F00C5DB64 /* RouteService.swift in Sources */,
-				D8C25D872181771F00C5DB64 /* VisitSyncServiceInterface.swift in Sources */,
 				D8C25D882181771F00C5DB64 /* ViewHistorySetupData.swift in Sources */,
 				D8431187218423B50003C2C6 /* AuthenticatedUser.swift in Sources */,
-				D8C25D892181771F00C5DB64 /* RLMResults.swift in Sources */,
 				D8C25D8A2181771F00C5DB64 /* HtmlServiceInterface.swift in Sources */,
-				D8C25D8B2181771F00C5DB64 /* LookupObject.swift in Sources */,
-				D8C25D8C2181771F00C5DB64 /* NewVisitModuleApi.swift in Sources */,
 				D8C25D8D2181771F00C5DB64 /* RouteDashboardModuleApi.swift in Sources */,
-				D8C25D8E2181771F00C5DB64 /* VisitSync.swift in Sources */,
 				D8C25D8F2181771F00C5DB64 /* DatePickerPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

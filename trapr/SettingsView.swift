@@ -53,19 +53,19 @@ final class SettingsView: UserInterface {
         label.textAlignment = .center
         label.tintColor = UIColor.darkGray
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(versionInfoClicked(sender:)))
-        label.addGestureRecognizer(tap)
-        label.isUserInteractionEnabled = true
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(versionInfoClicked(sender:)))
+//        label.addGestureRecognizer(tap)
+//        label.isUserInteractionEnabled = true
         return label
     }()
     
-    @objc func versionInfoClicked(sender: UITapGestureRecognizer) {
-        presenter.didClickRealmLabel()
-        
-        let alert = UIAlertController(title: "Copied!", message: "Path to realm store has been copied to the clipboard.", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
+//    @objc func versionInfoClicked(sender: UITapGestureRecognizer) {
+//        presenter.didClickRealmLabel()
+//
+//        let alert = UIAlertController(title: "Copied!", message: "Path to realm store has been copied to the clipboard.", preferredStyle: UIAlertControllerStyle.alert)
+//        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil))
+//        self.present(alert, animated: true, completion: nil)
+//    }
     
 
     

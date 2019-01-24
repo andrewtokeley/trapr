@@ -3,7 +3,7 @@ abstract_target "trapr_shared" do
     use_frameworks!
     pod "PureLayout"
     pod "Viperit"
-    pod "RealmSwift"
+    #pod "RealmSwift"
     pod "iCarousel"
     pod "CSVImporter", "1.7.1"
     pod "Charts"
@@ -19,6 +19,6 @@ end
 
 target "traprTests" do
     use_frameworks!
-    pod "RealmSwift"
+    #pod "RealmSwift"
     pod "CSVImporter", "1.7.1"
 end

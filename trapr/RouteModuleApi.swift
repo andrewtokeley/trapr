@@ -41,5 +41,5 @@ protocol RoutePresenterApi: PresenterProtocol {
 
 //MARK: - RouteInteractor API
 protocol RouteInteractorApi: InteractorProtocol {
-    func saveRoute(route: Route)
+    //func saveRoute(route: Route)
 }

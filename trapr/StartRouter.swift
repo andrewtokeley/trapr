@@ -11,6 +11,8 @@ import Viperit
 
 // MARK: - StartRouter class
 final class StartRouter: Router {
+    
+    fileprivate lazy var stationService = { ServiceFactory.sharedInstance.stationFirestoreService }()
 }
 
 // MARK: - StartRouter API
@@ -21,11 +23,13 @@ extension StartRouter: StartRouterApi {
         
         let setupData = MapSetupData()
         
-        setupData.stations = ServiceFactory.sharedInstance.stationService.getAll()
-        setupData.highlightedStations = setupData.stations.filter({ route.stationIds.contains( $0.locationId ) })
-        setupData.showHighlightedOnly = true
-        
-        module.router.show(from: _view, embedInNavController: true, setupData: setupData)
+        stationService.get { (stations) in
+            setupData.stations = stations
+            setupData.highlightedStations = setupData.stations.filter({ route.stationIds.contains( $0.locationId ) })
+            setupData.showHighlightedOnly = true
+            
+            module.router.show(from: self._view, embedInNavController: true, setupData: setupData)
+        }
     }
     
     func showRouteDashboardModule(route: _Route?) {
@@ -64,10 +68,10 @@ extension StartRouter: StartRouterApi {
         module.router.show(from: _view, embedInNavController: false, setupData: setupData)
     }
     
-    func showNewVisitModule(delegate: NewVisitDelegate) {
-        let module = AppModules.newVisit.build()
-        module.router.show(from: _view, embedInNavController: true, setupData: delegate)
-    }
+//    func showNewVisitModule(delegate: NewVisitDelegate) {
+//        let module = AppModules.newVisit.build()
+//        module.router.show(from: _view, embedInNavController: true, setupData: delegate)
+//    }
     
     func showLoadingScreen(delegate: LoaderDelegate) {
         
