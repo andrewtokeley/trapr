@@ -9,10 +9,10 @@
 import UIKit
 import Viperit
 
-/// Extend the _Visit to include View specific details
-class VisitViewModel: _Visit {
+/// Extend the Visit to include View specific details
+class VisitViewModel: Visit {
     
-    convenience init(visit: _Visit) {
+    convenience init(visit: Visit) {
         self.init(date: visit.visitDateTime, routeId: visit.routeId, traplineId: visit.traplineId, stationId: visit.stationId, trapTypeId: visit.trapTypeId)
         
         // copy all the other properties

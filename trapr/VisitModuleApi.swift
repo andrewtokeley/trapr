@@ -15,17 +15,17 @@ protocol VisitRouterApi: RouterProtocol {
     func showListPicker(setupData: ListPickerSetupData)
     func showDatePicker(setupData: DatePickerSetupData)
     func addVisitLogToView()
-    func showMap(stations: [_Station], highlightedStations: [_Station]?)
+    func showMap(stations: [Station], highlightedStations: [Station]?)
     func showAddStation(setupData: StationSearchSetupData) 
 }
 
 //MARK: - VisitView API
 protocol VisitViewApi: UserInterfaceProtocol {
     func setTitle(title: String, subTitle: String)
-    func setStations(stations: [_Station], current: _Station, repeatCount: Int)
-    func setTraps(trapTypes: [_TrapType])
+    func setStations(stations: [Station], current: Station, repeatCount: Int)
+    func setTraps(trapTypes: [TrapType])
     func displayMenuOptions(options: [OptionItem])
-    func updateDisplayFor(visit: _Visit)
+    func updateDisplayFor(visit: Visit)
     func updateCurrentStation(index: Int, repeatedGroup: Int)
     func showVisitEmail(subject: String, html: String, recipient: String)
     func showConfirmation(title: String, message: String, yes: (() -> Void)?, no: (() -> Void)?)
@@ -41,9 +41,9 @@ protocol VisitViewApi: UserInterfaceProtocol {
 //MARK: - VisitPresenter API
 protocol VisitPresenterApi: PresenterProtocol {
     
-    func didFetchInitialState(trapTypes: [_TrapType])
-    func didSelectToAddTrap(trapType: _TrapType)
-    func didSelectToRemoveTrap(trapType: _TrapType)
+    func didFetchInitialState(trapTypes: [TrapType])
+    func didSelectToAddTrap(trapType: TrapType)
+    func didSelectToRemoveTrap(trapType: TrapType)
     func didSelectTrap(index: Int)
     func didSelectStation(index: Int, trapIndex: Int)
     func didSelectAddStation()
@@ -54,10 +54,10 @@ protocol VisitPresenterApi: PresenterProtocol {
     func setVisitDelegate(delegate: VisitDelegate)
     func visitLogDidScroll(contentOffsetY: CGFloat)
     func didSendEmailSuccessfully()
-    func didFetchVisit(visit: _Visit)
+    func didFetchVisit(visit: Visit)
     //func didAddStation(station: Station)
     func didFindNoVisit()
-    func didUpdateRoute2(route: _Route, selectedIndex: Int)
+    func didUpdateRoute2(route: Route, selectedIndex: Int)
     func didSelectRemoveStation()
     func didSelectDeleteStation()
 }
@@ -67,32 +67,32 @@ protocol VisitInteractorApi: InteractorProtocol {
     
     func retrieveInitialState()
     
-    func retrieveHtmlForVisit(date: Date, route: _Route, completion: ((String, String) -> Void)?)
-    func deleteOrArchiveTrap(station: _Station, trapTypeId: String)
+    func retrieveHtmlForVisit(date: Date, route: Route, completion: ((String, String) -> Void)?)
+    func deleteOrArchiveTrap(station: Station, trapTypeId: String)
     func numberOfVisits(routeId: String, date: Date, completion: ((Int) -> Void)?)
-    func getUnusedTrapTypes(allTrapTypes: [_TrapType], station: _Station) -> [_TrapType]
+    func getUnusedTrapTypes(allTrapTypes: [TrapType], station: Station) -> [TrapType]
     
     /**
      Return all the station's traps which are not archived or are archived but have a visit recorded for them on the specified date
      */
-    func retrieveTrapsToDisplay(route: _Route, station: _Station, date: Date, completion: (([_TrapType]) -> Void)?)
+    func retrieveTrapsToDisplay(route: Route, station: Station, date: Date, completion: (([TrapType]) -> Void)?)
     
     func updateVisitDates(currentDate: Date, routeId: String, newDate: Date)
     func retrieveVisit(date: Date, routeId: String, stationId: String, trapTypeId: String)
-    func addVisit(visit: _Visit)
-    func addOrRestoreTrapToStation(station: _Station, trapTypeId: String)
+    func addVisit(visit: Visit)
+    func addOrRestoreTrapToStation(station: Station, trapTypeId: String)
 
-    func deleteVisit(visit: _Visit)
+    func deleteVisit(visit: Visit)
     
     func deleteAllVisits(routeId: String, date: Date)
     //func addVisitSync(visitSync: VisitSync)
     
-    func removeStationFromRoute(route: _Route, stationId: String)
-    func deleteStation(route: _Route, stationId: String)
+    func removeStationFromRoute(route: Route, stationId: String)
+    func deleteStation(route: Route, stationId: String)
 
     /**
      Insert the station before the given station index
     */
     func insertStation(routeId: String, stationId: String, at index: Int)
-    func addStation(route: _Route, station: _Station)
+    func addStation(route: Route, station: Station)
 }

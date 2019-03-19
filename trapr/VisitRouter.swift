@@ -18,7 +18,7 @@ final class VisitRouter: Router {
 // MARK: - VisitRouter API
 extension VisitRouter: VisitRouterApi {
     
-    func showMap(stations: [_Station], highlightedStations: [_Station]?) {
+    func showMap(stations: [Station], highlightedStations: [Station]?) {
         let module = AppModules.map.build()
         
         let setupData = MapSetupData()

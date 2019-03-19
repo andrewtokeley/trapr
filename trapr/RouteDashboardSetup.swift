@@ -19,11 +19,11 @@ class RouteDashboardSetup {
      The initial station to seed for a new Route. This is used to zoom the map to the right area to start selecting more stations to add to the route.
      */
     //var station: Station?
-    var station: _Station?
+    var station: Station?
     
     /**
     The route to be edited, not used if setting up the RouteDashboard for creation
     */
-    var route: _Route?
+    var route: Route?
 }
 

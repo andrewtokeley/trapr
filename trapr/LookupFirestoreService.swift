@@ -13,7 +13,7 @@ enum LookupErrors: Error {
     case MustImplementLookupMethod
 }
 
-class LookupFirestoreService<T: _Lookup>: FirestoreEntityService<T> {
+class LookupFirestoreService<T: Lookup>: FirestoreEntityService<T> {
     
     var lookupCollectionName: String = ""
     

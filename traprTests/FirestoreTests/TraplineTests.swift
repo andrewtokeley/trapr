@@ -7,14 +7,12 @@
 //
 
 import XCTest
-import RealmSwift
 
 @testable import trapr_development
 
 class TraplineTests: XCTestCase {
     
     let traplineService = ServiceFactory.sharedInstance.traplineFirestoreService
-    let dataPopulatorService = ServiceFactory.sharedInstance.dataPopulatorFirestoreService
     
     override func setUp() {
         super.setUp()
@@ -34,7 +32,7 @@ class TraplineTests: XCTestCase {
             
             XCTAssertNil(error)
             
-            let trapline = _Trapline(code: "LW", regionCode: "ABC", details: "Lowry")
+            let trapline = Trapline(code: "LW", regionCode: "ABC", details: "Lowry")
             let _ = self.traplineService.add(trapline: trapline) { (trapline, error) in
 
                 // successful add if no error
@@ -71,7 +69,7 @@ class TraplineTests: XCTestCase {
         self.traplineService.deleteAll { (error) in
             XCTAssertNil(error)
             for i in 1...10 {
-                let trapline = _Trapline(code: "LW\(String(i))", regionCode: "TR", details: "Test")
+                let trapline = Trapline(code: "LW\(String(i))", regionCode: "TR", details: "Test")
                 dispatchGroup.enter()
                 let _ = self.traplineService.add(trapline: trapline, completion: { (trapline, error) in
                     XCTAssertNil(error)
@@ -100,23 +98,25 @@ class TraplineTests: XCTestCase {
     func testFindTraplineByRegion() {
         let expect = expectation(description: "testNewTrapline")
         
-        dataPopulatorService.restoreDatabase {
-            
-            let region = _Region(id: "ABC", name: "Name", order: 0)
-            
-            let trapline1 = _Trapline(code: "LW", regionCode: region.id!, details: "Lowry")
-            let trapline2 = _Trapline(code: "GC", regionCode: region.id!, details: "Golf Course")
-            
-            let _ = self.traplineService.add(trapline: trapline1) { (trapline, error) in
-                let _ = self.traplineService.add(trapline: trapline2) { (trapline, error) in
-                    self.traplineService.get(regionId: region.id!, completion: { (traplines) in
-                        XCTAssertTrue(traplines.count == 2)
-                        expect.fulfill()
+        let REGIONID = "REG"
+        let trapline1 = Trapline(code: "LW", regionCode: REGIONID, details: "Lowry")
+        let trapline2 = Trapline(code: "GC", regionCode: REGIONID, details: "Golf Course")
+        
+        let _ = self.traplineService.add(trapline: trapline1) { (trapline, error) in
+            let _ = self.traplineService.add(trapline: trapline2) { (trapline, error) in
+                self.traplineService.get(regionId: REGIONID, completion: { (traplines) in
+                    XCTAssertTrue(traplines.count == 2)
+                    
+                    self.traplineService.delete(trapline: trapline1, completion: { (error) in
+                        self.traplineService.delete(trapline: trapline2, completion: { (error) in
+                            expect.fulfill()
+                        })
                     })
-                }
+                    
+                })
             }
         }
-            
+        
         waitForExpectations(timeout: 100) { (error) in
             if let e = error {
                 XCTFail(e.localizedDescription)

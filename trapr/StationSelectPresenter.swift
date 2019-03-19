@@ -18,15 +18,15 @@ enum ModuleMode {
 // MARK: - StationSelectPresenter Class
 final class StationSelectPresenter: Presenter {
     
-    fileprivate var traplines = [_Trapline]()
-    fileprivate var stations = [_Station]()
+    fileprivate var traplines = [Trapline]()
+    fileprivate var stations = [Station]()
     fileprivate var selectedStationIds = [String]()
     fileprivate var allowMultiselect: Bool = false
     fileprivate var stationSelectDelegate: StationSelectDelegate?
     
     fileprivate var sortingEnabled = false
     
-    fileprivate var groupedData: GroupedTableViewDatasource<_Station>!
+    fileprivate var groupedData: GroupedTableViewDatasource<Station>!
     
     fileprivate var toggleState: [MultiselectOptions] {
         
@@ -76,12 +76,12 @@ final class StationSelectPresenter: Presenter {
         let selectedStationIds = self.groupedData.dataItems(selectedOnly: true).map({ $0.id! })
         
         // show all the stations or just the ones selected inside the groupdData instance
-        let stationsToShow: [_Station] = selectedOnly ? self.groupedData.dataItems(selectedOnly: true) : self.stations
+        let stationsToShow: [Station] = selectedOnly ? self.groupedData.dataItems(selectedOnly: true) : self.stations
         
         // get a bool array for those selected
         let selected = stationsToShow.map({ (station) in return selectedStationIds.contains(where: { (selectedId) in return selectedId == station.id! }) })
         
-        self.groupedData = GroupedTableViewDatasource<_Station>(data: stationsToShow, selected: selected, sectionName: {
+        self.groupedData = GroupedTableViewDatasource<Station>(data: stationsToShow, selected: selected, sectionName: {
             (station) in
             return station.traplineId!
         }, cellLabelText: {
@@ -109,7 +109,7 @@ final class StationSelectPresenter: Presenter {
                 })
             })
 
-            self.groupedData = GroupedTableViewDatasource<_Station>(data: self.stations, selected: selected, sectionName: {
+            self.groupedData = GroupedTableViewDatasource<Station>(data: self.stations, selected: selected, sectionName: {
                 (station) in
                 return station.traplineId!
             }, cellLabelText: {

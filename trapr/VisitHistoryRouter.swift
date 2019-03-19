@@ -16,7 +16,7 @@ final class VisitHistoryRouter: Router {
 // MARK: - VisitHistoryRouter API
 extension VisitHistoryRouter: VisitHistoryRouterApi {
     
-    func showVisitModule(visitSummary: _VisitSummary) {
+    func showVisitModule(visitSummary: VisitSummary) {
         let module = AppModules.visit.build()
         
         // Remove title from back button

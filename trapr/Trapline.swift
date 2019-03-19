@@ -2,62 +2,103 @@
 //  Trapline.swift
 //  trapr
 //
-//  Created by Andrew Tokeley  on 13/09/17.
-//  Copyright © 2017 Andrew Tokeley . All rights reserved.
+//  Created by Andrew Tokeley on 3/11/18.
+//  Copyright © 2018 Andrew Tokeley . All rights reserved.
 //
 
 import Foundation
-import RealmSwift
+import FirebaseFirestore
 
-class Trapline: Object {
-    
+enum TraplineFields: String {
+    case code = "code"
+    case name = "name"
+    case regionCode = "region"
+    case lastVisited = "lastVisited"
+}
+
+class Trapline: DocumentSerializable {
+
     /**
-     The trapline Primary key is a composite between region.code and trapline code. You should use the configure(region, code) initializer in order for the primary key to be set correctly
+     Composite primary key in the format regionCode-traplineCode, e.g. EHRP-LW.
      */
-    @objc dynamic var id: String?
-    override static func primaryKey() -> String? {
-        return "id"
+    var id: String?
+    
+    /**
+     Trapline code, unique for region, e.g. LW
+     */
+    var code: String
+    
+    /**
+     Description of the trapline, e.g. Lowry Bay Track
+     */
+    var details: String
+    
+    /**
+     The code of the Region in which the Trapline exists
+     */
+    var regionCode: String
+    
+    /**
+     Date and time when the Trapline was last visited. Can be nil if the Trapline has never been visited
+     */
+    var lastVisited: Date?
+    
+    //MARK: - DocumentSerializable
+    
+    var dictionary: [String: Any] {
+        
+        var result = [String: Any]()
+        
+        // all these fields will exist
+        result[TraplineFields.code.rawValue] = self.code
+        result[TraplineFields.name.rawValue] = self.details
+        result[TraplineFields.regionCode.rawValue] = self.regionCode
+        
+        // set non-nil optionals
+        if let _ = lastVisited { result[TraplineFields.lastVisited.rawValue] = Timestamp(date: lastVisited!) }
+        
+        return result
     }
     
     /**
-     Initialise a new trapline. Calling this method ensures the region and code are set and that the composite primary key is correct.
-    */
-    convenience init(region: Region, code: String) {
-        self.init()
-        configure(region: region, code: code)
-    }
-    
-    /**
-     This function sets the region, code and importantly the composite primary key for the object.
-     You must use this func whenever updating an existing trapline.
+     Initialise new Trapline.
      
-     Never update the region and code properties directly. Use this method or init(region, code).
+     - parameters:
+        - code: regionally unique code
+        - regionCode: code of the region
+        - details: description of the trapline
      */
-    func configure(region: Region, code: String) {
-        self.region = region
+    init(code: String, regionCode: String, details: String) {
+        self.id = "\(regionCode)-\(code)"
         self.code = code
-        self.id = compositeKey
+        self.regionCode = regionCode
+        self.details = details
     }
     
-    var compositeKey: String? {
-        if let _ = region, let _ = code {
-            return "\(region!.code!)-\(code!)"
-        } else {
-            return UUID().uuidString
+    required init?(dictionary: [String: Any]) {
+        
+        // check for mandatory fields
+        guard
+            let code = dictionary[TraplineFields.code.rawValue] as? String,
+            let name = dictionary[TraplineFields.name.rawValue] as? String,
+            let regionCode = dictionary[TraplineFields.regionCode.rawValue] as? String
+        else {
+            return nil
         }
-    }
-    
-    @objc dynamic var region: Region? = nil // "East Harbour Regional Park"
-    
-    @objc dynamic var code: String? = nil // "LW"
-    
-    @objc dynamic var details: String? = nil // "Lowry Bay track"
-    
-    let stations = List<Station>() // LW01, LW02...
-    
-    static func == (left: Trapline, right: Trapline) -> Bool {
-        return left.code == right.code
+        
+        self.code = code
+        self.details = name
+        self.regionCode = regionCode
+        
+        // set optional if they're in the dictionary
+        if let lastVisited = dictionary[TraplineFields.lastVisited.rawValue] as? Timestamp {
+            self.lastVisited = lastVisited.dateValue()
+        }
     }
 }
 
-
+extension Trapline: Equatable {
+    static func == (left: Trapline, right: Trapline) -> Bool {
+        return left.id == right.id
+    }
+}

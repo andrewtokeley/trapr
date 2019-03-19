@@ -12,7 +12,7 @@ import Viperit
 // MARK: - TraplineSelectRouter class
 final class TraplineSelectRouter: Router {
     
-    func showStationSelect(traplines: [_Trapline], stations: [_Station], selectedStationIds: [String]?) {
+    func showStationSelect(traplines: [Trapline], stations: [Station], selectedStationIds: [String]?) {
         let module = AppModules.stationSelect.build()
         
         let setupData = StationSelectSetupData(traplines: traplines, stations: stations, selectedStationIds: selectedStationIds ?? [String()])
@@ -30,7 +30,7 @@ final class TraplineSelectRouter: Router {
     /**
      Show the StationSelect module for given traplines, show all stations and pre-select all stations.
     */
-    func showStationSelect(traplines: [_Trapline]) {
+    func showStationSelect(traplines: [Trapline]) {
 //        let stations = stationIdsForTraplines(traplines: traplines)
 //        showStationSelect(traplines: traplines, stations: stations, selectedStationIds: stations)
     }
@@ -38,7 +38,7 @@ final class TraplineSelectRouter: Router {
     /**
      Show the StationSelect module for specific traplines, show all stations and select the specified ones
      */
-    func showStationSelect(traplines: [_Trapline], selectedStations: [_Station]) {
+    func showStationSelect(traplines: [Trapline], selectedStations: [Station]) {
         
 //        let stationIds = stationIdsForTraplines(traplines: traplines)
 //        showStationSelect(traplines: traplines, stations: stations, selectedStations: selectedStations)
@@ -52,7 +52,7 @@ final class TraplineSelectRouter: Router {
 //        showStationSelect(traplines: traplines, stations: stations, selectedStations: nil)
 //    }
     
-    private func stationIdsForTraplines(traplines: [_Trapline]) -> [String] {
+    private func stationIdsForTraplines(traplines: [Trapline]) -> [String] {
 //        var stationIds = [String]()
 //        
 //        // show and select all stations

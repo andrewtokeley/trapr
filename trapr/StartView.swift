@@ -11,11 +11,11 @@ import Viperit
 import PureLayout
 
 class RouteViewModel {
-    var route: _Route
+    var route: Route
     var lastVisitedText: String = ""
     var visitSync: Bool = true
     
-    init(route: _Route) {
+    init(route: Route) {
         self.route = route
     }
 }
@@ -37,7 +37,7 @@ final class StartView: UserInterface { //, UICollectionViewDelegate, UICollectio
     let TABLEVIEW_SECTION_HEADING_SIZE_MAX_SIZE_INCREASE: CGFloat = 5
     
     fileprivate var routeViewModels: [RouteViewModel]?
-    fileprivate var visitSummaries: [_VisitSummary]?
+    fileprivate var visitSummaries: [VisitSummary]?
     fileprivate var routeMenuOptions: [String]?
     
     //MARK: - SubViews
@@ -373,7 +373,7 @@ extension StartView: UITableViewDelegate, UITableViewDataSource {
 // MARK: - RouteTableViewCellDelegate
 extension StartView: RouteTableViewCellDelegate {
     
-    private func getRouteFromCell(cell: RouteTableViewCell) -> _Route? {
+    private func getRouteFromCell(cell: RouteTableViewCell) -> Route? {
         if let indexPath = self.routesTableView.indexPath(for: cell) {
             if let vm = self.routeViewModels?[indexPath.row] {
                 return vm.route
@@ -444,7 +444,7 @@ extension StartView: StartViewApi {
         routesTableView.reloadData()
     }
 
-    func displayRecentVisits(visits: [_VisitSummary]?) {
+    func displayRecentVisits(visits: [VisitSummary]?) {
         visitSummaries = visits
     }
     

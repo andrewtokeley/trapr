@@ -9,14 +9,15 @@
 import Foundation
 import FirebaseFirestore
 
-class VisitFirestoreService: FirestoreEntityService<_Visit>, VisitServiceInterface {
+class VisitFirestoreService: FirestoreEntityService<Visit>, VisitServiceInterface {
     
     private lazy var trapTypeService = { ServiceFactory.sharedInstance.trapTypeFirestoreService }()
     private lazy var stationService = { ServiceFactory.sharedInstance.stationFirestoreService }()
     private lazy var speciesService = { ServiceFactory.sharedInstance.speciesFirestoreService }()
     private lazy var userService = { ServiceFactory.sharedInstance.userService }()
+    private lazy var routeUserSettingsService = { ServiceFactory.sharedInstance.routeUserSettingsFirestoreService }()
     
-    func extend(visit: _Visit, completion: ((VisitEx?) -> Void)?) {
+    func extend(visit: Visit, completion: ((VisitEx?) -> Void)?) {
         
         if let visitEx = VisitEx(visit: visit) {
         
@@ -50,39 +51,167 @@ class VisitFirestoreService: FirestoreEntityService<_Visit>, VisitServiceInterfa
         }
     }
     
-    func get(source: FirestoreSource, completion: (([_Visit]) -> Void)?) {
-        if let userId = userService.currentUser?.id {
-            super.collection.whereField(VisitFields.userId.rawValue, isEqualTo: userId).getDocuments(source: source) { (snapshot, error) in
-                
+    func get(source: FirestoreSource = .cache, completion: (([Visit]) -> Void)?) {
+        // get the routes the user has access to
+        self.routeUserSettingsService.get(source: source) { (routeUserSettings, error) in
+            let routeIds = routeUserSettings.filter({ $0.routeId != nil }).map { $0.routeId! }
+
+            // get the visits on these routes
+            self.get(routeIds: routeIds, source: source, completion: { (visits, error) in
                 if let _ = error {
-                    completion?([_Visit]())
+                    completion?([Visit]())
                 } else {
-                    let visits = super.getEntitiesFromQuerySnapshot(snapshot: snapshot)
                     completion?(visits)
                 }
-            }
+            })
         }
     }
     
-    func get(id: String, completion: ((_Visit?, Error?) -> Void)?) {
+   func get(routeId: String, completion: (([Visit], Error?) -> Void)?) {
+        super.get(whereField: VisitFields.routeId.rawValue, isEqualTo: routeId) { (visits, error) in
+            completion?(visits, error)
+        }
+    }
+    
+    /// Get all visits created on the selected Routes, whether they were created by the current user or not
+    private func get(routeIds: [String], source: FirestoreSource = .cache, completion: (([Visit], Error?) -> Void)?) {
+        
+        var routeVisits = [Visit]()
+        let dispatchGroup = DispatchGroup()
+        for routeId in routeIds {
+            dispatchGroup.enter()
+            super.get(whereField: VisitFields.routeId.rawValue, isEqualTo: routeId, source: source) { (visits, error) in
+                routeVisits.append(contentsOf: visits)
+                dispatchGroup.leave()
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            completion?(routeVisits, nil)
+        }
+    }
+    
+    func get(recordedOn date: Date, completion: (([Visit], Error?) -> Void)?) {
+        let start = Timestamp(date: date.dayStart())
+        let end = Timestamp(date: date.dayEnd())
+        
+        super.get(whereField: VisitFields.visitDate.rawValue, isGreaterThan: start, andLessThan: end) { (visits, error) in
+            completion?(visits, error)
+        }
+    }
+    
+    func get(recordedBetween dateStart: Date, dateEnd: Date, completion: (([Visit], Error?) -> Void)?) {
+        
+        let start = Timestamp(date: dateStart)
+        let end = Timestamp(date: dateEnd)
+        
+        super.get(whereField: VisitFields.visitDate.rawValue, isGreaterThan: start, andLessThan: end) { (visits, error) in
+            completion?(visits, error)
+        }
+    }
+    
+    func get(recordedOn date: Date, routeId: String, completion: (([Visit], Error?) -> Void)?) {
+        
+        let start = date.dayStart()
+        let end = date.dayEnd()
+        
+        self.get(recordedBetween: start, dateEnd: end) { (visits, error) in
+            
+            // further filter by routeId (Firestore can't do date range + other field filter)
+            let visitsForRoute = visits.filter({ (visit) -> Bool in
+                visit.routeId == routeId
+            })
+            completion?(visitsForRoute, error)
+        }
+    }
+    
+    func get(recordedOn date: Date, routeId: String, stationId: String, trapTypeId: String, completion: (([Visit], Error?) -> Void)?) {
+        
+        let start = date.dayStart()
+        let end = date.dayEnd()
+        
+        self.get(recordedBetween: start, dateEnd: end) { (visits, error) in
+            
+            // further filter by routeId, stationId and RouteId (Firestore can't do date range + other field filter)
+            let visitsFiltered = visits.filter({ (visit) -> Bool in
+                visit.routeId == routeId && visit.trapTypeId == trapTypeId && visit.stationId == stationId
+            })
+            completion?(visitsFiltered, error)
+        }
+    }
+    
+    func get(recordedBetween dateStart: Date, dateEnd: Date, routeId: String, completion: (([Visit], Error?) -> Void)?) {
+        
+        let start = dateStart
+        let end = dateEnd
+        
+        self.get(recordedBetween: start, dateEnd: end) { (visits, error) in
+            
+            // further filter by routeId (Firestore can't do date range + other field filter)
+            let visitsFiltered = visits.filter({ (visit) -> Bool in
+                visit.routeId == routeId
+            })
+            completion?(visitsFiltered, error)
+        }
+    }
+    
+    func get(recordedBetween dateStart: Date, dateEnd: Date, routeId: String, trapTypeId: String, completion: (([Visit], Error?) -> Void)?) {
+        
+        let start = dateStart
+        let end = dateEnd
+        
+        self.get(recordedBetween: start, dateEnd: end) { (visits, error) in
+            
+            // further filter by routeId (Firestore can't do date range + other field filter)
+            let visitsFiltered = visits.filter({ (visit) -> Bool in
+                visit.routeId == routeId && visit.trapTypeId == trapTypeId
+            })
+            completion?(visitsFiltered, error)
+        }
+    }
+    
+    func get(recordedBetween dateStart: Date, dateEnd: Date, stationId: String, trapTypeId: String, completion: (([Visit], Error?) -> Void)?) {
+        
+        let start = dateStart
+        let end = dateEnd
+        
+        self.get(recordedBetween: start, dateEnd: end) { (visits, error) in
+            
+            // further filter by station and traptype (Firestore can't do date range + other field filter)
+            let visitsFiltered = visits.filter({ (visit) -> Bool in
+                visit.trapTypeId == trapTypeId && visit.stationId == stationId
+            })
+            completion?(visitsFiltered, error)
+        }
+    }
+    
+    func getMostRecentVisit(routeId: String, completion: ((Visit?) -> Void)?) {
+        super.get(whereField: VisitFields.routeId.rawValue, isEqualTo: routeId, orderByField: VisitFields.visitDate.rawValue, limit: 1, completion: { (visits, error) in
+            completion?(visits.first)
+        })
+    }
+    
+    func get(id: String, completion: ((Visit?, Error?) -> Void)?) {
         super.get(id: id) { (visit, error) in
             completion?(visit, error)
         }
     }
     
-    func add(visit: _Visit, completion: ((_Visit?, Error?) -> Void)?) {
+    func add(visit: Visit, completion: ((Visit?, Error?) -> Void)?) {
         let _ = super.add(entity: visit) { (visit, error) in
             completion?(visit, error)
         }
     }
     
     func deleteAll(completion: ((Error?) -> Void)?) {
-        super.deleteAllEntities { (error) in
-            completion?(error)
+        self.get { (visits) in
+            super.delete(entities: visits, completion: { (error) in
+                completion?(error)
+            })
         }
     }
     
-    func delete(visit: _Visit, completion: ((Error?) -> Void)?) {
+    func delete(visit: Visit, completion: ((Error?) -> Void)?) {
         super.delete(entity: visit) { (error) in
             completion?(error)
         }
@@ -98,7 +227,7 @@ class VisitFirestoreService: FirestoreEntityService<_Visit>, VisitServiceInterfa
         }
     }
     
-    func delete(visitSummary: _VisitSummary, completion: ((Error?) -> Void)?) {
+    func delete(visitSummary: VisitSummary, completion: ((Error?) -> Void)?) {
         self.delete(routeId: visitSummary.routeId!, date: visitSummary.dateOfVisit) { (error) in
             completion?(error)
         }
@@ -112,7 +241,7 @@ class VisitFirestoreService: FirestoreEntityService<_Visit>, VisitServiceInterfa
         }
     }
     
-    func save(visit: _Visit, completion: ((_Visit?, Error?) -> Void)?) {
+    func save(visit: Visit, completion: ((Visit?, Error?) -> Void)?) {
         super.update(entity: visit) { (error) in
             completion?(visit, error)
         }
@@ -125,111 +254,7 @@ class VisitFirestoreService: FirestoreEntityService<_Visit>, VisitServiceInterfa
         }
     }
     
-    func get(routeId: String, completion: (([_Visit], Error?) -> Void)?) {
-        super.get(whereField: VisitFields.routeId.rawValue, isEqualTo: routeId) { (visits, error) in
-            completion?(visits, error)
-        }
-    }
     
-    func get(recordedOn date: Date, completion: (([_Visit], Error?) -> Void)?) {
-        let start = Timestamp(date: date.dayStart())
-        let end = Timestamp(date: date.dayEnd())
-        
-        super.get(whereField: VisitFields.visitDate.rawValue, isGreaterThan: start, andLessThan: end) { (visits, error) in
-            completion?(visits, error)
-        }
-    }
-    
-    func get(recordedBetween dateStart: Date, dateEnd: Date, completion: (([_Visit], Error?) -> Void)?) {
-        
-        let start = Timestamp(date: dateStart)
-        let end = Timestamp(date: dateEnd)
-        
-        super.get(whereField: VisitFields.visitDate.rawValue, isGreaterThan: start, andLessThan: end) { (visits, error) in
-            completion?(visits, error)
-        }
-    }
-    
-    func get(recordedOn date: Date, routeId: String, completion: (([_Visit], Error?) -> Void)?) {
-        
-        let start = date.dayStart()
-        let end = date.dayEnd()
-        
-        self.get(recordedBetween: start, dateEnd: end) { (visits, error) in
-            
-            // further filter by routeId (Firestore can't do date range + other field filter)
-            let visitsForRoute = visits.filter({ (visit) -> Bool in
-                visit.routeId == routeId
-            })
-            completion?(visitsForRoute, error)
-        }
-    }
-    
-    func get(recordedOn date: Date, routeId: String, stationId: String, trapTypeId: String, completion: (([_Visit], Error?) -> Void)?) {
-        
-        let start = date.dayStart()
-        let end = date.dayEnd()
-        
-        self.get(recordedBetween: start, dateEnd: end) { (visits, error) in
-            
-            // further filter by routeId, stationId and RouteId (Firestore can't do date range + other field filter)
-            let visitsFiltered = visits.filter({ (visit) -> Bool in
-                visit.routeId == routeId && visit.trapTypeId == trapTypeId && visit.stationId == stationId
-            })
-            completion?(visitsFiltered, error)
-        }
-    }
-    
-    func get(recordedBetween dateStart: Date, dateEnd: Date, routeId: String, completion: (([_Visit], Error?) -> Void)?) {
-        
-        let start = dateStart
-        let end = dateEnd
-        
-        self.get(recordedBetween: start, dateEnd: end) { (visits, error) in
-            
-            // further filter by routeId (Firestore can't do date range + other field filter)
-            let visitsFiltered = visits.filter({ (visit) -> Bool in
-                visit.routeId == routeId
-            })
-            completion?(visitsFiltered, error)
-        }
-    }
-    
-    func get(recordedBetween dateStart: Date, dateEnd: Date, routeId: String, trapTypeId: String, completion: (([_Visit], Error?) -> Void)?) {
-        
-        let start = dateStart
-        let end = dateEnd
-        
-        self.get(recordedBetween: start, dateEnd: end) { (visits, error) in
-            
-            // further filter by routeId (Firestore can't do date range + other field filter)
-            let visitsFiltered = visits.filter({ (visit) -> Bool in
-                visit.routeId == routeId && visit.trapTypeId == trapTypeId
-            })
-            completion?(visitsFiltered, error)
-        }
-    }
-    
-    func get(recordedBetween dateStart: Date, dateEnd: Date, stationId: String, trapTypeId: String, completion: (([_Visit], Error?) -> Void)?) {
-        
-        let start = dateStart
-        let end = dateEnd
-        
-        self.get(recordedBetween: start, dateEnd: end) { (visits, error) in
-            
-            // further filter by station and traptype (Firestore can't do date range + other field filter)
-            let visitsFiltered = visits.filter({ (visit) -> Bool in
-                visit.trapTypeId == trapTypeId && visit.stationId == stationId
-            })
-            completion?(visitsFiltered, error)
-        }
-    }
-    
-    func getMostRecentVisit(routeId: String, completion: ((_Visit?) -> Void)?) {
-        super.get(whereField: VisitFields.routeId.rawValue, isEqualTo: routeId, orderByField: VisitFields.visitDate.rawValue, limit: 1, completion: { (visits, error) in
-            completion?(visits.first)
-        })
-    }
     
 //    func getSummary(date: Date, routeId: String, completion: ((VisitSummary?, Error?) -> Void)?) {
 //    }

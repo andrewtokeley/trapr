@@ -61,7 +61,7 @@ class OfflineTests: XCTestCase {
                 self.speciesService.firestore.disableNetwork { (error) in
                     
                     // Add to cache only
-                    let _ = self.speciesService.add(entity: _Species(id: "TEST", name: "TESTNAME", order: 1000)) { (species, error) in
+                    let _ = self.speciesService.add(entity: Species(id: "TEST", name: "TESTNAME", order: 1000)) { (species, error) in
                         
                         // get the entity (from cache)
                         self.speciesService.get(id: "TEST") { (species, error) in
@@ -96,7 +96,7 @@ class OfflineTests: XCTestCase {
             self.speciesService.deleteAll { (error) in
                 print("2")
                 // Add to server, see if callback called
-                let _ = self.speciesService.add(entity: _Species(id: ID, name: NAME, order: 1000)) { (species, error) in
+                let _ = self.speciesService.add(entity: Species(id: ID, name: NAME, order: 1000)) { (species, error) in
                     print("3")
                     XCTAssertTrue(true)
                     expect.fulfill()
@@ -123,10 +123,10 @@ class OfflineTests: XCTestCase {
             self.speciesService.deleteAll { (error) in
                 
                 // Add to server - ignore callback
-                let _ = self.speciesService.add(entity: _Species(id: ID, name: NAME, order: 1000), completion: nil)
+                let _ = self.speciesService.add(entity: Species(id: ID, name: NAME, order: 1000), completion: nil)
                 
                 // immediately read the results to make sure the cache has the added entity
-                self.speciesService.get(code: ID, completion: { (species, error) in
+                self.speciesService.get(id: ID, completion: { (species, error) in
                     XCTAssertNil(error)
                     XCTAssertTrue(species?.id == ID)
                     XCTAssertTrue(species?.name == NAME)

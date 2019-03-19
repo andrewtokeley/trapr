@@ -15,16 +15,19 @@ final class SettingsPresenter: Presenter {
     fileprivate var settings: UserSettings!
     //fileprivate var appSettings: ApplicationSettings!
     
-    fileprivate var routes = [_Route]()
+    fileprivate var routes = [Route]()
     
     override func viewHasLoaded() {
         
         interactor.get { (settings) in
             
             self.settings = settings
-            self.view.displayEmailOrdersRecipient(emailAddress: self.settings.orderEmail)
             self.view.displayEmailVisitsRecipient(emailAddress: self.settings.handlerEmail)
             self.view.setTitle(title: "Settings")
+            
+            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+                self.view.displayVersionNumber(version: "\(version).\(build)")
+            }
             
             self.interactor.getRoutes(completion: { (routes) in
                 self.routes = routes
@@ -65,6 +68,16 @@ extension SettingsPresenter: ListPickerDelegate {
 
 // MARK: - ProfilePresenter API
 extension SettingsPresenter: SettingsPresenterApi {
+    
+    func didClickDoSomething() {
+        interactor.doSomething() { (progress, message, finished) in
+            if finished {
+                self.view.displayDoSomethingProgress(message: "Do Something")
+            } else {
+                self.view.displayDoSomethingProgress(message: "\(String(format: "%.0f", progress*100))% \(message)")
+            }
+        }
+    }
     
     func didSelectHiddenRoutes() {
         

@@ -12,6 +12,8 @@ public enum UserRole: String {
     case admin
     case contributor
     case editor
+    /// Used for the user account that runs unit tests
+    case tester
 }
 
 protocol UserServiceInterface {

@@ -9,33 +9,90 @@
 import Foundation
 import FirebaseFirestore
 
-class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterface {
+class RouteFirestoreService: FirestoreEntityService<Route> {
     
+    fileprivate lazy var visitService = { ServiceFactory.sharedInstance.visitFirestoreService }()
+    fileprivate lazy var userService = { ServiceFactory.sharedInstance.userService }()
+    fileprivate lazy var routeUserSettingsService = { ServiceFactory.sharedInstance.routeUserSettingsFirestoreService }()
+}
+
+extension RouteFirestoreService: RouteServiceInterface {
     
-    //let stationService = ServiceFactory.sharedInstance.stationFirestoreService
-    let visitService = ServiceFactory.sharedInstance.visitFirestoreService
-    let userService = ServiceFactory.sharedInstance.userService
-    
-    func add(route: _Route, completion: ((_Route?, Error?) -> Void)?) -> String {
+    func add(route: Route, completion: ((Route?, Error?) -> Void)?) -> String {
+        
         let id = super.add(entity: route) { (route, error) in
+            
+            // always ensure the current user has access
+            if let userId = self.userService.currentUser?.id, let routeId = route?.id {
+                let routeUserSetting = RouteUserSettings(routeId: routeId, userId: userId)
+                
+                // the user who created the Route should be marked as the owner
+                routeUserSetting.isOwner = true
+                
+                let _ = self.routeUserSettingsService.add(routeUserSettings: routeUserSetting, completion: nil)
+            }
+            
             completion?(route, error)
         }
+        
         return id
     }
     
+    func _addOwnerToOwnerlessRoutes(completion: (() -> Void)?) {
+        
+        // get all routes, regardless of owner - an allows search on the server.
+        super.get(source: .server) { (routes, error) in
+            
+            // make sure there is an owner.
+            self.routeUserSettingsService._addOwnerToOwnerlessRoutes(routes: routes) {
+                completion?()
+            }
+        }
+    }
+    
     func delete(routeId: String, completion: ((Error?) -> Void)?) {
-        super.delete(entityId: routeId) { (error) in
-            completion?(error)
+        
+        self.routeUserSettingsService.get(routeId: routeId) { (routeUserSettings, error) in
+            let isOwner = routeUserSettings?.isOwner ?? false
+            if isOwner {
+                
+                let batch = self.firestore.batch()
+                
+                self.routeUserSettingsService.delete(routeId: routeId, batch: batch) { (error) in
+                    super.delete(entityId: routeId, batch: batch)
+                    batch.commit { (error) in
+                        completion?(error)
+                    }
+                }
+            } else {
+                completion?(FirestoreEntityServiceError.accessDenied)
+            }
         }
     }
     
     func delete(completion: ((Error?) -> Void)?) {
-        super.deleteAllEntities { (error) in
-            completion?(error)
+        let dispatchGroup = DispatchGroup()
+        var lastError: Error?
+        
+        // get the routes the user has access to and batch up the deletes
+        self.get { (routes, error) in
+            for route in routes {
+                if let routeId = route.id {
+                    dispatchGroup.enter()
+                    self.delete(routeId: routeId, completion: { (error) in
+                        lastError = error
+                        dispatchGroup.leave()
+                    })
+                }
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            completion?(lastError)
         }
     }
     
-    func insertStationToRoute(routeId: String, stationId: String, at index: Int, completion: ((_Route?, Error?) -> Void)?) {
+    func insertStationToRoute(routeId: String, stationId: String, at index: Int, completion: ((Route?, Error?) -> Void)?) {
         self.get(routeId: routeId) { (route, error) in
             if let route = route {
                 if index >= 0 && index < route.stationIds.count {
@@ -51,10 +108,9 @@ class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterfa
         }
     }
     
-    func addStationToRoute(routeId: String, stationId: String, completion: ((_Route?, Error?) -> Void)?) {
+    func addStationToRoute(routeId: String, stationId: String, completion: ((Route?, Error?) -> Void)?) {
         
-        let dispatchGroup = DispatchGroup()
-        var updateRoute: _Route?
+        var updateRoute: Route?
         
         // Update route.stationIds array
         self.get(routeId: routeId) { (route, error) in
@@ -66,32 +122,14 @@ class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterfa
                 if !updateRoute!.stationIds.contains(stationId) {
                     updateRoute!.stationIds.append(stationId)
                 }
-                dispatchGroup.enter()
                 self.update(entity: updateRoute!, completion: { (error) in
                     completion?(updateRoute, error)
                 })
             }
         }
-        
-        // Update station.routeId field
-//        self.stationService.get(stationId: stationId) { (station, error) in
-//
-//            if let station = station {
-//                station.routeId = routeId
-//                dispatchGroup.enter()
-//                self.stationService.add(station: station, completion: { (station, error) in
-//                    lastError = error
-//                    dispatchGroup.leave()
-//                })
-//            }
-//        }
-        
-//        dispatchGroup.notify(queue: .main) {
-//            completion?(updateRoute, lastError)
-//        }
     }
     
-    func removeStationFromRoute(routeId: String, stationId: String, completion: ((_Route?, Error?) -> Void)?) {
+    func removeStationFromRoute(routeId: String, stationId: String, completion: ((Route?, Error?) -> Void)?) {
         
         self.get(routeId: routeId) { (route, error) in
             if let route = route {
@@ -112,7 +150,7 @@ class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterfa
         
     }
     
-    func replaceStationsOn(routeId: String, stationIds: [String], completion: ((_Route?, Error?) -> Void)?) {
+    func replaceStationsOn(routeId: String, stationIds: [String], completion: ((Route?, Error?) -> Void)?) {
 
         self.get(routeId: routeId) { (route, error) in
             if let route = route {
@@ -138,6 +176,23 @@ class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterfa
         }
     }
     
+    func moveStationOnRoute(routeId: String, sourceIndex: Int, destinationIndex: Int, completion: ((Route?, Error?) -> Void)?) {
+        
+        self.get(routeId: routeId) { (route, error) in
+            if let route = route {
+                let stationIdToMove = route.stationIds[sourceIndex]
+                route.stationIds.remove(at: sourceIndex)
+                route.stationIds.insert(stationIdToMove, at: destinationIndex)
+                
+                self.update(entity: route, completion: { (error) in
+                    // should really log errors, even if we don't tell the user
+                })
+                
+                completion?(route, nil)
+            }
+        }
+    }
+    
 //    private func setRouteForStations(routeId: String?, stationIds: [String], completion: ((Error?) -> Void)?) {
 //
 //        self.stationService.get(stationIds: stationIds, completion: { (stations, error) in
@@ -149,7 +204,7 @@ class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterfa
 //        })
 //    }
     
-    func reorderStations(routeId: String, stationOrder: [String : Int], completion: ((_Route?, Error?) -> Void)?) {
+    func reorderStations(routeId: String, stationOrder: [String : Int], completion: ((Route?, Error?) -> Void)?) {
         self.get(routeId: routeId) { (route, error) in
             if let route = route {
                 route.stationIds.removeAll()
@@ -180,12 +235,12 @@ class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterfa
         completion?(FirestoreEntityServiceError.notImplemented)
     }
     
-    func get(includeHidden: Bool, completion: (([_Route], Error?) -> Void)?) {
+    func get(includeHidden: Bool, completion: (([Route], Error?) -> Void)?) {
         if let userId = userService.currentUser?.id {
-            super.collection.whereField(RouteFields.userId.rawValue, isEqualTo: userId).whereField(RouteFields.hidden.rawValue, isEqualTo: includeHidden).getDocuments(source: self.source) { (snapshot, error) in
+            super.collection.whereField(RouteFields.userId.rawValue, isEqualTo: userId).whereField(RouteFields.hidden.rawValue, isEqualTo: includeHidden).getDocuments(source: .cache) { (snapshot, error) in
                 
                 if let error = error {
-                    completion?([_Route](), error)
+                    completion?([Route](), error)
                 } else {
                     let routes = super.getEntitiesFromQuerySnapshot(snapshot: snapshot)
                     completion?(routes, nil)
@@ -194,27 +249,36 @@ class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterfa
         }
     }
     
-    func get(completion: (([_Route], Error?) -> Void)?) {
-        get(source: self.source, completion: { (routes, error) in
+    func get(completion: (([Route], Error?) -> Void)?) {
+        self.get(source: .cache, completion: { (routes, error) in
             completion?(routes, error)
         })
     }
     
-    func get(source: FirestoreSource, completion: (([_Route], Error?) -> Void)?) {
-        if let userId = userService.currentUser?.id {
-            super.collection.whereField(RouteFields.userId.rawValue, isEqualTo: userId).getDocuments(source: source) { (snapshot, error) in
+    func get(source: FirestoreSource, completion: (([Route], Error?) -> Void)?) {
+        
+        self.routeUserSettingsService.get(source: source) { (routeUserSettings, error) in
+
+            // Get the routeId of the routes the users has access to
+            let routeIds = routeUserSettings.map { $0.routeId! }
+
+            // Get the full Route instances for the routeIds
+            
+            super.get(ids: routeIds, completion: { (routes, error) in
                 
-                if let error = error {
-                    completion?([_Route](), error)
-                } else {
-                    let routes = super.getEntitiesFromQuerySnapshot(snapshot: snapshot)
-                    completion?(routes, nil)
+                for route in routes {
+                    // if the user has overridden the station order then update the Route instance
+                    if let userStationOrder = routeUserSettings.first(where: {$0.routeId == route.id!} )?.stationIds {
+                        route.stationIds = userStationOrder
+                    }
                 }
-            }
+                
+                completion?(routes, error)
+            })
         }
     }
     
-    func get(routeId: String, completion: ((_Route?, Error?) -> Void)?) {
+    func get(routeId: String, completion: ((Route?, Error?) -> Void)?) {
         super.get(id: routeId) { (route, error) in
             if route?.userId == self.userService.currentUser?.id {
                 completion?(route, nil)
@@ -224,7 +288,7 @@ class RouteFirestoreService: FirestoreEntityService<_Route>, RouteServiceInterfa
         }
     }
         
-    func updateStations(routeId: String, stationIds: [String], completion: ((_Route?,  Error?) -> Void)?) {
+    func updateStations(routeId: String, stationIds: [String], completion: ((Route?,  Error?) -> Void)?) {
         //
     }
     

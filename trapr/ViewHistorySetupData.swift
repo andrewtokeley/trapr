@@ -10,5 +10,11 @@ import Foundation
 
 class VisitHistorySetupData {
     //var route: Route?
-    var visitSummaries: [_VisitSummary]?
+    var visitSummaries: [VisitSummary]?
+    var delegate: VisitHistoryDelegate?
+}
+
+protocol VisitHistoryDelegate {
+    /// Called by the VisitHistory module to let the calling module (RouteDashboard) know whether any visits have been deleted. This will allow the calling module to refresh itself.
+    func visitHistoryIsAboutToClose(deletedVisits: Bool)
 }

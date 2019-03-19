@@ -18,13 +18,13 @@ final class TraplineSelectInteractor: Interactor {
 // MARK: - TraplineSelectInteractor API
 extension TraplineSelectInteractor: TraplineSelectInteractorApi {
     
-    func getAllTraplines(completion: (([_Trapline]) -> Void)?) {
+    func getAllTraplines(completion: (([Trapline]) -> Void)?) {
         traplineService.get { (traplines) in
             completion?(traplines)
         }
     }
     
-    func addRoute(route: _Route) {
+    func addRoute(route: Route) {
         routeService.add(route: route, completion: nil)
     }
     

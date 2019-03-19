@@ -15,9 +15,9 @@ class VisitSummaryFirebaseService: FirestoreService, VisitSummaryServiceInterfac
     let stationService = ServiceFactory.sharedInstance.stationFirestoreService
     let routeService = ServiceFactory.sharedInstance.routeFirestoreService
     
-    private func createVisitSummary(date: Date, routeId: String, visits: [_Visit], completion: ((_VisitSummary?, Error?) -> Void)?) {
+    private func createVisitSummary(date: Date, routeId: String, visits: [Visit], completion: ((VisitSummary?, Error?) -> Void)?) {
         
-        let visitSummary = _VisitSummary(dateOfVisit: date, routeId: routeId)
+        let visitSummary = VisitSummary(dateOfVisit: date, routeId: routeId)
         visitSummary.visits = visits
         
         // calculated the totals
@@ -71,13 +71,13 @@ class VisitSummaryFirebaseService: FirestoreService, VisitSummaryServiceInterfac
         })
     }
     
-    func createNewVisitSummary(date: Date, routeId: String, completion: ((_VisitSummary?, Error?) -> Void)?) {
-        self.createVisitSummary(date: date, routeId: routeId, visits: [_Visit]()) { (visitSummary, error) in
+    func createNewVisitSummary(date: Date, routeId: String, completion: ((VisitSummary?, Error?) -> Void)?) {
+        self.createVisitSummary(date: date, routeId: routeId, visits: [Visit]()) { (visitSummary, error) in
             completion?(visitSummary, error)
         }
     }
     
-    func get(date: Date, routeId: String, completion: ((_VisitSummary?, Error?) -> Void)?) {
+    func get(date: Date, routeId: String, completion: ((VisitSummary?, Error?) -> Void)?) {
 
         self.visitService.get(recordedOn: date, routeId: routeId) { (visits, error) in
             
@@ -88,12 +88,12 @@ class VisitSummaryFirebaseService: FirestoreService, VisitSummaryServiceInterfac
         }
     }
     
-    func get(recordedBetween startDate: Date, endDate: Date, routeId: String, completion: (([_VisitSummary], Error?) -> Void)?) {
+    func get(recordedBetween startDate: Date, endDate: Date, routeId: String, completion: (([VisitSummary], Error?) -> Void)?) {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "ddMMyyyy"
         
-        var summaries = [_VisitSummary]()
+        var summaries = [VisitSummary]()
         
         visitService.get(recordedBetween: startDate, dateEnd: endDate, routeId: routeId) { (visits, error) in
             
@@ -123,13 +123,13 @@ class VisitSummaryFirebaseService: FirestoreService, VisitSummaryServiceInterfac
             }
             
             dispatchGroup.notify(queue: .main, execute: {
-                completion?(summaries, nil)
+                completion?(summaries.sorted(by: { $0.dateOfVisit > $1.dateOfVisit}), nil)
             })
             
         }
     }
     
-    func get(mostRecentOn routeId: String, completion: ((_VisitSummary?, Error?) -> Void)?) {
+    func get(mostRecentOn routeId: String, completion: ((VisitSummary?, Error?) -> Void)?) {
         
         self.get(recordedBetween: Date().add(0, -3, 0), endDate: Date(), routeId: routeId) { (visitSummaries, error) in
             if let error = error {
@@ -142,12 +142,12 @@ class VisitSummaryFirebaseService: FirestoreService, VisitSummaryServiceInterfac
         }
     }
     
-    func getStatistics(from visitSummaries: [_VisitSummary], completion: ((VisitSummariesStatistics?, Error?) -> Void)?) {
+    func getStatistics(from visitSummaries: [VisitSummary], completion: ((VisitSummariesStatistics?, Error?) -> Void)?) {
         
         var visitStats = VisitSummariesStatistics()
         
         // Get all the visits across all the visitSummaries
-        let visits = visitSummaries.flatMap { (summary) -> [_Visit] in
+        let visits = visitSummaries.flatMap { (summary) -> [Visit] in
             return summary.visits
         }
         

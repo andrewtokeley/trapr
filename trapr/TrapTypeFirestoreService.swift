@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TrapTypeFirestoreService: LookupFirestoreService<_TrapType> {
+class TrapTypeFirestoreService: LookupFirestoreService<TrapType> {
     
     override func createOrUpdateDefaults(completion: (() -> Void)?) {
         
@@ -30,8 +30,8 @@ class TrapTypeFirestoreService: LookupFirestoreService<_TrapType> {
     /**
      Only used for a visit if the type of trap installed isn't available in Trapr
      */
-    private var other: _TrapType {
-        let  trap = _TrapType(id: TrapTypeCode.other.rawValue, name: "Other", order: 100)
+    private var other: TrapType {
+        let  trap = TrapType(id: TrapTypeCode.other.rawValue, name: "Other", order: 100)
         trap.killMethod = _KillMethod.unknown
         trap.availableLures = [
             LureCode.other.rawValue
@@ -45,8 +45,8 @@ class TrapTypeFirestoreService: LookupFirestoreService<_TrapType> {
         return trap
     }
     
-    private var pellibait: _TrapType {
-        let  trap = _TrapType(id: TrapTypeCode.pellibait.rawValue, name: "Pellibait", order: 0)
+    private var pellibait: TrapType {
+        let  trap = TrapType(id: TrapTypeCode.pellibait.rawValue, name: "Pellibait", order: 0)
         trap.killMethod = _KillMethod.poison
         trap.availableLures = [
             LureCode.contracBloxPoison.rawValue,
@@ -58,8 +58,8 @@ class TrapTypeFirestoreService: LookupFirestoreService<_TrapType> {
         return trap
     }
     
-    private var doc200: _TrapType {
-        let  trap = _TrapType(id: TrapTypeCode.doc200.rawValue, name: "DOC200", order: 2)
+    private var doc200: TrapType {
+        let  trap = TrapType(id: TrapTypeCode.doc200.rawValue, name: "DOC200", order: 2)
         trap.killMethod = _KillMethod.direct
         trap.availableLures = [
             LureCode.driedRabbit.rawValue,
@@ -78,8 +78,8 @@ class TrapTypeFirestoreService: LookupFirestoreService<_TrapType> {
         return trap
     }
     
-    private var possumMaster: _TrapType {
-        let  trap = _TrapType(id: TrapTypeCode.possumMaster.rawValue, name: "Possum Master", order: 1)
+    private var possumMaster: TrapType {
+        let  trap = TrapType(id: TrapTypeCode.possumMaster.rawValue, name: "Possum Master", order: 1)
         trap.killMethod = _KillMethod.direct
         trap.availableLures = [
             LureCode.cereal.rawValue,
@@ -96,8 +96,8 @@ class TrapTypeFirestoreService: LookupFirestoreService<_TrapType> {
         return trap
     }
     
-    private var timms: _TrapType {
-        let  trap = _TrapType(id: TrapTypeCode.timms.rawValue, name: "Timms", order: 2)
+    private var timms: TrapType {
+        let  trap = TrapType(id: TrapTypeCode.timms.rawValue, name: "Timms", order: 2)
         trap.killMethod = _KillMethod.direct
         trap.availableLures = [
             LureCode.cereal.rawValue,

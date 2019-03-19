@@ -30,8 +30,8 @@ final class VisitView: UserInterface {
     fileprivate let TAG_TRAP_IMAGE = 0
     fileprivate let TAG_TRAP_LABEL = 1
     
-    fileprivate var currentTraps: [_TrapType]?
-    fileprivate var stations: [_Station]?
+    fileprivate var currentTraps: [TrapType]?
+    fileprivate var stations: [Station]?
     
     fileprivate var lastSelectedStation: Int = -1
     fileprivate var lastSelectedTrap: Int = -1
@@ -437,7 +437,7 @@ extension VisitView: VisitViewApi {
 //        //self.stationLabel.text = text
 //    }
     
-    func setStations(stations: [_Station], current: _Station, repeatCount: Int) {
+    func setStations(stations: [Station], current: Station, repeatCount: Int) {
         self.stations = stations
         self.repeatCount = repeatCount
         
@@ -449,7 +449,7 @@ extension VisitView: VisitViewApi {
         self.stationsCarousel.reloadData()
     }
     
-    func setTraps(trapTypes: [_TrapType]) {
+    func setTraps(trapTypes: [TrapType]) {
         currentTraps = trapTypes
         self.trapsCarousel.reloadData()
     }
@@ -458,7 +458,7 @@ extension VisitView: VisitViewApi {
         trapsCarousel.currentItemIndex = index
     }
     
-    func updateDisplayFor(visit: _Visit) {
+    func updateDisplayFor(visit: Visit) {
         //print("Update for visit to \(visit.trap?.station?.longCode ?? "?"), trap \(visit.trap?.type?.name ?? "?")")
     }
     
@@ -499,7 +499,7 @@ extension VisitView: VisitViewApi {
         }
     }
     
-    func showVisitEmail(visitSummary: _VisitSummary, recipient: String?) {
+    func showVisitEmail(visitSummary: VisitSummary, recipient: String?) {
         
         if MFMailComposeViewController.canSendMail() {
 

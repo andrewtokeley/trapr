@@ -8,18 +8,18 @@
 
 import Foundation
 
-class SpeciesFirestoreService: LookupFirestoreService<_Species> {
+class SpeciesFirestoreService: LookupFirestoreService<Species> {
 
     override func createOrUpdateDefaults(completion: (() -> Void)?) {
         
         let species = [
-            _Species(id: SpeciesCode.possum.rawValue, name: "Possum", order: 0),
-            _Species(id: SpeciesCode.rat.rawValue, name: "Rat", order: 1),
-            _Species(id: SpeciesCode.mouse.rawValue, name: "Mouse", order: 2),
-            _Species(id: SpeciesCode.hedgehog.rawValue, name: "Hedgehog", order: 3),
-            _Species(id: SpeciesCode.stoat.rawValue, name: "Stoat", order: 5),
-            _Species(id: SpeciesCode.cat.rawValue, name: "Cat", order: 4),
-            _Species(id: SpeciesCode.other.rawValue, name: "Other", order: 6)
+            Species(id: SpeciesCode.possum.rawValue, name: "Possum", order: 0),
+            Species(id: SpeciesCode.rat.rawValue, name: "Rat", order: 1),
+            Species(id: SpeciesCode.mouse.rawValue, name: "Mouse", order: 2),
+            Species(id: SpeciesCode.hedgehog.rawValue, name: "Hedgehog", order: 3),
+            Species(id: SpeciesCode.stoat.rawValue, name: "Stoat", order: 5),
+            Species(id: SpeciesCode.cat.rawValue, name: "Cat", order: 4),
+            Species(id: SpeciesCode.other.rawValue, name: "Other", order: 6)
         ]
                 
         self.add(lookups: species) { (error) in

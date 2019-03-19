@@ -18,7 +18,7 @@ final class StartRouter: Router {
 // MARK: - StartRouter API
 extension StartRouter: StartRouterApi {
     
-    func showMap(route: _Route) {
+    func showMap(route: Route) {
         let module = AppModules.map.build()
         
         let setupData = MapSetupData()
@@ -32,7 +32,7 @@ extension StartRouter: StartRouterApi {
         }
     }
     
-    func showRouteDashboardModule(route: _Route?) {
+    func showRouteDashboardModule(route: Route?) {
         if let route = route {
             let module = AppModules.routeDashboard.build()
         
@@ -48,7 +48,7 @@ extension StartRouter: StartRouterApi {
         }
     }
     
-    func showRouteModule(route: _Route?) {
+    func showRouteModule(route: Route?) {
 //        let module = AppModules.route.build()
 //        
 //        let setupData = RouteSetupData()
@@ -58,7 +58,7 @@ extension StartRouter: StartRouterApi {
 //        module.router.show(from: _view, embedInNavController: true, setupData: setupData)
     }
     
-    func showVisitModule(visitSummary: _VisitSummary) {
+    func showVisitModule(visitSummary: VisitSummary) {
         let module = AppModules.visit.build()
         
         // Remove title from back button

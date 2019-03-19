@@ -8,6 +8,6 @@
 
 import Foundation
 
-class RegionFirestoreService: LookupFirestoreService<_Region> {
+class RegionFirestoreService: LookupFirestoreService<Region> {
     
 }

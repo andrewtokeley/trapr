@@ -43,12 +43,12 @@ protocol VisitLogPresenterApi: PresenterProtocol {
 
 //MARK: - VisitLogInteractor API
 protocol VisitLogInteractorApi: InteractorProtocol {
-    func retrieveViewModel(visit: _Visit, completion: ((VisitViewModel) -> Void)?)
+    func retrieveViewModel(visit: Visit, completion: ((VisitViewModel) -> Void)?)
     func getDefaultLureDescription(trapTypeId: String, completion: ((String) -> Void)?)
     func getLureDescription(lureId: String, completion: ((String) -> Void)?)
-    func retrieveLookups(completion: (([_TrapType], [_Lure], [_Species]) -> Void)? )
-    func retrieveSpeciesList(completion: (([_Species]) -> Void)? )
-    func retrieveLuresList(completion: (([_Lure]) -> Void)? )
-    func saveVisit(visit: _Visit)
+    func retrieveLookups(completion: (([TrapType], [Lure], [Species]) -> Void)? )
+    func retrieveSpeciesList(completion: (([Species]) -> Void)? )
+    func retrieveLuresList(completion: (([Lure]) -> Void)? )
+    func saveVisit(visit: Visit)
     func getLureBalance(stationId: String, trapTypeId: String, asAtDate: Date, completion: ((Int) -> Void)?)
 }

@@ -24,6 +24,10 @@ extension LoaderInteractor: LoaderInteractorApi {
         return Auth.auth().currentUser != nil
     }
     
+    var isInTestMode: Bool {
+        return ServiceFactory.sharedInstance.runningInTestMode
+    }
+    
     func registerAuthenticatedUser(completion: @escaping(User?) -> Void) {
         
         // Make sure we have a record in the database for the user
@@ -41,11 +45,12 @@ extension LoaderInteractor: LoaderInteractorApi {
         }
     }
     
-    func primeCache() {
-        cachePrimerService.primeCache { (progress, message) in
+    func primeCache(completion: (() -> Void)? = nil) {
+        cachePrimerService.primeCache { (progress, message, finished) in
             self.presenter.loadProgressReceived(progress: Float(progress), message: message)
-            if progress == 1 {
+            if finished {
                 self.presenter.primeCacheCompleted()
+                completion?()
             }
         }
     }

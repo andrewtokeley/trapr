@@ -13,7 +13,7 @@ enum LookupFields: String {
     case order = "order"
 }
 
-extension _Lookup: Hashable {
+extension Lookup: Hashable {
     /// Returns a unique hash value for the lookup instance
     public var hashValue: Int {
         if let id = self.id {
@@ -24,7 +24,7 @@ extension _Lookup: Hashable {
     }
 }
 
-class _Lookup: DocumentSerializable {
+class Lookup: DocumentSerializable {
     
     /**
      Human readable unique id for the lookup. e.g. POS
@@ -58,8 +58,8 @@ class _Lookup: DocumentSerializable {
 
 }
 
-extension _Lookup: Equatable {
-    static func == (left: _Lookup, right: _Lookup) -> Bool {
+extension Lookup: Equatable {
+    static func == (left: Lookup, right: Lookup) -> Bool {
         return left.id == right.id
     }
 }

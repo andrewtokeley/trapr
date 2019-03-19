@@ -17,13 +17,12 @@ enum ResizeState {
 
 //MARK: - RouteDashboardRouter API
 protocol RouteDashboardRouterApi: RouterProtocol {
-    //func showVisitModule(visitSummary: VisitSummary)
-    func showVisitModule(visitSummary: _VisitSummary)
+    
+    func showVisitModule(visitSummary: VisitSummary)
+    func showOrderStationsModule(routeId: String, stations: [Station])
     
     func addMapAsChildView(containerView: UIView)
-    
-    //func showVisitHistoryModule(route: Route)
-    func showVisitHistoryModule(visitSummaries: [_VisitSummary])
+    func showVisitHistoryModule(visitSummaries: [VisitSummary])
 }
 
 //MARK: - RouteDashboardView API
@@ -46,6 +45,8 @@ protocol RouteDashboardViewApi: class, UserInterfaceProtocol {
     func displayStationSummary(summary: String, numberOfStations: Int)
     func displayVisitNumber(number: String, allowSelection: Bool)
     func displayTimes(description: String, allowSelection: Bool)
+    
+    func showVisitDetails(show: Bool)
     
     func setMapResizeIconState(state: ResizeState)
     
@@ -104,15 +105,16 @@ protocol RouteDashboardPresenterApi: PresenterProtocol {
 //MARK: - RouteDashboardInteractor API
 protocol RouteDashboardInteractorApi: InteractorProtocol {
 
-    func saveRoute(route: _Route) -> String
+    func currentUser() -> User?
+    func saveRoute(route: Route) -> String
     func deleteRoute(routeId: String)
     
-    func retrieveStations(completion: (([_Station]) -> Void)?)
-    func retrieveRouteInformation(route: _Route)
-    func retrieveVisitInformation(route: _Route)
+    func retrieveStations(completion: (([Station]) -> Void)?)
+    func retrieveRouteInformation(route: Route)
+    func retrieveVisitInformation(route: Route)
     
-    func getStationsDescription(stations: [_Station], includeStationCodes: Bool) -> String 
-    func setRouteImage(route: _Route, asset: PHAsset, completion: (() -> Swift.Void)?)
+    func getStationsDescription(stations: [Station], includeStationCodes: Bool) -> String 
+    func setRouteImage(route: Route, asset: PHAsset, completion: (() -> Swift.Void)?)
     func updateStationsOnRoute(routeId: String, stationIds: [String])
-    func getStationSequence(fromStationId: String, toStationId: String, completion: (([_Station], Error?) -> Void)?)
+    func getStationSequence(fromStationId: String, toStationId: String, completion: (([Station], Error?) -> Void)?)
 }

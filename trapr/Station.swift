@@ -2,124 +2,216 @@
 //  Station.swift
 //  trapr
 //
-//  Created by Andrew Tokeley  on 18/09/17.
-//  Copyright © 2017 Andrew Tokeley . All rights reserved.
+//  Created by Andrew Tokeley on 3/11/18.
+//  Copyright © 2018 Andrew Tokeley . All rights reserved.
 //
 
 import Foundation
-import RealmSwift
+import FirebaseFirestore
+
+enum StationFields: String {
+    case number = "number"
+    case coordinates = "location"
+    case traplineId = "traplineId"
+    case traplineCode = "traplineCode"
+    case route = "routeId"
+    case region = "regionId"
+    case traps = "traps"
+    case traps_active = "active"
+    case traps_traptype = "trapTypeId"
+}
+
+struct TrapTypeStatus {
+    var trapTpyeId: String
+    var active: Bool
+}
+
+protocol LocatableEntity {
+    var locationId: String { get }
+    var title: String { get }
+    var subTitle: String { get }
+    var latitude: Double? { get set }
+    var longitude: Double? { get set }
+}
 
 extension Station: LocatableEntity {
-    
-    /**
-     Always available id for location entity
-     */
-    var locationId: String {
-        return id
-    }
-    
-    var latitude: Double? {
-        get {
-            return traps.first?.latitude
-        }
-        set {
-            // do nothing - just to get this to confirm to LocatableEntity
-        }
-    }
-    
-    var longitude: Double? {
-        get {
-            return traps.first?.longitude
-        }
-        set {
-            // do nothing - just to get this to confirm to LocatableEntity
-        }
-    }
-    
     var title: String {
-        return self.code ?? "-"
+        return self.codeFormated
     }
     
     var subTitle: String {
         return self.longCode
     }
     
+    /**
+     Always available id for location entity
+     */
+    var locationId: String {
+        if let id = self.id {
+            return id
+        }
+        return ""
+    }
+    
 }
 
-class Station: Object {
+class Station: DocumentSerializable {
     
     /**
-     Primary key
-    */
-    @objc dynamic var id: String = UUID().uuidString
-    
-    override static func primaryKey() -> String? {
-        return "id"
-    }
-    
+     Composite primary key in the format traplineCode-stationCodeFormated, e.g. EHRP-LW-01 for East Harbour Regional Park, trapline LW, station 01.
+     */
+    var id: String?
+
     /**
-    A code, typically a leading zero number, e.g. "01" for the station. Code need only be unique for the trapline they are part of.
+     A number, typically a leading zero number, e.g. "01" for the station. Code need only be unique for the trapline they are part of.
      
      The station code's alphanumeric sort order determines the order in which the stations are located along a trapline. So, it's possible to have "01" followed by "01a", but we recommend sticking to numbers, if possible
-    */
-    @objc dynamic var code: String?
+     */
+    var number: Int
     
     /**
-    Returns the station code as a number. If the station code contains non-numerics then nil is returned.
-    */
-    var codeAsNumber: Int? {
-        if let _ = code {
-            return Int(code!)
-        }
-        return nil
+     Returns the station code as a number. If the station code contains non-numerics then nil is returned.
+     */
+    var codeFormated: String {
+        return String(format: "%02d", number)
     }
+    
+    /**
+     Latitude of station
+     */
+    var latitude: Double?
+    
+    /**
+     Longitude of station
+     */
+    var longitude: Double?
     
     /**
      Read only, fully qualified station code, that is prefixed with the trapline code. e.g. LW01
      */
     var longCode: String {
-        return trapline?.code!.appending(self.code!) ?? id
+        return "\(traplineCode ?? "**")\(codeFormated)"
     }
     
+    /// Route the station belongs to. Stations can only belong to one route.
+    var routeId: String?
     
-
     /**
-     Typically only used for debugging purposes to return the station's longCode
+     The id of the trapline in which the station is located
      */
-    override var description: String {
-        return longCode
-    }
+    var traplineId: String?
     
     /**
-    The trapline in which the station is located
-    */
-    private let traplines:LinkingObjects<Trapline> = LinkingObjects(fromType: Trapline.self, property: "stations")
-    var trapline:Trapline? {
-        return self.traplines.first
-    }
+     The code of the trapline. e.g. LW. Note this may not be unique if the same code is used in another region.
+     */
+    var traplineCode: String?
     
     /**
-    The traps located at this station, e.g. Possum Master, Pellibait traps...
-    */
-    let traps = List<Trap>()
+     Array containing the traps located at this station and their status (active/inactive), e.g. Possum Master, Pellibait traps...
+     */
+    var trapTypes = [TrapTypeStatus]()
     
-    convenience init(code: String) {
-        self.init()
+    var dictionary: [String: Any] {
         
-        self.code = code
+        var result = [String: Any]()
+        
+        result[StationFields.number.rawValue] = self.number
+        
+        // optional fields, only return in dictionary if they're defined
+        
+        if let trapTypeId = self.traplineId {
+            result[StationFields.traplineId.rawValue] = trapTypeId
+        }
+        
+        if let trapTypeCode = self.traplineCode {
+            result[StationFields.traplineCode.rawValue] = trapTypeCode
+        }
+        
+        if let routeId = self.routeId {
+            result[StationFields.route.rawValue] = routeId
+        }
+        
+        if let latitude = self.latitude, let longitude = self.longitude {
+            result[StationFields.coordinates.rawValue] = GeoPoint(latitude: latitude, longitude: longitude)
+        }
+        
+        var arrayOfMaps = [[String: Any]]()
+        for trapType in self.trapTypes {
+            arrayOfMaps.append([
+                StationFields.traps_traptype.rawValue: trapType.trapTpyeId,
+                StationFields.traps_active.rawValue: trapType.active
+            ])
+        }
+        if arrayOfMaps.count > 0 {
+            result[StationFields.traps.rawValue] = arrayOfMaps
+        }
+        
+        return result
     }
     
-    func addTrap(type: TrapType) -> Trap {
-        let trap = Trap()
-        trap.type = type
-        //trap.station = self
-        traps.append(trap)
-        return trap
+    init(traplineId: String, number: Int) {
+        self.id = "\(traplineId)-\(String(format: "%02d", number))"
+        self.traplineId = traplineId
+        self.number = number
     }
     
+    required init?(dictionary: [String : Any]) {
+        
+        // check that mandatory fields are in the dictionary
+        guard
+            let number = dictionary[StationFields.number.rawValue] as? Int
+        else {
+            return nil
+        }
+        
+        // set mandatory fields
+        self.number = number
+        
+        // set optional fields
+        
+        if let coordinates = dictionary[StationFields.coordinates.rawValue] as? GeoPoint {
+            self.latitude = coordinates.latitude
+            self.longitude = coordinates.longitude
+        }
+
+        if let traplineId = dictionary[StationFields.traplineId.rawValue] as? String {
+            self.traplineId = traplineId
+        }
+
+        if let routeId = dictionary[StationFields.route.rawValue] as? String {
+            self.routeId = routeId
+        }
+        
+        if let traplineCode = dictionary[StationFields.traplineCode.rawValue] as? String {
+            self.traplineCode = traplineCode
+        }
+        
+        if let traps = dictionary[StationFields.traps.rawValue] as? [[String: Any]] {
+            
+            self.trapTypes = [TrapTypeStatus]()
+            for trapTypeMap in traps {
+                if let trapTypeId = trapTypeMap[StationFields.traps_traptype.rawValue] as? String,
+                    let trapTypeActive = trapTypeMap[StationFields.traps_active.rawValue] as? Bool {
+                    self.trapTypes.append(TrapTypeStatus(trapTpyeId: trapTypeId, active: trapTypeActive))
+                }
+            }
+            
+        }
+    }
+}
+
+extension Station: Equatable {
     static func == (left: Station, right: Station) -> Bool {
         return left.id == right.id
     }
-    
-    
+}
+
+extension Station: Hashable {
+    var hashValue: Int {
+        if let id = id {
+            return id.hashValue
+        } else {
+            return "sameforall".hashValue
+        }
+    }
 }

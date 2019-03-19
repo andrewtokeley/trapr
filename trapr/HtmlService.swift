@@ -44,7 +44,7 @@ class HtmlService {
 
 extension HtmlService: HtmlServiceInterface {
     
-    func getVisitsAsHtml(recordedOn date: Date, route: _Route, completion: ((String?) -> Void)?) {
+    func getVisitsAsHtml(recordedOn date: Date, route: Route, completion: ((String?) -> Void)?) {
         
         var html = "<html><table style=\'border-collapse : collapse;\'>"
 
@@ -106,7 +106,7 @@ extension HtmlService: HtmlServiceInterface {
     }
     
     
-    func htmlForGroupHeader(route: _Route, date: Date, colspan: Int) -> String {
+    func htmlForGroupHeader(route: Route, date: Date, colspan: Int) -> String {
         return "<tr style=\'border-bottom:2px solid black\'><td style=\'min-height:50px; border-bottom:1px solid black;\' colspan=\(colspan)><b>\(route.name) - \(date.toString(format: Styles.DATE_FORMAT_LONG))</b></br></td></tr>"
     }
 

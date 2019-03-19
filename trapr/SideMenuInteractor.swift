@@ -22,7 +22,7 @@ extension SideMenuInteractor: SideMenuInteractorApi {
         return Auth.auth().currentUser != nil
     }
     
-    func getStationsForMap(completion: (([_Station]) -> Void)?) {
+    func getStationsForMap(completion: (([Station]) -> Void)?) {
         stationService.get { (stations) in
             completion?(stations)
         }

@@ -46,6 +46,8 @@ final class LoaderView: UserInterface {
         progressMessage.textColor = UIColor.white
         progressMessage.font = UIFont.trpLabelSmall
         progressMessage.alpha = 0
+        progressMessage.textAlignment = .center
+        progressMessage.numberOfLines = 0
         return progressMessage
     }()
     
@@ -85,6 +87,8 @@ final class LoaderView: UserInterface {
         self.progressBar.autoAlignAxis(toSuperviewAxis: .vertical)
         
         self.progressMessage.autoPinEdge(.top, to: .bottom, of: self.progressBar, withOffset: LayoutDimensions.spacingMargin)
+        self.progressMessage.autoPinEdge(toSuperviewMargin: .left, withInset: LayoutDimensions.spacingMargin)
+        self.progressMessage.autoPinEdge(toSuperviewMargin: .right, withInset: LayoutDimensions.spacingMargin)
         self.progressMessage.autoAlignAxis(toSuperviewAxis: .vertical)
         
         self.googleSignInButton.autoPinEdge(.top, to: .bottom, of: self.progressMessage, withOffset: LayoutDimensions.spacingMargin)

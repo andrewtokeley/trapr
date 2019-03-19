@@ -10,6 +10,6 @@ import Foundation
 
 class TraplineSelectSetupData {
     var delegate: TraplineSelectDelegate?
-    var route: _Route?
+    var route: Route?
     var presentingAsModal: Bool = true
 }

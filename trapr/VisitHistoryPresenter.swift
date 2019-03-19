@@ -13,25 +13,37 @@ import Viperit
 final class VisitHistoryPresenter: Presenter {
     //private var route: Route!
     //private var visitSummaries = [VisitSummary]()
-    private var visitSummaries = [_VisitSummary]()
+    fileprivate var delegate: VisitHistoryDelegate?
+    fileprivate var visitSummaries = [VisitSummary]()
+    
+    /// Track whether any visitSummaries have been deleted
+    fileprivate var deletedVisitSummary = false
     
     override func setupView(data: Any) {
         _view.setTitle(title: "Visits")
         
         if let setupData = data as? VisitHistorySetupData {
+            self.delegate = setupData.delegate
             if let visitSummaries = setupData.visitSummaries {
                 self.visitSummaries = visitSummaries
-                view.displayVisitSummaries(visitSummaries: visitSummaries, fullReload: true)
+                self.refreshView(visitSummaries: visitSummaries, fullReload: true)
             }
-            //self.refreshVisitSummaries(fullReload: true)
         }
     }
     
     private func refreshVisitSummaries(fullReload: Bool) {
         if let routeId = self.visitSummaries.first?.routeId {
             interactor.getVisitSummariesForRoute(routeId: routeId) { (visitSummaries, error) in
-                self.view.displayVisitSummaries(visitSummaries: visitSummaries, fullReload: fullReload)
+                self.refreshView(visitSummaries: visitSummaries, fullReload: fullReload)
             }
+        }
+    }
+    
+    private func refreshView(visitSummaries: [VisitSummary], fullReload: Bool) {
+        if visitSummaries.count != 0 {
+            view.displayVisitSummaries(visitSummaries: visitSummaries, fullReload: fullReload)
+        } else {
+            view.displayNoVisitsMessage(message: "There have been no visits yet.")
         }
     }
     
@@ -43,25 +55,33 @@ final class VisitHistoryPresenter: Presenter {
         // if we're coming back to this module and a summary was deleted (i.e. we drilled into a summary and deleted) then do a full refresh, rather than refreshing the summary that was edited
         self.refreshVisitSummaries(fullReload: summaryDeleted)
     }
+    
+    override func viewIsAboutToDisappear() {
+        delegate?.visitHistoryIsAboutToClose(deletedVisits: self.deletedVisitSummary)
+    }
 }
 
 // MARK: - VisitHistoryPresenter API
 extension VisitHistoryPresenter: VisitHistoryPresenterApi {
     
-    func didSelectDeleteVisitSummary(visitSummary: _VisitSummary) {
+    func didSelectDeleteVisitSummary(visitSummary: VisitSummary) {
         let count = visitSummary.visits.count
         let date = visitSummary.dateOfVisit.toString(format: Styles.DATE_FORMAT_LONG)
         let message = "Are you sure you want to delete all \(count) visit records on \(date)"
         _view.presentConfirmation(title: "Delete", message: message, response: {
             (response) in
             if response {
-                self.interactor.deleteVisitSummary(visitSummary: visitSummary)
-                self.refreshVisitSummaries(fullReload: true)
+                self.interactor.deleteVisitSummary(visitSummary: visitSummary) { (error) in
+                    if error == nil {
+                        self.refreshVisitSummaries(fullReload: true)
+                        self.deletedVisitSummary = true
+                    }
+                }
             }
         })
     }
     
-    func didSelectVisitSummary(visitSummary: _VisitSummary) {
+    func didSelectVisitSummary(visitSummary: VisitSummary) {
         router.showVisitModule(visitSummary: visitSummary)
     }
     

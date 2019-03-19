@@ -56,12 +56,17 @@ protocol LoaderInteractorApi: InteractorProtocol {
     /**
      Primes the app's cache to allow it to work offline
      */
-    func primeCache()
+    func primeCache(completion: (() -> Void)?)
     
     /**
      Returns whether the user is already authenticated. This means they have logged in and been registered with the app already.
      */
     var isAuthenticated: Bool { get }
+    
+    /**
+     Returns whether the app is running as part of testing
+     */
+    var isInTestMode: Bool { get }
     
     /**
     Calling this method ensures a user record exists database and that UserService.currentUser is instantiated for the authenticated user.

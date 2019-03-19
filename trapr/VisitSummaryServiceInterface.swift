@@ -10,7 +10,7 @@ import Foundation
 
 protocol VisitSummaryServiceInterface {
     
-    func createNewVisitSummary(date: Date, routeId: String, completion: ((_VisitSummary?, Error?) -> Void)?)
+    func createNewVisitSummary(date: Date, routeId: String, completion: ((VisitSummary?, Error?) -> Void)?)
     
     /**
     Get a summary of the visits recorded on the specified day
@@ -23,12 +23,12 @@ protocol VisitSummaryServiceInterface {
     - returns:
     A VisitSummary object, or nil if no Visits have been recorded on date
     */
-    func get(date: Date, routeId: String, completion: ((_VisitSummary?, Error?) -> Void)?)
+    func get(date: Date, routeId: String, completion: ((VisitSummary?, Error?) -> Void)?)
     
-    func get(recordedBetween startDate: Date, endDate: Date, routeId: String, completion: (([_VisitSummary], Error?) -> Void)?)
+    func get(recordedBetween startDate: Date, endDate: Date, routeId: String, completion: (([VisitSummary], Error?) -> Void)?)
     
-    func get(mostRecentOn routeId: String, completion: ((_VisitSummary?, Error?) -> Void)?)
+    func get(mostRecentOn routeId: String, completion: ((VisitSummary?, Error?) -> Void)?)
 
-    func getStatistics(from visitSummaries: [_VisitSummary], completion: ((VisitSummariesStatistics?, Error?) -> Void)?)
+    func getStatistics(from visitSummaries: [VisitSummary], completion: ((VisitSummariesStatistics?, Error?) -> Void)?)
 }
 

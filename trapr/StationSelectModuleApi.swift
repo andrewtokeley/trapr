@@ -17,15 +17,15 @@ protocol StationSelectRouterApi: RouterProtocol {
 protocol StationSelectViewApi: UserInterfaceProtocol {
     
     // Presenter To View
-    func initialiseView(groupedData:GroupedTableViewDatasource<_Station>, traplines:[_Trapline], stations: [_Station], selectedStationIds: [String]?, allowMultiselect: Bool)
+    func initialiseView(groupedData:GroupedTableViewDatasource<Station>, traplines:[Trapline], stations: [Station], selectedStationIds: [String]?, allowMultiselect: Bool)
     //func setTitle(title: String)
     func showCloseButton()
     func setDoneButtonAttributes(visible: Bool, enabled: Bool)
     func enableSorting(enabled: Bool)
     func setMultiselectToggle(section: Int, state: MultiselectOptions)
     func updateSelectedStations(section: Int, selectedStationIds: [String])
-    func updateGroupedData(section: Int, groupedData: GroupedTableViewDatasource<_Station>)
-    func updateGroupedData(groupedData: GroupedTableViewDatasource<_Station>)
+    func updateGroupedData(section: Int, groupedData: GroupedTableViewDatasource<Station>)
+    func updateGroupedData(groupedData: GroupedTableViewDatasource<Station>)
 
 }
 
@@ -48,6 +48,6 @@ protocol StationSelectPresenterApi: PresenterProtocol {
 
 //MARK: - StationSelectInteractor API
 protocol StationSelectInteractorApi: InteractorProtocol {
-    func getDefaultStation() -> _Station
+    func getDefaultStation() -> Station
     
 }

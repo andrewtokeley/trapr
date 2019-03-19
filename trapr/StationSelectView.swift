@@ -12,10 +12,10 @@ import Viperit
 //MARK: StationSelectView Class
 final class StationSelectView: UserInterface {
     
-    fileprivate var traplines = [_Trapline]()
-    fileprivate var stations = [_Station]()
+    fileprivate var traplines = [Trapline]()
+    fileprivate var stations = [Station]()
     fileprivate var selectedStationIds = [String]()
-    fileprivate var groupedData: GroupedTableViewDatasource<_Station>!
+    fileprivate var groupedData: GroupedTableViewDatasource<Station>!
     
     fileprivate var allowMultiselect: Bool = false
     
@@ -214,12 +214,12 @@ extension StationSelectView: StationSelectViewApi {
         editButton.isEnabled = enabled
     }
     
-    func updateGroupedData(groupedData: GroupedTableViewDatasource<_Station>) {
+    func updateGroupedData(groupedData: GroupedTableViewDatasource<Station>) {
         self.groupedData = groupedData
         tableView.reloadData()
     }
     
-    func updateGroupedData(section: Int, groupedData: GroupedTableViewDatasource<_Station>) {
+    func updateGroupedData(section: Int, groupedData: GroupedTableViewDatasource<Station>) {
         self.groupedData = groupedData
         tableView.reloadSections([section] as IndexSet, with: .automatic)
     }
@@ -229,7 +229,7 @@ extension StationSelectView: StationSelectViewApi {
         tableView.reloadSections([section] as IndexSet, with: .automatic)
     }
     
-    func initialiseView(groupedData: GroupedTableViewDatasource<_Station>, traplines:[_Trapline], stations: [_Station], selectedStationIds: [String]?, allowMultiselect: Bool) {
+    func initialiseView(groupedData: GroupedTableViewDatasource<Station>, traplines:[Trapline], stations: [Station], selectedStationIds: [String]?, allowMultiselect: Bool) {
 
         self.groupedData = groupedData
         self.traplines = traplines

@@ -11,21 +11,29 @@ import FirebaseFirestore
 
 protocol TraplineServiceInterface {
     
-    func add(trapline: _Trapline, completion: ((_Trapline?, Error?) -> Void)?) -> String
-    func addStation(trapline: _Trapline, station: _Station, completion: ((Error?) -> Void)?)
-    func addTrap(station: _Station, trap: _TrapType, completion: ((Error?) -> Void)?)
-    func delete(trapline: _Trapline, completion: ((Error?) -> Void)?)
+    func add(trapline: Trapline, completion: ((Trapline?, Error?) -> Void)?) -> String
+    //func addStation(trapline: Trapline, station: Station, completion: ((Error?) -> Void)?)
+    //func addTrap(station: Station, trap: TrapType, completion: ((Error?) -> Void)?)
+    
+    func delete(trapline: Trapline, completion: ((Error?) -> Void)?)
+    
+    /// Delete the trapline
+    func delete(traplineId: String, completion: ((Error?) -> Void)?)
+    
+    /// Delete all the selected traplines
+    func delete(traplineIds: [String], completion: ((Error?) -> Void)?)
+    
     func deleteAll(completion: ((Error?) -> Void)?)
-    func extractTraplineReferencesFromStations(stations: [_Station]) -> [String]
-    func extractTraplineCodesFromStations(stations: [_Station]) -> [String]
-    func get(stations: [_Station], completion: (([_Trapline], Error?) -> Void)?)
-    func get(traplineId: String, completion: ((_Trapline?, Error?) -> Void)?)
-    func get(completion: (([_Trapline]) -> Void)?)
-    func get(source: FirestoreSource, completion: (([_Trapline]) -> Void)?)
-    func get(regionId: String, completion: (([_Trapline]) -> Void)?)
-    //func get(traplineCode: String, completion: ((_Trapline?) -> Void)?)
-    func get(regionId: String, traplineCode: String, completion: ((_Trapline?) -> Void)?)
-    func getRecentTraplines(completion: (([_Trapline]) -> Void)?)
+    func extractTraplineReferencesFromStations(stations: [Station]) -> [String]
+    func extractTraplineCodesFromStations(stations: [Station]) -> [String]
+    func get(stations: [Station], completion: (([Trapline], Error?) -> Void)?)
+    func get(traplineId: String, completion: ((Trapline?, Error?) -> Void)?)
+    func get(completion: (([Trapline]) -> Void)?)
+    func get(source: FirestoreSource, completion: (([Trapline]) -> Void)?)
+    func get(regionId: String, completion: (([Trapline]) -> Void)?)
+    //func get(traplineCode: String, completion: ((Trapline?) -> Void)?)
+    func get(regionId: String, traplineCode: String, completion: ((Trapline?) -> Void)?)
+    func getRecentTraplines(completion: (([Trapline]) -> Void)?)
     
     
 }

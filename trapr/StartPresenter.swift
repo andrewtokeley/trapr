@@ -16,7 +16,7 @@ final class StartPresenter: Presenter {
     fileprivate var showLoader: Bool = true
     
     fileprivate var routeMenuOptions = [String]()
-    fileprivate var routes: [_Route]?
+    fileprivate var routes: [Route]?
     fileprivate var routeViewModels = [RouteViewModel]()
     
     fileprivate let ROUTE_MENU_EDIT = 0
@@ -130,7 +130,7 @@ extension StartPresenter: StartPresenterApi {
         })
     }
     
-    func didSelectVisitSummary(visitSummary: _VisitSummary) {
+    func didSelectVisitSummary(visitSummary: VisitSummary) {
         router.showVisitModule(visitSummary: visitSummary)
     }
     
@@ -144,11 +144,11 @@ extension StartPresenter: StartPresenterApi {
         }
     }
     
-    func didSelectRoute(route: _Route) {
+    func didSelectRoute(route: Route) {
         router.showRouteDashboardModule(route: route)
     }
     
-    func didSelectRouteImage(route: _Route) {
+    func didSelectRouteImage(route: Route) {
         
         router.showRouteDashboardModule(route: route)
         
@@ -178,11 +178,11 @@ extension StartPresenter: StartPresenterApi {
 //        }
     }
     
-    func setRecentVisits(visits: [_VisitSummary]?) {
+    func setRecentVisits(visits: [VisitSummary]?) {
         view.displayRecentVisits(visits: visits)
     }
 
-    func setRoutes(routes: [_Route]?, lastVisitDescriptions: [String]) {
+    func setRoutes(routes: [Route]?, lastVisitDescriptions: [String]) {
         
         self.routes = routes
         

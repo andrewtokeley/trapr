@@ -17,20 +17,26 @@ final class SettingsView: UserInterface {
     
     let TABLEVIEW_CELL_ID = "cell"
     
-//    let SECTION_USER =  0
-//    let ROW_TRAPPER_NAME = 0
-
     let SECTION_EMAILS = 0
     let ROW_VISITS_EMAIL = 0
-    let ROW_ORDERS_EMAIL = 1
-
+    
     let SECTION_HIDDEN_ROUTES = 1
     let ROW_HIDDEN_ROUTES = 0
     
     let TEXTFIELD_TAG_VISIT_EMAIL = 0
-    let TEXTFIELD_TAG_ORDER_EMAIL = 1
     
     //MARK: - Subviews
+    
+    lazy var doSomethingButton: UIButton = {
+        
+        let button = UIButton()
+        button.backgroundColor = UIColor.trpButtonEnabled
+        button.setTitle("Refresh Cache", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.addTarget(self, action: #selector(doSomethingClick(sender:)), for: .touchUpInside)
+        return button
+
+    }()
     
     lazy var closeButton: UIBarButtonItem = {
         
@@ -52,22 +58,10 @@ final class SettingsView: UserInterface {
         label.font = UIFont.trpLabelSmall
         label.textAlignment = .center
         label.tintColor = UIColor.darkGray
+        label.numberOfLines = 0
         
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(versionInfoClicked(sender:)))
-//        label.addGestureRecognizer(tap)
-//        label.isUserInteractionEnabled = true
         return label
     }()
-    
-//    @objc func versionInfoClicked(sender: UITapGestureRecognizer) {
-//        presenter.didClickRealmLabel()
-//
-//        let alert = UIAlertController(title: "Copied!", message: "Path to realm store has been copied to the clipboard.", preferredStyle: UIAlertControllerStyle.alert)
-//        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil))
-//        self.present(alert, animated: true, completion: nil)
-//    }
-    
-
     
     lazy var visitsEmailTableViewCell: UITableViewCell = {
         
@@ -109,45 +103,6 @@ final class SettingsView: UserInterface {
         return textField
     }()
     
-    lazy var ordersEmailTableViewCell: UITableViewCell = {
-        
-        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: self.TABLEVIEW_CELL_ID)
-        
-        let label = UILabel()
-        label.text = "Orders"
-        
-        cell.contentView.addSubview(label)
-        cell.contentView.addSubview(self.ordersEmailTextField)
-        
-        label.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
-        label.autoAlignAxis(toSuperviewAxis: .horizontal)
-        label.autoSetDimension(.width, toSize: LayoutDimensions.tableViewLabelWidth)
-        
-        self.ordersEmailTextField.autoPinEdge(.left, to: .right, of: label, withOffset: LayoutDimensions.spacingMargin)
-        self.ordersEmailTextField.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
-        self.ordersEmailTextField.autoAlignAxis(toSuperviewAxis: .horizontal)
-        self.ordersEmailTextField.autoSetDimension(.height, toSize: LayoutDimensions.tableCellHeight)
-        
-        return cell
-    }()
-    
-    lazy var ordersEmailTextField: UITextField = {
-        
-        let textField = UITextField()
-        textField.tag = self.TEXTFIELD_TAG_ORDER_EMAIL
-        textField.placeholder = "Email address"
-        textField.delegate = self
-        textField.textAlignment = .right
-        textField.textColor = UIColor.gray
-        let spacerView = UIView(frame:CGRect(x:0, y:0, width:LayoutDimensions.textIndentMargin, height:LayoutDimensions.textIndentMargin))
-        textField.leftViewMode = .always
-        textField.leftView = spacerView
-        textField.clearButtonMode = .whileEditing
-        textField.returnKeyType = UIReturnKeyType.done
-        textField.keyboardType = UIKeyboardType.emailAddress
-        return textField
-    }()
-    
     lazy var hiddenRoutesTableViewCell: UITableViewCell = {
         
         let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: self.TABLEVIEW_CELL_ID)
@@ -157,22 +112,6 @@ final class SettingsView: UserInterface {
         return cell
     }()
     
-//    lazy var firestoreSyncButton: UIButton = {
-//
-//        let button = UIButton()
-//        button.setTitle("Firestore Sync", for: .normal)
-//        button.setTitleColor(UIColor.red, for: .normal)
-//        button.addTarget(self, action: #selector(firestoreSyncButtonClick(sender:)), for: UIControlEvents.touchUpInside)
-//        return button
-//    }()
-//
-//    lazy var firestoreSyncProgressBar: UIProgressView = {
-//        let progress = UIProgressView(progressViewStyle: .default)
-//        progress.trackTintColor = UIColor.trpProgressBarBackground
-//        progress.progressTintColor = UIColor.trpProgressBarForeground
-//        return progress
-//    }()
-    
     // MARK: - UIViewController
     
     override func loadView() {
@@ -181,10 +120,10 @@ final class SettingsView: UserInterface {
         
         self.view.backgroundColor = UIColor.trpBackground
         self.navigationItem.leftBarButtonItem = closeButton
+        
         self.view.addSubview(tableView)
-        //self.view.addSubview(firestoreSyncButton)
         self.view.addSubview(versionInfo)
-        //self.view.addSubview(firestoreSyncProgressBar)
+        self.view.addSubview(doSomethingButton)
         
         // ensure the keyboard disappears when click view
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
@@ -195,21 +134,21 @@ final class SettingsView: UserInterface {
     }
     
     func setConstraints() {
+        
+        self.versionInfo.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
+        self.versionInfo.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
+        self.versionInfo.autoPinEdge(toSuperviewEdge: .bottom, withInset: LayoutDimensions.spacingMargin)
+        self.versionInfo.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
+        
+        self.doSomethingButton.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
+        self.doSomethingButton.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
+        self.doSomethingButton.autoPinEdge(.bottom, to: .top, of: versionInfo, withOffset: -LayoutDimensions.spacingMargin)
+        self.doSomethingButton.autoSetDimension(.height, toSize: LayoutDimensions.tableCellHeight)
+        
         self.tableView.autoPinEdge(toSuperviewEdge: .left)
         self.tableView.autoPinEdge(toSuperviewEdge: .right)
         self.tableView.autoPinEdge(toSuperviewEdge: .top)
-        self.tableView.autoPinEdge(toSuperviewEdge: .bottom, withInset: 200)
-        
-//        self.firestoreSyncButton.autoPinEdge(.top, to: .bottom, of: self.tableView)
-//        self.firestoreSyncButton.autoPinEdge(toSuperviewEdge: .left)
-//        self.firestoreSyncButton.autoPinEdge(toSuperviewEdge: .right)
-        
-//        self.firestoreSyncProgressBar.autoPinEdge(.top, to: .bottom, of: self.firestoreSyncButton, withOffset: LayoutDimensions.spacingMargin)
-//        self.firestoreSyncProgressBar.autoPinEdge(toSuperviewEdge: .left)
-//        self.firestoreSyncProgressBar.autoPinEdge(toSuperviewEdge: .right)
-        
-        self.versionInfo.autoPinEdges(toSuperviewMarginsExcludingEdge: .top)
-        self.versionInfo.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
+        self.tableView.autoPinEdge(.bottom, to: .top, of: doSomethingButton, withOffset: -LayoutDimensions.spacingMargin)
     }
     
     //MARK: - Events
@@ -223,11 +162,22 @@ final class SettingsView: UserInterface {
         presenter.didSelectClose()
     }
     
+    @objc func doSomethingClick(sender: UIButton) {
+        presenter.didClickDoSomething()
+    }
+    
 }
 
 //MARK: - UITableView
 
 extension SettingsView: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if section == SECTION_EMAILS {
+            return "This email address will be used as the recipient email for your visit reports."
+        }
+        return nil
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == SECTION_HIDDEN_ROUTES && indexPath.row == ROW_HIDDEN_ROUTES {
@@ -255,7 +205,7 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == SECTION_EMAILS {
-            return 2
+            return 1
         } else if section == SECTION_HIDDEN_ROUTES {
             return 1
         }
@@ -271,8 +221,6 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
         if section == SECTION_EMAILS {
             if row == ROW_VISITS_EMAIL {
                 return visitsEmailTableViewCell
-            } else if row == ROW_ORDERS_EMAIL {
-                return ordersEmailTableViewCell
             }
         } else if section == SECTION_HIDDEN_ROUTES {
             return hiddenRoutesTableViewCell
@@ -286,12 +234,9 @@ extension SettingsView: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         let tag = textField.tag
-        if tag == TEXTFIELD_TAG_ORDER_EMAIL {
-            presenter.didUpdateEmailOrdersRecipient(emailAddress: textField.text)
-        } else if tag == TEXTFIELD_TAG_VISIT_EMAIL {
+        if tag == TEXTFIELD_TAG_VISIT_EMAIL {
             presenter.didUpdateEmailVisitsRecipient(emailAddress: textField.text)
         }
-        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -322,13 +267,17 @@ extension SettingsView: SettingsViewApi {
 //        trapperNameTextField.becomeFirstResponder()
 //    }
     
-    func displayVersionNumbers(appVersion: String, realmVersion: String) {
-        versionInfo.text = "App \(appVersion), Realm \(realmVersion)"
+    func displayDoSomethingProgress(message: String) {
+        self.doSomethingButton.setTitle(message, for: .normal)
     }
     
-    func displayEmailOrdersRecipient(emailAddress: String?) {
-        self.ordersEmailTextField.text = emailAddress
+    func displayVersionNumber(version: String) {
+        versionInfo.text = "Version \(version)"
     }
+    
+//    func displayEmailOrdersRecipient(emailAddress: String?) {
+//        self.ordersEmailTextField.text = emailAddress
+//    }
     
     func displayEmailVisitsRecipient(emailAddress: String?) {
         self.visitsEmailTextField.text = emailAddress

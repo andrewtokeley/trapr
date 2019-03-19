@@ -31,13 +31,13 @@ extension StartInteractor: StartInteractorApi {
 //            })
 //    }
     
-    func getNewVisitSummary(date: Date, routeId: String, completion: ((_VisitSummary?) -> Void)?) {
+    func getNewVisitSummary(date: Date, routeId: String, completion: ((VisitSummary?) -> Void)?) {
         visitSummaryService.createNewVisitSummary(date: date, routeId: routeId) { (visitSummary, error) in
             completion?(visitSummary)
         }
     }
     
-    func getMostRecentVisitSummary(routeId: String, completion: ((_VisitSummary?) -> Void)?) {
+    func getMostRecentVisitSummary(routeId: String, completion: ((VisitSummary?) -> Void)?) {
         self.visitSummaryService.get(mostRecentOn: routeId) { (visitSummary, error) in
             completion?(visitSummary)
         }

@@ -12,7 +12,6 @@ import XCTest
 
 class LookupTests: XCTestCase {
 
-    let dataPopulatorService = ServiceFactory.sharedInstance.dataPopulatorService
     let trapTypeService = ServiceFactory.sharedInstance.trapTypeFirestoreService
     let speciesService = ServiceFactory.sharedInstance.speciesFirestoreService
     
@@ -35,10 +34,10 @@ class LookupTests: XCTestCase {
             self.trapTypeService.createOrUpdateDefaults {
                 
                 // add one of the defaults (with the right id but incorrect name and order)
-                self.trapTypeService.add(lookup: _TrapType(id: doc200, name: "DOC200 NEW", order: 100)) { (error) in
+                self.trapTypeService.add(lookup: TrapType(id: doc200, name: "DOC200 NEW", order: 100)) { (error) in
                 
                     // add a random one (this shouldn't be affected by running defaults)
-                    self.trapTypeService.add(lookup: _TrapType(id: "TEST", name: "TEST", order: 200)) { (error) in
+                    self.trapTypeService.add(lookup: TrapType(id: "TEST", name: "TEST", order: 200)) { (error) in
 
                         // refresh defaults, make sure it's not destructive
                         self.trapTypeService.createOrUpdateDefaults() {
@@ -90,7 +89,7 @@ class LookupTests: XCTestCase {
                     XCTAssertTrue(trapTypes.count > 2 )
                     
                     // search for a couple only
-                    self.trapTypeService.get(codes: [
+                    self.trapTypeService.get(ids: [
                         TrapTypeCode.doc200.rawValue, TrapTypeCode.pellibait.rawValue]) { (trapTypes, error) in
                             
                             XCTAssertTrue(trapTypes.count == 2)

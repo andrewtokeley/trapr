@@ -14,7 +14,7 @@ import CoreLocation
 final class StationSearchPresenter: Presenter {
     
     fileprivate var delegate: StationSearchDelegate?
-    fileprivate var region: _Region?
+    fileprivate var region: Region?
     
     override func setupView(data: Any) {
         if let setupData = data as? StationSearchSetupData {
@@ -40,7 +40,7 @@ final class StationSearchPresenter: Presenter {
 // MARK: - StationSearchPresenter API
 extension StationSearchPresenter: StationSearchPresenterApi {
     
-    func didSelectStation(station: _Station) {
+    func didSelectStation(station: Station) {
         delegate?.stationSearch(view as! StationSearchView, didSelectStation: station)
         _view.navigationController?.popViewController(animated: true)
     }
@@ -49,7 +49,7 @@ extension StationSearchPresenter: StationSearchPresenterApi {
         
         // clear the nearby stations, during search
         if searchTerm != "" {
-            view.showNearbyStations(stations: [_Station](), distances: [String]())
+            view.showNearbyStations(stations: [Station](), distances: [String]())
         } else {
             self.getNearbyStations()
         }
@@ -57,11 +57,11 @@ extension StationSearchPresenter: StationSearchPresenterApi {
         interactor.fetchStations(searchTerm: searchTerm, regionId: self.region!.id!)
     }
     
-    func didFetchNearbyStations(stations: [_Station], distances: [String]) {
+    func didFetchNearbyStations(stations: [Station], distances: [String]) {
         view.showNearbyStations(stations: stations, distances: distances)
     }
     
-    func didFetchStations(stations: [_Station], fromSearch: Bool) {
+    func didFetchStations(stations: [Station], fromSearch: Bool) {
         if fromSearch {
             view.showSearchResults(stations: stations)
         } else {

@@ -27,21 +27,21 @@ final class VisitPresenter: Presenter {
     //fileprivate var settings: Settings?
     fileprivate var delegate: VisitDelegate?
     
-    fileprivate var visitSummary: _VisitSummary!
-    fileprivate var currentVisit: _Visit?
+    fileprivate var visitSummary: VisitSummary!
+    fileprivate var currentVisit: Visit?
     
-    fileprivate var trapsToDisplay = [_TrapType]()
-    fileprivate var unusedTrapTypes = [_TrapType]()
+    fileprivate var trapsToDisplay = [TrapType]()
+    fileprivate var unusedTrapTypes = [TrapType]()
 
-    fileprivate var allTypeTypes = [_TrapType]()
+    fileprivate var allTypeTypes = [TrapType]()
     
-//    fileprivate var trapsToDisplay : [_TrapType] {
+//    fileprivate var trapsToDisplay : [TrapType] {
 //        let active = self.currentStation.trapTypes.filter( { $0.active } )
 //        let activeTrapTypeIds = active.map({ $0.trapTpyeId })
 //        return allTypeTypes.filter({ activeTrapTypeIds.contains($0.id!) })
 //    }
 //
-//    fileprivate var unusedTrapTypes : [_TrapType] {
+//    fileprivate var unusedTrapTypes : [TrapType] {
 //        let inActive = self.currentStation.trapTypes.filter { !$0.active }
 //
 //        // want to filter all TrapTypes to remove the ones marked as inactive on the station.
@@ -51,14 +51,14 @@ final class VisitPresenter: Presenter {
 //        })
 //    }
     
-    fileprivate var currentStation: _Station {
+    fileprivate var currentStation: Station {
         return self.visitSummary.stationsOnRoute[stationIndex]
     }
     
     fileprivate var currentTrapTypeId: String?
     
     fileprivate var trapTypeIndex: Int = 0
-    fileprivate var currentTrap: _TrapType? {
+    fileprivate var currentTrap: TrapType? {
         
         if trapsToDisplay.count == 0 {
             return nil
@@ -81,7 +81,7 @@ final class VisitPresenter: Presenter {
      - returns:
      1 if the number of stations is less than or equal to 3, otherwise 4.
      */
-    fileprivate func repeatCount(_ stations: [_Station]) -> Int {
+    fileprivate func repeatCount(_ stations: [Station]) -> Int {
         return stations.count <= 3 ? 1 : 4
     }
     
@@ -94,7 +94,7 @@ final class VisitPresenter: Presenter {
      - returns:
      1 if the number of stations is less than or equal to 3, otherwise 2.
      */
-    fileprivate func repeatCountStartGroup(_ stations: [_Station]) -> Int {
+    fileprivate func repeatCountStartGroup(_ stations: [Station]) -> Int {
         return stations.count <= 3 ? 1 : 2
     }
     
@@ -211,7 +211,7 @@ extension VisitPresenter: DatePickerDelegate {
 // MARK: - StationSelectDelegate
 extension VisitPresenter: StationSelectDelegate {
     
-    func newStationsSelected(stations: [_Station]) {
+    func newStationsSelected(stations: [Station]) {
         
         // TODO - this is used for jumping to a selected station - haven't wired up yet from Visit module
         // should only be a single station
@@ -228,7 +228,7 @@ extension VisitPresenter: StationSelectDelegate {
 // MARK: - VisitPresenter API
 extension VisitPresenter: VisitPresenterApi {
     
-    func didUpdateRoute2(route: _Route, selectedIndex: Int) {
+    func didUpdateRoute2(route: Route, selectedIndex: Int) {
         //self.visitSummary.route = route
         
         // update the navigation strip
@@ -239,7 +239,7 @@ extension VisitPresenter: VisitPresenterApi {
         view.updateCurrentStation(index: stationIndex, repeatedGroup: self.repeatCountStartGroup(stations))
     }
     
-    func didSelectToRemoveTrap(trapType: _TrapType) {
+    func didSelectToRemoveTrap(trapType: TrapType) {
         
         _view.presentConfirmation(title: "Remove Trap", message: "Are you sure you want to remove this trap from the station?", response: {
             result in
@@ -253,7 +253,7 @@ extension VisitPresenter: VisitPresenterApi {
 
     }
     
-    func didSelectToAddTrap(trapType: _TrapType) {
+    func didSelectToAddTrap(trapType: TrapType) {
         
         interactor.addOrRestoreTrapToStation(station: self.currentStation, trapTypeId: trapType.id!)
         
@@ -377,11 +377,11 @@ extension VisitPresenter: VisitPresenterApi {
         interactor.deleteStation(route: self.visitSummary.route!, stationId: self.currentStation.id!)
     }
     
-    func didFetchInitialState(trapTypes: [_TrapType]) {
+    func didFetchInitialState(trapTypes: [TrapType]) {
         self.allTypeTypes = trapTypes
     }
     
-    func didFetchVisit(visit: _Visit) {
+    func didFetchVisit(visit: Visit) {
         
         // hold a reference to this visit - needed if user requests to delete it
         self.currentVisit = visit
@@ -417,7 +417,7 @@ extension VisitPresenter: VisitPresenterApi {
 }
 
 extension VisitPresenter: StationSearchDelegate {
-    func stationSearch(_ stationSearch: StationSearchView, didSelectStation station: _Station) {
+    func stationSearch(_ stationSearch: StationSearchView, didSelectStation station: Station) {
         
         if let route = self.visitSummary.route {
         
@@ -448,11 +448,15 @@ extension VisitPresenter: VisitLogDelegate {
     func didSelectToCreateNewVisit() {
 
         // get the current time on the same day as the visitSummary
-        if let date = self.visitSummary.dateOfVisit.setTimeToNow() {
-            if let trap = self.currentTrap {
-                let newVisit = _Visit(date: date, routeId: self.visitSummary.routeId, traplineId: self.currentStation.traplineId!, stationId: self.currentStation.id!, trapTypeId: trap.id!)
-                interactor.addVisit(visit: newVisit)
-            }
+        
+        
+        if let date = self.visitSummary.dateOfVisit.setTimeToNow(),
+            let trapTypeId = self.currentTrap?.id,
+            let traplineId = self.currentStation.traplineId,
+            let stationId = self.currentStation.id
+        {
+            let newVisit = Visit(date: date, routeId: self.visitSummary.routeId, traplineId: traplineId, stationId: stationId, trapTypeId: trapTypeId)
+            interactor.addVisit(visit: newVisit)
         }
     }
 }
@@ -491,11 +495,11 @@ extension VisitPresenter: ListPickerDelegate {
 //MARK: - TraplineSelectDelegate
 extension VisitPresenter: TraplineSelectDelegate {
     
-    func didCreateRoute(route: _Route) {
+    func didCreateRoute(route: Route) {
         // may not use
     }
     
-    func didUpdateRoute(route: _Route) {
+    func didUpdateRoute(route: Route) {
         // decide what to do with Visits no longer on route
         
         self.visitSummary.route = route

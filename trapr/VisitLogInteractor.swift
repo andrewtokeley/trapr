@@ -24,7 +24,7 @@ extension VisitLogInteractor: VisitLogInteractorApi {
 //    func deleteVisit(visit: Visit) {
 //        ServiceFactory.sharedInstance.visitService.delete(visit: visit)
 //    }
-    func retrieveViewModel(visit: _Visit, completion: ((VisitViewModel) -> Void)?) {
+    func retrieveViewModel(visit: Visit, completion: ((VisitViewModel) -> Void)?) {
         let visitViewModel = VisitViewModel(visit: visit)
         
         let dispatchGroup = DispatchGroup()
@@ -75,7 +75,7 @@ extension VisitLogInteractor: VisitLogInteractorApi {
         }
     }
     
-    func retrieveLookups(completion: (([_TrapType], [_Lure], [_Species]) -> Void)? ) {
+    func retrieveLookups(completion: (([TrapType], [Lure], [Species]) -> Void)? ) {
         trapTypeService.get { (trapTypes, error) in
             self.lureService.get { (lures, error) in
                 self.speciesService.get { (species, error) in
@@ -85,19 +85,19 @@ extension VisitLogInteractor: VisitLogInteractorApi {
         }
     }
     
-    func retrieveSpeciesList(completion: (([_Species]) -> Void)?) {
+    func retrieveSpeciesList(completion: (([Species]) -> Void)?) {
         speciesService.get { (species, error) in
             completion?(species)
         }
     }
     
-    func retrieveLuresList(completion: (([_Lure]) -> Void)?) {
+    func retrieveLuresList(completion: (([Lure]) -> Void)?) {
         lureService.get { (lures, error) in
             completion?(lures)
         }
     }
     
-    func saveVisit(visit: _Visit) {
+    func saveVisit(visit: Visit) {
         visitService.add(visit: visit, completion: nil)
     }
 }

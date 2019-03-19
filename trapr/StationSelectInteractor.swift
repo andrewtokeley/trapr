@@ -17,7 +17,7 @@ final class StationSelectInteractor: Interactor {
 // MARK: - StationSelectInteractor API
 extension StationSelectInteractor: StationSelectInteractorApi {
     
-    func getDefaultStation() -> _Station {
+    func getDefaultStation() -> Station {
     
         // TODO: change so that it defaults to the first station of the last trapline visited
         
@@ -27,7 +27,7 @@ extension StationSelectInteractor: StationSelectInteractorApi {
 //            return traplines!.first!.stations.first!
 //        }
         
-        return _Station(traplineId: "test", number: 0)
+        return Station(traplineId: "test", number: 0)
     }
 }
 

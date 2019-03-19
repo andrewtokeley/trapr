@@ -27,7 +27,7 @@ final class NewRouteView: UserInterface {
     
     fileprivate let TABLEVIEWCELL_ID = "cell"
     
-    fileprivate var traplines = [_Trapline]()
+    fileprivate var traplines = [Trapline]()
     
     //MARK: UIViewController
     
@@ -258,7 +258,7 @@ extension NewRouteView: NewRouteViewApi {
         nextButton.isEnabled = enabled
     }
     
-    func setTraplines(traplines: [_Trapline]) {
+    func setTraplines(traplines: [Trapline]) {
         self.traplines = traplines
     }
     

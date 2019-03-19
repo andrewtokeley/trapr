@@ -1,14 +1,26 @@
 //
-//  Lure.swift
+//  _Lure.swift
 //  trapr
 //
-//  Created by Andrew Tokeley  on 5/11/17.
-//  Copyright © 2017 Andrew Tokeley . All rights reserved.
+//  Created by Andrew Tokeley on 26/10/18.
+//  Copyright © 2018 Andrew Tokeley . All rights reserved.
 //
 
 import Foundation
-import RealmSwift
 
-class Lure: LookupObject {
+enum LureCode: String {
+    case cereal = "CERE"
+    case cerealWithWireMesh = "CMSH"
+    case apple = "APPL"
+    case cinnamon = "CINN"
+    case plasticLure = "PLAS"
+    case driedRabbit = "RABB"
+    case egg = "EGG"
+    case contracBloxPoison = "CBLOX"
+    case contracRodenticidePoison = "CRODT"
+    case other = "OTHR"
+}
+
+class Lure: Lookup {
     
 }

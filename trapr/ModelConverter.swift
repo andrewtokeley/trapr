@@ -10,11 +10,11 @@ import Foundation
 
 class ModelConverter {
     
-    static func Visit(_ visit: Visit) -> _Visit? {
+    static func Visit(_ visit: Visit) -> Visit? {
         
         if let regionId = visit.trap?.station?.trapline?.region?.code, let traplineId = visit.trap?.station?.trapline?.code, let stationCode = visit.trap?.station?.code {
             let stationId = "\(regionId)-\(traplineId)-\(stationCode)"
-            let visitFireStore = _Visit(date: visit.visitDateTime, routeId: visit.route!.id, traplineId: visit.trap!.station!.trapline!.id!, stationId: stationId, trapTypeId: visit.trap!.type!.code!)
+            let visitFireStore = Visit(date: visit.visitDateTime, routeId: visit.route!.id, traplineId: visit.trap!.station!.trapline!.id!, stationId: stationId, trapTypeId: visit.trap!.type!.code!)
             visitFireStore.baitAdded = visit.baitAdded
             visitFireStore.baitEaten = visit.baitEaten
             visitFireStore.baitRemoved = visit.baitRemoved
@@ -50,16 +50,16 @@ class ModelConverter {
         return nil
     }
     
-    static func Trapline(_ trapline: Trapline) -> _Trapline? {
+    static func Trapline(_ trapline: Trapline) -> Trapline? {
         if let code = trapline.code, let regionCode = trapline.region?.code {
-            return _Trapline(code: code, regionCode: regionCode, details: trapline.details ?? "")
+            return Trapline(code: code, regionCode: regionCode, details: trapline.details ?? "")
         }
         return nil
     }
     
-    static func Station(station: Station, traplineIdFS: String) -> _Station? {
+    static func Station(station: Station, traplineIdFS: String) -> Station? {
         if let number = station.codeAsNumber {
-            let stationFS = _Station(traplineId: traplineIdFS, number: number)
+            let stationFS = Station(traplineId: traplineIdFS, number: number)
             stationFS.latitude = station.latitude
             stationFS.longitude = station.longitude
             stationFS.traplineCode = station.trapline?.code

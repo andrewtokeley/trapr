@@ -11,9 +11,19 @@ import Viperit
 
 //MARK: VisitHistoryView Class
 final class VisitHistoryView: UserInterface {
-    fileprivate var visitSummaries = [_VisitSummary]()
+    fileprivate var visitSummaries = [VisitSummary]()
     fileprivate let CELL_REUSE_ID = "cell"
     fileprivate var selectedRow: IndexPath?
+    
+    //MARK: - Subviews
+    
+    lazy var noVisitsMessageLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = UIColor.lightGray
+        label.textAlignment = .center
+        label.alpha = 0 // hide initially, since usually there are visits
+        return label
+    }()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .grouped)
@@ -27,20 +37,32 @@ final class VisitHistoryView: UserInterface {
 
     }()
     
+    //MARK: - ViewController
     override func loadView() {
         super.loadView()
+        
+        self.view.backgroundColor = UIColor.trpBackground
         self.view.addSubview(tableView)
+        self.view.addSubview(noVisitsMessageLabel)
         
         setConstraints()
     }
     
+    //MARK: - Private Funcs
     private func setConstraints() {
         tableView.autoPinEdgesToSuperviewEdges()
+        
+        noVisitsMessageLabel.autoPinEdge(toSuperviewMargin: .top, withInset: LayoutDimensions.spacingMargin)
+        noVisitsMessageLabel.autoPinEdge(toSuperviewMargin: .left, withInset: LayoutDimensions.spacingMargin)
+        noVisitsMessageLabel.autoPinEdge(toSuperviewMargin: .right, withInset: LayoutDimensions.spacingMargin)
+        noVisitsMessageLabel.autoSetDimension(.height, toSize: 200)
+        
     }
 }
 
-//MARK: - UITableView
+//MARK: - UITableView Extension
 extension VisitHistoryView: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
@@ -121,46 +143,28 @@ extension VisitHistoryView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-//        let kCellActionWidth = CGFloat(120.0)// The width you want of delete button
-//        let kCellHeight = tableView.frame.size.height // The height you want of delete button
-//        let whitespace = whitespaceString(width: kCellActionWidth) // add the padding
-        
-        
         let deleteAction = UITableViewRowAction(style: .`default`, title: "Delete") {_,_ in
             // do whatever the action you want
             self.presenter.didSelectDeleteVisitSummary(visitSummary: self.visitSummaries[indexPath.section])
         }
-//
-//        // create a color from patter image and set the color as a background color of action
-//        let view = UIView(frame: CGRect(x: tableView.frame.size.width-kCellActionWidth, y: 0, width: kCellActionWidth, height: kCellHeight))
-//        view.backgroundColor = UIColor.red
-//        let imageView = UIImageView(frame: CGRect(x: 10,
-//                                                  y: 10,
-//                                                  width: 20,
-//                                                  height: 20))
-//        imageView.image = UIImage(named: "settings")! // required image
-//        view.addSubview(imageView)
-//        let image = view.image()
-//
-//        deleteAction.backgroundColor = UIColor.init(patternImage: image)
         return [deleteAction]
-    }
-    
-    fileprivate func whitespaceString(font: UIFont = UIFont.systemFont(ofSize: 15), width: CGFloat) -> String {
-        let kPadding: CGFloat = 20
-        let mutable = NSMutableString(string: "")
-        let attribute = [NSAttributedStringKey.font: font]
-        while mutable.size(withAttributes: attribute).width < width - (2 * kPadding) {
-            mutable.append(" ")
-        }
-        return mutable as String
     }
 }
 
 //MARK: - VisitHistoryView API
 extension VisitHistoryView: VisitHistoryViewApi {
     
-    func displayVisitSummaries(visitSummaries: [_VisitSummary], fullReload: Bool) {
+    func displayNoVisitsMessage(message: String) {
+        self.noVisitsMessageLabel.alpha = 1
+        self.tableView.alpha = 0
+        
+        self.noVisitsMessageLabel.text = message
+    }
+    
+    func displayVisitSummaries(visitSummaries: [VisitSummary], fullReload: Bool) {
+        self.tableView.alpha = 1
+        self.noVisitsMessageLabel.alpha = 0
+        
         self.visitSummaries = visitSummaries
         if fullReload {
             self.tableView.reloadData()

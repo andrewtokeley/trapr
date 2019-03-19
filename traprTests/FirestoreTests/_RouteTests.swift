@@ -10,12 +10,13 @@ import XCTest
 
 @testable import trapr_development
 
-class _RouteTests: XCTestCase {
+class _RouteTests: FirebaseTestCase {
 
     let routeService = ServiceFactory.sharedInstance.routeFirestoreService
+    let routeUserSettingsService = ServiceFactory.sharedInstance.routeUserSettingsFirestoreService
     let stationService = ServiceFactory.sharedInstance.stationFirestoreService
-    let dataPupulatorService = ServiceFactory.sharedInstance.dataPopulatorFirestoreService
     let traplineService = ServiceFactory.sharedInstance.traplineFirestoreService
+    let visitService = ServiceFactory.sharedInstance.visitFirestoreService
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -25,22 +26,93 @@ class _RouteTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testAddNewRoute() {
+    /// Tests that routes created by a user can be retrieved too via security
+    func testCreateAndGet() {
+        let expect = expectation(description: "testCreateAndGet")
         
-        let expect = expectation(description: "testAddNewRoute")
+        self.routeService.get(routeId: "Cro7vkpJbPAxZdj5swPR") { (route, error) in
+            
+            XCTAssertNotNil(route)
+            
+            expect.fulfill()
+        }
+        
+
+//        self.setupTests {
+//
+//            self.createTestRoute(name: "TESTRoute") { (route: Route?) in
+//                self.routeService.get(routeId: route!.id!) { (route, error) in
+//                    
+//                    XCTAssertNotNil(route)
+//                    
+//                    expect.fulfill()
+//                }
+//            }
+//        }
+        
+        waitForExpectations(timeout: 100) { (error) in
+            if let e = error {
+                XCTFail(e.localizedDescription)
+            }
+        }
+    }
+                
+    func testDaysSinceLastVisit() {
+        let expect = expectation(description: "testDaysSinceLastVisit")
         
         self.setupTests {
+            // add a new Trapline/Station/Route and 300 day old visit
+            self.createTestTrapline(regionId: "REG", traplineCode: "ZZ", numberOfStations: 1) { (trapline, stations) in
+                self.createTestRoute(name: "TestRoute") { (route: Route?) in
+                    self.createTestVisit(date: Date().add(-400, 0, 0), routeId: route!.id!, traplineId: trapline!.id!, stationId: stations[0].id!, trapTypeId: TrapTypeCode.doc200.rawValue) { (visit) in
+                        
+                        // test that the days since last visit correct
+                        self.routeService.daysSinceLastVisit(routeId: route!.id!) { (days) in
+                            XCTAssertTrue(days == 400)
+                            expect.fulfill()
+                        }
+                    }
+                }
+            }
+        }
+        
+        waitForExpectations(timeout: 100) { (error) in
+            if let e = error {
+                XCTFail(e.localizedDescription)
+            }
+        }
+        
+    }
+    
+    func testAddOwners() {
+        let expect = expectation(description: "testAddOwners")
+        self.setupTests() {
             
-            let newRoute = _Route(id: "ER", name: "East Ridge")
+            // add an ownerless route
             
-            self.routeService.add(route: newRoute) { (route, error) in
-                XCTAssertNil(error)
-                XCTAssertNotNil(route)
+            let route = try! Route(name: "New Route", stationIds: [String]())
+            // this will add the current users as the owner and the creator
+            let _ = self.routeService.add(route: route) { (route, error) in
                 
-                XCTAssertTrue(route?.id == "ER")
-                XCTAssertTrue(route?.name == "East Ridge")
-                
-                expect.fulfill()
+                // delete the permissions for the current user to the route (they'll just be the creator)
+                self.routeUserSettingsService.delete(routeId: route!.id!) { (error) in
+
+                    // we should receive no permissions for the current user
+                    self.routeUserSettingsService.get(routeId: route!.id!) { (settings, error) in
+                        XCTAssertNil(settings)
+                        
+                        // this method should give th creator permissions on the route again
+                        self.routeService._addOwnerToOwnerlessRoutes {
+                            
+                            // we should now get permissions for the current user
+                            self.routeUserSettingsService.get(routeId: route!.id!) { (settings, error) in
+                                XCTAssertNotNil(settings)
+                                //
+                                expect.fulfill()
+                            }
+                        }
+                    }
+                }
             }
         }
         
@@ -57,58 +129,30 @@ class _RouteTests: XCTestCase {
         
         self.setupTests {
             // Create LW01, LW02, LW03
-            self.dataPupulatorService.createTrapline(code: "LW", numberOfStations: 3, numberOfTrapsPerStation: 1) { (traplineLW) in
-                
-                if let id = traplineLW?.id {
-                    self.stationService.get(traplineId: id) { (stationsLW) in
-                
-                        // Create AA01, AA02, AA03, AA04
-                        self.dataPupulatorService.createTrapline(code: "AA", numberOfStations: 4, numberOfTrapsPerStation: 1) { (traplineAA) in
+            self.createTestTrapline(regionId: "REF", traplineCode: "LW", numberOfStations: 3) { (traplineLW, stationsLW) in
+            
+                // Create AA01, AA02, AA03, AA04
+                self.createTestTrapline(regionId: "REF", traplineCode: "AA", numberOfStations: 4)  { (traplineAA, stationsAA) in
+                    
+                    // Create a new Route with Stations in the order of LW01, LW02, AA01, LW03, AA03, AA04
+                    self.createTestRoute(name: "Route") { (route) in
+                    
+                        let stationIds = [stationsLW[0].id!, stationsLW[1].id!, stationsAA[0].id!, stationsLW[2].id!, stationsAA[2].id!, stationsAA[3].id!]
                             
-                            if let id = traplineAA?.id {
-                                self.stationService.get(traplineId: id, completion: { (stationsAA) in
-                                    
-                                    // Create a new Route with Stations in the order of LW01, LW02, AA01, LW03, AA03, AA04
-                                    let newRoute = _Route(id: "ER", name: "East Ridge #1")
-                                    self.routeService.add(route: newRoute, completion: { (route, error) in
-                                        
-                                        let stationIds = [stationsLW[0].id!, stationsLW[1].id!, stationsAA[0].id!, stationsLW[2].id!, stationsAA[2].id!, stationsAA[3].id!]
-                                        
-                                        // Add stations to Route
-                                        self.routeService.replaceStationsOn(routeId: route!.id!, stationIds: stationIds, completion: { (route, error) in
-                                            
-                                            // check route has stations
-                                            XCTAssertTrue(route?.stationIds.count == 6)
-                                            XCTAssertTrue(route?.stationIds.first == stationsLW[0].id)
-                                            XCTAssertTrue(route?.stationIds.last == stationsAA[3].id)
-                                            
-                                            // check each station refers to route
-                                            self.stationService.get(stationIds: stationIds, completion: { (stations, error) in
-                                                
-                                                for station in stations {
-                                                    XCTAssertNotNil(station.routeId)
-                                                    XCTAssertTrue(station.routeId == route?.id)
-                                                }
-                                            })
-                                            
-                                            expect.fulfill()
-                                        })
-                                    })
-
-                                })
-                            } else {
-                                // traplineAA has no id
-                                XCTFail()
-                            }
+                        // Add stations to Route
+                        self.routeService.replaceStationsOn(routeId: route!.id!, stationIds: stationIds) { (route, error) in
+                            
+                            // check route has stations
+                            XCTAssertTrue(route?.stationIds.count == 6)
+                            XCTAssertTrue(route?.stationIds.first == stationsLW[0].id)
+                            XCTAssertTrue(route?.stationIds.last == stationsAA[3].id)
+                            
+                            expect.fulfill()
                         }
                     }
-                } else {
-                    // traplineLW has no id
-                    XCTFail()
                 }
             }
         }
-        
         waitForExpectations(timeout: 100) { (error) in
             if let e = error {
                 XCTFail(e.localizedDescription)
@@ -116,21 +160,33 @@ class _RouteTests: XCTestCase {
         }
     }
     
+    func testSetUp() {
+        self.setupTests {
+            //check no routes are returned for the current user
+            self.routeService.get(completion: { (routes, error) in
+                XCTAssertTrue(routes.count == 0)
+            })
+        }
+    }
+    
     private func setupTests(completion: (() -> Void)?) {
-        // Delete all routes before running each test
-        self.routeService.delete { (error) in
-            self.traplineService.deleteAll { (error) in
-                self.stationService.deleteAll { (error) in
-                    completion?()
+        self.deleteTestRoutes {
+            self.deleteTestTraplines {
+                self.deleteTestStations {
+                    self.deleteTestVisits {
+                        completion?()
+                    }
                 }
             }
         }
     }
+    
+    
 //    func testAddStationsToRoute() {
 //        
 //        // create some stations
 //        stationService.deleteAll { (error) in
-//            let station1 = _Station(number: 1)
+//            let station1 = Station(number: 1)
 //            //station1.
 //            self.stationService.add(station: station1, completion: { (station, error) in
 //                //

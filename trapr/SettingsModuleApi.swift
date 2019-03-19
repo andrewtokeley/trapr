@@ -18,15 +18,17 @@ protocol SettingsViewApi: UserInterfaceProtocol {
     func setTitle(title: String?)
     //func setFirestoreSyncProgress(message: String, progress: Double)
     //func displayTrapperName(name: String?)
-    func displayVersionNumbers(appVersion: String, realmVersion: String)
+    func displayVersionNumber(version: String)
+    func displayDoSomethingProgress(message: String)
     func displayEmailVisitsRecipient(emailAddress: String?)
-    func displayEmailOrdersRecipient(emailAddress: String?)
+    //func displayEmailOrdersRecipient(emailAddress: String?)
     func enableHideRoutes(enable: Bool)
     //func setFocusToRouteName()
 }
 
 //MARK: - ProfilePresenter API
 protocol SettingsPresenterApi: PresenterProtocol {
+    func didClickDoSomething()
     func didSelectClose()
     func didUpdateEmailVisitsRecipient(emailAddress: String?)
     func didUpdateEmailOrdersRecipient(emailAddress: String?)
@@ -40,9 +42,10 @@ protocol SettingsPresenterApi: PresenterProtocol {
 
 //MARK: - ProfileInteractor API
 protocol SettingsInteractorApi: InteractorProtocol {
-    func updateDashboardRoutes(routes: [_Route], showIndexes: [Int])
+    func updateDashboardRoutes(routes: [Route], showIndexes: [Int])
     func save(settings: UserSettings)
     func get(completion: ((UserSettings?) -> Void)?)
-    func getRoutes(completion: (([_Route]) -> Void)?)
+    func getRoutes(completion: (([Route]) -> Void)?)
     //func firestoreSync(completion: ((String, Double, Error?) -> Void)?)
+    func doSomething(progress: ((Double, String, Bool) -> Void)?)
 }

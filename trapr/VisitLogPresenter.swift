@@ -14,22 +14,22 @@ final class VisitLogPresenter: Presenter {
     
     var delegate: VisitLogDelegate?
     
-    fileprivate var currentVisit: _Visit?
+    fileprivate var currentVisit: Visit?
     
-    fileprivate var species: [_Species]?
-    fileprivate var catchableSpecies: [_Species]?
+    fileprivate var species: [Species]?
+    fileprivate var catchableSpecies: [Species]?
     
-    fileprivate var lures: [_Lure]?
-    fileprivate var availableLures: [_Lure]?
+    fileprivate var lures: [Lure]?
+    fileprivate var availableLures: [Lure]?
     
-    fileprivate var trapTypes = [_TrapType]()
+    fileprivate var trapTypes = [TrapType]()
     
     fileprivate let LIST_SPECIES = 0
     fileprivate let LIST_LURE = 1
     fileprivate let LIST_TRAP_OPERATING_STATUS = 2
     fileprivate let LIST_TRAP_SET_STATUS = 3
     
-    var currentTrapType: _TrapType? {
+    var currentTrapType: TrapType? {
         return self.trapTypes.filter({ $0.id ==  self.currentVisit!.trapTypeId }).first
     }
     
@@ -101,11 +101,11 @@ final class VisitLogPresenter: Presenter {
 
 extension VisitLogPresenter: VisitDelegate {
 
-    func editVisit(visit: _Visit) {
+    func editVisit(visit: Visit) {
         
     }
     
-    func didChangeVisit(visit: _Visit?) {
+    func didChangeVisit(visit: Visit?) {
         
         // this is the first entry point to the presenter, so let's make sure we have things set up
         self.initialisePresenter {

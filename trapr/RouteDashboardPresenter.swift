@@ -21,15 +21,15 @@ final class RouteDashboardPresenter: Presenter {
     
     let MENU_EDIT_STATIONS = "Add/Remove Stations"
     let MENU_CHANGE_ORDER = "Change Visit Order"
-    let MENU_HIDE = "Hide from Dashboard"
+    //let MENU_HIDE = "Hide from Dashboard"
     let MENU_DELETE = "Delete"
-    let MENU_UPDATE_DASHBOARD_IMAGE = "Update Dashboard Image"
+    //let MENU_UPDATE_DASHBOARD_IMAGE = "Update Dashboard Image"
     
     var hasMapViewBeenAdded: Bool = false
     
     var newRouteFromStartModule: Bool = false
     var order: Int = 1
-    //var proposedStationOrder = ObjectOrder<_Station>()
+    //var proposedStationOrder = ObjectOrder<Station>()
     var proposedStationOrder = ObjectOrder<String>()
     var proposedStationIds = [String]()
     var previouslySelectedStationId: String?
@@ -44,6 +44,7 @@ final class RouteDashboardPresenter: Presenter {
     
     var routeInformation: RouteInformation!
     var visitInformation: VisitInformation!
+    var user: User?
     
     var isMapExpanded: Bool {
         // if we're showing the collapse button we assume we're expanded
@@ -56,12 +57,14 @@ final class RouteDashboardPresenter: Presenter {
     
     //var route: _Route!
     //var allStations: [LocatableEntity]?
-    var allStations: [_Station]?
+    var allStations: [Station]?
     
     override func setupView(data: Any) {
         
         if let setupData = data as? RouteDashboardSetup {
         
+            self.user = interactor.currentUser()
+            
             self.currentResizeButtonState = .expand
             
             // EDITING EXISTING ROUTE
@@ -90,17 +93,21 @@ final class RouteDashboardPresenter: Presenter {
                 // TODO: consider this instead...
                 //self.interactor.retrieveRouteInformation(route: nil)
                 self.routeInformation = RouteInformation()
-                self.routeInformation.routeName = routeName
                 
-                // no visits yet.
-                self.visitInformation = VisitInformation()
-                
-                if let initialStation = setupData.station {
-                    self.proposedStationIds = [initialStation.id!]
-                    self.previouslySelectedStationId = initialStation.id
+                self.routeInformation.route = try? Route(name: routeName, stationIds: [String]())
+                if self.routeInformation.route != nil {
+                    // no visits yet.
+                    self.visitInformation = VisitInformation()
+                    
+                    if let initialStation = setupData.station {
+                        self.proposedStationIds = [initialStation.id!]
+                        self.previouslySelectedStationId = initialStation.id
+                    }
+                    self.refreshStationViews()
+                    self.refreshVisitViews()
+                } else {
+                    // means the user is not authenticated - shouldn't happen
                 }
-                self.refreshStationViews()
-                self.refreshVisitViews()
             }
         }
     }
@@ -119,7 +126,9 @@ final class RouteDashboardPresenter: Presenter {
         } else if isEditingStations {
             view.displayTitle("Stations", editable: false)
         } else {
-            view.displayTitle(self.routeInformation.routeName, editable: true)
+            if let routeName = self.routeInformation.route?.name {
+                view.displayTitle(routeName, editable: true)
+            }
         }
     }
     
@@ -129,15 +138,14 @@ final class RouteDashboardPresenter: Presenter {
         if let information = self.visitInformation {
         
             if information.numberOfVisits > 0 {
+                view.showVisitDetails(show: true)
+                view.displayVisitNumber(number: String(information.numberOfVisits), allowSelection: true)
+                view.displayTimes(description: information.timeDescription, allowSelection: false)
+                view.displayLastVisitedDate(date: information.lastVisitedText ?? "-", allowSelection: information.lastVisitedText != nil)
                 view.displayVisitNumber(number: String(information.numberOfVisits), allowSelection: true)
             } else {
-                view.displayVisitNumber(number: "-", allowSelection: false)
+                view.showVisitDetails(show: false)
             }
-            
-            view.displayTimes(description: information.timeDescription, allowSelection: false)
-            view.displayLastVisitedDate(date: information.lastVisitedText ?? "-", allowSelection: information.lastVisitedText != nil)
-            view.displayVisitNumber(number: String(information.numberOfVisits), allowSelection: true)
-            
             if let killCounts = visitInformation.killCounts {
                 view.configureKillChart(catchSummary: killCounts)
             }
@@ -157,8 +165,10 @@ final class RouteDashboardPresenter: Presenter {
         if let information = self.routeInformation {
         
             view.displayStationSummary(summary: information.stationDescriptionsWithCodes, numberOfStations: information.stations.count)
-        
-             view.displayTitle(information.routeName, editable: true)
+            
+            if let name = information.route?.name {
+                view.displayTitle(name, editable: true)
+            }
         
             if self.proposedStationIds.count > 0 {
                 view.setTitleOfSelectAllStations(title: "Select All Stations on \(information.stationDescriptionsWithoutCodes)")
@@ -258,6 +268,17 @@ final class RouteDashboardPresenter: Presenter {
 }
 
 
+//MARK: - ViewHistoryDelegate
+extension RouteDashboardPresenter: VisitHistoryDelegate {
+    func visitHistoryIsAboutToClose(deletedVisits: Bool) {
+        if deletedVisits {
+            if let route = self.routeInformation.route {
+                self.interactor.retrieveVisitInformation(route: route)
+            }
+        }
+    }
+}
+
 //MARK: - StationMapDelegate
 extension RouteDashboardPresenter: StationMapDelegate {
     
@@ -352,7 +373,7 @@ extension RouteDashboardPresenter: StationMapDelegate {
         // edit mode
         if isEditingStations {
             // all stations "near" route stations?
-            return self.allStations ?? [_Station]()
+            return self.allStations ?? [Station]()
         }
         // if viewing an existing Route, just show the route stations
         return self.routeInformation.stations
@@ -474,7 +495,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
     
     func didUpdateRouteName(name: String?) {
         
-        self.routeInformation.routeName = name ?? ""
+        self.routeInformation.route?.name = name ?? ""
         saveRoute()
     }
     
@@ -497,20 +518,19 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
     func didSelectEditMenu() {
         
         let hasStations = self.routeInformation.stations.count > 0
-        let menuOptions = [
-            OptionItem(title: MENU_EDIT_STATIONS, isEnabled: true, isDestructive: false),
+        var menuOptions = [
             OptionItem(title: MENU_CHANGE_ORDER, isEnabled: hasStations, isDestructive: false),
-            OptionItem(title: MENU_HIDE, isEnabled: true, isDestructive: false),
-            OptionItem(title: MENU_UPDATE_DASHBOARD_IMAGE, isEnabled: true, isDestructive: false),
             OptionItem(title: MENU_DELETE, isEnabled: true, isDestructive: true)]
+        
+        if user?.isInRole(role: .admin) ?? false {
+            menuOptions.insert(OptionItem(title: MENU_EDIT_STATIONS, isEnabled: true, isDestructive: false), at: 0)
+        }
         
         (view as? UserInterface)?.displayMenuOptions(options: menuOptions, actionHandler: {
             (title) in
             if title == self.MENU_EDIT_STATIONS { self.didSelectEditStations() }
             else if title == self.MENU_CHANGE_ORDER { self.didSelectEditOrder() }
-            else if title == self.MENU_HIDE { self.didSelectHideRoute() }
             else if title == self.MENU_DELETE { self.didSelectDeleteRoute() }
-            else if title == self.MENU_UPDATE_DASHBOARD_IMAGE { self.didSelectUpdateDasboardImage() }
         })
     }
     
@@ -548,7 +568,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
     }
     
     private func deleteAndCloseRoute() {
-        if let routeId = self.routeInformation.routeId {
+        if let routeId = self.routeInformation.route?.id {
             interactor.deleteRoute(routeId: routeId)
         }
     }
@@ -603,31 +623,35 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
     
     func didSelectEditOrder() {
 
-        // reset the order of stations to that of the route
-        self.proposedStationOrder = ObjectOrder(objects: self.routeInformation.stations.map( { $0.id! }))
+        if let routeId = self.routeInformation.route?.id {
+            router.showOrderStationsModule(routeId: routeId, stations: routeInformation.stations)
+        }
         
-        
-        isEditingOrder = true
-        isEditingStations = false
-        setTitle()
-        updateButtonStates()
-        view.showEditNavigation(true)
-        view.showEditOrderOptions(true)
-        view.displayFullScreenMap()
-        
-        view.reloadMap(forceAnnotationRebuild: true)
+//        // reset the order of stations to that of the route
+//        self.proposedStationOrder = ObjectOrder(objects: self.routeInformation.stations.map( { $0.id! }))
+//
+//
+//        isEditingOrder = true
+//        isEditingStations = false
+//        setTitle()
+//        updateButtonStates()
+//        view.showEditNavigation(true)
+//        view.showEditOrderOptions(true)
+//        view.displayFullScreenMap()
+//
+//        view.reloadMap(forceAnnotationRebuild: true)
         
     }
     
     func didSelectEditDone() {
 
     
-        var stations: [_Station]!
+        var stations: [Station]!
         
         if isEditingOrder {
-            stations = self.allStations?.filter({ self.proposedStationOrder.orderedObjects.contains($0.locationId) }) ?? [_Station]()
+            stations = self.allStations?.filter({ self.proposedStationOrder.orderedObjects.contains($0.locationId) }) ?? [Station]()
         } else {
-            stations = self.allStations?.filter({ self.proposedStationIds.contains($0.locationId) }) ?? [_Station]()
+            stations = self.allStations?.filter({ self.proposedStationIds.contains($0.locationId) }) ?? [Station]()
         }
         
         // update local data so we don't have to rely on updates below completing to update the View
@@ -638,12 +662,13 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
         // persist changes
         if isNewRoute {
             // create a new Route
-            let route = _Route(name: self.routeInformation.routeName, stationIds: stations.map({$0.id!}))
-            self.routeInformation.routeId = interactor.saveRoute(route: route)
-            
+            if let route = self.routeInformation.route {
+                route.stationIds = stations.map({$0.id!})
+                route.id = interactor.saveRoute(route: route)
+            }
         } else {
             // update existing Route
-            if let routeId = self.routeInformation.routeId {
+            if let routeId = self.routeInformation.route?.id {
                 if isEditingOrder {
                     self.interactor.updateStationsOnRoute(routeId: routeId, stationIds: self.proposedStationOrder.orderedObjects)
                 } else if isEditingStations {

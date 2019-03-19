@@ -11,7 +11,7 @@ import Viperit
 
 private struct NewRouteParameters {
     var routeName: String?
-    var initialStation: _Station?
+    var initialStation: Station?
     
     var complete: Bool {
         return routeName != nil && initialStation != nil
@@ -27,12 +27,12 @@ final class NewRoutePresenter: Presenter {
     
     fileprivate var newRouteParameters = NewRouteParameters()
     
-    fileprivate var traplines = [_Trapline]()
-    fileprivate var stations = [_Station]()
-    fileprivate var regions = [_Region]()
+    fileprivate var traplines = [Trapline]()
+    fileprivate var stations = [Station]()
+    fileprivate var regions = [Region]()
 
-    fileprivate var selectedTrapline: _Trapline?
-    fileprivate var selectedRegion: _Region?
+    fileprivate var selectedTrapline: Trapline?
+    fileprivate var selectedRegion: Region?
 
     override func viewIsAboutToAppear() {
         _view.setTitle(title: "New Route")
@@ -112,13 +112,13 @@ extension NewRoutePresenter: NewRoutePresenterApi {
         }
     }
     
-    func didFetchTraplines(traplines: [_Trapline]) {
+    func didFetchTraplines(traplines: [Trapline]) {
         self.traplines = traplines
         
         view.setTraplines(traplines: traplines)
     }
     
-    func didFetchRegions(regions: [_Region]) {
+    func didFetchRegions(regions: [Region]) {
         self.regions = regions
         
         if let defaultRegion = self.regions.first, let routeId = defaultRegion.id {
@@ -128,7 +128,7 @@ extension NewRoutePresenter: NewRoutePresenterApi {
         }
     }
     
-    func didFetchStations(stations: [_Station]) {
+    func didFetchStations(stations: [Station]) {
         self.stations = stations
     }
 }

@@ -16,11 +16,11 @@ final class RouteDashboardView: UserInterface {
     
     var mapBottomConstaint: NSLayoutConstraint?
     var mapTopConstraint: NSLayoutConstraint?
+    var tableHeightConstraint: NSLayoutConstraint?
     
     let MAP_HEIGHT_MIN: CGFloat = 350
     let GRAPH_HEIGHT: CGFloat = 200
     
-    let NUMBER_OF_SUMMARY_CELLS = 4
     let CELL_ID = "cell"
     let ROW_LASTVISITED = 1
     let ROW_VISITS = 2
@@ -29,6 +29,9 @@ final class RouteDashboardView: UserInterface {
     var killNumberOfBars: Int = 0
     var poisonNumberOfBars: Int = 0
     var poisonCountFunction: ((Int) -> Int)?
+    
+    /// Number of summary cells, 4 if there are visits, otherwise 1.
+    var numberOfSummaryCells = 0
     
     var heightOfScrollableArea: CGFloat {
         // 3 row tableview, 2 graphs with headings + a little extra
@@ -359,8 +362,8 @@ final class RouteDashboardView: UserInterface {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("SCROLL: \(scrollView.contentSize)")
     }
+    
     override func loadView() {
         super.loadView()
         
@@ -421,7 +424,7 @@ final class RouteDashboardView: UserInterface {
         summaryTableView.autoPinEdge(toSuperviewEdge: .top)
         summaryTableView.autoPinEdge(toSuperviewEdge: .left)
         summaryTableView.autoPinEdge(toSuperviewEdge: .right)
-        summaryTableView.autoSetDimension(.height, toSize: CGFloat(NUMBER_OF_SUMMARY_CELLS) * LayoutDimensions.tableCellHeight * 1.2)
+        tableHeightConstraint = summaryTableView.autoSetDimension(.height, toSize: CGFloat(0))
         
         barChartKillsTitle.autoPinEdge(.top, to: .bottom, of: summaryTableView, withOffset: LayoutDimensions.smallSpacingMargin)
         barChartKillsTitle.autoPinEdge(toSuperviewEdge: .left)
@@ -452,9 +455,11 @@ final class RouteDashboardView: UserInterface {
 //MARK: - SummaryTableView
 
 extension RouteDashboardView: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return NUMBER_OF_SUMMARY_CELLS
+        return numberOfSummaryCells
     }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -507,6 +512,17 @@ extension RouteDashboardView: UITextFieldDelegate {
 //MARK: - RouteDashboardView API
 extension RouteDashboardView: RouteDashboardViewApi {
     
+    func showVisitDetails(show: Bool) {
+        if show {
+            numberOfSummaryCells = 4
+        } else {
+            numberOfSummaryCells = 1
+        }
+        tableHeightConstraint?.constant = CGFloat(numberOfSummaryCells) * LayoutDimensions.tableCellHeight
+        self.view.layoutIfNeeded()
+        summaryTableView.reloadData()
+    }
+    
     func setMapResizeIconState(state: ResizeState) {
         resizeButton.alpha = state == .hidden ? 0 : 1
         if state != .hidden {
@@ -515,17 +531,18 @@ extension RouteDashboardView: RouteDashboardViewApi {
     }
     
     func configureKillChart(catchSummary: StackCount) {
-        if !catchSummary.isZero {
+        //if !catchSummary.isZero {
+        
             barChartKills.alpha = 1
             barChartKillsTitle.alpha = 1
             self.killNumberOfBars = catchSummary.counts.count
             let yValues = catchSummary.counts.map({ $0.map( { Double($0) }) })
             
             barChartKills.buildData(yValues: yValues, stackLabels: catchSummary.labels, stackColors: UIColor.trpStackChartColors )
-        } else {
-            barChartKills.alpha = 0
-            barChartKillsTitle.alpha = 0
-        }
+        //} else {
+        //    barChartKills.alpha = 0
+        //    barChartKillsTitle.alpha = 0
+        //}
     }
     
     func configurePoisonChart(poisonSummary: StackCount) {

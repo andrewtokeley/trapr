@@ -12,8 +12,8 @@ import Photos
 
 struct VisitInformation {
     var lastVisitedText: String?
-    var lastVisitSummary: _VisitSummary?
-    var visitSummaries = [_VisitSummary]()
+    var lastVisitSummary: VisitSummary?
+    var visitSummaries = [VisitSummary]()
     var timeDescription: String = ""
     var numberOfVisits: Int = 0
     var killCounts: StackCount?
@@ -21,31 +21,36 @@ struct VisitInformation {
 }
 
 struct RouteInformation {
-    var routeId: String?
-    var routeName: String = "New Route"
-    var stations = [_Station]()
+    var route: Route?
+//    var routeId: String?
+//    var routeName: String = "New Route"
+    var stations = [Station]()
     var stationDescriptionsWithoutCodes: String = "-"
     var stationDescriptionsWithCodes: String = "-"
 }
 
 // MARK: - RouteDashboardInteractor Class
 final class RouteDashboardInteractor: Interactor {
-    let dataPopulatorService = ServiceFactory.sharedInstance.dataPopulatorFirestoreService
     let stationService = ServiceFactory.sharedInstance.stationFirestoreService
     let routeService = ServiceFactory.sharedInstance.routeFirestoreService
     let visitSummaryService = ServiceFactory.sharedInstance.visitSummaryFirestoreService
     let visitService = ServiceFactory.sharedInstance.visitFirestoreService
     let speciesService = ServiceFactory.sharedInstance.speciesFirestoreService
+    let userService = ServiceFactory.sharedInstance.userService
 }
 
 // MARK: - RouteDashboardInteractor API
 extension RouteDashboardInteractor: RouteDashboardInteractorApi {
     
-    func saveRoute(route: _Route) -> String {
+    func currentUser() -> User? {
+        return userService.currentUser
+    }
+    
+    func saveRoute(route: Route) -> String {
         return routeService.add(route: route, completion: nil)
     }
     
-    func retrieveVisitInformation(route: _Route) {
+    func retrieveVisitInformation(route: Route) {
         
         var information = VisitInformation()
         
@@ -70,12 +75,12 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
         }
     }
     
-    func retrieveRouteInformation(route: _Route) {
+    func retrieveRouteInformation(route: Route) {
         
         var information = RouteInformation()
-        
-        information.routeName = route.name
-        information.routeId = route.id
+        information.route = route
+//        information.routeName = route.name
+//        information.routeId = route.id
         
         // Get the route stations
         self.stationService.get(routeId: route.id!) { (stations) in
@@ -90,18 +95,18 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
     }
     
     // TODO: this is retrieving ALL stations - should name to this effect
-    func retrieveStations(completion: (([_Station]) -> Void)?) {
+    func retrieveStations(completion: (([Station]) -> Void)?) {
         stationService.get { (stations) in
             completion?(stations)
         }
     }
     
-    func getStationsDescription(stations: [_Station], includeStationCodes: Bool) -> String {
+    func getStationsDescription(stations: [Station], includeStationCodes: Bool) -> String {
         return self.stationService.description(stations: stations, includeStationCodes: true)
     
     }
     
-    func setRouteImage(route: _Route, asset: PHAsset, completion: (() -> Swift.Void)?) {
+    func setRouteImage(route: Route, asset: PHAsset, completion: (() -> Swift.Void)?) {
         // TODO: update saved image service to Firebase too
 //        ServiceFactory.sharedInstance.savedImageService.addOrUpdateSavedImage(asset: asset, completion: {
 //            (savedImage) in
@@ -115,7 +120,7 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
 //        })
     }
   
-    func getStationSequence(fromStationId: String, toStationId: String, completion: (([_Station], Error?) -> Void)?)  {
+    func getStationSequence(fromStationId: String, toStationId: String, completion: (([Station], Error?) -> Void)?)  {
         
         self.stationService.getStationSequence(fromStationId: fromStationId, toStationId: toStationId) { (stations, error) in
             completion?(stations, nil)
@@ -123,7 +128,7 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
         //return ServiceFactory.sharedInstance.stationService.getStationSequence(from, to)
     }
     
-    func killCounts(visitSummaries: [_VisitSummary]) -> StackCount? {
+    func killCounts(visitSummaries: [VisitSummary]) -> StackCount? {
         
         // this array of dictionaries will contain the kill counts by species for each bar (month) of the chart
         var killsByMonth = [[String: Int]]()
@@ -169,7 +174,7 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
         return StackCount(allSpeciesById, counts)
     }
     
-    func poisonCounts(visitSummaries: [_VisitSummary]) -> StackCount? {
+    func poisonCounts(visitSummaries: [VisitSummary]) -> StackCount? {
 
         let stackLabels = ["Poison"]
         var counts = [[Int]](repeating: [Int](repeating: 0, count: 1), count: 12)

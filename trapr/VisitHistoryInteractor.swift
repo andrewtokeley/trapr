@@ -18,14 +18,16 @@ final class VisitHistoryInteractor: Interactor {
 // MARK: - VisitHistoryInteractor API
 extension VisitHistoryInteractor: VisitHistoryInteractorApi {
     
-    func deleteVisitSummary(visitSummary: _VisitSummary) {
-        visitService.delete(visitSummary: visitSummary, completion: nil)
+    func deleteVisitSummary(visitSummary: VisitSummary, completion: ((Error?) -> Void)?) {
+        visitService.delete(visitSummary: visitSummary) { (error) in
+            completion?(error)
+        }
     }
     
-    func getVisitSummariesForRoute(routeId: String, completion: (([_VisitSummary], Error?) -> Void)?) {
+    func getVisitSummariesForRoute(routeId: String, completion: (([VisitSummary], Error?) -> Void)?) {
         // Get all the summaries from year dot, order with the most recent first
         visitSummaryService.get(recordedBetween: Date().add(0,0,-100), endDate: Date(), routeId: routeId) { (visitSummaries, error) in
-            completion?(visitSummaries.sorted(by: { $0.dateOfVisit > $1.dateOfVisit}), error)
+            completion?(visitSummaries, error)
         }
     }
     

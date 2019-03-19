@@ -21,7 +21,7 @@ extension NewRouteRouter: NewRouteRouterApi {
         module.router.show(from: _view, embedInNavController: setupData.embedInNavController, setupData: setupData)
     }
     
-    func showRouteDashboard(newRouteName: String, station: _Station) {
+    func showRouteDashboard(newRouteName: String, station: Station) {
         let setupData = RouteDashboardSetup()
         setupData.newRouteName = newRouteName
         setupData.station = station

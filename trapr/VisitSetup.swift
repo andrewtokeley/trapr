@@ -10,5 +10,5 @@ import Foundation
 
 class VisitSetup {
     /// The VisitSummary instance representing either a new or existing set of visits
-    var visitSummary: _VisitSummary?
+    var visitSummary: VisitSummary?
 }

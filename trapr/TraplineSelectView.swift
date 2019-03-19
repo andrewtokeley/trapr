@@ -12,8 +12,8 @@ import Viperit
 //MARK: TraplineSelectView Class
 final class TraplineSelectView: UserInterface {
     
-    fileprivate var traplines: [_Trapline]!
-    fileprivate var selectedTraplines: [_Trapline]?
+    fileprivate var traplines: [Trapline]!
+    fileprivate var selectedTraplines: [Trapline]?
     
     fileprivate var TABLEVIEW_CELL_ID = "cell"
     fileprivate var NEXT_BUTTON_TEXT = "Next"
@@ -227,7 +227,7 @@ extension TraplineSelectView: TraplineSelectViewApi {
         self.selectedTraplinesText.text = description
     }
     
-    func updateDisplay(traplines: [_Trapline], selected: [_Trapline]?) {
+    func updateDisplay(traplines: [Trapline], selected: [Trapline]?) {
         self.traplines = traplines
         self.selectedTraplines = selected
         self.tableView.reloadData()

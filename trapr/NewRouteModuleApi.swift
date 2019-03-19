@@ -12,14 +12,14 @@ import Viperit
 protocol NewRouteRouterApi: RouterProtocol {
     func showListPicker(setupData: ListPickerSetupData)
     //func showRouteDashboard(newRouteName: String, station: Station)
-    func showRouteDashboard(newRouteName: String, station: _Station)
+    func showRouteDashboard(newRouteName: String, station: Station)
 }
 
 //MARK: - NewRouteView API
 protocol NewRouteViewApi: UserInterfaceProtocol {
     func displayRouteName(name: String?)
     func enableNextButton(enabled: Bool)
-    func setTraplines(traplines: [_Trapline])
+    func setTraplines(traplines: [Trapline])
     func displaySelectedRegion(description: String?)
     func displaySelectedTrapline(description: String?)
     func displaySelectedStation(description: String?)
@@ -36,9 +36,9 @@ protocol NewRoutePresenterApi: PresenterProtocol {
 //    func didFetchTraplines(traplines: [Trapline])
 //    func didFetchRegions(regions: [Region])
 //    func didFetchStations(stations: [Station])
-    func didFetchTraplines(traplines: [_Trapline])
-    func didFetchRegions(regions: [_Region])
-    func didFetchStations(stations: [_Station])
+    func didFetchTraplines(traplines: [Trapline])
+    func didFetchRegions(regions: [Region])
+    func didFetchStations(stations: [Station])
     
 }
 

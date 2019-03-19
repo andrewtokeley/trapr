@@ -17,11 +17,13 @@ enum FirestoreEntityServiceError: Error {
     case updateFailed
     case generalError
     case entityNotFound
+    case accessDenied
 }
 
 class FirestoreEntityService<T: DocumentSerializable>  {
     
-    var source: FirestoreSource = .cache
+    /// Default behaviour is to read from the cache
+    //var source: FirestoreSource = .cache
     
     var firestore: Firestore
     private var entityCollectionName: String
@@ -36,7 +38,7 @@ class FirestoreEntityService<T: DocumentSerializable>  {
     }
         
     /**
-     Adds a new entity to firestore. If the document representing the entity already exists it is updated, otherwise a new document is created.
+     Adds a new entity to firestore. If the document representing the entity already exists it is updated, otherwise a new document is created. Documents will immediately be written to the cache, and will try to be written to the server too. If offline, the documents will be written the next time the app goes online.
      
      - parameters:
         - entity: an object that represents a document in firestore that implements DocumentSerializable
@@ -64,10 +66,10 @@ class FirestoreEntityService<T: DocumentSerializable>  {
     }
     
     /**
-     Adds a new entity to firestore
+     Adds a new entity to firestore. Documents will immediately be written to the cache, and will try to be written to the server too. If offline, the documents will be written the next time the app goes online.
      
      - parameters:
-        - entities: an array of objects that represent documents in firestore. Each entity must implement DocumentSerializable
+        - entities: an array of objects that represent documents in firestore. Each entity must implement DocumentSerializable.
         - completion: closure that is called after the add action is complete. The closure will be passed a String? representing the id of the newly added document or an Error? if something went wrong. The block will not be called if offline :-(
      */
     func add(entities: [T], completion: (([T], Error?) -> Void)?) {
@@ -89,7 +91,7 @@ class FirestoreEntityService<T: DocumentSerializable>  {
     }
     
     /**
-     Updates the document represented by the entity. If the document matching the entity doesn't exist in Firestore, calling this method will NOT add a new document and an error will be returned in the completion closure.
+     Updates the document represented by the entity. If the document matching the entity doesn't exist in Firestore, calling this method will NOT add a new document and an error will be returned in the completion closure. Documents will immediately be written to the cache, and will try to be written to the server too. If offline, the documents will be written the next time the app goes online.
      
      - parameters:
         - entity: the entity to update
@@ -112,7 +114,7 @@ class FirestoreEntityService<T: DocumentSerializable>  {
     }
     
     /**
-     Get a specific entity by its id
+     Get a specific entity by its id. By default data is read from the cache. You can override this by setting the source.
      
      - parameters:
         - id: the entity id that matches a documentId the collection
@@ -127,13 +129,13 @@ class FirestoreEntityService<T: DocumentSerializable>  {
     }
     
     /**
-     Get an array of entities matching the ids
+     Get an array of entities matching the ids. This method will only ever look in the cache.
      
      - parameters:
         - ids: array of entity ids
         - completion: closure that is called after the get action is complete. The closure will be passed a fully instantiated array of entities or an Error if the get action failed.
      */
-    func get(ids: [String], completion: (([T], Error?) -> Void)?) {
+    func get(ids: [String], source: FirestoreSource = .cache, completion: (([T], Error?) -> Void)?) {
         
         // currently no way to do this in a single call, need to get each document and merge
         var results = [T]()
@@ -142,7 +144,7 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         let dispatchGroup = DispatchGroup()
         for id in ids {
             dispatchGroup.enter()
-            self.get(id: id) { (result, error) in
+            self.get(id: id, source: source) { (result, error) in
                 if let error = error {
                     lastError = error
                 } else if let result = result {
@@ -158,7 +160,7 @@ class FirestoreEntityService<T: DocumentSerializable>  {
     }
     
     /**
-     Retrieve an array of all entities.
+     Retrieve an array of all entities. You can override the default behaviour of only reading from the cahce by setting the source.
      
      - important:
      Be careful that you don't return too many large results. The default result set is 1000, but for large datasets this could still be too large. Consider whether you can filter the results
@@ -180,7 +182,7 @@ class FirestoreEntityService<T: DocumentSerializable>  {
     }
     
     /**
-     Retrieve an array of all entities ordered (ascending) by the given field.
+     Retrieve an array of all entities ordered (ascending) by the given field. You can override the default behaviour of only reading from the cahce by setting the source.
      
      - important:
      Be careful that you don't return too many large results. The default result set is 1000, but for large datasets this could still be too large. Consider whether you can filter the results
@@ -197,7 +199,7 @@ class FirestoreEntityService<T: DocumentSerializable>  {
     }
     
     /**
-     Retrieves all documents from the Firestore that are located in the entities collection
+     Retrieves all documents from the Firestore that are located in the entities collection. You can override the default behaviour of only reading from the cahce by setting the source.
      
      - parameters:
         - orderByField: the name of the field to order by (ascending)
@@ -225,8 +227,8 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         - isEqualTo:
         - completion: closure that is called after the get action is complete. The closure will be passed a fully instantiated entity or an Error if the get action failed.
      */
-    func get(whereField: String, isEqualTo: Any, completion: (([T], Error?) -> Void)?) {
-        self.collection.whereField(whereField, isEqualTo: isEqualTo).getDocuments(source: self.source) { (snapshot, error) in
+    func get(whereField: String, isEqualTo: Any, source: FirestoreSource = .cache, completion: (([T], Error?) -> Void)?) {
+        self.collection.whereField(whereField, isEqualTo: isEqualTo).getDocuments(source: source) { (snapshot, error) in
             
             if let error = error {
                 completion?([T](), error)
@@ -238,7 +240,7 @@ class FirestoreEntityService<T: DocumentSerializable>  {
     }
     
     /**
-     Retrieves all documents from the Firestore that are located in the entities collection where the field is greater than the value supplied.
+     Retrieves all documents from the Firestore that are located in the entities collection where the field is greater than the value supplied. Always reads from the cache.
      
      - Parameters:
         - whereField: the name of the field to compare with
@@ -247,9 +249,9 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         - limit: maximum number of records that will be returned
         - completion: closure that is called after the get action is complete. The closure will be passed a fully instantiated entity or an Error if the get action failed.
      */
-    func get(whereField: String, isEqualTo: Any, orderByField: String, limit: Int, completion: (([T], Error?) -> Void)?) {
+    func get(whereField: String, isEqualTo: Any, orderByField: String, limit: Int, source: FirestoreSource = .cache, completion: (([T], Error?) -> Void)?) {
         
-        self.collection.whereField(whereField, isEqualTo: isEqualTo).order(by: orderByField).limit(to: limit).getDocuments(source: self.source) { (snapshot, error) in
+        self.collection.whereField(whereField, isEqualTo: isEqualTo).order(by: orderByField).limit(to: limit).getDocuments(source: source) { (snapshot, error) in
             
             if let error = error {
                 completion?([T](), error)
@@ -269,9 +271,9 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         - isGreaterThan: value to compare against
         - completion: closure that is called after the get action is complete. The closure will be passed a fully instantiated entity or an Error if the get action failed.
      */
-    func get(whereField: String, isGreaterThan: Any, completion: (([T], Error?) -> Void)?) {
+    func get(whereField: String, isGreaterThan: Any, source: FirestoreSource = .cache, completion: (([T], Error?) -> Void)?) {
         
-        self.collection.whereField(whereField, isGreaterThan: isGreaterThan).getDocuments(source: self.source) { (snapshot, error) in
+        self.collection.whereField(whereField, isGreaterThan: isGreaterThan).getDocuments(source: source) { (snapshot, error) in
             
             if let error = error {
                 completion?([T](), error)
@@ -291,9 +293,9 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         - isLessThan: value to compare against
         - completion: closure that is called after the get action is complete. The closure will be passed a fully instantiated entity or an Error if the get action failed.
      */
-    func get(whereField: String, isLessThan: Any, completion: (([T], Error?) -> Void)?) {
+    func get(whereField: String, isLessThan: Any, source: FirestoreSource = .cache, completion: (([T], Error?) -> Void)?) {
         
-        self.collection.whereField(whereField, isLessThan: isLessThan).getDocuments(source: self.source) { (snapshot, error) in
+        self.collection.whereField(whereField, isLessThan: isLessThan).getDocuments(source: source) { (snapshot, error) in
             
             if let error = error {
                 completion?([T](), error)
@@ -313,9 +315,9 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         - andLessThan: value to compare against.
         - completion: closure that is called after the get action is complete. The closure will be passed a fully instantiated entity or an Error if the get action failed.
      */
-    func get(whereField: String, isGreaterThan: Any, andLessThan: Any, completion: (([T], Error?) -> Void)?) {
+    func get(whereField: String, isGreaterThan: Any, andLessThan: Any, source: FirestoreSource = .cache, completion: (([T], Error?) -> Void)?) {
         
-        self.collection.whereField(whereField, isGreaterThan: isGreaterThan).whereField(whereField, isLessThan: andLessThan).getDocuments(source: self.source) { (snapshot, error) in
+        self.collection.whereField(whereField, isGreaterThan: isGreaterThan).whereField(whereField, isLessThan: andLessThan).getDocuments(source: source) { (snapshot, error) in
             
             if let error = error {
                 completion?([T](), error)
@@ -324,6 +326,18 @@ class FirestoreEntityService<T: DocumentSerializable>  {
                 completion?(entities, nil)
             }
         }
+    }
+    
+    /**
+     Adds a delete operation to the batch for the given entityId. The caller of this operation is responsible for committing the batch.
+     
+     - parameters:
+        - entityId: the entity id representing the document to delete
+        - batch: the `WriteBatch` to add the delete operation to
+     */
+    func delete(entityId: String, batch: WriteBatch) {
+        let reference = self.collection.document(entityId)
+        batch.deleteDocument(reference)
     }
     
     /**
@@ -337,7 +351,7 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         
         let reference = self.collection.document(entityId)
         
-        // perform the delete - this will trigger the listener whether online or not
+        // perform the delete
         reference.delete { (error) in
             completion?(error)
         }
@@ -361,64 +375,63 @@ class FirestoreEntityService<T: DocumentSerializable>  {
     }
     
     /**
-     Deletes all the document, referenced by the entities, from firestore
+     Deletes all the document, referenced by the entities. Documents will be deleted inside a batch operation.
      
      - parameters:
-     - entities: array of enitites that represents a document in firestore that implements DocumentSerializable
-     - completion: closure that is called after the delete action is complete. The closure will be passed Error if the delete action failed, otherwise nil. Unlike Firestore API this closure will be called even if you're offline.
+        - entities: array of enitites that represents a document in firestore that implements DocumentSerializable
+        - completion: closure that is called after the delete action is complete. The closure will be passed Error if the delete action failed, otherwise nil. Unlike Firestore API this closure will be called even if you're offline.
      */
     func delete(entities: [T], completion: ((Error?) -> Void)?) {
-        var lastError: Error?
-        let dispatchGroup = DispatchGroup()
+        let batch = self.firestore.batch()
         for entity in entities {
-            dispatchGroup.enter()
-            self.delete(entity: entity) { (error) in
-                lastError = error
-                dispatchGroup.leave()
-            }
+            let documentReference = self.documentReference(entity: entity)
+            batch.deleteDocument(documentReference)
         }
-        dispatchGroup.notify(queue: .main) {
-            completion?(lastError)
-        }
+        // fire and forget - if offline the batch will wait until online to commit
+        batch.commit()
+        
+        completion?(nil)
     }
 
     /**
-     Deletes all documents from the firestore collection
+     Deletes all the document, referenced by the entityIds. Documents will be deleted inside a batch operation.
+     
+     - parameters:
+        - entityIds: array of enitity ids that represent the documents in firestore to remove
+        - completion: closure that is called after the delete action is complete. The closure will be passed Error if the delete action failed, otherwise nil. Unlike Firestore API this closure will be called even if you're offline.
+     */
+    func delete(entityIds: [String], completion: ((Error?) -> Void)?) {
+        let batch = firestore.batch()
+        
+        for id in entityIds {
+            self.delete(entityId: id, batch: batch)
+        }
+        
+        // fire and forget, deletes will be removed from cache, even if offline
+        batch.commit()
+        
+        completion?(nil)
+    }
+    
+    /**
+     Deletes all documents from the firestore collection. Will attempt to read documents from the server, but will default to only deleting documents it can see in the cache, if offline. Documents are deleted in a batch.
      
      - parameters:
      - completion: optional closure that is called after the delete action is complete. The closure will be passed Error if the delete action failed, otherwise nil.
      */
     func deleteAllEntities(completion: ((Error?) -> Void)?) {
-        
-        var lastError: Error?
-        let dispatchGroup = DispatchGroup()
-        print("deleting all documents from \(self.collection.collectionID)")
-        dispatchGroup.enter()
-        self.collection.getDocuments(source: self.source) { (snapshot, error) in
-            lastError = error
+
+        self.collection.getDocuments(source: .default) { (snapshot, error) in
             if let snapshot = snapshot {
-                print("\(self.collection.collectionID): \(snapshot.count) documents")
                 let entities = self.getEntitiesFromQuerySnapshot(snapshot: snapshot)
-                print("\(self.collection.collectionID): \(entities.count) entities")
-                for entity in entities {
-                    dispatchGroup.enter()
-                    self.delete(entity: entity) { (error) in
-                        lastError = error
-                        dispatchGroup.leave()
-                    }
-                }
-                dispatchGroup.leave()
-            
+                self.delete(entities: entities, completion: { (error) in
+                    completion?(error)
+                })
             } else {
-                // leave straight away, nothing to delete or there was an error
-                lastError = error
-                dispatchGroup.leave()
+                // leave straight away, nothing to delete
+                completion?(nil)
             }
         }
-        
-        dispatchGroup.notify(queue: .main, execute: {
-            completion?(lastError)
-        })
     }
     
     //MARK: - Private functionas

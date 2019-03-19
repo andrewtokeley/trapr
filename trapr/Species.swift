@@ -1,14 +1,23 @@
 //
-//  Species.swift
+//  _Species.swift
 //  trapr
 //
-//  Created by Andrew Tokeley  on 13/09/17.
-//  Copyright © 2017 Andrew Tokeley . All rights reserved.
+//  Created by Andrew Tokeley on 25/10/18.
+//  Copyright © 2018 Andrew Tokeley . All rights reserved.
 //
 
 import Foundation
-import RealmSwift
 
-class Species: LookupObject {
+enum SpeciesCode: String {
+    case possum = "POS"
+    case rat = "RAT"
+    case mouse = "MOU"
+    case hedgehog = "HED"
+    case cat = "CAT"
+    case stoat = "STO"
+    case other = "OTHR"
+}
+
+class Species: Lookup {
     
 }

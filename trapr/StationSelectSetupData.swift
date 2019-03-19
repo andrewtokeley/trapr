@@ -16,42 +16,42 @@ protocol StationSelectDelegate {
     /*
      Tells the delegate that new stations have been selected
     */
-    func newStationsSelected(stations: [_Station])
+    func newStationsSelected(stations: [Station])
 }
 
 class StationSelectSetupData {
     
-    var traplines: [_Trapline]
+    var traplines: [Trapline]
     
-    var traplineStations: [_Station] {
+    var traplineStations: [Station] {
         //TODO: WTF
-        return [_Station]()
+        return [Station]()
     }
     /**
      Used for displaying a subset of trapline stations (i.e. when quick navigating to a station for a Route)
     */
-    var stations: [_Station]
+    var stations: [Station]
     var selectedStationIds: [String]?
     var allowMultiselect: Bool = true
     
     //var newVisitDelegate: NewVisitDelegate?
     var stationSelectDelegate: StationSelectDelegate?
     
-    init(traplines: [_Trapline], stations: [_Station], selectedStationIds: [String]) {
+    init(traplines: [Trapline], stations: [Station], selectedStationIds: [String]) {
         self.traplines = traplines
         self.stations = stations
         self.selectedStationIds = selectedStationIds
     }
     
-//    convenience init(traplines: [_Trapline]) {
+//    convenience init(traplines: [Trapline]) {
 //        
 //        // by default include all stations from the lines
-//        var stations = [_Station]()
+//        var stations = [Station]()
 //        for trapline in traplines {
 //            stations.append(contentsOf: trapline.stationIds)
 //        }
 //        
-//        self.init(traplines: traplines, stations: stations, selectedStations: [_Station]())
+//        self.init(traplines: traplines, stations: stations, selectedStations: [Station]())
 //    }
     
     

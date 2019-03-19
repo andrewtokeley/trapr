@@ -31,6 +31,7 @@ enum AppModules: String, ViperitModule {
     case stationSearch
     case signIn
     case administration
+    case orderStations
     
     var viewType: ViperitViewType {
         return .code

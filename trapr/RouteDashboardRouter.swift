@@ -17,7 +17,7 @@ final class RouteDashboardRouter: Router {
 // MARK: - RouteDashboardRouter API
 extension RouteDashboardRouter: RouteDashboardRouterApi {
     
-    func showVisitModule(visitSummary: _VisitSummary) {
+    func showVisitModule(visitSummary: VisitSummary) {
         // waiting on this one until I commit to converting Visit modules
         let module = AppModules.visit.build()
         
@@ -52,11 +52,23 @@ extension RouteDashboardRouter: RouteDashboardRouterApi {
         mapViewController.didMove(toParentViewController: _view)
     }
     
-    func showVisitHistoryModule(visitSummaries: [_VisitSummary]) {
+    func showOrderStationsModule(routeId: String, stations: [Station]) {
+        let module = AppModules.orderStations.build()
+        let setupData = OrderStationsSetupData()
+        setupData.stations = stations
+        setupData.routeId = routeId
+        
+        // Remove title from back button
+        _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
+    }
+    
+    func showVisitHistoryModule(visitSummaries: [VisitSummary]) {
         let module = AppModules.visitHistory.build()
         let setupData = VisitHistorySetupData()
         setupData.visitSummaries = visitSummaries
-        //setupData.route = nil
+        setupData.delegate = _presenter as? VisitHistoryDelegate
         
         // Remove title from back button
         _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)

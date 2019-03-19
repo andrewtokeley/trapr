@@ -23,9 +23,9 @@ protocol CachePrimerServiceInterface {
      - Regions
      
      - parameters:
-        - progress: closure to report progress of service call. The first parameter is a value between 0 and 1, where 1 indicates the service has completed priming the cache. The second parameter contains a description of progress suitable to be displayed to the user.
+        - progress: closure to report progress of service call. The first parameter is a value between 0 and 1, where 1 indicates the service has completed priming the cache. The second parameter contains a description of progress suitable to be displayed to the user. The final parameter returns whether the process has completed (which in some cases isn't when the first parameter is 1)
     */
-    func primeCache(progress: ((Double, String) -> Void)?)
+    func primeCache(progress: ((Double, String, Bool) -> Void)?)
     
     /**
      Returns, via the closure, whether the cache is already primed. If true, basic lookup and station data is present and the app will function fine, even if offline. If false, the cache must be primed before the app run.

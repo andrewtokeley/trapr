@@ -9,5 +9,5 @@
 import Foundation
 
 protocol StationSearchDelegate {
-    func stationSearch(_ stationSearch: StationSearchView, didSelectStation station: _Station)
+    func stationSearch(_ stationSearch: StationSearchView, didSelectStation station: Station)
 }

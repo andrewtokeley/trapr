@@ -15,8 +15,8 @@ final class LoaderPresenter: Presenter {
     fileprivate var delegate: LoaderDelegate?
     fileprivate var reachability: Reachability?
     fileprivate let cacheService = ServiceFactory.sharedInstance.cachePrimerFirestoreService
-    fileprivate let OFFLINE_FOR_FIRST_USE_MESSAGE = "When you first use Trapr you must be online. Try again when you have a connection."
-    fileprivate let START_ERROR_MESSAGE = "Well, that wasn't meant to happen. The App can't start at the moment, close it and try again."
+    fileprivate let OFFLINE_FOR_FIRST_USE_MESSAGE = "When you first use Trapr you must be online. \nTry again when you have a connection."
+    fileprivate let START_ERROR_MESSAGE = "Well, that wasn't meant to happen. \nThe App can't start at the moment, close it and try again."
     override func setupView(data: Any) {
 //        if let setupData = data as? LoaderPresenterSetupData {
 //            self.delegate = setupData.delegate
@@ -27,22 +27,38 @@ final class LoaderPresenter: Presenter {
 
     override func viewHasLoaded() {
         super.viewHasLoaded()
-       
-        // check whether online
+        
         checkConnection()
+        
+//        let dispatchGroup = DispatchGroup()
+//        
+//        if !interactor.isInTestMode {
+//            checkConnection()
+//        } else {
+//            // if testing, prime the cache and don't finish the load event until it's done. This ensure the cache is fully primed before any tests run.
+//            dispatchGroup.enter()
+//            self.ifOnline(primeCache: true) {
+//                dispatchGroup.leave()
+//            }
+//        }
+//        
+//        print("waiting...")
+//        dispatchGroup.wait()
+//        print("done!")
+        
     }
     
-    fileprivate func checkConnection() {
+    fileprivate func checkConnection(completion: (() -> Void)? = nil) {
         
         // test we can connect to something
         self.reachability = Reachability(hostname: "google.com")
         
-        self.reachability?.whenReachable = { reachability in
-            self.ifOnline(primeCache: true)
+        self.reachability?.whenReachable = { _ in
+            self.ifOnline(primeCache: true, completion: completion)
         }
         
         self.reachability?.whenUnreachable = { _ in
-            self.ifOffline()
+            self.ifOffline(completion: completion)
         }
         
         do {
@@ -52,19 +68,20 @@ final class LoaderPresenter: Presenter {
         }
     }
     
-    fileprivate func ifOffline() {
+    fileprivate func ifOffline(completion: (() -> Void)? = nil) {
         // it's ok to be offline if the cache has been primed.
         cacheService.cachePrimed { (isCachePrimed) in
             if !isCachePrimed {
                 self.view.updateProgressMessage(message: self.OFFLINE_FOR_FIRST_USE_MESSAGE)
+                completion?()
             } else {
                 // Offline but core data is present in the cache, so let them through as if they were online but don't bother trying to prime the cache
-                self.ifOnline(primeCache: false)
+                self.ifOnline(primeCache: false, completion: completion)
             }
         }
     }
     
-    fileprivate func ifOnline(primeCache: Bool) {
+    fileprivate func ifOnline(primeCache: Bool, completion: (() -> Void)? = nil) {
     
         view.updateProgressMessage(message: "")
         interactor.registerAuthenticatedUser { (user) in
@@ -77,20 +94,21 @@ final class LoaderPresenter: Presenter {
                 
                 // TODO: won't need this and can replace with call to fade()
                 if primeCache {
-                    self.primeCache()
+                    self.primeCache(completion: completion)
                 } else {
+                    completion?()
                     self.fadeAndNavigateAway()
                 }
             
             } else {
-                
                 self.view.showSignInButton(show: true)
+                completion?()
             }
         }
     }
     
-    fileprivate func primeCache() {
-        interactor.primeCache()
+    fileprivate func primeCache(completion: (() -> Void)? = nil) {
+        interactor.primeCache(completion: completion)
     }
     
     /// Fade the view and navigate away to the Start module

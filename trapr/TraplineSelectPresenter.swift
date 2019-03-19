@@ -14,9 +14,9 @@ final class TraplineSelectPresenter: Presenter {
     
     fileprivate var delegate: TraplineSelectDelegate?
     
-    fileprivate var route: _Route?
+    fileprivate var route: Route?
     fileprivate var routeName: String?
-    fileprivate var selectedTraplines = [_Trapline]()
+    fileprivate var selectedTraplines = [Trapline]()
     fileprivate var selectedTraplinesText: String {
         return selectedTraplines.map({ (trapline) -> String in return trapline.code }).joined(separator: ", ")
     }
@@ -58,7 +58,7 @@ final class TraplineSelectPresenter: Presenter {
 //MARK: - StationSelectDelegate
 extension TraplineSelectPresenter: StationSelectDelegate {
     
-    func newStationsSelected(stations: [_Station]) {
+    func newStationsSelected(stations: [Station]) {
         
         if let _ = route {
             // we have a Route so need to update the stations on it
@@ -68,11 +68,11 @@ extension TraplineSelectPresenter: StationSelectDelegate {
         } else {
             
             // create a new route
-            let route = _Route(name: self.routeName!, stationIds: stations.map({$0.id!}))
-            interactor.addRoute(route: route)
+            if let route = try? Route(name: self.routeName!, stationIds: stations.map({$0.id!})) {
+                self.interactor.addRoute(route: route)
             
-            self.delegate?.didCreateRoute(route: route)
-            
+                self.delegate?.didCreateRoute(route: route)
+            }
             // close view
             _view.navigationController?.popViewController(animated: true)
         }
@@ -87,13 +87,13 @@ extension TraplineSelectPresenter: TraplineSelectPresenterApi {
         self.routeName = name
     }
     
-    func didSelectTrapline(trapline: _Trapline) {
+    func didSelectTrapline(trapline: Trapline) {
         self.selectedTraplines.append(trapline)
         view.setSelectedTraplinesDescription(description: selectedTraplinesText)
         view.setNextButtonState(enabled: true)
     }
     
-    func didDeselectTrapline(trapline: _Trapline) {
+    func didDeselectTrapline(trapline: Trapline) {
         if let index = selectedTraplines.index(of: trapline) {
             selectedTraplines.remove(at: index)
             if selectedTraplines.count == 0 {

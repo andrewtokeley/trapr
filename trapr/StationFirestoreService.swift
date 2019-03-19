@@ -15,7 +15,7 @@ fileprivate struct LureTotals {
     var eaten: Int = 0
 }
 
-class StationFirestoreService: FirestoreEntityService<_Station> {
+class StationFirestoreService: FirestoreEntityService<Station> {
     private lazy var trapTypeService = { ServiceFactory.sharedInstance.trapTypeFirestoreService }()
     private lazy var traplineService = { ServiceFactory.sharedInstance.traplineFirestoreService }()
     private lazy var visitService = { ServiceFactory.sharedInstance.visitFirestoreService }()
@@ -42,7 +42,7 @@ extension StationFirestoreService: StationServiceInterface {
         }
     }
     
-    func updateActiveState(station: _Station, trapTypeId: String, active: Bool, completion: ((_Station?, Error?) -> Void)?) {
+    func updateActiveState(station: Station, trapTypeId: String, active: Bool, completion: ((Station?, Error?) -> Void)?) {
         
         var trapTypeStatus = station.trapTypes.filter({ $0.trapTpyeId == trapTypeId }).first
         
@@ -56,12 +56,12 @@ extension StationFirestoreService: StationServiceInterface {
         }
     }
     
-    func addTrapTypeToStation(station: _Station, trapTypeId: String, completion:  (([_Station], Error?) -> Void)?) {
+    func addTrapTypeToStation(station: Station, trapTypeId: String, completion:  (([Station], Error?) -> Void)?) {
     
         
     }
     
-    func removeTrapType(station: _Station, trapTypeId: String, completion: ((_Station?, Error?) -> Void)?) {
+    func removeTrapType(station: Station, trapTypeId: String, completion: ((Station?, Error?) -> Void)?) {
         // TODO: do I need to do this? Or can I change station directly?
         let stationRef = station
         stationRef.trapTypes.removeAll { $0.trapTpyeId == trapTypeId }
@@ -70,13 +70,13 @@ extension StationFirestoreService: StationServiceInterface {
         })
     }
     
-    func add(station: _Station, completion: ((_Station?, Error?) -> Void)?) {
+    func add(station: Station, completion: ((Station?, Error?) -> Void)?) {
         let _ = super.add(entity: station) { (station, error) in
             completion?(station, error)
         }
     }
 
-    func add(stations: [_Station], completion: (([_Station], Error?) -> Void)?) {
+    func add(stations: [Station], completion: (([Station], Error?) -> Void)?) {
         super.add(entities: stations) { (stations, error) in
             completion?(stations, error)
         }
@@ -135,10 +135,10 @@ extension StationFirestoreService: StationServiceInterface {
 //    }
 //    func updateStationsOnRoute(routeId: String, stationIds: [String], completion: ((Error?) -> Void)?){
 //    }
-//    func replaceStationsOnRoute(routeId: String, withStations stationIds: [String], completion: (([_Station], Error?) -> Void)?) {
+//    func replaceStationsOnRoute(routeId: String, withStations stationIds: [String], completion: (([Station], Error?) -> Void)?) {
 //        
 //    }
-//    func reorderStations(routeId: String, stationOrder: [String: Int], completion: (([_Station], Error?) -> Void)?) {
+//    func reorderStations(routeId: String, stationOrder: [String: Int], completion: (([Station], Error?) -> Void)?) {
 //        
 //    }
     
@@ -148,51 +148,65 @@ extension StationFirestoreService: StationServiceInterface {
         }
     }
     
+    func delete(stationIds: [String], completion: ((Error?) -> Void)?) {
+        
+        let batch = firestore.batch()
+        
+        for id in stationIds {
+            super.delete(entityId: id, batch: batch)
+        }
+        
+        batch.commit { (error) in
+            completion?(error)
+        }
+    }
+
     func deleteAll(completion: ((Error?) -> Void)?) {
         super.deleteAllEntities { (error) in
             completion?(error)
         }
     }
     
-    func searchStations(searchTerm: String, regionId: String, completion: (([_Station]) -> Void)?) {
+    func searchStations(searchTerm: String, regionId: String, completion: (([Station]) -> Void)?) {
         self.collection.whereField(StationFields.region.rawValue, isEqualTo: regionId).whereField(StationFields.traplineId.rawValue, isEqualTo:searchTerm).getDocuments { (snapshot, error) in
             
             completion?(super.getEntitiesFromQuerySnapshot(snapshot: snapshot))
         }
     }
     
-    func get(stationId: String, completion: ((_Station?, Error?) -> Void)?) {
+    func get(stationId: String, completion: ((Station?, Error?) -> Void)?) {
         super.get(id: stationId) { (station, error) in
             completion?(station, error)
         }
     }
     
-    func get(stationIds: [String], completion: (([_Station], Error?) -> Void)?) {
+    func get(stationIds: [String], completion: (([Station], Error?) -> Void)?) {
         super.get(ids: stationIds) { (stations, error) in
             completion?(stations, error)
         }
     }
     
-    func get(source: FirestoreSource, completion: (([_Station]) -> Void)?) {
+    func get(source: FirestoreSource, completion: (([Station]) -> Void)?) {
         super.get(source: source, limit: 1000) { (stations, error) in
             completion?(stations)
         }
     }
     
-    func get(completion: (([_Station]) -> Void)?) {
+    
+    func get(completion: (([Station]) -> Void)?) {
         super.get(orderByField: StationFields.number.rawValue) { (stations, error) in
             completion?(stations)
         }
     }
     
-    func get(regionId: String, completion: (([_Station]) -> Void)?) {
+    func get(regionId: String, completion: (([Station]) -> Void)?) {
         super.get(whereField: StationFields.region.rawValue, isEqualTo: regionId) { (stations, error) in
             //TODO: completion?(stations, error)
             completion?(stations)
         }
     }
     
-    func get(routeId: String, completion: (([_Station]) -> Void)?) {
+    func get(routeId: String, completion: (([Station]) -> Void)?) {
 
         routeService.get(routeId: routeId) { (route, error) in
             if let route = route {
@@ -200,7 +214,7 @@ extension StationFirestoreService: StationServiceInterface {
                     completion?(stations)
                 }
             } else {
-                completion?([_Station]())
+                completion?([Station]())
             }
         }
 //        super.get(whereField: StationFields.route.rawValue, isEqualTo: routeId) { (stations, error) in
@@ -209,7 +223,7 @@ extension StationFirestoreService: StationServiceInterface {
 //        }
     }
     
-    func get(traplineId: String, completion: (([_Station]) -> Void)?) {
+    func get(traplineId: String, completion: (([Station]) -> Void)?) {
         super.get(whereField: StationFields.traplineId.rawValue, isEqualTo: traplineId) { (stations, error) in
             let ordered = stations.sorted(by: { $0.number < $1.number })
             completion?(ordered)
@@ -251,8 +265,8 @@ extension StationFirestoreService: StationServiceInterface {
 //        }
 //    }
     
-    func reverseOrder(stations: [_Station]) -> [_Station] {
-        var reordered = [_Station]()
+    func reverseOrder(stations: [Station]) -> [Station] {
+        var reordered = [Station]()
         for i in stride(from: stations.count - 1, through: 0, by: -1) {
             reordered.append(stations[i])
         }
@@ -261,11 +275,11 @@ extension StationFirestoreService: StationServiceInterface {
 
     /** DEPRACTED
      */
-    func isStationCentral(station: _Station, completion: ((Bool) -> Void)?) {
+    func isStationCentral(station: Station, completion: ((Bool) -> Void)?) {
         completion?(false)
     }
     
-    func getStationSequence(fromStationId: String, toStationId: String,  completion: (([_Station], Error?) -> Void)?) {
+    func getStationSequence(fromStationId: String, toStationId: String,  completion: (([Station], Error?) -> Void)?) {
         
         // get all the stations on the trapline
         self.get(stationId: fromStationId) { (station, error) in
@@ -275,10 +289,10 @@ extension StationFirestoreService: StationServiceInterface {
                     
                     if stations.filter({ $0.id == fromStationId || $0.id == toStationId }).count != 2 {
                         // stations not on the same trapline
-                        completion?([_Station](), nil)
+                        completion?([Station](), nil)
                     } else {
                     
-                        var sequence = [_Station]()
+                        var sequence = [Station]()
                         if let fromIndex = stations.firstIndex (where: { $0.id == fromStationId } ), let toIndex = stations.firstIndex (where: { $0.id == toStationId } ) {
                             var index = fromIndex
                             for i in 0...abs(fromIndex-toIndex) {
@@ -294,7 +308,7 @@ extension StationFirestoreService: StationServiceInterface {
         }
     }
     
-    func getActiveOrHistoricTraps(route: _Route, station: _Station, date: Date, completion: (([_TrapType]) -> Void)?) {
+    func getActiveOrHistoricTraps(route: Route, station: Station, date: Date, completion: (([TrapType]) -> Void)?) {
         
         // get the active traptypes from the station
         let trapTypesStatus = station.trapTypes.filter { (status) -> Bool in
@@ -312,50 +326,66 @@ extension StationFirestoreService: StationServiceInterface {
         }
     }
     
-    func getMissingStations(completion: (([String]) -> Void)?) {
+    
+    func getMissingStationIds(completion: (([String]) -> Void)?) {
+
+        var missingStationIds = [String]()
         
+        self.traplineService.get { (traplines) in
+            let dispatchGroup = DispatchGroup()
+            for trapline in traplines {
+                dispatchGroup.enter()
+                self.getMissingStationIds(trapline: trapline, completion: { (missingIds) in
+                    missingStationIds += missingIds
+                    dispatchGroup.leave()
+                })
+            }
+            
+            dispatchGroup.notify(queue: .main) {
+                completion?(missingStationIds)
+            }
+        }
+        
+    }
+
+    func getMissingStationIds(trapline: Trapline, completion: (([String]) -> Void)?) {
+    
         var missingStations = [String]()
         
-        // get all the stations
-        self.get { (stations) in
+        // get all the stations for the trapline
+        self.get(traplineId: trapline.id!) { (stations) in
             
-                
-            // get references to each unique trapline
-            let traplineIds = self.traplineService.extractTraplineReferencesFromStations(stations: stations)
+            let traplineId = trapline.id!
             
-            // find the gaps in each trapline
-            for traplineId in traplineIds {
+            let stationsOnTrapline = stations.filter({ (station) -> Bool in
+                station.traplineId == traplineId
+            }).sorted(by: { $0.number < $1.number })
                 
-                let stationsOnTrapline = stations.filter({ (station) -> Bool in
-                    station.traplineId == traplineId
-                }).sorted(by: { $0.number < $1.number })
+            if stationsOnTrapline.count > 0 {
+                    
+                let firstStationCode = stationsOnTrapline.first!.number
+                let lastStationCode = stationsOnTrapline.last!.number
                 
-                if stationsOnTrapline.count > 0 {
+                // we expect to find all the stations between these codes
+                for number in firstStationCode...lastStationCode {
                     
-                    let firstStationCode = stationsOnTrapline.first!.number
-                    let lastStationCode = stationsOnTrapline.last!.number
-                    
-                    // we expect to find all the stations between these codes
-                    for number in firstStationCode...lastStationCode {
-                        
-                        // record if we can't find a station with a given code
-                        if stationsOnTrapline.first(where: {$0.number == number}) == nil {
-                            missingStations.append("\(stationsOnTrapline.first!.traplineCode ?? "--")\(String(format: "%02d", number))")
-                        }
+                    // record if we can't find a station with a given code
+                    if stationsOnTrapline.first(where: {$0.number == number}) == nil {
+                        missingStations.append("\(stationsOnTrapline.first!.traplineCode ?? "--")\(String(format: "%02d", number))")
                     }
                 }
-                completion?(missingStations)
             }
+            completion?(missingStations)
         }
     }
     
-//    private func getStationsFromSnapshot(snapshot: QuerySnapshot?) -> [_Station]? {
+//    private func getStationsFromSnapshot(snapshot: QuerySnapshot?) -> [Station]? {
 //
-//        var results = [_Station]()
+//        var results = [Station]()
 //
 //        if let documents = snapshot?.documents {
 //            for document in  documents {
-//                if let result = _Station(dictionary: document.data()) {
+//                if let result = Station(dictionary: document.data()) {
 //                    result.id = document.documentID
 //                    results.append(result)
 //                }
@@ -372,9 +402,9 @@ extension StationFirestoreService: StationServiceInterface {
 //        return reordered
 //    }
     
-//    private func getTraplines(from stations: [_Station]) -> [_Trapline] {
+//    private func getTraplines(from stations: [Station]) -> [Trapline] {
 //
-//        var traplines = [_Trapline]()
+//        var traplines = [Trapline]()
 //
 //        for station in stations {
 //            if let trapline = station.trapTypes {
@@ -400,7 +430,7 @@ extension StationFirestoreService: StationServiceInterface {
         }
     }
     
-    func description(stations: [_Station], includeStationCodes: Bool) -> String {
+    func description(stations: [Station], includeStationCodes: Bool) -> String {
         
         let traplineCodes = traplineService.extractTraplineCodesFromStations(stations: stations)
         let traplineIds = traplineService.extractTraplineReferencesFromStations(stations: stations)
@@ -433,7 +463,7 @@ extension StationFirestoreService: StationServiceInterface {
         }
     }
     
-    private func stationsRangeDescriptions(for stations: [_Station]) -> [String] {
+    private func stationsRangeDescriptions(for stations: [Station]) -> [String] {
         
         var ranges = [String]()
         var lowRange: String?
