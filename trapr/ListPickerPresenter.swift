@@ -100,7 +100,7 @@ final class ListPickerPresenter: Presenter {
         
         var keepGoing = true
         
-        let nc = _view.navigationController
+        let nc = view.viewController.navigationController
         
         while keepGoing {
             
@@ -183,7 +183,7 @@ extension ListPickerPresenter: ListPickerPresenterApi {
     
     func didSelectClose() {
         
-        _view.navigationController?.dismiss(animated: false, completion: nil)
+        view.viewController.navigationController?.dismiss(animated: false, completion: nil)
     }
 }
 

@@ -8,6 +8,7 @@
 
 #import "PureLayout/PureLayout.h"
 #import "iCarousel/iCarousel.h"
+#import "XlsxReader/XlsxReaderWriter-swift-bridge.h"
 
 #ifndef Trapr_Bridging_Header_h
 #define Trapr_Bridging_Header_h

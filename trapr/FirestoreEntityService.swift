@@ -46,7 +46,7 @@ class FirestoreEntityService<T: DocumentSerializable>  {
      - returns:
      Returns the id of the document that has been created or update. If the method fails, there may be no document with this id in the database.
      */
-    func add(entity: T, completion: ((T?, Error?) -> Void)?) -> String {
+    func add(entity: T, batch: WriteBatch? = nil, completion: ((T?, Error?) -> Void)?) -> String {
         
         // get a reference to where the document will be saved
         let reference = documentReference(entity: entity)
@@ -56,9 +56,14 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         // in case the entity doesn't already have an id this will ensure it does
         addedEntity.id = reference.documentID
         
-        // add the data - the listener will know when it's complete
-        reference.setData(entity.dictionary) { (error) in
-            completion?(addedEntity, error)
+        if batch == nil {
+            // add the data
+            reference.setData(entity.dictionary) { (error) in
+                completion?(addedEntity, error)
+            }
+        } else {
+            batch!.setData(entity.dictionary, forDocument: reference)
+            completion?(addedEntity, nil)
         }
         
         // immediately return the reference documentid

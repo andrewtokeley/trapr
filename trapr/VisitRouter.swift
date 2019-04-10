@@ -25,27 +25,27 @@ extension VisitRouter: VisitRouterApi {
         setupData.stations = stations
         setupData.highlightedStations = highlightedStations
         
-        module.router.show(from: _view, embedInNavController: true, setupData: setupData)
+        module.router.show(from: viewController, embedInNavController: true, setupData: setupData)
     }
     
     func showStationSelectModule(setupData: StationSelectSetupData) {
         let module = AppModules.stationSelect.build()
-        module.router.show(from: _view, embedInNavController: true, setupData: setupData)
+        module.router.show(from: viewController, embedInNavController: true, setupData: setupData)
     }
 
     func showListPicker(setupData: ListPickerSetupData) {
         let module = AppModules.listPicker.build()
-        module.router.show(from: _view, embedInNavController: setupData.embedInNavController, setupData: setupData)
+        module.router.show(from: viewController, embedInNavController: setupData.embedInNavController, setupData: setupData)
     }
     
     func showDatePicker(setupData: DatePickerSetupData) {
         let module = AppModules.datePicker.build()
-        module.router.showAsModalOverlay(from: _view, setupData: setupData)
+        module.router.showAsModalOverlay(from: viewController, setupData: setupData)
     }
     
     func showEditRoute(setupData: TraplineSelectSetupData) {
         let module = AppModules.traplineSelect.build()
-        module.router.show(from: _view, embedInNavController: true, setupData: setupData)
+        module.router.show(from: viewController, embedInNavController: true, setupData: setupData)
     }
     
     func addVisitLogToView() {
@@ -64,7 +64,7 @@ extension VisitRouter: VisitRouterApi {
                 // tell delegate (VisitPresenter only) of other events - like when a user selects to remove a Visit
                 (module.presenter as? VisitLogPresenter)?.delegate = presenter as? VisitLogDelegate
                 
-                module.router.addAsChildView(ofView: _view, insideContainer: visitView.getVisitContainerView)
+                (module.router as! Router).addAsChildView(ofView: viewController, insideContainer: visitView.getVisitContainerView)
             }
         }
 
@@ -72,7 +72,7 @@ extension VisitRouter: VisitRouterApi {
     
     func showAddStation(setupData: StationSearchSetupData) {
         let module = AppModules.stationSearch.build()
-        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
+        module.router.show(from: viewController, embedInNavController: false, setupData: setupData)
     }
     
 }

@@ -21,7 +21,7 @@ final class SettingsRouter: Router {
         setupData.includeSelectNone = false
         
         setupData.embedInNavController = false 
-        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
+        module.router.show(from: viewController, embedInNavController: false, setupData: setupData)
     }
     
 }

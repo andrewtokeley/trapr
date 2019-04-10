@@ -9,10 +9,10 @@
 import Foundation
 import Viperit
 
-extension UserInterface {
+extension UserInterfaceProtocol {
     
     func setTitle(title: String?) {
-        self.title = title
+        self.viewController.title = title
     }
     
     func presentConfirmation(title: String = "Are you sure?", message: String? = nil, response: ((Bool) -> Void)?) {
@@ -24,7 +24,7 @@ extension UserInterface {
         alert.addAction(yes)
         alert.addAction(no)
         
-        self.present(alert, animated: true, completion: nil)
+        self.viewController.present(alert, animated: true, completion: nil)
     }
     
     func presentMessage(title: String, message: String? = nil, response: ((Bool) -> Void)?) {
@@ -34,7 +34,7 @@ extension UserInterface {
         
         alert.addAction(ok)
         
-        self.present(alert, animated: true, completion: nil)
+        self.viewController.present(alert, animated: true, completion: nil)
     }
     
     func displayMenuOptions(options: [OptionItem], actionHandler: ((String) -> Void)?) {
@@ -55,6 +55,6 @@ extension UserInterface {
         // always add a cancel
         menu.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
-        self.present(menu, animated: true, completion: nil)
+        self.viewController.present(menu, animated: true, completion: nil)
     }
 }

@@ -15,7 +15,7 @@ protocol RouteUserSettingsServiceInterface {
     func _addOwnerToOwnerlessRoutes(routes: [Route], completion: (() -> Void)?)
     
     /// Adds, or updates if it already exists, a new routeUserSetting record to the store.
-    func add(routeUserSettings: RouteUserSettings, completion: ((RouteUserSettings?, Error?) -> Void)?) -> String
+    func add(routeUserSettings: RouteUserSettings, batch: WriteBatch?, completion: ((RouteUserSettings?, Error?) -> Void)?) -> String
     
     /// Deletes the current user's routeUserSettings record for the route.
     func delete(routeId: String, completion: ((Error?) -> Void)?)

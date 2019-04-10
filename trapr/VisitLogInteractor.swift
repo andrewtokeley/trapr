@@ -8,6 +8,7 @@
 
 import Foundation
 import Viperit
+import FirebaseAnalytics
 
 // MARK: - VisitLogInteractor Class
 final class VisitLogInteractor: Interactor {

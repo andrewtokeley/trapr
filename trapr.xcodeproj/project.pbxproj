@@ -109,6 +109,7 @@
 		D820AE0D20228889008925E8 /* VisitHistoryModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0720228889008925E8 /* VisitHistoryModuleApi.swift */; };
 		D820AE0E20228889008925E8 /* VisitHistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0820228889008925E8 /* VisitHistoryInteractor.swift */; };
 		D820AE0F20228889008925E8 /* VisitHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0920228889008925E8 /* VisitHistoryView.swift */; };
+		D82472CF225B5AF900AAD1E5 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D8D729E51F64BD580082CD4A /* Podfile */; };
 		D82A53E61FF0DDF5000D9339 /* HtmlService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E51FF0DDF5000D9339 /* HtmlService.swift */; };
 		D82A53E81FF0DE11000D9339 /* HtmlServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E71FF0DE11000D9339 /* HtmlServiceInterface.swift */; };
 		D82A53EA1FF1F9B3000D9339 /* HtmlServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E91FF1F9B3000D9339 /* HtmlServiceTests.swift */; };
@@ -176,6 +177,11 @@
 		D8503DC81F66807C00ED0C84 /* VisitPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DBF1F66807C00ED0C84 /* VisitPresenter.swift */; };
 		D8503DCE1F669B1F00ED0C84 /* DateExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */; };
 		D8503DD81F67AF7800ED0C84 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = D8503DD71F67AF7800ED0C84 /* user.png */; };
+		D851E566225AAD4D009E129A /* ExcelServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D851E565225AAD4D009E129A /* ExcelServiceInterface.swift */; };
+		D851E568225AAE72009E129A /* ExcelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D851E567225AAE72009E129A /* ExcelService.swift */; };
+		D851E56A225AAF41009E129A /* VisitReportTemplate.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = D851E569225AAF41009E129A /* VisitReportTemplate.xlsx */; };
+		D851E56B225B163A009E129A /* ExcelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D851E567225AAE72009E129A /* ExcelService.swift */; };
+		D851E56C225B163D009E129A /* ExcelServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D851E565225AAD4D009E129A /* ExcelServiceInterface.swift */; };
 		D852E84D206F52D500255A2D /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = D852E84B206F52D400255A2D /* add.png */; };
 		D852E84F206F542200255A2D /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D852E84E206F542200255A2D /* add@2x.png */; };
 		D856F66D20111D3E00CA50C2 /* NewRouteDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66720111D3E00CA50C2 /* NewRouteDisplayData.swift */; };
@@ -209,6 +215,8 @@
 		D86DEC36219DF67300DCE730 /* RouteFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86DEC34219DF67300DCE730 /* RouteFirestoreService.swift */; };
 		D86DEC38219E902300DCE730 /* _RouteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86DEC37219E902300DCE730 /* _RouteTests.swift */; };
 		D86DEC3A21A0A05E00DCE730 /* OfflineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86DEC3921A0A05E00DCE730 /* OfflineTests.swift */; };
+		D873615822484DDD00CAAA66 /* AnalyticsEventsServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D873615722484DDD00CAAA66 /* AnalyticsEventsServiceInterface.swift */; };
+		D873615922484DDD00CAAA66 /* AnalyticsEventsServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D873615722484DDD00CAAA66 /* AnalyticsEventsServiceInterface.swift */; };
 		D873C86E1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D873C86D1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift */; };
 		D873C8701FC6873A00F581D8 /* UIImageExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = D873C86F1FC6873A00F581D8 /* UIImageExtention.swift */; };
 		D873C8741FC9246F00F581D8 /* TableViewHeaderWithAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D873C8731FC9246F00F581D8 /* TableViewHeaderWithAction.swift */; };
@@ -576,7 +584,6 @@
 		D8D66D452022CDA400CBF3D7 /* ViewHistorySetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D66D442022CDA400CBF3D7 /* ViewHistorySetupData.swift */; };
 		D8D66D482022FBC400CBF3D7 /* information@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D66D462022FBC300CBF3D7 /* information@2x.png */; };
 		D8D66D492022FBC400CBF3D7 /* information.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D66D472022FBC400CBF3D7 /* information.png */; };
-		D8D729E61F64BD580082CD4A /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D8D729E51F64BD580082CD4A /* Podfile */; };
 		D8D79AB31FC4B992008AC5C1 /* OptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D79AB21FC4B992008AC5C1 /* OptionItem.swift */; };
 		D8DA1B1521DDCBA1008EC4FD /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DA1B1421DDCBA1008EC4FD /* UserSettings.swift */; };
 		D8DA1B1621DDCBA1008EC4FD /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DA1B1421DDCBA1008EC4FD /* UserSettings.swift */; };
@@ -780,6 +787,9 @@
 		D8503DBF1F66807C00ED0C84 /* VisitPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitPresenter.swift; sourceTree = "<group>"; };
 		D8503DCD1F669B1F00ED0C84 /* DateExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtention.swift; sourceTree = "<group>"; };
 		D8503DD71F67AF7800ED0C84 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
+		D851E565225AAD4D009E129A /* ExcelServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcelServiceInterface.swift; sourceTree = "<group>"; };
+		D851E567225AAE72009E129A /* ExcelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcelService.swift; sourceTree = "<group>"; };
+		D851E569225AAF41009E129A /* VisitReportTemplate.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = VisitReportTemplate.xlsx; sourceTree = "<group>"; };
 		D852E84B206F52D400255A2D /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
 		D852E84E206F542200255A2D /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
 		D856F66720111D3E00CA50C2 /* NewRouteDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRouteDisplayData.swift; sourceTree = "<group>"; };
@@ -811,6 +821,7 @@
 		D86DEC34219DF67300DCE730 /* RouteFirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteFirestoreService.swift; sourceTree = "<group>"; };
 		D86DEC37219E902300DCE730 /* _RouteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _RouteTests.swift; sourceTree = "<group>"; };
 		D86DEC3921A0A05E00DCE730 /* OfflineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineTests.swift; sourceTree = "<group>"; };
+		D873615722484DDD00CAAA66 /* AnalyticsEventsServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsEventsServiceInterface.swift; sourceTree = "<group>"; };
 		D873C86D1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
 		D873C86F1FC6873A00F581D8 /* UIImageExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtention.swift; sourceTree = "<group>"; };
 		D873C8731FC9246F00F581D8 /* TableViewHeaderWithAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeaderWithAction.swift; sourceTree = "<group>"; };
@@ -1157,9 +1168,12 @@
 		D81DAAED1F68641E00C7C987 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D873615722484DDD00CAAA66 /* AnalyticsEventsServiceInterface.swift */,
 				D8DC916D21CAD4DF006D8B57 /* CachePrimerFirestoreService.swift */,
 				D8DC916B21CAD469006D8B57 /* CachePrimerServiceInterface.swift */,
 				D8BB6F4A202917A6008AB3A2 /* CameraHandler.swift */,
+				D851E567225AAE72009E129A /* ExcelService.swift */,
+				D851E565225AAD4D009E129A /* ExcelServiceInterface.swift */,
 				D8C25C9E218108BF00C5DB64 /* FirestoreEntityService.swift */,
 				D82A53E51FF0DDF5000D9339 /* HtmlService.swift */,
 				D82A53E71FF0DE11000D9339 /* HtmlServiceInterface.swift */,
@@ -1451,6 +1465,7 @@
 				D84C24652004806E000BCAF8 /* ObjectOrder.swift */,
 				D8EA460B200AAF6B0032224E /* OrderedDictionary.swift */,
 				D8EA460F200AB9A20032224E /* StackCount.swift */,
+				D851E569225AAF41009E129A /* VisitReportTemplate.xlsx */,
 			);
 			path = trapr;
 			sourceTree = "<group>";
@@ -1788,6 +1803,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1818,6 +1834,7 @@
 				D87926921FB553A600240767 /* RouteCollectionViewCell.xib in Resources */,
 				D858D7BE2019D68A00EE052D /* expand2@2x.png in Resources */,
 				D8083D2C1FE6129A00D1C5F1 /* poison.png in Resources */,
+				D82472CF225B5AF900AAD1E5 /* Podfile in Resources */,
 				D8C8A1E71FCBA6210075E44E /* envelope.png in Resources */,
 				D8DBE3ED1FF5CD7300AA6482 /* circle.png in Resources */,
 				D8C25C8C217C3DF900C5DB64 /* exit@2x.png in Resources */,
@@ -1866,7 +1883,6 @@
 				D87926951FB555A500240767 /* clock@2x.png in Resources */,
 				D8503DD81F67AF7800ED0C84 /* user.png in Resources */,
 				D858D7BD2019D68A00EE052D /* expand2.png in Resources */,
-				D8D729E61F64BD580082CD4A /* Podfile in Resources */,
 				D858D7BF2019D68A00EE052D /* collapse2.png in Resources */,
 				D86CE48A1F92BC6F004A09EF /* home.png in Resources */,
 				D879269D1FB58EA400240767 /* SectionStripView.xib in Resources */,
@@ -1884,6 +1900,7 @@
 				D8BC08471F6A541200B284EE /* lessthan.png in Resources */,
 				D8C25DF52181A12800C5DB64 /* GoogleService-Info.plist in Resources */,
 				D8BC08461F6A541200B284EE /* greaterthan.png in Resources */,
+				D851E56A225AAF41009E129A /* VisitReportTemplate.xlsx in Resources */,
 				D8AB9ADF201DB39E00FBEF55 /* RouteImage1.png in Resources */,
 				D8083D321FE8FA8E00D1C5F1 /* StatisticView.xib in Resources */,
 				D8AB9ADD201DAF4B00FBEF55 /* RouteTableViewCell.xib in Resources */,
@@ -1992,7 +2009,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-traprTests/Pods-traprTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-traprTests/Pods-traprTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CSVImporter/CSVImporter.framework",
 				"${BUILT_PRODUCTS_DIR}/HandySwift/HandySwift.framework",
 			);
@@ -2003,7 +2020,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-traprTests/Pods-traprTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-traprTests/Pods-traprTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		367FB6A19C05F5F0A01D84EA /* [CP] Check Pods Manifest.lock */ = {
@@ -2029,17 +2046,13 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
@@ -2047,7 +2060,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9E92D85D0275EA74A7CD1679 /* [CP] Copy Pods Resources */ = {
@@ -2055,17 +2068,13 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
@@ -2073,7 +2082,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D8083D261FE5D5D000D1C5F1 /* Increment Build Number */ = {
@@ -2114,23 +2123,19 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CSVImporter/CSVImporter.framework",
 				"${BUILT_PRODUCTS_DIR}/HandySwift/HandySwift.framework",
-				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/Viperit/Viperit.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
 				"${BUILT_PRODUCTS_DIR}/iCarousel/iCarousel.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -2139,27 +2144,23 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSVImporter.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandySwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Viperit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iCarousel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D8C25DE82181771F00C5DB64 /* Increment Build Number */ = {
@@ -2182,23 +2183,19 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CSVImporter/CSVImporter.framework",
 				"${BUILT_PRODUCTS_DIR}/HandySwift/HandySwift.framework",
-				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/Viperit/Viperit.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
 				"${BUILT_PRODUCTS_DIR}/iCarousel/iCarousel.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -2207,27 +2204,23 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSVImporter.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandySwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Viperit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iCarousel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F950247E27DF98114E92AB1F /* [CP] Check Pods Manifest.lock */ = {
@@ -2366,6 +2359,7 @@
 				D88DFE551FFAE95F0048CA54 /* StationAnnotationView.swift in Sources */,
 				D8C25C86217A62C400C5DB64 /* UserService.swift in Sources */,
 				D856F66D20111D3E00CA50C2 /* NewRouteDisplayData.swift in Sources */,
+				D851E568225AAE72009E129A /* ExcelService.swift in Sources */,
 				D80F8DD12196AED40035C668 /* VisitFirestoreService.swift in Sources */,
 				D8039E261FABF458006E394B /* ListPickerInteractor.swift in Sources */,
 				D80C14FD202F9416005EBD10 /* LoaderDelegate.swift in Sources */,
@@ -2415,11 +2409,13 @@
 				D8193D9621F1166D00C3BB5D /* VisitSummariesStatistics.swift in Sources */,
 				D856F67220111D3E00CA50C2 /* NewRouteView.swift in Sources */,
 				D8AB9ADB201DAF3300FBEF55 /* RouteTableViewCell.swift in Sources */,
+				D851E566225AAD4D009E129A /* ExcelServiceInterface.swift in Sources */,
 				D84C2462200028B5000BCAF8 /* CircleAnnotationView.swift in Sources */,
 				D873C86E1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift in Sources */,
 				D8C25C98217EDAA300C5DB64 /* AdministrationInteractor.swift in Sources */,
 				D8DBE3DE1FF4FC1900AA6482 /* MapDisplayData.swift in Sources */,
 				D8A4E970218E3F640070413B /* StationFirestoreService.swift in Sources */,
+				D873615822484DDD00CAAA66 /* AnalyticsEventsServiceInterface.swift in Sources */,
 				D81431A31F8DDB2600EAF5FD /* DatePickerInteractor.swift in Sources */,
 				D849B6201F96C8E100CE2085 /* RouteServiceInterface.swift in Sources */,
 				D8C51A731F96D67200D3571A /* MultiselectTableViewHeader.swift in Sources */,
@@ -2639,6 +2635,7 @@
 				D8193D9921F1194A00C3BB5D /* TrapOperatingStatus.swift in Sources */,
 				D8C25D2E2181771F00C5DB64 /* MapModuleApi.swift in Sources */,
 				D8C25D2F2181771F00C5DB64 /* LoaderPresenter.swift in Sources */,
+				D851E56C225B163D009E129A /* ExcelServiceInterface.swift in Sources */,
 				D8A4E965218D41D30070413B /* Trapline.swift in Sources */,
 				D8A4E961218CFE080070413B /* UserStatistics.swift in Sources */,
 				D8C25D302181771F00C5DB64 /* ListPickerDelegate.swift in Sources */,
@@ -2667,6 +2664,7 @@
 				D8C25D4F2181771F00C5DB64 /* MapDisplayData.swift in Sources */,
 				D8C25D512181771F00C5DB64 /* DatePickerInteractor.swift in Sources */,
 				D8C25D522181771F00C5DB64 /* RouteServiceInterface.swift in Sources */,
+				D873615922484DDD00CAAA66 /* AnalyticsEventsServiceInterface.swift in Sources */,
 				D8C25D532181771F00C5DB64 /* MultiselectTableViewHeader.swift in Sources */,
 				D8C25D542181771F00C5DB64 /* MapRouter.swift in Sources */,
 				D8C25D562181771F00C5DB64 /* SideMenuDisplayData.swift in Sources */,
@@ -2700,6 +2698,7 @@
 				D8C25D712181771F00C5DB64 /* VisitInteractor.swift in Sources */,
 				D8C25D732181771F00C5DB64 /* VisitHistoryDisplayData.swift in Sources */,
 				D8C25D742181771F00C5DB64 /* AdministrationView.swift in Sources */,
+				D851E56B225B163A009E129A /* ExcelService.swift in Sources */,
 				D8C25D752181771F00C5DB64 /* MapInteractor.swift in Sources */,
 				D8C25D772181771F00C5DB64 /* SideBarMenuItem.swift in Sources */,
 				D8C25D782181771F00C5DB64 /* StartRouter.swift in Sources */,
@@ -2900,7 +2899,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = andrewtokeley.com.traprTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/trapr_development.app/trapr_development";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -2918,7 +2917,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = andrewtokeley.com.traprTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/trapr_development.app/trapr_development";
 			};
 			name = Release;

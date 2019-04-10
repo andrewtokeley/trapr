@@ -28,7 +28,7 @@ extension StartRouter: StartRouterApi {
             setupData.highlightedStations = setupData.stations.filter({ route.stationIds.contains( $0.locationId ) })
             setupData.showHighlightedOnly = true
             
-            module.router.show(from: self._view, embedInNavController: true, setupData: setupData)
+            module.router.show(from: self.viewController, embedInNavController: true, setupData: setupData)
         }
     }
     
@@ -44,7 +44,7 @@ extension StartRouter: StartRouterApi {
             //setupData.delegate = ...
         
             // show modally
-            module.router.show(from: _view, embedInNavController: true, setupData: setupData)
+            module.router.show(from: viewController, embedInNavController: true, setupData: setupData)
         }
     }
     
@@ -62,10 +62,10 @@ extension StartRouter: StartRouterApi {
         let module = AppModules.visit.build()
         
         // Remove title from back button
-        _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        viewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         let setupData = VisitSetup()
         setupData.visitSummary = visitSummary
-        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
+        module.router.show(from: viewController, embedInNavController: false, setupData: setupData)
     }
     
 //    func showNewVisitModule(delegate: NewVisitDelegate) {
@@ -83,7 +83,7 @@ extension StartRouter: StartRouterApi {
         let setup = LoaderPresenterSetupData()
         setup.delegate = delegate
 
-        module.router.showAsModalOverlay(from: _view, setupData: setup)
+        module.router.showAsModalOverlay(from: viewController, setupData: setup)
         
         
     }
@@ -93,29 +93,29 @@ extension StartRouter: StartRouterApi {
         
         let setupData = SideMenuSetupData()
         setupData.delegate = self
-        module.router.showAsModalOverlay(from: _view, setupData: setupData)
+        module.router.showAsModalOverlay(from: viewController, setupData: setupData)
         
         
     }
     
     func showProfile() {
         let module = AppModules.settings.build()
-        module.router.show(from: _view, embedInNavController: true, setupData: nil)
+        module.router.show(from: viewController, embedInNavController: true, setupData: nil)
     }
     
     func showMap(setupData: MapSetupData) {
         let module = AppModules.map.build()
-        module.router.show(from: _view, embedInNavController: true, setupData: setupData)
+        module.router.show(from: viewController, embedInNavController: true, setupData: setupData)
     }
     
     func showNewRouteModule() {
         let module = AppModules.newRoute.build()
-        module.router.show(from: _view, embedInNavController: true, setupData: nil)
+        module.router.show(from: viewController, embedInNavController: true, setupData: nil)
     }
     
     func showAdministrationModule() {
         let module = AppModules.administration.build()
-        module.router.show(from: _view, embedInNavController: true, setupData: nil)
+        module.router.show(from: viewController, embedInNavController: true, setupData: nil)
     }
 }
 

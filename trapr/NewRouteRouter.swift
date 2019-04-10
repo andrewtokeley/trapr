@@ -18,7 +18,7 @@ extension NewRouteRouter: NewRouteRouterApi {
     
     func showListPicker(setupData: ListPickerSetupData) {
         let module = AppModules.listPicker.build()
-        module.router.show(from: _view, embedInNavController: setupData.embedInNavController, setupData: setupData)
+        module.router.show(from: viewController, embedInNavController: setupData.embedInNavController, setupData: setupData)
     }
     
     func showRouteDashboard(newRouteName: String, station: Station) {
@@ -26,7 +26,7 @@ extension NewRouteRouter: NewRouteRouterApi {
         setupData.newRouteName = newRouteName
         setupData.station = station
         let module = AppModules.routeDashboard.build()
-        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
+        module.router.show(from: viewController, embedInNavController: false, setupData: setupData)
     }
 }
 

@@ -93,10 +93,10 @@ extension SettingsPresenter: SettingsPresenterApi {
 //    }
     
     func didSelectClose() {
-        _view.view.endEditing(true)
+        view.viewController.view.endEditing(true)
 
         interactor.save(settings: self.settings)
-        _view.dismiss(animated: true, completion: nil)
+        view.viewController.dismiss(animated: true, completion: nil)
     }
     
 //    func didSelectFirestoreSync() {

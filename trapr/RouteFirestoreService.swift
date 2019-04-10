@@ -20,22 +20,29 @@ extension RouteFirestoreService: RouteServiceInterface {
     
     func add(route: Route, completion: ((Route?, Error?) -> Void)?) -> String {
         
-        let id = super.add(entity: route) { (route, error) in
+        if let userId = self.userService.currentUser?.id {
             
-            // always ensure the current user has access
-            if let userId = self.userService.currentUser?.id, let routeId = route?.id {
-                let routeUserSetting = RouteUserSettings(routeId: routeId, userId: userId)
-                
-                // the user who created the Route should be marked as the owner
-                routeUserSetting.isOwner = true
-                
-                let _ = self.routeUserSettingsService.add(routeUserSettings: routeUserSetting, completion: nil)
+            let batch = super.firestore.batch()
+            
+            let id = super.add(entity: route, batch: batch, completion: nil)
+            
+            // Create permissions to see the route
+            // the user who created the Route should be marked as the owner
+            let routeUserSetting = RouteUserSettings(routeId: id, userId: userId)
+            routeUserSetting.isOwner = true
+            let _ = self.routeUserSettingsService.add(routeUserSettings: routeUserSetting, batch: batch, completion: nil)
+            
+            // Write the Route and RouteUserSettinbs inside a batch
+            batch.commit { (error) in
+                completion?(route, error)
             }
             
-            completion?(route, error)
+            return id
+            
+        } else {
+            return ""
         }
-        
-        return id
+
     }
     
     func _addOwnerToOwnerlessRoutes(completion: (() -> Void)?) {
@@ -236,16 +243,28 @@ extension RouteFirestoreService: RouteServiceInterface {
     }
     
     func get(includeHidden: Bool, completion: (([Route], Error?) -> Void)?) {
-        if let userId = userService.currentUser?.id {
-            super.collection.whereField(RouteFields.userId.rawValue, isEqualTo: userId).whereField(RouteFields.hidden.rawValue, isEqualTo: includeHidden).getDocuments(source: .cache) { (snapshot, error) in
-                
-                if let error = error {
-                    completion?([Route](), error)
-                } else {
-                    let routes = super.getEntitiesFromQuerySnapshot(snapshot: snapshot)
-                    completion?(routes, nil)
-                }
+//        if let userId = userService.currentUser?.id {
+//            super.collection.whereField(RouteFields.userId.rawValue, isEqualTo: userId).whereField(RouteFields.hidden.rawValue, isEqualTo: includeHidden).getDocuments(source: .cache) { (snapshot, error) in
+//
+//                if let error = error {
+//                    completion?([Route](), error)
+//                } else {
+//                    let routes = super.getEntitiesFromQuerySnapshot(snapshot: snapshot)
+//                    completion?(routes, nil)
+//                }
+//            }
+//        }
+        
+        // get all the routes the user has access to
+        self.get { (routes, error) in
+            
+            var routesToReturn = routes
+            // filter on whether to show hidden or not
+            if !includeHidden {
+                routesToReturn = routes.filter({ $0.hidden == false })
             }
+            
+            completion?(routesToReturn, error)
         }
     }
     
@@ -264,7 +283,7 @@ extension RouteFirestoreService: RouteServiceInterface {
 
             // Get the full Route instances for the routeIds
             
-            super.get(ids: routeIds, completion: { (routes, error) in
+            super.get(ids: routeIds, source: source, completion: { (routes, error) in
                 
                 for route in routes {
                     // if the user has overridden the station order then update the Route instance
@@ -298,6 +317,7 @@ extension RouteFirestoreService: RouteServiceInterface {
         visitService.getMostRecentVisit(routeId: routeId) { (lastVisit) in
             
             if let lastVisit = lastVisit {
+                print("Latest date: \(lastVisit.visitDateTime)")
                 let calendar = NSCalendar.current
                 let lastVisitDate = calendar.startOfDay(for: lastVisit.visitDateTime)
                 let today = calendar.startOfDay(for: Date())

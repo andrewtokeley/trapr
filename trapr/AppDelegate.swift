@@ -20,9 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         FirebaseApp.configure()
         
+        
         let db = Firestore.firestore()
         let settings = db.settings
         settings.areTimestampsInSnapshotsEnabled = true
+        
         db.settings = settings
         
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
@@ -33,7 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         let module = AppModules.loader.build()
-        module.router.show(inWindow: window)
+        module.router.show(inWindow: window, embedInNavController: false, setupData: nil, makeKeyAndVisible: true)
+        //module.router.show(inWindow: window)
         
         return true
     }

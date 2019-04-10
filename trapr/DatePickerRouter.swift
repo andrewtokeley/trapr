@@ -18,7 +18,7 @@ final class DatePickerRouter: Router {
 extension DatePickerRouter: DatePickerRouterApi {
     
     func closeModule() {
-        _view.dismiss(animated: true, completion: nil)
+        viewController.dismiss(animated: true, completion: nil)
     }
 }
 

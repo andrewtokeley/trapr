@@ -142,7 +142,7 @@ extension StationSelectPresenter: StationSelectPresenterApi {
         } else {
             
             self.stationSelectDelegate?.newStationsSelected(stations: [groupDataItem.item])
-            _view.dismiss(animated: true, completion: nil)
+            view.viewController.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -172,7 +172,7 @@ extension StationSelectPresenter: StationSelectPresenterApi {
 //    }
     
     func didSelectCloseButton() {
-        _view.dismiss(animated: true, completion: nil)
+        view.viewController.dismiss(animated: true, completion: nil)
     }
     
     func didSelectMultiselectToggle(section: Int) {
@@ -202,7 +202,7 @@ extension StationSelectPresenter: StationSelectPresenterApi {
         self.stationSelectDelegate?.newStationsSelected(stations: self.groupedData.dataItems(selectedOnly: true))
         
         // close the StationSelect module
-        _view.dismiss(animated: true, completion: nil)
+        view.viewController.dismiss(animated: true, completion: nil)
     }
     
     func didMoveRow(from: IndexPath, to:IndexPath) {

@@ -24,7 +24,7 @@ final class TraplineSelectRouter: Router {
         setupData.selectedStationIds = selectedStationIds
         setupData.stations = stations
         
-        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
+        module.router.show(from: viewController, embedInNavController: false, setupData: setupData)
     }
     
     /**

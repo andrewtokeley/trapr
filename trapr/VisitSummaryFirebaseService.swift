@@ -109,17 +109,18 @@ class VisitSummaryFirebaseService: FirestoreService, VisitSummaryServiceInterfac
             // Create a VisitSummary for each day's visit
             let dispatchGroup = DispatchGroup()
             for aDate in uniqueDates {
-                if let date = dateFormatter.date(from: aDate) {
-                    
-                    let visits = visits.filter({ dateFormatter.string(from: $0.visitDateTime) == aDate })
-                    dispatchGroup.enter()
-                    self.createVisitSummary(date: date, routeId: routeId, visits: visits) { (visitSummary, error) in
-                        if let visitSummary = visitSummary {
-                            summaries.append(visitSummary)
-                        }
-                        dispatchGroup.leave()
+                let visits = visits.filter({ dateFormatter.string(from: $0.visitDateTime) == aDate })
+                dispatchGroup.enter()
+                
+                // all days will be the same, but use the time of the first visit
+                let visitDateTime = visits.first!.visitDateTime
+                
+                self.createVisitSummary(date: visitDateTime, routeId: routeId, visits: visits) { (visitSummary, error) in
+                    if let visitSummary = visitSummary {
+                        summaries.append(visitSummary)
                     }
-                }
+                    dispatchGroup.leave()
+                }            
             }
             
             dispatchGroup.notify(queue: .main, execute: {

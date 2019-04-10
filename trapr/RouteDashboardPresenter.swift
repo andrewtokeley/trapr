@@ -188,7 +188,11 @@ final class RouteDashboardPresenter: Presenter {
 //            } else {
 //                view.setVisibleRegionToHighlightedStations()
 //            }
-            view.setVisibleRegionToHighlightedStations()
+            if self.proposedStationIds.count > 0 {
+                view.setVisibleRegionToHighlightedStations()
+            } else {
+                view.setVisibleRegionToAllStations()
+            }
         }
     }
     
@@ -254,7 +258,7 @@ final class RouteDashboardPresenter: Presenter {
     }
     
     func selectImage() {
-        CameraHandler.shared.showActionSheet(vc: self._view)
+        CameraHandler.shared.showActionSheet(vc: view.viewController)
         CameraHandler.shared.imagePickedBlock = { (asset) in
             
             // save the url against the route
@@ -448,7 +452,7 @@ extension RouteDashboardPresenter: StationMapDelegate {
 extension RouteDashboardPresenter: RouteDashboardPresenterApi {
     
     func didDeleteRoute() {
-        _view.dismiss(animated: true, completion: nil)
+        view.viewController.dismiss(animated: true, completion: nil)
     }
     
     /// Called by Interactor when we've finished saving station edits or reordering
@@ -502,7 +506,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
     func didSelectCancel() {
         if isNewRoute {
             // go back to the New Route module
-            _view.navigationController?.popViewController(animated: true)
+            view.viewController.navigationController?.popViewController(animated: true)
         } else if isEditing {
             self.isEditingOrder = false
             self.isEditingOrder = false
@@ -512,7 +516,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
     }
     
     func didSelectClose() {
-        _view.dismiss(animated: true, completion: nil)
+        view.viewController.dismiss(animated: true, completion: nil)
     }
     
     func didSelectEditMenu() {
@@ -705,7 +709,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
         
         if isNewRoute {
             //_view.dismiss(animated: true, completion: nil)
-            _view.navigationController?.popViewController(animated: true)
+            view.viewController.navigationController?.popViewController(animated: true)
         } else {
             view.showEditDescription(false, description: nil)
             view.showEditStationOptions(false)
@@ -733,7 +737,7 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
             if response {
 //                self.route.hidden = true
 //                self.saveRoute()
-                self._view.dismiss(animated: true, completion: nil)
+                self.view.viewController.dismiss(animated: true, completion: nil)
             }
         })
     }

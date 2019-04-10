@@ -19,14 +19,14 @@ extension SideMenuRouter: SideMenuRouterApi {
     func showModule(menuItem: SideBarMenuItem) {
         if menuItem == .Settings {
             let module = AppModules.settings.build()
-            if let presentingViewController = _view.presentingViewController {
+            if let presentingViewController = viewController.presentingViewController {
                 module.router.show(from: presentingViewController, embedInNavController: true, setupData: nil)
             }
         }
     }
     
     func dismiss(completion: (() -> Void)?) {
-        _view.dismiss(animated: false, completion: completion)
+        viewController.dismiss(animated: false, completion: completion)
     }
 }
 

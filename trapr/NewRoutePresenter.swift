@@ -57,7 +57,7 @@ extension NewRoutePresenter: NewRoutePresenterApi {
     }
     
     func didSelectCancel() {
-        _view.dismiss(animated: true, completion: nil)
+        view.viewController.dismiss(animated: true, completion: nil)
     }
     
     func didUpdateRouteName(name: String?) {

@@ -18,12 +18,12 @@ extension VisitLogRouter: VisitLogRouterApi {
     
     func showDatePicker(setupData: DatePickerSetupData) {
         let module = AppModules.datePicker.build()
-        module.router.showAsModalOverlay(from: _view, setupData: setupData)
+        module.router.showAsModalOverlay(from: viewController, setupData: setupData)
     }
     
     func showListPicker(setupData: ListPickerSetupData) {
         let module = AppModules.listPicker.build()
-        module.router.show(from: _view, embedInNavController: setupData.embedInNavController, setupData: setupData)
+        module.router.show(from: viewController, embedInNavController: setupData.embedInNavController, setupData: setupData)
     }
     
 }

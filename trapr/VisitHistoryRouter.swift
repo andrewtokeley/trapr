@@ -20,11 +20,11 @@ extension VisitHistoryRouter: VisitHistoryRouterApi {
         let module = AppModules.visit.build()
         
         // Remove title from back button
-        _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        viewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         let setupData = VisitSetup()
         setupData.visitSummary = visitSummary
-        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
+        module.router.show(from: viewController, embedInNavController: false, setupData: setupData)
     }
     
 }

@@ -18,7 +18,7 @@ extension ListPickerRouter: ListPickerRouterApi {
 
     func showChildListPicker(setupData: ListPickerSetupData) {
         let module = AppModules.listPicker.build()
-        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
+        module.router.show(from: viewController, embedInNavController: false, setupData: setupData)
     }
 }
 

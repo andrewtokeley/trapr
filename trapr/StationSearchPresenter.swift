@@ -28,7 +28,7 @@ final class StationSearchPresenter: Presenter {
         
         self.getNearbyStations()
         
-        _view.setTitle(title: "Stations")
+        (_view as! UserInterface).setTitle(title: "Stations")
     }
     
     func getNearbyStations() {
@@ -42,7 +42,7 @@ extension StationSearchPresenter: StationSearchPresenterApi {
     
     func didSelectStation(station: Station) {
         delegate?.stationSearch(view as! StationSearchView, didSelectStation: station)
-        _view.navigationController?.popViewController(animated: true)
+        (_view as! UserInterface).navigationController?.popViewController(animated: true)
     }
     
     func didEnterSearchTerm(searchTerm: String) {

@@ -60,16 +60,25 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
             information.visitSummaries = visitSummaries
             
             // Assumes the latest result is the one at the end of the visitSummaries array
-            information.lastVisitSummary = visitSummaries.last
+            information.lastVisitSummary = visitSummaries.first
             if let date = information.lastVisitSummary?.dateOfVisit {
                 information.lastVisitedText = date.toString(format: "dd MMM yyyy, h:mm a")
             }
             
             information.numberOfVisits = visitSummaries.count
             
-            // Aggregate stats across all the VisitSummaries
-            information.killCounts = self.killCounts(visitSummaries: visitSummaries)
-            information.poisonCounts = self.poisonCounts(visitSummaries: visitSummaries)
+            // Aggregate stats across all the VisitSummaries, from the current month back 11 more months
+            let thisYearsVisitSummaries = visitSummaries.filter({
+                if let dateOfVisit = $0.dateOfVisit {
+                    print("from: \(Date.dateFromComponents(1, Date().month, Date().year)!.add(0,-11,0))")
+                    return dateOfVisit > Date.dateFromComponents(1, Date().month, Date().year)!.add(0,-11,0) && dateOfVisit < Date()
+                } else {
+                    return false
+                }
+            })
+            
+            information.killCounts = self.killCounts(visitSummaries: thisYearsVisitSummaries)
+            information.poisonCounts = self.poisonCounts(visitSummaries: thisYearsVisitSummaries)
             
             self.presenter.didFetchVisitInformation(information: information)
         }

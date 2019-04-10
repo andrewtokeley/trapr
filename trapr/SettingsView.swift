@@ -31,7 +31,7 @@ final class SettingsView: UserInterface {
         
         let button = UIButton()
         button.backgroundColor = UIColor.trpButtonEnabled
-        button.setTitle("Refresh Cache", for: .normal)
+        button.setTitle("Do Something", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(doSomethingClick(sender:)), for: .touchUpInside)
         return button

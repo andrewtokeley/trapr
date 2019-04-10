@@ -27,7 +27,7 @@ final class AdministrationPresenter: Presenter {
 extension AdministrationPresenter: AdministrationPresenterApi {
     
     func didSelectClose() {
-        _view.dismiss(animated: true, completion: nil)
+        view.viewController.dismiss(animated: true, completion: nil)
     }
     
     func didSelectImport() {

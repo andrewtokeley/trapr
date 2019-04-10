@@ -22,11 +22,11 @@ extension RouteDashboardRouter: RouteDashboardRouterApi {
         let module = AppModules.visit.build()
         
         // Remove title from back button
-        _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        viewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         let setup = VisitSetup()
         setup.visitSummary = visitSummary
-        module.router.show(from: _view, embedInNavController: false, setupData: setup)
+        module.router.show(from: viewController, embedInNavController: false, setupData: setup)
     }
     
 //    func showVisitModule(visitSummary: VisitSummary) {
@@ -46,10 +46,10 @@ extension RouteDashboardRouter: RouteDashboardRouterApi {
         let mapViewController = StationMapViewController()
         mapViewController.delegate = presenter as? StationMapDelegate
         
-        _view.addChildViewController(mapViewController)
+        viewController.addChildViewController(mapViewController)
         containerView.addSubview(mapViewController.view)
         mapViewController.view.autoPinEdgesToSuperviewEdges()
-        mapViewController.didMove(toParentViewController: _view)
+        mapViewController.didMove(toParentViewController: viewController)
     }
     
     func showOrderStationsModule(routeId: String, stations: [Station]) {
@@ -59,9 +59,9 @@ extension RouteDashboardRouter: RouteDashboardRouterApi {
         setupData.routeId = routeId
         
         // Remove title from back button
-        _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        viewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
-        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
+        module.router.show(from: viewController, embedInNavController: false, setupData: setupData)
     }
     
     func showVisitHistoryModule(visitSummaries: [VisitSummary]) {
@@ -71,9 +71,9 @@ extension RouteDashboardRouter: RouteDashboardRouterApi {
         setupData.delegate = _presenter as? VisitHistoryDelegate
         
         // Remove title from back button
-        _view.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        viewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
-        module.router.show(from: _view, embedInNavController: false, setupData: setupData)
+        module.router.show(from: viewController, embedInNavController: false, setupData: setupData)
     }
     
 //    func showVisitHistoryModule(route: Route) {

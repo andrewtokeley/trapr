@@ -74,7 +74,7 @@ extension TraplineSelectPresenter: StationSelectDelegate {
                 self.delegate?.didCreateRoute(route: route)
             }
             // close view
-            _view.navigationController?.popViewController(animated: true)
+            view.viewController.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -114,7 +114,7 @@ extension TraplineSelectPresenter: TraplineSelectPresenterApi {
     }
     
     func didSelectClose() {
-        _view.dismiss(animated: true, completion: nil)
+        view.viewController.dismiss(animated: true, completion: nil)
     }
 }
 

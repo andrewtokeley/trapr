@@ -13,6 +13,8 @@ import Viperit
 final class SettingsInteractor: Interactor {
     fileprivate let routeService = ServiceFactory.sharedInstance.routeFirestoreService
     fileprivate let userSettingsService = ServiceFactory.sharedInstance.userSettingsService
+    fileprivate let stationService = ServiceFactory.sharedInstance.stationFirestoreService
+    fileprivate let traplineService = ServiceFactory.sharedInstance.traplineFirestoreService
     
     fileprivate let cacheService = ServiceFactory.sharedInstance.cachePrimerFirestoreService
     fileprivate var reachability: Reachability?
@@ -48,7 +50,25 @@ extension SettingsInteractor: SettingsInteractorApi {
 //    }
     
     func doSomething(progress: ((Double, String, Bool) -> Void)?) {
-        self.setOwnerToOwnerlessRoutes(progress: progress)
+        //self.setOwnerToOwnerlessRoutes(progress: progress)
+        
+        // get all stations
+        stationService.get(source: .server) { (stations) in
+            var i: Double = 0.0
+            
+            for station in stations {
+                i += 1
+                // make sure the trapline exists
+                if let traplineCode = station.traplineCode, let regionCode = station.id?.split(separator: "-").first {
+                    
+                    let trapline = Trapline(code: traplineCode, regionCode: String(regionCode), details: "")
+                    let _ = self.traplineService.add(trapline: trapline, completion: { (trapline, error) in
+                        //
+                        progress?(i / Double(stations.count), "Creating Traplines...", i == Double(stations.count))
+                    })
+                }
+            }
+        }
     }
     
     private func setOwnerToOwnerlessRoutes(progress: ((Double, String, Bool) -> Void)?) {

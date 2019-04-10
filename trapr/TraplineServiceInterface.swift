@@ -11,7 +11,9 @@ import FirebaseFirestore
 
 protocol TraplineServiceInterface {
     
+    /// Add a new trapline. If it exists it will be updated otherwise a new trapline created.
     func add(trapline: Trapline, completion: ((Trapline?, Error?) -> Void)?) -> String
+    
     //func addStation(trapline: Trapline, station: Station, completion: ((Error?) -> Void)?)
     //func addTrap(station: Station, trap: TrapType, completion: ((Error?) -> Void)?)
     

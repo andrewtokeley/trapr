@@ -21,6 +21,8 @@ final class RouteDashboardView: UserInterface {
     let MAP_HEIGHT_MIN: CGFloat = 350
     let GRAPH_HEIGHT: CGFloat = 200
     
+    var lastScrollOffset: CGFloat = 0
+    
     let CELL_ID = "cell"
     let ROW_LASTVISITED = 1
     let ROW_VISITS = 2
@@ -100,7 +102,7 @@ final class RouteDashboardView: UserInterface {
         scrollViewContentView.addSubview(barChartPoisonTitle)
         
         scrollView.contentSize = CGSize(width: scrollViewContentView.frame.width, height: heightOfScrollableArea)
-        
+        scrollView.delegate = self
         return scrollView
     }()
     
@@ -483,7 +485,28 @@ extension RouteDashboardView: UITableViewDataSource {
     }
 }
 
+extension RouteDashboardView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        print("offset = \(scrollView.contentOffset.y)")
+//        if scrollView.contentOffset.y > 0 {
+//            let diff = scrollView.contentOffset.y - lastScrollOffset
+//
+//            if diff < 0 {
+//                // dragging up
+//                mapBottomConstaint?.constant += abs(diff)
+//            } else {
+//                // dragging down
+//                mapBottomConstaint?.constant -= abs(diff)
+//            }
+//        } else {
+//            mapBottomConstaint?.constant = -self.MAP_HEIGHT_MIN
+//        }
+//        lastScrollOffset = scrollView.contentOffset.y
+    }
+}
+
 extension RouteDashboardView: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = indexPath.row
         

@@ -49,13 +49,14 @@ extension RouteUserSettingsFirestoreService: RouteUserSettingsServiceInterface {
         }        
     }
     
-    func add(routeUserSettings: RouteUserSettings, completion: ((RouteUserSettings?, Error?) -> Void)?) -> String {
+    func add(routeUserSettings: RouteUserSettings, batch: WriteBatch? = nil, completion: ((RouteUserSettings?, Error?) -> Void)?) -> String {
+        
         // can only add your own settings
-        guard userService.currentUser?.id == routeUserSettings.id else {
+        guard userService.currentUser?.id == routeUserSettings.userId else {
             completion?(nil, FirestoreEntityServiceError.accessDenied)
             return ""
         }
-        return super.add(entity: routeUserSettings) { (routeUserSettings, error) in
+        return super.add(entity: routeUserSettings, batch: batch) { (routeUserSettings, error) in
             completion?(routeUserSettings, error)
         }
     }
