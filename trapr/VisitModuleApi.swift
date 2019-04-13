@@ -27,7 +27,10 @@ protocol VisitViewApi: UserInterfaceProtocol {
     func displayMenuOptions(options: [OptionItem])
     func updateDisplayFor(visit: Visit)
     func updateCurrentStation(index: Int, repeatedGroup: Int)
-    func showVisitEmail(subject: String, html: String, recipient: String)
+    
+    //func showVisitEmail(subject: String, html: String, recipient: String)
+    func showVisitEmail(subject: String, message: String, attachmentData: Data, attachmentMimeType: String, recipient: String)
+    
     func showConfirmation(title: String, message: String, yes: (() -> Void)?, no: (() -> Void)?)
     func selectTrap(index: Int)
     func confirmDeleteStationMethod()
@@ -67,7 +70,11 @@ protocol VisitInteractorApi: InteractorProtocol {
     
     func retrieveInitialState()
     
-    func retrieveHtmlForVisit(date: Date, route: Route, completion: ((String, String) -> Void)?)
+    func generateVisitReportFile(date: Date, route: Route, completion: ((Data?, String?, String?, Error?) -> Void)?)
+    func getRecipientForVisitReport(completion: ((String?) -> Void)?)
+    
+    //func retrieveHtmlForVisit(date: Date, route: Route, completion: ((String, String) -> Void)?)
+    
     func deleteOrArchiveTrap(station: Station, trapTypeId: String)
     func numberOfVisits(routeId: String, date: Date, completion: ((Int) -> Void)?)
     func getUnusedTrapTypes(allTrapTypes: [TrapType], station: Station) -> [TrapType]
@@ -79,7 +86,7 @@ protocol VisitInteractorApi: InteractorProtocol {
     
     func updateVisitDates(currentDate: Date, routeId: String, newDate: Date)
     func retrieveVisit(date: Date, routeId: String, stationId: String, trapTypeId: String)
-    func addVisit(visit: Visit)
+    func addVisit(date: Date, routeId: String, traplineId: String, stationId: String, trapTypeId: String)
     func addOrRestoreTrapToStation(station: Station, trapTypeId: String)
 
     func deleteVisit(visit: Visit)

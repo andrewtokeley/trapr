@@ -201,7 +201,7 @@ class StationMapViewController: UIViewController {
         // get annotation for this station
         if let annotation = self.stationMapAnnotations.filter({ $0.station.locationId == station.locationId }).first {
             print("zoom to \(annotation.station.locationId)")
-            let region = MKCoordinateRegionMakeWithDistance(annotation.coordinate, distance, distance)
+            let region = MKCoordinateRegion.init(center: annotation.coordinate, latitudinalMeters: distance, longitudinalMeters: distance)
             map.setRegion(region, animated: false)
         }
     }

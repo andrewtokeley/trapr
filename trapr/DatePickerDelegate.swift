@@ -31,7 +31,7 @@ protocol DatePickerDelegate {
     func datePicker(_ datePicker: DatePickerViewApi, didSelectDate date: Date)
     
     // must implement
-    func displayMode(_ datePicker: DatePickerViewApi) -> UIDatePickerMode
+    func displayMode(_ datePicker: DatePickerViewApi) -> UIDatePicker.Mode
 }
 
 //MARK: - Default implementations for optional methods

@@ -360,7 +360,7 @@ extension StartView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let changeImage = UITableViewRowAction(style: UITableViewRowActionStyle.default, title: "Change Picture...", handler: {
+        let changeImage = UITableViewRowAction(style: UITableViewRowAction.Style.default, title: "Change Picture...", handler: {
             (row, index) in
             
             

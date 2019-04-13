@@ -316,7 +316,7 @@ extension RouteDashboardPresenter: StationMapDelegate {
                 // If unselecting a station...
                 if annotationView.color == UIColor.trpMapHighlightedStation {
                     
-                    if let index = self.proposedStationIds.index(of: annotation.station.locationId) {
+                    if let index = self.proposedStationIds.firstIndex(of: annotation.station.locationId) {
                         self.proposedStationIds.remove(at: index)
                     }
                 }

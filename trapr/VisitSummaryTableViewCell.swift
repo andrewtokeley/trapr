@@ -39,7 +39,7 @@ class VisitSummaryTableViewCell: UITableViewCell {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 60, height: 60)
-        layout.sectionInset = UIEdgeInsetsMake(0, LayoutDimensions.spacingMargin, 0, LayoutDimensions.spacingMargin)
+        layout.sectionInset = UIEdgeInsets.init(top: 0, left: LayoutDimensions.spacingMargin, bottom: 0, right: LayoutDimensions.spacingMargin)
         layout.footerReferenceSize = CGSize.zero
         layout.headerReferenceSize = CGSize.zero
         

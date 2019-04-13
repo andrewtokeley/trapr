@@ -71,7 +71,7 @@ final class DatePickerView: UserInterface {
         button.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
         button.setTitleColor(UIColor.trpButtonDisabled, for: .disabled)
         
-        button.addTarget(self, action: #selector(doneButtonClick(sender:)), for: UIControlEvents.touchUpInside)
+        button.addTarget(self, action: #selector(doneButtonClick(sender:)), for: UIControl.Event.touchUpInside)
         return button
     }()
     
@@ -82,7 +82,7 @@ final class DatePickerView: UserInterface {
         button.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
         button.setTitleColor(UIColor.trpButtonDisabled, for: .disabled)
         
-        button.addTarget(self, action: #selector(todayButtonClick(sender:)), for: UIControlEvents.touchUpInside)
+        button.addTarget(self, action: #selector(todayButtonClick(sender:)), for: UIControl.Event.touchUpInside)
         return button
     }()
     

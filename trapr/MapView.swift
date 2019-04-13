@@ -27,7 +27,7 @@ final class MapView: UserInterface {
     }()
     
     lazy var mapViewController: StationMapViewController? = {
-        return self.childViewControllers.first as? StationMapViewController
+        return self.children.first as? StationMapViewController
     }()
     
     lazy var closeButton: UIBarButtonItem = {
@@ -38,7 +38,7 @@ final class MapView: UserInterface {
     }()
     
     lazy var showMenuButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(named:"show"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(showMoreMenu(sender:)))
+        let button = UIBarButtonItem(image: UIImage(named:"show"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(showMoreMenu(sender:)))
         return button
     }()
     

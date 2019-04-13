@@ -13,11 +13,15 @@ import Viperit
 final class VisitInteractor: Interactor {
 
     fileprivate lazy var visitService = { ServiceFactory.sharedInstance.visitFirestoreService }()
+    fileprivate lazy var visitSummaryService = { ServiceFactory.sharedInstance.visitSummaryFirestoreService }()
     fileprivate lazy var routeService = { ServiceFactory.sharedInstance.routeFirestoreService }()
     fileprivate lazy var stationService = { ServiceFactory.sharedInstance.stationFirestoreService }()
     fileprivate lazy var  trapTypeService = { ServiceFactory.sharedInstance.trapTypeFirestoreService }()
     fileprivate lazy var htmlService = { ServiceFactory.sharedInstance.htmlService }()
     fileprivate lazy var userSettingsService = { ServiceFactory.sharedInstance.userSettingsService }()
+    fileprivate lazy var excelService = { ServiceFactory.sharedInstance.excelService }()
+    
+    fileprivate var trapTypes = [TrapType]()
     
     //fileprivate var visits: [Visit]!
     
@@ -33,6 +37,47 @@ final class VisitInteractor: Interactor {
 
 // MARK: - VisitInteractor API
 extension VisitInteractor: VisitInteractorApi {
+    
+    func generateVisitReportFile(date: Date, route: Route, completion: ((Data?, String?, String?, Error?) -> Void)?) {
+
+        // get the VisitSummary
+        visitSummaryService.get(date: date, routeId: route.id!) { (visitSummary, error) in
+            if let visitSummary = visitSummary {
+                
+                // create report
+                self.excelService.generateVisitReportFile(visitSummary: visitSummary, completion: { (data, mime, error) in
+                    
+                    var message = "<p>Hi there, you can find the full report of my visit in the attached file..</p>"
+                    
+                    // add a summary section
+                    if visitSummary.totalKills > 0 {
+                        message += "<ul>"
+                        for kill in visitSummary.totalKillsBySpecies {
+                            message += "<li>\(kill.key) - \(kill.value)</li>"
+                        }
+                        message += "</ul>"
+                    }
+                    
+                    completion?(data, mime, message, error)
+                })
+                
+            } else {
+                completion?(nil, nil, nil, FirestoreEntityServiceError.generalError)
+            }
+        }
+        
+        
+    }
+    
+    func getRecipientForVisitReport(completion: ((String?) -> Void)?) {
+        self.userSettingsService.get(completion: { (settings, error) in
+            if let recipient = settings?.handlerEmail {
+                completion?(recipient)
+            } else {
+                completion?(nil)
+            }
+        })
+    }
     
     func retrieveHtmlForVisit(date: Date, route: Route, completion: ((String, String) -> Void)?) {
         self.htmlService.getVisitsAsHtml(recordedOn: date, route: route) { (html) in
@@ -64,6 +109,7 @@ extension VisitInteractor: VisitInteractorApi {
     
     func retrieveInitialState() {
         trapTypeService.get { (trapTypes, error) in
+            self.trapTypes = trapTypes
             self.presenter.didFetchInitialState(trapTypes: trapTypes)
         }
     }
@@ -177,9 +223,18 @@ extension VisitInteractor: VisitInteractorApi {
         }
     }
     
-    func addVisit(visit: Visit) {
-        visitService.add(visit: visit, completion: nil)
-        presenter.didFetchVisit(visit: visit)
+    func addVisit(date: Date, routeId: String, traplineId: String, stationId: String, trapTypeId: String) {
+        let newVisit = Visit(date: date, routeId: routeId, traplineId: traplineId, stationId: stationId, trapTypeId: trapTypeId)
+        
+        // Set some defaults
+        // (this logic should be in the service, but then I'd need to return newVisit outside of the closure, since it isn't fired when offline... fixable, but not now, since this is the only place we create Visits)
+        let defaultLureId = self.trapTypes.first( where: { $0.id == trapTypeId })?.defaultLure
+        newVisit.lureId = defaultLureId
+        newVisit.trapSetStatusId = TrapSetStatus.stillSet.rawValue
+        newVisit.trapOperatingStatusId = TrapOperatingStatus.open.rawValue
+        
+        self.visitService.add(visit: newVisit, completion: nil)
+        self.presenter.didFetchVisit(visit: newVisit)
     }
     
     func deleteVisit(visit: Visit) {

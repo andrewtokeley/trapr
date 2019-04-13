@@ -51,7 +51,7 @@ final class RouteDashboardView: UserInterface {
     }()
     
     lazy var routeSummaryTableViewCell: UITableViewCell = {
-        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: CELL_ID)
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: CELL_ID)
         cell.textLabel?.text = "Stations"
         cell.accessoryType = .none
         cell.selectionStyle = .none
@@ -60,7 +60,7 @@ final class RouteDashboardView: UserInterface {
     }()
     
     lazy var visitsTableViewCell: UITableViewCell = {
-        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: CELL_ID)
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: CELL_ID)
         cell.textLabel?.text = "Visits"
         cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .none
@@ -69,7 +69,7 @@ final class RouteDashboardView: UserInterface {
     }()
     
     lazy var lastVisitTableViewCell: UITableViewCell = {
-        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: CELL_ID)
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: CELL_ID)
         cell.textLabel?.text = "Last Visited"
         cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .none
@@ -78,7 +78,7 @@ final class RouteDashboardView: UserInterface {
     }()
     
     lazy var timesTableViewCell: UITableViewCell = {
-        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: CELL_ID)
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: CELL_ID)
         cell.textLabel?.text = "Times"
         cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .none
@@ -277,9 +277,9 @@ final class RouteDashboardView: UserInterface {
     }()
     
     lazy var mapViewController: StationMapViewController? = {
-        let map = self.childViewControllers.first as? StationMapViewController
+        let map = self.children.first as? StationMapViewController
         map?.showUserLocation(true)
-        return self.childViewControllers.first as? StationMapViewController
+        return self.children.first as? StationMapViewController
     }()
     
     lazy var editDoneButton: UIBarButtonItem = {

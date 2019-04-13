@@ -71,7 +71,7 @@ final class ListPickerPresenter: Presenter {
            
             // it's the root if it's parent on the stack is not a ListPicker
             // get the view controller that pushed this listpicker
-            if let indexOfViewController = viewController.navigationController?.viewControllers.index(of: viewController) {
+            if let indexOfViewController = viewController.navigationController?.viewControllers.firstIndex(of: viewController) {
                 if indexOfViewController == 0 {
                     // this is the only viewcontroller on the navigation stack, so is the root
                     return true
@@ -140,7 +140,7 @@ extension ListPickerPresenter: ListPickerPresenterApi {
     func didSelectItem(row: Int) {
         
         // if selected already, remove it (it's being deselected from view)
-        if let index = selectedIndices.index(of: row) {
+        if let index = selectedIndices.firstIndex(of: row) {
             selectedIndices.remove(at: index)
         } else {
             selectedIndices.append(row)
@@ -203,7 +203,7 @@ private extension ListPickerPresenter {
 // TESTING
 extension UIViewController {
     var isModal: Bool {
-        if let index = navigationController?.viewControllers.index(of: self), index > 0 {
+        if let index = navigationController?.viewControllers.firstIndex(of: self), index > 0 {
             return false
         } else if presentingViewController != nil {
             return true

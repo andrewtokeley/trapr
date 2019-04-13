@@ -31,10 +31,12 @@ extension LoaderInteractor: LoaderInteractorApi {
     func registerAuthenticatedUser(completion: @escaping(User?) -> Void) {
         
         // Make sure we have a record in the database for the user
-        print("interactor.registerAuthenticatedUser")
+        
         if let authUser = Auth.auth().currentUser, let email = authUser.email {
+            
             let authenticatedUser = AuthenticatedUser(email: email)
-            print("userService.registerAuthenticatedUser call")
+            authenticatedUser.displayName = authUser.displayName
+            
             userService.registerAuthenticatedUser(authenticatedUser: authenticatedUser) { (user, error) in
                 print("got user")
                 completion(user)

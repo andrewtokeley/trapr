@@ -15,6 +15,7 @@ import MessageUI
 final class VisitView: UserInterface {
     
     fileprivate let htmlService = ServiceFactory.sharedInstance.htmlService
+    fileprivate let excelService = ServiceFactory.sharedInstance.excelService
     
     fileprivate var CAROUSEL_TRAPS_HEIGHT: CGFloat = 100
     fileprivate var CAROUSEL_STATIONS_HEIGHT: CGFloat = 50
@@ -441,7 +442,7 @@ extension VisitView: VisitViewApi {
         self.stations = stations
         self.repeatCount = repeatCount
         
-        if let index = stations.index(of: current) {
+        if let index = stations.firstIndex(of: current) {
             // start in the middle of the "infinite" list of stations.
             self.stationsCarousel.currentItemIndex = index * self.repeatCount/2
             print("POSITION \(index * self.repeatCount/2)")
@@ -484,8 +485,8 @@ extension VisitView: VisitViewApi {
         
         self.present(menu, animated: true, completion: nil)
     }
-    
-    func showVisitEmail(subject: String, html: String, recipient: String) {
+    func showVisitEmail(subject: String, message: String, attachmentData: Data, attachmentMimeType: String, recipient: String) {
+
         if MFMailComposeViewController.canSendMail() {
             
             let controller = MFMailComposeViewController()
@@ -493,13 +494,33 @@ extension VisitView: VisitViewApi {
             
             controller.setSubject(subject)
             controller.setToRecipients([recipient])
+            controller.setMessageBody(message, isHTML: true)
+            controller.addAttachmentData(attachmentData, mimeType: attachmentMimeType, fileName: "visitReport.xlsx")
+            self.present(controller, animated: true, completion: nil)
+        }
+        
+        self.presenter.didSendEmailSuccessfully()
+    }
+    
+    func showVisitEmail(subject: String, html: String, recipient: String) {
+        
+        
+        
+        if MFMailComposeViewController.canSendMail() {
+
+            let controller = MFMailComposeViewController()
+            controller.mailComposeDelegate = self
+
+            controller.setSubject(subject)
+            controller.setToRecipients([recipient])
             controller.setMessageBody(html, isHTML: true)
-            
+
             self.present(controller, animated: true, completion: nil)
         }
     }
     
     func showVisitEmail(visitSummary: VisitSummary, recipient: String?) {
+        
         
         if MFMailComposeViewController.canSendMail() {
 
@@ -512,12 +533,13 @@ extension VisitView: VisitViewApi {
                 controller.setToRecipients([recipient])
             }
 
+            //controller.addAttachmentData(Data, mimeType: , fileName: <#T##String#>)
             htmlService.getVisitsAsHtml(recordedOn: visitSummary.dateOfVisit, route: visitSummary.route!, completion: { (html) in
                 if let html = html {
                     controller.setMessageBody(html, isHTML: true)
                 }
             })
-            
+
             self.present(controller, animated: true, completion: nil)
         }
     }

@@ -93,7 +93,7 @@ extension SettingsInteractor: SettingsInteractorApi {
         
         for route in routes {
             var show = false
-            if let index = routes.index(of: route) {
+            if let index = routes.firstIndex(of: route) {
                 if showIndexes.contains(index) {
                     // hide this one
                     show = true

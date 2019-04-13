@@ -115,7 +115,7 @@ extension StationSearchView: UITableViewDelegate, UITableViewDataSource {
         
         var cell:UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: CELL_ID)
         if (cell == nil) {
-            cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: CELL_ID)
+            cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: CELL_ID)
         }
         var detailText: String?
         

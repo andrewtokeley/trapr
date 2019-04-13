@@ -27,7 +27,7 @@ protocol DatePickerPresenterApi: PresenterProtocol {
     func didSelectClose()
     func didSelectDate(date: Date)
     func didSelectToday()
-    var dateMode: UIDatePickerMode { get }
+    var dateMode: UIDatePicker.Mode { get }
 }
 
 //MARK: - DatePickerInteractor API

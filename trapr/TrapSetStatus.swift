@@ -15,13 +15,25 @@ enum TrapSetStatus: Int {
     case stillSet = 0
     case sprungAndEmpty
     case setBaitEaten
+    case trapGone
     case other
+    
+    var walkTheLineCode: Int {
+        switch self {
+        case .stillSet: return 1
+        case .sprungAndEmpty: return 2
+        case .setBaitEaten: return 3
+        case .trapGone: return 5
+        case .other: return 8
+        }
+    }
     
     var name: String {
         switch self {
-        case .stillSet: return "Still set"
+        case .stillSet: return "Still set with Bait"
         case .sprungAndEmpty: return "Sprung and empty"
-        case .setBaitEaten: return "Set bait eaten"
+        case .setBaitEaten: return "Still set, bait eaten"
+        case .trapGone: return "Trap gone"
         case .other: return "Other"
         }
     }

@@ -94,7 +94,7 @@ extension TraplineSelectPresenter: TraplineSelectPresenterApi {
     }
     
     func didDeselectTrapline(trapline: Trapline) {
-        if let index = selectedTraplines.index(of: trapline) {
+        if let index = selectedTraplines.firstIndex(of: trapline) {
             selectedTraplines.remove(at: index)
             if selectedTraplines.count == 0 {
                 view.setNextButtonState(enabled: false)

@@ -24,6 +24,8 @@ class VisitViewModel: Visit {
         self.notes = visit.notes
         self.speciesId = visit.speciesId
         self.userId = visit.userId
+        self.trapOperatingStatusId = visit.trapOperatingStatusId
+        self.trapSetStatusId = visit.trapSetStatusId
     }
     
     var lureName: String?
@@ -69,7 +71,7 @@ final class VisitLogView: UserInterface {
     //MARK: - SubViews
     
     lazy var noVisitButton: UIButton = {
-        let button = UIButton(type: UIButtonType.custom)
+        let button = UIButton(type: UIButton.ButtonType.custom)
         button.alpha = 0
         button.setTitle("Record a Visit", for: .normal)
         button.backgroundColor = UIColor.trpHighlightColor
@@ -88,14 +90,14 @@ final class VisitLogView: UserInterface {
     }()
     
     lazy var dateTimeTableViewCell: UITableViewCell = {
-        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: nil)
         cell.textLabel?.text = "Time"
         cell.selectionStyle = .none
         return cell
     }()
     
     lazy var trapStatusTableViewCell: UITableViewCell = {
-        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: nil)
         cell.textLabel?.text = "Trap status"
         cell.selectionStyle = .none
         cell.accessoryType = .disclosureIndicator
@@ -103,7 +105,7 @@ final class VisitLogView: UserInterface {
     }()
     
     lazy var trapSetStatusTableViewCell: UITableViewCell = {
-        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: nil)
         cell.textLabel?.text = "Set status"
         cell.selectionStyle = .none
         cell.accessoryType = .disclosureIndicator
@@ -111,7 +113,7 @@ final class VisitLogView: UserInterface {
     }()
     
     lazy var killTableViewCell: UITableViewCell = {
-        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: nil)
         cell.accessoryType = .disclosureIndicator
         cell.textLabel?.text = "Species"
         cell.selectionStyle = .none
@@ -119,7 +121,7 @@ final class VisitLogView: UserInterface {
     }()
     
     lazy var lureTableViewCell: UITableViewCell = {
-        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: nil)
         cell.accessoryType = .disclosureIndicator
         cell.textLabel?.text = "Bait used"
         cell.selectionStyle = .none
@@ -161,7 +163,7 @@ final class VisitLogView: UserInterface {
     }()
     
     lazy var removeVisitButton: UIButton = {
-        let button = UIButton(type: UIButtonType.custom)
+        let button = UIButton(type: UIButton.ButtonType.custom)
         button.setTitle("Remove Visit", for: .normal)
         button.setTitleColor(UIColor.red, for: .normal)
         button.titleLabel?.textAlignment = .center
@@ -237,7 +239,7 @@ extension VisitLogView: UIScrollViewDelegate {
 extension VisitLogView: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        tableView.scrollToRow(at: IndexPath(row: ROW_COMMENTS, section: SECTION_COMMENTS), at: UITableViewScrollPosition.top, animated: true)
+        tableView.scrollToRow(at: IndexPath(row: ROW_COMMENTS, section: SECTION_COMMENTS), at: UITableView.ScrollPosition.top, animated: true)
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -270,7 +272,7 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case SECTION_DATETIME: return 2
-        case SECTION_CATCH: return 2
+        case SECTION_CATCH:  return 2 //return self.visit?.speciesId == nil ? 2 : 1
         case SECTION_BAIT: return 4
         case SECTION_COMMENTS: return 1
         case SECTION_REMOVE: return 0
@@ -306,6 +308,8 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
         if visibleSections.contains(indexPath.section) {
             if indexPath.section == SECTION_COMMENTS {
                 return LayoutDimensions.tableCellHeight * 2
+//            } else if (indexPath.section == SECTION_CATCH && self.visit?.speciesId != nil && indexPath.row == ROW_TRAP_SET_STATUS) {
+//                return 0.1
             } else {
                 return tableView.rowHeight
             }
@@ -351,7 +355,7 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.isHidden = !visibleSections.contains(indexPath.section)
+        cell.isHidden = !visibleSections.contains(indexPath.section) // || (indexPath.section == SECTION_CATCH && self.visit?.speciesId != nil && indexPath.row == ROW_TRAP_SET_STATUS)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -371,7 +375,7 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
             cell.detailTextLabel?.text = self.visit?.speciesName ?? self.visit?.speciesId ?? "None"
         } else if section == SECTION_CATCH && row == ROW_TRAP_SET_STATUS {
             cell = self.trapSetStatusTableViewCell
-            cell.detailTextLabel?.text = self.visit?.trapSetStatus.name ?? "Not set"
+            cell.detailTextLabel?.text = self.visit?.trapSetStatus?.name ?? "-"
         } else if section == SECTION_BAIT && row == ROW_BAIT_TYPE {
             cell = self.lureTableViewCell
             cell.detailTextLabel?.text = self.visit?.lureName ?? self.visit?.lureId ?? "None"
@@ -422,7 +426,7 @@ extension VisitLogView: VisitLogViewApi {
         
         self.visit = visit
         
-        if let index = visibleSections.index(of: SECTION_CATCH) {
+        if let index = visibleSections.firstIndex(of: SECTION_CATCH) {
             visibleSections.remove(at: index)
         }
         if showCatchSection {

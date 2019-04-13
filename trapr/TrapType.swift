@@ -20,6 +20,16 @@ enum TrapTypeCode: String {
     case doc200 = "DOC200"
     case timms = "TIMM"
     case other = "OTHER"
+ 
+    var walkTheLineName: String {
+        switch self {
+        case .possumMaster: return "Possum Master"
+        case .pellibait: return "Pelifeed"
+        case .doc200: return "DOC 200 Single"
+        case .timms: return "Timms Cat Trap"
+        case .other: return "Other"
+        }
+    }
 }
 
 enum TrapTypeFields: String {

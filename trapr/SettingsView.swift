@@ -65,7 +65,7 @@ final class SettingsView: UserInterface {
     
     lazy var visitsEmailTableViewCell: UITableViewCell = {
         
-        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: self.TABLEVIEW_CELL_ID)
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: self.TABLEVIEW_CELL_ID)
         cell.selectionStyle = .none
         
         let label = UILabel()
@@ -105,7 +105,7 @@ final class SettingsView: UserInterface {
     
     lazy var hiddenRoutesTableViewCell: UITableViewCell = {
         
-        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: self.TABLEVIEW_CELL_ID)
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: self.TABLEVIEW_CELL_ID)
         cell.textLabel?.text = "Show on Dashboard"
         cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .none

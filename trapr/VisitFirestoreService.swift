@@ -22,17 +22,17 @@ class VisitFirestoreService: FirestoreEntityService<Visit>, VisitServiceInterfac
         if let visitEx = VisitEx(visit: visit) {
         
             self.stationService.get(stationId: visit.stationId) { (station, error) in
-                visitEx.stationName = station?.longCode
+                visitEx.station = station
                 
                 self.trapTypeService.get(id: visit.trapTypeId, completion: { (trapType, error) in
-                    visitEx.trapTypeName = trapType?.name
+                    visitEx.trapType = trapType
                     
                     let dispatchGroup = DispatchGroup()
                     
                     dispatchGroup.enter()
                     if let speciesId = visit.speciesId {
                         self.speciesService.get(id: speciesId, completion: { (species, error) in
-                            visitEx.speciesName = species?.name
+                            visitEx.species = species
                             dispatchGroup.leave()
                         })
                     } else {

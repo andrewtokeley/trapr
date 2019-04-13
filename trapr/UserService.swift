@@ -35,11 +35,10 @@ class UserService: FirestoreEntityService<User>, UserServiceInterface {
     
     func registerAuthenticatedUser(authenticatedUser: AuthenticatedUser, completion: ((User?, Error?) -> Void)?) {
         
-        // TODO - check it doesn't already exist!
-        print("registerAuthenticatedUser started")
         // Create a new User record from the authenticated user
         let user = User(email: authenticatedUser.email)
         user.lastAuthenticated = Date()
+        user.displayName = authenticatedUser.displayName
         user.roles = [UserRole.contributor.rawValue]
         
         // This will add a new user if the user wasn't previously registered

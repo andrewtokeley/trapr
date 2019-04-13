@@ -132,6 +132,10 @@
 		D83A18E7221A1F1C00451987 /* RouteUserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83A18E6221A1F1C00451987 /* RouteUserSettings.swift */; };
 		D83A18E8221A1F1C00451987 /* RouteUserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83A18E6221A1F1C00451987 /* RouteUserSettings.swift */; };
 		D83D0B57200E8B70001E1F69 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D0B56200E8B70001E1F69 /* UIViewControllerExtension.swift */; };
+		D83D64BE2260440F00353902 /* VisitReportTemplate.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = D83D64BD2260440F00353902 /* VisitReportTemplate.xlsx */; };
+		D83D64BF2260440F00353902 /* VisitReportTemplate.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = D83D64BD2260440F00353902 /* VisitReportTemplate.xlsx */; };
+		D83D64C222615CD100353902 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D64C122615CD100353902 /* ArrayExtension.swift */; };
+		D83D64C322615D7400353902 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D64C122615CD100353902 /* ArrayExtension.swift */; };
 		D83DC6C81F7F841F00F91792 /* StartDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C11F7F841F00F91792 /* StartDisplayData.swift */; };
 		D83DC6C91F7F841F00F91792 /* StartInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C21F7F841F00F91792 /* StartInteractor.swift */; };
 		D83DC6CA1F7F841F00F91792 /* StartModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C31F7F841F00F91792 /* StartModuleApi.swift */; };
@@ -179,7 +183,6 @@
 		D8503DD81F67AF7800ED0C84 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = D8503DD71F67AF7800ED0C84 /* user.png */; };
 		D851E566225AAD4D009E129A /* ExcelServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D851E565225AAD4D009E129A /* ExcelServiceInterface.swift */; };
 		D851E568225AAE72009E129A /* ExcelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D851E567225AAE72009E129A /* ExcelService.swift */; };
-		D851E56A225AAF41009E129A /* VisitReportTemplate.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = D851E569225AAF41009E129A /* VisitReportTemplate.xlsx */; };
 		D851E56B225B163A009E129A /* ExcelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D851E567225AAE72009E129A /* ExcelService.swift */; };
 		D851E56C225B163D009E129A /* ExcelServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D851E565225AAD4D009E129A /* ExcelServiceInterface.swift */; };
 		D852E84D206F52D500255A2D /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = D852E84B206F52D400255A2D /* add.png */; };
@@ -748,6 +751,8 @@
 		D83A18E32217BB3600451987 /* UserServiceTestMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceTestMock.swift; sourceTree = "<group>"; };
 		D83A18E6221A1F1C00451987 /* RouteUserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteUserSettings.swift; sourceTree = "<group>"; };
 		D83D0B56200E8B70001E1F69 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		D83D64BD2260440F00353902 /* VisitReportTemplate.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = VisitReportTemplate.xlsx; sourceTree = "<group>"; };
+		D83D64C122615CD100353902 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		D83DC6C11F7F841F00F91792 /* StartDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartDisplayData.swift; sourceTree = "<group>"; };
 		D83DC6C21F7F841F00F91792 /* StartInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartInteractor.swift; sourceTree = "<group>"; };
 		D83DC6C31F7F841F00F91792 /* StartModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartModuleApi.swift; sourceTree = "<group>"; };
@@ -789,7 +794,6 @@
 		D8503DD71F67AF7800ED0C84 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
 		D851E565225AAD4D009E129A /* ExcelServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcelServiceInterface.swift; sourceTree = "<group>"; };
 		D851E567225AAE72009E129A /* ExcelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcelService.swift; sourceTree = "<group>"; };
-		D851E569225AAF41009E129A /* VisitReportTemplate.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = VisitReportTemplate.xlsx; sourceTree = "<group>"; };
 		D852E84B206F52D400255A2D /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
 		D852E84E206F542200255A2D /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
 		D856F66720111D3E00CA50C2 /* NewRouteDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRouteDisplayData.swift; sourceTree = "<group>"; };
@@ -1465,7 +1469,7 @@
 				D84C24652004806E000BCAF8 /* ObjectOrder.swift */,
 				D8EA460B200AAF6B0032224E /* OrderedDictionary.swift */,
 				D8EA460F200AB9A20032224E /* StackCount.swift */,
-				D851E569225AAF41009E129A /* VisitReportTemplate.xlsx */,
+				D83D64BD2260440F00353902 /* VisitReportTemplate.xlsx */,
 			);
 			path = trapr;
 			sourceTree = "<group>";
@@ -1498,6 +1502,7 @@
 				D800573520154F9C0084E950 /* VerticallyCentredTextView.swift */,
 				D8BB6F4C20291E9E008AB3A2 /* UIImageViewExtension.swift */,
 				D8C3786C2146431900B02E86 /* TimeIntervalExtension.swift */,
+				D83D64C122615CD100353902 /* ArrayExtension.swift */,
 			);
 			name = Design;
 			sourceTree = "<group>";
@@ -1719,7 +1724,7 @@
 				D8B94D531F5EA1FE00D373EF /* Resources */,
 				E47BD7212A05A0F1A304270D /* [CP] Embed Pods Frameworks */,
 				D8083D261FE5D5D000D1C5F1 /* Increment Build Number */,
-				9E92D85D0275EA74A7CD1679 /* [CP] Copy Pods Resources */,
+				E9543565E52AC69881F854F5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1738,7 +1743,6 @@
 				D8B94D651F5EA1FE00D373EF /* Sources */,
 				D8B94D661F5EA1FE00D373EF /* Frameworks */,
 				D8B94D671F5EA1FE00D373EF /* Resources */,
-				0A2B8859EAB0DE16451D9450 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1760,7 +1764,7 @@
 				D8C25D922181771F00C5DB64 /* Resources */,
 				D8C25DE62181771F00C5DB64 /* [CP] Embed Pods Frameworks */,
 				D8C25DE82181771F00C5DB64 /* Increment Build Number */,
-				61DA115870A6EF897BC2B4DE /* [CP] Copy Pods Resources */,
+				C23C3B9D46A33B5CCD8163FD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1789,12 +1793,13 @@
 					};
 					D8B94D681F5EA1FE00D373EF = {
 						CreatedOnToolsVersion = 8.3.1;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = D8C25CA22181771F00C5DB64;
 					};
 					D8C25CA22181771F00C5DB64 = {
 						DevelopmentTeam = 2DTZ6ESMX9;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -1900,7 +1905,7 @@
 				D8BC08471F6A541200B284EE /* lessthan.png in Resources */,
 				D8C25DF52181A12800C5DB64 /* GoogleService-Info.plist in Resources */,
 				D8BC08461F6A541200B284EE /* greaterthan.png in Resources */,
-				D851E56A225AAF41009E129A /* VisitReportTemplate.xlsx in Resources */,
+				D83D64BE2260440F00353902 /* VisitReportTemplate.xlsx in Resources */,
 				D8AB9ADF201DB39E00FBEF55 /* RouteImage1.png in Resources */,
 				D8083D321FE8FA8E00D1C5F1 /* StatisticView.xib in Resources */,
 				D8AB9ADD201DAF4B00FBEF55 /* RouteTableViewCell.xib in Resources */,
@@ -1994,6 +1999,7 @@
 				D8C25DE12181771F00C5DB64 /* lessthan.png in Resources */,
 				D8C25DF32181A11E00C5DB64 /* GoogleService-Info.plist in Resources */,
 				D8C25DE22181771F00C5DB64 /* greaterthan.png in Resources */,
+				D83D64BF2260440F00353902 /* VisitReportTemplate.xlsx in Resources */,
 				D8C25DE32181771F00C5DB64 /* RouteImage1.png in Resources */,
 				D8C25DE42181771F00C5DB64 /* StatisticView.xib in Resources */,
 				D8C25DE52181771F00C5DB64 /* RouteTableViewCell.xib in Resources */,
@@ -2003,26 +2009,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0A2B8859EAB0DE16451D9450 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-traprTests/Pods-traprTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/CSVImporter/CSVImporter.framework",
-				"${BUILT_PRODUCTS_DIR}/HandySwift/HandySwift.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSVImporter.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandySwift.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-traprTests/Pods-traprTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		367FB6A19C05F5F0A01D84EA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2041,7 +2027,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		61DA115870A6EF897BC2B4DE /* [CP] Copy Pods Resources */ = {
+		C23C3B9D46A33B5CCD8163FD /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2061,28 +2047,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9E92D85D0275EA74A7CD1679 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
-				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D8083D261FE5D5D000D1C5F1 /* Increment Build Number */ = {
@@ -2124,8 +2088,6 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/CSVImporter/CSVImporter.framework",
-				"${BUILT_PRODUCTS_DIR}/HandySwift/HandySwift.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
@@ -2133,7 +2095,10 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
 				"${BUILT_PRODUCTS_DIR}/Viperit/Viperit.framework",
+				"${BUILT_PRODUCTS_DIR}/XMLDictionary/XMLDictionary.framework",
+				"${BUILT_PRODUCTS_DIR}/XlsxReaderWriter/XlsxReaderWriter.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/iCarousel/iCarousel.framework",
@@ -2142,8 +2107,6 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSVImporter.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandySwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
@@ -2151,7 +2114,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Viperit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMLDictionary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XlsxReaderWriter.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iCarousel.framework",
@@ -2184,8 +2150,6 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/CSVImporter/CSVImporter.framework",
-				"${BUILT_PRODUCTS_DIR}/HandySwift/HandySwift.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
@@ -2193,7 +2157,10 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
 				"${BUILT_PRODUCTS_DIR}/Viperit/Viperit.framework",
+				"${BUILT_PRODUCTS_DIR}/XMLDictionary/XMLDictionary.framework",
+				"${BUILT_PRODUCTS_DIR}/XlsxReaderWriter/XlsxReaderWriter.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/iCarousel/iCarousel.framework",
@@ -2202,8 +2169,6 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSVImporter.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandySwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
@@ -2211,7 +2176,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Viperit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMLDictionary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XlsxReaderWriter.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iCarousel.framework",
@@ -2221,6 +2189,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E9543565E52AC69881F854F5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F950247E27DF98114E92AB1F /* [CP] Check Pods Manifest.lock */ = {
@@ -2323,6 +2313,7 @@
 				D8C25C97217EDAA300C5DB64 /* AdministrationModuleApi.swift in Sources */,
 				D80F8DCE21969DC90035C668 /* Visit.swift in Sources */,
 				D8C8A1E21FCB9F7F0075E44E /* VisitSummaryTableViewCell.swift in Sources */,
+				D83D64C222615CD100353902 /* ArrayExtension.swift in Sources */,
 				D83DC6CD1F7F841F00F91792 /* StartView.swift in Sources */,
 				D80B6DCB1F9F3DCD00F49E9E /* VisitLogDisplayData.swift in Sources */,
 				D80FFC7B2202385000AFB69F /* OrderStationsView.swift in Sources */,
@@ -2573,6 +2564,7 @@
 				D80FFC782202385000AFB69F /* OrderStationsModuleApi.swift in Sources */,
 				D8C25CED2181771F00C5DB64 /* RouteDashboardDisplayData.swift in Sources */,
 				D83A18E52217BB3600451987 /* UserServiceTestMock.swift in Sources */,
+				D83D64C322615D7400353902 /* ArrayExtension.swift in Sources */,
 				D80FFC7F22023AFF00AFB69F /* OrderStationsSetupData.swift in Sources */,
 				D8C25CEE2181771F00C5DB64 /* VisitLogViewDelegate.swift in Sources */,
 				D8C25CEF2181771F00C5DB64 /* TraplineFirestoreService.swift in Sources */,
@@ -2802,7 +2794,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -2852,7 +2844,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -2868,7 +2860,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = andrewtokeley.com.trapr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -2883,7 +2875,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = andrewtokeley.com.trapr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -2898,8 +2890,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = andrewtokeley.com.traprTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/trapr_development.app/trapr_development";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -2916,8 +2907,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = andrewtokeley.com.traprTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/trapr_development.app/trapr_development";
 			};
 			name = Release;
@@ -2933,8 +2923,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEVELOPMENT";
 				PRODUCT_BUNDLE_IDENTIFIER = "andrewtokeley.com.trapr-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -2949,8 +2938,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEVELOPMENT";
 				PRODUCT_BUNDLE_IDENTIFIER = "andrewtokeley.com.trapr-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

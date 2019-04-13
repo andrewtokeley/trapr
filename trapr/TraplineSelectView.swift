@@ -51,8 +51,8 @@ final class TraplineSelectView: UserInterface {
     lazy var nextButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: self.NEXT_BUTTON_TEXT, style: .plain, target: self, action: #selector(nextButtonClick(sender:)))
         
-        button.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.trpNavigationBarTint], for: .normal)
-        button.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.trpNavigationBarTintDisabled], for: .disabled)
+        button.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.trpNavigationBarTint], for: .normal)
+        button.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.trpNavigationBarTintDisabled], for: .disabled)
         
         return button
     }()
@@ -139,7 +139,7 @@ final class TraplineSelectView: UserInterface {
         self.selectedTraplinesView.autoPinEdge(toSuperviewEdge: .right)
         self.selectedTraplinesView.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
         
-        self.selectedTraplinesText.autoPinEdgesToSuperviewEdges(with: UIEdgeInsetsMake(0, LayoutDimensions.textIndentMargin, 0, 0), excludingEdge: .right)
+        self.selectedTraplinesText.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets.init(top: 0, left: LayoutDimensions.textIndentMargin, bottom: 0, right: 0), excludingEdge: .right)
         
         self.selectedTraplinesFooterText.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.textIndentMargin)
         self.selectedTraplinesFooterText.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.textIndentMargin)

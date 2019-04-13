@@ -88,4 +88,8 @@ class ServiceFactory {
     lazy var userSettingsService: UserSettingsServiceInterface = {
         return UserSettingsFirestoreService(firestore: self.firestoreDatabase, collectionName: "userSettings")
     }()
+    
+    lazy var excelService: ExcelServiceInterface = {
+        return ExcelService()
+    }()
 }

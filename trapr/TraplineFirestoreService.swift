@@ -29,7 +29,9 @@ extension TraplineFirestoreService: TraplineServiceInterface {
     }
     
     func get(traplineId: String, completion: ((Trapline?, Error?) -> Void)?) {
-        
+        super.get(id: traplineId) { (trapline, error) in
+            completion?(trapline, error)
+        }
     }
     
     func extractTraplineReferencesFromStations(stations: [Station]) -> [String] {

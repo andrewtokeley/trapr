@@ -15,8 +15,8 @@ protocol ExcelServiceInterface {
      
      - parameters:
         - visitSummary: the visits to report on
-        - completion: a closure to be called that will include the path to the file or an Error as its parameters
+        - completion: a closure to be called that will include the Data for the file and its mime type or an Error
      */
-    func generateVisitReportFile(visitSummary: VisitSummary, completion: ((String, Error) -> Void)?)
+    func generateVisitReportFile(visitSummary: VisitSummary, completion: ((Data?, String?, Error?) -> Void)?)
     
 }

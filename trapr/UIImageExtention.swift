@@ -107,7 +107,7 @@ extension UIImage
         );
         
         let masked = colorImage?.cgImage?.masking(mask!)
-        return UIImage(cgImage:masked!, scale:(compositedMaskImage?.scale)!, orientation:UIImageOrientation.up)
+        return UIImage(cgImage:masked!, scale:(compositedMaskImage?.scale)!, orientation:UIImage.Orientation.up)
     }
     
 }

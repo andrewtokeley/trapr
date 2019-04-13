@@ -104,7 +104,7 @@ final class SideMenuView: UserInterface {
     }()
     
     lazy var menuTableView: UITableView = {
-        let menu = UITableView(frame: CGRect.zero, style: UITableViewStyle.plain)
+        let menu = UITableView(frame: CGRect.zero, style: UITableView.Style.plain)
         menu.register(UITableViewCell.self, forCellReuseIdentifier: self.MENU_CELL_ID)
         menu.separatorStyle = .none
         menu.isScrollEnabled = false
@@ -147,7 +147,7 @@ final class SideMenuView: UserInterface {
         
         self.sideBar.autoSetDimension(.width, toSize: self.sideBarWidth)
         self.sideBar.autoPinEdge(toSuperviewEdge: .top, withInset: -10)
-        self.sideBar.autoPinEdge(toSuperviewMargin: .bottom)
+        self.sideBar.autoPinEdge(toSuperviewEdge: .bottom)
         
         self.headerBackground.autoPinEdge(.top, to: .top, of: self.sideBar)
         self.headerBackground.autoPinEdge(.left, to: .left, of: self.sideBar)

@@ -38,7 +38,7 @@ final class NewRouteView: UserInterface {
     //MARK: Subviews
     
     lazy var tableVIew: UITableView = {
-        let tableView = UITableView(frame: CGRect.zero, style: UITableViewStyle.grouped)
+        let tableView = UITableView(frame: CGRect.zero, style: UITableView.Style.grouped)
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -78,7 +78,7 @@ final class NewRouteView: UserInterface {
     
     lazy var tableViewCellStation: UITableViewCell = {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
-        cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+        cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
         cell.selectionStyle = .none
         cell.textLabel?.text = "First Station"
         return cell

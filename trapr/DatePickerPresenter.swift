@@ -65,8 +65,8 @@ extension DatePickerPresenter: DatePickerPresenterApi {
         view.setDate(date: Date())
     }
     
-    var dateMode: UIDatePickerMode {
-        return delegate?.displayMode(self.view) ?? UIDatePickerMode.dateAndTime
+    var dateMode: UIDatePicker.Mode {
+        return delegate?.displayMode(self.view) ?? UIDatePicker.Mode.dateAndTime
     }
 }
 

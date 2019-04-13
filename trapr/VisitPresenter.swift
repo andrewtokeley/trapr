@@ -154,9 +154,13 @@ final class VisitPresenter: Presenter {
     func menuSendToHandler() {
        
         if let route = visitSummary.route {
-            interactor.retrieveHtmlForVisit(date: visitSummary.dateOfVisit, route: route) { (recipient, html) in
-                if let routeName = self.visitSummary.route?.name {
-                    self.view.showVisitEmail(subject: "Data for \(routeName)", html: html, recipient: recipient)
+            interactor.getRecipientForVisitReport { (email) in
+                if let email = email {
+                    self.interactor.generateVisitReportFile(date: self.visitSummary.dateOfVisit, route: self.visitSummary.route!) { (data, mime, message, error) in
+                        if let data = data, let mime = mime, let message = message {
+                            self.view.showVisitEmail(subject: "Data for \(route.name)", message: message, attachmentData: data, attachmentMimeType: mime, recipient: email)
+                        }
+                    }
                 }
             }
         }
@@ -190,8 +194,8 @@ extension VisitPresenter: DatePickerDelegate {
         return element.defaultTextValue
     }
     
-    func displayMode(_ datePicker: DatePickerViewApi) -> UIDatePickerMode {
-        return UIDatePickerMode.date
+    func displayMode(_ datePicker: DatePickerViewApi) -> UIDatePicker.Mode {
+        return UIDatePicker.Mode.date
     }
     
     func datePicker(_ datePicker: DatePickerViewApi, didSelectDate date: Date) {
@@ -261,13 +265,8 @@ extension VisitPresenter: VisitPresenterApi {
         didSelectStation(index: self.stationIndex, trapIndex: trapTypeIndex + 1)
     }
 
-    /// Deprecating
     func didSendEmailSuccessfully() {
-        // create a sync record
-        // NOTE: we can't know if someone has changed the recipient so we're just assuming it's what's in settings for now
-//        let visitSync = VisitSync(visitSummary: self.visitSummary, syncDateTime: Date(), sentTo: self.settings?.emailVisitsRecipient)
-//
-//        interactor.addVisitSync(visitSync: visitSync)
+        // tidy up temporary visit report file?        
     }
     
     func visitLogDidScroll(contentOffsetY: CGFloat) {
@@ -446,17 +445,15 @@ extension VisitPresenter: VisitLogDelegate {
     }
     
     func didSelectToCreateNewVisit() {
-
+        
         // get the current time on the same day as the visitSummary
-        
-        
         if let date = self.visitSummary.dateOfVisit.setTimeToNow(),
             let trapTypeId = self.currentTrap?.id,
             let traplineId = self.currentStation.traplineId,
-            let stationId = self.currentStation.id
-        {
-            let newVisit = Visit(date: date, routeId: self.visitSummary.routeId, traplineId: traplineId, stationId: stationId, trapTypeId: trapTypeId)
-            interactor.addVisit(visit: newVisit)
+            let stationId = self.currentStation.id {
+
+            interactor.addVisit(date: date, routeId: self.visitSummary.routeId, traplineId: traplineId, stationId: stationId, trapTypeId: trapTypeId)
+            
         }
     }
 }

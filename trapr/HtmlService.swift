@@ -30,14 +30,14 @@ class HtmlService {
     fileprivate let speciesService = ServiceFactory.sharedInstance.speciesFirestoreService
     
     fileprivate let rowDefinitions: [RowDefinition<VisitEx>] = [
-        RowDefinition<VisitEx>(title: "Trap", width: 80, alignment: "left", value: { $0.stationName } ),
-        RowDefinition<VisitEx>(title: "Type", width: 150, alignment: "left", value: { $0.trapTypeName } ),
+        RowDefinition<VisitEx>(title: "Trap", width: 80, alignment: "left", value: { $0.station!.longCode } ),
+        RowDefinition<VisitEx>(title: "Type", width: 150, alignment: "left", value: { $0.trapType!.name } ),
         RowDefinition<VisitEx>(title: "Time", width: 80, alignment: "left", value: { $0.visitDateTime.toString(format: Styles.DATE_FORMAT_TIME) } ),
         RowDefinition<VisitEx>(title: "Added", width: 80, alignment: "right", value: { String($0.baitAdded) }),
         RowDefinition<VisitEx>(title: "Eaten", width: 80, alignment: "right", value: { String($0.baitEaten) }),
         RowDefinition<VisitEx>(title: "Removed", width: 80, alignment: "right", value: { String($0.baitRemoved) }),
         RowDefinition<VisitEx>(title: "Catch", width: 80, alignment: "right", value: { $0.speciesId == nil ? "-" : "1" } ),
-        RowDefinition<VisitEx>(title: "Species", width: 150, alignment: "right", value: { $0.speciesName  } ),
+        RowDefinition<VisitEx>(title: "Species", width: 150, alignment: "right", value: { $0.species?.name  } ),
         RowDefinition<VisitEx>(title: "Notes", width: 150, alignment: "right", value: { $0.notes } )
     ]
 }

@@ -16,6 +16,18 @@ enum SpeciesCode: String {
     case cat = "CAT"
     case stoat = "STO"
     case other = "OTHR"
+    
+    var walkTheLineCode: String {
+        switch self {
+        case .possum: return "P"
+        case .rat: return "R"
+        case .mouse: return "M"
+        case .hedgehog: return "H"
+        case .cat: return "C"
+        case .stoat: return "S"
+        case .other: return "O"
+        }
+    }
 }
 
 class Species: Lookup {

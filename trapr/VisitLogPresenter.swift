@@ -133,7 +133,7 @@ extension VisitLogPresenter: DatePickerDelegate {
         return element.defaultTextValue
     }
     
-    func displayMode(_ datePicker: DatePickerViewApi) -> UIDatePickerMode {
+    func displayMode(_ datePicker: DatePickerViewApi) -> UIDatePicker.Mode {
         return .time
     }
     
@@ -295,6 +295,7 @@ extension VisitLogPresenter: ListPickerDelegate {
         if let _ = self.currentVisit {
             if listPicker.tag == LIST_SPECIES {
                 self.currentVisit?.speciesId = nil
+                self.currentVisit?.trapSetStatusId = TrapSetStatus.stillSet.rawValue
             } else if listPicker.tag == LIST_LURE {
                 self.currentVisit?.lureId = nil
             }
@@ -311,12 +312,10 @@ extension VisitLogPresenter: ListPickerDelegate {
             return self.availableLures?[index].id == self.currentVisit?.lureId
         }
         if listPicker.tag == LIST_TRAP_SET_STATUS {
-            // TODO - model trapsetstatus
-            //return TrapSetStatus.all[index] == self.currentVisit?.trapSetStatusId
+            return TrapSetStatus.all[index].rawValue == self.currentVisit?.trapSetStatusId
         }
         if listPicker.tag == LIST_TRAP_OPERATING_STATUS {
-            // TODO - model trapoperatingstatus
-            //return TrapOperatingStatus.all[index] == self.currentVisit?.trapOperatingStatus
+            return TrapOperatingStatus.all[index].rawValue == self.currentVisit?.trapOperatingStatusId
         }
         return false
     }
@@ -326,6 +325,7 @@ extension VisitLogPresenter: ListPickerDelegate {
         if listPicker.tag == LIST_SPECIES {
             if let speciesId = self.catchableSpecies?[index].id {
                 self.currentVisit?.speciesId = speciesId
+                self.currentVisit?.trapSetStatusId = nil
                 updateViewForCurrentVisit()
                 saveVisit()
             }
@@ -336,13 +336,14 @@ extension VisitLogPresenter: ListPickerDelegate {
                 saveVisit()
             }
         } else if listPicker.tag == LIST_TRAP_OPERATING_STATUS {
-//            self.currentVisit?.trapOperatingStatusRaw = TrapOperatingStatus.all[index].rawValue
-//            updateViewForCurrentVisit()
-//            saveVisit()
+            self.currentVisit?.trapOperatingStatusId = TrapOperatingStatus.all[index].rawValue
+            updateViewForCurrentVisit()
+            saveVisit()
         } else if listPicker.tag == LIST_TRAP_SET_STATUS {
-//            self.currentVisit?.trapSetStatusRaw = TrapSetStatus.all[index].rawValue
-//            updateViewForCurrentVisit()
-//            saveVisit()
+            self.currentVisit?.trapSetStatusId = TrapSetStatus.all[index].rawValue
+            self.currentVisit?.speciesId = nil
+            updateViewForCurrentVisit()
+            saveVisit()
         }
     }
 }

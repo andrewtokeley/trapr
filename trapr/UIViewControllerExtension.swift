@@ -11,21 +11,21 @@ import UIKit
 
 extension UIViewController {
     func embed(childViewController: UIViewController) {
-        childViewController.willMove(toParentViewController: self)
+        childViewController.willMove(toParent: self)
         
         view.addSubview(childViewController.view)
         childViewController.view.frame = view.bounds
         childViewController.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         
-        addChildViewController(childViewController)
+        addChild(childViewController)
     }
 
 
     func unembed(childViewController: UIViewController) {
         assert(childViewController.parent == self)
         
-        childViewController.willMove(toParentViewController: nil)
+        childViewController.willMove(toParent: nil)
         childViewController.view.removeFromSuperview()
-        childViewController.removeFromParentViewController()
+        childViewController.removeFromParent()
     }
 }

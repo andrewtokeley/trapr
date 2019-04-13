@@ -19,10 +19,10 @@ final class MapRouter: Router {
         let mapViewController = StationMapViewController()
         mapViewController.delegate = presenter as? StationMapDelegate
         
-        viewController.addChildViewController(mapViewController)
+        viewController.addChild(mapViewController)
         containerView.addSubview(mapViewController.view)
         mapViewController.view.autoPinEdgesToSuperviewEdges()
-        mapViewController.didMove(toParentViewController: viewController)
+        mapViewController.didMove(toParent: viewController)
     }
 }
 

@@ -19,14 +19,14 @@ class Styles {
         
         let barButtonItemAppearance = UIBarButtonItem.appearance()
         barButtonItemAppearance.tintColor = UIColor.trpHighlightColor
-        barButtonItemAppearance.setTitleTextAttributes([NSAttributedStringKey.foregroundColor : UIColor.trpHighlightColor], for: UIControlState.normal)
+        barButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.trpHighlightColor], for: UIControl.State.normal)
         
         let navigationBarAppearance = UINavigationBar.appearance()
         navigationBarAppearance.barTintColor = UIColor.trpNavigationBar
         navigationBarAppearance.isTranslucent = true
         navigationBarAppearance.tintColor = UIColor.trpHighlightColor
-        navigationBarAppearance.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.trpHighlightColor]
-        navigationBarAppearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.trpHighlightColor]
+        navigationBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.trpHighlightColor]
+        navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.trpHighlightColor]
 //        navigationBarAppearance.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
 //        navigationBarAppearance.shadowImage = UIImage()
         
@@ -62,8 +62,8 @@ class Styles {
         alertActionViewControllerView.tintColor = UIColor.trpTextHighlight
         
         if let menuControllerButton = NSClassFromString("UICalloutBarButton") as? UIButton.Type {
-            menuControllerButton.appearance().setTitleColor(UIColor.lightGray, for: UIControlState.normal)
-            menuControllerButton.appearance().setTitleColor(UIColor.trpTextHighlight, for: UIControlState.highlighted)
+            menuControllerButton.appearance().setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
+            menuControllerButton.appearance().setTitleColor(UIColor.trpTextHighlight, for: UIControl.State.highlighted)
         }
 
 //        let tableViewCellAppearance = UITableViewCell.appearance()

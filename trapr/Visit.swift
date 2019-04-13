@@ -46,14 +46,14 @@ class Visit: DocumentSerializable {
         return TrapOperatingStatus(rawValue: trapOperatingStatusId) ?? .open
     }
     
-    
     var baitAdded: Int = 0
     var baitEaten: Int = 0
     var baitRemoved: Int = 0
     
-    var trapSetStatusId: Int = 0
-    var trapSetStatus: TrapSetStatus {
-        return TrapSetStatus(rawValue: trapSetStatusId) ?? .stillSet
+    // status of the trap, if a species has been caught then this will be nil
+    var trapSetStatusId: Int?
+    var trapSetStatus: TrapSetStatus? {
+        return trapSetStatusId == nil ? nil : TrapSetStatus(rawValue: trapSetStatusId!)
     }
     
     var userId: String
@@ -187,9 +187,9 @@ class VisitEx: Visit {
         self.init(dictionary: visit.dictionary)
     }
     
-    var stationName: String?
-    var trapTypeName: String?
-    var speciesName: String?
+    var station: Station?
+    var trapType: TrapType?
+    var species: Species?
     
     /// this property is used to sort visits by station code then trapType
     var order: String?

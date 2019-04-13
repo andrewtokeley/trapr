@@ -14,6 +14,7 @@ class VisitSummaryFirebaseService: FirestoreService, VisitSummaryServiceInterfac
     let trapTypeService = ServiceFactory.sharedInstance.trapTypeFirestoreService
     let stationService = ServiceFactory.sharedInstance.stationFirestoreService
     let routeService = ServiceFactory.sharedInstance.routeFirestoreService
+    let speciesService = ServiceFactory.sharedInstance.speciesFirestoreService
     
     private func createVisitSummary(date: Date, routeId: String, visits: [Visit], completion: ((VisitSummary?, Error?) -> Void)?) {
         
@@ -25,50 +26,54 @@ class VisitSummaryFirebaseService: FirestoreService, VisitSummaryServiceInterfac
         var totalKills: Int = 0
         var totalKillsBySpecies = [String: Int]()
         
-        // need details from the trapTypes to get some extra stats
-        self.trapTypeService.get(completion: { (trapTypes, error) in
+        self.speciesService.get { (species, error) in
             
-            // ids of all the poison traptypes
-            let poisonTrapTypes = trapTypes.filter( { $0.killMethod == _KillMethod.poison }).map( { $0.id! } )
-            
-            // iterate over visits that were for poison traptypes
-            for visit in visits {
-                if poisonTrapTypes.contains(visit.trapTypeId) {
-                    totalPoisonAdded += visit.baitAdded
-                }
-                if let species = visit.speciesId {
-                    totalKills += 1
-                    if let _ = totalKillsBySpecies[species] {
-                        totalKillsBySpecies[species]! += 1
-                    } else {
-                        totalKillsBySpecies[species] = 1
+        
+            // need details from the trapTypes to get some extra stats
+            self.trapTypeService.get(completion: { (trapTypes, error) in
+                
+                // ids of all the poison traptypes
+                let poisonTrapTypes = trapTypes.filter( { $0.killMethod == _KillMethod.poison }).map( { $0.id! } )
+                
+                // iterate over visits that were for poison traptypes
+                for visit in visits {
+                    if poisonTrapTypes.contains(visit.trapTypeId) {
+                        totalPoisonAdded += visit.baitAdded
                     }
-                }
-                
-            }
-            visitSummary.totalPoisonAdded = totalPoisonAdded
-            visitSummary.totalKills = totalKills
-            visitSummary.totalKillsBySpecies = totalKillsBySpecies
-            
-            // We also need to know how many traps/stations are on the route
-            self.stationService.get(routeId: routeId, completion: { (stations) in
-                
-                visitSummary.stationsOnRoute = stations
-                
-                let numberOfTrapsOnRoute = stations.reduce(0, { (result, station) -> Int in
-                    return result + station.trapTypes.count
-                })
-                visitSummary.numberOfTrapsOnRoute = numberOfTrapsOnRoute
-                
-                // And the route itself.
-                self.routeService.get(routeId: routeId, completion: { (route, error) in
-                    visitSummary.route = route
+                    if let species = species.first(where: { $0.id == visit.speciesId })?.name  {
+                        totalKills += 1
+                        if let _ = totalKillsBySpecies[species] {
+                            totalKillsBySpecies[species]! += 1
+                        } else {
+                            totalKillsBySpecies[species] = 1
+                        }
+                    }
                     
-                    // All done
-                    completion?(visitSummary, error)
+                }
+                visitSummary.totalPoisonAdded = totalPoisonAdded
+                visitSummary.totalKills = totalKills
+                visitSummary.totalKillsBySpecies = totalKillsBySpecies
+                
+                // We also need to know how many traps/stations are on the route
+                self.stationService.get(routeId: routeId, completion: { (stations) in
+                    
+                    visitSummary.stationsOnRoute = stations
+                    
+                    let numberOfTrapsOnRoute = stations.reduce(0, { (result, station) -> Int in
+                        return result + station.trapTypes.count
+                    })
+                    visitSummary.numberOfTrapsOnRoute = numberOfTrapsOnRoute
+                    
+                    // And the route itself.
+                    self.routeService.get(routeId: routeId, completion: { (route, error) in
+                        visitSummary.route = route
+                        
+                        // All done
+                        completion?(visitSummary, error)
+                    })
                 })
             })
-        })
+        }
     }
     
     func createNewVisitSummary(date: Date, routeId: String, completion: ((VisitSummary?, Error?) -> Void)?) {

@@ -4,13 +4,13 @@ abstract_target "trapr_shared" do
     pod "PureLayout"
     pod "Viperit"
     pod "iCarousel"
-    pod "CSVImporter", "1.7.1"
     pod "Charts"
     pod "Firebase/Auth"
     pod "GoogleSignIn"
     pod "Firebase/Core"
     pod "FirebaseUI/Google"
     pod "Firebase/Firestore"
+    pod "XlsxReaderWriter"
     
     target "trapr_production"
     target "trapr_development"
@@ -18,5 +18,5 @@ end
 
 target "traprTests" do
     use_frameworks!
-    pod "CSVImporter", "1.7.1"
+    #pod "CSVImporter", "1.7.1"
 end
