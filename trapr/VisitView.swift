@@ -253,7 +253,8 @@ final class VisitView: UserInterface {
     
     func setConstraints() {
         
-        self.navigationSection.autoPin(toTopLayoutGuideOf: self, withInset: 0)
+        //self.navigationSection.autoPin(toTopLayoutGuideOf: self, withInset: 0)
+        self.navigationSection.autoPinEdge(toSuperviewSafeArea: .top, withInset: 0)
         self.navigationSection.autoPinEdge(toSuperviewEdge: .left)
         self.navigationSection.autoPinEdge(toSuperviewEdge: .right)
         self.navigationSection.autoSetDimension(.height, toSize: CAROUSEL_STATIONS_HEIGHT + CAROUSEL_TRAPS_HEIGHT + LayoutDimensions.spacingMargin)

@@ -126,7 +126,8 @@ final class TraplineSelectView: UserInterface {
         
     func setConstraints() {
         
-        self.routeNameTextField.autoPin(toTopLayoutGuideOf: self, withInset: LayoutDimensions.spacingMargin)
+        //self.routeNameTextField.autoPin(toTopLayoutGuideOf: self, withInset: LayoutDimensions.spacingMargin)
+        self.routeNameTextField.autoPinEdge(toSuperviewSafeArea: .top, withInset: LayoutDimensions.spacingMargin)
         self.routeNameTextField.autoPinEdge(toSuperviewEdge: .left)
         self.routeNameTextField.autoPinEdge(toSuperviewEdge: .right)
         self.routeNameTextField.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)

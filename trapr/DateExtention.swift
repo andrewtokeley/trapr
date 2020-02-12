@@ -114,7 +114,7 @@ extension Date {
         dateFormatter.dateFormat = fromFormat
         dateFormatter.calendar = NSCalendar.current
         dateFormatter.timeZone = TimeZone.current
-        dateFormatter.date
+        
         let dt = dateFormatter.date(from: date)
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         dateFormatter.dateFormat = toFormat

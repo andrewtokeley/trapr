@@ -151,6 +151,7 @@ final class VisitPresenter: Presenter {
         }
     }
     
+    
     func menuSendToHandler() {
        
         if let route = visitSummary.route {
@@ -360,6 +361,7 @@ extension VisitPresenter: VisitPresenterApi {
     func didSelectAddStation() {
         let data = StationSearchSetupData()
         data.delegate = self
+        
         // TODO - currently can't navigate from visitSummary to Region
         
         //data.region = self.visitSummary.stationsOnRoute.first?.tr

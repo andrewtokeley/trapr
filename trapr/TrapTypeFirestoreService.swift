@@ -41,7 +41,7 @@ class TrapTypeFirestoreService: LookupFirestoreService<TrapType> {
         ]
         trap.defaultLure = LureCode.other.rawValue
         trap.imageName = "poison"
-        
+        trap.maxLures = 1
         return trap
     }
     
@@ -55,6 +55,7 @@ class TrapTypeFirestoreService: LookupFirestoreService<TrapType> {
         ]
         trap.defaultLure = LureCode.contracBloxPoison.rawValue
         trap.imageName = "pelifeed"
+        trap.maxLures = 10
         return trap
     }
     
@@ -75,6 +76,7 @@ class TrapTypeFirestoreService: LookupFirestoreService<TrapType> {
             SpeciesCode.other.rawValue
         ]
         trap.imageName = "doc200"
+        trap.maxLures = 1
         return trap
     }
     
@@ -93,6 +95,7 @@ class TrapTypeFirestoreService: LookupFirestoreService<TrapType> {
             SpeciesCode.other.rawValue
         ]
         trap.imageName = "possumMaster"
+        trap.maxLures = 1
         return trap
     }
     
@@ -114,6 +117,7 @@ class TrapTypeFirestoreService: LookupFirestoreService<TrapType> {
             SpeciesCode.other.rawValue
         ]
         trap.imageName = "timms"
+        trap.maxLures = 1
         return trap
     }
 }

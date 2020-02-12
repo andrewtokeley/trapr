@@ -39,15 +39,17 @@ class UserService: FirestoreEntityService<User>, UserServiceInterface {
         let user = User(email: authenticatedUser.email)
         user.lastAuthenticated = Date()
         user.displayName = authenticatedUser.displayName
-        user.roles = [UserRole.contributor.rawValue]
         
         // This will add a new user if the user wasn't previously registered
         self.update(user: user, completion: { (error) in
-            print("self.update completed")
             if let error = error {
                 completion?(nil, error)
             } else {
                 self.get(email: user.id!, completion: { (user, error) in
+                    // if this is a new user then they won't have any roles assigned, make sure they have at least the contributor role
+                    if user?.roles.count == 0 {
+                        user?.roles.append(UserRole.contributor.rawValue)
+                    }
                     self.currentUser = user
                     completion?(user, error)
                 })

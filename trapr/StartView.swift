@@ -267,8 +267,8 @@ final class StartView: UserInterface { //, UICollectionViewDelegate, UICollectio
         self.routesTableView.autoPinEdgesToSuperviewEdges()
         
         self.noRoutesView.autoPinEdgesToSuperviewEdges()
-        
-        self.noRouteLabel.autoPin(toTopLayoutGuideOf: self, withInset: 150)
+        self.noRouteLabel.autoPinEdge(toSuperviewSafeArea: .top, withInset: 150)
+        //self.noRouteLabel.autoPin(toTopLayoutGuideOf: self, withInset: 150)
         self.noRouteLabel.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
         self.noRouteLabel.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
         

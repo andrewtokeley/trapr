@@ -45,6 +45,19 @@ protocol StationServiceInterface {
      */
     func description(stations: [Station], includeStationCodes: Bool) -> String
   
+    /**
+Returns the count of each type of trap within the selected stations
+     
+- parameters:
+     - stations: the stations from which to count traptypes
+     
+- returns:
+     - Dictionary with keys matching the names of the traptypes and the value being how many within the stations.
+     
+     */
+    func trapTypeCounts(stations: [Station]) -> [String: Int]
+    
+    
     /// Get all stations
     func get(source: FirestoreSource,completion: (([Station]) -> Void)?)
     

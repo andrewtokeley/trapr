@@ -38,6 +38,7 @@ enum TrapTypeFields: String {
     case catchableSpecies = "catchableSpecies"
     case killMethod = "killMethod"
     case imageName = "imageName"
+    case maxLures = "maxLures"
 }
 
 class TrapType: Lookup {
@@ -47,6 +48,7 @@ class TrapType: Lookup {
     var availableLures: [String]?
     var catchableSpecies: [String]?
     var imageName: String?
+    var maxLures: Int = 1
     
     override var dictionary: [String : Any] {
         var result = super.dictionary
@@ -65,6 +67,8 @@ class TrapType: Lookup {
         if let _ = self.catchableSpecies {
             result[TrapTypeFields.catchableSpecies.rawValue] = self.catchableSpecies
         }
+        
+        result[TrapTypeFields.maxLures.rawValue] = self.maxLures
         
         return result
     }
@@ -95,6 +99,11 @@ class TrapType: Lookup {
         }
         if let availableLures = dictionary[TrapTypeFields.availableLures.rawValue] as? [String] {
             self.availableLures = availableLures
+        }
+        if let maxLures = dictionary[TrapTypeFields.maxLures.rawValue] as? Int {
+            self.maxLures = maxLures
+        } else {
+            self.maxLures = 1
         }
     }
 }

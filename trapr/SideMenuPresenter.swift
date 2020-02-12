@@ -43,9 +43,7 @@ final class SideMenuPresenter: Presenter {
             SideBarMenuItem.Map,
             SideBarMenuItem.Settings]
         
-        // TEMP, until I'm back online to log in as admin
-        //if user?.isInRole(role: .admin) ?? false {
-        if user?.isInRole(role: .contributor) ?? false {
+        if user?.isInRole(role: .admin) ?? false {
             self.menuItems.append(SideBarMenuItem.Administration)
             self.separatorsAfter = [2]
         } else {

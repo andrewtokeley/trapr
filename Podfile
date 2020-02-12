@@ -1,22 +1,23 @@
-platform :ios, ‘8.0’
-abstract_target "trapr_shared" do
+platform :ios, '11.0'
+abstract_target 'trapr_shared' do
     use_frameworks!
-    pod "PureLayout"
-    pod "Viperit"
-    pod "iCarousel"
-    pod "Charts"
-    pod "Firebase/Auth"
-    pod "GoogleSignIn"
-    pod "Firebase/Core"
-    pod "FirebaseUI/Google"
-    pod "Firebase/Firestore"
-    pod "XlsxReaderWriter"
+    pod 'PureLayout'
+    pod 'Viperit'
+    pod 'iCarousel'
+    pod 'Charts'
     
-    target "trapr_production"
-    target "trapr_development"
+    pod 'Firebase/Firestore'
+    pod 'Firebase/Auth'
+    pod 'Firebase/Core'
+    pod 'FirebaseUI/Google'
+    
+    pod 'XlsxReaderWriter'
+    
+    target 'trapr_production'
+    target 'trapr_development'
 end
 
-target "traprTests" do
+target 'traprTests' do
     use_frameworks!
     #pod "CSVImporter", "1.7.1"
 end

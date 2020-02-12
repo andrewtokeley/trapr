@@ -56,27 +56,28 @@ protocol RouteServiceInterface {
     */
     func get(includeHidden: Bool, completion: (([Route], Error?) -> Void)?)
     
-    /** Returns all Routes accessible to the current user. Access is determined by the existence of a [RouteUserSettings](x-source-tag://RouteUserSettings) record.
+    /**
+Returns all Routes accessible to the current user. Access is determined by the existence of a [RouteUserSettings](x-source-tag://RouteUserSettings) record.
      
-     - important:
-     This method only searches the local cache.
+- important:
+     This method only searches the local cache and routes the user has chosen to hide are NOT returned.
      
-     - parameters:
-        - completion: closure that will be called with the results of the request.
+- parameters:
+    - completion: closure that will be called with the results of the request.
      */
     func get(completion: (([Route], Error?) -> Void)?)
     
     /**
-     Returns all `Route` instances accessible to the current user. Access is determined by the existence of a [RouteUserSettings](x-source-tag://RouteUserSettings) record.
-     
-     - parameters:
-        - source: set whether to read from the cache or server
-        - completion: closure that will be called with the results of the request.
-     
-     - Tag: getFirestoreSource
+ Returns all `Route` instances accessible to the current user. Access is determined by the existence of a [RouteUserSettings](x-source-tag://RouteUserSettings) record.
+ 
+ - parameters:
+     - source: set whether to read from the cache or server
+     - includeHidden: set to true to return routes hidden by the user
+     - completion: closure that will be called with the results of the request.
+ 
+ - Tag: getFirestoreSource
     */
-    func get(source: FirestoreSource, completion: (([Route], Error?) -> Void)?)
-    
+    func get(source: FirestoreSource, includeHidden: Bool, completion: (([Route], Error?) -> Void)?)
     
     func insertStationToRoute(routeId: String, stationId: String, at index: Int, completion: ((Route?, Error?) -> Void)?)
     

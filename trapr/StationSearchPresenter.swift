@@ -24,11 +24,12 @@ final class StationSearchPresenter: Presenter {
     }
     
     override func viewHasLoaded() {
+        super.viewHasLoaded()
+        
         interactor.fetchStations(searchTerm: "", regionId: self.region!.id!)
         
         self.getNearbyStations()
-        
-        (_view as! UserInterface).setTitle(title: "Stations")
+        view.setTitle(title: "Stations")
     }
     
     func getNearbyStations() {

@@ -396,7 +396,8 @@ final class RouteDashboardView: UserInterface {
     
     func setConstraints() {
         
-        mapTopConstraint = mapViewControllerHost.autoPin(toTopLayoutGuideOf: self, withInset: 0)
+        //mapTopConstraint = mapViewControllerHost.autoPin(toTopLayoutGuideOf: self, withInset: 0)
+        mapTopConstraint = mapViewControllerHost.autoPinEdge(toSuperviewSafeArea: .top, withInset: 0)
         mapViewControllerHost.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
         mapViewControllerHost.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
         mapBottomConstaint = mapViewControllerHost.autoPinEdge(toSuperviewEdge: .bottom, withInset: MAP_HEIGHT_MIN)

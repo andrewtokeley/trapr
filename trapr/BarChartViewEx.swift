@@ -23,7 +23,7 @@ class BarChartViewEx: BarChartView {
             let yValues = yValues[barIndex]
             values.append(BarChartDataEntry(x: Double(barIndex), yValues: yValues))
         }
-        let dataSet = BarChartDataSet(values: values, label: nil)
+        let dataSet = BarChartDataSet(entries: values, label: nil)
         
         // Stack colors and labels
         if stackLabels.count > 1 {

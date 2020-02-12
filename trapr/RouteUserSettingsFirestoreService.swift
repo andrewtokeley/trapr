@@ -134,7 +134,13 @@ extension RouteUserSettingsFirestoreService: RouteUserSettingsServiceInterface {
     
     func get(source: FirestoreSource, completion: (([RouteUserSettings], Error?) -> Void)?) {
         if let userId = userService.currentUser?.id {
+            print("userId: \(userId)")
             super.get(whereField: RouteUserSettingsFields.userId.rawValue, isEqualTo: userId, source: source) { (routeUserSettings, error) in
+                if let error = error {
+                    print("error: \(error.localizedDescription)")
+                } else {
+                    print("routeUserSettings count: \(routeUserSettings.count)")
+                }
                 completion?(routeUserSettings, error)
             }
         } else {

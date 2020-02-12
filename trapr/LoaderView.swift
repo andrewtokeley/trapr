@@ -10,6 +10,7 @@ import UIKit
 import Viperit
 import Firebase
 import GoogleSignIn
+import FirebaseAuth
 
 //MARK: LoaderView Class
 final class LoaderView: UserInterface {
@@ -51,6 +52,11 @@ final class LoaderView: UserInterface {
         return progressMessage
     }()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        GIDSignIn.sharedInstance().presentingViewController = self
+    }
+    
     override func loadView() {
         super.loadView()
         
@@ -66,7 +72,7 @@ final class LoaderView: UserInterface {
         self.view.addSubview(self.progressMessage)
         self.view.addSubview(self.googleSignInButton)
         
-        GIDSignIn.sharedInstance().uiDelegate = self
+        //GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance()?.delegate = self
         
         setConstraints()
@@ -97,11 +103,11 @@ final class LoaderView: UserInterface {
     }
 }
 
-extension LoaderView: GIDSignInUIDelegate {
-    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
-        self.presenter.signInStarted()
-    }
-}
+//extension LoaderView: GIDSignInUIDelegate {
+//    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
+//        self.presenter.signInStarted()
+//    }
+//}
 
 //MARK: - LoaderView API
 extension LoaderView: LoaderViewApi {
@@ -152,10 +158,11 @@ extension LoaderView: GIDSignInDelegate {
         }
         
         guard let authentication = user.authentication else { return }
+        
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                        accessToken: authentication.accessToken)
         
-        Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
+        Auth.auth().signIn(with: credential) { (authResult, error) in
             if let error = error {
                 self.presenter.signInFailed(error: error)
                 return
@@ -169,6 +176,8 @@ extension LoaderView: GIDSignInDelegate {
         // Perform any operations when the user disconnects from app here.
         // ...
     }
+    
+    
 }
 
 // MARK: - LoaderView Viper Components API

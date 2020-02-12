@@ -30,6 +30,7 @@ extension RouteFirestoreService: RouteServiceInterface {
             // the user who created the Route should be marked as the owner
             let routeUserSetting = RouteUserSettings(routeId: id, userId: userId)
             routeUserSetting.isOwner = true
+            routeUserSetting.hidden = false
             let _ = self.routeUserSettingsService.add(routeUserSettings: routeUserSetting, batch: batch, completion: nil)
             
             // Write the Route and RouteUserSettinbs inside a batch
@@ -228,10 +229,11 @@ extension RouteFirestoreService: RouteServiceInterface {
     }
     
     func updateHiddenFlag(routeId: String, isHidden: Bool, completion: ((Error?) -> Void)?) {
-        self.get(routeId: routeId) { (route, error) in
-            if let route = route {
-                route.hidden = isHidden
-                self.update(entity: route, completion: { (error) in
+        
+        self.routeUserSettingsService.get(routeId: routeId) { (routeUserSettings, error) in
+            if let routeUserSettings = routeUserSettings {
+                routeUserSettings.hidden = isHidden
+                self.routeUserSettingsService.add(routeUserSettings: routeUserSettings, batch: nil, completion: { (routeUserSettings, error) in
                     completion?(error)
                 })
             }
@@ -242,50 +244,52 @@ extension RouteFirestoreService: RouteServiceInterface {
         completion?(FirestoreEntityServiceError.notImplemented)
     }
     
-    func get(includeHidden: Bool, completion: (([Route], Error?) -> Void)?) {
-//        if let userId = userService.currentUser?.id {
-//            super.collection.whereField(RouteFields.userId.rawValue, isEqualTo: userId).whereField(RouteFields.hidden.rawValue, isEqualTo: includeHidden).getDocuments(source: .cache) { (snapshot, error) in
-//
-//                if let error = error {
-//                    completion?([Route](), error)
-//                } else {
-//                    let routes = super.getEntitiesFromQuerySnapshot(snapshot: snapshot)
-//                    completion?(routes, nil)
-//                }
+//    func get(includeHidden: Bool, completion: (([Route], Error?) -> Void)?) {
+//        
+//        // get all the routes the user has access to
+//        self.get { (routes, error) in
+//            
+//            var routesToReturn = routes
+//            // filter on whether to show hidden or not
+//            if !includeHidden {
+//                routesToReturn = routes.filter({ $0.hidden == false })
 //            }
+//            
+//            completion?(routesToReturn, error)
 //        }
-        
-        // get all the routes the user has access to
-        self.get { (routes, error) in
-            
-            var routesToReturn = routes
-            // filter on whether to show hidden or not
-            if !includeHidden {
-                routesToReturn = routes.filter({ $0.hidden == false })
-            }
-            
-            completion?(routesToReturn, error)
-        }
-    }
+//    }
     
     func get(completion: (([Route], Error?) -> Void)?) {
-        self.get(source: .cache, completion: { (routes, error) in
+        self.get(source: .cache, includeHidden: false, completion: { (routes, error) in
             completion?(routes, error)
         })
     }
     
-    func get(source: FirestoreSource, completion: (([Route], Error?) -> Void)?) {
+    func get(includeHidden: Bool, completion: (([Route], Error?) -> Void)?) {
+        self.get(source: .cache, includeHidden: includeHidden, completion: { (routes, error) in
+            completion?(routes, error)
+        })
+    }
+    
+    func get(source: FirestoreSource, includeHidden: Bool = true, completion: (([Route], Error?) -> Void)?) {
         
         self.routeUserSettingsService.get(source: source) { (routeUserSettings, error) in
-
-            // Get the routeId of the routes the users has access to
-            let routeIds = routeUserSettings.map { $0.routeId! }
+            
+            
+            // Get the routeId of the routes the users has access and honour the includeHidden flag
+            let routeIds = routeUserSettings.filter{ $0.hidden == includeHidden || includeHidden}.map { $0.routeId! }
 
             // Get the full Route instances for the routeIds
             
             super.get(ids: routeIds, source: source, completion: { (routes, error) in
                 
                 for route in routes {
+                    
+                    // for convenience, get the hidden status (for the current user) and put it on the route
+                    if let hidden = routeUserSettings.first(where: { $0.routeId == route.id })?.hidden {
+                        route.hidden = hidden
+                    }
+                    
                     // if the user has overridden the station order then update the Route instance
                     if let userStationOrder = routeUserSettings.first(where: {$0.routeId == route.id!} )?.stationIds {
                         route.stationIds = userStationOrder

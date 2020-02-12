@@ -17,7 +17,9 @@ final class LoaderRouter: Router {
 extension LoaderRouter: LoaderRouterApi {
     func showStartModule() {
         let module = AppModules.start.build()
-        module.router.show(from: self.viewController, embedInNavController: true, setupData: nil)
+        module.router.present(from: self.viewController, embedInNavController: true, presentationStyle: .fullScreen, transitionStyle: .coverVertical, setupData: nil, completion: nil)
+        //module.router.show(
+        //    from: self.viewController, embedInNavController: true, setupData: nil)
     }
 }
 

@@ -417,6 +417,12 @@ extension StationFirestoreService: StationServiceInterface {
 //        return traplines
 //    }
     
+    func trapTypeCounts(stations: [Station]) -> [String: Int] {
+        var counts = [String: Int]()
+        counts["sfds"] = 2
+        return counts
+    }
+    
     func description(stationIds: [String], completion: ((String?, String?, Error?) -> Void)?) {
         self.get(ids: stationIds) { (stations, error) in
             if let error = error {
@@ -447,7 +453,7 @@ extension StationFirestoreService: StationServiceInterface {
             
             for trapline in traplinesDict {
                 
-                let stationsInTrapline = stations.filter { $0.traplineId == trapline.key }
+                let stationsInTrapline = stations.filter { $0.traplineId == trapline.key }.sorted(by: { $0.longCode < $1.longCode })
                 
                 // ["1-10", "20-30"]
                 var rangeDescriptions = stationsRangeDescriptions(for: stationsInTrapline)

@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import GoogleSignIn
 import FirebaseFirestore
-     
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -28,8 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         db.settings = settings
         
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        //GIDSignIn.sharedInstance().delegate = self
-
+        
         // Set global styles
         Styles.setAppearances()
         
@@ -44,10 +43,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
         -> Bool {
-            return GIDSignIn.sharedInstance().handle(url,
-                                                     sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-                                                     annotation: [:])
             
+            return GIDSignIn.sharedInstance()?.handle(url) ?? false
+//            return GIDSignIn.sharedInstance().handle(url,
+//                                                     sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+//                                                     annotation: [:])
+//
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {

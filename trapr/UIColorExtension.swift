@@ -18,6 +18,8 @@ extension UIColor
     
     public class var trpProgressBarForeground: UIColor {
         return UIColor.white
+        
+        
     }
     
     public class var trpChartBarStack1: UIColor {

@@ -68,7 +68,36 @@ final class VisitLogView: UserInterface {
     fileprivate var editingComments: Bool = false
     fileprivate var lureBalanceMessage: String?
     
+    fileprivate let BAITHEADER_LURETYPE = 11
+    
     //MARK: - SubViews
+    
+    lazy var baitHeaderView: UIView = {
+        let view = UIView()
+        
+        //view.autoSetDimension(.height, toSize: 100)
+        
+        let title = UILabel()
+        title.text = "BAIT"
+        title.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.light) //UIFont.trpTableViewSectionHeading
+        
+        view.addSubview(title)
+        title.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
+        title.autoAlignAxis(toSuperviewAxis: .vertical)
+        
+        let lureTypeButton = UIButton()
+        lureTypeButton.setTitle("-", for: .normal)
+        lureTypeButton.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.light) //UIFont.trpTableViewSectionHeading
+        lureTypeButton.setTitleColor(.trpHighlightColor, for: .normal)
+        lureTypeButton.addTarget(self, action: #selector(lureTypeButtonClick(sender:)), for: .touchUpInside)
+        lureTypeButton.contentHorizontalAlignment = .right
+        lureTypeButton.tag = BAITHEADER_LURETYPE
+        view.addSubview(lureTypeButton)
+        lureTypeButton.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
+        lureTypeButton.autoAlignAxis(toSuperviewAxis: .vertical)
+        lureTypeButton.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
+        return view
+    }()
     
     lazy var noVisitButton: UIButton = {
         let button = UIButton(type: UIButton.ButtonType.custom)
@@ -216,6 +245,10 @@ final class VisitLogView: UserInterface {
 
     //MARK: - Events
     
+    @objc func lureTypeButtonClick(sender: UIButton) {
+        presenter.didSelectToChangeLure()
+    }
+
     @objc func createVisitButtonClick(sender: UIButton) {
         presenter.didSelectToRecordVisit()
     }
@@ -320,6 +353,8 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == SECTION_REMOVE {
             return self.removeVisitButton
+        } else if section == SECTION_BAIT {
+            return self.baitHeaderView
         } else if visibleSections.contains(section) {
             return tableView.headerView(forSection: section)
         }
@@ -335,7 +370,11 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if visibleSections.contains(section) {
-            return tableView.sectionHeaderHeight
+            if section == SECTION_BAIT {
+                return LayoutDimensions.tableHeaderHeight
+            } else {
+                return tableView.sectionHeaderHeight
+            }
         }
         return 0
     }
@@ -423,6 +462,11 @@ extension VisitLogView: VisitLogViewApi {
     func displayVisit(visit: VisitViewModel, showCatchSection: Bool) {
         self.tableView.alpha = 1
         self.noVisitButton.alpha = 0
+        
+        if let lureTypeButton = self.baitHeaderView.viewWithTag(BAITHEADER_LURETYPE) as? UIButton {
+            let text = visit.lureName ?? visit.lureId ?? "None"
+            lureTypeButton.setTitle(text, for: .normal)
+        }
         
         self.visit = visit
         

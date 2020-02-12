@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		78D45B6AAD370D9187C2C9CD /* Pods_traprTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D1CDE7A1BF624A9EDD3FCC /* Pods_traprTests.framework */; };
-		D123E65DBFEEF80F9AA3D96C /* Pods_trapr_shared_trapr_production.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCB74651F25332D10BC32DC7 /* Pods_trapr_shared_trapr_production.framework */; };
+		0735BBDEFCF4FF0F9BF33717 /* Pods_trapr_shared_trapr_development.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF97EF0771A113360D68CB15 /* Pods_trapr_shared_trapr_development.framework */; };
+		7A0E2977F938C93AB753D917 /* Pods_trapr_shared_trapr_production.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA77D5F3B5B20C5F9E0BBC9 /* Pods_trapr_shared_trapr_production.framework */; };
+		A80178D1B25EBD773F250064 /* Pods_traprTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57261BBE1A29C2B1F443DD16 /* Pods_traprTests.framework */; };
 		D8005733201528C60084E950 /* StationMarkerAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8005732201528C50084E950 /* StationMarkerAnnotationView.swift */; };
 		D800573620154F9C0084E950 /* VerticallyCentredTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800573520154F9C0084E950 /* VerticallyCentredTextView.swift */; };
 		D80268831FA1757400A1372F /* VisitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80268821FA1757400A1372F /* VisitDelegate.swift */; };
@@ -142,7 +143,6 @@
 		D83DC6CB1F7F841F00F91792 /* StartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C41F7F841F00F91792 /* StartPresenter.swift */; };
 		D83DC6CC1F7F841F00F91792 /* StartRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C51F7F841F00F91792 /* StartRouter.swift */; };
 		D83DC6CD1F7F841F00F91792 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83DC6C61F7F841F00F91792 /* StartView.swift */; };
-		D83F55722FF6E0DF94DA96B5 /* Pods_trapr_shared_trapr_development.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 470EBC940E031FE2A1C3E37F /* Pods_trapr_shared_trapr_development.framework */; };
 		D841CF261F8239CA004D0207 /* TraplineSelectDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D841CF201F8239CA004D0207 /* TraplineSelectDisplayData.swift */; };
 		D841CF271F8239CA004D0207 /* TraplineSelectInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D841CF211F8239CA004D0207 /* TraplineSelectInteractor.swift */; };
 		D841CF281F8239CA004D0207 /* TraplineSelectModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D841CF221F8239CA004D0207 /* TraplineSelectModuleApi.swift */; };
@@ -645,14 +645,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		09D1CDE7A1BF624A9EDD3FCC /* Pods_traprTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_traprTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2976BC96E277FE051A284C79 /* Pods-trapr_shared-trapr_development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trapr_shared-trapr_development.release.xcconfig"; path = "Pods/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development.release.xcconfig"; sourceTree = "<group>"; };
-		35A66DD8AE15DC48938399CE /* Pods-trapr_shared-trapr_production.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trapr_shared-trapr_production.debug.xcconfig"; path = "Pods/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production.debug.xcconfig"; sourceTree = "<group>"; };
-		470EBC940E031FE2A1C3E37F /* Pods_trapr_shared_trapr_development.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trapr_shared_trapr_development.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		745EF3213E3B03E04CEB4E59 /* Pods-trapr_shared-trapr_development.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trapr_shared-trapr_development.debug.xcconfig"; path = "Pods/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development.debug.xcconfig"; sourceTree = "<group>"; };
-		97E006917605C37E780CC0B5 /* Pods-traprTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-traprTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-traprTests/Pods-traprTests.release.xcconfig"; sourceTree = "<group>"; };
-		C942F636AE9FF797392251C0 /* Pods-trapr_shared-trapr_production.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trapr_shared-trapr_production.release.xcconfig"; path = "Pods/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production.release.xcconfig"; sourceTree = "<group>"; };
-		CB1480E579A12578A4F8D74D /* Pods-traprTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-traprTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-traprTests/Pods-traprTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1AED18B13F12330DAD6B1BC6 /* Pods-trapr_shared-trapr_production.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trapr_shared-trapr_production.debug.xcconfig"; path = "Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production.debug.xcconfig"; sourceTree = "<group>"; };
+		4B83E8D183BBA4F91B23C627 /* Pods-traprTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-traprTests.release.xcconfig"; path = "Target Support Files/Pods-traprTests/Pods-traprTests.release.xcconfig"; sourceTree = "<group>"; };
+		57261BBE1A29C2B1F443DD16 /* Pods_traprTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_traprTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7595B84E3BA91CD9ED21415D /* Pods-trapr_shared-trapr_development.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trapr_shared-trapr_development.debug.xcconfig"; path = "Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development.debug.xcconfig"; sourceTree = "<group>"; };
+		B1587CBDD81DE32CCF841212 /* Pods-traprTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-traprTests.debug.xcconfig"; path = "Target Support Files/Pods-traprTests/Pods-traprTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C537F3728F13B6C3258E93A2 /* Pods-trapr_shared-trapr_production.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trapr_shared-trapr_production.release.xcconfig"; path = "Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production.release.xcconfig"; sourceTree = "<group>"; };
+		CF97EF0771A113360D68CB15 /* Pods_trapr_shared_trapr_development.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trapr_shared_trapr_development.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8005732201528C50084E950 /* StationMarkerAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationMarkerAnnotationView.swift; sourceTree = "<group>"; };
 		D800573520154F9C0084E950 /* VerticallyCentredTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticallyCentredTextView.swift; sourceTree = "<group>"; };
 		D80268821FA1757400A1372F /* VisitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitDelegate.swift; sourceTree = "<group>"; };
@@ -986,7 +985,8 @@
 		D8FA5CF71F8409A700EC890C /* StationSelectSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectSetupData.swift; sourceTree = "<group>"; };
 		D8FAFCF5221C8B8C00E56BC6 /* RouteUserSettingsServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteUserSettingsServiceInterface.swift; sourceTree = "<group>"; };
 		D8FAFCF8221C8C2200E56BC6 /* RouteUserSettingsFirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteUserSettingsFirestoreService.swift; sourceTree = "<group>"; };
-		DCB74651F25332D10BC32DC7 /* Pods_trapr_shared_trapr_production.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trapr_shared_trapr_production.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6C57789BC045C8B4B1994BA /* Pods-trapr_shared-trapr_development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trapr_shared-trapr_development.release.xcconfig"; path = "Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development.release.xcconfig"; sourceTree = "<group>"; };
+		EAA77D5F3B5B20C5F9E0BBC9 /* Pods_trapr_shared_trapr_production.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trapr_shared_trapr_production.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -994,7 +994,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D123E65DBFEEF80F9AA3D96C /* Pods_trapr_shared_trapr_production.framework in Frameworks */,
+				7A0E2977F938C93AB753D917 /* Pods_trapr_shared_trapr_production.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1002,7 +1002,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78D45B6AAD370D9187C2C9CD /* Pods_traprTests.framework in Frameworks */,
+				A80178D1B25EBD773F250064 /* Pods_traprTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1010,19 +1010,33 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D83F55722FF6E0DF94DA96B5 /* Pods_trapr_shared_trapr_development.framework in Frameworks */,
+				0735BBDEFCF4FF0F9BF33717 /* Pods_trapr_shared_trapr_development.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		656A900689C7002B49016BF1 /* Frameworks */ = {
+		20D8A5F0CDD7460D0C3130C1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				09D1CDE7A1BF624A9EDD3FCC /* Pods_traprTests.framework */,
-				470EBC940E031FE2A1C3E37F /* Pods_trapr_shared_trapr_development.framework */,
-				DCB74651F25332D10BC32DC7 /* Pods_trapr_shared_trapr_production.framework */,
+				B1587CBDD81DE32CCF841212 /* Pods-traprTests.debug.xcconfig */,
+				4B83E8D183BBA4F91B23C627 /* Pods-traprTests.release.xcconfig */,
+				7595B84E3BA91CD9ED21415D /* Pods-trapr_shared-trapr_development.debug.xcconfig */,
+				E6C57789BC045C8B4B1994BA /* Pods-trapr_shared-trapr_development.release.xcconfig */,
+				1AED18B13F12330DAD6B1BC6 /* Pods-trapr_shared-trapr_production.debug.xcconfig */,
+				C537F3728F13B6C3258E93A2 /* Pods-trapr_shared-trapr_production.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		644F4DDB4EB04AEB5DE578BF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				57261BBE1A29C2B1F443DD16 /* Pods_traprTests.framework */,
+				CF97EF0771A113360D68CB15 /* Pods_trapr_shared_trapr_development.framework */,
+				EAA77D5F3B5B20C5F9E0BBC9 /* Pods_trapr_shared_trapr_production.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1434,8 +1448,8 @@
 				D8B94D571F5EA1FE00D373EF /* trapr */,
 				D8B94D6C1F5EA1FE00D373EF /* traprTests */,
 				D8B94D561F5EA1FE00D373EF /* Products */,
-				D9137A3F9761619C4FFA1891 /* Pods */,
-				656A900689C7002B49016BF1 /* Frameworks */,
+				20D8A5F0CDD7460D0C3130C1 /* Pods */,
+				644F4DDB4EB04AEB5DE578BF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1698,19 +1712,6 @@
 			name = Firebase;
 			sourceTree = "<group>";
 		};
-		D9137A3F9761619C4FFA1891 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				CB1480E579A12578A4F8D74D /* Pods-traprTests.debug.xcconfig */,
-				97E006917605C37E780CC0B5 /* Pods-traprTests.release.xcconfig */,
-				745EF3213E3B03E04CEB4E59 /* Pods-trapr_shared-trapr_development.debug.xcconfig */,
-				2976BC96E277FE051A284C79 /* Pods-trapr_shared-trapr_development.release.xcconfig */,
-				35A66DD8AE15DC48938399CE /* Pods-trapr_shared-trapr_production.debug.xcconfig */,
-				C942F636AE9FF797392251C0 /* Pods-trapr_shared-trapr_production.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1718,13 +1719,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D8B94D721F5EA1FE00D373EF /* Build configuration list for PBXNativeTarget "trapr_production" */;
 			buildPhases = (
-				F950247E27DF98114E92AB1F /* [CP] Check Pods Manifest.lock */,
+				D7850D4710878D8A7A0AECC5 /* [CP] Check Pods Manifest.lock */,
 				D8B94D511F5EA1FE00D373EF /* Sources */,
 				D8B94D521F5EA1FE00D373EF /* Frameworks */,
 				D8B94D531F5EA1FE00D373EF /* Resources */,
-				E47BD7212A05A0F1A304270D /* [CP] Embed Pods Frameworks */,
 				D8083D261FE5D5D000D1C5F1 /* Increment Build Number */,
-				E9543565E52AC69881F854F5 /* [CP] Copy Pods Resources */,
+				DC797E4254F66CFAFF7536D5 /* [CP] Embed Pods Frameworks */,
+				9DF4C1C99CEBF290533B0243 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1739,7 +1740,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D8B94D751F5EA1FE00D373EF /* Build configuration list for PBXNativeTarget "traprTests" */;
 			buildPhases = (
-				367FB6A19C05F5F0A01D84EA /* [CP] Check Pods Manifest.lock */,
+				3FC53249FFD77CA87A00BD8A /* [CP] Check Pods Manifest.lock */,
 				D8B94D651F5EA1FE00D373EF /* Sources */,
 				D8B94D661F5EA1FE00D373EF /* Frameworks */,
 				D8B94D671F5EA1FE00D373EF /* Resources */,
@@ -1758,13 +1759,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D8C25DE92181771F00C5DB64 /* Build configuration list for PBXNativeTarget "trapr_development" */;
 			buildPhases = (
-				D8C25CA32181771F00C5DB64 /* [CP] Check Pods Manifest.lock */,
+				685A5CF869CC7570D7D1FA06 /* [CP] Check Pods Manifest.lock */,
 				D8C25CA42181771F00C5DB64 /* Sources */,
 				D8C25D902181771F00C5DB64 /* Frameworks */,
 				D8C25D922181771F00C5DB64 /* Resources */,
-				D8C25DE62181771F00C5DB64 /* [CP] Embed Pods Frameworks */,
 				D8C25DE82181771F00C5DB64 /* Increment Build Number */,
-				C23C3B9D46A33B5CCD8163FD /* [CP] Copy Pods Resources */,
+				7E4F6428250FF2E957C42479 /* [CP] Embed Pods Frameworks */,
+				043D6E4428A73448FA26E073 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2009,25 +2010,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		367FB6A19C05F5F0A01D84EA /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-traprTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C23C3B9D46A33B5CCD8163FD /* [CP] Copy Pods Resources */ = {
+		043D6E4428A73448FA26E073 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2049,30 +2032,42 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D8083D261FE5D5D000D1C5F1 /* Increment Build Number */ = {
+		3FC53249FFD77CA87A00BD8A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-			);
-			name = "Increment Build Number";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
-		};
-		D8C25CA32181771F00C5DB64 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-traprTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		685A5CF869CC7570D7D1FA06 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-trapr_shared-trapr_development-checkManifestLockResult.txt",
 			);
@@ -2081,24 +2076,26 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D8C25DE62181771F00C5DB64 /* [CP] Embed Pods Frameworks */ = {
+		7E4F6428250FF2E957C42479 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
 				"${BUILT_PRODUCTS_DIR}/Viperit/Viperit.framework",
 				"${BUILT_PRODUCTS_DIR}/XMLDictionary/XMLDictionary.framework",
 				"${BUILT_PRODUCTS_DIR}/XlsxReaderWriter/XlsxReaderWriter.framework",
+				"${BUILT_PRODUCTS_DIR}/abseil/absl.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/iCarousel/iCarousel.framework",
@@ -2107,17 +2104,19 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Viperit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMLDictionary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XlsxReaderWriter.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/absl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iCarousel.framework",
@@ -2129,69 +2128,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D8C25DE82181771F00C5DB64 /* Increment Build Number */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Increment Build Number";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
-		};
-		E47BD7212A05A0F1A304270D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
-				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
-				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
-				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
-				"${BUILT_PRODUCTS_DIR}/Viperit/Viperit.framework",
-				"${BUILT_PRODUCTS_DIR}/XMLDictionary/XMLDictionary.framework",
-				"${BUILT_PRODUCTS_DIR}/XlsxReaderWriter/XlsxReaderWriter.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
-				"${BUILT_PRODUCTS_DIR}/iCarousel/iCarousel.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Viperit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMLDictionary.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XlsxReaderWriter.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iCarousel.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E9543565E52AC69881F854F5 /* [CP] Copy Pods Resources */ = {
+		9DF4C1C99CEBF290533B0243 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2213,22 +2150,106 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F950247E27DF98114E92AB1F /* [CP] Check Pods Manifest.lock */ = {
+		D7850D4710878D8A7A0AECC5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-trapr_shared-trapr_production-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D8083D261FE5D5D000D1C5F1 /* Increment Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Increment Build Number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+		D8C25DE82181771F00C5DB64 /* Increment Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Increment Build Number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+		DC797E4254F66CFAFF7536D5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
+				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
+				"${BUILT_PRODUCTS_DIR}/Viperit/Viperit.framework",
+				"${BUILT_PRODUCTS_DIR}/XMLDictionary/XMLDictionary.framework",
+				"${BUILT_PRODUCTS_DIR}/XlsxReaderWriter/XlsxReaderWriter.framework",
+				"${BUILT_PRODUCTS_DIR}/abseil/absl.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/iCarousel/iCarousel.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Viperit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMLDictionary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XlsxReaderWriter.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/absl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iCarousel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2786,7 +2807,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inheritied)";
@@ -2839,7 +2860,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -2851,7 +2872,7 @@
 		};
 		D8B94D731F5EA1FE00D373EF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35A66DD8AE15DC48938399CE /* Pods-trapr_shared-trapr_production.debug.xcconfig */;
+			baseConfigurationReference = 1AED18B13F12330DAD6B1BC6 /* Pods-trapr_shared-trapr_production.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 2DTZ6ESMX9;
@@ -2866,7 +2887,7 @@
 		};
 		D8B94D741F5EA1FE00D373EF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C942F636AE9FF797392251C0 /* Pods-trapr_shared-trapr_production.release.xcconfig */;
+			baseConfigurationReference = C537F3728F13B6C3258E93A2 /* Pods-trapr_shared-trapr_production.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 2DTZ6ESMX9;
@@ -2881,7 +2902,7 @@
 		};
 		D8B94D761F5EA1FE00D373EF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB1480E579A12578A4F8D74D /* Pods-traprTests.debug.xcconfig */;
+			baseConfigurationReference = B1587CBDD81DE32CCF841212 /* Pods-traprTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -2898,7 +2919,7 @@
 		};
 		D8B94D771F5EA1FE00D373EF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 97E006917605C37E780CC0B5 /* Pods-traprTests.release.xcconfig */;
+			baseConfigurationReference = 4B83E8D183BBA4F91B23C627 /* Pods-traprTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -2914,7 +2935,7 @@
 		};
 		D8C25DEA2181771F00C5DB64 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 745EF3213E3B03E04CEB4E59 /* Pods-trapr_shared-trapr_development.debug.xcconfig */;
+			baseConfigurationReference = 7595B84E3BA91CD9ED21415D /* Pods-trapr_shared-trapr_development.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dev";
 				DEVELOPMENT_TEAM = 2DTZ6ESMX9;
@@ -2929,7 +2950,7 @@
 		};
 		D8C25DEB2181771F00C5DB64 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2976BC96E277FE051A284C79 /* Pods-trapr_shared-trapr_development.release.xcconfig */;
+			baseConfigurationReference = E6C57789BC045C8B4B1994BA /* Pods-trapr_shared-trapr_development.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dev";
 				DEVELOPMENT_TEAM = 2DTZ6ESMX9;

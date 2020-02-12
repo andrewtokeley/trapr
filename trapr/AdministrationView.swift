@@ -75,7 +75,8 @@ final class AdministrationView: UserInterface {
         importButton.autoSetDimension(.width, toSize: 250)
         importButton.autoAlignAxis(toSuperviewAxis: .vertical)
         
-        progressMessage.autoPin(toTopLayoutGuideOf: self, withInset: LayoutDimensions.spacingMargin)
+        //progressMessage.autoPin(toTopLayoutGuideOf: self, withInset: LayoutDimensions.spacingMargin)
+        progressMessage.autoPinEdge(toSuperviewSafeArea: .top, withInset: LayoutDimensions.spacingMargin)
         progressMessage.autoPinEdge(.bottom, to: .top, of: importButton, withOffset: -LayoutDimensions.spacingMargin)
         progressMessage.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
         progressMessage.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)

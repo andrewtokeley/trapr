@@ -56,7 +56,8 @@ final class OrderStationsView: UserInterface {
     
     private func setConstraints() {
         
-        instructionsLabel.autoPin(toTopLayoutGuideOf: self, withInset: LayoutDimensions.spacingMargin)
+        //instructionsLabel.autoPin(toTopLayoutGuideOf: self, withInset: LayoutDimensions.spacingMargin)
+        instructionsLabel.autoPinEdge(toSuperviewSafeArea: .top, withInset: LayoutDimensions.spacingMargin)
         instructionsLabel.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
         instructionsLabel.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
         

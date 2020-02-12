@@ -207,6 +207,8 @@ extension Station: Equatable {
 }
 
 extension Station: Hashable {
+    
+    
     var hashValue: Int {
         if let id = id {
             return id.hashValue

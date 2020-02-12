@@ -20,6 +20,7 @@ protocol AdministrationViewApi: UserInterfaceProtocol {
 //MARK: - AdministrationPresenter API
 protocol AdministrationPresenterApi: PresenterProtocol {
     func didSelectClose()
+    
     func didSelectImport()
 }
 

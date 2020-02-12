@@ -72,7 +72,7 @@ extension CachePrimerFirestoreService: CachePrimerServiceInterface {
         self.visitService.get(source: .server, completion: { (entities) in
             currentStep += 1
             progress?(self.progressAtStep(currentStep), self.messageAtStep(currentStep), false)
-            self.routeService.get(source: .server, completion: { (entities, error) in
+            self.routeService.get(source: .server, includeHidden: true, completion: { (entities, error) in
                 currentStep += 1
                 progress?(self.progressAtStep(currentStep), self.messageAtStep(currentStep), false)
                 self.speciesService.createOrUpdateDefaults(completion: {
@@ -103,7 +103,9 @@ extension CachePrimerFirestoreService: CachePrimerServiceInterface {
                                                 self.stationService.get(source: .server, completion: { (entities) in
                                                     currentStep += 1
                                                     progress?(self.progressAtStep(currentStep), self.messageAtStep(currentStep), false)
-                                                    self.routeUserSettingsService.get(source: .server, completion: { (entities, error) in
+                                                        self.routeUserSettingsService.get(source: .server, completion: { (entities, error) in
+                                                            print(entities.count)
+                                                        
                                                             currentStep += 1
                                                             progress?(1, self.messageAtStep(currentStep), true)
                                                         })

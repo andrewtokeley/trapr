@@ -35,7 +35,7 @@ class RouteUserSettings: DocumentSerializable {
         // return fields that are always defined
         result[RouteUserSettingsFields.routeId.rawValue] = self.routeId
         result[RouteUserSettingsFields.userId.rawValue] = self.userId
-        result[RouteUserSettingsFields.hidden.rawValue] = self.stationIds
+        result[RouteUserSettingsFields.hidden.rawValue] = self.hidden
         result[RouteUserSettingsFields.stationIds.rawValue] = stationIds
         result[RouteUserSettingsFields.isOwner.rawValue] = isOwner
         return result
@@ -46,21 +46,26 @@ class RouteUserSettings: DocumentSerializable {
         self.routeId = routeId
         self.userId = userId
         self.stationIds = stationIds
+        self.hidden = false
     }
     
     required init?(dictionary: [String: Any]) {
         guard
+            // check mandatory fields exist
             let routeId = dictionary[RouteUserSettingsFields.routeId.rawValue] as? String,
             let userId = dictionary[RouteUserSettingsFields.userId.rawValue] as? String,
             let stationIds = dictionary[RouteUserSettingsFields.stationIds.rawValue] as? [String],
-            let isOwner = dictionary[RouteUserSettingsFields.isOwner.rawValue] as? Bool
+            let isOwner = dictionary[RouteUserSettingsFields.isOwner.rawValue] as? Bool,
+            let hidden = dictionary[RouteUserSettingsFields.hidden.rawValue] as? Bool
             else {
                 return nil
         }
         
+        // mandatory
         self.routeId = routeId
         self.userId = userId
         self.stationIds = stationIds
         self.isOwner = isOwner
+        self.hidden = hidden
     }
 }
