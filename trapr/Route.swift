@@ -91,6 +91,6 @@ extension Route: NSCopying {
     func copy(with zone: NSZone? = nil) -> Any {
         let route = Route(dictionary: self.dictionary)
         route?.id = self.id
-        return route
+        return route as Any
     }
 }

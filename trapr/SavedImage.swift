@@ -24,11 +24,11 @@ class SavedImage {
      Fully qualified path to the image stored on the phone
     */
     var imageUrl: URL? {
-        if let imageName = imageName {
-            // document directory
-//            let documentDirectory =
-//            return documentDirectory.appendingPathComponent(imageName)
-        }
+//        if let imageName = imageName {
+//            // document directory
+////            let documentDirectory =
+////            return documentDirectory.appendingPathComponent(imageName)
+//        }
         return nil
     }
 }

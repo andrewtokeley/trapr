@@ -25,7 +25,7 @@ extension TraplineSelectInteractor: TraplineSelectInteractorApi {
     }
     
     func addRoute(route: Route) {
-        routeService.add(route: route, completion: nil)
+        let _ = routeService.add(route: route, completion: nil)
     }
     
     func updateStations(routeId: String, stationIds: [String]) {

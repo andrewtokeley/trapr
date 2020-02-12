@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>76672372524-alkv5r0dgfob6od2mk0jsh64k03bg1nj.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.76672372524-alkv5r0dgfob6od2mk0jsh64k03bg1nj</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBBOOFImXkPS1yPH4DQ_yXwNU1YCeTGLvU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>76672372524</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>andrewtokeley.com.trapr-dev</string>
+	<key>PROJECT_ID</key>
+	<string>trapr-development</string>
+	<key>STORAGE_BUCKET</key>
+	<string>trapr-development.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:76672372524:ios:3037a53290e9b95e</string>
+	<key>DATABASE_URL</key>
+	<string>https://trapr-development.firebaseio.com</string>
+</dict>
+</plist>

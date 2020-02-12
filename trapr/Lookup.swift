@@ -14,14 +14,26 @@ enum LookupFields: String {
 }
 
 extension Lookup: Hashable {
-    /// Returns a unique hash value for the lookup instance
-    public var hashValue: Int {
+    
+    /**
+        Implementing this method allows Lookup instances to be compared based on their id
+    */
+    func hash(into hasher: inout Hasher) {
         if let id = self.id {
-            return id.hashValue
+            hasher.combine(id)
         } else {
-            return "something".hashValue
+            hasher.combine("something")
         }
     }
+    
+    /// Returns a unique hash value for the lookup instance
+//    public var hashValue: Int {
+//        if let id = self.id {
+//            return id.hashValue
+//        } else {
+//            return "something".hashValue
+//        }
+//    }
 }
 
 class Lookup: DocumentSerializable {

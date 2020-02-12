@@ -12,17 +12,17 @@ extension Date {
     
     //MARK: - Instance properties
     var day: Int {
-        var components = Calendar.current.dateComponents([.day], from: self)
+        let components = Calendar.current.dateComponents([.day], from: self)
         return components.day!
     }
     
     var month: Int {
-        var components = Calendar.current.dateComponents([.month], from: self)
+        let components = Calendar.current.dateComponents([.month], from: self)
         return components.month!
     }
     
     var year: Int {
-        var components = Calendar.current.dateComponents([.year], from: self)
+        let components = Calendar.current.dateComponents([.year], from: self)
         return components.year!
     }
     
@@ -47,7 +47,7 @@ extension Date {
     }
     
     func dayStart() -> Date {
-        var components = Calendar.current.dateComponents([.day, .month, .year], from: self)
+        let components = Calendar.current.dateComponents([.day, .month, .year], from: self)
         
         let formater = DateFormatter()
         formater.dateFormat = "d M yyyy, HH:mm:ss"
@@ -55,7 +55,7 @@ extension Date {
     }
     
     func dayEnd() -> Date {
-        var components = Calendar.current.dateComponents([.day, .month, .year], from: self)
+        let components = Calendar.current.dateComponents([.day, .month, .year], from: self)
         
         let formater = DateFormatter()
         formater.dateFormat = "d M yyyy, HH:mm:ss"

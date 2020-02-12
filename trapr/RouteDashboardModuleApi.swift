@@ -26,7 +26,7 @@ protocol RouteDashboardRouterApi: RouterProtocol {
 }
 
 //MARK: - RouteDashboardView API
-protocol RouteDashboardViewApi: class, UserInterfaceProtocol {
+protocol RouteDashboardViewApi: UserInterfaceProtocol {
     func displayTitle(_ title: String, editable: Bool)
     
     // Editing options

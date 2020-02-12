@@ -208,12 +208,23 @@ extension Station: Equatable {
 
 extension Station: Hashable {
     
-    
-    var hashValue: Int {
-        if let id = id {
-            return id.hashValue
+    /**
+        Implementing this method allows Lookup instances to be compared based on their id
+    */
+    func hash(into hasher: inout Hasher) {
+        if let id = self.id {
+            hasher.combine(id)
         } else {
-            return "sameforall".hashValue
+            // we don't care about comparing stations without ids
+            hasher.combine("something")
         }
     }
+    
+//    var hashValue: Int {
+//        if let id = id {
+//            return id.hashValue
+//        } else {
+//            return "sameforall".hashValue
+//        }
+//    }
 }

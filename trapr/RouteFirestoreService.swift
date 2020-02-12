@@ -233,7 +233,7 @@ extension RouteFirestoreService: RouteServiceInterface {
         self.routeUserSettingsService.get(routeId: routeId) { (routeUserSettings, error) in
             if let routeUserSettings = routeUserSettings {
                 routeUserSettings.hidden = isHidden
-                self.routeUserSettingsService.add(routeUserSettings: routeUserSettings, batch: nil, completion: { (routeUserSettings, error) in
+                let _ = self.routeUserSettingsService.add(routeUserSettings: routeUserSettings, batch: nil, completion: { (routeUserSettings, error) in
                     completion?(error)
                 })
             }
