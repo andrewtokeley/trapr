@@ -9,6 +9,12 @@
 import UIKit
 import Viperit
 
+enum StepperType {
+    case eaten
+    case removed
+    case added
+}
+
 /// Extend the Visit to include View specific details
 class VisitViewModel: Visit {
     
@@ -48,10 +54,9 @@ final class VisitLogView: UserInterface {
     fileprivate let ROW_CATCH = 1
 
     fileprivate let SECTION_BAIT = 2
-    fileprivate let ROW_BAIT_TYPE = 0
-    fileprivate let ROW_ADDED = 1
-    fileprivate let ROW_EATEN = 2
-    fileprivate let ROW_REMOVED = 3
+    fileprivate let ROW_ADDED = 0
+    fileprivate let ROW_EATEN = 1
+    fileprivate let ROW_REMOVED = 2
     
     fileprivate let SECTION_COMMENTS = 3
     fileprivate let ROW_COMMENTS = 0
@@ -74,28 +79,37 @@ final class VisitLogView: UserInterface {
     
     lazy var baitHeaderView: UIView = {
         let view = UIView()
-        
-        //view.autoSetDimension(.height, toSize: 100)
+        view.clipsToBounds = true
         
         let title = UILabel()
         title.text = "BAIT"
-        title.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.light) //UIFont.trpTableViewSectionHeading
+        title.font = UIFont.preferredFont(forTextStyle: .footnote)
+        title.textColor = UIColor.trpDefaultTableViewHeaderFooter
         
         view.addSubview(title)
         title.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
-        title.autoAlignAxis(toSuperviewAxis: .vertical)
+        title.autoPinEdge(toSuperviewEdge: .bottom, withInset: -5)
+        title.autoSetDimension(.width, toSize: 100)
+        title.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
+        
+        //title.backgroundColor = .red
         
         let lureTypeButton = UIButton()
         lureTypeButton.setTitle("-", for: .normal)
-        lureTypeButton.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.light) //UIFont.trpTableViewSectionHeading
+        lureTypeButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
         lureTypeButton.setTitleColor(.trpHighlightColor, for: .normal)
+        
         lureTypeButton.addTarget(self, action: #selector(lureTypeButtonClick(sender:)), for: .touchUpInside)
         lureTypeButton.contentHorizontalAlignment = .right
         lureTypeButton.tag = BAITHEADER_LURETYPE
+        //lureTypeButton.backgroundColor = .red
+        
         view.addSubview(lureTypeButton)
         lureTypeButton.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
-        lureTypeButton.autoAlignAxis(toSuperviewAxis: .vertical)
+        lureTypeButton.autoPinEdge(toSuperviewEdge: .bottom, withInset: -5)
+        lureTypeButton.autoSetDimension(.width, toSize: 100)
         lureTypeButton.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
+        
         return view
     }()
     
@@ -244,6 +258,9 @@ final class VisitLogView: UserInterface {
     }
 
     //MARK: - Events
+    @objc func stepperAction(sender: UIButton) {
+        
+    }
     
     @objc func lureTypeButtonClick(sender: UIButton) {
         presenter.didSelectToChangeLure()
@@ -306,7 +323,7 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case SECTION_DATETIME: return 2
         case SECTION_CATCH:  return 2 //return self.visit?.speciesId == nil ? 2 : 1
-        case SECTION_BAIT: return 4
+        case SECTION_BAIT: return 3
         case SECTION_COMMENTS: return 1
         case SECTION_REMOVE: return 0
         default: return 0
@@ -371,9 +388,9 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if visibleSections.contains(section) {
             if section == SECTION_BAIT {
-                return LayoutDimensions.tableHeaderHeight
+                return 40 //LayoutDimensions.tableHeaderSectionHeight
             } else {
-                return tableView.sectionHeaderHeight
+                return UITableView.automaticDimension
             }
         }
         return 0
@@ -383,11 +400,11 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
         if visibleSections.contains(section) {
             // add a larger section footer to last section
             if (section == SECTION_REMOVE) {
-                return LayoutDimensions.tableFooterHeightLarge + 120
+                return LayoutDimensions.tableFooterSectionHeightLarge + 120
             } else if (section == SECTION_BAIT) && lureBalanceMessage?.count ?? 0 > 0 {
-                return LayoutDimensions.tableFooterHeight + 10
+                return LayoutDimensions.tableFooterSectionHeight + 10
             } else {
-                return LayoutDimensions.tableFooterHeight
+                return UITableView.automaticDimension //LayoutDimensions.tableFooterSectionHeight
             }
         }
         return 0
@@ -415,21 +432,21 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
         } else if section == SECTION_CATCH && row == ROW_TRAP_SET_STATUS {
             cell = self.trapSetStatusTableViewCell
             cell.detailTextLabel?.text = self.visit?.trapSetStatus?.name ?? "-"
-        } else if section == SECTION_BAIT && row == ROW_BAIT_TYPE {
-            cell = self.lureTableViewCell
-            cell.detailTextLabel?.text = self.visit?.lureName ?? self.visit?.lureId ?? "None"
+//        } else if section == SECTION_BAIT && row == ROW_BAIT_TYPE {
+//            cell = self.lureTableViewCell
+//            cell.detailTextLabel?.text = self.visit?.lureName ?? self.visit?.lureId ?? "None"
         } else if section == SECTION_BAIT && row == ROW_ADDED {
             cell = self.addedTableViewCell
-            (cell as! StepperTableViewCell).setCountValue(newValue: self.visit?.baitAdded ?? 0)
+            (cell as! StepperTableViewCell).countLabelValue = self.visit?.baitAdded ?? 0
         } else if section == SECTION_BAIT && row == ROW_REMOVED {
             cell = self.removedTableViewCell
-            (cell as! StepperTableViewCell).setCountValue(newValue: self.visit?.baitRemoved ?? 0)
+            (cell as! StepperTableViewCell).countLabelValue = self.visit?.baitRemoved ?? 0
         } else if section == SECTION_COMMENTS && row == ROW_COMMENTS {
             cell = self.commentsTableViewCell
             (cell as! CommentsTableViewCell).commentsTextView.text = self.visit?.notes
         } else { // if section == SECTION_BAIT && row == ROW_EATEN {
             cell = self.eatenTableViewCell
-            (cell as! StepperTableViewCell).setCountValue(newValue: self.visit?.baitEaten ?? 0)
+            (cell as! StepperTableViewCell).countLabelValue = self.visit?.baitEaten ?? 0
         }
         return cell
     }
@@ -444,8 +461,8 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
             presenter.didSelectToChangeTrapSetStatus()
         } else if indexPath.section == SECTION_CATCH && indexPath.row == ROW_CATCH {
             presenter.didSelectToChangeSpecies()
-        } else if indexPath.section == SECTION_BAIT && indexPath.row == ROW_BAIT_TYPE {
-            presenter.didSelectToChangeLure()
+//        } else if indexPath.section == SECTION_BAIT && indexPath.row == ROW_BAIT_TYPE {
+//            presenter.didSelectToChangeLure()
         }
     }
     
@@ -488,12 +505,22 @@ extension VisitLogView: VisitLogViewApi {
     
     func displayLureBalanceMessage(message: String) {
         self.lureBalanceMessage = message
-        
-        //self.tableView.reloadSections([SECTION_BAIT], with: UITableViewRowAnimation.fade)
     }
     
     func displaySpecies(name: String) {
-        //presenter.`
+    }
+
+    func setMaxSteppers(eaten: Int, removed: Int, added: Int) {
+        
+        self.eatenTableViewCell.setMax(maximum: eaten)
+        self.removedTableViewCell.setMax(maximum: removed)
+        self.addedTableViewCell.setMax(maximum: added)
+        
+        // make sure the label for added isn't higher than max
+        if self.addedTableViewCell.countLabelValue > added {
+            self.addedTableViewCell.countLabelValue = added
+        }
+        
     }
     
     func endEditing() {

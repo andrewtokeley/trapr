@@ -186,8 +186,8 @@ class VisitFirestoreService: FirestoreEntityService<Visit>, VisitServiceInterfac
     }
     
     func getMostRecentVisit(routeId: String, completion: ((Visit?) -> Void)?) {
-        super.get(whereField: VisitFields.routeId.rawValue, isEqualTo: routeId, orderByField: VisitFields.visitDate.rawValue, limit: 1000, completion: { (visits, error) in
-            completion?(visits.last)
+        super.get(whereField: VisitFields.routeId.rawValue, isEqualTo: routeId, orderByField: VisitFields.visitDate.rawValue, orderDescending: true, limit: 1, completion: { (visits, error) in
+            completion?(visits.first)
         })
     }
     

@@ -42,18 +42,18 @@ struct LayoutDimensions {
     static let tableCellHeight: CGFloat = 44
 
     /**
-     Standard height for UITableViewCell header
+     Standard height for UITableView section header
      */
-    static let tableHeaderHeight: CGFloat = 60
+    static let tableHeaderSectionHeight: CGFloat = 60
 
     /**
-     Standard height for UITableViewCell footer
+     Standard height for UITableView footer
      */
-    static let tableFooterHeight: CGFloat = 20
+    static let tableFooterSectionHeight: CGFloat = 20
 
     /**
-     Large height for UITableViewCell footer - useful for last section footer
+     Large height for UITableView footer - useful for last section footer
      */
-    static let tableFooterHeightLarge: CGFloat = 100
+    static let tableFooterSectionHeightLarge: CGFloat = 100
 
 }

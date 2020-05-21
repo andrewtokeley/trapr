@@ -12,8 +12,18 @@ import UIKit
 extension UIColor
 {
     
+    public class var trpDefaultTableViewHeaderFooter: UIColor {
+        //return UIColor(red:42/255, green: 42/255, blue:44/255,alpha: 1)
+        return UIColor(red:0.42, green: 0.42, blue:0.44,alpha: 1)
+        
+    }
+    
     public class var trpProgressBarBackground: UIColor {
         return UIColor(red: 147/255, green: 196/255, blue: 125/255, alpha: 1)
+    }
+    
+    public class var trpStepperBackground: UIColor {
+        return UIColor(red: 238/255, green: 238/255, blue: 239/255, alpha: 1)
     }
     
     public class var trpProgressBarForeground: UIColor {

@@ -15,6 +15,7 @@ final class VisitLogPresenter: Presenter {
     var delegate: VisitLogDelegate?
     
     fileprivate var currentVisit: Visit?
+    fileprivate var balanceOfCurrentTrap: Int?
     
     fileprivate var species: [Species]?
     fileprivate var catchableSpecies: [Species]?
@@ -48,11 +49,43 @@ final class VisitLogPresenter: Presenter {
         }
     }
 
+    //MARK: - Stepper functions
+    
+    func    updateStepperMaximumValues() {
+        
+        // make sure the total of eaten and removed doesn't exceed the balance
+        if let visit = self.currentVisit {
+            if let trap = self.trapTypes.first(where: { $0.id == visit.trapTypeId }) {
+                if let balance = self.balanceOfCurrentTrap {
+                    
+                    let totalRemoved = visit.baitEaten + visit.baitRemoved
+                    
+                    // can't remove more than was in there to begin with
+                    if totalRemoved >= balance {
+                        self.view.setMaxSteppers(eaten: visit.baitEaten, removed: visit.baitRemoved, added: trap.maxLures - ( balance - totalRemoved))
+                    } else {
+                        // default
+                        self.view.setMaxSteppers(eaten: balance, removed: balance, added: trap.maxLures - ( balance - totalRemoved))
+                    }
+                    
+                    if visit.baitAdded > trap.maxLures - ( balance - totalRemoved) {
+                        visit.baitAdded = trap.maxLures - ( balance - totalRemoved)
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    //MARK: - Other
+    
     func saveVisit() {
         if let visit = self.currentVisit {
             interactor.saveVisit(visit: visit)
         }
     }
+    
+    
     
     func updateViewForCurrentVisit() {
         
@@ -83,14 +116,21 @@ final class VisitLogPresenter: Presenter {
                     // get the balance from the day before the visit (assumes only one visit per day)
                     self.interactor.getLureBalance(stationId: visit.stationId, trapTypeId: visit.trapTypeId, asAtDate: visit.visitDateTime.add(-1, 0, 0)) { (balance) in
                         
+                        self.balanceOfCurrentTrap = balance
+                        
                         let message = "Balance at last visit, \(balance)."
                         self.view.displayLureBalanceMessage(message: message)
                         self.view.displayVisit(visit: visitViewModel, showCatchSection: trap.killMethod == .direct)
+                        
+                        self.updateStepperMaximumValues()
                     }
                     
                 } else {
+                    // assume there's always 1 in there for now
+                    self.balanceOfCurrentTrap = 1
                     self.view.displayLureBalanceMessage(message: "")
                     self.view.displayVisit(visit: visitViewModel, showCatchSection: trap.killMethod == .direct)
+                    self.updateStepperMaximumValues()
                 }
             }
         }
@@ -221,16 +261,20 @@ extension VisitLogPresenter: VisitLogPresenterApi {
     func didUpdateBaitAddedValue(newValue: Int) {
         self.currentVisit?.baitAdded = newValue
         saveVisit()
+        self.updateStepperMaximumValues()
     }
     
     func didUpdateBaitEatenValue(newValue: Int) {
         self.currentVisit?.baitEaten = newValue
         saveVisit()
+        self.updateStepperMaximumValues()
+        
     }
     
     func didUpdateBaitRemovedValue(newValue: Int) {
         self.currentVisit?.baitRemoved = newValue
         saveVisit()
+        self.updateStepperMaximumValues()
     }
     
     func didUpdateComment(text: String?) {

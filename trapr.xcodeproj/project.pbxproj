@@ -685,7 +685,7 @@
 		D80B6DC51F9F3DCD00F49E9E /* VisitLogDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitLogDisplayData.swift; sourceTree = "<group>"; };
 		D80B6DC61F9F3DCD00F49E9E /* VisitLogInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitLogInteractor.swift; sourceTree = "<group>"; };
 		D80B6DC71F9F3DCD00F49E9E /* VisitLogModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitLogModuleApi.swift; sourceTree = "<group>"; };
-		D80B6DC81F9F3DCD00F49E9E /* VisitLogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitLogPresenter.swift; sourceTree = "<group>"; };
+		D80B6DC81F9F3DCD00F49E9E /* VisitLogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitLogPresenter.swift; sourceTree = "<group>"; wrapsLines = 1; };
 		D80B6DC91F9F3DCD00F49E9E /* VisitLogRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitLogRouter.swift; sourceTree = "<group>"; };
 		D80B6DCA1F9F3DCD00F49E9E /* VisitLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitLogView.swift; sourceTree = "<group>"; };
 		D80BCD3C1F91D041005F30FF /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
@@ -1027,7 +1027,6 @@
 				1AED18B13F12330DAD6B1BC6 /* Pods-trapr_shared-trapr_production.debug.xcconfig */,
 				C537F3728F13B6C3258E93A2 /* Pods-trapr_shared-trapr_production.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -2880,7 +2879,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = andrewtokeley.com.trapr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -2895,7 +2894,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = andrewtokeley.com.trapr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

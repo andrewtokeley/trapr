@@ -154,7 +154,7 @@ extension ListPickerView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return LayoutDimensions.tableHeaderHeight
+        return LayoutDimensions.tableHeaderSectionHeight
     }
 
 }

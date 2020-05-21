@@ -245,7 +245,7 @@ class FirestoreEntityService<T: DocumentSerializable>  {
     }
     
     /**
-     Retrieves all documents from the Firestore that are located in the entities collection where the field is greater than the value supplied. Always reads from the cache.
+     Retrieves all documents from the Firestore that are located in the entities collection where the field is equal to the value supplied. Always reads from the cache.
      
      - Parameters:
         - whereField: the name of the field to compare with
@@ -254,9 +254,9 @@ class FirestoreEntityService<T: DocumentSerializable>  {
         - limit: maximum number of records that will be returned
         - completion: closure that is called after the get action is complete. The closure will be passed a fully instantiated entity or an Error if the get action failed.
      */
-    func get(whereField: String, isEqualTo: Any, orderByField: String, limit: Int, source: FirestoreSource = .cache, completion: (([T], Error?) -> Void)?) {
+    func get(whereField: String, isEqualTo: Any, orderByField: String, orderDescending: Bool = false, limit: Int = 100, source: FirestoreSource = .cache, completion: (([T], Error?) -> Void)?) {
         
-        self.collection.whereField(whereField, isEqualTo: isEqualTo).order(by: orderByField).limit(to: limit).getDocuments(source: source) { (snapshot, error) in
+        self.collection.order(by: orderByField, descending: orderDescending).whereField(whereField, isEqualTo: isEqualTo).limit(to: limit).getDocuments(source: source) { (snapshot, error) in
             
             if let error = error {
                 completion?([T](), error)

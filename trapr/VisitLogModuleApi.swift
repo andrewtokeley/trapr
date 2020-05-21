@@ -23,7 +23,7 @@ protocol VisitLogViewApi: UserInterfaceProtocol {
     func displayNoVisitState()
     func displayLureBalanceMessage(message: String)
     func endEditing()
-    //func setVisitLogScrollViewDelegate(delegate: VisitLogDelegate)
+    func setMaxSteppers(eaten: Int, removed: Int, added: Int)
 }
 
 //MARK: - VisitLogPresenter API
