@@ -54,9 +54,11 @@ final class VisitLogView: UserInterface {
     fileprivate let ROW_CATCH = 1
 
     fileprivate let SECTION_BAIT = 2
-    fileprivate let ROW_ADDED = 0
-    fileprivate let ROW_EATEN = 1
-    fileprivate let ROW_REMOVED = 2
+    fileprivate let ROW_BAIT_OPENING = 0
+    fileprivate let ROW_BAIT_EATEN = 1
+    fileprivate let ROW_BAIT_REMOVED = 2
+    fileprivate let ROW_BAIT_ADDED = 3
+    fileprivate let ROW_BAIT_BALANCE = 4
     
     fileprivate let SECTION_COMMENTS = 3
     fileprivate let ROW_COMMENTS = 0
@@ -171,19 +173,22 @@ final class VisitLogView: UserInterface {
         return cell
     }()
     
-    lazy var addedTableViewCell: StepperTableViewCell = {
-        let cell = Bundle.main.loadNibNamed("StepperTableViewCell", owner: nil, options: nil)?.first as! StepperTableViewCell
+    lazy var lureOpeningBalanceTableViewCell: UITableViewCell = {
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: nil)
+        cell.textLabel?.text = "Opening"
+        cell.textLabel?.font = .trpLabelNormalBold
+        cell.detailTextLabel?.font = .trpLabelNormalBold
+        cell.detailTextLabel?.textColor = .trpTextDark
         cell.selectionStyle = .none
-        cell.titleLabel.text = "Added"
-        cell.tag = self.STEPPER_ADD
-        cell.delegate = self
         return cell
     }()
     
     lazy var eatenTableViewCell: StepperTableViewCell = {
         let cell = Bundle.main.loadNibNamed("StepperTableViewCell", owner: nil, options: nil)?.first as! StepperTableViewCell
         cell.titleLabel.text = "Eaten"
+        cell.titleLabel.textColor = .black
         cell.selectionStyle = .none
+        cell.showActionButton(show: false)
         cell.tag = self.STEPPER_EATEN
         cell.delegate = self
         return cell
@@ -192,9 +197,33 @@ final class VisitLogView: UserInterface {
     lazy var removedTableViewCell: StepperTableViewCell = {
         let cell = Bundle.main.loadNibNamed("StepperTableViewCell", owner: nil, options: nil)?.first as! StepperTableViewCell
         cell.titleLabel.text = "Removed"
+        cell.titleLabel.textColor = .black
         cell.selectionStyle = .none
+        cell.showActionButton(show: false)
         cell.tag = self.STEPPER_REMOVED
         cell.delegate = self
+        return cell
+    }()
+    
+    lazy var addedTableViewCell: StepperTableViewCell = {
+        let cell = Bundle.main.loadNibNamed("StepperTableViewCell", owner: nil, options: nil)?.first as! StepperTableViewCell
+        cell.selectionStyle = .none
+        cell.titleLabel.text = "Added"
+        cell.titleLabel.textColor = .black
+        cell.showActionButton(show: false)
+        cell.tag = self.STEPPER_ADD
+        cell.delegate = self
+        return cell
+    }()
+    
+    
+    lazy var lureClosingBalanceTableViewCell: UITableViewCell = {
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: nil)
+        cell.textLabel?.text = "Balance"
+        cell.textLabel?.font = .trpLabelNormalBold
+        cell.detailTextLabel?.font = .trpLabelNormalBold
+        cell.detailTextLabel?.textColor = .trpTextDark
+        cell.selectionStyle = .none
         return cell
     }()
     
@@ -214,19 +243,7 @@ final class VisitLogView: UserInterface {
         button.addTarget(self, action: #selector(removeVisit(sender:)), for: .touchUpInside)
         return button
     }()
-    
-//    lazy var removeVisitTableViewCell: UITableViewCell = {
-//        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
-//        cell.selectionStyle = .none
-//        cell.backgroundColor = UIColor.clear
-//
-//        cell.addSubview(self.removeVisitButton)
-//
-//        self.removeVisitButton.autoPinEdgesToSuperviewEdges()
-//
-//        return cell
-//    }()
-    
+        
     //MARK: - UIViewController
     override func loadView() {
         
@@ -323,7 +340,7 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case SECTION_DATETIME: return 2
         case SECTION_CATCH:  return 2 //return self.visit?.speciesId == nil ? 2 : 1
-        case SECTION_BAIT: return 3
+        case SECTION_BAIT: return 5
         case SECTION_COMMENTS: return 1
         case SECTION_REMOVE: return 0
         default: return 0
@@ -358,8 +375,6 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
         if visibleSections.contains(indexPath.section) {
             if indexPath.section == SECTION_COMMENTS {
                 return LayoutDimensions.tableCellHeight * 2
-//            } else if (indexPath.section == SECTION_CATCH && self.visit?.speciesId != nil && indexPath.row == ROW_TRAP_SET_STATUS) {
-//                return 0.1
             } else {
                 return tableView.rowHeight
             }
@@ -411,7 +426,7 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.isHidden = !visibleSections.contains(indexPath.section) // || (indexPath.section == SECTION_CATCH && self.visit?.speciesId != nil && indexPath.row == ROW_TRAP_SET_STATUS)
+        cell.isHidden = !visibleSections.contains(indexPath.section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -432,19 +447,20 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
         } else if section == SECTION_CATCH && row == ROW_TRAP_SET_STATUS {
             cell = self.trapSetStatusTableViewCell
             cell.detailTextLabel?.text = self.visit?.trapSetStatus?.name ?? "-"
-//        } else if section == SECTION_BAIT && row == ROW_BAIT_TYPE {
-//            cell = self.lureTableViewCell
-//            cell.detailTextLabel?.text = self.visit?.lureName ?? self.visit?.lureId ?? "None"
-        } else if section == SECTION_BAIT && row == ROW_ADDED {
+        } else if section == SECTION_BAIT && row == ROW_BAIT_OPENING {
+            cell = self.lureOpeningBalanceTableViewCell
+        } else if section == SECTION_BAIT && row == ROW_BAIT_ADDED {
             cell = self.addedTableViewCell
             (cell as! StepperTableViewCell).countLabelValue = self.visit?.baitAdded ?? 0
-        } else if section == SECTION_BAIT && row == ROW_REMOVED {
+        } else if section == SECTION_BAIT && row == ROW_BAIT_REMOVED {
             cell = self.removedTableViewCell
             (cell as! StepperTableViewCell).countLabelValue = self.visit?.baitRemoved ?? 0
+        } else if section == SECTION_BAIT && row == ROW_BAIT_BALANCE {
+            cell = self.lureClosingBalanceTableViewCell
         } else if section == SECTION_COMMENTS && row == ROW_COMMENTS {
             cell = self.commentsTableViewCell
             (cell as! CommentsTableViewCell).commentsTextView.text = self.visit?.notes
-        } else { // if section == SECTION_BAIT && row == ROW_EATEN {
+        } else { // if section == SECTION_BAIT && row == ROW_BAIT_EATEN {
             cell = self.eatenTableViewCell
             (cell as! StepperTableViewCell).countLabelValue = self.visit?.baitEaten ?? 0
         }
@@ -503,10 +519,21 @@ extension VisitLogView: VisitLogViewApi {
         self.dateTimeTableViewCell.detailTextLabel?.text = date.toString(format: "hh:mm")
     }
     
-    func displayLureBalanceMessage(message: String) {
-        self.lureBalanceMessage = message
+    func displayLureOpeningBalance(balance: Int) {
+        //self.lureBalanceMessage = message
+        self.lureOpeningBalanceTableViewCell.detailTextLabel?.text = String(balance)
     }
-    
+
+    func displayLureClosingBalance(balance: Int, isOutOfRange: Bool) {
+        self.lureClosingBalanceTableViewCell.detailTextLabel?.text = String(balance)
+        
+        if isOutOfRange {
+            self.lureClosingBalanceTableViewCell.detailTextLabel?.textColor = .red
+        } else {
+            self.lureClosingBalanceTableViewCell.detailTextLabel?.textColor = .trpTextDark
+        }
+    }
+
     func displaySpecies(name: String) {
     }
 

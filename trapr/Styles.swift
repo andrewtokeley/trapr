@@ -27,30 +27,21 @@ class Styles {
         navigationBarAppearance.tintColor = UIColor.trpHighlightColor
         navigationBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.trpHighlightColor]
         navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.trpHighlightColor]
-//        navigationBarAppearance.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-//        navigationBarAppearance.shadowImage = UIImage()
         
         let labelAppearance = UILabel.appearance()
         labelAppearance.textColor = UIColor.trpTextDark
         
-        let stepperAppearance = UIStepper.appearance()
-        stepperAppearance.tintColor = UIColor.trpMenuBar
+//        let stepperAppearance = UIStepper.appearance()
+//        stepperAppearance.tintColor = UIColor.trpMenuBar
         
-//        let buttonAppearance =  UIButton.appearance()
-//        buttonAppearance.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
-//        buttonAppearance.setTitleColor(UIColor.trpButtonDisabled, for: .disabled)
-//        
-//        // this is to make sure the action button (Delete) stays white
-//        let buttonAppearanceInTableViewCell =  UIButton.appearance(whenContainedInInstancesOf: [UITableViewCell.self])
-//        buttonAppearanceInTableViewCell.setTitleColor(UIColor.white, for: .normal)
-//        
-        
-//        let buttonAppearanceInTableViewRow =  UIButton.appearance(whenContainedInInstancesOf: [VisitSummaryTableViewCell.self])
-//        buttonAppearanceInTableViewRow.setTitleColor(UIColor.orange, for: .normal)
-        
-//        let buttonInUIBarButtonItem = UIButton.appearance(whenContainedInInstancesOf: [UIBarButtonItem.self])
-//        buttonInUIBarButtonItem
-        
+//        let gmStepper = GMStepper.appearance()
+//        gmStepper.borderColor = .trpHighlightColor
+//        gmStepper.borderWidth = 1
+//        gmStepper.labelFont = .trpLabelNormal
+//        gmStepper.labelTextColor = .trpHighlightColor
+//        gmStepper.labelBackgroundColor = .clear
+//        gmStepper.buttonsBackgroundColor = .trpHighlightColor
+//
         let buttonInNavigationBar = UIButton.appearance(whenContainedInInstancesOf: [UINavigationBar.self])
         buttonInNavigationBar.setTitleColor(UIColor.trpTextHighlight, for: .normal)
         buttonInNavigationBar.setTitleColor(UIColor.lightGray, for: .disabled)
@@ -65,8 +56,5 @@ class Styles {
             menuControllerButton.appearance().setTitleColor(UIColor.lightGray, for: UIControl.State.normal)
             menuControllerButton.appearance().setTitleColor(UIColor.trpTextHighlight, for: UIControl.State.highlighted)
         }
-
-//        let tableViewCellAppearance = UITableViewCell.appearance()
-//        tableViewCellAppearance.tintColor = UIColor.trpNavigationBar
     }
 }

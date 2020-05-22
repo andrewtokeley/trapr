@@ -12,28 +12,22 @@ import UIKit
 class StepperTableViewCell: UITableViewCell {
 
     var delegate: StepperTableViewCellDelegate?
-    //private var actionClosure: ((UIButton) -> Void)?
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var stepper: UIStepper!
+    @IBOutlet weak var stepper: GMStepper!
     @IBOutlet weak var countLabel: UILabel!
-    @IBOutlet weak var actionButton: UIButton!
     
     override func awakeFromNib() {
-        actionButton.layer.cornerRadius = 5
-        actionButton.backgroundColor = .trpStepperBackground
-        
-        actionButton.setTitleColor(.trpHighlightColor, for: .normal)
-        actionButton.setTitleColor(.lightGray, for: .disabled)
-        actionButton.addTarget(self, action: #selector(actionButtonClicked(sender:)), for: .touchUpInside)
-        
-        // Bug that you need to set the images for tintColor and backgroundColor to work
-        stepper.setBackgroundImage(stepper.backgroundImage(for: .normal), for: .normal)
-        stepper.setDecrementImage(stepper.decrementImage(for: .normal), for: .normal)
-        stepper.setIncrementImage(stepper.incrementImage(for: .normal), for: .normal)
-        stepper.layer.cornerRadius = 5
-        stepper.backgroundColor = .trpStepperBackground
-        stepper.tintColor = .trpHighlightColor
+        stepper.borderColor = .trpHighlightColor
+        stepper.borderWidth = 1
+        stepper.buttonsBackgroundColor = .white
+        stepper.buttonsTextColor = .trpHighlightColor
+        stepper.labelWidthWeight = 0.01
+        stepper.cornerRadius = 5
+        stepper.buttonsFont = UIFont(name: "AvenirNext-Regular", size: 30.0)!
+    }
+    
+    func showActionButton(show: Bool) {
     }
     
     var countLabelValue:Int {
@@ -47,7 +41,6 @@ class StepperTableViewCell: UITableViewCell {
         set {
             countLabel.text = String(newValue)
             stepper.value = Double(newValue)
-            actionButton.isEnabled = stepper.value < stepper.maximumValue
         }
     }
     
@@ -55,15 +48,15 @@ class StepperTableViewCell: UITableViewCell {
         stepper.maximumValue = Double(maximum)
     }
     
-    @objc func actionButtonClicked(sender: UIButton) {
-        stepper.value = stepper.maximumValue
-        countLabel.text = String(Int(stepper.maximumValue))
-        delegate?.stepper(self, valueChanged: Int(stepper.maximumValue))
-    }
-    
-    @IBAction func stepperClicked(sender: UIStepper) {
-        actionButton.isEnabled = stepper.value < stepper.maximumValue
+    @IBAction func stepperValueChanged(_ sender: GMStepper) {
         delegate?.stepper(self, valueChanged: Int(sender.value))
         countLabel.text = String(Int(sender.value))
     }
+    
+//    @objc func actionButtonClicked(sender: UIButton) {
+//        stepper.value = stepper.maximumValue
+//        countLabel.text = String(Int(stepper.maximumValue))
+//        delegate?.stepper(self, valueChanged: Int(stepper.maximumValue))
+//    }
+    
 }

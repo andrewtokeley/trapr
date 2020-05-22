@@ -611,6 +611,8 @@
 		D8DC916E21CAD4DF006D8B57 /* CachePrimerFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DC916D21CAD4DF006D8B57 /* CachePrimerFirestoreService.swift */; };
 		D8DE38061FFCC88F00707A7D /* StationMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DE38051FFCC88F00707A7D /* StationMapViewController.swift */; };
 		D8DE38081FFCC8BC00707A7D /* StationMapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DE38071FFCC8BC00707A7D /* StationMapDelegate.swift */; };
+		D8E5665224779D3B0089B2C1 /* GMStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E5665124779D3A0089B2C1 /* GMStepper.swift */; };
+		D8E5665324779E880089B2C1 /* GMStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E5665124779D3A0089B2C1 /* GMStepper.swift */; };
 		D8E73D8820C7AB630070C034 /* StationSearchDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D8220C7AB630070C034 /* StationSearchDisplayData.swift */; };
 		D8E73D8920C7AB630070C034 /* StationSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D8320C7AB630070C034 /* StationSearchPresenter.swift */; };
 		D8E73D8A20C7AB630070C034 /* StationSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E73D8420C7AB630070C034 /* StationSearchRouter.swift */; };
@@ -968,6 +970,7 @@
 		D8DC916D21CAD4DF006D8B57 /* CachePrimerFirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachePrimerFirestoreService.swift; sourceTree = "<group>"; };
 		D8DE38051FFCC88F00707A7D /* StationMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationMapViewController.swift; sourceTree = "<group>"; };
 		D8DE38071FFCC8BC00707A7D /* StationMapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationMapDelegate.swift; sourceTree = "<group>"; };
+		D8E5665124779D3A0089B2C1 /* GMStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GMStepper.swift; sourceTree = "<group>"; };
 		D8E73D8220C7AB630070C034 /* StationSearchDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSearchDisplayData.swift; sourceTree = "<group>"; };
 		D8E73D8320C7AB630070C034 /* StationSearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSearchPresenter.swift; sourceTree = "<group>"; };
 		D8E73D8420C7AB630070C034 /* StationSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSearchRouter.swift; sourceTree = "<group>"; };
@@ -1516,6 +1519,7 @@
 				D8BB6F4C20291E9E008AB3A2 /* UIImageViewExtension.swift */,
 				D8C3786C2146431900B02E86 /* TimeIntervalExtension.swift */,
 				D83D64C122615CD100353902 /* ArrayExtension.swift */,
+				D8E5665124779D3A0089B2C1 /* GMStepper.swift */,
 			);
 			name = Design;
 			sourceTree = "<group>";
@@ -2435,6 +2439,7 @@
 				D8FA5CF81F8409A700EC890C /* StationSelectSetupData.swift in Sources */,
 				D81DAAF31F68659100C7C987 /* VisitServiceInterface.swift in Sources */,
 				D8EA460C200AAF6B0032224E /* OrderedDictionary.swift in Sources */,
+				D8E5665224779D3B0089B2C1 /* GMStepper.swift in Sources */,
 				D87C44FB1F9059AF00CAFC7A /* SideMenuView.swift in Sources */,
 				D8083D181FE498F900D1C5F1 /* SettingsInteractor.swift in Sources */,
 				D8DC916C21CAD469006D8B57 /* CachePrimerServiceInterface.swift in Sources */,
@@ -2686,6 +2691,7 @@
 				D8C25D592181771F00C5DB64 /* OrderedDictionary.swift in Sources */,
 				D8C25D5A2181771F00C5DB64 /* SideMenuView.swift in Sources */,
 				D8C25D5B2181771F00C5DB64 /* SettingsInteractor.swift in Sources */,
+				D8E5665324779E880089B2C1 /* GMStepper.swift in Sources */,
 				D81D20B821B973F30025D047 /* VisitSetup.swift in Sources */,
 				D8193D9721F1166E00C3BB5D /* VisitSummariesStatistics.swift in Sources */,
 				D8A4E96B218D6DEF0070413B /* Station.swift in Sources */,

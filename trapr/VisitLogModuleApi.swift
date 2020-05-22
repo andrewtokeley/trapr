@@ -21,7 +21,8 @@ protocol VisitLogViewApi: UserInterfaceProtocol {
     func displayDateTime(date: Date)
     func displaySpecies(name: String)
     func displayNoVisitState()
-    func displayLureBalanceMessage(message: String)
+    func displayLureOpeningBalance(balance: Int)
+    func displayLureClosingBalance(balance: Int, isOutOfRange: Bool)
     func endEditing()
     func setMaxSteppers(eaten: Int, removed: Int, added: Int)
 }

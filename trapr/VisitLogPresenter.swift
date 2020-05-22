@@ -51,7 +51,7 @@ final class VisitLogPresenter: Presenter {
 
     //MARK: - Stepper functions
     
-    func    updateStepperMaximumValues() {
+    func  updateStepperMaximumValues() {
         
         // make sure the total of eaten and removed doesn't exceed the balance
         if let visit = self.currentVisit {
@@ -72,6 +72,10 @@ final class VisitLogPresenter: Presenter {
                         visit.baitAdded = trap.maxLures - ( balance - totalRemoved)
                         
                     }
+                    
+                    let newBalance = balance + visit.baitAdded - (visit.baitEaten + visit.baitRemoved)
+                    view.displayLureOpeningBalance(balance: balance)
+                    view.displayLureClosingBalance(balance: newBalance, isOutOfRange: newBalance > trap.maxLures || newBalance < 0)
                 }
             }
         }
@@ -117,9 +121,8 @@ final class VisitLogPresenter: Presenter {
                     self.interactor.getLureBalance(stationId: visit.stationId, trapTypeId: visit.trapTypeId, asAtDate: visit.visitDateTime.add(-1, 0, 0)) { (balance) in
                         
                         self.balanceOfCurrentTrap = balance
+                        self.view.displayLureOpeningBalance(balance: balance)
                         
-                        let message = "Balance at last visit, \(balance)."
-                        self.view.displayLureBalanceMessage(message: message)
                         self.view.displayVisit(visit: visitViewModel, showCatchSection: trap.killMethod == .direct)
                         
                         self.updateStepperMaximumValues()
@@ -128,7 +131,7 @@ final class VisitLogPresenter: Presenter {
                 } else {
                     // assume there's always 1 in there for now
                     self.balanceOfCurrentTrap = 1
-                    self.view.displayLureBalanceMessage(message: "")
+                    self.view.displayLureOpeningBalance(balance: 0)
                     self.view.displayVisit(visit: visitViewModel, showCatchSection: trap.killMethod == .direct)
                     self.updateStepperMaximumValues()
                 }
