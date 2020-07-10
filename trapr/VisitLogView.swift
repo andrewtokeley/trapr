@@ -94,8 +94,6 @@ final class VisitLogView: UserInterface {
         title.autoSetDimension(.width, toSize: 100)
         title.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
         
-        //title.backgroundColor = .red
-        
         let lureTypeButton = UIButton()
         lureTypeButton.setTitle("-", for: .normal)
         lureTypeButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
@@ -109,7 +107,6 @@ final class VisitLogView: UserInterface {
         view.addSubview(lureTypeButton)
         lureTypeButton.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
         lureTypeButton.autoPinEdge(toSuperviewEdge: .bottom, withInset: -5)
-        lureTypeButton.autoSetDimension(.width, toSize: 100)
         lureTypeButton.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
         
         return view

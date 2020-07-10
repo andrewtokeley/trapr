@@ -14,6 +14,8 @@ import Charts
 //MARK: RouteDashboardView Class
 final class RouteDashboardView: UserInterface {
     
+    var mapHeightConstaint: NSLayoutConstraint?
+    
     var mapBottomConstaint: NSLayoutConstraint?
     var mapTopConstraint: NSLayoutConstraint?
     var tableHeightConstraint: NSLayoutConstraint?
@@ -90,18 +92,34 @@ final class RouteDashboardView: UserInterface {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightOfScrollableArea))
         return view
     }()
+
+    lazy var scrollViewSpacer: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
     
+    lazy var contentStackView: UIView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.alignment = .fill
+        view.distribution = .equalSpacing
+        view.spacing = 10
+        view.contentMode = .scaleToFill
+        
+        view.addArrangedSubview(scrollViewSpacer)
+        view.addArrangedSubview(summaryTableView)
+        view.addArrangedSubview(barChartKills)
+        view.addArrangedSubview(barChartKillsTitle)
+        view.addArrangedSubview(barChartPoison)
+        view.addArrangedSubview(barChartPoisonTitle)
+        
+        return view
+    }()
+
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.addSubview(scrollViewContentView)
-        
-        scrollViewContentView.addSubview(summaryTableView)
-        scrollViewContentView.addSubview(barChartKills)
-        scrollViewContentView.addSubview(barChartKillsTitle)
-        scrollViewContentView.addSubview(barChartPoison)
-        scrollViewContentView.addSubview(barChartPoisonTitle)
-        
-        scrollView.contentSize = CGSize(width: scrollViewContentView.frame.width, height: heightOfScrollableArea)
+        scrollView.addSubview(contentStackView)
         scrollView.delegate = self
         return scrollView
     }()
@@ -273,6 +291,11 @@ final class RouteDashboardView: UserInterface {
     lazy var mapViewControllerHost: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.clear
+        
+        view.addSubview(editDescription)
+        view.addSubview(editStationOptions)
+        view.addSubview(editOrderOptions)
+        
         return view
     }()
     
@@ -379,16 +402,7 @@ final class RouteDashboardView: UserInterface {
         
         self.navigationItem.titleView = routeNameTextField
         
-        // make sure to add mapViewControllerHost before the other views which need to be on top of it
         self.view.addSubview(mapViewControllerHost)
-        
-        // not going to have this for now - bloat!
-        //self.view.addSubview(resizeButton)
-        
-        self.view.addSubview(editDescription)
-        self.view.addSubview(editStationOptions)
-        self.view.addSubview(editOrderOptions)
-        
         self.view.addSubview(scrollView)
         
         setConstraints()
@@ -396,57 +410,56 @@ final class RouteDashboardView: UserInterface {
     
     func setConstraints() {
         
-        //mapTopConstraint = mapViewControllerHost.autoPin(toTopLayoutGuideOf: self, withInset: 0)
-        mapTopConstraint = mapViewControllerHost.autoPinEdge(toSuperviewSafeArea: .top, withInset: 0)
+        mapViewControllerHost.autoPinEdge(toSuperviewSafeArea: .top, withInset: 0)
         mapViewControllerHost.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
         mapViewControllerHost.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
-        mapBottomConstaint = mapViewControllerHost.autoPinEdge(toSuperviewEdge: .bottom, withInset: MAP_HEIGHT_MIN)
+        mapHeightConstaint = mapViewControllerHost.autoSetDimension(.height, toSize: MAP_HEIGHT_MIN)
         
-        editDescription.autoPinEdge(.left, to: .left, of: mapViewControllerHost)
-        editDescription.autoPinEdge(.right, to: .right, of: mapViewControllerHost)
-        editDescription.autoPinEdge(.top, to: .top, of: mapViewControllerHost)
+        editDescription.autoPinEdge(toSuperviewEdge: .left)
+        editDescription.autoPinEdge(toSuperviewEdge: .right)
+        editDescription.autoPinEdge(toSuperviewEdge: .top)
         editDescription.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight * 1.2)
         
-        editStationOptions.autoPinEdge(.left, to: .left, of: mapViewControllerHost)
-        editStationOptions.autoPinEdge(.right, to: .right, of: mapViewControllerHost)
-        editStationOptions.autoPinEdge(.bottom, to: .bottom, of: mapViewControllerHost)
+        editStationOptions.autoPinEdge(toSuperviewEdge: .left)
+        editStationOptions.autoPinEdge(toSuperviewEdge: .right)
+        editStationOptions.autoPinEdge(toSuperviewEdge: .bottom)
         editStationOptions.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
         
-        editOrderOptions.autoPinEdge(.left, to: .left, of: mapViewControllerHost)
-        editOrderOptions.autoPinEdge(.right, to: .right, of: mapViewControllerHost)
-        editOrderOptions.autoPinEdge(.bottom, to: .bottom, of: mapViewControllerHost)
+        editOrderOptions.autoPinEdge(toSuperviewEdge: .left)
+        editOrderOptions.autoPinEdge(toSuperviewEdge: .right)
+        editOrderOptions.autoPinEdge(toSuperviewEdge: .bottom)
         editOrderOptions.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
         
-        scrollView.autoPinEdge(.top, to: .bottom, of: mapViewControllerHost, withOffset: LayoutDimensions.spacingMargin)
-        scrollView.autoPinEdge(toSuperviewEdge: .left)
-        scrollView.autoPinEdge(toSuperviewEdge: .right)
-        scrollView.autoPinEdge(toSuperviewEdge: .bottom)
+        scrollView.autoPinEdgesToSuperviewEdges()
 
-        // Inside the scrollView...
-        
-        summaryTableView.autoPinEdge(toSuperviewEdge: .top)
-        summaryTableView.autoPinEdge(toSuperviewEdge: .left)
-        summaryTableView.autoPinEdge(toSuperviewEdge: .right)
-        tableHeightConstraint = summaryTableView.autoSetDimension(.height, toSize: CGFloat(0))
-        
-        barChartKillsTitle.autoPinEdge(.top, to: .bottom, of: summaryTableView, withOffset: LayoutDimensions.smallSpacingMargin)
-        barChartKillsTitle.autoPinEdge(toSuperviewEdge: .left)
-        barChartKillsTitle.autoPinEdge(toSuperviewEdge: .right)
-        
-        barChartKills.autoPinEdge(.top, to: .bottom, of: barChartKillsTitle, withOffset: -LayoutDimensions.smallSpacingMargin)
-        barChartKills.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.smallSpacingMargin)
-        barChartKills.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.smallSpacingMargin)
-        barChartKills.autoSetDimension(.height, toSize: GRAPH_HEIGHT)
+        scrollViewSpacer.autoSetDimension(.height, toSize: MAP_HEIGHT_MIN)
 
-        barChartPoisonTitle.autoPinEdge(.top, to: .bottom, of: barChartKills, withOffset: LayoutDimensions.smallSpacingMargin)
-        barChartPoisonTitle.autoPinEdge(toSuperviewEdge: .left)
-        barChartPoisonTitle.autoPinEdge(toSuperviewEdge: .right)
+        contentStackView.autoPinEdgesToSuperviewEdges()
+        contentStackView.autoMatch(.width, to: .width, of: scrollView, withOffset: 0)
         
-        barChartPoison.autoPinEdge(.top, to: .bottom, of: barChartPoisonTitle, withOffset: -LayoutDimensions.smallSpacingMargin)
-        barChartPoison.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.smallSpacingMargin)
-        barChartPoison.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.smallSpacingMargin)
+//        summaryTableView.autoPinEdge(toSuperviewEdge: .top)
+//        summaryTableView.autoPinEdge(toSuperviewEdge: .left)
+//        summaryTableView.autoPinEdge(toSuperviewEdge: .right)
+         tableHeightConstraint = summaryTableView.autoSetDimension(.height, toSize: CGFloat(0))
+//
+//        barChartKillsTitle.autoPinEdge(.top, to: .bottom, of: summaryTableView, withOffset: LayoutDimensions.smallSpacingMargin)
+//        barChartKillsTitle.autoPinEdge(toSuperviewEdge: .left)
+//        barChartKillsTitle.autoPinEdge(toSuperviewEdge: .right)
+//
+//        barChartKills.autoPinEdge(.top, to: .bottom, of: barChartKillsTitle, withOffset: -LayoutDimensions.smallSpacingMargin)
+//        barChartKills.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.smallSpacingMargin)
+//        barChartKills.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.smallSpacingMargin)
+         barChartKills.autoSetDimension(.height, toSize: GRAPH_HEIGHT)
+//
+//        barChartPoisonTitle.autoPinEdge(.top, to: .bottom, of: barChartKills, withOffset: LayoutDimensions.smallSpacingMargin)
+//        barChartPoisonTitle.autoPinEdge(toSuperviewEdge: .left)
+//        barChartPoisonTitle.autoPinEdge(toSuperviewEdge: .right)
+//
+//        barChartPoison.autoPinEdge(.top, to: .bottom, of: barChartPoisonTitle, withOffset: -LayoutDimensions.smallSpacingMargin)
+//        barChartPoison.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.smallSpacingMargin)
+//        barChartPoison.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.smallSpacingMargin)
         barChartPoison.autoSetDimension(.height, toSize: GRAPH_HEIGHT)
-        
+//
         // Overlayed on to map
 //        resizeButton.autoPinEdge(.bottom, to: .bottom, of: mapViewControllerHost, withOffset: -LayoutDimensions.smallSpacingMargin)
 //        resizeButton.autoPinEdge(.right, to: .right, of: mapViewControllerHost, withOffset: -LayoutDimensions.smallSpacingMargin)
@@ -488,21 +501,24 @@ extension RouteDashboardView: UITableViewDataSource {
 
 extension RouteDashboardView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        print("offset = \(scrollView.contentOffset.y)")
-//        if scrollView.contentOffset.y > 0 {
-//            let diff = scrollView.contentOffset.y - lastScrollOffset
-//
-//            if diff < 0 {
-//                // dragging up
-//                mapBottomConstaint?.constant += abs(diff)
-//            } else {
-//                // dragging down
-//                mapBottomConstaint?.constant -= abs(diff)
-//            }
-//        } else {
-//            mapBottomConstaint?.constant = -self.MAP_HEIGHT_MIN
-//        }
-//        lastScrollOffset = scrollView.contentOffset.y
+        
+        let offSet = scrollView.contentOffset.y
+        print("offset = \(offSet)")
+        
+        let startFade: CGFloat = -55
+        let endFade: CGFloat = 190
+        
+        let percentageChange = (offSet-startFade)/(endFade - startFade)
+        
+        if offSet > startFade && offSet < endFade {
+            let alpha = 1 - percentageChange
+            mapViewControllerHost.alpha = abs(alpha)
+        }
+        
+        let height = MAP_HEIGHT_MIN - MAP_HEIGHT_MIN * percentageChange * 0.4
+        mapHeightConstaint?.constant = height
+        //mapHeightConstaint
+        
     }
 }
 
@@ -629,8 +645,6 @@ extension RouteDashboardView: RouteDashboardViewApi {
             self.mapBottomConstaint?.constant = -self.MAP_HEIGHT_MIN
             self.view.layoutIfNeeded()
         })
-        
-        
     }
     
     func displayTitle(_ title: String, editable: Bool) {

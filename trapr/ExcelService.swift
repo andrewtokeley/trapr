@@ -21,8 +21,8 @@ class ExcelService {
     fileprivate lazy var visitService = { ServiceFactory.sharedInstance.visitFirestoreService }()
     fileprivate lazy var userService = { ServiceFactory.sharedInstance.userService }()
     
-    fileprivate let VISIT_REPORT_TEMPLATE = "VisitReportTemplate"
-    fileprivate let VISIT_REPORT_TEMP = "VisitReport.xlsx"
+    fileprivate let VISIT_REPORT_TEMPLATE = "East_Ridge_C4_v4"
+    fileprivate let ATTACHMENT_FILENAME_TEMP = "TempExportFile.xlsx"
     
     fileprivate let VISIT_REPORT_REGION_ROW = 2
     fileprivate let VISIT_REPORT_OPERATOR_ROW = 3
@@ -44,6 +44,7 @@ class ExcelService {
         case Comments = "G"
     }
 }
+
 
 extension ExcelService: ExcelServiceInterface {
     
@@ -96,45 +97,57 @@ extension ExcelService: ExcelServiceInterface {
                             
                             // VISIT DATA
                             
-                            var row = self.VISIT_REPORT_DATA_START_ROW
                             self.extendVisits(visits: visitSummary.visits) { (visitsEx) in
+                                
+                                print("Total visits \(visitsEx.count)")
+                                
                                 for visit in visitsEx {
                                     
-                                    // TRAP TAG
-                                    worksheet.cell(forCellReference: ReportColumn.TrapTag.rawValue + String(row))?.setStringValue(visit.station?.longCode ?? "?")
+                                    let trapTag = visit.station?.longCodeWalkTheLine ?? "?"
+                                    let trapType = TrapTypeCode(rawValue: visit.trapType!.id!)?.walkTheLineName
                                     
-                                    // TRAP TYPE
-                                    worksheet.cell(forCellReference: ReportColumn.TrapType.rawValue + String(row))?.setStringValue(TrapTypeCode(rawValue: visit.trapType!.id!)?.walkTheLineName)
+                                    print("looking for \(trapTag) and \(trapType)")
                                     
-                                    if visit.trapType?.killMethod == .poison {
-                                    
-                                        // BAIT ADDED
-                                        worksheet.cell(forCellReference: ReportColumn.BaitAdded.rawValue + String(row))?.setStringValue(String(visit.baitAdded))
+                                    if let row = worksheet.findRow(searchTerms: [ColumnSeach(columnReference: ReportColumn.TrapTag.rawValue, value: trapTag), ColumnSeach(columnReference: ReportColumn.TrapType.rawValue, value: trapType)]) {
                                         
-                                        // BAIT REMOVE
-                                        worksheet.cell(forCellReference: ReportColumn.BaitRemoved.rawValue + String(row))?.setStringValue(String(visit.baitRemoved))
-                                    
-                                    } else {
+                                        print("found row \(row)")
+                                        // TRAP TAG
+//                                        worksheet.cell(forCellReference: ReportColumn.TrapTag.rawValue + String(row))?.setStringValue(visit.station?.longCode ?? "?")
+//
+//                                        // TRAP TYPE
+//                                        worksheet.cell(forCellReference: ReportColumn.TrapType.rawValue + String(row))?.setStringValue(TrapTypeCode(rawValue: visit.trapType!.id!)?.walkTheLineName)
                                         
-                                        // CATCH
-                                        if visit.species != nil {
+                                        if visit.trapType?.killMethod == .poison {
+                                        
+                                            // BAIT ADDED
+//                                            worksheet.cell(forCellReference: ReportColumn.BaitAdded.rawValue + String(row))?.setStringValue(String(visit.baitAdded))
+//
+                                            worksheet.cell(forCellReference: ReportColumn.BaitAdded.rawValue + String(row))?.setStringValue(String(visit.baitAdded))
                                             
-                                            // CATCH CODE
-                                            worksheet.cell(forCellReference: ReportColumn.Catch.rawValue + String(row))?.setStringValue(SpeciesCode(rawValue: visit.species!.id!)?.walkTheLineCode)
-                                            
+                                            // BAIT REMOVE 
+                                            worksheet.cell(forCellReference: ReportColumn.BaitRemoved.rawValue + String(row))?.setStringValue(String(visit.baitRemoved))
+                                        
                                         } else {
                                             
-                                            // TRAP STATUS CODE
-                                            if let code = visit.trapSetStatus?.walkTheLineCode {
-                                                worksheet.cell(forCellReference: ReportColumn.Catch.rawValue + String(row))?.setStringValue(String(code))
+                                            // CATCH
+                                            if visit.species != nil {
+                                                
+                                                // CATCH CODE
+                                                worksheet.cell(forCellReference: ReportColumn.Catch.rawValue + String(row))?.setStringValue(SpeciesCode(rawValue: visit.species!.id!)?.walkTheLineCode)
+                                                
+                                            } else {
+                                                
+                                                // TRAP STATUS CODE
+                                                if let code = visit.trapSetStatus?.walkTheLineCode {
+                                                    worksheet.cell(forCellReference: ReportColumn.Catch.rawValue + String(row))?.setStringValue(String(code))
+                                                }
                                             }
                                         }
+                                        
+                                        // COMMENT
+                                        worksheet.cell(forCellReference: ReportColumn.Comments.rawValue + String(row))?.setStringValue(visit.notes)
+                                        
                                     }
-                                    
-                                    // COMMENT
-                                    worksheet.cell(forCellReference: ReportColumn.Comments.rawValue + String(row))?.setStringValue(visit.notes)
-                                    
-                                    row += 1
                                 }
                                 completion?()
                             }
@@ -163,7 +176,8 @@ extension ExcelService: ExcelServiceInterface {
                         self.updateWorksheet(worksheet: worksheet, visitSummary: visitSummary) {
                             //
                         
-                            if let saveFilePath = NSURL(fileURLWithPath: directoryPath).appendingPathComponent(self.VISIT_REPORT_TEMP)?.path {
+                            
+                            if let saveFilePath = NSURL(fileURLWithPath: directoryPath).appendingPathComponent(self.ATTACHMENT_FILENAME_TEMP)?.path {
                                 
                                 // Save report file
                                 spreadsheet.save(as: saveFilePath)

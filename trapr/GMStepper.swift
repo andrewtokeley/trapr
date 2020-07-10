@@ -83,12 +83,16 @@ import UIKit
     /// Text color of the buttons. Defaults to white.
     @objc @IBInspectable public var buttonsTextColor: UIColor = UIColor.white {
         didSet {
-            for button in [leftButton, rightButton] {
-                button.setTitleColor(buttonsTextColor, for: .normal)
-            }
+            setButtonsTextColor(buttonsTextColor, for: .normal)
         }
     }
 
+    public func setButtonsTextColor(_ color: UIColor, for state: UIControl.State) {
+        for button in [leftButton, rightButton] {
+            button.setTitleColor(color, for: state)
+        }
+    }
+    
     /// Background color of the buttons. Defaults to dark blue.
     @objc @IBInspectable public var buttonsBackgroundColor: UIColor = UIColor(red:0.21, green:0.5, blue:0.74, alpha:1) {
         didSet {
@@ -100,7 +104,7 @@ import UIKit
     }
 
     /// Font of the buttons. Defaults to AvenirNext-Bold, 20.0 points in size.
-    @objc public var buttonsFont = UIFont(name: "AvenirNext-Bold", size: 20.0)! {
+    @objc public var buttonsFont = UIFont(name: "PingFang HK", size: 20.0)! {
         didSet {
             for button in [leftButton, rightButton] {
                 button.titleLabel?.font = buttonsFont

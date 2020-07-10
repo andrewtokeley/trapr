@@ -63,9 +63,7 @@ class Station: DocumentSerializable {
     var id: String?
 
     /**
-     A number, typically a leading zero number, e.g. "01" for the station. Code need only be unique for the trapline they are part of.
-     
-     The station code's alphanumeric sort order determines the order in which the stations are located along a trapline. So, it's possible to have "01" followed by "01a", but we recommend sticking to numbers, if possible
+     A number for the station. Stations along a line typically have sequential numbers.
      */
     var number: Int
     
@@ -91,6 +89,25 @@ class Station: DocumentSerializable {
      */
     var longCode: String {
         return "\(traplineCode ?? "**")\(codeFormated)"
+    }
+    
+    /**
+     Read only, fully qualified station code,  as per the definition Walk the Line. e.g. always three characters, U01, LW1, LW32. I think the rule is to always true and make the code 3 characters - I guess they're assuming there's not a GC10.
+        
+     Rule:
+     - If the traplineCode length equals 1 then format number to 2 characters
+     - if the traplineCode length equals 2 then don't format the number at all
+     */
+    var longCodeWalkTheLine: String {
+        let codeLength = traplineCode?.count ?? 0
+        let numberLength = String(number).count
+        
+        if codeLength == 1 && numberLength <= 2 {
+            // gaurenteed to be length of three
+            return longCode
+        } else {
+            return "\(traplineCode ?? "**")\(String(number))"
+        }
     }
     
     /// Route the station belongs to. Stations can only belong to one route.

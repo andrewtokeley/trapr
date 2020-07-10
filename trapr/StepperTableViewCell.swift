@@ -14,17 +14,31 @@ class StepperTableViewCell: UITableViewCell {
     var delegate: StepperTableViewCellDelegate?
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var stepper: GMStepper!
+    @IBOutlet weak var stepper: UIStepper!
     @IBOutlet weak var countLabel: UILabel!
     
+    
+    @IBAction func stepperValueChanged(_ sender: UIStepper) {
+        let value = Int(sender.value)
+        countLabel.text = String(value)
+        delegate?.stepper(self, valueChanged: value)
+    }
+    
     override func awakeFromNib() {
-        stepper.borderColor = .trpHighlightColor
-        stepper.borderWidth = 1
-        stepper.buttonsBackgroundColor = .white
-        stepper.buttonsTextColor = .trpHighlightColor
-        stepper.labelWidthWeight = 0.01
-        stepper.cornerRadius = 5
-        stepper.buttonsFont = UIFont(name: "AvenirNext-Regular", size: 30.0)!
+//        stepper.borderColor = .trpTextDark
+//        stepper.borderWidth = 1
+//        stepper.buttonsBackgroundColor = .white
+//
+//        stepper.setButtonsTextColor(.trpHighlightColor, for: .normal)
+//        stepper.setButtonsTextColor(.trpTextLight, for: .disabled)
+//
+//        stepper.labelWidthWeight = 0.01
+//        stepper.cornerRadius = 5
+//        stepper.leftButtonText = "-"
+//        stepper.rightButtonText = "+"
+//
+//        //stepper.buttonsFont = UIFont(name: "AvenirNext-Regular", size: 30.0)!
+//        stepper.buttonsFont = UIFont(name: "PingFang HK", size: 20.0)!
     }
     
     func showActionButton(show: Bool) {
@@ -47,12 +61,7 @@ class StepperTableViewCell: UITableViewCell {
     func setMax(maximum: Int) {
         stepper.maximumValue = Double(maximum)
     }
-    
-    @IBAction func stepperValueChanged(_ sender: GMStepper) {
-        delegate?.stepper(self, valueChanged: Int(sender.value))
-        countLabel.text = String(Int(sender.value))
-    }
-    
+        
 //    @objc func actionButtonClicked(sender: UIButton) {
 //        stepper.value = stepper.maximumValue
 //        countLabel.text = String(Int(stepper.maximumValue))

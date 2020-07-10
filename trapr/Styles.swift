@@ -14,6 +14,7 @@ class Styles {
     static let DATE_FORMAT_LONG = "MMM dd, yyyy"
     static let DATE_FORMAT_TIME = "hh:mm"
     static let DATE_FORMAT_DAY = "EEEE"
+    static let DATE_FORMAT_LONG_NO_SPACES = "MMM_dd_yyyy"
     
     static func setAppearances() {
         

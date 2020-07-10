@@ -9,21 +9,21 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="ANL-P5-lP7" customClass="StepperTableViewCell" customModule="trapr_development" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="392" height="50"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="66" id="ANL-P5-lP7" customClass="StepperTableViewCell" customModule="trapr_development" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="435" height="66"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ANL-P5-lP7" id="6bp-gv-4dk">
-                <rect key="frame" x="0.0" y="0.0" width="392" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="435" height="66"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Eaten" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q8L-u2-a4P">
-                        <rect key="frame" x="20" y="14.5" width="43.5" height="21"/>
+                        <rect key="frame" x="20" y="22.5" width="43.5" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGB-it-su2">
-                        <rect key="frame" x="347" y="14.5" width="25" height="21"/>
+                        <rect key="frame" x="390" y="22.5" width="25" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="25" id="Tt2-dl-pEd"/>
                         </constraints>
@@ -31,59 +31,33 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fs9-N7-rRE" customClass="GMStepper" customModule="trapr_development" customModuleProvider="target">
-                        <rect key="frame" x="146" y="10" width="100" height="30"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="30" id="jYw-pF-ETj"/>
-                            <constraint firstAttribute="width" constant="100" id="kjx-Vu-ayS"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                <color key="value" red="0.070588235294117646" green="0.42352941176470588" blue="0.074509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                <real key="value" value="1"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="buttonsBackgroundColor">
-                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="buttonsTextColor">
-                                <color key="value" red="0.070588235294117646" green="0.42352941176470588" blue="0.074509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="labelBackgroundColor">
-                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="labelTextColor">
-                                <color key="value" red="0.070588235294117646" green="0.42352941176470588" blue="0.074509803921568626" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="labelCornerRadius">
-                                <real key="value" value="5"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="labelWidthWeight">
-                                <real key="value" value="0.01"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
+                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="fnF-V5-hoU">
+                        <rect key="frame" x="266" y="17" width="94" height="32"/>
                         <connections>
-                            <action selector="stepperValueChanged:" destination="ANL-P5-lP7" eventType="valueChanged" id="Tx3-kE-Xbl"/>
+                            <action selector="stepperValueChanged:" destination="ANL-P5-lP7" eventType="valueChanged" id="Sdo-wn-9nc"/>
                         </connections>
-                    </view>
+                    </stepper>
                 </subviews>
                 <constraints>
                     <constraint firstItem="DGB-it-su2" firstAttribute="centerY" secondItem="6bp-gv-4dk" secondAttribute="centerY" id="Uua-F4-xyD"/>
+                    <constraint firstItem="DGB-it-su2" firstAttribute="leading" secondItem="fnF-V5-hoU" secondAttribute="trailing" constant="30" id="Z70-MB-u3s"/>
+                    <constraint firstItem="fnF-V5-hoU" firstAttribute="centerY" secondItem="6bp-gv-4dk" secondAttribute="centerY" id="bmI-EZ-UqG"/>
                     <constraint firstAttribute="trailing" secondItem="DGB-it-su2" secondAttribute="trailing" constant="20" id="iDX-zS-oEs"/>
-                    <constraint firstItem="fs9-N7-rRE" firstAttribute="centerY" secondItem="6bp-gv-4dk" secondAttribute="centerY" id="kEe-t3-f29"/>
-                    <constraint firstItem="fs9-N7-rRE" firstAttribute="centerX" secondItem="6bp-gv-4dk" secondAttribute="centerX" id="kcm-WB-bpA"/>
                     <constraint firstItem="Q8L-u2-a4P" firstAttribute="centerY" secondItem="6bp-gv-4dk" secondAttribute="centerY" id="pBe-4X-PAg"/>
                     <constraint firstItem="Q8L-u2-a4P" firstAttribute="leading" secondItem="6bp-gv-4dk" secondAttribute="leading" constant="20" id="rCq-lX-j1Q"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="countLabel" destination="DGB-it-su2" id="OAU-l5-lfh"/>
-                <outlet property="stepper" destination="fs9-N7-rRE" id="31o-gM-WPt"/>
+                <outlet property="stepper" destination="fnF-V5-hoU" id="seF-oJ-48O"/>
                 <outlet property="titleLabel" destination="Q8L-u2-a4P" id="Ltd-qr-T43"/>
             </connections>
-            <point key="canvasLocation" x="32" y="117.84107946026987"/>
+            <point key="canvasLocation" x="66.400000000000006" y="125.03748125937032"/>
         </tableViewCell>
+        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" id="slB-bX-cho">
+            <rect key="frame" x="0.0" y="0.0" width="94" height="32"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <point key="canvasLocation" x="32" y="139"/>
+        </stepper>
     </objects>
 </document>

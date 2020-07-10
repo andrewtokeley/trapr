@@ -486,7 +486,8 @@ extension VisitView: VisitViewApi {
         
         self.present(menu, animated: true, completion: nil)
     }
-    func showVisitEmail(subject: String, message: String, attachmentData: Data, attachmentMimeType: String, recipient: String) {
+    
+    func showVisitEmail(subject: String, message: String, attachmentFilename: String, attachmentData: Data, attachmentMimeType: String, recipient: String) {
 
         if MFMailComposeViewController.canSendMail() {
             
@@ -496,7 +497,7 @@ extension VisitView: VisitViewApi {
             controller.setSubject(subject)
             controller.setToRecipients([recipient])
             controller.setMessageBody(message, isHTML: true)
-            controller.addAttachmentData(attachmentData, mimeType: attachmentMimeType, fileName: "visitReport.xlsx")
+            controller.addAttachmentData(attachmentData, mimeType: attachmentMimeType, fileName:  attachmentFilename)
             self.present(controller, animated: true, completion: nil)
         }
         

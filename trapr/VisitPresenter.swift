@@ -159,7 +159,10 @@ final class VisitPresenter: Presenter {
                 if let email = email {
                     self.interactor.generateVisitReportFile(date: self.visitSummary.dateOfVisit, route: self.visitSummary.route!) { (data, mime, message, error) in
                         if let data = data, let mime = mime, let message = message {
-                            self.view.showVisitEmail(subject: "Data for \(route.name)", message: message, attachmentData: data, attachmentMimeType: mime, recipient: email)
+                            
+                            let filename = (route.name + "_" + self.visitSummary.dateOfVisit.toString(format: Styles.DATE_FORMAT_LONG_NO_SPACES) + ".xlsx").replacingOccurrences(of: " ", with: "_")
+                            
+                            self.view.showVisitEmail(subject: "Data for \(route.name)", message: message, attachmentFilename: filename, attachmentData: data, attachmentMimeType: mime, recipient: email)
                         }
                     }
                 }

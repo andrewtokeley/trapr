@@ -584,6 +584,14 @@
 		D8D1BB041FF8637C00AD71E3 /* Logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D1BB021FF8637C00AD71E3 /* Logo@2x.png */; };
 		D8D1BB071FF8653500AD71E3 /* tree.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D1BB051FF8653500AD71E3 /* tree.png */; };
 		D8D1BB081FF8653500AD71E3 /* tree@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D1BB061FF8653500AD71E3 /* tree@2x.png */; };
+		D8D652FF24B697B700C62002 /* East_Ridge_C4_v2.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = D8D652FE24B697B600C62002 /* East_Ridge_C4_v2.xlsx */; };
+		D8D6530024B697B700C62002 /* East_Ridge_C4_v2.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = D8D652FE24B697B600C62002 /* East_Ridge_C4_v2.xlsx */; };
+		D8D6530224B69D6000C62002 /* BRAWorksheetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D6530124B69D6000C62002 /* BRAWorksheetExtension.swift */; };
+		D8D6530324B69D6000C62002 /* BRAWorksheetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D6530124B69D6000C62002 /* BRAWorksheetExtension.swift */; };
+		D8D6530824B6EF2600C62002 /* East_Ridge_C4_v3.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = D8D6530724B6EF2500C62002 /* East_Ridge_C4_v3.xlsx */; };
+		D8D6530924B6EF2600C62002 /* East_Ridge_C4_v3.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = D8D6530724B6EF2500C62002 /* East_Ridge_C4_v3.xlsx */; };
+		D8D6530B24B7032400C62002 /* East_Ridge_C4_v4.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = D8D6530A24B7032300C62002 /* East_Ridge_C4_v4.xlsx */; };
+		D8D6530C24B7032400C62002 /* East_Ridge_C4_v4.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = D8D6530A24B7032300C62002 /* East_Ridge_C4_v4.xlsx */; };
 		D8D66D452022CDA400CBF3D7 /* ViewHistorySetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D66D442022CDA400CBF3D7 /* ViewHistorySetupData.swift */; };
 		D8D66D482022FBC400CBF3D7 /* information@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D66D462022FBC300CBF3D7 /* information@2x.png */; };
 		D8D66D492022FBC400CBF3D7 /* information.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D66D472022FBC400CBF3D7 /* information.png */; };
@@ -945,6 +953,10 @@
 		D8D1BB021FF8637C00AD71E3 /* Logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Logo@2x.png"; sourceTree = "<group>"; };
 		D8D1BB051FF8653500AD71E3 /* tree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree.png; sourceTree = "<group>"; };
 		D8D1BB061FF8653500AD71E3 /* tree@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tree@2x.png"; sourceTree = "<group>"; };
+		D8D652FE24B697B600C62002 /* East_Ridge_C4_v2.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = East_Ridge_C4_v2.xlsx; sourceTree = "<group>"; };
+		D8D6530124B69D6000C62002 /* BRAWorksheetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRAWorksheetExtension.swift; sourceTree = "<group>"; };
+		D8D6530724B6EF2500C62002 /* East_Ridge_C4_v3.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = East_Ridge_C4_v3.xlsx; sourceTree = "<group>"; };
+		D8D6530A24B7032300C62002 /* East_Ridge_C4_v4.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = East_Ridge_C4_v4.xlsx; sourceTree = "<group>"; };
 		D8D66D442022CDA400CBF3D7 /* ViewHistorySetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHistorySetupData.swift; sourceTree = "<group>"; };
 		D8D66D462022FBC300CBF3D7 /* information@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "information@2x.png"; sourceTree = "<group>"; };
 		D8D66D472022FBC400CBF3D7 /* information.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = information.png; sourceTree = "<group>"; };
@@ -1223,6 +1235,7 @@
 				D86DEC2E219D330200DCE730 /* VisitSummaryFirebaseService.swift */,
 				D86DEC2B219D31DB00DCE730 /* VisitSummaryServiceInterface.swift */,
 				D80D694021E066B800EDBE8D /* Reachability */,
+				D8D6530124B69D6000C62002 /* BRAWorksheetExtension.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -1468,24 +1481,27 @@
 		D8B94D571F5EA1FE00D373EF /* trapr */ = {
 			isa = PBXGroup;
 			children = (
-				D8ABDD3A21E7C6D400723B62 /* Deprecate */,
-				D8FCD98921839B2500B3556C /* Firebase */,
-				D8EA4601200949730032224E /* Charts */,
-				D8039E2D1FABF64B006E394B /* Viper */,
-				D81DAAED1F68641E00C7C987 /* Services */,
-				D8503DD11F669F8B00ED0C84 /* Model */,
-				D8B94D7D1F5EA67300D373EF /* Modules */,
-				D8B94D781F5EA52200D373EF /* Design */,
-				D8B94D581F5EA1FE00D373EF /* AppDelegate.swift */,
-				D8B94D5F1F5EA1FE00D373EF /* Assets.xcassets */,
 				D8B94D641F5EA1FE00D373EF /* Info.plist */,
 				D8C25DEE21818D5300C5DB64 /* trapr-dev.plist */,
-				D89714AB1F77FEED00E846B9 /* TrapSectionIndexPath.swift */,
-				D8D79AB21FC4B992008AC5C1 /* OptionItem.swift */,
+				D8B94D581F5EA1FE00D373EF /* AppDelegate.swift */,
 				D84C24652004806E000BCAF8 /* ObjectOrder.swift */,
+				D8D79AB21FC4B992008AC5C1 /* OptionItem.swift */,
 				D8EA460B200AAF6B0032224E /* OrderedDictionary.swift */,
 				D8EA460F200AB9A20032224E /* StackCount.swift */,
+				D89714AB1F77FEED00E846B9 /* TrapSectionIndexPath.swift */,
+				D8B94D5F1F5EA1FE00D373EF /* Assets.xcassets */,
+				D8D652FE24B697B600C62002 /* East_Ridge_C4_v2.xlsx */,
+				D8D6530724B6EF2500C62002 /* East_Ridge_C4_v3.xlsx */,
+				D8D6530A24B7032300C62002 /* East_Ridge_C4_v4.xlsx */,
 				D83D64BD2260440F00353902 /* VisitReportTemplate.xlsx */,
+				D8EA4601200949730032224E /* Charts */,
+				D8ABDD3A21E7C6D400723B62 /* Deprecate */,
+				D8B94D781F5EA52200D373EF /* Design */,
+				D8FCD98921839B2500B3556C /* Firebase */,
+				D8503DD11F669F8B00ED0C84 /* Model */,
+				D8B94D7D1F5EA67300D373EF /* Modules */,
+				D81DAAED1F68641E00C7C987 /* Services */,
+				D8039E2D1FABF64B006E394B /* Viper */,
 			);
 			path = trapr;
 			sourceTree = "<group>";
@@ -1847,6 +1863,7 @@
 				D8C8A1E71FCBA6210075E44E /* envelope.png in Resources */,
 				D8DBE3ED1FF5CD7300AA6482 /* circle.png in Resources */,
 				D8C25C8C217C3DF900C5DB64 /* exit@2x.png in Resources */,
+				D8D652FF24B697B700C62002 /* East_Ridge_C4_v2.xlsx in Resources */,
 				D8B73C311F97F4D8000C231E /* possumMaster.png in Resources */,
 				D84C245A1FFF2F49000BCAF8 /* expand.png in Resources */,
 				D8C8A1EA1FCBA6EC0075E44E /* VisitSummaryTableViewCell.xib in Resources */,
@@ -1883,6 +1900,7 @@
 				D8D1BB071FF8653500AD71E3 /* tree.png in Resources */,
 				D84C246B2005DAB7000BCAF8 /* walker@2x.png in Resources */,
 				D84CE45A1F987CC30000D422 /* pelifeed.png in Resources */,
+				D8D6530824B6EF2600C62002 /* East_Ridge_C4_v3.xlsx in Resources */,
 				D8B94D601F5EA1FE00D373EF /* Assets.xcassets in Resources */,
 				D86CE4881F92BC6F004A09EF /* settings@2x.png in Resources */,
 				D8BC084B1F6A542700B284EE /* lessthan@2x.png in Resources */,
@@ -1909,6 +1927,7 @@
 				D8BC08471F6A541200B284EE /* lessthan.png in Resources */,
 				D8C25DF52181A12800C5DB64 /* GoogleService-Info.plist in Resources */,
 				D8BC08461F6A541200B284EE /* greaterthan.png in Resources */,
+				D8D6530B24B7032400C62002 /* East_Ridge_C4_v4.xlsx in Resources */,
 				D83D64BE2260440F00353902 /* VisitReportTemplate.xlsx in Resources */,
 				D8AB9ADF201DB39E00FBEF55 /* RouteImage1.png in Resources */,
 				D8083D321FE8FA8E00D1C5F1 /* StatisticView.xib in Resources */,
@@ -1941,6 +1960,7 @@
 				D8C25D9E2181771F00C5DB64 /* circle.png in Resources */,
 				D8C25D9F2181771F00C5DB64 /* exit@2x.png in Resources */,
 				D8C25DA02181771F00C5DB64 /* possumMaster.png in Resources */,
+				D8D6530024B697B700C62002 /* East_Ridge_C4_v2.xlsx in Resources */,
 				D8C25DA12181771F00C5DB64 /* expand.png in Resources */,
 				D8C25DA22181771F00C5DB64 /* VisitSummaryTableViewCell.xib in Resources */,
 				D8C25DA32181771F00C5DB64 /* add@2x.png in Resources */,
@@ -1977,6 +1997,7 @@
 				D8C25DC32181771F00C5DB64 /* walker@2x.png in Resources */,
 				D8C25DC42181771F00C5DB64 /* pelifeed.png in Resources */,
 				D8C25DC52181771F00C5DB64 /* Assets.xcassets in Resources */,
+				D8D6530924B6EF2600C62002 /* East_Ridge_C4_v3.xlsx in Resources */,
 				D8C25DC62181771F00C5DB64 /* settings@2x.png in Resources */,
 				D8C25DC72181771F00C5DB64 /* lessthan@2x.png in Resources */,
 				D8C25DC92181771F00C5DB64 /* close@2x.png in Resources */,
@@ -2003,6 +2024,7 @@
 				D8C25DE12181771F00C5DB64 /* lessthan.png in Resources */,
 				D8C25DF32181A11E00C5DB64 /* GoogleService-Info.plist in Resources */,
 				D8C25DE22181771F00C5DB64 /* greaterthan.png in Resources */,
+				D8D6530C24B7032400C62002 /* East_Ridge_C4_v4.xlsx in Resources */,
 				D83D64BF2260440F00353902 /* VisitReportTemplate.xlsx in Resources */,
 				D8C25DE32181771F00C5DB64 /* RouteImage1.png in Resources */,
 				D8C25DE42181771F00C5DB64 /* StatisticView.xib in Resources */,
@@ -2475,6 +2497,7 @@
 				D8B94D7C1F5EA56F00D373EF /* UIColorExtension.swift in Sources */,
 				D8C25C95217EDAA300C5DB64 /* AdministrationPresenter.swift in Sources */,
 				D88DFE531FFAC8FF0048CA54 /* RouteDashboardSetup.swift in Sources */,
+				D8D6530224B69D6000C62002 /* BRAWorksheetExtension.swift in Sources */,
 				D857B3A91F81B86A006E1402 /* VisitModuleApi.swift in Sources */,
 				D83DC6CA1F7F841F00F91792 /* StartModuleApi.swift in Sources */,
 				D83A18E42217BB3600451987 /* UserServiceTestMock.swift in Sources */,
@@ -2727,6 +2750,7 @@
 				D8C25D7D2181771F00C5DB64 /* UIColorExtension.swift in Sources */,
 				D8C25D7E2181771F00C5DB64 /* AdministrationPresenter.swift in Sources */,
 				D8C25D7F2181771F00C5DB64 /* RouteDashboardSetup.swift in Sources */,
+				D8D6530324B69D6000C62002 /* BRAWorksheetExtension.swift in Sources */,
 				D8FDAF4421CD85CF00182175 /* CachePrimerFirestoreService.swift in Sources */,
 				D8C25D812181771F00C5DB64 /* VisitModuleApi.swift in Sources */,
 				D8C25D822181771F00C5DB64 /* StartModuleApi.swift in Sources */,

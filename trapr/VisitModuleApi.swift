@@ -29,7 +29,7 @@ protocol VisitViewApi: UserInterfaceProtocol {
     func updateCurrentStation(index: Int, repeatedGroup: Int)
     
     //func showVisitEmail(subject: String, html: String, recipient: String)
-    func showVisitEmail(subject: String, message: String, attachmentData: Data, attachmentMimeType: String, recipient: String)
+    func showVisitEmail(subject: String, message: String, attachmentFilename: String, attachmentData: Data, attachmentMimeType: String, recipient: String)
     
     func showConfirmation(title: String, message: String, yes: (() -> Void)?, no: (() -> Void)?)
     func selectTrap(index: Int)
