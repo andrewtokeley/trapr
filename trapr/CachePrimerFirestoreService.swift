@@ -28,19 +28,17 @@ class CachePrimerFirestoreService {
     // If, the number of steps exceeds the number of loadingMessages, we'll use the message at this index
     fileprivate let DEFAULT_MESSAGE_INDEX = 6
     
-    // Messages that will be displayed to the user, at each step, as we load the cache
-    fileprivate let loadingMessages = [
-        "one moment",
-        "one moment",
-        "one moment",
-        "almost there",
-        "almost there",
-        "almost there",
-        "and...",
-        "done!"
+    // Messages that will be displayed randomly
+    fileprivate var loadingMessages = [
+        "random act of kindness",
+        "did you remember to bring a screwdriver?",
+        "tick, tock...",
+        "less possums, more trees!",
+        "getting closer...",
+        "nothing to see here",
+        "almost there, promise"
     ]
-    
-    
+
     fileprivate func progressAtStep(_ step: Int) -> Double {
         if step < NUMBER_OF_STEPS {
             return Double(step)/Double(NUMBER_OF_STEPS)
@@ -50,10 +48,10 @@ class CachePrimerFirestoreService {
     }
     
     fileprivate func messageAtStep(_ step: Int) -> String {
-        if step >= NUMBER_OF_STEPS - 2 {
-            return loadingMessages.last!
-        } else if step < loadingMessages.count - 1 {
+        // show in-progress messages
+        if step < loadingMessages.count - 1 {
             return loadingMessages[step]
+        // show default message if
         } else {
             return loadingMessages[DEFAULT_MESSAGE_INDEX]
         }
@@ -64,6 +62,8 @@ class CachePrimerFirestoreService {
 extension CachePrimerFirestoreService: CachePrimerServiceInterface {
     
     func primeCache(progress: ((Double, String, Bool) -> Void)?) {
+        
+        loadingMessages.shuffle()
         
         var currentStep = 0
         progress?(self.progressAtStep(currentStep), self.messageAtStep(currentStep), false)
@@ -107,7 +107,7 @@ extension CachePrimerFirestoreService: CachePrimerServiceInterface {
                                                             print(entities.count)
                                                         
                                                             currentStep += 1
-                                                            progress?(1, self.messageAtStep(currentStep), true)
+                                                            progress?(1, "Done!", true)
                                                         })
                                                 })
                                             })
