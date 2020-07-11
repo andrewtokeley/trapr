@@ -48,10 +48,18 @@ class CachePrimerFirestoreService {
     }
     
     fileprivate func messageAtStep(_ step: Int) -> String {
-        // show in-progress messages
-        if step < loadingMessages.count - 1 {
-            return loadingMessages[step]
-        // show default message if
+        // must have at least four messages
+        if loadingMessages.count >= 3 {
+            let progress = progressAtStep(step)
+            if progress < 0.33 {
+                return loadingMessages[0]
+            } else if progress < 0.66  {
+                return loadingMessages[1]
+            } else if progress < 1 {
+                return loadingMessages[2]
+            } else {
+                return loadingMessages[DEFAULT_MESSAGE_INDEX]
+            }
         } else {
             return loadingMessages[DEFAULT_MESSAGE_INDEX]
         }
