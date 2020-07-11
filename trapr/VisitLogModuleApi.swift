@@ -17,6 +17,7 @@ protocol VisitLogRouterApi: RouterProtocol {
 
 //MARK: - VisitLogView API
 protocol VisitLogViewApi: UserInterfaceProtocol {
+    func highlightTrapSetStatusInconsistency(_ isInconsistent: Bool)
     func displayVisit(visit: VisitViewModel, showCatchSection: Bool)
     func displayDateTime(date: Date)
     func displaySpecies(name: String)

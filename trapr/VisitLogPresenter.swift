@@ -89,7 +89,21 @@ final class VisitLogPresenter: Presenter {
         }
     }
     
-    
+    func checkTrapSetStatusValidity() {
+        
+        if self.currentVisit?.trapSetStatus == nil {
+            return view.highlightTrapSetStatusInconsistency(false)
+        }
+        
+        if let visit = self.currentVisit {
+            let validStatus = TrapSetStatus.validForVisit(balance: self.balanceOfCurrentTrap ?? 0, eaten: visit.baitEaten, removed: visit.baitRemoved)
+        
+            if let trapSetStatus = self.currentVisit!.trapSetStatus {
+                view.highlightTrapSetStatusInconsistency(!validStatus.contains(trapSetStatus))
+            }
+        }
+        
+    }
     
     func updateViewForCurrentVisit() {
         
@@ -136,6 +150,8 @@ final class VisitLogPresenter: Presenter {
                     self.updateStepperMaximumValues()
                 }
             }
+            
+            self.checkTrapSetStatusValidity()
         }
     }
 }
@@ -265,19 +281,21 @@ extension VisitLogPresenter: VisitLogPresenterApi {
         self.currentVisit?.baitAdded = newValue
         saveVisit()
         self.updateStepperMaximumValues()
+        self.checkTrapSetStatusValidity()
     }
     
     func didUpdateBaitEatenValue(newValue: Int) {
-        self.currentVisit?.baitEaten = newValue
+        self.currentVisit!.baitEaten = newValue
         saveVisit()
         self.updateStepperMaximumValues()
-        
+        self.checkTrapSetStatusValidity()
     }
     
     func didUpdateBaitRemovedValue(newValue: Int) {
         self.currentVisit?.baitRemoved = newValue
         saveVisit()
         self.updateStepperMaximumValues()
+        self.checkTrapSetStatusValidity()
     }
     
     func didUpdateComment(text: String?) {
@@ -343,6 +361,7 @@ extension VisitLogPresenter: ListPickerDelegate {
             if listPicker.tag == LIST_SPECIES {
                 self.currentVisit?.speciesId = nil
                 self.currentVisit?.trapSetStatusId = TrapSetStatus.stillSet.rawValue
+                checkTrapSetStatusValidity()
             } else if listPicker.tag == LIST_LURE {
                 self.currentVisit?.lureId = nil
             }
@@ -374,6 +393,7 @@ extension VisitLogPresenter: ListPickerDelegate {
                 self.currentVisit?.speciesId = speciesId
                 self.currentVisit?.trapSetStatusId = nil
                 updateViewForCurrentVisit()
+                checkTrapSetStatusValidity()
                 saveVisit()
             }
         } else if listPicker.tag == LIST_LURE {
@@ -389,6 +409,7 @@ extension VisitLogPresenter: ListPickerDelegate {
         } else if listPicker.tag == LIST_TRAP_SET_STATUS {
             self.currentVisit?.trapSetStatusId = TrapSetStatus.all[index].rawValue
             self.currentVisit?.speciesId = nil
+            checkTrapSetStatusValidity()
             updateViewForCurrentVisit()
             saveVisit()
         }

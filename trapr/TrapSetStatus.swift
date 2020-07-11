@@ -58,18 +58,27 @@ enum TrapSetStatus: Int {
         }
     }
     
-    static func validForVisit(eaten: Bool, removed: Bool, added: Bool) -> [TrapSetStatus] {
+    static func validForVisit(balance: Int, eaten: Int, removed: Int) -> [TrapSetStatus] {
         
-        if (eaten && !removed && added) {
+        let hasPositiveBalance = balance > 0
+        let hasEaten = eaten > 0
+        let hasRemoved = removed > 0
+        
+        if (hasEaten && !hasRemoved) {
             // the bait was eaten so could only have been...
             return [.sprungAndEmpty, .setBaitEaten, .other]
-        } else if (!eaten && removed && added) {
+        } else if (!hasEaten && hasRemoved) {
             // you removed mouldy bait so could only have been...
             return [.stillSet, .other]
-        } else if (!eaten && !removed && !added) {
-            // you didn't touch it so could only have been...
-            return [stillSet, .trapGone, .other]
+        } else if (!hasEaten && !hasRemoved && hasPositiveBalance) {
+            // you didn't remove anything but there was a bait balance
+            return [.stillSet, .trapGone, .other]
+        } else if (hasEaten && hasRemoved) {
+            // the UI should prevent this from happening since we only call this for single bait traps.
+            return []
         }
+        
+        // in all other cases just assume it's OK for now!
         return all
     }
     

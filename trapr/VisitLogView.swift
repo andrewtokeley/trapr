@@ -484,6 +484,10 @@ extension VisitLogView: UITableViewDelegate, UITableViewDataSource {
 //MARK: - VisitLogView API
 extension VisitLogView: VisitLogViewApi {
     
+    func highlightTrapSetStatusInconsistency(_ isInconsistent: Bool) {
+        self.trapSetStatusTableViewCell.detailTextLabel?.textColor = isInconsistent ? .red : UIColor.trpDefaultTableViewHeaderFooter
+    }
+    
     func displayNoVisitState() {
         self.tableView.alpha = 0
         self.noVisitButton.alpha = 1
