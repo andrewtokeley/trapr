@@ -114,6 +114,14 @@ final class SideMenuView: UserInterface {
         return menu
     }()
     
+    lazy var versionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.trpLabelSmall
+        label.textColor = UIColor.trpTextDark
+        label.textAlignment = .center
+        return label
+    }()
+    
     //MARK: - Events
     
     @objc func closeButtonClick(sender: UIView) {
@@ -132,6 +140,7 @@ final class SideMenuView: UserInterface {
         
         self.view.addSubview(backgroundMask)
         self.view.addSubview(sideBar)
+        self.view.addSubview(versionLabel)
         
         let left = UISwipeGestureRecognizer(target: self, action: #selector(closeButtonClick(sender:)))
         left.direction = .left
@@ -154,10 +163,15 @@ final class SideMenuView: UserInterface {
         self.headerBackground.autoPinEdge(.right, to: .right, of: self.sideBar)
         self.headerBackground.autoSetDimension(.height, toSize: HEADER_HEIGHT)
         
+        self.versionLabel.autoPinEdge(.bottom, to: .bottom, of: self.sideBar)
+        self.versionLabel.autoPinEdge(.left, to: .left, of: self.sideBar)
+        self.versionLabel.autoPinEdge(.right, to: .right, of: self.sideBar)
+        self.versionLabel.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight * 2)
+        
         self.menuTableView.autoPinEdge(.top, to: .bottom, of: self.headerBackground, withOffset: 20)
         self.menuTableView.autoPinEdge(.left, to: .left, of: self.sideBar)
         self.menuTableView.autoPinEdge(.right, to: .right, of: self.sideBar)
-        self.menuTableView.autoPinEdge(.bottom, to: .bottom, of: self.sideBar)
+        self.menuTableView.autoPinEdge(.bottom, to: .top, of: self.versionLabel)
     }
 }
 
@@ -196,6 +210,11 @@ extension SideMenuView: UITableViewDelegate, UITableViewDataSource {
 
 //MARK: - SideMenuView API
 extension SideMenuView: SideMenuViewApi {
+    
+    func displayVersion(version: String, isDevelopment: Bool) {
+        versionLabel.text = version
+        versionLabel.textColor = isDevelopment ? .red : .trpTextDark
+    }
     
     func displayMenuItems(menuItems: [SideBarMenuItem], separatorsAfter: [Int]?) {
         self.menuItems = menuItems

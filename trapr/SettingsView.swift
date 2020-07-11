@@ -27,16 +27,16 @@ final class SettingsView: UserInterface {
     
     //MARK: - Subviews
     
-    lazy var doSomethingButton: UIButton = {
-        
-        let button = UIButton()
-        button.backgroundColor = UIColor.trpButtonEnabled
-        button.setTitle("Do Something", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.addTarget(self, action: #selector(doSomethingClick(sender:)), for: .touchUpInside)
-        return button
-
-    }()
+//    lazy var doSomethingButton: UIButton = {
+//
+//        let button = UIButton()
+//        button.backgroundColor = UIColor.trpButtonEnabled
+//        button.setTitle("Do Something", for: .normal)
+//        button.setTitleColor(UIColor.white, for: .normal)
+//        button.addTarget(self, action: #selector(doSomethingClick(sender:)), for: .touchUpInside)
+//        return button
+//
+//    }()
     
     lazy var closeButton: UIBarButtonItem = {
         
@@ -123,7 +123,7 @@ final class SettingsView: UserInterface {
         
         self.view.addSubview(tableView)
         self.view.addSubview(versionInfo)
-        self.view.addSubview(doSomethingButton)
+        //self.view.addSubview(doSomethingButton)
         
         // ensure the keyboard disappears when click view
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
@@ -140,15 +140,15 @@ final class SettingsView: UserInterface {
         self.versionInfo.autoPinEdge(toSuperviewEdge: .bottom, withInset: LayoutDimensions.spacingMargin)
         self.versionInfo.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
         
-        self.doSomethingButton.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
-        self.doSomethingButton.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
-        self.doSomethingButton.autoPinEdge(.bottom, to: .top, of: versionInfo, withOffset: -LayoutDimensions.spacingMargin)
-        self.doSomethingButton.autoSetDimension(.height, toSize: LayoutDimensions.tableCellHeight)
-        
+//        self.doSomethingButton.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
+//        self.doSomethingButton.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
+//        self.doSomethingButton.autoPinEdge(.bottom, to: .top, of: versionInfo, withOffset: -LayoutDimensions.spacingMargin)
+//        self.doSomethingButton.autoSetDimension(.height, toSize: LayoutDimensions.tableCellHeight)
+//
         self.tableView.autoPinEdge(toSuperviewEdge: .left)
         self.tableView.autoPinEdge(toSuperviewEdge: .right)
         self.tableView.autoPinEdge(toSuperviewEdge: .top)
-        self.tableView.autoPinEdge(.bottom, to: .top, of: doSomethingButton, withOffset: -LayoutDimensions.spacingMargin)
+        self.tableView.autoPinEdge(.bottom, to: .top, of: versionInfo, withOffset: -LayoutDimensions.spacingMargin)
     }
     
     //MARK: - Events
@@ -162,9 +162,9 @@ final class SettingsView: UserInterface {
         presenter.didSelectClose()
     }
     
-    @objc func doSomethingClick(sender: UIButton) {
-        presenter.didClickDoSomething()
-    }
+//    @objc func doSomethingClick(sender: UIButton) {
+//        presenter.didClickDoSomething()
+//    }
     
 }
 
@@ -267,9 +267,9 @@ extension SettingsView: SettingsViewApi {
 //        trapperNameTextField.becomeFirstResponder()
 //    }
     
-    func displayDoSomethingProgress(message: String) {
-        self.doSomethingButton.setTitle(message, for: .normal)
-    }
+//    func displayDoSomethingProgress(message: String) {
+//        self.doSomethingButton.setTitle(message, for: .normal)
+//    }
     
     func displayVersionNumber(version: String) {
         versionInfo.text = "Version \(version)"

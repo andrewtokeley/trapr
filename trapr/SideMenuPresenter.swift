@@ -35,6 +35,15 @@ final class SideMenuPresenter: Presenter {
             // shouldn't happen
             configureMenu(user: nil)
         }
+        
+        // display version
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+            #if DEVELOPMENT
+            self.view.displayVersion(version: "DEVELOPMENT: \(version).\(build)", isDevelopment: true)
+            #else
+                self.view.displayVersion(version: "Version: \(version).\(build)", isDevelopment: false)
+            #endif
+        }
     }
     
     private func configureMenu(user: User?) {

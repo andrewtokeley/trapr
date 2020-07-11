@@ -20,6 +20,7 @@ protocol SideMenuViewApi: UserInterfaceProtocol {
     func displayUserDetails(userName: String, emailAddress: String, imageUrl: URL?)
     func showSideBar()
     func hideSideBar(completion: (() -> Void)?)
+    func displayVersion(version: String, isDevelopment: Bool)
     //func moveSideBar(positionX: CGFloat)
     
 }

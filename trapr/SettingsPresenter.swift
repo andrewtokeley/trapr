@@ -69,15 +69,15 @@ extension SettingsPresenter: ListPickerDelegate {
 // MARK: - ProfilePresenter API
 extension SettingsPresenter: SettingsPresenterApi {
     
-    func didClickDoSomething() {
-        interactor.doSomething() { (progress, message, finished) in
-            if finished {
-                self.view.displayDoSomethingProgress(message: "Do Something")
-            } else {
-                self.view.displayDoSomethingProgress(message: "\(String(format: "%.0f", progress*100))% \(message)")
-            }
-        }
-    }
+//    func didClickDoSomething() {
+//        interactor.doSomething() { (progress, message, finished) in
+//            if finished {
+//                self.view.displayDoSomethingProgress(message: "Do Something")
+//            } else {
+//                self.view.displayDoSomethingProgress(message: "\(String(format: "%.0f", progress*100))% \(message)")
+//            }
+//        }
+//    }
     
     func didSelectHiddenRoutes() {
         
