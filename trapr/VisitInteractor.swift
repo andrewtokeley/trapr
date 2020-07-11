@@ -230,7 +230,14 @@ extension VisitInteractor: VisitInteractorApi {
         // (this logic should be in the service, but then I'd need to return newVisit outside of the closure, since it isn't fired when offline... fixable, but not now, since this is the only place we create Visits)
         let defaultLureId = self.trapTypes.first( where: { $0.id == trapTypeId })?.defaultLure
         newVisit.lureId = defaultLureId
-        newVisit.trapSetStatusId = TrapSetStatus.stillSet.rawValue
+        
+        // default status depends on the trapType
+        var defaultTrapSetStatusId = TrapSetStatus.stillSet.rawValue
+        if let trapType = TrapTypeCode(rawValue: trapTypeId) {
+            defaultTrapSetStatusId = TrapSetStatus.defaultForTrapType(type: trapType).rawValue
+        }
+        newVisit.trapSetStatusId = defaultTrapSetStatusId
+        
         newVisit.trapOperatingStatusId = TrapOperatingStatus.open.rawValue
         
         self.visitService.add(visit: newVisit, completion: nil)

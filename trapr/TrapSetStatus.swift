@@ -8,14 +8,16 @@
 
 import Foundation
 
-//includes; ‘Still Set’, ‘Sprung and Empty’, ‘Still
-//Set Bait Eaten’ and ‘Other’.
-
 enum TrapSetStatus: Int {
+    /// Still set with bait
     case stillSet = 0
+    /// Sprung and bait gone
     case sprungAndEmpty
+    /// Still set and the bait gone
     case setBaitEaten
+    /// Where's the trap?!
     case trapGone
+    /// Something else,
     case other
     
     var walkTheLineCode: Int {
@@ -39,8 +41,38 @@ enum TrapSetStatus: Int {
     }
     
     static var all: [TrapSetStatus] {
-        return [.stillSet, .sprungAndEmpty, .setBaitEaten, .other]
+        return [.stillSet, .sprungAndEmpty, .setBaitEaten, .trapGone, .other]
     }
+    
+    /// Returns the default TrapSetStatus for a given trap.
+    static func defaultForTrapType(type: TrapTypeCode) -> TrapSetStatus {
+        switch type {
+        case .doc200:
+            return .stillSet
+        case .possumMaster:
+            return .setBaitEaten
+        case .timms:
+            return .stillSet
+        default:
+            return .other
+        }
+    }
+    
+    static func validForVisit(eaten: Bool, removed: Bool, added: Bool) -> [TrapSetStatus] {
+        
+        if (eaten && !removed && added) {
+            // the bait was eaten so could only have been...
+            return [.sprungAndEmpty, .setBaitEaten, .other]
+        } else if (!eaten && removed && added) {
+            // you removed mouldy bait so could only have been...
+            return [.stillSet, .other]
+        } else if (!eaten && !removed && !added) {
+            // you didn't touch it so could only have been...
+            return [stillSet, .trapGone, .other]
+        }
+        return all
+    }
+    
     static var count: Int {
         return all.count
     }
