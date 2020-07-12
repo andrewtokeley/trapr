@@ -259,9 +259,11 @@ extension VisitInteractor: VisitInteractorApi {
         visitService.get(recordedOn: currentDate, routeId: routeId) { (visits, error) in
             for visit in visits {
                 if let id = visit.id {
-                    self.visitService.updateDate(visitId: id, date: newDate, completion: { (error) in
-                        //
-                    })
+                    
+                    // only update the date, not the time, portion of the current date
+                    if let date = visit.visitDateTime.setDate(newDate.day, newDate.month, newDate.year) {
+                        self.visitService.updateDate(visitId: id, date: date, completion: nil)
+                    }
                 }
             }
         }

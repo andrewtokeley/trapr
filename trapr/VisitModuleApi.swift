@@ -43,7 +43,7 @@ protocol VisitViewApi: UserInterfaceProtocol {
 
 //MARK: - VisitPresenter API
 protocol VisitPresenterApi: PresenterProtocol {
-    
+    func didSelectNewDate(date: Date)
     func didFetchInitialState(trapTypes: [TrapType])
     func didSelectToAddTrap(trapType: TrapType)
     func didSelectToRemoveTrap(trapType: TrapType)

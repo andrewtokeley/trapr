@@ -235,6 +235,14 @@ extension VisitPresenter: StationSelectDelegate {
 
 // MARK: - VisitPresenter API
 extension VisitPresenter: VisitPresenterApi {
+    func didSelectNewDate(date: Date) {
+        
+        // update all the visit records to the new date (but keep the times)
+        interactor.updateVisitDates(currentDate: visitSummary.dateOfVisit, routeId: visitSummary.routeId, newDate: date)
+        
+        visitSummary.dateOfVisit = date
+        updateTitle()
+    }
     
     func didUpdateRoute2(route: Route, selectedIndex: Int) {
         //self.visitSummary.route = route

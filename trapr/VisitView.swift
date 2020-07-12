@@ -198,22 +198,66 @@ final class VisitView: UserInterface {
         return label
     }()
     
-    lazy var subTitleLabel: UILabel = {
-        let label = UILabel()
+//    lazy var subTitleLabel: UILabel = {
+//        let label = UILabel()
+//        label.textColor = UIColor.trpNavigationBarTint
+//        label.isUserInteractionEnabled = true
+//        label.textAlignment = .center
+//        label.font = UIFont.trpLabelSmall
+//
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dateTap(sender:)))
+//        label.addGestureRecognizer(tapGesture)
+//        return label
+//    }()
+//
+    lazy var datePicker: UIDatePicker = {
+        let screenWidth = UIScreen.main.bounds.width
+        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 216))
+        
+        if #available(iOS 13.4, *) {
+            datePicker.preferredDatePickerStyle = .wheels
+        } else {
+            // leave it
+        }
+        
+        datePicker.datePickerMode = .date
+        return datePicker
+    }()
+    
+    lazy var subTitleLabel: UITextField = {
+        let label = UITextField()
         label.textColor = UIColor.trpNavigationBarTint
-        label.isUserInteractionEnabled = true
+        //label.isUserInteractionEnabled = true
         label.textAlignment = .center
         label.font = UIFont.trpLabelSmall
+        label.inputView = self.datePicker
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dateTap(sender:)))
-        label.addGestureRecognizer(tapGesture)
+        // Create Done action for the DatePicker
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(dateTap(sender:)))
+
+        // if you remove the space element, the "done" button will be left aligned
+        // you can add more items if you want
+        toolBar.setItems([space, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        toolBar.sizeToFit()
+
+        label.inputAccessoryView = toolBar
+        
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dateTap(sender:)))
+//        label.addGestureRecognizer(tapGesture)
         return label
     }()
     
     //MARK: - Events
     
-    @objc func dateTap(sender: UILabel) {
-        presenter.didSelectDate()
+    @objc func dateTap(sender: UIBarButtonItem) {
+        // dismiss the datepicker by ending the editing of the textfield
+        self.subTitleLabel.endEditing(true)
+        presenter.didSelectNewDate(date: datePicker.date)
     }
     
     @objc func showMoreMenu(sender: UIBarButtonItem) {

@@ -40,6 +40,12 @@ final class DatePickerView: UserInterface {
     lazy var datePicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.datePickerMode = self.presenter.dateMode
+        
+        if #available(iOS 13.4, *) {
+            picker.preferredDatePickerStyle = .wheels
+        } else {
+            // leave it
+        }
         picker.backgroundColor = UIColor.white
         return picker
     }()
@@ -130,15 +136,16 @@ final class DatePickerView: UserInterface {
         datePickerContainer.autoPinEdge(.top, to: .bottom, of: self.backgroundMask)
         datePickerContainer.autoSetDimension(.height, toSize: CONTAINER_HEIGHT)
         
-        datePicker.autoPinEdge(.left, to: .left, of: datePickerContainer)
-        datePicker.autoPinEdge(.right, to: .right, of: datePickerContainer)
-        datePicker.autoPinEdge(.bottom, to: .bottom, of: datePickerContainer)
-        
         titleBar.autoPinEdge(.left, to: .left, of: datePickerContainer)
         titleBar.autoPinEdge(.right, to: .right, of: datePickerContainer)
         titleBar.autoPinEdge(.top, to: .top, of: datePickerContainer)
         titleBar.autoSetDimension(.height, toSize: TITLE_HEIGHT)
 
+        datePicker.autoPinEdge(.top, to: .bottom, of: titleBar)
+        datePicker.autoPinEdge(.left, to: .left, of: datePickerContainer)
+        datePicker.autoPinEdge(.right, to: .right, of: datePickerContainer)
+        datePicker.autoPinEdge(.bottom, to: .bottom, of: datePickerContainer)
+        
         heading.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets.zero)
         doneButton.autoPinEdges(toSuperviewMarginsExcludingEdge: .left)
         jumpButton.autoPinEdges(toSuperviewMarginsExcludingEdge: .right)

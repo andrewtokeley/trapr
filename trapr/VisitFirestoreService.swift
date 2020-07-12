@@ -326,7 +326,9 @@ class VisitFirestoreService: FirestoreEntityService<Visit>, VisitServiceInterfac
     }
     
     func updateDate(visitId: String, date: Date, completion: ((Error?) -> Void)?) {
-        //TODO!
+        super.collection.document(visitId).updateData(
+            [VisitFields.visitDate.rawValue: Timestamp(date: date)]
+        )
     }
 
 }
