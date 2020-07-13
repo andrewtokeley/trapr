@@ -210,55 +210,87 @@ final class VisitView: UserInterface {
 //        return label
 //    }()
 //
-    lazy var datePicker: UIDatePicker = {
-        let screenWidth = UIScreen.main.bounds.width
-        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 216))
-        
-        if #available(iOS 13.4, *) {
-            datePicker.preferredDatePickerStyle = .wheels
-        } else {
-            // leave it
-        }
-        
-        datePicker.datePickerMode = .date
-        return datePicker
-    }()
     
-    lazy var subTitleLabel: UITextField = {
-        let label = UITextField()
+//    lazy var datePickerMask: UIView = {
+//        let view = UIView(frame: self.view.frame)
+//        view.backgroundColor = .black
+//        view.alpha = 0.3
+//        view.addSubview(datePicker)
+//
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(UIView.endEditing(_:)))
+//        view.addGestureRecognizer(tap)
+//        return view
+//    }()
+    
+//    lazy var datePicker: UIDatePicker = {
+//        let screenWidth = UIScreen.main.bounds.width
+//        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 216))
+//
+//        if #available(iOS 13.4, *) {
+//            datePicker.preferredDatePickerStyle = .wheels
+//        } else {
+//            // leave it, will always be wheels pre 13.4
+//        }
+//
+//        datePicker.datePickerMode = .date
+//
+//        return datePicker
+//    }()
+    
+    lazy var subTitleLabel: UILabel = {
+        let label = UILabel()
         label.textColor = UIColor.trpNavigationBarTint
-        //label.isUserInteractionEnabled = true
         label.textAlignment = .center
         label.font = UIFont.trpLabelSmall
-        label.inputView = self.datePicker
+        label.isUserInteractionEnabled = true
         
-        // Create Done action for the DatePicker
-        let toolBar = UIToolbar()
-        toolBar.barStyle = UIBarStyle.default
-        toolBar.isTranslucent = true
-        let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(dateTap(sender:)))
-
-        // if you remove the space element, the "done" button will be left aligned
-        // you can add more items if you want
-        toolBar.setItems([space, doneButton], animated: false)
-        toolBar.isUserInteractionEnabled = true
-        toolBar.sizeToFit()
-
-        label.inputAccessoryView = toolBar
-        
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dateTap(sender:)))
-//        label.addGestureRecognizer(tapGesture)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapSubTitle(sender:)))
+        label.addGestureRecognizer(tap)
         return label
     }()
     
+//    lazy var subTitleLabel: UITextField = {
+//        let label = UITextField()
+//        label.textColor = UIColor.trpNavigationBarTint
+//        label.textAlignment = .center
+//        label.font = UIFont.trpLabelSmall
+//        label.inputView = self.datePickerMask
+//
+//        // Create Cancel/Done action for the DatePicker
+//        let toolBar = UIToolbar()
+//        toolBar.barStyle = UIBarStyle.default
+//        toolBar.isTranslucent = true
+//        let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+//        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(doneDatePicker(sender:)))
+//        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.done, target: self, action: #selector(cancelDatePicker(sender:)))
+//
+//        toolBar.setItems([doneButton, space, cancelButton], animated: false)
+//        toolBar.isUserInteractionEnabled = true
+//        toolBar.sizeToFit()
+//
+//        label.inputAccessoryView = toolBar
+//
+//        return label
+//    }()
+    
     //MARK: - Events
     
-    @objc func dateTap(sender: UIBarButtonItem) {
-        // dismiss the datepicker by ending the editing of the textfield
-        self.subTitleLabel.endEditing(true)
-        presenter.didSelectNewDate(date: datePicker.date)
+    @objc func tapSubTitle(sender: UILabel) {
+        presenter.didSelectDate()
     }
+    
+//    @objc func doneDatePicker(sender: UIBarButtonItem) {
+//        // dismiss the datepicker by ending the editing of the textfield
+//        self.subTitleLabel.endEditing(true)
+//
+//        // let the presenter know there's a new date to save and update the visit records with
+//        presenter.didSelectNewDate(date: datePicker.date)
+//    }
+//
+//    @objc func cancelDatePicker(sender: UIBarButtonItem) {
+//        // dismiss the datepicker by ending the editing of the textfield
+//        self.subTitleLabel.endEditing(true)
+//    }
     
     @objc func showMoreMenu(sender: UIBarButtonItem) {
         presenter.didSelectMenuButton()
@@ -288,6 +320,14 @@ final class VisitView: UserInterface {
         
         self.navigationItem.titleView = titleView
 
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(tapView(sender:)))
+//        tap.cancelsTouchesInView = false
+//        self.view.addGestureRecognizer(tap)
+        
+    }
+    
+    @objc func tapView(sender: UIView) {
+        self.subTitleLabel.endEditing(true)
     }
     
     override func updateViewConstraints() {

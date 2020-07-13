@@ -38,13 +38,14 @@ final class DatePickerView: UserInterface {
     }()
     
     lazy var datePicker: UIDatePicker = {
-        let picker = UIDatePicker()
-        picker.datePickerMode = self.presenter.dateMode
+        let screenWidth = UIScreen.main.bounds.width
+        let picker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 216))
+        picker.datePickerMode = presenter.dateMode
         
         if #available(iOS 13.4, *) {
             picker.preferredDatePickerStyle = .wheels
         } else {
-            // leave it
+            // leave it, should be wheels
         }
         picker.backgroundColor = UIColor.white
         return picker

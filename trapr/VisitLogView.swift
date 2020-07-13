@@ -260,6 +260,8 @@ final class VisitLogView: UserInterface {
         self.view.addGestureRecognizer(tap)
         
         (tableView as UIScrollView).delegate = self
+        
+        self.tableView.keyboardDismissMode = .onDrag
     }
     
     func setConstraints() {
