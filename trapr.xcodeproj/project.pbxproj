@@ -317,10 +317,6 @@
 		D8BBA1A024BFEB5100C10493 /* TableViewCellStyleValue3.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA19E24BFEB5100C10493 /* TableViewCellStyleValue3.xib */; };
 		D8BBA1A224BFEC4400C10493 /* TableViewCellStyleValue3.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA1A124BFEC4400C10493 /* TableViewCellStyleValue3.swift */; };
 		D8BBA1A324BFEC4400C10493 /* TableViewCellStyleValue3.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA1A124BFEC4400C10493 /* TableViewCellStyleValue3.swift */; };
-		D8BBA1AA24C1145100C10493 /* statisticsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1A524C1144F00C10493 /* statisticsIcon@2x.png */; };
-		D8BBA1AB24C1145100C10493 /* statisticsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1A524C1144F00C10493 /* statisticsIcon@2x.png */; };
-		D8BBA1AC24C1145100C10493 /* statisticsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1A624C1145000C10493 /* statisticsIcon.png */; };
-		D8BBA1AD24C1145100C10493 /* statisticsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1A624C1145000C10493 /* statisticsIcon.png */; };
 		D8BBA1B824C4F44E00C10493 /* logIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1B624C4F44C00C10493 /* logIcon@2x.png */; };
 		D8BBA1B924C4F44E00C10493 /* logIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1B624C4F44C00C10493 /* logIcon@2x.png */; };
 		D8BBA1BA24C4F44E00C10493 /* logIcon2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1B724C4F44D00C10493 /* logIcon2x.png */; };
@@ -956,8 +952,6 @@
 		D8BBA19A24BE63F100C10493 /* VisitDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitDataDelegate.swift; sourceTree = "<group>"; };
 		D8BBA19E24BFEB5100C10493 /* TableViewCellStyleValue3.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCellStyleValue3.xib; sourceTree = "<group>"; };
 		D8BBA1A124BFEC4400C10493 /* TableViewCellStyleValue3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellStyleValue3.swift; sourceTree = "<group>"; };
-		D8BBA1A524C1144F00C10493 /* statisticsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "statisticsIcon@2x.png"; sourceTree = "<group>"; };
-		D8BBA1A624C1145000C10493 /* statisticsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statisticsIcon.png; sourceTree = "<group>"; };
 		D8BBA1B624C4F44C00C10493 /* logIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logIcon@2x.png"; sourceTree = "<group>"; };
 		D8BBA1B724C4F44D00C10493 /* logIcon2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logIcon2x.png; sourceTree = "<group>"; };
 		D8BC08441F6A541200B284EE /* greaterthan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greaterthan.png; sourceTree = "<group>"; };
@@ -1627,8 +1621,6 @@
 			children = (
 				D8BBA1B624C4F44C00C10493 /* logIcon@2x.png */,
 				D8BBA1B724C4F44D00C10493 /* logIcon2x.png */,
-				D8BBA1A624C1145000C10493 /* statisticsIcon.png */,
-				D8BBA1A524C1144F00C10493 /* statisticsIcon@2x.png */,
 				D8C25C89217C3DF800C5DB64 /* exit.png */,
 				D8C25C8A217C3DF900C5DB64 /* exit@2x.png */,
 				D852E84E206F542200255A2D /* add@2x.png */,
@@ -1955,7 +1947,6 @@
 				D86CE4891F92BC6F004A09EF /* home@2x.png in Resources */,
 				D84C245F1FFF3AD8000BCAF8 /* edit@2x.png in Resources */,
 				D8BC084A1F6A542700B284EE /* greaterthan@2x.png in Resources */,
-				D8BBA1AC24C1145100C10493 /* statisticsIcon.png in Resources */,
 				D8DBE3EC1FF5CD7300AA6482 /* circle@2x.png in Resources */,
 				D83089581FA18815007C9316 /* StepperTableViewCell.xib in Resources */,
 				D8C8A1E81FCBA6210075E44E /* envelope@2x.png in Resources */,
@@ -2001,7 +1992,6 @@
 				D8C8A1F81FCE1C4F0075E44E /* doc200.png in Resources */,
 				D8C8A1F71FCE1C4F0075E44E /* doc200@2x.png in Resources */,
 				D858D7C02019D68A00EE052D /* collapse2@2x.png in Resources */,
-				D8BBA1AA24C1145100C10493 /* statisticsIcon@2x.png in Resources */,
 				D814319A1F8CBD5E00EAF5FD /* show.png in Resources */,
 				D86CE4831F92BC6F004A09EF /* map.png in Resources */,
 				D814319B1F8CBD5E00EAF5FD /* show@2x.png in Resources */,
@@ -2057,7 +2047,6 @@
 				D8C25DA92181771F00C5DB64 /* edit@2x.png in Resources */,
 				D8C25DAA2181771F00C5DB64 /* greaterthan@2x.png in Resources */,
 				D8C25DAB2181771F00C5DB64 /* circle@2x.png in Resources */,
-				D8BBA1AD24C1145100C10493 /* statisticsIcon.png in Resources */,
 				D8C25DAC2181771F00C5DB64 /* StepperTableViewCell.xib in Resources */,
 				D8C25DAD2181771F00C5DB64 /* envelope@2x.png in Resources */,
 				D8C25DAE2181771F00C5DB64 /* Logo.png in Resources */,
@@ -2103,7 +2092,6 @@
 				D8C25DD72181771F00C5DB64 /* doc200.png in Resources */,
 				D8C25DD82181771F00C5DB64 /* doc200@2x.png in Resources */,
 				D8C25DD92181771F00C5DB64 /* collapse2@2x.png in Resources */,
-				D8BBA1AB24C1145100C10493 /* statisticsIcon@2x.png in Resources */,
 				D8C25DDA2181771F00C5DB64 /* show.png in Resources */,
 				D8C25DDB2181771F00C5DB64 /* map.png in Resources */,
 				D8C25DDC2181771F00C5DB64 /* show@2x.png in Resources */,
