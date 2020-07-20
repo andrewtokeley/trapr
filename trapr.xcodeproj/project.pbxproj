@@ -321,6 +321,10 @@
 		D8BBA1B924C4F44E00C10493 /* logIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1B624C4F44C00C10493 /* logIcon@2x.png */; };
 		D8BBA1BA24C4F44E00C10493 /* logIcon2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1B724C4F44D00C10493 /* logIcon2x.png */; };
 		D8BBA1BB24C4F44E00C10493 /* logIcon2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1B724C4F44D00C10493 /* logIcon2x.png */; };
+		D8BBA1CA24C553A800C10493 /* statisticsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1C824C553A800C10493 /* statisticsIcon.png */; };
+		D8BBA1CB24C553A800C10493 /* statisticsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1C824C553A800C10493 /* statisticsIcon.png */; };
+		D8BBA1CC24C553A800C10493 /* statisticsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1C924C553A800C10493 /* statisticsIcon@2x.png */; };
+		D8BBA1CD24C553A800C10493 /* statisticsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1C924C553A800C10493 /* statisticsIcon@2x.png */; };
 		D8BC08461F6A541200B284EE /* greaterthan.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08441F6A541200B284EE /* greaterthan.png */; };
 		D8BC08471F6A541200B284EE /* lessthan.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08451F6A541200B284EE /* lessthan.png */; };
 		D8BC084A1F6A542700B284EE /* greaterthan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08481F6A542700B284EE /* greaterthan@2x.png */; };
@@ -954,6 +958,8 @@
 		D8BBA1A124BFEC4400C10493 /* TableViewCellStyleValue3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellStyleValue3.swift; sourceTree = "<group>"; };
 		D8BBA1B624C4F44C00C10493 /* logIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logIcon@2x.png"; sourceTree = "<group>"; };
 		D8BBA1B724C4F44D00C10493 /* logIcon2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logIcon2x.png; sourceTree = "<group>"; };
+		D8BBA1C824C553A800C10493 /* statisticsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statisticsIcon.png; sourceTree = "<group>"; };
+		D8BBA1C924C553A800C10493 /* statisticsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "statisticsIcon@2x.png"; sourceTree = "<group>"; };
 		D8BC08441F6A541200B284EE /* greaterthan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greaterthan.png; sourceTree = "<group>"; };
 		D8BC08451F6A541200B284EE /* lessthan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessthan.png; sourceTree = "<group>"; };
 		D8BC08481F6A542700B284EE /* greaterthan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greaterthan@2x.png"; sourceTree = "<group>"; };
@@ -1619,6 +1625,8 @@
 		D8B94D991F5F28F200D373EF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D8BBA1C824C553A800C10493 /* statisticsIcon.png */,
+				D8BBA1C924C553A800C10493 /* statisticsIcon@2x.png */,
 				D8BBA1B624C4F44C00C10493 /* logIcon@2x.png */,
 				D8BBA1B724C4F44D00C10493 /* logIcon2x.png */,
 				D8C25C89217C3DF800C5DB64 /* exit.png */,
@@ -1926,6 +1934,7 @@
 				D87926961FB555A500240767 /* clock.png in Resources */,
 				D852E84D206F52D500255A2D /* add.png in Resources */,
 				D84C245C1FFF2F49000BCAF8 /* collapse@2x.png in Resources */,
+				D8BBA1CA24C553A800C10493 /* statisticsIcon.png in Resources */,
 				D8DBE3D51FF37F0900AA6482 /* timms@2x.png in Resources */,
 				D8083D2B1FE6129A00D1C5F1 /* rip@2x.png in Resources */,
 				D87926921FB553A600240767 /* RouteCollectionViewCell.xib in Resources */,
@@ -1990,6 +1999,7 @@
 				D879269D1FB58EA400240767 /* SectionStripView.xib in Resources */,
 				D8B94D9C1F5F30CD00D373EF /* menu.png in Resources */,
 				D8C8A1F81FCE1C4F0075E44E /* doc200.png in Resources */,
+				D8BBA1CC24C553A800C10493 /* statisticsIcon@2x.png in Resources */,
 				D8C8A1F71FCE1C4F0075E44E /* doc200@2x.png in Resources */,
 				D858D7C02019D68A00EE052D /* collapse2@2x.png in Resources */,
 				D814319A1F8CBD5E00EAF5FD /* show.png in Resources */,
@@ -2026,6 +2036,7 @@
 				D8C25D952181771F00C5DB64 /* clock.png in Resources */,
 				D8C25D962181771F00C5DB64 /* add.png in Resources */,
 				D8C25D972181771F00C5DB64 /* collapse@2x.png in Resources */,
+				D8BBA1CB24C553A800C10493 /* statisticsIcon.png in Resources */,
 				D8C25D982181771F00C5DB64 /* timms@2x.png in Resources */,
 				D8C25D992181771F00C5DB64 /* rip@2x.png in Resources */,
 				D8C25D9A2181771F00C5DB64 /* RouteCollectionViewCell.xib in Resources */,
@@ -2090,6 +2101,7 @@
 				D8C25DD42181771F00C5DB64 /* SectionStripView.xib in Resources */,
 				D8C25DD52181771F00C5DB64 /* menu.png in Resources */,
 				D8C25DD72181771F00C5DB64 /* doc200.png in Resources */,
+				D8BBA1CD24C553A800C10493 /* statisticsIcon@2x.png in Resources */,
 				D8C25DD82181771F00C5DB64 /* doc200@2x.png in Resources */,
 				D8C25DD92181771F00C5DB64 /* collapse2@2x.png in Resources */,
 				D8C25DDA2181771F00C5DB64 /* show.png in Resources */,
