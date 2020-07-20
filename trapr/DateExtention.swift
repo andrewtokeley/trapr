@@ -134,4 +134,28 @@ extension Date {
         return dateFormatter.string(from: dt!)
     }
     
+    /**
+     Returns the number of days between the current date and today. If the date is in the past the result will be positive, otherwise a negative number.
+     */
+    func daysSince() -> Int {
+        
+        let calendar = NSCalendar.current
+        let selfStartOfDay = calendar.startOfDay(for: self)
+        let startOfToday = calendar.startOfDay(for: Date())
+        
+        let components = calendar.dateComponents([.day], from: selfStartOfDay, to: startOfToday)
+        
+        return components.day ?? 0
+    }
+    
+    func daysSinceDescription() -> String {
+        let day = self.daysSince()
+        if day == 0 {
+            return "today"
+        } else if day == 1 {
+            return "yesterday"
+        } else {
+            return "\(day) days ago"
+        }
+    }
 }

@@ -127,7 +127,7 @@ final class VisitLogView: UserInterface {
         tableView.alpha = 0
         tableView.delegate = self
         tableView.dataSource = self
-        
+        tableView.backgroundColor = .trpBackground
         return tableView
     }()
     

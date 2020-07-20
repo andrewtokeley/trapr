@@ -78,8 +78,9 @@ class HtmlServiceTests: FirebaseTestCase {
     }
     
     private func createVisit(_ baitAdded: Int = 0, _ baitEaten: Int = 0, _ baitRemoved: Int = 0, _ species: Species? = nil, _ route: Route, _ trapline: Trapline, _ station: Station, _ trapType: TrapTypeCode, completion: (() -> Void)?) {
-        self.createTestVisit(date: Date(), routeId: route.id!, traplineId: trapline.id!, stationId: station.id!, trapTypeId: trapType.rawValue, completion: { (visit) in
+
+        self.createTestVisit(Date(), baitAdded, baitEaten, baitRemoved, route.id!, trapline.id!, station.id!, trapType, nil, nil) {
             completion?()
-        })
+        }
     }
 }

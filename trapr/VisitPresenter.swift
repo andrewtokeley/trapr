@@ -11,7 +11,10 @@ import UIKit
 import Viperit
 import MessageUI
 
+
 enum visitRecordMenuItem: String {
+    case showStats = "Show stats"
+    case hideStats = "Hide stats"
     case sendReport = "Send report..."
     case viewMap = "Show map"
     case addStation = "Add station..."
@@ -28,7 +31,8 @@ final class VisitPresenter: Presenter {
     fileprivate var delegate: VisitDelegate?
     
     fileprivate var visitSummary: VisitSummary!
-    fileprivate var currentVisit: Visit?
+    //fileprivate var currentVisit: Visit?
+    fileprivate var currentVisit: VisitEx?
     
     fileprivate var trapsToDisplay = [TrapType]()
     fileprivate var unusedTrapTypes = [TrapType]()
@@ -292,6 +296,16 @@ extension VisitPresenter: VisitPresenterApi {
         _view.presentConfirmation(response: nil)
     }
     
+    func didSelectEditView() {
+        router.addVisitLogToView()
+        self.callVisitDelegateChangeVisit()
+    }
+    
+    func didSelectStatsView() {
+        router.addTrapStatisticsToView()
+        self.callVisitDelegateChangeVisit()
+    }
+    
     func didSelectMenuButton() {
         
         // can send on if there's at least one visit
@@ -299,6 +313,11 @@ extension VisitPresenter: VisitPresenterApi {
         self.interactor.numberOfVisits(routeId: visitSummary.routeId!, date: visitSummary.dateOfVisit) { (count) in
          
             let options = [
+                
+                // TEST
+                OptionItem(title: visitRecordMenuItem.showStats.rawValue, isEnabled: true),
+                OptionItem(title: visitRecordMenuItem.hideStats.rawValue, isEnabled: true),
+                
                 OptionItem(title: visitRecordMenuItem.sendReport.rawValue, isEnabled: count > 0),
                 OptionItem(title: visitRecordMenuItem.viewMap.rawValue, isEnabled: true),
                 OptionItem(title: visitRecordMenuItem.addTrap.rawValue, isEnabled: self.unusedTrapTypes.count > 0),
@@ -311,7 +330,25 @@ extension VisitPresenter: VisitPresenterApi {
         }
     }
     
+    func callVisitDelegateChangeVisit() {
+        var hasCatchData = false
+        if self.currentTrap?.killMethod == .direct { hasCatchData = true }
+        
+        delegate?.didChangeVisit(routeId: self.currentStation.routeId!, stationId: self.currentStation.id!, trapTypeId: self.currentTrap!.id!, hasCatchData: hasCatchData, visit: self.currentVisit)
+    }
+    
     func didSelectMenuItem(title: String) {
+        
+        if title == visitRecordMenuItem.showStats.rawValue {
+            router.addTrapStatisticsToView()
+            self.callVisitDelegateChangeVisit()
+        }
+        
+        if title == visitRecordMenuItem.hideStats.rawValue {
+            router.addVisitLogToView()
+            self.callVisitDelegateChangeVisit()
+        }
+        
         if title == visitRecordMenuItem.sendReport.rawValue {
             self.menuSendToHandler()
         }
@@ -353,7 +390,7 @@ extension VisitPresenter: VisitPresenterApi {
     }
     
     func didSelectDate() {
-        //view.showDatePicker(date: self.visitSummary!.dateOfVisit)
+        
         let setupData = DatePickerSetupData()
         setupData.initialDate = visitSummary!.dateOfVisit
         setupData.delegate = self
@@ -362,7 +399,7 @@ extension VisitPresenter: VisitPresenterApi {
     }
     
     func didSelectTrap(index: Int) {
-        print("presenter: didSelectTrap")
+        
         trapTypeIndex = index
         if let trapTypeId = self.currentTrap?.id, let stationId = self.currentStation.id {
             interactor.retrieveVisit(date: visitSummary.dateOfVisit, routeId: visitSummary.routeId, stationId: stationId, trapTypeId: trapTypeId)
@@ -393,27 +430,31 @@ extension VisitPresenter: VisitPresenterApi {
         self.allTypeTypes = trapTypes
     }
     
+    func didFetchVisit(visit: VisitEx) {
+        self.currentVisit = visit
+        self.callVisitDelegateChangeVisit()
+    }
+    
     func didFetchVisit(visit: Visit) {
         
         // hold a reference to this visit - needed if user requests to delete it
-        self.currentVisit = visit
+        //self.currentVisit = visit
         
         // isNew will be true if this is
-        delegate?.didChangeVisit(visit: visit)
+        //delegate?.didChangeVisit(visit: visit)
     }
     
     func didFindNoVisit() {
         self.currentVisit = nil
-        delegate?.didChangeVisit(visit: nil)
+        self.callVisitDelegateChangeVisit()
     }
     
     func didSelectStation(index: Int, trapIndex: Int = 0) {
         self.stationIndex = index
-        print("presenter: didSelectStation")
+        
         // note we don't always want to return all the traps of the station, only those not-archived or archived but with a visit recorded
         interactor.retrieveTrapsToDisplay(route: self.visitSummary.route!, station: self.currentStation, date: self.visitSummary.dateOfVisit) { (trapTypes) in
             
-            print("interactor: retrieveTrapsToDisplay:complete")
             self.trapsToDisplay = trapTypes
             self.view.setTraps(trapTypes: self.trapsToDisplay)
             
@@ -452,8 +493,8 @@ extension VisitPresenter: VisitLogDelegate {
     func didSelectToRemoveVisit() {
         if let visit = self.currentVisit {
             interactor.deleteVisit(visit: visit)
-            delegate?.didChangeVisit(visit: nil)
             self.currentVisit = nil
+            self.callVisitDelegateChangeVisit()
         }
     }
     

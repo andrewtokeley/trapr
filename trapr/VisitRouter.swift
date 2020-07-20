@@ -64,6 +64,25 @@ extension VisitRouter: VisitRouterApi {
                 // tell delegate (VisitPresenter only) of other events - like when a user selects to remove a Visit
                 (module.presenter as? VisitLogPresenter)?.delegate = presenter as? VisitLogDelegate
                 
+                visitView.removeSubViewsFromVisitContainerView()
+                (module.router as! Router).addAsChildView(ofView: viewController, insideContainer: visitView.getVisitContainerView)
+            }
+        }
+
+    }
+    
+    func addTrapStatisticsToView() {
+        let module = AppModules.trapStatistics.build()
+        
+        if let visitView = _view as? VisitViewApi {
+            
+            if let delegate = module.presenter as? VisitDelegate {
+                
+                // let the presenter know the VisitDelegate so it can tell the VisitLog about changes to the current visit
+                presenter.setVisitDelegate(delegate: delegate)
+                
+                visitView.removeSubViewsFromVisitContainerView()
+                
                 (module.router as! Router).addAsChildView(ofView: viewController, insideContainer: visitView.getVisitContainerView)
             }
         }

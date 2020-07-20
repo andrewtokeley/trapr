@@ -65,7 +65,7 @@ extension ExcelService: ExcelServiceInterface {
         }
         
         dispatchGroup.notify(queue: .main) {
-            completion?(visitsEx.sorted(by: { $0.order! < $1.order! }))
+            completion?(visitsEx.sorted(by: { $0.order < $1.order }))
         }
     }
     

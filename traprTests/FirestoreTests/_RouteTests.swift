@@ -56,15 +56,17 @@ class _RouteTests: FirebaseTestCase {
             }
         }
     }
-                
+          
     func testDaysSinceLastVisit() {
         let expect = expectation(description: "testDaysSinceLastVisit")
-        
-        self.setupTests {
+        self.setUpTests() {
+                    
             // add a new Trapline/Station/Route and 300 day old visit
             self.createTestTrapline(regionId: "REG", traplineCode: "ZZ", numberOfStations: 1) { (trapline, stations) in
+                
                 self.createTestRoute(name: "TestRoute") { (route: Route?) in
-                    self.createTestVisit(date: Date().add(-400, 0, 0), routeId: route!.id!, traplineId: trapline!.id!, stationId: stations[0].id!, trapTypeId: TrapTypeCode.doc200.rawValue) { (visit) in
+                    
+                    self.createTestVisit(Date().add(-400, 0, 0), 0, 0, 0, route!.id!, trapline!.id!, stations[0].id!, TrapTypeCode.doc200, nil, nil) {
                         
                         // test that the days since last visit correct
                         self.routeService.daysSinceLastVisit(routeId: route!.id!) { (days) in
@@ -86,7 +88,7 @@ class _RouteTests: FirebaseTestCase {
     
     func testAddOwners() {
         let expect = expectation(description: "testAddOwners")
-        self.setupTests() {
+        self.setUpTests() {
             
             // add an ownerless route
             
@@ -127,7 +129,7 @@ class _RouteTests: FirebaseTestCase {
         
         let expect = expectation(description: "testAddingRouteStations")
         
-        self.setupTests {
+        self.setUpTests {
             // Create LW01, LW02, LW03
             self.createTestTrapline(regionId: "REF", traplineCode: "LW", numberOfStations: 3) { (traplineLW, stationsLW) in
             
@@ -161,7 +163,7 @@ class _RouteTests: FirebaseTestCase {
     }
     
     func testSetUp() {
-        self.setupTests {
+        self.setUpTests {
             //check no routes are returned for the current user
             self.routeService.get(completion: { (routes, error) in
                 XCTAssertTrue(routes.count == 0)
@@ -169,7 +171,7 @@ class _RouteTests: FirebaseTestCase {
         }
     }
     
-    private func setupTests(completion: (() -> Void)?) {
+    private func setUpTests(completion: (() -> Void)?) {
         self.deleteTestRoutes {
             self.deleteTestTraplines {
                 self.deleteTestStations {

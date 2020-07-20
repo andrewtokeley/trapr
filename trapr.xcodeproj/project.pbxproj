@@ -111,6 +111,12 @@
 		D820AE0E20228889008925E8 /* VisitHistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0820228889008925E8 /* VisitHistoryInteractor.swift */; };
 		D820AE0F20228889008925E8 /* VisitHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820AE0920228889008925E8 /* VisitHistoryView.swift */; };
 		D82472CF225B5AF900AAD1E5 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D8D729E51F64BD580082CD4A /* Podfile */; };
+		D826B0CC24BC141D00C03A39 /* TrapStatisticsServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826B0CB24BC141C00C03A39 /* TrapStatisticsServiceInterface.swift */; };
+		D826B0CD24BC141D00C03A39 /* TrapStatisticsServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826B0CB24BC141C00C03A39 /* TrapStatisticsServiceInterface.swift */; };
+		D826B0CF24BC143900C03A39 /* TrapStatisticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826B0CE24BC143900C03A39 /* TrapStatisticsService.swift */; };
+		D826B0D024BC143900C03A39 /* TrapStatisticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826B0CE24BC143900C03A39 /* TrapStatisticsService.swift */; };
+		D826B0D224BC157600C03A39 /* TrapStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826B0D124BC157600C03A39 /* TrapStatistics.swift */; };
+		D826B0D324BC157600C03A39 /* TrapStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826B0D124BC157600C03A39 /* TrapStatistics.swift */; };
 		D82A53E61FF0DDF5000D9339 /* HtmlService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E51FF0DDF5000D9339 /* HtmlService.swift */; };
 		D82A53E81FF0DE11000D9339 /* HtmlServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E71FF0DE11000D9339 /* HtmlServiceInterface.swift */; };
 		D82A53EA1FF1F9B3000D9339 /* HtmlServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A53E91FF1F9B3000D9339 /* HtmlServiceTests.swift */; };
@@ -293,6 +299,32 @@
 		D8B94D9D1F5F30CD00D373EF /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8B94D9B1F5F30CD00D373EF /* menu@2x.png */; };
 		D8BB6F4B202917A6008AB3A2 /* CameraHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BB6F4A202917A6008AB3A2 /* CameraHandler.swift */; };
 		D8BB6F4D20291E9E008AB3A2 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BB6F4C20291E9E008AB3A2 /* UIImageViewExtension.swift */; };
+		D8BBA18E24BD468B00C10493 /* TrapStatisticsDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA18824BD468B00C10493 /* TrapStatisticsDisplayData.swift */; };
+		D8BBA18F24BD468B00C10493 /* TrapStatisticsDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA18824BD468B00C10493 /* TrapStatisticsDisplayData.swift */; };
+		D8BBA19024BD468B00C10493 /* TrapStatisticsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA18924BD468B00C10493 /* TrapStatisticsPresenter.swift */; };
+		D8BBA19124BD468B00C10493 /* TrapStatisticsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA18924BD468B00C10493 /* TrapStatisticsPresenter.swift */; };
+		D8BBA19224BD468B00C10493 /* TrapStatisticsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA18A24BD468B00C10493 /* TrapStatisticsRouter.swift */; };
+		D8BBA19324BD468B00C10493 /* TrapStatisticsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA18A24BD468B00C10493 /* TrapStatisticsRouter.swift */; };
+		D8BBA19424BD468B00C10493 /* TrapStatisticsModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA18B24BD468B00C10493 /* TrapStatisticsModuleApi.swift */; };
+		D8BBA19524BD468B00C10493 /* TrapStatisticsModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA18B24BD468B00C10493 /* TrapStatisticsModuleApi.swift */; };
+		D8BBA19624BD468B00C10493 /* TrapStatisticsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA18C24BD468B00C10493 /* TrapStatisticsInteractor.swift */; };
+		D8BBA19724BD468B00C10493 /* TrapStatisticsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA18C24BD468B00C10493 /* TrapStatisticsInteractor.swift */; };
+		D8BBA19824BD468B00C10493 /* TrapStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA18D24BD468B00C10493 /* TrapStatisticsView.swift */; };
+		D8BBA19924BD468B00C10493 /* TrapStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA18D24BD468B00C10493 /* TrapStatisticsView.swift */; };
+		D8BBA19B24BE63F100C10493 /* VisitDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA19A24BE63F100C10493 /* VisitDataDelegate.swift */; };
+		D8BBA19C24BE63F200C10493 /* VisitDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA19A24BE63F100C10493 /* VisitDataDelegate.swift */; };
+		D8BBA19F24BFEB5100C10493 /* TableViewCellStyleValue3.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA19E24BFEB5100C10493 /* TableViewCellStyleValue3.xib */; };
+		D8BBA1A024BFEB5100C10493 /* TableViewCellStyleValue3.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA19E24BFEB5100C10493 /* TableViewCellStyleValue3.xib */; };
+		D8BBA1A224BFEC4400C10493 /* TableViewCellStyleValue3.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA1A124BFEC4400C10493 /* TableViewCellStyleValue3.swift */; };
+		D8BBA1A324BFEC4400C10493 /* TableViewCellStyleValue3.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA1A124BFEC4400C10493 /* TableViewCellStyleValue3.swift */; };
+		D8BBA1AA24C1145100C10493 /* statisticsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1A524C1144F00C10493 /* statisticsIcon@2x.png */; };
+		D8BBA1AB24C1145100C10493 /* statisticsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1A524C1144F00C10493 /* statisticsIcon@2x.png */; };
+		D8BBA1AC24C1145100C10493 /* statisticsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1A624C1145000C10493 /* statisticsIcon.png */; };
+		D8BBA1AD24C1145100C10493 /* statisticsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1A624C1145000C10493 /* statisticsIcon.png */; };
+		D8BBA1B824C4F44E00C10493 /* logIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1B624C4F44C00C10493 /* logIcon@2x.png */; };
+		D8BBA1B924C4F44E00C10493 /* logIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1B624C4F44C00C10493 /* logIcon@2x.png */; };
+		D8BBA1BA24C4F44E00C10493 /* logIcon2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1B724C4F44D00C10493 /* logIcon2x.png */; };
+		D8BBA1BB24C4F44E00C10493 /* logIcon2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1B724C4F44D00C10493 /* logIcon2x.png */; };
 		D8BC08461F6A541200B284EE /* greaterthan.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08441F6A541200B284EE /* greaterthan.png */; };
 		D8BC08471F6A541200B284EE /* lessthan.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08451F6A541200B284EE /* lessthan.png */; };
 		D8BC084A1F6A542700B284EE /* greaterthan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08481F6A542700B284EE /* greaterthan@2x.png */; };
@@ -742,6 +774,9 @@
 		D820AE0720228889008925E8 /* VisitHistoryModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitHistoryModuleApi.swift; sourceTree = "<group>"; };
 		D820AE0820228889008925E8 /* VisitHistoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitHistoryInteractor.swift; sourceTree = "<group>"; };
 		D820AE0920228889008925E8 /* VisitHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitHistoryView.swift; sourceTree = "<group>"; };
+		D826B0CB24BC141C00C03A39 /* TrapStatisticsServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrapStatisticsServiceInterface.swift; sourceTree = "<group>"; };
+		D826B0CE24BC143900C03A39 /* TrapStatisticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrapStatisticsService.swift; sourceTree = "<group>"; };
+		D826B0D124BC157600C03A39 /* TrapStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrapStatistics.swift; sourceTree = "<group>"; };
 		D82A53E31FEF04F2000D9339 /* TrapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrapTests.swift; sourceTree = "<group>"; };
 		D82A53E51FF0DDF5000D9339 /* HtmlService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlService.swift; sourceTree = "<group>"; };
 		D82A53E71FF0DE11000D9339 /* HtmlServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlServiceInterface.swift; sourceTree = "<group>"; };
@@ -912,6 +947,19 @@
 		D8B94D9B1F5F30CD00D373EF /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
 		D8BB6F4A202917A6008AB3A2 /* CameraHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraHandler.swift; sourceTree = "<group>"; };
 		D8BB6F4C20291E9E008AB3A2 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
+		D8BBA18824BD468B00C10493 /* TrapStatisticsDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrapStatisticsDisplayData.swift; sourceTree = "<group>"; };
+		D8BBA18924BD468B00C10493 /* TrapStatisticsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrapStatisticsPresenter.swift; sourceTree = "<group>"; };
+		D8BBA18A24BD468B00C10493 /* TrapStatisticsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrapStatisticsRouter.swift; sourceTree = "<group>"; };
+		D8BBA18B24BD468B00C10493 /* TrapStatisticsModuleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrapStatisticsModuleApi.swift; sourceTree = "<group>"; };
+		D8BBA18C24BD468B00C10493 /* TrapStatisticsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrapStatisticsInteractor.swift; sourceTree = "<group>"; };
+		D8BBA18D24BD468B00C10493 /* TrapStatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrapStatisticsView.swift; sourceTree = "<group>"; };
+		D8BBA19A24BE63F100C10493 /* VisitDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitDataDelegate.swift; sourceTree = "<group>"; };
+		D8BBA19E24BFEB5100C10493 /* TableViewCellStyleValue3.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCellStyleValue3.xib; sourceTree = "<group>"; };
+		D8BBA1A124BFEC4400C10493 /* TableViewCellStyleValue3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellStyleValue3.swift; sourceTree = "<group>"; };
+		D8BBA1A524C1144F00C10493 /* statisticsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "statisticsIcon@2x.png"; sourceTree = "<group>"; };
+		D8BBA1A624C1145000C10493 /* statisticsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statisticsIcon.png; sourceTree = "<group>"; };
+		D8BBA1B624C4F44C00C10493 /* logIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logIcon@2x.png"; sourceTree = "<group>"; };
+		D8BBA1B724C4F44D00C10493 /* logIcon2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logIcon2x.png; sourceTree = "<group>"; };
 		D8BC08441F6A541200B284EE /* greaterthan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greaterthan.png; sourceTree = "<group>"; };
 		D8BC08451F6A541200B284EE /* lessthan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessthan.png; sourceTree = "<group>"; };
 		D8BC08481F6A542700B284EE /* greaterthan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greaterthan@2x.png"; sourceTree = "<group>"; };
@@ -1141,6 +1189,7 @@
 				D8C8A1F11FCD10CB0075E44E /* CommentsTableViewCell.xib */,
 				D8C8A1F31FCD12900075E44E /* CommentsTableViewCell.swift */,
 				D8C8A1F91FCE85EF0075E44E /* VisitLogViewDelegate.swift */,
+				D8BBA19A24BE63F100C10493 /* VisitDataDelegate.swift */,
 			);
 			name = VisitLog;
 			sourceTree = "<group>";
@@ -1201,6 +1250,7 @@
 			isa = PBXGroup;
 			children = (
 				D873615722484DDD00CAAA66 /* AnalyticsEventsServiceInterface.swift */,
+				D8D6530124B69D6000C62002 /* BRAWorksheetExtension.swift */,
 				D8DC916D21CAD4DF006D8B57 /* CachePrimerFirestoreService.swift */,
 				D8DC916B21CAD469006D8B57 /* CachePrimerServiceInterface.swift */,
 				D8BB6F4A202917A6008AB3A2 /* CameraHandler.swift */,
@@ -1224,6 +1274,8 @@
 				D89A20DA1FDC98D200A813FB /* StationServiceInterface.swift */,
 				D8C25C9C218106C400C5DB64 /* TraplineFirestoreService.swift */,
 				D80F7ECD1F6E79BF00814A52 /* TraplineServiceInterface.swift */,
+				D826B0CE24BC143900C03A39 /* TrapStatisticsService.swift */,
+				D826B0CB24BC141C00C03A39 /* TrapStatisticsServiceInterface.swift */,
 				D84311792183DD840003C2C6 /* TrapTypeFirestoreService.swift */,
 				D8C25C85217A62C400C5DB64 /* UserService.swift */,
 				D8C25C87217A62E100C5DB64 /* UserServiceInterface.swift */,
@@ -1235,7 +1287,6 @@
 				D86DEC2E219D330200DCE730 /* VisitSummaryFirebaseService.swift */,
 				D86DEC2B219D31DB00DCE730 /* VisitSummaryServiceInterface.swift */,
 				D80D694021E066B800EDBE8D /* Reachability */,
-				D8D6530124B69D6000C62002 /* BRAWorksheetExtension.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -1302,8 +1353,11 @@
 		D8503DD11F669F8B00ED0C84 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D8431185218423B50003C2C6 /* AuthenticatedUser.swift */,
+				D8C25C83217A578F00C5DB64 /* DocumentSerializable.swift */,
 				D82F40AE2182442400392DFD /* Lookup.swift */,
 				D843117F2183DEF20003C2C6 /* Lure.swift */,
+				D891530521AB20E500389469 /* ModelConverter.swift */,
 				D8A4E966218D68BC0070413B /* Region.swift */,
 				D8A4E96C218E330B0070413B /* Route.swift */,
 				D83A18E6221A1F1C00451987 /* RouteUserSettings.swift */,
@@ -1313,16 +1367,14 @@
 				D8A4E963218D41D30070413B /* Trapline.swift */,
 				D8C8A1ED1FCCBA070075E44E /* TrapOperatingStatus.swift */,
 				D8C8A1EF1FCCBAB90075E44E /* TrapSetStatus.swift */,
+				D826B0D124BC157600C03A39 /* TrapStatistics.swift */,
 				D843117C2183DE610003C2C6 /* TrapType.swift */,
-				D80F8DCD21969DC90035C668 /* Visit.swift */,
-				D813AAFC219CA841005DF558 /* VisitSummary.swift */,
-				D8C3786A21463F8A00B02E86 /* VisitSummariesStatistics.swift */,
-				D8431185218423B50003C2C6 /* AuthenticatedUser.swift */,
-				D8C25C83217A578F00C5DB64 /* DocumentSerializable.swift */,
-				D891530521AB20E500389469 /* ModelConverter.swift */,
 				D8C25C81217A557800C5DB64 /* User.swift */,
 				D8DA1B1421DDCBA1008EC4FD /* UserSettings.swift */,
 				D8A4E95F218CFDF40070413B /* UserStatistics.swift */,
+				D80F8DCD21969DC90035C668 /* Visit.swift */,
+				D8C3786A21463F8A00B02E86 /* VisitSummariesStatistics.swift */,
+				D813AAFC219CA841005DF558 /* VisitSummary.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1522,6 +1574,7 @@
 		D8B94D781F5EA52200D373EF /* Design */ = {
 			isa = PBXGroup;
 			children = (
+				D8BBA19D24BFEACE00C10493 /* TableViewCellStyleValue3 */,
 				D8B94D991F5F28F200D373EF /* Images */,
 				D8B94D791F5EA54300D373EF /* Styles.swift */,
 				D87926991FB5775900240767 /* Layout.swift */,
@@ -1543,6 +1596,7 @@
 		D8B94D7D1F5EA67300D373EF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D8BBA18724BD465600C10493 /* TrapStatistics */,
 				D80FFC6A2202381200AFB69F /* OrderStations */,
 				D8C25C8D217EDA8200C5DB64 /* Administration */,
 				D806C7E91F9C881F0064C98F /* GroupedTableViewDatasource.swift */,
@@ -1571,6 +1625,10 @@
 		D8B94D991F5F28F200D373EF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D8BBA1B624C4F44C00C10493 /* logIcon@2x.png */,
+				D8BBA1B724C4F44D00C10493 /* logIcon2x.png */,
+				D8BBA1A624C1145000C10493 /* statisticsIcon.png */,
+				D8BBA1A524C1144F00C10493 /* statisticsIcon@2x.png */,
 				D8C25C89217C3DF800C5DB64 /* exit.png */,
 				D8C25C8A217C3DF900C5DB64 /* exit@2x.png */,
 				D852E84E206F542200255A2D /* add@2x.png */,
@@ -1640,6 +1698,28 @@
 				D84C24692005DAB6000BCAF8 /* walker@2x.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		D8BBA18724BD465600C10493 /* TrapStatistics */ = {
+			isa = PBXGroup;
+			children = (
+				D8BBA18824BD468B00C10493 /* TrapStatisticsDisplayData.swift */,
+				D8BBA18924BD468B00C10493 /* TrapStatisticsPresenter.swift */,
+				D8BBA18A24BD468B00C10493 /* TrapStatisticsRouter.swift */,
+				D8BBA18B24BD468B00C10493 /* TrapStatisticsModuleApi.swift */,
+				D8BBA18C24BD468B00C10493 /* TrapStatisticsInteractor.swift */,
+				D8BBA18D24BD468B00C10493 /* TrapStatisticsView.swift */,
+			);
+			name = TrapStatistics;
+			sourceTree = "<group>";
+		};
+		D8BBA19D24BFEACE00C10493 /* TableViewCellStyleValue3 */ = {
+			isa = PBXGroup;
+			children = (
+				D8BBA19E24BFEB5100C10493 /* TableViewCellStyleValue3.xib */,
+				D8BBA1A124BFEC4400C10493 /* TableViewCellStyleValue3.swift */,
+			);
+			name = TableViewCellStyleValue3;
 			sourceTree = "<group>";
 		};
 		D8C25C8D217EDA8200C5DB64 /* Administration */ = {
@@ -1875,6 +1955,7 @@
 				D86CE4891F92BC6F004A09EF /* home@2x.png in Resources */,
 				D84C245F1FFF3AD8000BCAF8 /* edit@2x.png in Resources */,
 				D8BC084A1F6A542700B284EE /* greaterthan@2x.png in Resources */,
+				D8BBA1AC24C1145100C10493 /* statisticsIcon.png in Resources */,
 				D8DBE3EC1FF5CD7300AA6482 /* circle@2x.png in Resources */,
 				D83089581FA18815007C9316 /* StepperTableViewCell.xib in Resources */,
 				D8C8A1E81FCBA6210075E44E /* envelope@2x.png in Resources */,
@@ -1893,6 +1974,7 @@
 				D8C25C8B217C3DF900C5DB64 /* exit.png in Resources */,
 				D8083D2E1FE6129A00D1C5F1 /* rip.png in Resources */,
 				D82D7BCD201F95A3006B0C02 /* Clock2.png in Resources */,
+				D8BBA1B824C4F44E00C10493 /* logIcon@2x.png in Resources */,
 				D82D7BCE201F95A3006B0C02 /* Clock2@2x.png in Resources */,
 				D83853041F66555700481B57 /* plus.png in Resources */,
 				D8B94D9D1F5F30CD00D373EF /* menu@2x.png in Resources */,
@@ -1906,6 +1988,8 @@
 				D8BC084B1F6A542700B284EE /* lessthan@2x.png in Resources */,
 				D8FA5CF61F8406D600EC890C /* close@2x.png in Resources */,
 				D8DBE3D61FF37F0900AA6482 /* timms.png in Resources */,
+				D8BBA19F24BFEB5100C10493 /* TableViewCellStyleValue3.xib in Resources */,
+				D8BBA1BA24C4F44E00C10493 /* logIcon2x.png in Resources */,
 				D8D1BB041FF8637C00AD71E3 /* Logo@2x.png in Resources */,
 				D87926951FB555A500240767 /* clock@2x.png in Resources */,
 				D8503DD81F67AF7800ED0C84 /* user.png in Resources */,
@@ -1917,6 +2001,7 @@
 				D8C8A1F81FCE1C4F0075E44E /* doc200.png in Resources */,
 				D8C8A1F71FCE1C4F0075E44E /* doc200@2x.png in Resources */,
 				D858D7C02019D68A00EE052D /* collapse2@2x.png in Resources */,
+				D8BBA1AA24C1145100C10493 /* statisticsIcon@2x.png in Resources */,
 				D814319A1F8CBD5E00EAF5FD /* show.png in Resources */,
 				D86CE4831F92BC6F004A09EF /* map.png in Resources */,
 				D814319B1F8CBD5E00EAF5FD /* show@2x.png in Resources */,
@@ -1972,6 +2057,7 @@
 				D8C25DA92181771F00C5DB64 /* edit@2x.png in Resources */,
 				D8C25DAA2181771F00C5DB64 /* greaterthan@2x.png in Resources */,
 				D8C25DAB2181771F00C5DB64 /* circle@2x.png in Resources */,
+				D8BBA1AD24C1145100C10493 /* statisticsIcon.png in Resources */,
 				D8C25DAC2181771F00C5DB64 /* StepperTableViewCell.xib in Resources */,
 				D8C25DAD2181771F00C5DB64 /* envelope@2x.png in Resources */,
 				D8C25DAE2181771F00C5DB64 /* Logo.png in Resources */,
@@ -1990,6 +2076,7 @@
 				D8C25DBC2181771F00C5DB64 /* rip.png in Resources */,
 				D8C25DBD2181771F00C5DB64 /* Clock2.png in Resources */,
 				D8C25DBE2181771F00C5DB64 /* Clock2@2x.png in Resources */,
+				D8BBA1B924C4F44E00C10493 /* logIcon@2x.png in Resources */,
 				D8C25DBF2181771F00C5DB64 /* plus.png in Resources */,
 				D8C25DC02181771F00C5DB64 /* menu@2x.png in Resources */,
 				D8C25DC12181771F00C5DB64 /* CommentsTableViewCell.xib in Resources */,
@@ -2003,6 +2090,8 @@
 				D8C25DC92181771F00C5DB64 /* close@2x.png in Resources */,
 				D8C25DCA2181771F00C5DB64 /* timms.png in Resources */,
 				D8C25DCB2181771F00C5DB64 /* Logo@2x.png in Resources */,
+				D8BBA1A024BFEB5100C10493 /* TableViewCellStyleValue3.xib in Resources */,
+				D8BBA1BB24C4F44E00C10493 /* logIcon2x.png in Resources */,
 				D8C25DCD2181771F00C5DB64 /* clock@2x.png in Resources */,
 				D8C25DCF2181771F00C5DB64 /* user.png in Resources */,
 				D8C25DD02181771F00C5DB64 /* expand2.png in Resources */,
@@ -2014,6 +2103,7 @@
 				D8C25DD72181771F00C5DB64 /* doc200.png in Resources */,
 				D8C25DD82181771F00C5DB64 /* doc200@2x.png in Resources */,
 				D8C25DD92181771F00C5DB64 /* collapse2@2x.png in Resources */,
+				D8BBA1AB24C1145100C10493 /* statisticsIcon@2x.png in Resources */,
 				D8C25DDA2181771F00C5DB64 /* show.png in Resources */,
 				D8C25DDB2181771F00C5DB64 /* map.png in Resources */,
 				D8C25DDC2181771F00C5DB64 /* show@2x.png in Resources */,
@@ -2348,6 +2438,7 @@
 				D80FFC792202385000AFB69F /* OrderStationsInteractor.swift in Sources */,
 				D87C44EF1F8F545F00CAFC7A /* DatePickerSetupData.swift in Sources */,
 				D86CE4781F91DBC5004A09EF /* MenuDivider.swift in Sources */,
+				D8BBA19824BD468B00C10493 /* TrapStatisticsView.swift in Sources */,
 				D841CF2A1F8239CA004D0207 /* TraplineSelectRouter.swift in Sources */,
 				D86DEC2F219D330200DCE730 /* VisitSummaryFirebaseService.swift in Sources */,
 				D8DA1B1521DDCBA1008EC4FD /* UserSettings.swift in Sources */,
@@ -2359,6 +2450,7 @@
 				D8C25C97217EDAA300C5DB64 /* AdministrationModuleApi.swift in Sources */,
 				D80F8DCE21969DC90035C668 /* Visit.swift in Sources */,
 				D8C8A1E21FCB9F7F0075E44E /* VisitSummaryTableViewCell.swift in Sources */,
+				D8BBA19624BD468B00C10493 /* TrapStatisticsInteractor.swift in Sources */,
 				D83D64C222615CD100353902 /* ArrayExtension.swift in Sources */,
 				D83DC6CD1F7F841F00F91792 /* StartView.swift in Sources */,
 				D80B6DCB1F9F3DCD00F49E9E /* VisitLogDisplayData.swift in Sources */,
@@ -2375,6 +2467,7 @@
 				D8EA4610200AB9A20032224E /* StackCount.swift in Sources */,
 				D800573620154F9C0084E950 /* VerticallyCentredTextView.swift in Sources */,
 				D8DBE3E51FF50A1500AA6482 /* StationMapAnnotation.swift in Sources */,
+				D8BBA18E24BD468B00C10493 /* TrapStatisticsDisplayData.swift in Sources */,
 				D89A20DB1FDC98D200A813FB /* StationServiceInterface.swift in Sources */,
 				D8FAFCF6221C8B8C00E56BC6 /* RouteUserSettingsServiceInterface.swift in Sources */,
 				D8039E311FABF6B9006E394B /* ListPickerSetupData.swift in Sources */,
@@ -2385,6 +2478,7 @@
 				D8005733201528C60084E950 /* StationMarkerAnnotationView.swift in Sources */,
 				D8E73D9120C7EFA00070C034 /* StationSearchSetupData.swift in Sources */,
 				D8039E251FABF458006E394B /* ListPickerDisplayData.swift in Sources */,
+				D8BBA19224BD468B00C10493 /* TrapStatisticsRouter.swift in Sources */,
 				D8DE38061FFCC88F00707A7D /* StationMapViewController.swift in Sources */,
 				D83D0B57200E8B70001E1F69 /* UIViewControllerExtension.swift in Sources */,
 				D8503DC81F66807C00ED0C84 /* VisitPresenter.swift in Sources */,
@@ -2402,6 +2496,7 @@
 				D80C14FD202F9416005EBD10 /* LoaderDelegate.swift in Sources */,
 				D8C3786D2146431900B02E86 /* TimeIntervalExtension.swift in Sources */,
 				D856F67020111D3E00CA50C2 /* NewRouteModuleApi.swift in Sources */,
+				D8BBA19B24BE63F100C10493 /* VisitDataDelegate.swift in Sources */,
 				D815D792200CBA2A0086AFFE /* LoaderRouter.swift in Sources */,
 				D8DE38081FFCC8BC00707A7D /* StationMapDelegate.swift in Sources */,
 				D87926981FB556B800240767 /* RouteCollectionViewCell.swift in Sources */,
@@ -2416,6 +2511,7 @@
 				D82A53E61FF0DDF5000D9339 /* HtmlService.swift in Sources */,
 				D841CF291F8239CA004D0207 /* TraplineSelectPresenter.swift in Sources */,
 				D8039E291FABF458006E394B /* ListPickerRouter.swift in Sources */,
+				D8BBA19424BD468B00C10493 /* TrapStatisticsModuleApi.swift in Sources */,
 				D815D793200CBA2A0086AFFE /* LoaderModuleApi.swift in Sources */,
 				D83DC6C81F7F841F00F91792 /* StartDisplayData.swift in Sources */,
 				D88DFE4D1FFABCD00048CA54 /* RouteDashboardPresenter.swift in Sources */,
@@ -2429,6 +2525,7 @@
 				D8A4E964218D41D30070413B /* Trapline.swift in Sources */,
 				D8A4E962218CFE080070413B /* UserStatistics.swift in Sources */,
 				D8039E2A1FABF458006E394B /* ListPickerView.swift in Sources */,
+				D826B0CF24BC143900C03A39 /* TrapStatisticsService.swift in Sources */,
 				D8D79AB31FC4B992008AC5C1 /* OptionItem.swift in Sources */,
 				D815D790200CBA2A0086AFFE /* LoaderDisplayData.swift in Sources */,
 				D873C8701FC6873A00F581D8 /* UIImageExtention.swift in Sources */,
@@ -2444,6 +2541,7 @@
 				D8039E271FABF458006E394B /* ListPickerModuleApi.swift in Sources */,
 				D8E73D8C20C7AB630070C034 /* StationSearchInteractor.swift in Sources */,
 				D8193D9621F1166D00C3BB5D /* VisitSummariesStatistics.swift in Sources */,
+				D8BBA19024BD468B00C10493 /* TrapStatisticsPresenter.swift in Sources */,
 				D856F67220111D3E00CA50C2 /* NewRouteView.swift in Sources */,
 				D8AB9ADB201DAF3300FBEF55 /* RouteTableViewCell.swift in Sources */,
 				D851E566225AAD4D009E129A /* ExcelServiceInterface.swift in Sources */,
@@ -2480,6 +2578,7 @@
 				D88BE09C202C54C700098DBE /* SavedImageService.swift in Sources */,
 				D89312011F834F6F008DF09D /* StationSelectModuleApi.swift in Sources */,
 				D8DBE3E31FF4FC1900AA6482 /* MapView.swift in Sources */,
+				D826B0CC24BC141D00C03A39 /* TrapStatisticsServiceInterface.swift in Sources */,
 				D841CF261F8239CA004D0207 /* TraplineSelectDisplayData.swift in Sources */,
 				D8503DC41F66807C00ED0C84 /* VisitInteractor.swift in Sources */,
 				D80FFC772202385000AFB69F /* OrderStationsModuleApi.swift in Sources */,
@@ -2504,7 +2603,9 @@
 				D80FFC752202385000AFB69F /* OrderStationsRouter.swift in Sources */,
 				D84C24662004806F000BCAF8 /* ObjectOrder.swift in Sources */,
 				D813AAFD219CA841005DF558 /* VisitSummary.swift in Sources */,
+				D826B0D224BC157600C03A39 /* TrapStatistics.swift in Sources */,
 				D820AE0D20228889008925E8 /* VisitHistoryModuleApi.swift in Sources */,
+				D8BBA1A224BFEC4400C10493 /* TableViewCellStyleValue3.swift in Sources */,
 				D841CF281F8239CA004D0207 /* TraplineSelectModuleApi.swift in Sources */,
 				D8D66D452022CDA400CBF3D7 /* ViewHistorySetupData.swift in Sources */,
 				D8431186218423B50003C2C6 /* AuthenticatedUser.swift in Sources */,
@@ -2601,6 +2702,7 @@
 				D8DA1B1921DDCECF008EC4FD /* UserSettingsServiceInterface.swift in Sources */,
 				D8C25CE22181771F00C5DB64 /* DateExtention.swift in Sources */,
 				D8C25CE32181771F00C5DB64 /* RouteDashboardRouter.swift in Sources */,
+				D8BBA19924BD468B00C10493 /* TrapStatisticsView.swift in Sources */,
 				D8C25CE42181771F00C5DB64 /* StationSelectView.swift in Sources */,
 				D80F8DCF21969DC90035C668 /* Visit.swift in Sources */,
 				D8C25CE52181771F00C5DB64 /* AdministrationModuleApi.swift in Sources */,
@@ -2612,6 +2714,7 @@
 				D80FFC782202385000AFB69F /* OrderStationsModuleApi.swift in Sources */,
 				D8C25CED2181771F00C5DB64 /* RouteDashboardDisplayData.swift in Sources */,
 				D83A18E52217BB3600451987 /* UserServiceTestMock.swift in Sources */,
+				D8BBA19724BD468B00C10493 /* TrapStatisticsInteractor.swift in Sources */,
 				D83D64C322615D7400353902 /* ArrayExtension.swift in Sources */,
 				D80FFC7F22023AFF00AFB69F /* OrderStationsSetupData.swift in Sources */,
 				D8C25CEE2181771F00C5DB64 /* VisitLogViewDelegate.swift in Sources */,
@@ -2628,6 +2731,7 @@
 				D8C25CFE2181771F00C5DB64 /* VisitLogView.swift in Sources */,
 				D82F40B521825F2600392DFD /* SpeciesFirestoreService.swift in Sources */,
 				D8C25CFF2181771F00C5DB64 /* BarChartDelegate.swift in Sources */,
+				D8BBA18F24BD468B00C10493 /* TrapStatisticsDisplayData.swift in Sources */,
 				D8C25D012181771F00C5DB64 /* CameraHandler.swift in Sources */,
 				D8FAFCF7221C8B8C00E56BC6 /* RouteUserSettingsServiceInterface.swift in Sources */,
 				D8C25D022181771F00C5DB64 /* User.swift in Sources */,
@@ -2638,6 +2742,7 @@
 				D8C25D092181771F00C5DB64 /* UIViewControllerExtension.swift in Sources */,
 				D8193D9D21F1805D00C3BB5D /* SavedImage.swift in Sources */,
 				D8C25D0A2181771F00C5DB64 /* VisitPresenter.swift in Sources */,
+				D8BBA19324BD468B00C10493 /* TrapStatisticsRouter.swift in Sources */,
 				D84311842183E5790003C2C6 /* LureFirestoreService.swift in Sources */,
 				D8C25D0B2181771F00C5DB64 /* StatisticView.swift in Sources */,
 				D8C25D0C2181771F00C5DB64 /* StartSetupData.swift in Sources */,
@@ -2655,6 +2760,7 @@
 				D8C25D182181771F00C5DB64 /* StationMapDelegate.swift in Sources */,
 				D8C25D192181771F00C5DB64 /* RouteCollectionViewCell.swift in Sources */,
 				D8C25D1A2181771F00C5DB64 /* VisitHistoryPresenter.swift in Sources */,
+				D8BBA19C24BE63F200C10493 /* VisitDataDelegate.swift in Sources */,
 				D8C25D1B2181771F00C5DB64 /* SettingsModuleApi.swift in Sources */,
 				D8C25D1C2181771F00C5DB64 /* UIImageViewExtension.swift in Sources */,
 				D80FFC722202384F00AFB69F /* OrderStationsDisplayData.swift in Sources */,
@@ -2669,6 +2775,7 @@
 				D8C25D252181771F00C5DB64 /* LoaderModuleApi.swift in Sources */,
 				D8C25D272181771F00C5DB64 /* StartDisplayData.swift in Sources */,
 				D8C25D292181771F00C5DB64 /* RouteDashboardPresenter.swift in Sources */,
+				D8BBA19524BD468B00C10493 /* TrapStatisticsModuleApi.swift in Sources */,
 				D8C25D2B2181771F00C5DB64 /* StartPresenter.swift in Sources */,
 				D8C25D2C2181771F00C5DB64 /* MapPresenter.swift in Sources */,
 				D8C25D2D2181771F00C5DB64 /* VisitLogModuleApi.swift in Sources */,
@@ -2682,6 +2789,7 @@
 				D8C25D322181771F00C5DB64 /* ListPickerView.swift in Sources */,
 				D8C25D362181771F00C5DB64 /* OptionItem.swift in Sources */,
 				D8C25D382181771F00C5DB64 /* LoaderDisplayData.swift in Sources */,
+				D826B0D024BC143900C03A39 /* TrapStatisticsService.swift in Sources */,
 				D8C25D3A2181771F00C5DB64 /* UIImageExtention.swift in Sources */,
 				D8C25D3B2181771F00C5DB64 /* LoaderPresenterSetupData.swift in Sources */,
 				D8C25D3C2181771F00C5DB64 /* StartInteractor.swift in Sources */,
@@ -2697,6 +2805,7 @@
 				D8C25D482181771F00C5DB64 /* NewRouteView.swift in Sources */,
 				D8C25D492181771F00C5DB64 /* RouteTableViewCell.swift in Sources */,
 				D8C25D4A2181771F00C5DB64 /* CircleAnnotationView.swift in Sources */,
+				D8BBA19124BD468B00C10493 /* TrapStatisticsPresenter.swift in Sources */,
 				D8C25D4B2181771F00C5DB64 /* RouteCollectionViewCellDelegate.swift in Sources */,
 				D8A4E971218E3F640070413B /* StationFirestoreService.swift in Sources */,
 				D8C25D4E2181771F00C5DB64 /* AdministrationInteractor.swift in Sources */,
@@ -2733,6 +2842,7 @@
 				D8C25D6D2181771F00C5DB64 /* StationSelectModuleApi.swift in Sources */,
 				D8C25D6E2181771F00C5DB64 /* MapView.swift in Sources */,
 				D8DA1B1621DDCBA1008EC4FD /* UserSettings.swift in Sources */,
+				D826B0CD24BC141D00C03A39 /* TrapStatisticsServiceInterface.swift in Sources */,
 				D8C25D702181771F00C5DB64 /* TraplineSelectDisplayData.swift in Sources */,
 				D843117E2183DE610003C2C6 /* TrapType.swift in Sources */,
 				D8FAFCFA221C8C2200E56BC6 /* RouteUserSettingsFirestoreService.swift in Sources */,
@@ -2757,7 +2867,9 @@
 				D8C25D832181771F00C5DB64 /* ObjectOrder.swift in Sources */,
 				D813AAFE219CA841005DF558 /* VisitSummary.swift in Sources */,
 				D8C25D842181771F00C5DB64 /* VisitHistoryModuleApi.swift in Sources */,
+				D826B0D324BC157600C03A39 /* TrapStatistics.swift in Sources */,
 				D8193D9B21F1198500C3BB5D /* TrapSetStatus.swift in Sources */,
+				D8BBA1A324BFEC4400C10493 /* TableViewCellStyleValue3.swift in Sources */,
 				D8C25D852181771F00C5DB64 /* TraplineSelectModuleApi.swift in Sources */,
 				D8C25D882181771F00C5DB64 /* ViewHistorySetupData.swift in Sources */,
 				D8431187218423B50003C2C6 /* AuthenticatedUser.swift in Sources */,

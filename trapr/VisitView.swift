@@ -17,6 +17,9 @@ final class VisitView: UserInterface {
     fileprivate let htmlService = ServiceFactory.sharedInstance.htmlService
     fileprivate let excelService = ServiceFactory.sharedInstance.excelService
     
+    fileprivate let TOOLBARITEM_LOG = 0
+    fileprivate let TOOLBARITEM_STATS = 1
+    
     fileprivate var CAROUSEL_TRAPS_HEIGHT: CGFloat = 100
     fileprivate var CAROUSEL_STATIONS_HEIGHT: CGFloat = 50
     
@@ -48,11 +51,113 @@ final class VisitView: UserInterface {
     let TRAPTYPE_REUSE_ID = "cell"
     
     //MARK: - Subviews
+    
+    lazy var editButton: UIView = {
+        let view = UIView()
+        
+        let button = UIButton()
+        button.setImage(UIImage(named: "logIcon")?.changeColor(.darkGray), for: .normal)
+        button.addTarget(self, action: #selector(toolBarClick(sender:)), for: .touchUpInside)
+        button.tag = TOOLBARITEM_LOG
+        view.addSubview(button)
+        button.autoSetDimension(.width, toSize: 30)
+        button.autoSetDimension(.height, toSize: 30)
+        button.autoAlignAxis(toSuperviewAxis: .vertical)
+        button.autoPinEdge(toSuperviewEdge: .top, withInset: 5)
+        
+        let title = UILabel()
+        title.textAlignment = .center
+        title.text = "LOG"
+        title.font = .trpLabelSmall
+        title.tag = TOOLBARITEM_LOG
+        title.isUserInteractionEnabled = true
+        title.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(toolBarClick(sender:))))
+        view.addSubview(title)
+        title.autoAlignAxis(toSuperviewAxis: .vertical)
+        title.autoPinEdge(.top, to: .bottom, of: button, withOffset: 5)
+        
+        view.autoSetDimension(.width, toSize: 40)
+        view.autoSetDimension(.height, toSize: 70)
+        
+        // assume the log view is the default view
+        view.alpha = 1
+        
+        return view
+    }()
+    
+    lazy var statsButton: UIView = {
+        let view = UIView()
+        
+        let button = UIButton()
+        button.setImage(UIImage(named: "statisticsIcon")?.changeColor(.darkGray), for: .normal)
+        button.addTarget(self, action: #selector(toolBarClick(sender:)), for: .touchUpInside)
+        button.tag = TOOLBARITEM_STATS
+        view.addSubview(button)
+        button.autoSetDimension(.width, toSize: 30)
+        button.autoSetDimension(.height, toSize: 30)
+        button.autoAlignAxis(toSuperviewAxis: .vertical)
+        button.autoPinEdge(toSuperviewEdge: .top, withInset: 5)
+        
+        let title = UILabel()
+        title.textAlignment = .center
+        title.text = "STATS"
+        title.font = .trpLabelSmall
+        view.addSubview(title)
+        title.autoAlignAxis(toSuperviewAxis: .vertical)
+        title.autoPinEdge(.top, to: .bottom, of: button, withOffset: 5)
+        
+        view.autoSetDimension(.width, toSize: 30)
+        view.autoSetDimension(.height, toSize: 70)
+        
+        // assume the stats button isn't enabled initially
+        view.alpha = 0.3
+        
+        return view
+    }()
+    
+    lazy var toolbar: UIToolbar = {
+        let view = UIToolbar()
+        
+        var items = [UIBarButtonItem]()
+        
+        // Left spacer
+        items.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
+        
+        let editItem = UIBarButtonItem(customView: editButton)
+        items.append(editItem)
+
+        // Middle spacer
+        let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        spacer.width = 40
+        items.append(spacer)
+        
+        let statsItem = UIBarButtonItem(customView: statsButton)
+        items.append(statsItem)
+        
+        // Right spacer
+        items.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
+        
+        view.setItems(items, animated: true)
+        
+        let topBorder = CALayer()
+        topBorder.frame = CGRect(x:0, y:0, width: self.view.frame.width, height: 0.5)
+        topBorder.backgroundColor = UIColor.trpDividerLine.cgColor
+        view.layer.addSublayer(topBorder)
+        
+        return view
+    }()
+    
     lazy var navigationSection: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.trpBackground
-        view.dropShadow(color: UIColor.darkGray, opacity: 0.5, offSet: CGSize(width: 0, height: 6), radius: 3.0, scale: true)
         
+        let bottomBorder = CALayer()
+        bottomBorder.frame = CGRect(x: 0, y: CAROUSEL_STATIONS_HEIGHT + CAROUSEL_TRAPS_HEIGHT + LayoutDimensions.spacingMargin, width: self.view.frame.width, height: 0.5)
+        bottomBorder.backgroundColor = UIColor.trpDividerLine.cgColor
+        view.layer.addSublayer(bottomBorder)
+        
+//        view.dropShadow(color: UIColor.darkGray, opacity: 0.5, offSet: CGSize(width: 0, height: 6), radius: 3.0, scale: true)
+//
         view.addSubview(self.stationsCarousel)
         view.addSubview(self.trapsCarousel)
         
@@ -275,6 +380,30 @@ final class VisitView: UserInterface {
     
     //MARK: - Events
     
+    @objc func toolBarClick(sender: Any) {
+        
+        // the tag of the sender will let us know which toolbar item they clicked
+        
+        // assume this is from the user tapping the button
+        var tag = (sender as? UIButton)?.tag
+        if tag == nil {
+            // must have come from a label tap
+            tag = (sender as? UITapGestureRecognizer)?.view?.tag
+        }
+        
+        if let _ = tag {
+            if tag == TOOLBARITEM_LOG {
+                self.presenter.didSelectEditView()
+                editButton.alpha = 1
+                statsButton.alpha = 0.3
+            } else if tag == TOOLBARITEM_STATS {
+                self.presenter.didSelectStatsView()
+                editButton.alpha = 0.3
+                statsButton.alpha = 1
+            }
+        }
+    }
+    
     @objc func tapSubTitle(sender: UILabel) {
         presenter.didSelectDate()
     }
@@ -312,7 +441,7 @@ final class VisitView: UserInterface {
         self.view.backgroundColor = UIColor.trpBackground
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.prefersLargeTitles = false
-        
+        self.view.addSubview(self.toolbar)
         self.view.addSubview(self.visitContainerView)
         self.view.addSubview(self.navigationSection)
         
@@ -353,10 +482,15 @@ final class VisitView: UserInterface {
         self.trapsCarousel.autoPinEdge(toSuperviewEdge: .right)
         self.trapsCarousel.autoPinEdge(toSuperviewEdge: .bottom)
         
+        self.toolbar.autoPinEdge(toSuperviewEdge: .left)
+        self.toolbar.autoPinEdge(toSuperviewEdge: .right)
+        self.toolbar.autoPinEdge(toSuperviewEdge: .bottom)
+        self.toolbar.autoSetDimension(.height, toSize: 100)
+        
         self.visitContainerView.autoPinEdge(.top, to: .bottom, of: self.navigationSection, withOffset: 0)
         self.visitContainerView.autoPinEdge(toSuperviewEdge: .left)
         self.visitContainerView.autoPinEdge(toSuperviewEdge: .right)
-        self.visitContainerView.autoPinEdge(toSuperviewEdge: .bottom)
+        self.visitContainerView.autoPinEdge(.bottom, to: .top, of: toolbar, withOffset: 0)
     }
 }
 
@@ -506,6 +640,12 @@ extension VisitView: iCarouselDelegate, iCarouselDataSource {
 
 //MARK: - VisitViewApi
 extension VisitView: VisitViewApi {
+    
+    func removeSubViewsFromVisitContainerView() {
+        for view in getVisitContainerView.subviews {
+            view.removeFromSuperview()
+        }
+    }
     
     var getVisitContainerView: UIView {
         return self.visitContainerView

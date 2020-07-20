@@ -190,9 +190,12 @@ class VisitEx: Visit {
     var station: Station?
     var trapType: TrapType?
     var species: Species?
+    var lure: Lure?
     
     /// this property is used to sort visits by station code then trapType
-    var order: String?
+    var order: String {
+        return stationId + trapTypeId
+    }
     
 }
 

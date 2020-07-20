@@ -9,5 +9,9 @@
 import Foundation
 
 protocol VisitDelegate {
-    func didChangeVisit(visit: Visit?)
+    //func didChangeVisit(visit: Visit?)
+    //func didChangeVisit(visit: VisitEx?)
+    
+    func didChangeVisit(routeId: String, stationId: String, trapTypeId: String, hasCatchData: Bool, visit: VisitEx?)
+    //func didFetchTrapTypes(trapTypes: [TrapType])
 }

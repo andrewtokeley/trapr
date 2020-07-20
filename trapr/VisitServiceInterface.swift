@@ -115,6 +115,8 @@ protocol VisitServiceInterface {
     
     func get(recordedBetween dateStart: Date, dateEnd: Date, stationId: String, trapTypeId: String, completion: (([Visit], Error?) -> Void)?)
     
+    func get(routeId: String, stationId: String, trapTypeId: String, completion: (([Visit], Error?) -> Void)?)
+    
     func getMostRecentVisit(routeId: String, completion: ((Visit?) -> Void)?)
     
     /**

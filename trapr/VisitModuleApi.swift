@@ -15,6 +15,7 @@ protocol VisitRouterApi: RouterProtocol {
     func showListPicker(setupData: ListPickerSetupData)
     func showDatePicker(setupData: DatePickerSetupData)
     func addVisitLogToView()
+    func addTrapStatisticsToView()
     func showMap(stations: [Station], highlightedStations: [Station]?)
     func showAddStation(setupData: StationSearchSetupData) 
 }
@@ -34,6 +35,8 @@ protocol VisitViewApi: UserInterfaceProtocol {
     func showConfirmation(title: String, message: String, yes: (() -> Void)?, no: (() -> Void)?)
     func selectTrap(index: Int)
     func confirmDeleteStationMethod()
+    
+    func removeSubViewsFromVisitContainerView()
     var getVisitContainerView: UIView { get }
     
     //func setStationText(text: String)
@@ -57,7 +60,13 @@ protocol VisitPresenterApi: PresenterProtocol {
     func setVisitDelegate(delegate: VisitDelegate)
     func visitLogDidScroll(contentOffsetY: CGFloat)
     func didSendEmailSuccessfully()
+    
     func didFetchVisit(visit: Visit)
+    func didFetchVisit(visit: VisitEx)
+    
+    func didSelectEditView()
+    func didSelectStatsView()
+    
     //func didAddStation(station: Station)
     func didFindNoVisit()
     func didUpdateRoute2(route: Route, selectedIndex: Int)

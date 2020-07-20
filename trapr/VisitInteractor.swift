@@ -215,7 +215,11 @@ extension VisitInteractor: VisitInteractorApi {
             // NOTE: not supporting multiple visits to the same trap on the same day
             if visits.count > 0 {
                 // visit exists for this day
-                self.presenter.didFetchVisit(visit: visits[0])
+                self.visitService.extend(visit: visits.first!) { (visitEx) in
+                    if let visit = visitEx {
+                        self.presenter.didFetchVisit(visit: visit)
+                    }
+                }
             } else {
                 // no visit exists
                 self.presenter.didFindNoVisit()
@@ -241,7 +245,12 @@ extension VisitInteractor: VisitInteractorApi {
         newVisit.trapOperatingStatusId = TrapOperatingStatus.open.rawValue
         
         self.visitService.add(visit: newVisit, completion: nil)
-        self.presenter.didFetchVisit(visit: newVisit)
+        self.visitService.extend(visit: newVisit) { (visitEx) in
+            if let visit = visitEx {
+                self.presenter.didFetchVisit(visit: visit)
+            }
+        }
+
     }
     
     func deleteVisit(visit: Visit) {

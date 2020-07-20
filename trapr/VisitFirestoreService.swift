@@ -16,38 +16,45 @@ class VisitFirestoreService: FirestoreEntityService<Visit>, VisitServiceInterfac
     private lazy var speciesService = { ServiceFactory.sharedInstance.speciesFirestoreService }()
     private lazy var userService = { ServiceFactory.sharedInstance.userService }()
     private lazy var routeUserSettingsService = { ServiceFactory.sharedInstance.routeUserSettingsFirestoreService }()
+    private lazy var lureService = { ServiceFactory.sharedInstance.lureFirestoreService }()
     
     func extend(visit: Visit, completion: ((VisitEx?) -> Void)?) {
         
         if let visitEx = VisitEx(visit: visit) {
         
+            let dispatchGroup = DispatchGroup()
+            
+            dispatchGroup.enter()
             self.stationService.get(stationId: visit.stationId) { (station, error) in
                 visitEx.station = station
+                dispatchGroup.leave()
+            }
+            
+            dispatchGroup.enter()
+            self.trapTypeService.get(id: visit.trapTypeId) { (trapType, error) in
+                visitEx.trapType = trapType
+                dispatchGroup.leave()
                 
-                self.trapTypeService.get(id: visit.trapTypeId, completion: { (trapType, error) in
-                    visitEx.trapType = trapType
-                    
-                    let dispatchGroup = DispatchGroup()
-                    
+                if let lureId = visit.lureId ?? trapType?.defaultLure {
                     dispatchGroup.enter()
-                    if let speciesId = visit.speciesId {
-                        self.speciesService.get(id: speciesId, completion: { (species, error) in
-                            visitEx.species = species
-                            dispatchGroup.leave()
-                        })
-                    } else {
+                    self.lureService.get(id: lureId) { (lure, error) in
+                        visitEx.lure = lure
                         dispatchGroup.leave()
                     }
-                    
-                    visitEx.order = station!.id! + trapType!.id!
-                    
-                    dispatchGroup.notify(queue: .main, execute: {
-                        completion?(visitEx)
-                    })
-                })
+                }
             }
-        } else {
-            completion?(nil)
+            
+            if let speciesId = visit.speciesId {
+                dispatchGroup.enter()
+                self.speciesService.get(id: speciesId) { (species, error) in
+                    visitEx.species = species
+                    dispatchGroup.leave()
+                }
+            }
+            
+            dispatchGroup.notify(queue: .main, execute: {
+                completion?(visitEx)
+            })
         }
     }
     
@@ -180,6 +187,23 @@ class VisitFirestoreService: FirestoreEntityService<Visit>, VisitServiceInterfac
             // further filter by station and traptype (Firestore can't do date range + other field filter)
             let visitsFiltered = visits.filter({ (visit) -> Bool in
                 visit.trapTypeId == trapTypeId && visit.stationId == stationId
+            })
+            completion?(visitsFiltered, error)
+        }
+    }
+    
+    func get(routeId: String, stationId: String, trapTypeId: String, completion: (([Visit], Error?) -> Void)?) {
+        
+        let start = Date().add(0, 0, -10) // year dot!
+        let end = Date() // to today
+        
+        self.get(recordedBetween: start, dateEnd: end) { (visits, error) in
+            
+            // further filter by routeId (Firestore can't do date range + other field filter)
+            let visitsFiltered = visits.filter({ (visit) -> Bool in
+                    visit.routeId == routeId &&
+                    visit.trapTypeId == trapTypeId &&
+                    visit.stationId == stationId
             })
             completion?(visitsFiltered, error)
         }

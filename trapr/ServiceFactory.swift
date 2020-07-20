@@ -41,6 +41,10 @@ class ServiceFactory {
         return VisitSummaryFirebaseService(firestore: self.firestoreDatabase)
     }()
     
+    lazy var trapStatisticsService: TrapStatisticsServiceInterface = {
+        return TrapStatisticsService(firestore: self.firestoreDatabase)
+    }()
+    
     lazy var traplineFirestoreService: TraplineServiceInterface = {
         return TraplineFirestoreService(firestore: self.firestoreDatabase, collectionName: "traplines")
     }()

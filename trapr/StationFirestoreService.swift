@@ -211,6 +211,9 @@ extension StationFirestoreService: StationServiceInterface {
         routeService.get(routeId: routeId) { (route, error) in
             if let route = route {
                 self.get(stationIds: route.stationIds) { (stations, error) in
+                    for station in stations {
+                        station.routeId = routeId
+                    }
                     completion?(stations)
                 }
             } else {

@@ -125,6 +125,10 @@ extension UIColor
         return UIColor.white
     }
     
+    public class var trpTableViewCellValue1detail: UIColor {
+        return UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1)
+    }
+    
     public class var trpDividerLine: UIColor {
         return UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1)
     }

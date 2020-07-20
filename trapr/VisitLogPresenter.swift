@@ -14,7 +14,7 @@ final class VisitLogPresenter: Presenter {
     
     var delegate: VisitLogDelegate?
     
-    fileprivate var currentVisit: Visit?
+    fileprivate var currentVisit: VisitEx?
     fileprivate var balanceOfCurrentTrap: Int?
     
     fileprivate var species: [Species]?
@@ -37,7 +37,7 @@ final class VisitLogPresenter: Presenter {
     func initialisePresenter(completion: (() -> Void)?) {
         // make sure we have a reference to the traptypes - needed for display etc.
         if self.trapTypes.count == 0 {
-            
+
             interactor.retrieveLookups { (trapTypes, lures, species) in
                 self.trapTypes = trapTypes
                 self.lures = lures
@@ -47,6 +47,7 @@ final class VisitLogPresenter: Presenter {
         } else {
             completion?()
         }
+        
     }
 
     //MARK: - Stepper functions
@@ -159,12 +160,12 @@ final class VisitLogPresenter: Presenter {
 //MARK: - VisitDelegate
 
 extension VisitLogPresenter: VisitDelegate {
-
-    func editVisit(visit: Visit) {
-        
+    
+    func didFetchTrapTypes(trapTypes: [TrapType]) {
+        self.trapTypes = trapTypes
     }
     
-    func didChangeVisit(visit: Visit?) {
+    func didChangeVisit(routeId: String, stationId: String, trapTypeId: String, hasCatchData: Bool, visit: VisitEx?) {
         
         // this is the first entry point to the presenter, so let's make sure we have things set up
         self.initialisePresenter {

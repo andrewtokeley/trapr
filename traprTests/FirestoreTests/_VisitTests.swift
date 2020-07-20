@@ -26,6 +26,7 @@ class VisitTests: FirebaseTestCase {
     let stationService = ServiceFactory.sharedInstance.stationFirestoreService
     let routeService = ServiceFactory.sharedInstance.routeFirestoreService
     let visitSummaryService = ServiceFactory.sharedInstance.visitSummaryFirestoreService
+    let trapStatisticsService = ServiceFactory.sharedInstance.trapStatisticsService
     
     override func setUp() {
         super.setUp()
@@ -73,12 +74,13 @@ class VisitTests: FirebaseTestCase {
      - LW01 (Possum Master)
         - today (possum)
         - a month ago (possum)
+        -  2 months ago (nothing)
      - LW01 (Pellibait)
         - today (peli, 2, 4, 6)
         - a month ago (10, 0, 0) opening balance
      - E01 (DOC200)
         - today (rat)
-     
+    
      RouteGC
      - GC01 (Pellibait)
         - today (1, 2, 3)
@@ -98,27 +100,45 @@ class VisitTests: FirebaseTestCase {
                             
                             // LW01 PossumMaster, Possum, today
                             dispatchGroup.enter()
-                            self.createTestVisit(self.today, 0, 0, 0, SpeciesCode.possum, routeLWE!.id!, traplineLW!.id!, stationLW01.id!, TrapTypeCode.possumMaster) { dispatchGroup.leave() }
+                            self.createTestVisit(self.today, 0, 0, 0, routeLWE!.id!, traplineLW!.id!, stationLW01.id!, TrapTypeCode.possumMaster, .setBaitEaten, .possum) {
+                                dispatchGroup.leave()
+                            }
                             
                             // LW01 PossumMaster, Possum, month ago
                             dispatchGroup.enter()
-                            self.createTestVisit(self.lastMonth, 0, 0, 0, SpeciesCode.possum, routeLWE!.id!, traplineLW!.id!, stationLW01.id!, TrapTypeCode.possumMaster) { dispatchGroup.leave() }
+                            self.createTestVisit(self.lastMonth, 0, 0, 0, routeLWE!.id!, traplineLW!.id!, stationLW01.id!, TrapTypeCode.possumMaster, .stillSet, .possum) {
+                                dispatchGroup.leave()
+                            }
+                            
+                            // LW01 PossumMaster, no kill, 2 month ago
+                            dispatchGroup.enter()
+                            self.createTestVisit(self.lastMonth.add(-1, 0, 0), 0, 0, 0, routeLWE!.id!, traplineLW!.id!, stationLW01.id!, TrapTypeCode.possumMaster, .setBaitEaten, nil) {
+                                dispatchGroup.leave()
+                            }
                             
                             // LW01 Pellibat, today, 2, 4, 6
                             dispatchGroup.enter()
-                            self.createTestVisit(self.today, 2, 4, 6, nil, routeLWE!.id!, traplineLW!.id!, stationLW01.id!, TrapTypeCode.pellibait) { dispatchGroup.leave() }
+                            self.createTestVisit(self.today, 2, 4, 6, routeLWE!.id!, traplineLW!.id!, stationLW01.id!, TrapTypeCode.pellibait, nil, nil) {
+                                dispatchGroup.leave()
+                            }
                             
                             // LW01 Pellibait, a month ago (10, 0, 0) opening balance
                             dispatchGroup.enter()
-                            self.createTestVisit(self.today, 10, 0, 0, nil, routeLWE!.id!, traplineLW!.id!, stationLW01.id!, TrapTypeCode.pellibait) { dispatchGroup.leave() }
+                            self.createTestVisit(self.lastMonth, 10, 0, 0, routeLWE!.id!, traplineLW!.id!, stationLW01.id!, TrapTypeCode.pellibait, nil, nil) {
+                                dispatchGroup.leave()
+                            }
                             
                             // E01 Doc200, rat, today
                             dispatchGroup.enter()
-                            self.createTestVisit(self.today, 0, 0, 0, SpeciesCode.rat, routeLWE!.id!, traplineLW!.id!, stationE01.id!, TrapTypeCode.doc200) { dispatchGroup.leave() }
+                            self.createTestVisit(self.today, 0, 0, 0, routeLWE!.id!, traplineLW!.id!, stationE01.id!, .doc200, nil, .rat) {
+                                dispatchGroup.leave()
+                            }
                             
                             // GC01 Pellibait, today, 1, 2, 3
                             dispatchGroup.enter()
-                            self.createTestVisit(self.today, 1, 2, 3, nil, routeGC!.id!, traplineGC!.id!, stationGC01.id!, TrapTypeCode.pellibait) { dispatchGroup.leave() }
+                            self.createTestVisit(self.today, 1, 2, 3, routeLWE!.id!, traplineLW!.id!, stationGC01.id!, .pellibait, nil, nil) {
+                                dispatchGroup.leave()
+                            }
                             
                             dispatchGroup.notify(queue: .main) {
                                 completion?()
@@ -174,6 +194,38 @@ class VisitTests: FirebaseTestCase {
             }
         }
     }
+    
+    func testTrapStatistics() {
+        
+        let expect = expectation(description: "testTrapStatistics")
+        
+        self.createTestData {
+            self.trapStatisticsService.get(routeId: self.routeLWE_Id, stationId: self.stationLW01_Id, trapTypeId: TrapTypeCode.possumMaster.rawValue) { (statistics, error) in
+                
+                XCTAssertNil(error)
+                
+                XCTAssertNotNil(statistics)
+                XCTAssert(statistics?.killsBySpecies[TrapTypeCode.possumMaster.rawValue] == 2)
+                XCTAssert(statistics?.totalCatches == 2)
+                XCTAssert(statistics?.catchRate == Double(2)/Double(3))
+                XCTAssert(statistics?.trapSetStatusCounts[String(TrapSetStatus.stillSet.rawValue)] == 1)
+                XCTAssert(statistics?.trapSetStatusCounts[String(TrapSetStatus.setBaitEaten.rawValue)] == 2)
+                XCTAssert(statistics?.numberOfVisits == 3)
+                XCTAssert(statistics?.lastVisit?.visitDateTime.day == self.today.day)
+                XCTAssert(statistics?.lastVisit?.visitDateTime.month == self.today.month)
+                XCTAssert(statistics?.lastVisit?.visitDateTime.year == self.today.year)
+                XCTAssert(statistics?.visitsWithCatches.count == 2)
+                expect.fulfill()
+            }
+        }
+        
+        waitForExpectations(timeout: 100) { (error) in
+            if let e = error {
+                XCTFail(e.localizedDescription)
+            }
+        }
+    }
+    
     
     func testGetVisitSummaryRouteLWEToday() {
         

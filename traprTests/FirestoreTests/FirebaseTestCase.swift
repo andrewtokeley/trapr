@@ -99,16 +99,18 @@ class FirebaseTestCase: XCTestCase {
         }
     }
     
-    func createTestVisit(_ date: Date, _ baitAdded: Int = 0, _ baitEaten: Int = 0, _ baitRemoved: Int = 0, _ speciesCode: SpeciesCode? = nil, _ routeId: String, _ traplineId: String, _ stationId: String, _ trapTypeCode: TrapTypeCode, completion: (() -> Void)? = nil) {
-        self.createTestVisit(date: date, routeId: routeId, traplineId: traplineId, stationId: stationId, trapTypeId: trapTypeCode.rawValue, completion: { (visit) in
-            completion?()
-        })
-    }
-
-    func createTestVisit(date: Date, routeId: String, traplineId: String, stationId: String, trapTypeId: String, completion: ((Visit?) -> Void)?) {
-        let visit = Visit(date: date, routeId: routeId, traplineId: traplineId, stationId: stationId, trapTypeId: trapTypeId)
+    func createTestVisit(_ date: Date, _ baitAdded: Int = 0, _ baitEaten: Int = 0, _ baitRemoved: Int = 0, _ routeId: String, _ traplineId: String, _ stationId: String, _ trapTypeCode: TrapTypeCode, _ trapSetStatus: TrapSetStatus? = nil, _ speciesCode: SpeciesCode? = nil, completion: (() -> Void)? = nil) {
+        
+        let visit = Visit(date: date, routeId: routeId, traplineId: traplineId, stationId: stationId, trapTypeId: trapTypeCode.rawValue)
+        
+        visit.trapSetStatusId = trapSetStatus?.rawValue
+        visit.baitEaten = baitEaten
+        visit.baitRemoved = baitRemoved
+        visit.baitAdded = baitAdded
+        visit.speciesId = speciesCode?.rawValue
+        
         self.visitService.add(visit: visit) { (visit, error) in
-            completion?(visit)
+            completion?()
         }
     }
     
