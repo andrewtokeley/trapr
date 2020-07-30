@@ -93,7 +93,7 @@ extension ListPickerView: UITableViewDelegate, UITableViewDataSource {
         
         var cell:UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: CELL_ID)
         if (cell == nil) {
-            cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: CELL_ID)
+            cell = UITableViewCell(style: displayData.delegate?.listPickerCellStyle(self) ?? .subtitle, reuseIdentifier: CELL_ID)
         }
         
         //let cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID, for: indexPath)

@@ -193,6 +193,8 @@
 		D851E56C225B163D009E129A /* ExcelServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D851E565225AAD4D009E129A /* ExcelServiceInterface.swift */; };
 		D852E84D206F52D500255A2D /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = D852E84B206F52D400255A2D /* add.png */; };
 		D852E84F206F542200255A2D /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D852E84E206F542200255A2D /* add@2x.png */; };
+		D85437BB24D23F0800161BAF /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85437BA24D23F0800161BAF /* IntExtension.swift */; };
+		D85437BC24D23F0800161BAF /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85437BA24D23F0800161BAF /* IntExtension.swift */; };
 		D856F66D20111D3E00CA50C2 /* NewRouteDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66720111D3E00CA50C2 /* NewRouteDisplayData.swift */; };
 		D856F66E20111D3E00CA50C2 /* NewRoutePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66820111D3E00CA50C2 /* NewRoutePresenter.swift */; };
 		D856F66F20111D3E00CA50C2 /* NewRouteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D856F66920111D3E00CA50C2 /* NewRouteRouter.swift */; };
@@ -325,6 +327,14 @@
 		D8BBA1CB24C553A800C10493 /* statisticsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1C824C553A800C10493 /* statisticsIcon.png */; };
 		D8BBA1CC24C553A800C10493 /* statisticsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1C924C553A800C10493 /* statisticsIcon@2x.png */; };
 		D8BBA1CD24C553A800C10493 /* statisticsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BBA1C924C553A800C10493 /* statisticsIcon@2x.png */; };
+		D8BBA1CF24C562B900C10493 /* ComparisonStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA1CE24C562B900C10493 /* ComparisonStatistics.swift */; };
+		D8BBA1D024C562B900C10493 /* ComparisonStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA1CE24C562B900C10493 /* ComparisonStatistics.swift */; };
+		D8BBA1D224C565DA00C10493 /* Array_BinaryFloatingPoint_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA1D124C565DA00C10493 /* Array_BinaryFloatingPoint_Extensions.swift */; };
+		D8BBA1D324C565DA00C10493 /* Array_BinaryFloatingPoint_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA1D124C565DA00C10493 /* Array_BinaryFloatingPoint_Extensions.swift */; };
+		D8BBA1D724C567EA00C10493 /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA1D624C567EA00C10493 /* ArrayExtensionTests.swift */; };
+		D8BBA1D924C7CB8000C10493 /* TrapStatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA1D824C7CB7F00C10493 /* TrapStatisticsTests.swift */; };
+		D8BBA1DB24CE880400C10493 /* TimeSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA1DA24CE880400C10493 /* TimeSeries.swift */; };
+		D8BBA1DD24CE884800C10493 /* TimeSeriesItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BBA1DC24CE884800C10493 /* TimeSeriesItem.swift */; };
 		D8BC08461F6A541200B284EE /* greaterthan.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08441F6A541200B284EE /* greaterthan.png */; };
 		D8BC08471F6A541200B284EE /* lessthan.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08451F6A541200B284EE /* lessthan.png */; };
 		D8BC084A1F6A542700B284EE /* greaterthan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BC08481F6A542700B284EE /* greaterthan@2x.png */; };
@@ -840,6 +850,7 @@
 		D851E567225AAE72009E129A /* ExcelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcelService.swift; sourceTree = "<group>"; };
 		D852E84B206F52D400255A2D /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
 		D852E84E206F542200255A2D /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
+		D85437BA24D23F0800161BAF /* IntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
 		D856F66720111D3E00CA50C2 /* NewRouteDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRouteDisplayData.swift; sourceTree = "<group>"; };
 		D856F66820111D3E00CA50C2 /* NewRoutePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRoutePresenter.swift; sourceTree = "<group>"; };
 		D856F66920111D3E00CA50C2 /* NewRouteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRouteRouter.swift; sourceTree = "<group>"; };
@@ -960,6 +971,12 @@
 		D8BBA1B724C4F44D00C10493 /* logIcon2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logIcon2x.png; sourceTree = "<group>"; };
 		D8BBA1C824C553A800C10493 /* statisticsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statisticsIcon.png; sourceTree = "<group>"; };
 		D8BBA1C924C553A800C10493 /* statisticsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "statisticsIcon@2x.png"; sourceTree = "<group>"; };
+		D8BBA1CE24C562B900C10493 /* ComparisonStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparisonStatistics.swift; sourceTree = "<group>"; };
+		D8BBA1D124C565DA00C10493 /* Array_BinaryFloatingPoint_Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array_BinaryFloatingPoint_Extensions.swift; sourceTree = "<group>"; };
+		D8BBA1D624C567EA00C10493 /* ArrayExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensionTests.swift; sourceTree = "<group>"; };
+		D8BBA1D824C7CB7F00C10493 /* TrapStatisticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrapStatisticsTests.swift; sourceTree = "<group>"; };
+		D8BBA1DA24CE880400C10493 /* TimeSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeries.swift; sourceTree = "<group>"; };
+		D8BBA1DC24CE884800C10493 /* TimeSeriesItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesItem.swift; sourceTree = "<group>"; };
 		D8BC08441F6A541200B284EE /* greaterthan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greaterthan.png; sourceTree = "<group>"; };
 		D8BC08451F6A541200B284EE /* lessthan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessthan.png; sourceTree = "<group>"; };
 		D8BC08481F6A542700B284EE /* greaterthan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greaterthan@2x.png"; sourceTree = "<group>"; };
@@ -1375,6 +1392,9 @@
 				D80F8DCD21969DC90035C668 /* Visit.swift */,
 				D8C3786A21463F8A00B02E86 /* VisitSummariesStatistics.swift */,
 				D813AAFC219CA841005DF558 /* VisitSummary.swift */,
+				D8BBA1CE24C562B900C10493 /* ComparisonStatistics.swift */,
+				D8BBA1DA24CE880400C10493 /* TimeSeries.swift */,
+				D8BBA1DC24CE884800C10493 /* TimeSeriesItem.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1567,6 +1587,8 @@
 				D806C7EB1F9D95320064C98F /* GroupedTableViewDatasourceTests.swift */,
 				D8B94D6F1F5EA1FE00D373EF /* Info.plist */,
 				D84C246720055DD9000BCAF8 /* ObjectOrderTests.swift */,
+				D8BBA1D624C567EA00C10493 /* ArrayExtensionTests.swift */,
+				D8BBA1D824C7CB7F00C10493 /* TrapStatisticsTests.swift */,
 			);
 			path = traprTests;
 			sourceTree = "<group>";
@@ -1588,7 +1610,9 @@
 				D8BB6F4C20291E9E008AB3A2 /* UIImageViewExtension.swift */,
 				D8C3786C2146431900B02E86 /* TimeIntervalExtension.swift */,
 				D83D64C122615CD100353902 /* ArrayExtension.swift */,
+				D8BBA1D124C565DA00C10493 /* Array_BinaryFloatingPoint_Extensions.swift */,
 				D8E5665124779D3A0089B2C1 /* GMStepper.swift */,
+				D85437BA24D23F0800161BAF /* IntExtension.swift */,
 			);
 			name = Design;
 			sourceTree = "<group>";
@@ -2405,6 +2429,7 @@
 				D86CE48C1F92C8EA004A09EF /* UIFontExtension.swift in Sources */,
 				D8083D141FE498F900D1C5F1 /* SettingsDisplayData.swift in Sources */,
 				D80B6DCE1F9F3DCD00F49E9E /* VisitLogPresenter.swift in Sources */,
+				D8BBA1D224C565DA00C10493 /* Array_BinaryFloatingPoint_Extensions.swift in Sources */,
 				D84C246420008781000BCAF8 /* UserInterfaceExtension.swift in Sources */,
 				D8DA1B1821DDCECF008EC4FD /* UserSettingsServiceInterface.swift in Sources */,
 				D81DAAF71F686EA800C7C987 /* ServiceFactory.swift in Sources */,
@@ -2555,6 +2580,7 @@
 				D849B6201F96C8E100CE2085 /* RouteServiceInterface.swift in Sources */,
 				D8C51A731F96D67200D3571A /* MultiselectTableViewHeader.swift in Sources */,
 				D8DBE3E01FF4FC1900AA6482 /* MapRouter.swift in Sources */,
+				D8BBA1CF24C562B900C10493 /* ComparisonStatistics.swift in Sources */,
 				D87C44F61F9059AF00CAFC7A /* SideMenuDisplayData.swift in Sources */,
 				D8FA5CF81F8409A700EC890C /* StationSelectSetupData.swift in Sources */,
 				D81DAAF31F68659100C7C987 /* VisitServiceInterface.swift in Sources */,
@@ -2590,6 +2616,7 @@
 				D8DBE3E21FF4FC1900AA6482 /* MapInteractor.swift in Sources */,
 				D89714AF1F7898A800E846B9 /* SideBarMenuItem.swift in Sources */,
 				D83DC6CC1F7F841F00F91792 /* StartRouter.swift in Sources */,
+				D85437BB24D23F0800161BAF /* IntExtension.swift in Sources */,
 				D87C44ED1F8F4C2400CAFC7A /* DatePickerDelegate.swift in Sources */,
 				D84311802183DEF20003C2C6 /* Lure.swift in Sources */,
 				D89312001F834F6E008DF09D /* StationSelectInteractor.swift in Sources */,
@@ -2620,13 +2647,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				D82A53EA1FF1F9B3000D9339 /* HtmlServiceTests.swift in Sources */,
+				D8BBA1DB24CE880400C10493 /* TimeSeries.swift in Sources */,
 				D806C7EC1F9D95320064C98F /* GroupedTableViewDatasourceTests.swift in Sources */,
 				D86DEC38219E902300DCE730 /* _RouteTests.swift in Sources */,
 				D816648B21912734003DD85E /* _StationTests.swift in Sources */,
+				D8BBA1D724C567EA00C10493 /* ArrayExtensionTests.swift in Sources */,
 				D84C246820055DD9000BCAF8 /* ObjectOrderTests.swift in Sources */,
 				D86DEC3A21A0A05E00DCE730 /* OfflineTests.swift in Sources */,
+				D8BBA1DD24CE884800C10493 /* TimeSeriesItem.swift in Sources */,
 				D897149E1F70CCCB00E846B9 /* TraplineTests.swift in Sources */,
 				D83A18E22213952C00451987 /* FirebaseTestCase.swift in Sources */,
+				D8BBA1D924C7CB8000C10493 /* TrapStatisticsTests.swift in Sources */,
 				D8A4E973218FD8280070413B /* LookupTests.swift in Sources */,
 				D8431189218538570003C2C6 /* UserServiceTests.swift in Sources */,
 				D80F8DD42198AC2F0035C668 /* _VisitTests.swift in Sources */,
@@ -2669,6 +2700,7 @@
 				D8C25CC22181771F00C5DB64 /* SettingsDisplayData.swift in Sources */,
 				D8C25CC42181771F00C5DB64 /* VisitLogPresenter.swift in Sources */,
 				D8C25CC52181771F00C5DB64 /* UserInterfaceExtension.swift in Sources */,
+				D8BBA1D324C565DA00C10493 /* Array_BinaryFloatingPoint_Extensions.swift in Sources */,
 				D8C25CC72181771F00C5DB64 /* ServiceFactory.swift in Sources */,
 				D8C25CC82181771F00C5DB64 /* RouterExtension.swift in Sources */,
 				D8C25CC92181771F00C5DB64 /* SavedImageServiceInterface.swift in Sources */,
@@ -2819,6 +2851,7 @@
 				D8C25D562181771F00C5DB64 /* SideMenuDisplayData.swift in Sources */,
 				D80FFC7C2202385000AFB69F /* OrderStationsView.swift in Sources */,
 				D8C25D572181771F00C5DB64 /* StationSelectSetupData.swift in Sources */,
+				D8BBA1D024C562B900C10493 /* ComparisonStatistics.swift in Sources */,
 				D8C25D582181771F00C5DB64 /* VisitServiceInterface.swift in Sources */,
 				D8C25D592181771F00C5DB64 /* OrderedDictionary.swift in Sources */,
 				D8C25D5A2181771F00C5DB64 /* SideMenuView.swift in Sources */,
@@ -2854,6 +2887,7 @@
 				D8C25D772181771F00C5DB64 /* SideBarMenuItem.swift in Sources */,
 				D8C25D782181771F00C5DB64 /* StartRouter.swift in Sources */,
 				D8193D9E21F1A8F000C3BB5D /* VisitDisplayData.swift in Sources */,
+				D85437BC24D23F0800161BAF /* IntExtension.swift in Sources */,
 				D8C25D792181771F00C5DB64 /* DatePickerDelegate.swift in Sources */,
 				D84311812183DEF20003C2C6 /* Lure.swift in Sources */,
 				D8C25D7C2181771F00C5DB64 /* StationSelectInteractor.swift in Sources */,

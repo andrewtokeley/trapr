@@ -660,8 +660,8 @@
             timestampString = "576826401.893491"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "getMostRecentVisit(routeId:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1984,8 +1984,8 @@
             timestampString = "576826401.89951"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "377"
-            endingLineNumber = "377"
+            startingLineNumber = "397"
+            endingLineNumber = "397"
             landmarkName = "listPicker(_:isSelected:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2001,8 +2001,8 @@
             timestampString = "576826401.899614"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "362"
-            endingLineNumber = "362"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
             landmarkName = "listPickerDidSelectNoSelection(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2035,8 +2035,8 @@
             timestampString = "576826401.899701"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "384"
-            endingLineNumber = "384"
+            startingLineNumber = "404"
+            endingLineNumber = "404"
             landmarkName = "listPicker(_:isSelected:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2052,8 +2052,8 @@
             timestampString = "576826401.89976"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
             landmarkName = "updateViewForCurrentVisit()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2069,8 +2069,8 @@
             timestampString = "576826401.899839"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "generateVisitReportFile(date:route:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2451,8 +2451,8 @@
             filePath = "trapr/VisitLogPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
             landmarkName = "updateViewForCurrentVisit()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2595,8 +2595,8 @@
             filePath = "trapr/VisitLogPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "updateStepperMaximumValues()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2931,8 +2931,8 @@
             filePath = "trapr/VisitLogPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "updateStepperMaximumValues()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2979,8 +2979,8 @@
             filePath = "trapr/VisitLogPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "updateViewForCurrentVisit()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2995,8 +2995,8 @@
             filePath = "trapr/VisitLogPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "updateViewForCurrentVisit()"
             landmarkType = "7">
             <Locations>
@@ -3043,8 +3043,8 @@
             filePath = "trapr/VisitLogPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "updateViewForCurrentVisit()"
             landmarkType = "7">
          </BreakpointContent>
@@ -3203,8 +3203,8 @@
             filePath = "trapr/VisitLogPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "checkTrapSetStatusValidity()"
             landmarkType = "7">
          </BreakpointContent>
@@ -3219,8 +3219,8 @@
             filePath = "trapr/VisitLogPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "397"
-            endingLineNumber = "397"
+            startingLineNumber = "417"
+            endingLineNumber = "417"
             landmarkName = "listPicker(_:didSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3235,8 +3235,8 @@
             filePath = "trapr/VisitLogPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "393"
-            endingLineNumber = "393"
+            startingLineNumber = "413"
+            endingLineNumber = "413"
             landmarkName = "listPicker(_:didSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3363,8 +3363,8 @@
             filePath = "trapr/VisitPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
             landmarkName = "didSelectNewDate(date:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3379,8 +3379,8 @@
             filePath = "trapr/VisitInteractor.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "274"
-            endingLineNumber = "274"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
             landmarkName = "updateVisitDates(currentDate:routeId:newDate:)"
             landmarkType = "7">
             <Locations>
@@ -3459,8 +3459,8 @@
             filePath = "trapr/VisitPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
             landmarkName = "displayMode(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3571,9 +3571,9 @@
             filePath = "trapr/TrapStatisticsService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "get(routeId:stationId:trapTypeId:completion:)"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "getTrapStatistics(routeId:stationId:trapTypeId:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3651,8 +3651,8 @@
             filePath = "trapr/TrapStatisticsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "286"
-            endingLineNumber = "286"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3667,9 +3667,9 @@
             filePath = "trapr/TrapStatisticsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "314"
-            endingLineNumber = "314"
-            landmarkName = "displayStatistics(statistics:showCatchStats:)"
+            startingLineNumber = "341"
+            endingLineNumber = "341"
+            landmarkName = "displayStatistics(statistics:trapTypeStatistics:showCatchStats:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3683,8 +3683,8 @@
             filePath = "trapr/TrapStatisticsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3699,8 +3699,8 @@
             filePath = "trapr/TrapStatisticsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "284"
-            endingLineNumber = "284"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3731,10 +3731,10 @@
             filePath = "trapr/VisitLogPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
-            landmarkName = "didChangeVisit(routeId:stationId:trapTypeId:hasCatchData:visit:)"
-            landmarkType = "7">
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "VisitLogPresenter"
+            landmarkType = "21">
             <Locations>
                <Location
                   uuid = "31B3D9F2-0A22-4AAD-AAD6-C6EAE417AAAB - dd5d78c8e4e2cc42"
@@ -3779,9 +3779,9 @@
             filePath = "trapr/TrapStatisticsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "361"
-            endingLineNumber = "361"
-            landmarkName = "displayStatistics(statistics:showCatchStats:)"
+            startingLineNumber = "394"
+            endingLineNumber = "394"
+            landmarkName = "displayStatistics(statistics:trapTypeStatistics:showCatchStats:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -3827,9 +3827,9 @@
             filePath = "trapr/TrapStatisticsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "362"
-            endingLineNumber = "362"
-            landmarkName = "displayStatistics(statistics:showCatchStats:)"
+            startingLineNumber = "395"
+            endingLineNumber = "395"
+            landmarkName = "displayStatistics(statistics:trapTypeStatistics:showCatchStats:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3843,9 +3843,9 @@
             filePath = "trapr/TrapStatisticsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "363"
-            endingLineNumber = "363"
-            landmarkName = "displayStatistics(statistics:showCatchStats:)"
+            startingLineNumber = "396"
+            endingLineNumber = "396"
+            landmarkName = "displayStatistics(statistics:trapTypeStatistics:showCatchStats:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3859,8 +3859,8 @@
             filePath = "trapr/VisitPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "434"
-            endingLineNumber = "434"
+            startingLineNumber = "470"
+            endingLineNumber = "470"
             landmarkName = "didFetchVisit(visit:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3875,8 +3875,8 @@
             filePath = "trapr/VisitPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "440"
-            endingLineNumber = "440"
+            startingLineNumber = "476"
+            endingLineNumber = "476"
             landmarkName = "didFetchVisit(visit:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3891,8 +3891,8 @@
             filePath = "trapr/TrapStatisticsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275"
+            startingLineNumber = "302"
+            endingLineNumber = "302"
             landmarkName = "tableView(_:willDisplay:forRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3907,8 +3907,8 @@
             filePath = "trapr/TrapStatisticsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
             landmarkName = "numberOfSections(in:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3923,8 +3923,8 @@
             filePath = "trapr/TrapStatisticsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
             landmarkName = "tableView(_:titleForHeaderInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3939,8 +3939,8 @@
             filePath = "trapr/TrapStatisticsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
+            startingLineNumber = "310"
+            endingLineNumber = "310"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3955,8 +3955,8 @@
             filePath = "trapr/TrapStatisticsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "tableView(_:heightForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3971,9 +3971,9 @@
             filePath = "trapr/TrapStatisticsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "318"
-            endingLineNumber = "318"
-            landmarkName = "displayStatistics(statistics:showCatchStats:)"
+            startingLineNumber = "353"
+            endingLineNumber = "353"
+            landmarkName = "displayStatistics(statistics:trapTypeStatistics:showCatchStats:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3987,25 +3987,265 @@
             filePath = "trapr/TrapStatisticsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
-            landmarkName = "displayStatistics(statistics:showCatchStats:)"
+            startingLineNumber = "327"
+            endingLineNumber = "327"
+            landmarkName = "displayStatistics(statistics:trapTypeStatistics:showCatchStats:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7FF49A1A-FC93-47D8-BB76-C31B6024D7E3"
+            uuid = "78B4A181-B6D8-401D-82DC-899D0880F673"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "traprTests/ArrayExtensionTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "testMean()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6CF582C2-271A-4EF3-A0AB-5A3DB5070C66"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "trapr/TrapStatisticsService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "getTrapStatistics(routeId:trapTypeId:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "57F4488A-4EBD-43BF-A8E0-FA07A66FB8A8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "trapr/TrapStatisticsService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "getTrapStatistics(routeId:trapTypeId:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "57F4488A-4EBD-43BF-A8E0-FA07A66FB8A8 - da9f25ab8c3ddb5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "trapr_development.TrapStatisticsService.getbyStation(routeId: Swift.String, trapTypeId: Swift.String, completion: Swift.Optional&lt;(Swift.Dictionary&lt;Swift.String, trapr_development.TrapStatistics&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "trapr_development"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewtokeley/Documents/LocalDev/trapr/trapr/TrapStatisticsService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "81"
+                  endingLineNumber = "81"
+                  offsetFromSymbolStart = "118">
+               </Location>
+               <Location
+                  uuid = "57F4488A-4EBD-43BF-A8E0-FA07A66FB8A8 - ffb6ae6e2155490f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Array&lt;trapr_development.Visit&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in trapr_development.TrapStatisticsService.getbyStation(routeId: Swift.String, trapTypeId: Swift.String, completion: Swift.Optional&lt;(Swift.Dictionary&lt;Swift.String, trapr_development.TrapStatistics&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "trapr_development"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewtokeley/Documents/LocalDev/trapr/trapr/TrapStatisticsService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "82"
+                  endingLineNumber = "82"
+                  offsetFromSymbolStart = "405">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ADB6A509-434C-47C0-B347-A58D105C12CD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "trapr/VisitFirestoreService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "get(routeId:trapTypeId:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "94CF5BBB-D3D9-45AD-842E-0D15566EECF6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "trapr/VisitFirestoreService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
+            landmarkName = "get(routeId:trapTypeId:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F99CD26B-7DB1-472C-B33A-9F7D3A703922"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "trapr/VisitPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "337"
-            endingLineNumber = "337"
+            startingLineNumber = "344"
+            endingLineNumber = "344"
             landmarkName = "callVisitDelegateChangeVisit()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7BD374CA-CEBC-458B-A459-35CB8ECDC54E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "trapr/VisitPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "340"
+            endingLineNumber = "340"
+            landmarkName = "callVisitDelegateChangeVisit()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "97FDD87F-E25E-4170-A064-19E06AA7C00B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "trapr/VisitInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "retrieveStatisticsForTrap(routeId:stationId:trapTypeId:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9A32C71A-137C-4F6B-A6F3-4A018D9B343F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "trapr/TrapStatisticsView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "040D7A0D-E383-4850-8EED-0CFB69643705"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "trapr/TrapStatisticsPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "listPicker(_:itemTextAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "81816230-9E38-4C52-BB01-CCD186C0DDB9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "trapr/TrapStatisticsPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "listPicker(_:itemDetailAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D18B1400-A2FE-483C-BCED-13A88BE0C7A4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "trapr/TrapStatisticsPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "didRetrieveTrapStatistics(statistics:trapTypeStatistics:showCatchData:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F2EA7AF9-7EB8-4100-9C72-0E674EAF8A71"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "trapr/TrapStatisticsPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "didRetrieveTrapStatistics(statistics:trapTypeStatistics:showCatchData:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "92EE2F72-2316-4923-9D25-1886C578C643"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "trapr/Array_BinaryFloatingPoint_Extensions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "rank(value:highestFirst:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

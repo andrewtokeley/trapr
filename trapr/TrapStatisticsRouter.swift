@@ -15,6 +15,12 @@ final class TrapStatisticsRouter: Router {
 
 // MARK: - TrapStatisticsRouter API
 extension TrapStatisticsRouter: TrapStatisticsRouterApi {
+    
+    func showListPicker(setupData: ListPickerSetupData) {
+        let module = AppModules.listPicker.build()
+        module.router.show(from: viewController, embedInNavController: setupData.embedInNavController, setupData: setupData)
+    }
+    
 }
 
 // MARK: - TrapStatistics Viper Components

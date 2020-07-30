@@ -12,7 +12,7 @@ import Viperit
 import MessageUI
 
 
-enum visitRecordMenuItem: String {
+enum VisitRecordMenuItem: String {
     case showStats = "Show stats"
     case hideStats = "Hide stats"
     case sendReport = "Send report..."
@@ -24,8 +24,18 @@ enum visitRecordMenuItem: String {
     case deleteAllVisits = "Delete all visits..."
 }
 
+enum DataView: Int {
+    case log = 0
+    case statistics
+}
+
 // MARK: - VisitPresenter Class
 final class VisitPresenter: Presenter {
+    
+    fileprivate var statisticsForTrap: TrapStatistics?
+    fileprivate var statisticsForTrapType = [String: TrapTypeStatistics]()
+    
+    fileprivate var dataView: DataView = .log
     
     //fileprivate var settings: Settings?
     fileprivate var delegate: VisitDelegate?
@@ -38,22 +48,6 @@ final class VisitPresenter: Presenter {
     fileprivate var unusedTrapTypes = [TrapType]()
 
     fileprivate var allTypeTypes = [TrapType]()
-    
-//    fileprivate var trapsToDisplay : [TrapType] {
-//        let active = self.currentStation.trapTypes.filter( { $0.active } )
-//        let activeTrapTypeIds = active.map({ $0.trapTpyeId })
-//        return allTypeTypes.filter({ activeTrapTypeIds.contains($0.id!) })
-//    }
-//
-//    fileprivate var unusedTrapTypes : [TrapType] {
-//        let inActive = self.currentStation.trapTypes.filter { !$0.active }
-//
-//        // want to filter all TrapTypes to remove the ones marked as inactive on the station.
-//        return self.allTypeTypes.filter ( { (trapType) in
-//            // return true if the trapType isn't in the inActive list
-//            !inActive.contains { $0.trapTpyeId == trapType.id! }
-//        })
-//    }
     
     fileprivate var currentStation: Station {
         return self.visitSummary.stationsOnRoute[stationIndex]
@@ -103,6 +97,8 @@ final class VisitPresenter: Presenter {
     }
     
     fileprivate var stationIndex = 0
+    
+    // MARK: - Set up View
     
     override func setupView(data: Any) {
         if let setupData = data as? VisitSetup {
@@ -298,11 +294,13 @@ extension VisitPresenter: VisitPresenterApi {
     
     func didSelectEditView() {
         router.addVisitLogToView()
+        self.dataView = .log
         self.callVisitDelegateChangeVisit()
     }
     
     func didSelectStatsView() {
         router.addTrapStatisticsToView()
+        self.dataView = .statistics
         self.callVisitDelegateChangeVisit()
     }
     
@@ -315,47 +313,85 @@ extension VisitPresenter: VisitPresenterApi {
             let options = [
                 
                 // TEST
-                OptionItem(title: visitRecordMenuItem.showStats.rawValue, isEnabled: true),
-                OptionItem(title: visitRecordMenuItem.hideStats.rawValue, isEnabled: true),
+                OptionItem(title: VisitRecordMenuItem.showStats.rawValue, isEnabled: true),
+                OptionItem(title: VisitRecordMenuItem.hideStats.rawValue, isEnabled: true),
                 
-                OptionItem(title: visitRecordMenuItem.sendReport.rawValue, isEnabled: count > 0),
-                OptionItem(title: visitRecordMenuItem.viewMap.rawValue, isEnabled: true),
-                OptionItem(title: visitRecordMenuItem.addTrap.rawValue, isEnabled: self.unusedTrapTypes.count > 0),
-                OptionItem(title: visitRecordMenuItem.archiveTrap.rawValue, isEnabled: self.currentVisit == nil),
-                OptionItem(title: visitRecordMenuItem.addStation.rawValue, isEnabled: true, isDestructive: false),
-                OptionItem(title: visitRecordMenuItem.removeStation.rawValue, isEnabled: true, isDestructive: false),
-                OptionItem(title: visitRecordMenuItem.deleteAllVisits.rawValue, isEnabled: count > 0, isDestructive: true)
+                OptionItem(title: VisitRecordMenuItem.sendReport.rawValue, isEnabled: count > 0),
+                OptionItem(title: VisitRecordMenuItem.viewMap.rawValue, isEnabled: true),
+                OptionItem(title: VisitRecordMenuItem.addTrap.rawValue, isEnabled: self.unusedTrapTypes.count > 0),
+                OptionItem(title: VisitRecordMenuItem.archiveTrap.rawValue, isEnabled: self.currentVisit == nil),
+                OptionItem(title: VisitRecordMenuItem.addStation.rawValue, isEnabled: true, isDestructive: false),
+                OptionItem(title: VisitRecordMenuItem.removeStation.rawValue, isEnabled: true, isDestructive: false),
+                OptionItem(title: VisitRecordMenuItem.deleteAllVisits.rawValue, isEnabled: count > 0, isDestructive: true)
             ]
             self.view.displayMenuOptions(options: options)
         }
     }
     
     func callVisitDelegateChangeVisit() {
-        var hasCatchData = false
-        if self.currentTrap?.killMethod == .direct { hasCatchData = true }
         
-        delegate?.didChangeVisit(routeId: self.currentStation.routeId!, stationId: self.currentStation.id!, trapTypeId: self.currentTrap!.id!, hasCatchData: hasCatchData, visit: self.currentVisit)
+        var showCatchData = false
+        if self.currentTrap?.killMethod == .direct { showCatchData = true }
+        
+        delegate?.didNavigateToTrap(stationId: self.currentStation.longCode, trapDescription: self.currentTrap?.name ?? "")
+        
+        if dataView == .log {
+            
+            delegate?.didRetrieveVisit(visit: self.currentVisit)
+            
+        } else if dataView == .statistics {
+            
+            if let stationId = self.currentStation.id, let trapTypeId = self.currentTrap?.id {
+                
+                self.interactor.retrieveStatisticsForTrap(routeId: self.visitSummary.routeId, stationId: stationId, trapTypeId: trapTypeId) { (trapStatistics, error) in
+                    
+                    self.statisticsForTrap = trapStatistics
+                    
+                    // if we need to get the trapType stats
+                    let dispatchGroup = DispatchGroup()
+                    dispatchGroup.enter()
+                    if self.statisticsForTrapType[trapTypeId] == nil {
+                       
+                        self.interactor.retrieveStatisticsForTrapType(routeId: self.visitSummary.routeId, trapTypeId: trapTypeId, includeStations: self.visitSummary.stationsOnRoute) { (trapTypeStatistics, error) in
+                            if let _ = error {
+                                // ignore for now
+                            } else {
+                                self.statisticsForTrapType[trapTypeId] = trapTypeStatistics
+                                dispatchGroup.leave()
+                            }
+                        }
+                    } else {
+                        dispatchGroup.leave()
+                    }
+                    
+                    dispatchGroup.notify(queue: .main) {
+                        //
+                        self.delegate?.didRetrieveTrapStatistics(statistics: self.statisticsForTrap, trapTypeStatistics: self.statisticsForTrapType[trapTypeId], showCatchData: showCatchData)
+                    }
+                }
+            }
+        }
     }
     
     func didSelectMenuItem(title: String) {
         
-        if title == visitRecordMenuItem.showStats.rawValue {
+        if title == VisitRecordMenuItem.showStats.rawValue {
             router.addTrapStatisticsToView()
             self.callVisitDelegateChangeVisit()
         }
         
-        if title == visitRecordMenuItem.hideStats.rawValue {
+        if title == VisitRecordMenuItem.hideStats.rawValue {
             router.addVisitLogToView()
             self.callVisitDelegateChangeVisit()
         }
         
-        if title == visitRecordMenuItem.sendReport.rawValue {
+        if title == VisitRecordMenuItem.sendReport.rawValue {
             self.menuSendToHandler()
         }
-        if title == visitRecordMenuItem.viewMap.rawValue {
+        if title == VisitRecordMenuItem.viewMap.rawValue {
             self.menuShowMap()
         }
-        if title == visitRecordMenuItem.deleteAllVisits.rawValue {
+        if title == VisitRecordMenuItem.deleteAllVisits.rawValue {
             
             interactor.numberOfVisits(routeId: visitSummary.routeId!, date: visitSummary.dateOfVisit) { (count) in
                 self.view.showConfirmation(title: "Delete All \(count) Visits", message: "Are you sure",
@@ -367,22 +403,22 @@ extension VisitPresenter: VisitPresenterApi {
                     })
             }
         }
-        if title == visitRecordMenuItem.addStation.rawValue {
+        if title == VisitRecordMenuItem.addStation.rawValue {
             didSelectAddStation()
         }
         
-        if title == visitRecordMenuItem.removeStation.rawValue {
+        if title == VisitRecordMenuItem.removeStation.rawValue {
             view.confirmDeleteStationMethod()
         }
         
-        if title == visitRecordMenuItem.addTrap.rawValue {
+        if title == VisitRecordMenuItem.addTrap.rawValue {
             let setupData = ListPickerSetupData()
             setupData.delegate = self
             setupData.embedInNavController = false
             self.router.showListPicker(setupData: setupData)
         }
         
-        if title == visitRecordMenuItem.archiveTrap.rawValue {
+        if title == VisitRecordMenuItem.archiveTrap.rawValue {
             if let trap = self.currentTrap {
                 self.didSelectToRemoveTrap(trapType: trap)
             }

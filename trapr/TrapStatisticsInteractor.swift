@@ -20,8 +20,12 @@ extension TrapStatisticsInteractor: TrapStatisticsInteractorApi {
     
     func fetchTrapStatistics(routeId: String, stationId: String, trapTypeId: String, completion: ((TrapStatistics?, Error?) -> Void)?) {
         
-        trapStatisticsService.get(routeId: routeId, stationId: stationId, trapTypeId: trapTypeId) { (statistics, error) in
-            completion?(statistics, error)
+        trapStatisticsService.getTrapStatistics(routeId: routeId, stationId: stationId, trapTypeId: trapTypeId) { (trapStatistics, error) in
+            if let error = error {
+                completion?(nil, error)
+            } else {
+                completion?(trapStatistics, nil)
+            }
         }
     }
 }

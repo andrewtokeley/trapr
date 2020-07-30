@@ -34,6 +34,9 @@ final class VisitLogPresenter: Presenter {
         return self.trapTypes.filter({ $0.id ==  self.currentVisit!.trapTypeId }).first
     }
     
+    /**
+     Before setting up the view we need to grab some more information... e.g. TrapTypes
+     */
     func initialisePresenter(completion: (() -> Void)?) {
         // make sure we have a reference to the traptypes - needed for display etc.
         if self.trapTypes.count == 0 {
@@ -165,22 +168,39 @@ extension VisitLogPresenter: VisitDelegate {
         self.trapTypes = trapTypes
     }
     
-    func didChangeVisit(routeId: String, stationId: String, trapTypeId: String, hasCatchData: Bool, visit: VisitEx?) {
+    func didRetrieveVisit(visit: VisitEx?) {
         
-        // this is the first entry point to the presenter, so let's make sure we have things set up
-        self.initialisePresenter {
+        if let _ = visit {
             
-            // before navigating to another visit, make sure active textfields stop editing (like comments)
-            self.view.endEditing()
-            
-            if let _ = visit {
+            // this is the first entry point to the presenter, so let's make sure we have things set up
+            self.initialisePresenter {
+                // before navigating to another visit, make sure active textfields stop editing (like comments)
+                self.view.endEditing()
                 self.currentVisit = visit
                 self.updateViewForCurrentVisit()
-            } else {
-                self.view.displayNoVisitState()
             }
+        } else {
+          
+            self.view.displayNoVisitState()
         }
     }
+    
+//    func didChangeVisit(routeId: String, stationId: String, trapTypeId: String, hasCatchData: Bool, visit: VisitEx?) {
+//        
+//        // this is the first entry point to the presenter, so let's make sure we have things set up
+//        self.initialisePresenter {
+//            
+//            // before navigating to another visit, make sure active textfields stop editing (like comments)
+//            self.view.endEditing()
+//            
+//            if let _ = visit {
+//                self.currentVisit = visit
+//                self.updateViewForCurrentVisit()
+//            } else {
+//                self.view.displayNoVisitState()
+//            }
+//        }
+//    }
 }
 
 // MARK: - DatePickerDelegate

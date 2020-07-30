@@ -17,6 +17,18 @@ enum SpeciesCode: String {
     case stoat = "STO"
     case other = "OTHR"
     
+    var name: String {
+        switch self {
+        case .possum: return "Possum"
+        case .rat: return "Rat"
+        case .mouse: return "Mouse"
+        case .hedgehog: return "Hedgehog"
+        case .cat: return "Cat"
+        case .stoat: return "Stoat"
+        case .other: return "Other"
+        }
+    }
+    
     var walkTheLineCode: String {
         switch self {
         case .possum: return "P"

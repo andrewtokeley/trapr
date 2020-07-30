@@ -30,6 +30,8 @@ protocol ListPickerDelegate {
     func listPicker(_ listPicker: ListPickerView, didSelectItemAt index: Int)
     func listPicker(_ listPicker: ListPickerView, didSelectMultipleItemsAt indexes: [Int])
     
+    func listPickerCellStyle(_ listPicker: ListPickerView) -> UITableViewCell.CellStyle
+    
 }
     
     //MARK: - Default implementations for optional methods
@@ -65,5 +67,9 @@ protocol ListPickerDelegate {
         
         func listPicker(_ listPicker: ListPickerView, imageViewAt index: Int) -> UIImage? {
             return nil
+        }
+        
+        func listPickerCellStyle(_ listPicker: ListPickerView) -> UITableViewCell.CellStyle {
+            return UITableViewCell.CellStyle.subtitle
         }
 }

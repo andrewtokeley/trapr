@@ -26,6 +26,9 @@ class TrapStatisticsService: FirestoreService {
             // Tally KillCounts
             if let id = visit.speciesId {
                 result.killsBySpecies[id] = (result.killsBySpecies[id] ?? 0) + 1
+                
+                result.killsByDate[visit.visitDateTime] = SpeciesCode(rawValue: id)?.name ?? "Unknown"
+                
             }
             
             // Bait
@@ -58,7 +61,7 @@ class TrapStatisticsService: FirestoreService {
 
 extension TrapStatisticsService: TrapStatisticsServiceInterface {
     
-    func get(routeId: String, stationId: String, trapTypeId: String, completion: ((TrapStatistics?, Error?) -> Void)?) {
+    func getTrapStatistics(routeId: String, stationId: String, trapTypeId: String, completion: ((TrapStatistics?, Error?) -> Void)?) {
         
         // get all the visits for the route, station, traptype
         visitService.get(routeId: routeId, stationId: stationId, trapTypeId: trapTypeId) { (visits, error) in
@@ -75,8 +78,27 @@ extension TrapStatisticsService: TrapStatisticsServiceInterface {
         }
     }
     
-    func get(routeId: String, trapTypeId: String, completion: ((TrapStatistics?, Error?) -> Void)?) {
+    func getTrapStatistics(routeId: String, trapTypeId: String, completion: (([String : TrapStatistics], Error?) -> Void)?) {
         
+        // get all the visits on the route for the traptype
+        visitService.get(routeId: routeId, trapTypeId: trapTypeId) { (visits, error) in
+            if let error = error {
+                completion?([String: TrapStatistics](), error)
+            } else {
+                // group by stationId
+                let stationsAll = visits.map { $0.stationId }
+                let stationsUnique = Array(Set(stationsAll))
+                
+                var result = [String: TrapStatistics]()
+                for stationId in stationsUnique {
+                    let stationVisits = visits.filter({ $0.stationId == stationId })
+                    if let statistics = self.getStatistics(stationVisits) {
+                        result[stationId] = statistics
+                    }
+                }
+                completion?(result, nil)
+            }
+        }
     }
     
 }

@@ -94,7 +94,13 @@ protocol VisitInteractorApi: InteractorProtocol {
     func retrieveTrapsToDisplay(route: Route, station: Station, date: Date, completion: (([TrapType]) -> Void)?)
     
     func updateVisitDates(currentDate: Date, routeId: String, newDate: Date)
+    
     func retrieveVisit(date: Date, routeId: String, stationId: String, trapTypeId: String)
+
+    func retrieveStatisticsForTrapType(routeId: String, trapTypeId: String, includeStations: [Station], completion: ((TrapTypeStatistics?, Error?) -> Void)?)
+    
+    func retrieveStatisticsForTrap(routeId: String, stationId: String, trapTypeId: String, completion: ((TrapStatistics?, Error?) -> Void)?)
+    
     func addVisit(date: Date, routeId: String, traplineId: String, stationId: String, trapTypeId: String)
     func addOrRestoreTrapToStation(station: Station, trapTypeId: String)
 

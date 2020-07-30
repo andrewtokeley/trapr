@@ -115,6 +115,11 @@ protocol VisitServiceInterface {
     
     func get(recordedBetween dateStart: Date, dateEnd: Date, stationId: String, trapTypeId: String, completion: (([Visit], Error?) -> Void)?)
     
+    /**
+     Get all the visits for a certain type of trap on a route. This is useful when comparing the performance of traps on a route against each other.
+     */
+    func get(routeId: String, trapTypeId: String, completion: (([Visit], Error?) -> Void)?)
+    
     func get(routeId: String, stationId: String, trapTypeId: String, completion: (([Visit], Error?) -> Void)?)
     
     func getMostRecentVisit(routeId: String, completion: ((Visit?) -> Void)?)

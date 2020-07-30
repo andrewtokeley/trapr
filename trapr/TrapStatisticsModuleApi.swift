@@ -10,15 +10,17 @@ import Viperit
 
 //MARK: - TrapStatisticsRouter API
 protocol TrapStatisticsRouterApi: RouterProtocol {
+    func showListPicker(setupData: ListPickerSetupData) 
 }
 
 //MARK: - TrapStatisticsView API
 protocol TrapStatisticsViewApi: UserInterfaceProtocol {
-    func displayStatistics(statistics: TrapStatistics, showCatchStats: Bool)
+    func displayStatistics(statistics: TrapStatistics, trapTypeStatistics: TrapTypeStatistics, showCatchStats: Bool)
 }
 
 //MARK: - TrapStatisticsPresenter API
 protocol TrapStatisticsPresenterApi: PresenterProtocol {
+    func didSelectToViewCatchDetails()
 }
 
 //MARK: - TrapStatisticsInteractor API

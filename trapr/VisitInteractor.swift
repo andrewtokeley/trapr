@@ -11,7 +11,7 @@ import Viperit
 
 // MARK: - VisitInteractor Class
 final class VisitInteractor: Interactor {
-
+    fileprivate lazy var statisticsService = { ServiceFactory.sharedInstance.trapStatisticsService }()
     fileprivate lazy var visitService = { ServiceFactory.sharedInstance.visitFirestoreService }()
     fileprivate lazy var visitSummaryService = { ServiceFactory.sharedInstance.visitSummaryFirestoreService }()
     fileprivate lazy var routeService = { ServiceFactory.sharedInstance.routeFirestoreService }()
@@ -37,6 +37,45 @@ final class VisitInteractor: Interactor {
 
 // MARK: - VisitInteractor API
 extension VisitInteractor: VisitInteractorApi {
+    
+    
+    func retrieveStatisticsForTrapType(routeId: String, trapTypeId: String, includeStations: [Station], completion: ((TrapTypeStatistics?, Error?) -> Void)?) {
+        
+        self.statisticsService.getTrapStatistics(routeId: routeId, trapTypeId: trapTypeId) { (dictionary, error) in
+            
+            if let error = error {
+                completion?(nil, error)
+            } else {
+                
+                // only include given stations (i.e. this will exclude inactive ones)
+                let filteredDictionary = dictionary.filter { includeStations.map { $0.id }.contains($0.key)}
+                
+                var trapTypeStatistics = TrapTypeStatistics()
+                
+                trapTypeStatistics.baitEatenQuartiles = (filteredDictionary.values.map { Double($0.baitEaten) }).quartiles
+                trapTypeStatistics.baitRemovedQuartiles = (filteredDictionary.values.map { Double($0.baitRemoved) }).quartiles
+                trapTypeStatistics.baitAddedQuartiles = (filteredDictionary.values.map { Double($0.baitAdded) }).quartiles
+                
+                trapTypeStatistics.totalCatchesQuartiles = (filteredDictionary.values.map { Double($0.totalCatches) }).quartiles
+                
+                trapTypeStatistics.catchRates = (filteredDictionary.values.map({ $0.catchRate ?? 0 }))
+                
+                completion?(trapTypeStatistics, nil)
+            }
+            
+        }
+    }
+    
+    func retrieveStatisticsForTrap(routeId: String, stationId: String, trapTypeId: String, completion: ((TrapStatistics?, Error?) -> Void)?) {
+    
+        self.statisticsService.getTrapStatistics(routeId: routeId, stationId: stationId, trapTypeId: trapTypeId) { (statistics, error) in
+            if let error = error {
+                completion?(nil, error)
+            } else {                
+                completion?(statistics, nil)
+            }
+        }
+    }
     
     func generateVisitReportFile(date: Date, route: Route, completion: ((Data?, String?, String?, Error?) -> Void)?) {
 

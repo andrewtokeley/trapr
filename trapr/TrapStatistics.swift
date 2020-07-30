@@ -8,6 +8,95 @@
 
 import Foundation
 
+extension Array where Element: TSItem<Int> {
+    var quartiles: Quartiles {
+        let data = self.map { Double($0.data) }
+        return Quartiles(
+            data.lowerQuartile() ?? 0,
+            data.median() ?? 0,
+            data.upperQuartile() ?? 0)
+    }
+    
+    func histogramData(buckets: [Int]) -> [Int] {
+        return [Int]()
+    }
+}
+
+extension Array where Element: TSItem<Double> {
+    var quartiles: Quartiles {
+        let data = self.map { $0.data }
+        return Quartiles(
+            data.lowerQuartile() ?? 0,
+            data.median() ?? 0,
+            data.upperQuartile() ?? 0)
+    }
+    
+    func histogramData(buckets: [Double]) -> [Int] {
+        return [Int]()
+    }
+}
+
+/**
+ Time series item
+ */
+class TSItem<T> {
+    
+    var timestamp: Date
+    var data: T
+    
+    init(_ timestamp: Date, _ data: T) {
+        self.timestamp = timestamp
+        self.data = data
+    }
+}
+
+struct Quartiles {
+    var lower: Double?
+    var median: Double?
+    var upper: Double?
+    
+    init(_ lower: Double, _ median: Double, _ upper: Double) {
+        self.lower = lower
+        self.median = median
+        self.upper = upper
+    }
+}
+
+/**
+ Structure contains the raw data for a set of visits, typically the visits for a Route. Useful for statistical analysis.
+ */
+struct VisitData {
+    
+    /**
+     Array of totals across all the traps of the amounts record for bait eaten across all a number of visits
+     */
+    var baitEatenTotals: [Int]
+    
+    /**
+     Total amount of bait removed across visits
+     */
+    var baitRemovedTotals: [Int]
+    
+    /**
+     Total amount of bait added across visits
+     */
+    var baitAddedTotals: [Int]
+
+}
+/**
+ Structure that defines the aggregate statistics for a group of traps of the same type. Typically populated defined by all the traps of a given type on a route to allow comparisons with individual traps.
+ */
+struct TrapTypeStatistics {
+    
+    var baitEatenQuartiles: Quartiles = Quartiles(0, 0, 0)
+    var baitRemovedQuartiles: Quartiles = Quartiles(0, 0, 0)
+    var baitAddedQuartiles: Quartiles = Quartiles(0, 0, 0)
+    
+    var totalCatchesQuartiles: Quartiles?
+    
+    var catchRates = [Double]()
+}
+
 /**
  Structure that defines statistics for a specific trap. Traps are uniquely defined by a combination of *Station* and *TrapType*.
  
@@ -30,6 +119,11 @@ struct TrapStatistics {
      Only set for traps where the *TrapType.killMethod*  is equal to *KillMethod.direct*, otherwise will be empty
      */
     var killsBySpecies = [String: Int]()
+    
+    /**
+     Record of which species were caught on what date.
+     */
+    var killsByDate = [Date: String]()
     
     /**
      The rate of catches per visit.
