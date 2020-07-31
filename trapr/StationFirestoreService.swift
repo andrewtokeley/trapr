@@ -320,12 +320,10 @@ extension StationFirestoreService: StationServiceInterface {
         
         // need to add any inactive traps that have a visit recorded against them on the given date
         // TODO
-        let codes = trapTypesStatus.map { (status) -> String in
-            return status.trapTpyeId
-        }
+        let codes = trapTypesStatus.map { $0.trapTpyeId }
         
         self.trapTypeService.get(ids: codes) { (trapTypes, error) in
-            completion?(trapTypes)
+            completion?(trapTypes.sorted(by: { $0.order < $1.order }))
         }
     }
     

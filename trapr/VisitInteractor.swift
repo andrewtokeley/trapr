@@ -196,7 +196,7 @@ extension VisitInteractor: VisitInteractorApi {
     }
     func retrieveTrapsToDisplay(route: Route, station: Station, date: Date, completion: (([TrapType]) -> Void)?) {
         stationService.getActiveOrHistoricTraps(route: route, station: station, date: date) { (trapTypes) in
-            print("interactOR: \(trapTypes)")
+            
             completion?(trapTypes)
         }
     }

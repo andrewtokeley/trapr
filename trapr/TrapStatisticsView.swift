@@ -224,6 +224,13 @@ extension TrapStatisticsView: UITableViewDelegate {
         return nil
     }
     
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if section == Sections.catches.rawValue {
+            return "A rank of '1st' means this trap had the most catches of all traps of this type on the route."
+        }
+        return nil
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if let sectionEnum = Sections(rawValue: indexPath.section) {
@@ -232,8 +239,9 @@ extension TrapStatisticsView: UITableViewDelegate {
                 // check if this is a Value3 cell
                 if let cell = SECTION_ROWS[indexPath.section][indexPath.row] as? TableViewCellStyleValue3 {
                     
-                    // don't give it extra height if not subtext (this logic should really be in the view!)
-                    if (cell.tag == ROW_TAG_TOTALVISITS && !hasVisits) ||
+                    // don't give it extra height if no subtext (this logic shouldn't really be in the view!)
+                    if (cell.tag == ROW_TAG_CATCHRANK) ||
+                        (cell.tag == ROW_TAG_TOTALVISITS && !hasVisits) ||
                         (cell.tag == ROW_TAG_TOTALCATCHES && !hasCatches) ||
                         (cell.tag == ROW_TAG_CATCHRANK && !hasCatches)
                         {
