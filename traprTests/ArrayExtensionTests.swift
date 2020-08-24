@@ -55,7 +55,7 @@ class ArrayExtensionTests: XCTestCase {
         
         let set: [Double] = [2.0, 1.0, 3.0, 4.0, 5.0, 7.0, 6.0]
         if let rank = set.rank(index: 2) {
-            XCTAssert(rank == 3)
+            XCTAssert(rank.rank == 3)
         } else {
             XCTFail()
         }
@@ -67,8 +67,8 @@ class ArrayExtensionTests: XCTestCase {
         let set: [Double] = [3.0, 1.0, 3.0, 4.0, 5.0, 7.0, 6.0]
         
         if let rank1 = set.rank(index: 0), let rank2 = set.rank(index: 2) {
-            XCTAssert(rank1 == 2)
-            XCTAssert(rank2 == 2)
+            XCTAssert(rank1.rank == 2)
+            XCTAssert(rank2.rank == 2)
         } else {
             XCTFail()
         }
@@ -80,7 +80,7 @@ class ArrayExtensionTests: XCTestCase {
         let set: [Double] = [3.0, 1.0, 3.0, 4.0, 5.0, 7.0, 6.0]
         
         if let rank = set.rank(value: 3.0) {
-            XCTAssert(rank == 2)
+            XCTAssert(rank.rank == 2)
         } else {
             XCTFail()
         }

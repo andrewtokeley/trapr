@@ -37,6 +37,8 @@ final class RouteDashboardInteractor: Interactor {
     let visitService = ServiceFactory.sharedInstance.visitFirestoreService
     let speciesService = ServiceFactory.sharedInstance.speciesFirestoreService
     let userService = ServiceFactory.sharedInstance.userService
+    let trapStatisticsService = ServiceFactory.sharedInstance.trapStatisticsService
+    
 }
 
 // MARK: - RouteDashboardInteractor API
@@ -50,7 +52,25 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
         return routeService.add(route: route, completion: nil)
     }
     
-    func retrieveVisitInformation(route: Route) {
+    func retrieveStationKillCounts(route: Route, trapTypeId: String?, completion: (([String: Int], Error?) -> Void)?) {
+
+        if let id = route.id {
+            
+            trapStatisticsService.getTrapStatistics(routeId: id, trapTypeId: trapTypeId) { (statisticsByStation, error) in
+                
+                // result will be a dictionary where the key is the Station code (e.g. LW01) and the value is the count of kills
+                var result = [String: Int]()
+                
+                for stationCode in statisticsByStation.keys {
+                    result[stationCode] = statisticsByStation[stationCode]!.totalCatches
+                }
+                
+                completion?(result, error)
+            }
+        }
+    }
+    
+    func retrieveVisitInformation(route: Route, completion: ((VisitInformation?, Error?) -> Void)?) {
         
         var information = VisitInformation()
         
@@ -80,11 +100,12 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
             information.killCounts = self.killCounts(visitSummaries: thisYearsVisitSummaries)
             information.poisonCounts = self.poisonCounts(visitSummaries: thisYearsVisitSummaries)
             
-            self.presenter.didFetchVisitInformation(information: information)
+            completion?(information, error)
         }
     }
+
     
-    func retrieveRouteInformation(route: Route) {
+    func retrieveRouteInformation(route: Route, completion: ((RouteInformation?, Error?) -> Void)?) {
         
         var information = RouteInformation()
         information.route = route
@@ -99,7 +120,7 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
             information.stationDescriptionsWithCodes = self.getStationsDescription(stations: stations, includeStationCodes: true)
             information.stationDescriptionsWithoutCodes = self.getStationsDescription(stations: stations, includeStationCodes: false)
             
-            self.presenter.didFetchRouteInformation(information: information)
+            completion?(information, nil)
         }
     }
     

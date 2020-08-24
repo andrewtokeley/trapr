@@ -9,13 +9,13 @@
 import Foundation
 
 protocol TimeSeriesItem {
-    var timestamp: Date
+    var timestamp: Date { get set }
 }
 
 protocol TimeSeriesIntegerItem: TimeSeriesItem {
-    var data: Int
+    var data: Int { get set }
 }
 
 protocol TimeSeriesDoubleItem: TimeSeriesItem {
-    var data: Double
+    var data: Double { get set }
 }

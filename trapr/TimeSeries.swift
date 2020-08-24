@@ -10,21 +10,21 @@ import Foundation
 
 class TimeSeries<T> where T: TimeSeriesItem {
     
-    private var internalArray: [T]
-    
-    init() {
-        internalArray = []()
-    }
-    
-    convenience init(_ data: [T]) {
-        internalArray = data
-    }
-    
-    func append(_ item: T) {
-        internalArray.append(item)
-    }
-    
-    func insert(_ item, at index: Int) {
-        internalArray.insert(item, at: index)
-    }
+//    private var internalArray: [T]
+//
+//    init() {
+//        internalArray = [T]()
+//    }
+//
+//    convenience init(_ data: [T]) {
+//        internalArray = data
+//    }
+//
+//    func append(_ item: T) {
+//        internalArray.append(item)
+//    }
+//
+//    func insert(_ item: T, at index: Int) {
+//        internalArray.insert(item, at: index)
+//    }
 }

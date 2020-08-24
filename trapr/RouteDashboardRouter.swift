@@ -41,16 +41,16 @@ extension RouteDashboardRouter: RouteDashboardRouterApi {
     /**
      Add a MapViewController instance as a child of the RouteDashboard view
      */
-    func addMapAsChildView(containerView: UIView) {
-        
-        let mapViewController = StationMapViewController()
-        mapViewController.delegate = presenter as? StationMapDelegate
-        
-        viewController.addChild(mapViewController)
-        containerView.addSubview(mapViewController.view)
-        mapViewController.view.autoPinEdgesToSuperviewEdges()
-        mapViewController.didMove(toParent: viewController)
-    }
+//    func addMapAsChildView(containerView: UIView) {
+//        
+//        let mapViewController = StationMapViewController()
+//        mapViewController.delegate = presenter as? StationMapDelegate
+//        
+//        viewController.addChild(mapViewController)
+//        containerView.addSubview(mapViewController.view)
+//        mapViewController.view.autoPinEdgesToSuperviewEdges()
+//        mapViewController.didMove(toParent: viewController)
+//    }
     
     func showOrderStationsModule(routeId: String, stations: [Station]) {
         let module = AppModules.orderStations.build()

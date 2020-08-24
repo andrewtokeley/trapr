@@ -18,17 +18,24 @@ enum ZoomLevel: Double {
 
 final class MapView: UserInterface {
     
-    var delegate: StationMapDelegate?
+    var delegate: StationMapViewDelegate?
     
     //MARK: - Subviews
-    lazy var mapViewControllerHost: UIView = {
-        let view = UIView()
+    
+    public lazy var mapView: StationMapView = {
+        let view = StationMapView(showFilter: false, delegate: self.presenter as! MapPresenter)
+        view.showUserLocation(true)
         return view
     }()
     
-    lazy var mapViewController: StationMapViewController? = {
-        return self.children.first as? StationMapViewController
-    }()
+//    lazy var mapViewControllerHost: UIView = {
+//        let view = UIView()
+//        return view
+//    }()
+//
+//    lazy var mapViewController: StationMapViewController? = {
+//        return self.children.first as? StationMapViewController
+//    }()
     
     lazy var closeButton: UIBarButtonItem = {
         
@@ -47,16 +54,15 @@ final class MapView: UserInterface {
         
         super.loadView()
         
-        self.view.addSubview(mapViewControllerHost)
+        self.view.addSubview(mapView)
         
         self.navigationItem.leftBarButtonItem = closeButton
-        //self.navigationItem.rightBarButtonItem = showMenuButton
         
         setConstraints()
     }
     
     private func setConstraints() {
-        mapViewControllerHost.autoPinEdgesToSuperviewEdges()
+        mapView.autoPinEdgesToSuperviewEdges()
     }
     
     //MARK: - Events
@@ -73,20 +79,24 @@ final class MapView: UserInterface {
 //MARK: - MapView API
 extension MapView: MapViewApi {
     
-    func getMapContainerView() -> UIView {
-        return mapViewControllerHost
-    }
+//    func getMapContainerView() -> UIView {
+//        return mapViewControllerHost
+//    }
+//
+//    func showUserLocation(_ show: Bool) {
+//        mapViewController?.showUserLocation(show)
+//    }
     
-    func showUserLocation(_ show: Bool) {
-        mapViewController?.showUserLocation(show)
+    func loadMap() {
+        mapView.reload(forceRebuildOfAnnotations: true)
     }
     
     func setVisibleRegionToHighlightedStations() {
-        mapViewController?.setVisibleRegionToHighlightedStations()
+        mapView.setVisibleRegionToHighlightedStations()
     }
     
     func setVisibleRegionToAllStations() {
-        mapViewController?.setVisibleRegionToAllStations()
+        mapView.setVisibleRegionToAllStations()
     }
     
 //    func setVisibleRegionToStation(station: Station, distance: CLLocationDistance) {
@@ -102,7 +112,7 @@ extension MapView: MapViewApi {
     }
     
     func reapplyStylingToAnnotationViews() {
-        mapViewController?.reapplyStylingToAnnotationViews()
+        mapView.reapplyStylingToAnnotationViews()
     }
     
     func enableToggleHighlightMode(_ enable: Bool) {

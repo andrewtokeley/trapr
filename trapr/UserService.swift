@@ -15,15 +15,19 @@ class UserService: FirestoreEntityService<User>, UserServiceInterface {
     var currentUser: User?
     
     func get(email: String, completion: ((User?, Error?) -> Void)?) {
-        firestore.collection("users").document(email).getDocument { (snapshot, error) in
-            
-            var user: User?
-            if let data = snapshot?.data() {
-                user = User(dictionary: data)
-                user?.id = email
-            }
+        
+        get(id: email, source: .default) { (user, error) in
             completion?(user, error)
         }
+//        firestore.collection("users").document(email).getDocument { (snapshot, error) in
+//
+//            var user: User?
+//            if let data = snapshot?.data() {
+//                user = User(dictionary: data)
+//                user?.id = email
+//            }
+//            completion?(user, error)
+//        }
     }
     
     func getUserStats(completion: ((UserStatistics?, Error?) -> Void)?) {
@@ -35,26 +39,33 @@ class UserService: FirestoreEntityService<User>, UserServiceInterface {
     
     func registerAuthenticatedUser(authenticatedUser: AuthenticatedUser, completion: ((User?, Error?) -> Void)?) {
         
-        // Create a new User record from the authenticated user
-        let user = User(email: authenticatedUser.email)
-        user.lastAuthenticated = Date()
-        user.displayName = authenticatedUser.displayName
-        
-        // This will add a new user if the user wasn't previously registered
-        self.update(user: user, completion: { (error) in
+        // check to see if this is an existing user
+        self.get(email: authenticatedUser.email) { (user, error) in
+
             if let error = error {
                 completion?(nil, error)
-            } else {
-                self.get(email: user.id!, completion: { (user, error) in
-                    // if this is a new user then they won't have any roles assigned, make sure they have at least the contributor role
-                    if user?.roles.count == 0 {
-                        user?.roles.append(UserRole.contributor.rawValue)
-                    }
-                    self.currentUser = user
-                    completion?(user, error)
-                })
             }
-        })
+            
+            self.currentUser = user
+            
+            // first time this user has logged in (they'll be added as a Contributor only)
+            if (self.currentUser == nil) {
+                // Create a new User record from the authenticated user
+                self.currentUser = User(email: authenticatedUser.email)
+                self.currentUser!.displayName = authenticatedUser.displayName
+            }
+            self.currentUser!.lastAuthenticated = Date()
+            
+            // Update (or add, if new) user record to database
+            self.update(user: self.currentUser!, completion: { (error) in
+                if let error = error {
+                    completion?(nil, error)
+                }
+                completion?(self.currentUser, error)
+            })
+            
+        }
+
     }
     
     func updateLastOpenedApp(user: User, lastOpenedApp: Date, completion: ((Error?) -> Void)?) {

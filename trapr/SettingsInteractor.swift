@@ -89,6 +89,7 @@ extension SettingsInteractor: SettingsInteractorApi {
             progress?(0, "Offline, try again later.", true)
         })
     }
+    
     func updateDashboardRoutes(routes: [Route], showIndexes: [Int]) {
         
         for route in routes {
@@ -103,6 +104,7 @@ extension SettingsInteractor: SettingsInteractorApi {
             
         }
     }
+    
     func save(settings: UserSettings) {
         userSettingsService.add(userSettings: settings, completion: nil)
     }

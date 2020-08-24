@@ -36,8 +36,6 @@ final class MapPresenter: Presenter {
     
     //MARK: - Presenter
     
-    
-    
     override func setupView(data: Any) {
         
         _view.setTitle(title: "Map")
@@ -48,10 +46,8 @@ final class MapPresenter: Presenter {
             self.highlightedStations = setup.highlightedStations
             self.showingHighlightedOnly = setup.showHighlightedOnly
         
-            router.addMapAsChildView(containerView: view.getMapContainerView())
-            
+            view.loadMap()
             view.setVisibleRegionToAllStations()
-            view.showUserLocation(true)
         }
     }
 }
@@ -126,17 +122,19 @@ extension MapPresenter: MapPresenterApi {
     }
 }
 
-extension MapPresenter: StationMapDelegate {
-//    func stationMap(_ stationMap: StationMapViewController, showCalloutForStation station: LocatableEntity) -> Bool {
-//        <#code#>
-//    }
-//
-//    func stationMap(_ stationMap: StationMapViewController, innerTextForStation station: LocatableEntity) -> String? {
-//        return nil
-//    }
+extension MapPresenter: StationMapViewDelegate {
     
+    func stationMap(_ stationMap: StationMapView, colourForStation station: LocatableEntity, state: AnnotationState) -> UIColor {
+        
+        let colour = state == .highlighted ? UIColor.trpMapHighlightedStation : UIColor.trpMapDefaultStation
+        return colour
+    }
     
-    func stationMap(_ stationMap: StationMapViewController, didSelect annotationView: StationAnnotationView) {
+    func stationMapShowHeatMap(_ stationMap: StationMapView) -> Bool {
+        return false
+    }
+    
+    func stationMap(_ stationMap: StationMapView, didSelect annotationView: StationAnnotationView) {
         
         // Highlight all the stations on the same trapline
         let annotation = (annotationView as? MKAnnotationView)?.annotation as? StationMapAnnotation
@@ -147,34 +145,28 @@ extension MapPresenter: StationMapDelegate {
         }
     }
     
-    func stationMap(_ stationMap: StationMapViewController, textForStation station: LocatableEntity) -> String? {
+    func stationMap(_ stationMap: StationMapView, textForStation station: LocatableEntity) -> String? {
         if (self.highlightedStations?.contains(where: {$0.locationId == station.locationId } ) ?? false) {
             return station.subTitle
         }
         return nil
     }
     
-    func stationMap(_ stationMap: StationMapViewController, radiusForStation station: LocatableEntity) -> Int {
+    func stationMap(_ stationMap: StationMapView, radiusForStation station: LocatableEntity) -> Int {
         return 5
     }
     
-    func stationMap(_ stationMap: StationMapViewController, annotationViewClassAt zoomLevel: ZoomLevel) -> AnyClass? {
+    func stationMap(_ stationMap: StationMapView, annotationViewClassAt zoomLevel: ZoomLevel) -> AnyClass? {
         return CircleAnnotationView.self
     }
     
-    func stationMapStations(_ stationMap: StationMapViewController) -> [LocatableEntity] {
+    func stationMapStations(_ stationMap: StationMapView) -> [LocatableEntity] {
         return self.stations
     }
     
-    func stationMap(_ stationMap: StationMapViewController, isHighlighted station: LocatableEntity) -> Bool {
+    func stationMap(_ stationMap: StationMapView, isHighlighted station: LocatableEntity) -> Bool {
         return self.highlightedStations?.contains(where: {$0.locationId == station.locationId } ) ?? false
     }
-    
-//    func stationMap(_ stationMap: StationMapViewController, textForStation station: Station) -> String? {
-//        return station.longCode
-//
-//    }
-    
     
 }
 

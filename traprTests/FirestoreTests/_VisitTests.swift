@@ -200,7 +200,8 @@ class VisitTests: FirebaseTestCase {
         let expect = expectation(description: "testTrapStatistics")
         
         self.createTestData {
-            self.trapStatisticsService.get(routeId: self.routeLWE_Id, stationId: self.stationLW01_Id, trapTypeId: TrapTypeCode.possumMaster.rawValue) { (statistics, error) in
+            
+            self.trapStatisticsService.getTrapStatistics(routeId: self.routeLWE_Id, stationId: self.stationLW01_Id, trapTypeId: TrapTypeCode.possumMaster.rawValue) { (statistics, error) in
                 
                 XCTAssertNil(error)
                 

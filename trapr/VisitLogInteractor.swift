@@ -99,7 +99,13 @@ extension VisitLogInteractor: VisitLogInteractorApi {
     }
     
     func saveVisit(visit: Visit) {
-        visitService.add(visit: visit, completion: nil)
+        visitService.add(visit: visit) { (visit, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                //
+            }
+        }
     }
 }
 

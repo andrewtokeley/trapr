@@ -192,7 +192,7 @@ class VisitFirestoreService: FirestoreEntityService<Visit>, VisitServiceInterfac
         }
     }
     
-    func get(routeId: String, trapTypeId: String, completion: (([Visit], Error?) -> Void)?) {
+    func get(routeId: String, trapTypeId: String?, completion: (([Visit], Error?) -> Void)?) {
             
         let start = Date().add(0, 0, -10) // year dot!
         let end = Date() // to today
@@ -202,7 +202,7 @@ class VisitFirestoreService: FirestoreEntityService<Visit>, VisitServiceInterfac
             // further filter by routeId (Firestore can't do date range + other field filter)
             let visitsFiltered = visits.filter({ (visit) -> Bool in
                     visit.routeId == routeId &&
-                    visit.trapTypeId == trapTypeId
+                    (visit.trapTypeId == trapTypeId || trapTypeId == nil)
             })
             completion?(visitsFiltered, error)
         }

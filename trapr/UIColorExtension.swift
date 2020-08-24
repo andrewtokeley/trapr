@@ -11,6 +11,72 @@ import UIKit
 
 extension UIColor
 {
+
+    /**
+     Creates a colour object from RGB components represented as intergers in the range 0-255, rather than *CGFloat* values between 0 - 1
+     */
+    convenience init(_ red: Int, _ green: Int, _ blue: Int, _ alpha: CGFloat) {
+        self.init(red: CGFloat(red)/255.0, green: CGFloat(green)/CGFloat(255), blue: CGFloat(blue)/CGFloat(255), alpha: alpha)
+    }
+    
+    /**
+     Returns the colour of a heat map slice give a value and maximum value.
+     
+     It is assumed there are always 7 equal segments in the heatmap.
+     */
+    public class func trpHeatColour(value: Int, maximumValue: Int) -> UIColor {
+
+        let NUMBER_OF_COLOUR_SEGMENTS = 7
+
+        // range of each colour segment
+        var maxCount = maximumValue
+        if maxCount < 7 { maxCount = 7 }
+        let range = maxCount / NUMBER_OF_COLOUR_SEGMENTS
+
+        // index within the range
+        var index = value / range
+        if index > (NUMBER_OF_COLOUR_SEGMENTS - 1) {
+            index = NUMBER_OF_COLOUR_SEGMENTS - 1
+        } else if index <= 0 {
+            index = 0
+        }
+        return trpHeatColour(heatValue: index)
+    }
+    
+    public class func trpHeatColour(heatValue: Int) -> UIColor {
+        switch heatValue {
+        case 0: return .trpHeat0
+        case 1: return .trpHeat1
+        case 2: return .trpHeat2
+        case 3: return .trpHeat3
+        case 4: return .trpHeat4
+        case 5: return .trpHeat5
+        case 6: return .trpHeat6
+        default: return .trpHeat0
+        }
+    }
+    
+    public class var trpHeat0: UIColor {
+        return UIColor(72, 150, 87, 1)
+    }
+    public class var trpHeat1: UIColor {
+        return UIColor(158, 205, 110, 1)
+    }
+    public class var trpHeat2: UIColor {
+        return UIColor(221, 238, 151, 1)
+    }
+    public class var trpHeat3: UIColor {
+        return UIColor(254, 255, 198, 1)
+    }
+    public class var trpHeat4: UIColor {
+        return UIColor(249, 225, 150, 1)
+    }
+    public class var trpHeat5: UIColor {
+        return UIColor(237, 147, 100, 1)
+    }
+    public class var trpHeat6: UIColor {
+        return UIColor(198, 64, 50, 1)
+    }
     
     public class var trpDefaultTableViewHeaderFooter: UIColor {
         //return UIColor(red:42/255, green: 42/255, blue:44/255,alpha: 1)

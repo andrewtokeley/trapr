@@ -185,6 +185,7 @@ class VisitEx: Visit {
     
     convenience init?(visit: Visit) {
         self.init(dictionary: visit.dictionary)
+        self.id = visit.id
     }
     
     var station: Station?

@@ -18,7 +18,11 @@ protocol TrapStatisticsServiceInterface {
     /**
      Retrieve all *TrapStatistic* records on a route for a given *TrapType*. The result is a dictionary where the key is the station code (i.e. LW01) and the value is the trap statistic for the trap at that station of the given *TrapType*.
      */
-    func getTrapStatistics(routeId: String, trapTypeId: String, completion: (([String: TrapStatistics], Error?) -> Void)?)
+    func getTrapStatistics(routeId: String, trapTypeId: String?, completion: (([String: TrapStatistics], Error?) -> Void)?)
     
+    /**
+     Retrieve *TrapStatistics* records for each station on a route. Results are aggregated across all traps at each station.
+     */
+    func getTrapStatistics(routeId: String, completion: (([String: TrapStatistics], Error?) -> Void)?)
     
 }

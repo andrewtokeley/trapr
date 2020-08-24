@@ -11,25 +11,27 @@ import MapKit
 
 //MARK: - MapRouter API
 protocol MapRouterApi: RouterProtocol {
-    func addMapAsChildView(containerView: UIView)
+    //func addMapAsChildView(containerView: UIView)
 }
 
 //MARK: - MapView API
 protocol MapViewApi: UserInterfaceProtocol {
-    func getMapContainerView() -> UIView
+    
+    //func getMapContainerView() -> UIView
+    //func setVisibleRegionToStation(station: Station, distance: CLLocationDistance)
+    //var delegate: StationMapDelegate? { get set }
+    //func showUserLocation(_ show: Bool)
+    func loadMap()
     func setVisibleRegionToHighlightedStations()
     func setVisibleRegionToAllStations()
-    //func setVisibleRegionToStation(station: Station, distance: CLLocationDistance)
     func reapplyStylingToAnnotationViews()
     func showOnlyHighlighted()
     func showAll()
-    
-    //func setTitle(title: String)
     func displayMenuOptions(options: [OptionItem])
-    func showUserLocation(_ show: Bool)
+    
     func enableToggleHighlightMode(_ enable: Bool)
     
-    var delegate: StationMapDelegate? { get set }
+    
 }
 
 //MARK: - MapPresenter API

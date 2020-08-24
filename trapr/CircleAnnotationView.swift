@@ -21,6 +21,12 @@ class CircleAnnotationView: MKAnnotationView, StationAnnotationView {
         }
     }
     
+    var borderColor: UIColor = UIColor.white {
+        didSet {
+            self.setNeedsDisplay()
+        }
+    }
+    
     var  subText: String? = nil {
         didSet {
             // don't unnecessarily create the UILabel if it's not needed
@@ -128,8 +134,10 @@ class CircleAnnotationView: MKAnnotationView, StationAnnotationView {
         // make the circle slightly smaller to allow for border
         let circleRect = CGRect(x: rect.origin.x + BORDER_WIDTH, y: rect.origin.y + BORDER_WIDTH, width: rect.width - BORDER_WIDTH * 2, height: rect.height - BORDER_WIDTH * 2)
         let path = UIBezierPath(ovalIn: circleRect)
+ 
         color.setFill()
-        UIColor.white.setStroke()
+        
+        borderColor.setStroke()
         path.lineWidth = BORDER_WIDTH
         path.stroke()
         path.fill()

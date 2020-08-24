@@ -11,19 +11,19 @@ import Viperit
 
 // MARK: - MapRouter class
 final class MapRouter: Router {
-    /**
-     Add a MapViewController instance as a child of the RouteDashboard view
-     */
-    func addMapAsChildView(containerView: UIView) {
-        
-        let mapViewController = StationMapViewController()
-        mapViewController.delegate = presenter as? StationMapDelegate
-        
-        viewController.addChild(mapViewController)
-        containerView.addSubview(mapViewController.view)
-        mapViewController.view.autoPinEdgesToSuperviewEdges()
-        mapViewController.didMove(toParent: viewController)
-    }
+//    /**
+//     Add a MapViewController instance as a child of the RouteDashboard view
+//     */
+//    func addMapAsChildView(containerView: UIView) {
+//
+//        let mapViewController = StationMapViewController()
+//        mapViewController.delegate = presenter as? StationMapDelegate
+//
+//        viewController.addChild(mapViewController)
+//        containerView.addSubview(mapViewController.view)
+//        mapViewController.view.autoPinEdgesToSuperviewEdges()
+//        mapViewController.didMove(toParent: viewController)
+//    }
 }
 
 // MARK: - MapRouter API

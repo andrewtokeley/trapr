@@ -12,6 +12,28 @@ class TrapStatisticsService: FirestoreService {
     
     fileprivate lazy var visitService = { ServiceFactory.sharedInstance.visitFirestoreService }()
     
+    fileprivate func getStatisticsByStation(_ visits: [Visit]) -> [String: TrapStatistics] {
+        
+        
+        let stationIdsAll = visits.map { $0.stationId }
+        let stationIdsUnique = Array(Set(stationIdsAll))
+//        let stationIdsWithoutRouteId = visits.map { $0.stationId.replacingOccurrences(of: "\($0.routeId)_", with: "") }
+        
+        var result = [String: TrapStatistics]()
+        for stationId in stationIdsUnique {
+            let stationVisits = visits.filter({ $0.stationId == stationId })
+            if let statistics = self.getStatistics(stationVisits) {
+                
+                // remove the routeId from the key
+//                if let routeId = stationVisits.first?.routeId {
+//                    let key = stationId.replacingOccurrences(of: "\(routeId)_", with: "")
+                    result[stationId] = statistics
+                //}
+            }
+        }
+        return result
+    }
+    
     fileprivate func getStatistics(_ visits: [Visit]) -> TrapStatistics? {
         
         var result = TrapStatistics()
@@ -78,27 +100,22 @@ extension TrapStatisticsService: TrapStatisticsServiceInterface {
         }
     }
     
-    func getTrapStatistics(routeId: String, trapTypeId: String, completion: (([String : TrapStatistics], Error?) -> Void)?) {
+    func getTrapStatistics(routeId: String, trapTypeId: String? = nil, completion: (([String : TrapStatistics], Error?) -> Void)?) {
         
         // get all the visits on the route for the traptype
         visitService.get(routeId: routeId, trapTypeId: trapTypeId) { (visits, error) in
             if let error = error {
                 completion?([String: TrapStatistics](), error)
             } else {
-                // group by stationId
-                let stationsAll = visits.map { $0.stationId }
-                let stationsUnique = Array(Set(stationsAll))
                 
-                var result = [String: TrapStatistics]()
-                for stationId in stationsUnique {
-                    let stationVisits = visits.filter({ $0.stationId == stationId })
-                    if let statistics = self.getStatistics(stationVisits) {
-                        result[stationId] = statistics
-                    }
-                }
+                let result = self.getStatisticsByStation(visits)
                 completion?(result, nil)
             }
         }
     }
     
+    func getTrapStatistics(routeId: String, completion: (([String: TrapStatistics], Error?) -> Void)?) {
+        self.getTrapStatistics(routeId: routeId, trapTypeId: nil, completion: completion)
+    }
+
 }

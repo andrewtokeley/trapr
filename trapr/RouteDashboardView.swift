@@ -14,41 +14,50 @@ import Charts
 //MARK: RouteDashboardView Class
 final class RouteDashboardView: UserInterface {
     
-    var mapHeightConstaint: NSLayoutConstraint?
+    private var stations = [LocatableEntity]()
     
-    var mapBottomConstaint: NSLayoutConstraint?
-    var mapTopConstraint: NSLayoutConstraint?
-    var tableHeightConstraint: NSLayoutConstraint?
+    private let CELL_ID = "cell"
     
-    let MAP_HEIGHT_MIN: CGFloat = 350
-    let GRAPH_HEIGHT: CGFloat = 200
+    private let SECTIONS = 4
     
-    var lastScrollOffset: CGFloat = 0
+    private let SECTION_MAP = 0
+    private let ROW_MAP = 0
+
+    private let SECTION_VISITS = 1
+    private let ROW_ROUTE_SUMMARY = 0
+    private let ROW_LASTVISITED = 1
+    private let ROW_VISITS = 2
+    private let ROW_TIMES = 3
     
-    let CELL_ID = "cell"
-    let ROW_LASTVISITED = 1
-    let ROW_VISITS = 2
-    let ROW_TIMES = 3
+    private let SECTION_CATCHES = 2
+    private let ROW_CATCHES_GRAPH = 0
     
-    var killNumberOfBars: Int = 0
-    var poisonNumberOfBars: Int = 0
-    var poisonCountFunction: ((Int) -> Int)?
+    private let SECTION_POISON = 3
+    private let ROW_POISON_GRAPH = 0
     
-    /// Number of summary cells, 4 if there are visits, otherwise 1.
-    var numberOfSummaryCells = 0
+    private let MAPOPTION_ALLTRAPTYPES = 0
+    private let MAPOPTION_POSSUMMASTER = 1
+    private let MAPOPTION_TIMMS = 2
+    private let MAPOPTION_DOC200 = 3
     
-    var heightOfScrollableArea: CGFloat {
-        // 3 row tableview, 2 graphs with headings + a little extra
-        return LayoutDimensions.inputHeight * 3 + GRAPH_HEIGHT * 2 + LayoutDimensions.inputHeight * 2 + LayoutDimensions.spacingMargin
-    }
+    fileprivate var visibleSections = [Int]()
+    
+    private var killNumberOfBars: Int = 0
+    private var poisonNumberOfBars: Int = 0
+    private var poisonCountFunction: ((Int) -> Int)?
     
     //MARK: - Subviews
     
-    lazy var summaryTableView: UITableView = {
-        let tableView = UITableView(frame: CGRect.zero, style: .plain)
+    lazy var spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView(style: .gray)
+        spinner.color = .trpHighlightColor
+        return spinner
+    }()
+    
+    lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = UIColor.clear
         return tableView
     }()
     
@@ -57,7 +66,6 @@ final class RouteDashboardView: UserInterface {
         cell.textLabel?.text = "Stations"
         cell.accessoryType = .none
         cell.selectionStyle = .none
-        cell.backgroundColor = UIColor.clear
         return cell
     }()
     
@@ -66,7 +74,6 @@ final class RouteDashboardView: UserInterface {
         cell.textLabel?.text = "Visits"
         cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .none
-        cell.backgroundColor = UIColor.clear
         return cell
     }()
     
@@ -75,7 +82,6 @@ final class RouteDashboardView: UserInterface {
         cell.textLabel?.text = "Last Visited"
         cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .none
-        cell.backgroundColor = UIColor.clear
         return cell
     }()
     
@@ -84,52 +90,29 @@ final class RouteDashboardView: UserInterface {
         cell.textLabel?.text = "Times"
         cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .none
-        cell.backgroundColor = UIColor.clear
         return cell
     }()
     
-    lazy var scrollViewContentView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightOfScrollableArea))
-        return view
-    }()
-
-    lazy var scrollViewSpacer: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        return view
+    lazy var mapTableViewCell: MapTableViewCell = {
+        let cell = MapTableViewCell(showFilter: true, delegate: self)
+        cell.selectionStyle = .none
+        return cell
     }()
     
-    lazy var contentStackView: UIView = {
-        let view = UIStackView()
-        view.axis = .vertical
-        view.alignment = .fill
-        view.distribution = .equalSpacing
-        view.spacing = 10
-        view.contentMode = .scaleToFill
-        
-        view.addArrangedSubview(scrollViewSpacer)
-        view.addArrangedSubview(summaryTableView)
-        view.addArrangedSubview(barChartKills)
-        view.addArrangedSubview(barChartKillsTitle)
-        view.addArrangedSubview(barChartPoison)
-        view.addArrangedSubview(barChartPoisonTitle)
-        
-        return view
-    }()
-
-    lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.addSubview(contentStackView)
-        scrollView.delegate = self
-        return scrollView
+    lazy var catchesGraphTableViewCell: UITableViewCell = {
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: CELL_ID)
+        cell.textLabel?.text = "Times"
+        cell.accessoryType = .disclosureIndicator
+        cell.selectionStyle = .none
+        return cell
     }()
     
-    lazy var barChartKillsTitle: UILabel = {
-        let label = UILabel()
-        label.text = "CATCHES"
-        label.textAlignment = .center
-        label.font = UIFont.trpLabelSmall
-        return label
+    lazy var poisonGraphTableViewCell: UITableViewCell = {
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: CELL_ID)
+        cell.textLabel?.text = "Times"
+        cell.accessoryType = .disclosureIndicator
+        cell.selectionStyle = .none
+        return cell
     }()
     
     lazy var barChartKills: BarChartViewEx = {
@@ -155,14 +138,6 @@ final class RouteDashboardView: UserInterface {
         return chart
     }()
     
-    lazy var barChartPoisonTitle: UILabel = {
-        let label = UILabel()
-        label.text = "POISON"
-        label.textAlignment = .center
-        label.font = UIFont.trpLabelSmall
-        return label
-    }()
-    
     lazy var barChartPoison: BarChartViewEx = {
         let chart = BarChartViewEx()
         chart.drawGridBackgroundEnabled = false
@@ -186,98 +161,6 @@ final class RouteDashboardView: UserInterface {
         return chart
     }()
     
-    lazy var editDescription: VerticallyCentredTextView = {
-        let label = VerticallyCentredTextView()
-        
-        label.isEditable = false
-        label.backgroundColor = UIColor.white
-        label.tintColor = UIColor.trpTextDark
-        label.font = UIFont.trpLabelSmall
-        label.alpha = 0 // hide initially
-        label.textAlignment = .center
-        return label
-    }()
-    
-    lazy var editStationOptions: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.white
-        view.alpha = 0
-        
-//        view.addSubview(self.resetStationsButton)
-//        self.resetStationsButton.autoAlignAxis(toSuperviewAxis: .horizontal)
-//        self.resetStationsButton.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
-        
-        view.addSubview(self.selectAllStationsOnTraplineButton)
-        self.selectAllStationsOnTraplineButton.autoAlignAxis(toSuperviewAxis: .horizontal)
-        self.selectAllStationsOnTraplineButton.autoAlignAxis(toSuperviewAxis: .vertical)
-        //self.selectAllStationsOnTraplineButton.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
-        
-        return view
-    }()
-    
-    lazy var editOrderOptions: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.white
-        view.alpha = 0
-        
-        view.addSubview(self.reverseOrderButton)
-        //view.addSubview(self.resetOrderButton)
-        view.addSubview(self.clearOrderButton)
-        
-        self.reverseOrderButton.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.spacingMargin)
-        self.reverseOrderButton.autoSetDimension(.width, toSize: 80)
-        self.reverseOrderButton.autoAlignAxis(toSuperviewAxis: .horizontal)
-        
-//        self.resetOrderButton.autoAlignAxis(toSuperviewAxis: .vertical)
-//        self.resetOrderButton.autoAlignAxis(toSuperviewAxis: .horizontal)
-//        self.resetOrderButton.autoSetDimension(.width, toSize: 80)
-        
-        self.clearOrderButton.autoAlignAxis(toSuperviewAxis: .horizontal)
-        self.clearOrderButton.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.spacingMargin)
-        self.clearOrderButton.autoSetDimension(.width, toSize: 80)
-        
-        return view
-    }()
-    
-//    lazy var resetOrderButton: UIButton = {
-//        let button = UIButton()
-//        button.setTitle("Reset", for: .normal)
-//        button.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
-//        button.addTarget(self, action: #selector(resetOrder(sender:)), for: .touchUpInside)
-//        return button
-//    }()
-    
-    lazy var clearOrderButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Clear", for: .normal)
-        button.addTarget(self, action: #selector(clearOrder(sender:)), for: .touchUpInside)
-        button.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
-        return button
-    }()
-    
-    lazy var reverseOrderButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Reverse", for: .normal)
-        button.addTarget(self, action: #selector(reverseOrder(sender:)), for: .touchUpInside)
-        button.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
-        return button
-    }()
-    
-//    lazy var resetStationsButton: UIButton = {
-//        let button = UIButton()
-//        button.setTitle("Undo", for: .normal)
-//        button.setTitleColor(UIColor.trpButtonEnabled, for: .normal)
-//        button.addTarget(self, action: #selector(resetStations(sender:)), for: .touchUpInside)
-//        return button
-//    }()
-    
-    lazy var selectAllStationsOnTraplineButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Select All Stations", for: .normal)
-        button.addTarget(self, action: #selector(selectAllStations(sender:)), for: .touchUpInside)
-        return button
-    }()
-    
     lazy var routeNameTextField: UITextField = {
     
         let textField = UITextField()
@@ -288,43 +171,8 @@ final class RouteDashboardView: UserInterface {
         return textField
     }()
     
-    lazy var mapViewControllerHost: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.clear
-        
-        view.addSubview(editDescription)
-        view.addSubview(editStationOptions)
-        view.addSubview(editOrderOptions)
-        
-        return view
-    }()
-    
-    lazy var mapViewController: StationMapViewController? = {
-        let map = self.children.first as? StationMapViewController
-        map?.showUserLocation(true)
-        return self.children.first as? StationMapViewController
-    }()
-    
-    lazy var editDoneButton: UIBarButtonItem = {
-        
-        let button = UIButton()
-        button.addTarget(self, action: #selector(editDoneButtonClick(sender:)), for: .touchUpInside)
-        button.setTitle("Save", for: .normal)
-        let barButton = UIBarButtonItem(customView: button)
-        return barButton
-    }()
-    
     lazy var editButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(named: "show"), style: .plain, target: self, action: #selector(editButtonClick(sender:)))
-        return button
-    }()
-    
-    lazy var cancelButton: UIBarButtonItem = {
-        let cancelButton = UIButton()
-        cancelButton.setTitle("Cancel", for: .normal)
-        cancelButton.addTarget(self, action: #selector(cancelButtonClick(sender:)), for: .touchUpInside)
-        
-        var button = UIBarButtonItem(customView: cancelButton)
         return button
     }()
     
@@ -333,54 +181,16 @@ final class RouteDashboardView: UserInterface {
         return view
     }()
     
-    lazy var resizeButton: UIButton = {
-        let button = UIButton()
-        button.addTarget(self, action: #selector(resizeButtonClick(sender:)), for: .touchUpInside)
-        return button
-    }()
-    
-    //MARK: - Events
-    @objc func selectAllStations(sender: UIButton) {
-        presenter.didSelectToSelectAllStations()
-    }
-    
-//    @objc func resetOrder(sender: UIButton) {
-//        presenter.didSelectResetOrder()
-//    }
-    
-    @objc func clearOrder(sender: UIButton) {
-        presenter.didSelectClearOrder()
-    }
-    
-    @objc func reverseOrder(sender: UIButton) {
-        presenter.didSelectReverseOrder()
-    }
-    
-//    @objc func resetStations(sender: UIButton) {
-//        presenter.didSelectResetStations()
-//    }
-    
     @objc func closeButtonClick(sender: UIButton) {
         presenter.didSelectClose()
-    }
-    
-    @objc func cancelButtonClick(sender: UIButton) {
-        presenter.didSelectCancel()
     }
     
     @objc func editButtonClick(sender: UIButton) {
         presenter.didSelectEditMenu()
     }
 
-    @objc func editDoneButtonClick(sender: UIButton) {
-        presenter.didSelectEditDone()
-    }
-
-    @objc func resizeButtonClick(sender: UIButton) {
-        presenter.didSelectResize()
-    }
-    
     //MARK: - UIViewController
+    
     @objc func viewClicked(sender: UIView) {
         routeNameTextField.endEditing(true)
 
@@ -392,6 +202,8 @@ final class RouteDashboardView: UserInterface {
     override func loadView() {
         super.loadView()
         
+        visibleSections = [SECTION_MAP, SECTION_VISITS, SECTION_POISON, SECTION_CATCHES]
+        
         self.view.backgroundColor = UIColor.trpBackground
         
         // ensure the keyboard disappears when click view
@@ -401,124 +213,113 @@ final class RouteDashboardView: UserInterface {
         self.navigationController?.view.addGestureRecognizer(tap)
         
         self.navigationItem.titleView = routeNameTextField
+        self.navigationItem.rightBarButtonItem = self.editButton
         
-        self.view.addSubview(mapViewControllerHost)
-        self.view.addSubview(scrollView)
+        self.view.addSubview(tableView)
+        self.view.addSubview(spinner)
         
         setConstraints()
     }
     
     func setConstraints() {
-        
-        mapViewControllerHost.autoPinEdge(toSuperviewSafeArea: .top, withInset: 0)
-        mapViewControllerHost.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
-        mapViewControllerHost.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
-        mapHeightConstaint = mapViewControllerHost.autoSetDimension(.height, toSize: MAP_HEIGHT_MIN)
-        
-        editDescription.autoPinEdge(toSuperviewEdge: .left)
-        editDescription.autoPinEdge(toSuperviewEdge: .right)
-        editDescription.autoPinEdge(toSuperviewEdge: .top)
-        editDescription.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight * 1.2)
-        
-        editStationOptions.autoPinEdge(toSuperviewEdge: .left)
-        editStationOptions.autoPinEdge(toSuperviewEdge: .right)
-        editStationOptions.autoPinEdge(toSuperviewEdge: .bottom)
-        editStationOptions.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
-        
-        editOrderOptions.autoPinEdge(toSuperviewEdge: .left)
-        editOrderOptions.autoPinEdge(toSuperviewEdge: .right)
-        editOrderOptions.autoPinEdge(toSuperviewEdge: .bottom)
-        editOrderOptions.autoSetDimension(.height, toSize: LayoutDimensions.inputHeight)
-        
-        scrollView.autoPinEdgesToSuperviewEdges()
-
-        scrollViewSpacer.autoSetDimension(.height, toSize: MAP_HEIGHT_MIN)
-
-        contentStackView.autoPinEdgesToSuperviewEdges()
-        contentStackView.autoMatch(.width, to: .width, of: scrollView, withOffset: 0)
-        
-//        summaryTableView.autoPinEdge(toSuperviewEdge: .top)
-//        summaryTableView.autoPinEdge(toSuperviewEdge: .left)
-//        summaryTableView.autoPinEdge(toSuperviewEdge: .right)
-         tableHeightConstraint = summaryTableView.autoSetDimension(.height, toSize: CGFloat(0))
-//
-//        barChartKillsTitle.autoPinEdge(.top, to: .bottom, of: summaryTableView, withOffset: LayoutDimensions.smallSpacingMargin)
-//        barChartKillsTitle.autoPinEdge(toSuperviewEdge: .left)
-//        barChartKillsTitle.autoPinEdge(toSuperviewEdge: .right)
-//
-//        barChartKills.autoPinEdge(.top, to: .bottom, of: barChartKillsTitle, withOffset: -LayoutDimensions.smallSpacingMargin)
-//        barChartKills.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.smallSpacingMargin)
-//        barChartKills.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.smallSpacingMargin)
-         barChartKills.autoSetDimension(.height, toSize: GRAPH_HEIGHT)
-//
-//        barChartPoisonTitle.autoPinEdge(.top, to: .bottom, of: barChartKills, withOffset: LayoutDimensions.smallSpacingMargin)
-//        barChartPoisonTitle.autoPinEdge(toSuperviewEdge: .left)
-//        barChartPoisonTitle.autoPinEdge(toSuperviewEdge: .right)
-//
-//        barChartPoison.autoPinEdge(.top, to: .bottom, of: barChartPoisonTitle, withOffset: -LayoutDimensions.smallSpacingMargin)
-//        barChartPoison.autoPinEdge(toSuperviewEdge: .left, withInset: LayoutDimensions.smallSpacingMargin)
-//        barChartPoison.autoPinEdge(toSuperviewEdge: .right, withInset: LayoutDimensions.smallSpacingMargin)
-        barChartPoison.autoSetDimension(.height, toSize: GRAPH_HEIGHT)
-//
-        // Overlayed on to map
-//        resizeButton.autoPinEdge(.bottom, to: .bottom, of: mapViewControllerHost, withOffset: -LayoutDimensions.smallSpacingMargin)
-//        resizeButton.autoPinEdge(.right, to: .right, of: mapViewControllerHost, withOffset: -LayoutDimensions.smallSpacingMargin)
-//        resizeButton.autoSetDimension(.width, toSize: 20)
-//        resizeButton.autoSetDimension(.height, toSize: 20)
+        tableView.autoPinEdgesToSuperviewEdges()
+        spinner.autoPinEdgesToSuperviewEdges()
     }
+    
 }
 
-//MARK: - SummaryTableView
+//MARK: - TableView
 
 extension RouteDashboardView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfSummaryCells
+        if section == SECTION_MAP {
+            return 1
+        } else if section == SECTION_VISITS {
+            return 4
+        } else if section == SECTION_CATCHES {
+            return 1
+        } else if section == SECTION_POISON {
+            return 1
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.isHidden = !visibleSections.contains(indexPath.section)
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if visibleSections.contains(section) {
+            switch section {
+                case SECTION_MAP: return "Map"
+                case SECTION_VISITS: return "Visits"
+                case SECTION_CATCHES: return "Catches"
+                case SECTION_POISON: return "Poison"
+                default: return ""
+            }
+        }
+        return ""
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return SECTIONS
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if visibleSections.contains(indexPath.section) {
+            if indexPath.section == SECTION_MAP {
+                if indexPath.row == ROW_MAP {
+                    return 400
+                }
+            } else {
+                return UITableView.automaticDimension
+            }
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let row = indexPath.row
+        let section = indexPath.section
+        
         var cell: UITableViewCell?
         
-        if row == ROW_LASTVISITED {
-            cell = lastVisitTableViewCell
-        } else if row == ROW_VISITS {
-            cell = visitsTableViewCell
-        } else if row == ROW_TIMES {
-            cell = timesTableViewCell
-        } else {
-            cell = routeSummaryTableViewCell
+        if section == SECTION_MAP {
+            cell = mapTableViewCell
+            
+        } else if section == SECTION_VISITS {
+            if row == ROW_LASTVISITED {
+                cell = lastVisitTableViewCell
+            } else if row == ROW_VISITS {
+                cell = visitsTableViewCell
+            } else if row == ROW_TIMES {
+                cell = timesTableViewCell
+            } else if row == ROW_ROUTE_SUMMARY {
+                cell = routeSummaryTableViewCell
+            }
+        } else if section == SECTION_CATCHES {
+            cell = catchesGraphTableViewCell
+        } else if section == SECTION_POISON {
+            cell = poisonGraphTableViewCell
         }
         
         return cell!
     }
-}
-
-extension RouteDashboardView: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        let offSet = scrollView.contentOffset.y
-        print("offset = \(offSet)")
-        
-        let startFade: CGFloat = -55
-        let endFade: CGFloat = 190
-        
-        let percentageChange = (offSet-startFade)/(endFade - startFade)
-        
-        if offSet > startFade && offSet < endFade {
-            let alpha = 1 - percentageChange
-            mapViewControllerHost.alpha = abs(alpha)
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if visibleSections.contains(section) {
+            return tableView.headerView(forSection: section)
         }
-        
-        let height = MAP_HEIGHT_MIN - MAP_HEIGHT_MIN * percentageChange * 0.4
-        mapHeightConstaint?.constant = height
-        //mapHeightConstaint
-        
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if visibleSections.contains(section) {
+            return tableView.footerView(forSection: section)
+        }
+        return nil
     }
 }
 
@@ -526,18 +327,49 @@ extension RouteDashboardView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = indexPath.row
+        let section = indexPath.section
         
-        if row == ROW_VISITS {
-            presenter.didSelectVisitHistory()
-        } else if row == ROW_LASTVISITED {
-            presenter.didSelectLastVisited()
-        } else if row == ROW_TIMES {
-            presenter.didSelectTimes()
+        if section == SECTION_VISITS {
+            if row == ROW_VISITS {
+                presenter.didSelectVisitHistory()
+            } else if row == ROW_LASTVISITED {
+                presenter.didSelectLastVisited()
+            } else if row == ROW_TIMES {
+                presenter.didSelectTimes()
+            }
         }
     }
 }
 
-//MARK: - UITextFieldDelegate
+// MARK: - StationMapViewDelegat
+extension RouteDashboardView: StationMapViewDelegate {
+    
+    func stationMapStations(_ stationMap: StationMapView) -> [LocatableEntity] {
+        return stations
+    }
+    
+    func stationMapShowHeatMap(_ stationMap: StationMapView) -> Bool {
+        return true
+    }
+    
+    func stationMap(_ stationMap: StationMapView, colourForStation station: LocatableEntity, state: AnnotationState) -> UIColor {
+        return presenter.getColorForMapStation(station: station, state: state)
+    }
+    
+    func stationMap(_ stationMap: StationMapView, radiusForStation station: LocatableEntity) -> Int {
+        return 7
+    }
+    
+    func stationMap(_ stationMap: StationMapView, isHidden station: LocatableEntity) -> Bool {
+        return presenter.getIsHidden(station: station)
+    }
+    
+    func stationMap(_ stationMap: StationMapView, didSelectFilter option: MapOption) {
+        presenter.didselectMapFilterOption(option: option)
+    }
+}
+
+    //MARK: - UITextFieldDelegate
 extension RouteDashboardView: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         presenter.didUpdateRouteName(name: textField.text)
@@ -552,99 +384,57 @@ extension RouteDashboardView: UITextFieldDelegate {
 //MARK: - RouteDashboardView API
 extension RouteDashboardView: RouteDashboardViewApi {
     
-    func showVisitDetails(show: Bool) {
-        if show {
-            numberOfSummaryCells = 4
-        } else {
-            numberOfSummaryCells = 1
-        }
-        tableHeightConstraint?.constant = CGFloat(numberOfSummaryCells) * LayoutDimensions.tableCellHeight
-        self.view.layoutIfNeeded()
-        summaryTableView.reloadData()
+    func displayHeatmap(title: String, segments: [Segment]) {
+        self.mapTableViewCell.mapView.heatMapLegend.title = title
+        self.mapTableViewCell.mapView.heatMapLegend.setSegments(segments: segments)
     }
     
-    func setMapResizeIconState(state: ResizeState) {
-        resizeButton.alpha = state == .hidden ? 0 : 1
-        if state != .hidden {
-            resizeButton.setImage(UIImage(named: state == .collapse ? "collapse2" : "expand2" ), for: .normal)
+    func displayStations(stations: [LocatableEntity]) {
+        self.stations = stations
+        self.mapTableViewCell.mapView.reload(forceRebuildOfAnnotations: true)
+    }
+    
+    func showVisitDetails(show: Bool) {
+        // don't want to show the visits, catches or poison sections
+
+        visibleSections.removeAll()
+        if show {
+            visibleSections.append(contentsOf: [SECTION_MAP, SECTION_VISITS, SECTION_POISON, SECTION_CATCHES])
+        } else {
+            visibleSections.append(contentsOf: [SECTION_MAP])
         }
+        
+        tableView.reloadData()
     }
     
     func configureKillChart(catchSummary: StackCount) {
-        //if !catchSummary.isZero {
+        barChartKills.alpha = 1
+        //barChartKillsTitle.alpha = 1
+        self.killNumberOfBars = catchSummary.counts.count
+        let yValues = catchSummary.counts.map({ $0.map( { Double($0) }) })
         
-            barChartKills.alpha = 1
-            barChartKillsTitle.alpha = 1
-            self.killNumberOfBars = catchSummary.counts.count
-            let yValues = catchSummary.counts.map({ $0.map( { Double($0) }) })
-            
-            barChartKills.buildData(yValues: yValues, stackLabels: catchSummary.labels, stackColors: UIColor.trpStackChartColors )
-        //} else {
-        //    barChartKills.alpha = 0
-        //    barChartKillsTitle.alpha = 0
-        //}
+        barChartKills.buildData(yValues: yValues, stackLabels: catchSummary.labels, stackColors: UIColor.trpStackChartColors )
     }
     
     func configurePoisonChart(poisonSummary: StackCount) {
         
         if !poisonSummary.isZero {
             barChartPoison.alpha = 1
-            barChartPoisonTitle.alpha = 1
+            //barChartPoisonTitle.alpha = 1
             self.poisonNumberOfBars = poisonSummary.counts.count
             let yValues = poisonSummary.counts.map({ $0.map( { Double($0) }) })
             barChartPoison.buildData(yValues: yValues, stackLabels: poisonSummary.labels, stackColors: [UIColor.trpChartBarStack4])
         } else {
             barChartPoison.alpha = 0
-            barChartPoisonTitle.alpha = 0
         }
     }
-    
-    func showEditDescription(_ show: Bool, description: String? = nil) {
-        editDescription.alpha = show ? 1 : 0
-        editDescription.text = description
-    }
-    
-    func showEditStationOptions(_ show: Bool) {
-        editStationOptions.alpha = show ? 1 : 0
-    }
-    
-    func showEditOrderOptions(_ show: Bool) {
-        editOrderOptions.alpha = show ? 1 : 0
-    }
-    
-    func showEditNavigation(_ show: Bool) {
-        if show {
-            self.navigationItem.rightBarButtonItem = self.editDoneButton
-            self.navigationItem.leftBarButtonItem = self.cancelButton
-            
-        } else {
-            self.navigationItem.leftBarButtonItem = self.closeButton
-            self.navigationItem.rightBarButtonItem = self.editButton
-        }
-    }
-    
+  
     func reapplyStylingToAnnotationViews() {
-        self.mapViewController?.reapplyStylingToAnnotationViews()
+        mapTableViewCell.mapView.reapplyStylingToAnnotationViews()
     }
     
     func reloadMap(forceAnnotationRebuild: Bool = false) {
-        self.mapViewController?.reload(forceRebuildOfAnnotations: forceAnnotationRebuild)
-    }
-
-    func displayFullScreenMap() {
-        UIView.animate(withDuration: 0.5, animations: {
-            //self.mapTopConstraint?.constant = -30
-            self.mapBottomConstaint?.constant = 0
-            self.view.layoutIfNeeded()
-        })
-        
-    }
-    
-    func displayCollapsedMap() {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.mapBottomConstaint?.constant = -self.MAP_HEIGHT_MIN
-            self.view.layoutIfNeeded()
-        })
+        mapTableViewCell.mapView.reload(forceRebuildOfAnnotations: forceAnnotationRebuild)
     }
     
     func displayTitle(_ title: String, editable: Bool) {
@@ -664,7 +454,6 @@ extension RouteDashboardView: RouteDashboardViewApi {
     
     func displayStationSummary(summary: String, numberOfStations: Int) {
         routeSummaryTableViewCell.detailTextLabel?.text = summary
-        //routeSummaryTableViewCell.textLabel?.text = "Stations (\(numberOfStations))"
     }
     
     func displayTimes(description: String, allowSelection: Bool) {
@@ -672,56 +461,20 @@ extension RouteDashboardView: RouteDashboardViewApi {
         timesTableViewCell.accessoryType = allowSelection ? .disclosureIndicator : .none
     }
     
-    func setVisibleRegionToCentreOfStations(distance: Double) {
-        self.mapViewController?.setVisibleRegionToCentreOfStations(distance: distance)
-    }
-    
-    func setVisibleRegionToHighlightedStations() {
-        mapViewController?.setVisibleRegionToHighlightedStations()
-    }
-    
     func setVisibleRegionToAllStations() {
-        mapViewController?.setVisibleRegionToAllStations()
+        self.mapTableViewCell.mapView.setVisibleRegionToAllStations()
     }
-    
-//    func setVisibleRegionToStation(station: Station, distance: Double) {
-//        mapViewController?.setVisibleRegionToStation(station: station, distance: distance)
-//    }
-    
-    func getMapContainerView() -> UIView {
-        return mapViewControllerHost
-    }
-    
-    func enableToggleHighlightMode(_ enable: Bool) {
-        //mapViewController?.enableToggleHighlightMode(enable)
-    }
-    
-    func setTitleOfSelectAllStations(title: String) {
-        self.selectAllStationsOnTraplineButton.setTitle(title, for: .normal)
-    }
-    
-    func enableSelectAllStationsButton(_ enable: Bool) {
-        self.selectAllStationsOnTraplineButton.isEnabled = enable
-    }
-    
-//    func enableResetStationsButton(_ enable: Bool) {
-//        self.resetStationsButton.isEnabled = enable
-//    }
 
-    func enableEditDone(_ enable: Bool) {
-        self.editDoneButton.isEnabled = enable
-    }
-    
-    func enableReverseOrder(_ enable: Bool) {
-        self.reverseOrderButton.isEnabled = enable
-    }
-    
     func showSpinner() {
-        print("SHOW SPINNER")
+        spinner.alpha = 1
+        spinner.startAnimating()
+        tableView.alpha = 0
     }
     
     func stopSpinner() {
-        print("STOP SPINNER")
+        spinner.alpha = 0
+        spinner.stopAnimating()
+        tableView.alpha = 1
     }
 }
 
