@@ -19,6 +19,21 @@ enum LureCode: String {
     case contracBloxPoison = "CBLOX"
     case contracRodenticidePoison = "CRODT"
     case other = "OTHR"
+    
+    var name: String {
+        switch self {
+        case .cereal: return "Cereal"
+        case .cerealWithWireMesh: return "Cereal in Mesh"
+        case .apple: return "Apple"
+        case .cinnamon: return "Cinnamon"
+        case .plasticLure: return "Plastic Lure"
+        case .driedRabbit: return "Rabbit"
+        case .egg: return "Egg"
+        case .contracBloxPoison: return "Contrac Blox"
+        case .contracRodenticidePoison: return "Contrac Rodenticide"
+        case .other: return "Other"
+        }
+    }
 }
 
 class Lure: Lookup {

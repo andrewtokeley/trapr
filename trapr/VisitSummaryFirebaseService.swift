@@ -25,34 +25,45 @@ class VisitSummaryFirebaseService: FirestoreService, VisitSummaryServiceInterfac
         var totalPoisonAdded: Int = 0
         var totalKills: Int = 0
         var totalKillsBySpecies = [String: Int]()
+        var totalBaitAddedByLure = [String: Int]()
         
         self.speciesService.get { (species, error) in
             
-        
             // need details from the trapTypes to get some extra stats
             self.trapTypeService.get(completion: { (trapTypes, error) in
                 
                 // ids of all the poison traptypes
                 let poisonTrapTypes = trapTypes.filter( { $0.killMethod == _KillMethod.poison }).map( { $0.id! } )
                 
-                // iterate over visits that were for poison traptypes
+                // iterate over visits for lure and catch counts
                 for visit in visits {
                     if poisonTrapTypes.contains(visit.trapTypeId) {
                         totalPoisonAdded += visit.baitAdded
                     }
-                    if let species = species.first(where: { $0.id == visit.speciesId })?.name  {
-                        totalKills += 1
-                        if let _ = totalKillsBySpecies[species] {
-                            totalKillsBySpecies[species]! += 1
+                    
+                    if let lureId = visit.lureId {
+                        if let _ = totalBaitAddedByLure[lureId] {
+                            totalBaitAddedByLure[lureId]! += visit.baitAdded
                         } else {
-                            totalKillsBySpecies[species] = 1
+                            totalBaitAddedByLure[lureId] = visit.baitAdded
+                        }
+                    }
+                    
+                    if let speciesId = visit.speciesId {
+                        totalKills += 1
+                        if let _ = totalKillsBySpecies[speciesId] {
+                            totalKillsBySpecies[speciesId]! += 1
+                        } else {
+                            totalKillsBySpecies[speciesId] = 1
                         }
                     }
                     
                 }
+                
                 visitSummary.totalPoisonAdded = totalPoisonAdded
                 visitSummary.totalKills = totalKills
                 visitSummary.totalKillsBySpecies = totalKillsBySpecies
+                visitSummary.totalBaitAddedByLure = totalBaitAddedByLure
                 
                 // We also need to know how many traps/stations are on the route
                 self.stationService.get(routeId: routeId, completion: { (stations) in

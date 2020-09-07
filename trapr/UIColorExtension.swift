@@ -99,26 +99,28 @@ extension UIColor
     }
     
     public class var trpChartBarStack1: UIColor {
-        return UIColor.trpHighlightColor
+        return .trpHeat0
     }
     
     public class var trpChartBarStack2: UIColor {
-        return UIColor(red: 147/255, green: 196/255, blue: 125/255, alpha: 1)
+        return .trpHeat1
+        
     }
     
     public class var trpChartBarStack3: UIColor {
-        return UIColor(red: 182/255, green: 215/255, blue: 168/255, alpha: 1)
+        return .trpHeat5
     }
     
-    /**
-     Use for poison count barchart
-    */
     public class var trpChartBarStack4: UIColor {
-        return UIColor(red: 36/255, green: 192/255, blue: 165/255, alpha: 1)
+        return .trpHeat4
+    }
+    
+    public class var trpChartBarStack5: UIColor {
+        return .trpHeat3
     }
     
     public class var trpStackChartColors: [UIColor] {
-        return [UIColor.trpChartBarStack1, UIColor.trpChartBarStack2, UIColor.trpChartBarStack3, UIColor.trpChartBarStack4, UIColor.darkGray, UIColor.orange]
+        return [UIColor.trpChartBarStack1, UIColor.trpChartBarStack2, UIColor.trpChartBarStack3, UIColor.trpChartBarStack4, UIColor.trpChartBarStack5]
     }
     
     //MARK: - App colour scheme

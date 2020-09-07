@@ -44,6 +44,14 @@ final class StartPresenter: Presenter {
     }
 }
 
+// MARK: - SettingsDelegate
+extension StartPresenter: SettingsDelegate {
+
+    func didUpdateHiddenRoutes() {
+        self.interactor.initialiseHomeModule()
+    }
+}
+
 // MARK: - LoaderDelegate
 extension StartPresenter: LoaderDelegate {
     

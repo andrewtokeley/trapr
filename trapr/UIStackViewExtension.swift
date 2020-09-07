@@ -11,6 +11,9 @@ import UIKit
 
 extension UIStackView {
 
+    /**
+     Fully removes all arrangedSubViews, including removing each from their superview
+     */
     public func removeAllArrangedSubViews() {
         while self.arrangedSubviews.count > 0 {
             let subView = self.arrangedSubviews.first!

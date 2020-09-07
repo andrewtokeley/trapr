@@ -12,10 +12,18 @@ import Viperit
 // MARK: - ProfilePresenter Class
 final class SettingsPresenter: Presenter {
     
+    var delegate: SettingsDelegate?
+    
     fileprivate var settings: UserSettings!
     //fileprivate var appSettings: ApplicationSettings!
     
     fileprivate var routes = [Route]()
+    
+    override func setupView(data: Any) {
+        if let setupData = data as? SettingsSetupData {
+            delegate = setupData.delegate
+        }
+    }
     
     override func viewHasLoaded() {
         
@@ -31,7 +39,7 @@ final class SettingsPresenter: Presenter {
             
             self.interactor.getRoutes(completion: { (routes) in
                 self.routes = routes
-                self.view.enableHideRoutes(enable: self.routes.count != 0)
+                self.view.enableHideRoutes(enable: self.routes.count > 1)
             })
         }
     }
@@ -69,16 +77,6 @@ extension SettingsPresenter: ListPickerDelegate {
 // MARK: - ProfilePresenter API
 extension SettingsPresenter: SettingsPresenterApi {
     
-//    func didClickDoSomething() {
-//        interactor.doSomething() { (progress, message, finished) in
-//            if finished {
-//                self.view.displayDoSomethingProgress(message: "Do Something")
-//            } else {
-//                self.view.displayDoSomethingProgress(message: "\(String(format: "%.0f", progress*100))% \(message)")
-//            }
-//        }
-//    }
-    
     func didSelectHiddenRoutes() {
         
         // make sure routes refreshed
@@ -88,14 +86,12 @@ extension SettingsPresenter: SettingsPresenterApi {
         }
     }
     
-//    func didClickRealmLabel() {
-//        UIPasteboard.general.string = ServiceFactory.sharedInstance.realm.configuration.fileURL?.relativePath
-//    }
-    
     func didSelectClose() {
         view.viewController.view.endEditing(true)
-
         interactor.save(settings: self.settings)
+        
+        delegate?.didUpdateHiddenRoutes()
+        
         view.viewController.dismiss(animated: true, completion: nil)
     }
     

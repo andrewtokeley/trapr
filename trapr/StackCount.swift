@@ -8,6 +8,11 @@
 
 import Foundation
 
+/**
+ Structure that can be used to populate a stacked bar chart. For each label in the labels array there is a corresponding array of counts.
+ 
+ All count elements, themselves an array, must have a count equal to the number of labels.
+ */
 struct StackCount {
     var labels = [String]()
     var counts = [[Int]]()

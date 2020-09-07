@@ -106,22 +106,11 @@ extension ExcelService: ExcelServiceInterface {
                                     let trapTag = visit.station?.longCodeWalkTheLine ?? "?"
                                     let trapType = TrapTypeCode(rawValue: visit.trapType!.id!)?.walkTheLineName
                                     
-                                    print("looking for \(trapTag) and \(trapType)")
-                                    
                                     if let row = worksheet.findRow(searchTerms: [ColumnSeach(columnReference: ReportColumn.TrapTag.rawValue, value: trapTag), ColumnSeach(columnReference: ReportColumn.TrapType.rawValue, value: trapType)]) {
                                         
-                                        print("found row \(row)")
-                                        // TRAP TAG
-//                                        worksheet.cell(forCellReference: ReportColumn.TrapTag.rawValue + String(row))?.setStringValue(visit.station?.longCode ?? "?")
-//
-//                                        // TRAP TYPE
-//                                        worksheet.cell(forCellReference: ReportColumn.TrapType.rawValue + String(row))?.setStringValue(TrapTypeCode(rawValue: visit.trapType!.id!)?.walkTheLineName)
                                         
                                         if visit.trapType?.killMethod == .poison {
-                                        
-                                            // BAIT ADDED
-//                                            worksheet.cell(forCellReference: ReportColumn.BaitAdded.rawValue + String(row))?.setStringValue(String(visit.baitAdded))
-//
+                                    
                                             worksheet.cell(forCellReference: ReportColumn.BaitAdded.rawValue + String(row))?.setStringValue(String(visit.baitAdded))
                                             
                                             // BAIT REMOVE 

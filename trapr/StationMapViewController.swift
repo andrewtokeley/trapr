@@ -91,6 +91,7 @@ class StationMapView: UIView {
     
     lazy var mapOptionsStrip: UIToolbar = {
         let view = UIToolbar()
+        view.backgroundColor = .white
         
         let HEIGHT: CGFloat = 25
         

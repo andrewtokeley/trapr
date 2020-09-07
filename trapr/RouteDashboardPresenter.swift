@@ -24,6 +24,8 @@ final class RouteDashboardPresenter: Presenter {
     var user: User?
     var allStations: [Station]?
     
+    var trapCounts: [ (trapName: String, count: Int  )]?
+    
     //MARK: - Setup
     
     override func setupView(data: Any) {
@@ -50,6 +52,8 @@ final class RouteDashboardPresenter: Presenter {
                             self.stationKillCounts = counts
                             
                             self.view.displayStationSummary(summary: self.routeInformation.stationDescriptionsWithCodes, numberOfStations: self.routeInformation.stations.count)
+                            
+                            self.view.displayTrapsDescription(description: String(self.routeInformation.stations.reduce(0, { $0 + $1.trapTypes.filter({ $0.active }).count } )))
                             
                             if let name = self.routeInformation.route?.name {
                                 self.view.displayTitle(name, editable: true)
@@ -91,50 +95,73 @@ final class RouteDashboardPresenter: Presenter {
                 self.view.displayStations(stations: self.routeInformation.stations)
                 self.view.setVisibleRegionToAllStations()
                 completion?()
+            } else {
+                completion?()
             }
+            
+            
         }
     }
     
-    /// Tell the view to redraw parts of itself
+    /// Tell the view to redraw stuff that's dependent on having visits
     fileprivate func refreshVisitViews() {
         
         if let information = self.visitInformation {
-        
+            
             if information.numberOfVisits > 0 {
                 view.showVisitDetails(show: true)
                 view.displayVisitNumber(number: String(information.numberOfVisits), allowSelection: true)
-                view.displayTimes(description: information.timeDescription, allowSelection: false)
                 view.displayLastVisitedDate(date: information.lastVisitedText ?? "-", allowSelection: information.lastVisitedText != nil)
                 view.displayVisitNumber(number: String(information.numberOfVisits), allowSelection: true)
             } else {
                 view.showVisitDetails(show: false)
             }
-            if let killCounts = visitInformation.killCounts {
-                view.configureKillChart(catchSummary: killCounts)
+            
+            view.configureKillChart(
+                counts: self.visitInformation.killCounts,
+                title: self.visitInformation.killCountsDescription,
+                lastPeriodCounts: self.visitInformation.killCountsLastPeriod,
+                lastPeriodTitle: self.visitInformation.killCountsLastPeriodDescription
+            )
+            
+            view.configurePoisonChart(counts: self.visitInformation.poisonCounts, title: self.visitInformation.poisonCountsDescription, lastPeriodCounts: self.visitInformation.poisonCountsLastPeriod, lastPeriodTitle: self.visitInformation.poisonCountsLastPeriodDescription)
+            
+            // get a description for the average lure
+            var usageText: String = ""
+            for usage in information.averageLureUsage {
+                usageText.append("\(usage.key) - \(usage.value) ")
             }
-            if let poisonCounts = visitInformation.poisonCounts {
-                view.configurePoisonChart(poisonSummary: poisonCounts)
-            }
+            view.displayAverageLureSummary(summary: usageText)
         }
     }
     
     /**
-     Update the display the is dependent on stations
+     returns an array of trap desciptions along with their counts
      */
-    fileprivate func refreshStationViews() {
+    fileprivate func getTrapDescriptions() -> [(trapName: String, count: Int)] {
+        
+        var result = [(trapName: String, count: Int)]()
         
         if let information = self.routeInformation {
         
-            view.displayStationSummary(summary: information.stationDescriptionsWithCodes, numberOfStations: information.stations.count)
+            let uniqueTrapTypesById = Array(Set(information.stations.flatMap { $0.trapTypes.compactMap { $0.active ? $0.trapTpyeId : nil } }))
+            var counts = uniqueTrapTypesById.map({ (trapTypeId) in
+                // return the number of stations containing this trapType
+                return information.stations.filter({ $0.trapTypes.filter( { $0.trapTpyeId == trapTypeId}).count > 0  }).count
+            })
             
-            if let name = information.route?.name {
-                view.displayTitle(name, editable: true)
+            var names = uniqueTrapTypesById.compactMap { TrapTypeCode(rawValue: $0)?.name }
+            
+            // order descending by count
+            let combined = zip(names, counts).sorted(by: { $0.1 > $1.1 } )
+            names = combined.map {$0.0}
+            counts = combined.map {$0.1}
+            
+            for i in 0...names.count - 1 {
+                result.append(( trapName: names[i], count: counts[i] ))
             }
-            
-            // display the stations on the map and zoom in to show the all
-            view.displayStations(stations: self.routeInformation.stations)
-            view.setVisibleRegionToAllStations()
         }
+        return result
     }
     
     fileprivate func saveRoute() {
@@ -315,6 +342,20 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
         
     }
     
+    func didSelectTraps() {
+        
+        if let _ = self.trapCounts {
+            let setupData = ListPickerSetupData()
+            setupData.delegate = self
+            setupData.embedInNavController = false
+            setupData.includeSelectNone = false
+            router.showListPicker(setupData: setupData)
+        } else {
+            self.trapCounts = getTrapDescriptions()
+            didSelectTraps()
+        }
+    }
+    
     func didSelectVisitHistory() {
         let visitSummaries = visitInformation.visitSummaries
         router.showVisitHistoryModule(visitSummaries: visitSummaries)
@@ -324,6 +365,38 @@ extension RouteDashboardPresenter: RouteDashboardPresenterApi {
         if let routeId = self.routeInformation.route?.id {
             router.showOrderStationsModule(routeId: routeId, stations: routeInformation.stations)
         }
+    }
+    
+}
+
+// MARK: - ListPickerDelegate
+
+extension RouteDashboardPresenter: ListPickerDelegate {
+    func listPicker(_ listPicker: ListPickerView, itemTextAt index: Int) -> String {
+        return trapCounts?[index].trapName ?? ""
+    }
+    
+    func listPickerCellStyle(_ listPicker: ListPickerView) -> UITableViewCell.CellStyle {
+        return .value1
+    }
+    
+    func listPicker(_ listPicker: ListPickerView, itemDetailAt index: Int) -> String? {
+        if let count = trapCounts?[index].count {
+            return String(count)
+        }
+        return ""
+    }
+    
+    func listPickerTitle(_ listPicker: ListPickerView) -> String {
+        return "Traps"
+    }
+    
+    func listPickerHeaderText(_ listPicker: ListPickerView) -> String {
+        return ""
+    }
+    
+    func listPickerNumberOfRows(_ listPicker: ListPickerView) -> Int {
+        return trapCounts?.count ?? 0
     }
     
 }

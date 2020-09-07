@@ -135,6 +135,16 @@
 		D83089581FA18815007C9316 /* StepperTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D83089571FA18815007C9316 /* StepperTableViewCell.xib */; };
 		D830895A1FA189AC007C9316 /* StepperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83089591FA189AC007C9316 /* StepperTableViewCell.swift */; };
 		D83853041F66555700481B57 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = D83853031F66555700481B57 /* plus.png */; };
+		D838B2F3250237B1004801F7 /* StaticTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838B2F2250237B1004801F7 /* StaticTableView.swift */; };
+		D838B2F525023805004801F7 /* StaticSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838B2F425023805004801F7 /* StaticSection.swift */; };
+		D838B2F625032098004801F7 /* StaticTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838B2F2250237B1004801F7 /* StaticTableView.swift */; };
+		D838B2F72503209B004801F7 /* StaticSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838B2F425023805004801F7 /* StaticSection.swift */; };
+		D838B2F925032C5F004801F7 /* SettingsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838B2F825032C5F004801F7 /* SettingsDelegate.swift */; };
+		D838B2FA25032C5F004801F7 /* SettingsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838B2F825032C5F004801F7 /* SettingsDelegate.swift */; };
+		D838B2FC25032CC3004801F7 /* SettingsSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838B2FB25032CC3004801F7 /* SettingsSetupData.swift */; };
+		D838B2FD25032CC4004801F7 /* SettingsSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838B2FB25032CC3004801F7 /* SettingsSetupData.swift */; };
+		D838B2FF25037365004801F7 /* StaticTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838B2FE25037365004801F7 /* StaticTableViewDelegate.swift */; };
+		D838B30025037365004801F7 /* StaticTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838B2FE25037365004801F7 /* StaticTableViewDelegate.swift */; };
 		D83A18E22213952C00451987 /* FirebaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83A18E12213952C00451987 /* FirebaseTestCase.swift */; };
 		D83A18E42217BB3600451987 /* UserServiceTestMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83A18E32217BB3600451987 /* UserServiceTestMock.swift */; };
 		D83A18E52217BB3600451987 /* UserServiceTestMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83A18E32217BB3600451987 /* UserServiceTestMock.swift */; };
@@ -217,6 +227,8 @@
 		D858D7BE2019D68A00EE052D /* expand2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D858D7BA2019D68900EE052D /* expand2@2x.png */; };
 		D858D7BF2019D68A00EE052D /* collapse2.png in Resources */ = {isa = PBXBuildFile; fileRef = D858D7BB2019D68900EE052D /* collapse2.png */; };
 		D858D7C02019D68A00EE052D /* collapse2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D858D7BC2019D68A00EE052D /* collapse2@2x.png */; };
+		D85DA06E24FA48C70057E56B /* BarChartLegendItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DA06D24FA48C70057E56B /* BarChartLegendItem.swift */; };
+		D85DA06F24FA48C70057E56B /* BarChartLegendItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85DA06D24FA48C70057E56B /* BarChartLegendItem.swift */; };
 		D86CE4781F91DBC5004A09EF /* MenuDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CE4771F91DBC5004A09EF /* MenuDivider.swift */; };
 		D86CE4831F92BC6F004A09EF /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE47B1F92BC6C004A09EF /* map.png */; };
 		D86CE4841F92BC6F004A09EF /* map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D86CE47C1F92BC6D004A09EF /* map@2x.png */; };
@@ -300,6 +312,8 @@
 		D8AF9EB02025A829002264D1 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = D8AF9EAE2025A829002264D1 /* info.png */; };
 		D8AF9EB12025A829002264D1 /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8AF9EAF2025A829002264D1 /* info@2x.png */; };
 		D8AF9EB32025BC67002264D1 /* RouteImage2.png in Resources */ = {isa = PBXBuildFile; fileRef = D8AF9EB22025BC67002264D1 /* RouteImage2.png */; };
+		D8B54C3D24F455E3004C0D5C /* BarChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B54C3C24F455E3004C0D5C /* BarChartTableViewCell.swift */; };
+		D8B54C3E24F455E3004C0D5C /* BarChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B54C3C24F455E3004C0D5C /* BarChartTableViewCell.swift */; };
 		D8B73C301F97F4D8000C231E /* possumMaster@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8B73C2E1F97F4D8000C231E /* possumMaster@2x.png */; };
 		D8B73C311F97F4D8000C231E /* possumMaster.png in Resources */ = {isa = PBXBuildFile; fileRef = D8B73C2F1F97F4D8000C231E /* possumMaster.png */; };
 		D8B94D591F5EA1FE00D373EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B94D581F5EA1FE00D373EF /* AppDelegate.swift */; };
@@ -813,6 +827,11 @@
 		D83089591FA189AC007C9316 /* StepperTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperTableViewCell.swift; sourceTree = "<group>"; };
 		D83853001F64C66B00481B57 /* Trapr-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Trapr-Bridging-Header.h"; sourceTree = "<group>"; };
 		D83853031F66555700481B57 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
+		D838B2F2250237B1004801F7 /* StaticTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticTableView.swift; sourceTree = "<group>"; };
+		D838B2F425023805004801F7 /* StaticSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticSection.swift; sourceTree = "<group>"; };
+		D838B2F825032C5F004801F7 /* SettingsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDelegate.swift; sourceTree = "<group>"; };
+		D838B2FB25032CC3004801F7 /* SettingsSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSetupData.swift; sourceTree = "<group>"; };
+		D838B2FE25037365004801F7 /* StaticTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticTableViewDelegate.swift; sourceTree = "<group>"; };
 		D83A18E12213952C00451987 /* FirebaseTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTestCase.swift; sourceTree = "<group>"; };
 		D83A18E32217BB3600451987 /* UserServiceTestMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceTestMock.swift; sourceTree = "<group>"; };
 		D83A18E6221A1F1C00451987 /* RouteUserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteUserSettings.swift; sourceTree = "<group>"; };
@@ -881,6 +900,7 @@
 		D858D7BA2019D68900EE052D /* expand2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "expand2@2x.png"; sourceTree = "<group>"; };
 		D858D7BB2019D68900EE052D /* collapse2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = collapse2.png; sourceTree = "<group>"; };
 		D858D7BC2019D68A00EE052D /* collapse2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collapse2@2x.png"; sourceTree = "<group>"; };
+		D85DA06D24FA48C70057E56B /* BarChartLegendItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartLegendItem.swift; sourceTree = "<group>"; };
 		D86CE4771F91DBC5004A09EF /* MenuDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuDivider.swift; sourceTree = "<group>"; };
 		D86CE47B1F92BC6C004A09EF /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
 		D86CE47C1F92BC6D004A09EF /* map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map@2x.png"; sourceTree = "<group>"; };
@@ -958,6 +978,7 @@
 		D8AF9EAF2025A829002264D1 /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@2x.png"; sourceTree = "<group>"; };
 		D8AF9EB22025BC67002264D1 /* RouteImage2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RouteImage2.png; sourceTree = "<group>"; };
 		D8B1480B1F955E5B000AB414 /* routeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = routeTests.swift; sourceTree = "<group>"; };
+		D8B54C3C24F455E3004C0D5C /* BarChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartTableViewCell.swift; sourceTree = "<group>"; };
 		D8B57FED1FDA500A003437D9 /* importTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = importTests.swift; sourceTree = "<group>"; };
 		D8B73C2E1F97F4D8000C231E /* possumMaster@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "possumMaster@2x.png"; sourceTree = "<group>"; };
 		D8B73C2F1F97F4D8000C231E /* possumMaster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = possumMaster.png; sourceTree = "<group>"; };
@@ -1183,6 +1204,8 @@
 				D8083D111FE498F900D1C5F1 /* SettingsModuleApi.swift */,
 				D8083D121FE498F900D1C5F1 /* SettingsInteractor.swift */,
 				D8083D131FE498F900D1C5F1 /* SettingsView.swift */,
+				D838B2F825032C5F004801F7 /* SettingsDelegate.swift */,
+				D838B2FB25032CC3004801F7 /* SettingsSetupData.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1344,6 +1367,8 @@
 			isa = PBXGroup;
 			children = (
 				D828C4A024EF346A0086802E /* MapTableViewCell.swift */,
+				D8B54C3C24F455E3004C0D5C /* BarChartTableViewCell.swift */,
+				D85DA06D24FA48C70057E56B /* BarChartLegendItem.swift */,
 			);
 			name = CustomTableViewCells;
 			sourceTree = "<group>";
@@ -1359,6 +1384,16 @@
 				D8B57FED1FDA500A003437D9 /* importTests.swift */,
 			);
 			path = "Realm Tests";
+			sourceTree = "<group>";
+		};
+		D838B2F125023792004801F7 /* StaticTableView */ = {
+			isa = PBXGroup;
+			children = (
+				D838B2F2250237B1004801F7 /* StaticTableView.swift */,
+				D838B2F425023805004801F7 /* StaticSection.swift */,
+				D838B2FE25037365004801F7 /* StaticTableViewDelegate.swift */,
+			);
+			name = StaticTableView;
 			sourceTree = "<group>";
 		};
 		D83DC6BF1F7F83D200F91792 /* Start */ = {
@@ -1632,6 +1667,7 @@
 		D8B94D781F5EA52200D373EF /* Design */ = {
 			isa = PBXGroup;
 			children = (
+				D838B2F125023792004801F7 /* StaticTableView */,
 				D84917C424DBB23D003E03D6 /* HeatMapKey */,
 				D8BBA19D24BFEACE00C10493 /* TableViewCellStyleValue3 */,
 				D8B94D991F5F28F200D373EF /* Images */,
@@ -2495,6 +2531,7 @@
 				D843117A2183DD840003C2C6 /* TrapTypeFirestoreService.swift in Sources */,
 				D80B6DCF1F9F3DCD00F49E9E /* VisitLogRouter.swift in Sources */,
 				D8DBE3F11FF764C900AA6482 /* UIViewExtension.swift in Sources */,
+				D838B2FC25032CC3004801F7 /* SettingsSetupData.swift in Sources */,
 				D80268831FA1757400A1372F /* VisitDelegate.swift in Sources */,
 				D80FFC732202385000AFB69F /* OrderStationsPresenter.swift in Sources */,
 				D8193D9F21F1A8F000C3BB5D /* VisitDisplayData.swift in Sources */,
@@ -2523,6 +2560,7 @@
 				D80FFC7B2202385000AFB69F /* OrderStationsView.swift in Sources */,
 				D8A4E96D218E330B0070413B /* Route.swift in Sources */,
 				D87926A11FB5973700240767 /* SectionStripViewDelegate.swift in Sources */,
+				D838B2F3250237B1004801F7 /* StaticTableView.swift in Sources */,
 				D88DFE4C1FFABCD00048CA54 /* RouteDashboardDisplayData.swift in Sources */,
 				D8C8A1FA1FCE85EF0075E44E /* VisitLogViewDelegate.swift in Sources */,
 				D8C25C9D218106C400C5DB64 /* TraplineFirestoreService.swift in Sources */,
@@ -2549,6 +2587,7 @@
 				D83D0B57200E8B70001E1F69 /* UIViewControllerExtension.swift in Sources */,
 				D8503DC81F66807C00ED0C84 /* VisitPresenter.swift in Sources */,
 				D8083D341FE994B400D1C5F1 /* StatisticView.swift in Sources */,
+				D85DA06E24FA48C70057E56B /* BarChartLegendItem.swift in Sources */,
 				D80C14FB202F8C10005EBD10 /* StartSetupData.swift in Sources */,
 				D84311832183E5790003C2C6 /* LureFirestoreService.swift in Sources */,
 				D88DFE501FFABCD00048CA54 /* RouteDashboardInteractor.swift in Sources */,
@@ -2602,6 +2641,7 @@
 				D806C7EA1F9C881F0064C98F /* GroupedTableViewDatasource.swift in Sources */,
 				D841CF2B1F8239CA004D0207 /* TraplineSelectView.swift in Sources */,
 				D87C44FA1F9059AF00CAFC7A /* SideMenuRouter.swift in Sources */,
+				D838B2FF25037365004801F7 /* StaticTableViewDelegate.swift in Sources */,
 				D8DA1B1B21DDCEF9008EC4FD /* UserSettingsFirestoreService.swift in Sources */,
 				D87C44F71F9059AF00CAFC7A /* SideMenuInteractor.swift in Sources */,
 				D8039E271FABF458006E394B /* ListPickerModuleApi.swift in Sources */,
@@ -2612,6 +2652,7 @@
 				D8AB9ADB201DAF3300FBEF55 /* RouteTableViewCell.swift in Sources */,
 				D85437BE24D8E57900161BAF /* RoundedButton.swift in Sources */,
 				D851E566225AAD4D009E129A /* ExcelServiceInterface.swift in Sources */,
+				D838B2F525023805004801F7 /* StaticSection.swift in Sources */,
 				D84C2462200028B5000BCAF8 /* CircleAnnotationView.swift in Sources */,
 				D873C86E1FC67E8100F581D8 /* RouteCollectionViewCellDelegate.swift in Sources */,
 				D8C25C98217EDAA300C5DB64 /* AdministrationInteractor.swift in Sources */,
@@ -2619,6 +2660,7 @@
 				D8A4E970218E3F640070413B /* StationFirestoreService.swift in Sources */,
 				D873615822484DDD00CAAA66 /* AnalyticsEventsServiceInterface.swift in Sources */,
 				D81431A31F8DDB2600EAF5FD /* DatePickerInteractor.swift in Sources */,
+				D838B2F925032C5F004801F7 /* SettingsDelegate.swift in Sources */,
 				D849B6201F96C8E100CE2085 /* RouteServiceInterface.swift in Sources */,
 				D8C51A731F96D67200D3571A /* MultiselectTableViewHeader.swift in Sources */,
 				D8DBE3E01FF4FC1900AA6482 /* MapRouter.swift in Sources */,
@@ -2637,6 +2679,7 @@
 				D80BCD3D1F91D041005F30FF /* MenuItemView.swift in Sources */,
 				D81431AA1F8E020900EAF5FD /* DatePickerDisplayData.swift in Sources */,
 				D8A4E96A218D6DEF0070413B /* Station.swift in Sources */,
+				D8B54C3D24F455E3004C0D5C /* BarChartTableViewCell.swift in Sources */,
 				D80344311FA192D400F44A17 /* StepperTableViewCellDelegate.swift in Sources */,
 				D815D794200CBA2A0086AFFE /* LoaderInteractor.swift in Sources */,
 				D89311FF1F834F6E008DF09D /* StationSelectDisplayData.swift in Sources */,
@@ -2772,6 +2815,7 @@
 				D8C25CDA2181771F00C5DB64 /* VisitLogRouter.swift in Sources */,
 				D8C25CDB2181771F00C5DB64 /* UIViewExtension.swift in Sources */,
 				D8C25CDC2181771F00C5DB64 /* VisitDelegate.swift in Sources */,
+				D838B2FD25032CC4004801F7 /* SettingsSetupData.swift in Sources */,
 				D8C25CDD2181771F00C5DB64 /* StationSelectPresenter.swift in Sources */,
 				D8C25CDE2181771F00C5DB64 /* DatePickerSetupData.swift in Sources */,
 				D8C25CDF2181771F00C5DB64 /* MenuDivider.swift in Sources */,
@@ -2800,6 +2844,7 @@
 				D8C25CEF2181771F00C5DB64 /* TraplineFirestoreService.swift in Sources */,
 				D8C25CF02181771F00C5DB64 /* NewRouteRouter.swift in Sources */,
 				D8C25CF12181771F00C5DB64 /* StationSearchView.swift in Sources */,
+				D838B2F625032098004801F7 /* StaticTableView.swift in Sources */,
 				D8C25CF32181771F00C5DB64 /* DatePickerView.swift in Sources */,
 				D8C25CF52181771F00C5DB64 /* NewRoutePresenter.swift in Sources */,
 				D8C25CF62181771F00C5DB64 /* StackCount.swift in Sources */,
@@ -2826,6 +2871,7 @@
 				D8C25D0B2181771F00C5DB64 /* StatisticView.swift in Sources */,
 				D8C25D0C2181771F00C5DB64 /* StartSetupData.swift in Sources */,
 				D8C25D0D2181771F00C5DB64 /* RouteDashboardInteractor.swift in Sources */,
+				D85DA06F24FA48C70057E56B /* BarChartLegendItem.swift in Sources */,
 				D8C25D0E2181771F00C5DB64 /* TraplineSelectInteractor.swift in Sources */,
 				D8C25D0F2181771F00C5DB64 /* StationAnnotationView.swift in Sources */,
 				D80F8DD22196AED40035C668 /* VisitFirestoreService.swift in Sources */,
@@ -2879,6 +2925,7 @@
 				D8C25D412181771F00C5DB64 /* TraplineSelectView.swift in Sources */,
 				D8C25D422181771F00C5DB64 /* SideMenuRouter.swift in Sources */,
 				D8C25D442181771F00C5DB64 /* SideMenuInteractor.swift in Sources */,
+				D838B30025037365004801F7 /* StaticTableViewDelegate.swift in Sources */,
 				D8C25D452181771F00C5DB64 /* ListPickerModuleApi.swift in Sources */,
 				D8C25D462181771F00C5DB64 /* StationSearchInteractor.swift in Sources */,
 				D8C25D482181771F00C5DB64 /* NewRouteView.swift in Sources */,
@@ -2889,6 +2936,7 @@
 				D8A4E971218E3F640070413B /* StationFirestoreService.swift in Sources */,
 				D85437BF24D8E57900161BAF /* RoundedButton.swift in Sources */,
 				D8C25D4E2181771F00C5DB64 /* AdministrationInteractor.swift in Sources */,
+				D838B2F72503209B004801F7 /* StaticSection.swift in Sources */,
 				D8DA1B1C21DDCEF9008EC4FD /* UserSettingsFirestoreService.swift in Sources */,
 				D8C25D4F2181771F00C5DB64 /* MapDisplayData.swift in Sources */,
 				D8C25D512181771F00C5DB64 /* DatePickerInteractor.swift in Sources */,
@@ -2896,6 +2944,7 @@
 				D873615922484DDD00CAAA66 /* AnalyticsEventsServiceInterface.swift in Sources */,
 				D8C25D532181771F00C5DB64 /* MultiselectTableViewHeader.swift in Sources */,
 				D8C25D542181771F00C5DB64 /* MapRouter.swift in Sources */,
+				D838B2FA25032C5F004801F7 /* SettingsDelegate.swift in Sources */,
 				D8C25D562181771F00C5DB64 /* SideMenuDisplayData.swift in Sources */,
 				D80FFC7C2202385000AFB69F /* OrderStationsView.swift in Sources */,
 				D8C25D572181771F00C5DB64 /* StationSelectSetupData.swift in Sources */,
@@ -2914,6 +2963,7 @@
 				D8C25D5F2181771F00C5DB64 /* DatePickerDisplayData.swift in Sources */,
 				D8C25D612181771F00C5DB64 /* StepperTableViewCellDelegate.swift in Sources */,
 				D8C25D622181771F00C5DB64 /* LoaderInteractor.swift in Sources */,
+				D8B54C3E24F455E3004C0D5C /* BarChartTableViewCell.swift in Sources */,
 				D8C25D632181771F00C5DB64 /* StationSelectDisplayData.swift in Sources */,
 				D8C25D652181771F00C5DB64 /* AdministrationRouter.swift in Sources */,
 				D8C25D662181771F00C5DB64 /* SideMenuModuleApi.swift in Sources */,

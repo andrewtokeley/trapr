@@ -11,31 +11,58 @@ import Charts
 
 class BarChartViewEx: BarChartView {
     
-    func buildData(yValues: [[Double]], stackLabels: [String], stackColors: [UIColor]) {
+    public struct BarChartDataRaw {
+        var yValues: [[Double]]
+        var stackLabels: [String]
+        var stackColours: [UIColor]
         
-        guard yValues.count > 0 && yValues.first!.count > 0 && stackLabels.count > 0 else { return }
+        /**
+         Reorders the elements of yValue, stackLabel and stackColour according to the orderedStackLabels parameter.
+         */
+        mutating func reorder(orderedStackLabels: [String]) {
+            
+            // Create an array of indexes for the reordering, e.g. [3, 0, 1, 2] means the first elements of each array should be moved to index 3...
+            var unmatchedIndex = orderedStackLabels.count
+            let offsets = stackLabels.map({ (stack) -> Int in
+                if let index = orderedStackLabels.firstIndex(of: stack) {
+                    return index
+                } else {
+                    unmatchedIndex -= 1
+                    return unmatchedIndex
+                }
+            })
+            
+            yValues = offsets.map { yValues[$0] }
+            stackLabels = offsets.map { stackLabels[$0] }
+            stackColours = offsets.map { stackColours[$0] }
+        }
+    }
+    
+    func drawChart(rawData: BarChartDataRaw) {
+        
+        guard rawData.yValues.count > 0 && rawData.yValues.first!.count > 0 && rawData.stackLabels.count > 0 else { return }
 
-        let numberOfBars = yValues.count
+        let numberOfBars = rawData.yValues.count
         
         // Dataset
         var values = [BarChartDataEntry]()
         for barIndex in 0...numberOfBars - 1 {
-            let yValues = yValues[barIndex]
+            let yValues = rawData.yValues[barIndex]
             values.append(BarChartDataEntry(x: Double(barIndex), yValues: yValues))
         }
         let dataSet = BarChartDataSet(entries: values, label: nil)
         
         // Stack colors and labels
-        if stackLabels.count > 1 {
-            dataSet.stackLabels = stackLabels
+        if rawData.stackLabels.count > 1 {
+            dataSet.stackLabels = rawData.stackLabels
         } else {
-            dataSet.label = stackLabels.first
+            dataSet.label = rawData.stackLabels.first
         }
         
         var colors = [NSUIColor]()
-        for i in 0...stackLabels.count - 1 {
-            if i < stackColors.count {
-                colors.append(stackColors[i])
+        for i in 0...rawData.stackLabels.count - 1 {
+            if i < rawData.stackColours.count {
+                colors.append(rawData.stackColours[i])
             } else {
                 colors.append(UIColor.red)
             }

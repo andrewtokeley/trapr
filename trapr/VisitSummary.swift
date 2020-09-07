@@ -59,13 +59,16 @@ class VisitSummary {
     /// Number of traps on the entire Route
     var numberOfTrapsOnRoute: Int = 0
     
-    /// Total number of poison bait used on this visit
+    /// Total number of poison bait used on this visit (DEPRECATE in favour of totalBaitAddedByLure)
     var totalPoisonAdded: Int = 0
+    
+    /// Total count of bait added for each lure type. The dictionary key is the rawValue of `LureCode` enum
+    var totalBaitAddedByLure = [String: Int]()
     
     /// Total number of kills on this visit
     var totalKills: Int = 0
     
-    /// Total number of kills of each species on this visit. The dictionary key is the rawValue of the SpeciesCode enum.
+    /// Total number of kills of each species on this visit. The dictionary key is the rawValue of the `SpeciesCode` enum.
     var totalKillsBySpecies = [String: Int]()
     
     var stationsOnRoute = [Station]()

@@ -53,10 +53,19 @@ class TrapStatisticsService: FirestoreService {
                 
             }
             
-            // Bait
+            // Lure totals
             result.baitEaten = result.baitEaten + visit.baitEaten
             result.baitRemoved = result.baitRemoved + visit.baitRemoved
             result.baitAdded = result.baitAdded + visit.baitAdded
+            
+            // Lure totals by Lure Type
+            if let lureId = visit.lureId {
+                if result.lureAddedByType[lureId] == nil  {
+                    result.lureAddedByType[lureId] = 0
+                }
+                result.lureAddedByType[lureId]! += visit.baitAdded
+            }
+            
         }
         
         result.totalCatches = result.killsBySpecies.reduce(0, { (x, y) in

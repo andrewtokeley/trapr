@@ -18,33 +18,26 @@ final class RouteDashboardView: UserInterface {
     
     private let CELL_ID = "cell"
     
-    private let SECTIONS = 4
-    
-    private let SECTION_MAP = 0
-    private let ROW_MAP = 0
-
-    private let SECTION_VISITS = 1
-    private let ROW_ROUTE_SUMMARY = 0
-    private let ROW_LASTVISITED = 1
-    private let ROW_VISITS = 2
-    private let ROW_TIMES = 3
-    
-    private let SECTION_CATCHES = 2
-    private let ROW_CATCHES_GRAPH = 0
-    
-    private let SECTION_POISON = 3
-    private let ROW_POISON_GRAPH = 0
-    
-    private let MAPOPTION_ALLTRAPTYPES = 0
-    private let MAPOPTION_POSSUMMASTER = 1
-    private let MAPOPTION_TIMMS = 2
-    private let MAPOPTION_DOC200 = 3
-    
-    fileprivate var visibleSections = [Int]()
-    
-    private var killNumberOfBars: Int = 0
-    private var poisonNumberOfBars: Int = 0
-    private var poisonCountFunction: ((Int) -> Int)?
+    private lazy var sections = [
+        StaticSection("Route", [
+            StaticRow(mapTableViewCell, 400)]
+        ),
+        StaticSection("Stations", [
+            StaticRow(routeSummaryTableViewCell),
+            StaticRow(trapsDescriptionTableViewCell)]
+        ),
+        StaticSection("Visits", [
+            StaticRow(lastVisitTableViewCell),
+            StaticRow(visitsTableViewCell)]
+        ),
+        StaticSection("Catches", [
+            StaticRow(catchesChartTableViewCell, 350)]
+        ),
+        StaticSection("Lures & Poison", [
+            StaticRow(poisonChartTableViewCell, 350),
+            StaticRow(averageLureTableViewCell, 100)]
+        )
+    ]
     
     //MARK: - Subviews
     
@@ -54,10 +47,9 @@ final class RouteDashboardView: UserInterface {
         return spinner
     }()
     
-    lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: CGRect.zero, style: .grouped)
-        tableView.delegate = self
-        tableView.dataSource = self
+    lazy var tableView: StaticTableView = {
+        let tableView = StaticTableView(sections: sections)
+        tableView.staticTableViewDelegate = self
         return tableView
     }()
     
@@ -65,6 +57,14 @@ final class RouteDashboardView: UserInterface {
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: CELL_ID)
         cell.textLabel?.text = "Stations"
         cell.accessoryType = .none
+        cell.selectionStyle = .none
+        return cell
+    }()
+    
+    lazy var trapsDescriptionTableViewCell: UITableViewCell = {
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: CELL_ID)
+        cell.textLabel?.text = "Traps"
+        cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .none
         return cell
     }()
@@ -85,11 +85,11 @@ final class RouteDashboardView: UserInterface {
         return cell
     }()
     
-    lazy var timesTableViewCell: UITableViewCell = {
+    lazy var averageLureTableViewCell: UITableViewCell = {
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: CELL_ID)
-        cell.textLabel?.text = "Times"
-        cell.accessoryType = .disclosureIndicator
+        cell.textLabel?.text = "Avg. Lure Usage"
         cell.selectionStyle = .none
+        cell.detailTextLabel?.numberOfLines = 0
         return cell
     }()
     
@@ -99,66 +99,16 @@ final class RouteDashboardView: UserInterface {
         return cell
     }()
     
-    lazy var catchesGraphTableViewCell: UITableViewCell = {
-        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: CELL_ID)
-        cell.textLabel?.text = "Times"
-        cell.accessoryType = .disclosureIndicator
+    lazy var catchesChartTableViewCell: BarChartTableViewCell = {
+        let cell = BarChartTableViewCell()
         cell.selectionStyle = .none
         return cell
     }()
     
-    lazy var poisonGraphTableViewCell: UITableViewCell = {
-        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: CELL_ID)
-        cell.textLabel?.text = "Times"
-        cell.accessoryType = .disclosureIndicator
+    lazy var poisonChartTableViewCell: BarChartTableViewCell = {
+        let cell = BarChartTableViewCell()
         cell.selectionStyle = .none
         return cell
-    }()
-    
-    lazy var barChartKills: BarChartViewEx = {
-        let chart = BarChartViewEx()
-        chart.drawGridBackgroundEnabled = false
-        chart.chartDescription = nil
-        chart.legend.enabled = true
-        chart.legend.direction = .leftToRight
-        
-        // configure x axis
-        let xAxis = chart.xAxis
-        xAxis.labelPosition = .bottom
-        xAxis.drawGridLinesEnabled = false
-        xAxis.valueFormatter = self
-        xAxis.granularity = 1
-        xAxis.labelCount = 12
-        
-        let yAxis = chart.getAxis(.left)
-        yAxis.drawGridLinesEnabled = true
-        yAxis.gridColor = UIColor.trpChartGridlines
-        yAxis.granularity = 1
-        chart.getAxis(.right).granularity = 1
-        return chart
-    }()
-    
-    lazy var barChartPoison: BarChartViewEx = {
-        let chart = BarChartViewEx()
-        chart.drawGridBackgroundEnabled = false
-        chart.chartDescription = nil
-        chart.legend.enabled = false
-        chart.legend.direction = .leftToRight
-        
-        // configure x axis
-        let xAxis = chart.xAxis
-        xAxis.labelPosition = .bottom
-        xAxis.drawGridLinesEnabled = false
-        xAxis.valueFormatter = self
-        xAxis.granularity = 1
-        xAxis.labelCount = 12
-
-        let yAxis = chart.getAxis(.left)
-        yAxis.drawGridLinesEnabled = true
-        yAxis.gridColor = UIColor.trpChartGridlines
-        yAxis.granularity = 1
-        chart.getAxis(.right).granularity = 1
-        return chart
     }()
     
     lazy var routeNameTextField: UITextField = {
@@ -201,9 +151,7 @@ final class RouteDashboardView: UserInterface {
     
     override func loadView() {
         super.loadView()
-        
-        visibleSections = [SECTION_MAP, SECTION_VISITS, SECTION_POISON, SECTION_CATCHES]
-        
+          
         self.view.backgroundColor = UIColor.trpBackground
         
         // ensure the keyboard disappears when click view
@@ -222,126 +170,30 @@ final class RouteDashboardView: UserInterface {
     }
     
     func setConstraints() {
+        routeNameTextField.autoSetDimension(.width, toSize: 150)
         tableView.autoPinEdgesToSuperviewEdges()
         spinner.autoPinEdgesToSuperviewEdges()
     }
     
 }
 
-//MARK: - TableView
+//MARK: - StaticTableViewDelegate
 
-extension RouteDashboardView: UITableViewDataSource {
+extension RouteDashboardView: StaticTableViewDelegate {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == SECTION_MAP {
-            return 1
-        } else if section == SECTION_VISITS {
-            return 4
-        } else if section == SECTION_CATCHES {
-            return 1
-        } else if section == SECTION_POISON {
-            return 1
-        }
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.isHidden = !visibleSections.contains(indexPath.section)
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if visibleSections.contains(section) {
-            switch section {
-                case SECTION_MAP: return "Map"
-                case SECTION_VISITS: return "Visits"
-                case SECTION_CATCHES: return "Catches"
-                case SECTION_POISON: return "Poison"
-                default: return ""
-            }
-        }
-        return ""
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return SECTIONS
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if visibleSections.contains(indexPath.section) {
-            if indexPath.section == SECTION_MAP {
-                if indexPath.row == ROW_MAP {
-                    return 400
-                }
-            } else {
-                return UITableView.automaticDimension
-            }
-        }
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let row = indexPath.row
-        let section = indexPath.section
-        
-        var cell: UITableViewCell?
-        
-        if section == SECTION_MAP {
-            cell = mapTableViewCell
-            
-        } else if section == SECTION_VISITS {
-            if row == ROW_LASTVISITED {
-                cell = lastVisitTableViewCell
-            } else if row == ROW_VISITS {
-                cell = visitsTableViewCell
-            } else if row == ROW_TIMES {
-                cell = timesTableViewCell
-            } else if row == ROW_ROUTE_SUMMARY {
-                cell = routeSummaryTableViewCell
-            }
-        } else if section == SECTION_CATCHES {
-            cell = catchesGraphTableViewCell
-        } else if section == SECTION_POISON {
-            cell = poisonGraphTableViewCell
-        }
-        
-        return cell!
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if visibleSections.contains(section) {
-            return tableView.headerView(forSection: section)
-        }
-        return nil
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if visibleSections.contains(section) {
-            return tableView.footerView(forSection: section)
-        }
-        return nil
-    }
-}
-
-extension RouteDashboardView: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let row = indexPath.row
-        let section = indexPath.section
-        
-        if section == SECTION_VISITS {
-            if row == ROW_VISITS {
-                presenter.didSelectVisitHistory()
-            } else if row == ROW_LASTVISITED {
-                presenter.didSelectLastVisited()
-            } else if row == ROW_TIMES {
-                presenter.didSelectTimes()
-            }
+    func tableView(_ tableView: StaticTableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView.row(indexPath).cell == visitsTableViewCell {
+            presenter.didSelectVisitHistory()
+        } else if tableView.row(indexPath).cell == lastVisitTableViewCell {
+            presenter.didSelectLastVisited()
+        } else if tableView.row(indexPath).cell == trapsDescriptionTableViewCell {
+            presenter.didSelectTraps()
         }
     }
 }
 
-// MARK: - StationMapViewDelegat
+// MARK: - StationMapViewDelegate
+
 extension RouteDashboardView: StationMapViewDelegate {
     
     func stationMapStations(_ stationMap: StationMapView) -> [LocatableEntity] {
@@ -394,38 +246,40 @@ extension RouteDashboardView: RouteDashboardViewApi {
         self.mapTableViewCell.mapView.reload(forceRebuildOfAnnotations: true)
     }
     
+    func displayTrapsDescription(description: String?) {
+        self.trapsDescriptionTableViewCell.detailTextLabel?.text = description
+    }
+    
+    func displayAverageLureSummary(summary: String) {
+        self.averageLureTableViewCell.detailTextLabel?.text = summary
+    }
+    
     func showVisitDetails(show: Bool) {
         // don't want to show the visits, catches or poison sections
 
-        visibleSections.removeAll()
         if show {
-            visibleSections.append(contentsOf: [SECTION_MAP, SECTION_VISITS, SECTION_POISON, SECTION_CATCHES])
+            tableView.setVisibility(sectionTitles: (sections.compactMap { $0.title }), isVisible: true)
         } else {
-            visibleSections.append(contentsOf: [SECTION_MAP])
+            tableView.setVisibility(sectionTitles: (sections.compactMap { $0.title }), isVisible: false)
+            tableView.section(by: "Route")?.isVisible = true
+        }
+        
+        if show {
+            
         }
         
         tableView.reloadData()
     }
     
-    func configureKillChart(catchSummary: StackCount) {
-        barChartKills.alpha = 1
-        //barChartKillsTitle.alpha = 1
-        self.killNumberOfBars = catchSummary.counts.count
-        let yValues = catchSummary.counts.map({ $0.map( { Double($0) }) })
-        
-        barChartKills.buildData(yValues: yValues, stackLabels: catchSummary.labels, stackColors: UIColor.trpStackChartColors )
+    func configureKillChart(counts: StackCount?, title: String?, lastPeriodCounts: StackCount?, lastPeriodTitle: String?) {
+        if let killCounts = counts {
+            catchesChartTableViewCell.configureChart(currentData: killCounts, dataTitle: title, lastPeriodData: lastPeriodCounts, lastPeriodTitle: lastPeriodTitle)
+        }
     }
     
-    func configurePoisonChart(poisonSummary: StackCount) {
-        
-        if !poisonSummary.isZero {
-            barChartPoison.alpha = 1
-            //barChartPoisonTitle.alpha = 1
-            self.poisonNumberOfBars = poisonSummary.counts.count
-            let yValues = poisonSummary.counts.map({ $0.map( { Double($0) }) })
-            barChartPoison.buildData(yValues: yValues, stackLabels: poisonSummary.labels, stackColors: [UIColor.trpChartBarStack4])
-        } else {
-            barChartPoison.alpha = 0
+    func configurePoisonChart(counts: StackCount?, title: String?, lastPeriodCounts: StackCount?, lastPeriodTitle: String?) {
+        if let poisonCounts = counts {
+            poisonChartTableViewCell.configureChart(currentData: poisonCounts, dataTitle: title, lastPeriodData: lastPeriodCounts, lastPeriodTitle: lastPeriodTitle)
         }
     }
   
@@ -456,11 +310,6 @@ extension RouteDashboardView: RouteDashboardViewApi {
         routeSummaryTableViewCell.detailTextLabel?.text = summary
     }
     
-    func displayTimes(description: String, allowSelection: Bool) {
-        timesTableViewCell.detailTextLabel?.text = description
-        timesTableViewCell.accessoryType = allowSelection ? .disclosureIndicator : .none
-    }
-    
     func setVisibleRegionToAllStations() {
         self.mapTableViewCell.mapView.setVisibleRegionToAllStations()
     }
@@ -475,22 +324,6 @@ extension RouteDashboardView: RouteDashboardViewApi {
         spinner.alpha = 0
         spinner.stopAnimating()
         tableView.alpha = 1
-    }
-}
-
-// MARK: - IAxisValueFormatter
-extension RouteDashboardView: IAxisValueFormatter {
-    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        var monthsOffset: Int
-        
-        if axis == barChartKills.xAxis {
-            monthsOffset = -(killNumberOfBars - (Int(value) + 1))
-        } else {
-            monthsOffset = -(poisonNumberOfBars - (Int(value) + 1))
-        }
-        
-        let displayMonth = Date().add(0, monthsOffset, 0)
-        return displayMonth.toString(format: "MMMMM")
     }
 }
 

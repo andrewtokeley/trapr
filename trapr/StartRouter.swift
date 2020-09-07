@@ -49,13 +49,7 @@ extension StartRouter: StartRouterApi {
     }
     
     func showRouteModule(route: Route?) {
-//        let module = AppModules.route.build()
-//        
-//        let setupData = RouteSetupData()
-//        setupData.route = route
-//        
-//        // show modally
-//        module.router.show(from: _view, embedInNavController: true, setupData: setupData)
+
     }
     
     func showVisitModule(visitSummary: VisitSummary) {
@@ -68,16 +62,8 @@ extension StartRouter: StartRouterApi {
         module.router.show(from: viewController, embedInNavController: false, setupData: setupData)
     }
     
-//    func showNewVisitModule(delegate: NewVisitDelegate) {
-//        let module = AppModules.newVisit.build()
-//        module.router.show(from: _view, embedInNavController: true, setupData: delegate)
-//    }
-    
     func showLoadingScreen(delegate: LoaderDelegate) {
-        
-//        let module = AppModules.signIn.build()
-//        module.router.showAsModalOverlay(from: _view, setupData: nil)
-        
+            
         let module = AppModules.loader.build()
 
         let setup = LoaderPresenterSetupData()
@@ -100,7 +86,11 @@ extension StartRouter: StartRouterApi {
     
     func showProfile() {
         let module = AppModules.settings.build()
-        module.router.show(from: viewController, embedInNavController: true, setupData: nil)
+        
+        let setupData = SettingsSetupData()
+        setupData.delegate = self.presenter as! StartPresenter
+        
+        module.router.show(from: viewController, embedInNavController: true, setupData: setupData)
     }
     
     func showMap(setupData: MapSetupData) {

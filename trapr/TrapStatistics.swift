@@ -98,7 +98,7 @@ struct TrapTypeStatistics {
 }
 
 /**
- Structure that defines statistics for a specific trap. Traps are uniquely defined by a combination of *Station* and *TrapType*.
+ Structure that defines trap statistics across visits.
  
  *TrapStatistic* records are typically returned from the *TrapStatisticService*.
  */
@@ -124,6 +124,11 @@ struct TrapStatistics {
      Record of which species were caught on what date.
      */
     var killsByDate = [Date: String]()
+    
+    /**
+     Returns the total number of lure (or poison) added for each type.
+     */
+    var lureAddedByType = [String: Int]()
     
     /**
      The rate of catches per visit.

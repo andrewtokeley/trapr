@@ -17,6 +17,11 @@ final class RouteDashboardRouter: Router {
 // MARK: - RouteDashboardRouter API
 extension RouteDashboardRouter: RouteDashboardRouterApi {
     
+    func showListPicker(setupData: ListPickerSetupData) {
+        let module = AppModules.listPicker.build()
+        module.router.show(from: viewController, embedInNavController: setupData.embedInNavController, setupData: setupData)
+    }
+    
     func showVisitModule(visitSummary: VisitSummary) {
         // waiting on this one until I commit to converting Visit modules
         let module = AppModules.visit.build()

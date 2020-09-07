@@ -29,8 +29,8 @@ class Styles {
         navigationBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.trpHighlightColor]
         navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.trpHighlightColor]
         
-        let labelAppearance = UILabel.appearance()
-        labelAppearance.textColor = UIColor.trpTextDark
+//        let labelAppearance = UILabel.appearance()
+//        labelAppearance.textColor = UIColor.trpTextDark
         
 //        let stepperAppearance = UIStepper.appearance()
 //        stepperAppearance.tintColor = UIColor.trpMenuBar

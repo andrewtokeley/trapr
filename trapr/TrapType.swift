@@ -30,6 +30,10 @@ enum TrapTypeCode: String {
         case .other: return "Other"
         }
     }
+    
+    var name: String {
+        return walkTheLineName
+    }
 }
 
 enum TrapTypeFields: String {

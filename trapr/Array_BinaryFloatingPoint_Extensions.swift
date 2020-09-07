@@ -7,6 +7,9 @@
 //
 
 import Foundation
+enum ArrayError: Error {
+    case GeneralError
+}
 
 extension Array where Iterator.Element: BinaryFloatingPoint {
     
@@ -107,4 +110,5 @@ extension Array where Iterator.Element: BinaryFloatingPoint {
             upperQuartile() ?? 0
         )
     }
+    
 }

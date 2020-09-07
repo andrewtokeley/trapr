@@ -49,6 +49,13 @@ extension UIFont {
     }
     
     /**
+     Font definition, Small system size
+     */
+    public static var trpLabelBoldSmall: UIFont {
+        return UIFont.systemFont(ofSize: UIFont.smallSystemFontSize, weight: UIFont.Weight.bold)
+    }
+    
+    /**
      Font definition for tableview section headings - Small system size
      */
     public static var trpTableViewSectionHeading: UIFont {

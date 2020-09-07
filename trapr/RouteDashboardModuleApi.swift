@@ -18,6 +18,7 @@ enum ResizeState {
 //MARK: - RouteDashboardRouter API
 protocol RouteDashboardRouterApi: RouterProtocol {
     
+    func showListPicker(setupData: ListPickerSetupData)
     func showVisitModule(visitSummary: VisitSummary)
     func showOrderStationsModule(routeId: String, stations: [Station])
     func showVisitHistoryModule(visitSummaries: [VisitSummary])
@@ -34,16 +35,19 @@ protocol RouteDashboardViewApi: UserInterfaceProtocol {
     func reapplyStylingToAnnotationViews()
     func setVisibleRegionToAllStations()
     
+    // MARK: - Stations
+    func displayStationSummary(summary: String, numberOfStations: Int)
+    func displayTrapsDescription(description: String?)
+    
     // MARK: - Visits
     func displayLastVisitedDate(date: String, allowSelection: Bool)
-    func displayStationSummary(summary: String, numberOfStations: Int)
     func displayVisitNumber(number: String, allowSelection: Bool)
-    func displayTimes(description: String, allowSelection: Bool)
+    func displayAverageLureSummary(summary: String)
     func showVisitDetails(show: Bool)
     
     // MARK: - Charts
-    func configureKillChart(catchSummary: StackCount)
-    func configurePoisonChart(poisonSummary: StackCount)
+    func configureKillChart(counts: StackCount?, title: String?, lastPeriodCounts: StackCount?, lastPeriodTitle: String?)
+    func configurePoisonChart(counts: StackCount?, title: String?, lastPeriodCounts: StackCount?, lastPeriodTitle: String?)
     
     func showSpinner()
     func stopSpinner()
@@ -83,6 +87,8 @@ protocol RouteDashboardPresenterApi: PresenterProtocol {
     func didSelectVisitHistory()
     func didSelectLastVisited()
     func didSelectTimes()
+    func didSelectTraps()
+    
     //func didSelectResetStations()
     //func didSelectResetOrder()
     //func didSelectClearOrder()
