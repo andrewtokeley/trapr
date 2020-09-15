@@ -160,15 +160,18 @@ final class RouteDashboardView: UserInterface {
     }()
     
     lazy var routeNameTextField: UITextField = {
-    
-        let textField = UITextField()
-        textField.placeholder = "Route name"
-        textField.delegate = self
-        textField.textAlignment = .center
-        textField.returnKeyType = UIReturnKeyType.done
-        return textField
+        let view = UITextField()
+        view.delegate = self
+        view.placeholder = "Route name"
+        view.textAlignment = .center
+        view.returnKeyType = UIReturnKeyType.done
+        
+        // required to all auto constraints to work in setConstraints()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
     }()
-    
+        
     lazy var editButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(named: "show"), style: .plain, target: self, action: #selector(editButtonClick(sender:)))
         return button
@@ -218,7 +221,7 @@ final class RouteDashboardView: UserInterface {
     }
     
     func setConstraints() {
-        routeNameTextField.autoSetDimension(.width, toSize: 150)
+        routeNameTextField.autoSetDimension(.width, toSize: 0.8 * self.view.bounds.width)
         tableView.autoPinEdgesToSuperviewEdges()
         spinner.autoPinEdgesToSuperviewEdges()
     }
