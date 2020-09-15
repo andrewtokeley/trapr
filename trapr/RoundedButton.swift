@@ -17,7 +17,7 @@ class RoundedButton: UIButton {
         self.setTitle(title, for: .normal)
         self.titleLabel?.font = .trpLabelSmall
         self.clipsToBounds = true
-
+        isSelected(false)
     }
     
     override public func layoutSubviews() {

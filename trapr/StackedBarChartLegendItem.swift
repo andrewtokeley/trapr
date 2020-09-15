@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct BarChartLegendItemData {
+struct StackedBarChartLegendItemData {
     /// Display text located above the value
     var text: String?
     
@@ -29,7 +29,7 @@ struct BarChartLegendItemData {
     
 }
 
-class BarChartLegendItem: UIView {
+class StackedBarChartLegendItem: UIView {
     
     private lazy var textLabel: UILabel = {
         let label = UILabel()
@@ -87,7 +87,7 @@ class BarChartLegendItem: UIView {
     
     // MARK: - Render
     
-    public func updateDisplay(data: BarChartLegendItemData) {
+    public func updateDisplay(data: StackedBarChartLegendItemData) {
         textLabel.text = data.text
         textLabel.textColor = data.textColour
         valueLabel.text = String(data.value)

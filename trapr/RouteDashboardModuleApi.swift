@@ -29,8 +29,9 @@ protocol RouteDashboardViewApi: UserInterfaceProtocol {
     func displayTitle(_ title: String, editable: Bool)
     
     // MARK: - Map
-    func displayStations(stations: [LocatableEntity])
-    func displayHeatmap(title: String, segments: [Segment])
+    func displayStations(stations: [LocatableEntity], stationCounts: [String: Int], legendSegments: [Segment], legendTitle: String)
+    func displayMapOptionButtons(buttons: [MapOptionButton], selectedIndex: Int?)
+    //func displayHeatmap(title: String, segments: [Segment])
     func reloadMap(forceAnnotationRebuild: Bool)
     func reapplyStylingToAnnotationViews()
     func setVisibleRegionToAllStations()
@@ -46,8 +47,16 @@ protocol RouteDashboardViewApi: UserInterfaceProtocol {
     func showVisitDetails(show: Bool)
     
     // MARK: - Charts
-    func configureKillChart(counts: StackCount?, title: String?, lastPeriodCounts: StackCount?, lastPeriodTitle: String?)
-    func configurePoisonChart(counts: StackCount?, title: String?, lastPeriodCounts: StackCount?, lastPeriodTitle: String?)
+//    func configureKillChartNavigation(navigationStripItems: [NavigationStripItem])
+//    func configureBaitChartNavigation(navigationStripItems: [NavigationStripItem])
+//    func configureKillChart(counts: StackCount, lastPeriodCounts: StackCount?)
+//    func configurePoisonChart(counts: StackCount, lastPeriodCounts: StackCount?)
+//
+//    func configureKillChart(counts: StackCount, title: String, lastPeriodCounts: StackCount?, lastPeriodTitle: String?)
+//    func configurePoisonChart(counts: StackCount, title: String, lastPeriodCounts: StackCount?, lastPeriodTitle: String?)
+    
+    func displayChart(type: MapType, index: Int)
+    func setChartData(type: MapType, counts: [StackCount], titles: [String?])
     
     func showSpinner()
     func stopSpinner()
@@ -57,45 +66,27 @@ protocol RouteDashboardViewApi: UserInterfaceProtocol {
 //MARK: - RouteDashboardPresenter API
 protocol RouteDashboardPresenterApi: PresenterProtocol {
     
-    // called by interactor
-    //func didSaveStationEdits()
-    func didDeleteRoute()
-    //func didFetchRouteInformation(information: RouteInformation)
-    //func didFetchVisitInformation(information: VisitInformation)
-    //func didFetchStationKillCounts(counts: [String: Int])
-    
-    // called by view
-    func getColorForMapStation(station: LocatableEntity, state: AnnotationState) -> UIColor
-    //func getHeatMapSegments() -> [Segment]
+    // Station Map
+    func didselectMapOptionButton(optionButton: MapOptionButton)
+    func didSelectMapType(mapType: MapType)
+    //func getColorForMapStation(station: LocatableEntity, state: AnnotationState) -> UIColor
     func getIsHidden(station: LocatableEntity) -> Bool
-    func didselectMapFilterOption(option: MapOption)
+    
+    // Charts
+    func didChangeBaitChartPerion(dataSetIndex: Int)
+    func didChangeKillChartPerion(dataSetIndex: Int)
     
     func didSelectClose()
-    //func didSelectCancel()
     func didSelectEditMenu()
-   // func didSelectEditStations()
-    //func didSelectEditOrder()
-    //func didSelectEditDone()
-    //func didSelectEditCancel()
     func didUpdateRouteName(name: String?)
-    
-    func didSelectMapOptionAllTrapTypes()
-    func didSelectMapOptionPossumMaster()
-    func didSelectMapOptionTimms()
-    func didSelectMapOptionDoc200()
     
     func didSelectVisitHistory()
     func didSelectLastVisited()
     func didSelectTimes()
     func didSelectTraps()
     
-    //func didSelectResetStations()
-    //func didSelectResetOrder()
-    //func didSelectClearOrder()
-    //func didSelectReverseOrder()
-    //func didSelectResize()
-    //func didSelectHideRoute()
-    //func didSelectToSelectAllStations()
+    func didDeleteRoute()
+    
 }
 
 //MARK: - RouteDashboardInteractor API
@@ -106,10 +97,12 @@ protocol RouteDashboardInteractorApi: InteractorProtocol {
     func deleteRoute(routeId: String)
     
     func retrieveStations(completion: (([Station]) -> Void)?)
+    func retrieveTrapTypes(completion: (([TrapType]) -> Void)?)
     func retrieveRouteInformation(route: Route, completion: ((RouteInformation?, Error?) -> Void)?)
     func retrieveVisitInformation(route: Route, completion: ((VisitInformation?, Error?) -> Void)?)
     
-    func retrieveStationKillCounts(route: Route, trapTypeId: String?, completion: (([String: Int], Error?) -> Void)?)
+    func retrieveStationKillCounts(route: Route, speciesId: String?, completion: (([String: Int], Error?) -> Void)?)
+    func retrieveStationBaitAddedCounts(route: Route, lureId: String, completion: (([String: Int], Error?) -> Void)?)
     
     func getStationsDescription(stations: [Station], includeStationCodes: Bool) -> String 
     func setRouteImage(route: Route, asset: PHAsset, completion: (() -> Swift.Void)?)

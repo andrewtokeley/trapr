@@ -22,40 +22,44 @@ extension UIColor
     /**
      Returns the colour of a heat map slice give a value and maximum value.
      
-     It is assumed there are always 7 equal segments in the heatmap.
+     It is assumed there are always 7 equal segments in the heatmap, plus an initial segment that represents just zero values.
      */
-    public class func trpHeatColour(value: Int, maximumValue: Int) -> UIColor {
-
-        let NUMBER_OF_COLOUR_SEGMENTS = 7
-
-        // range of each colour segment
-        var maxCount = maximumValue
-        if maxCount < 7 { maxCount = 7 }
-        let range = maxCount / NUMBER_OF_COLOUR_SEGMENTS
-
-        // index within the range
-        var index = value / range
-        if index > (NUMBER_OF_COLOUR_SEGMENTS - 1) {
-            index = NUMBER_OF_COLOUR_SEGMENTS - 1
-        } else if index <= 0 {
-            index = 0
-        }
-        return trpHeatColour(heatValue: index)
-    }
+//    public class func trpHeatColour(value: Int, maximumValue: Int) -> UIColor {
+//
+//        let NUMBER_OF_COLOUR_SEGMENTS = 7
+//
+//        if value == 0 { return UIColor.trpHeat0 }
+//        
+//        // range of each colour segment
+//        var maxCount = maximumValue
+//        if maxCount < 7 { maxCount = 7 }
+//        let range = maxCount / NUMBER_OF_COLOUR_SEGMENTS
+//
+//        // index within the range
+//        var index = value / range
+//        if index > (NUMBER_OF_COLOUR_SEGMENTS - 1) {
+//            index = NUMBER_OF_COLOUR_SEGMENTS - 1
+//        } else if index <= 0 {
+//            index = 0
+//        }
+//        return trpHeatColour(heatValue: index)
+//    }
     
-    public class func trpHeatColour(heatValue: Int) -> UIColor {
-        switch heatValue {
+    public class func trpHeatColour(segmentIndex: Int) -> UIColor {
+        switch segmentIndex {
         case 0: return .trpHeat0
         case 1: return .trpHeat1
         case 2: return .trpHeat2
         case 3: return .trpHeat3
         case 4: return .trpHeat4
         case 5: return .trpHeat5
-        case 6: return .trpHeat6
-        default: return .trpHeat0
+        default: return .trpHeat5
         }
     }
     
+    public class var trpHeatNoValue: UIColor {
+        return .purple
+    }
     public class var trpHeat0: UIColor {
         return UIColor(72, 150, 87, 1)
     }
@@ -68,13 +72,13 @@ extension UIColor
     public class var trpHeat3: UIColor {
         return UIColor(254, 255, 198, 1)
     }
+//    public class var trpHeat4: UIColor {
+//        return UIColor(249, 225, 150, 1)
+//    }
     public class var trpHeat4: UIColor {
-        return UIColor(249, 225, 150, 1)
-    }
-    public class var trpHeat5: UIColor {
         return UIColor(237, 147, 100, 1)
     }
-    public class var trpHeat6: UIColor {
+    public class var trpHeat5: UIColor {
         return UIColor(198, 64, 50, 1)
     }
     

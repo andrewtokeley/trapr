@@ -46,6 +46,7 @@ final class RouteDashboardInteractor: Interactor {
     let speciesService = ServiceFactory.sharedInstance.speciesFirestoreService
     let userService = ServiceFactory.sharedInstance.userService
     let trapStatisticsService = ServiceFactory.sharedInstance.trapStatisticsService
+    let trapTypeService = ServiceFactory.sharedInstance.trapTypeFirestoreService
     
 }
 
@@ -58,6 +59,60 @@ extension RouteDashboardInteractor: RouteDashboardInteractorApi {
     
     func saveRoute(route: Route) -> String {
         return routeService.add(route: route, completion: nil)
+    }
+    
+    func retrieveTrapTypes(completion: (([TrapType]) -> Void)?) {
+        trapTypeService.get { (trapTypes, error) in
+            if let _ = error {
+                completion?([TrapType]())
+            } else {
+                completion?(trapTypes)
+            }
+        }
+    }
+    
+    func retrieveStationBaitAddedCounts(route: Route, lureId: String, completion: (([String: Int], Error?) -> Void)?) {
+        
+        if let id = route.id {
+            
+            // get stats across all types of traps at each station - but only
+            trapStatisticsService.getTrapStatistics(routeId: id, trapTypeId: nil) { (statisticsByStation, error) in
+                
+                // result will be a dictionary where the key is the Station code (e.g. LW01) and the value is the count of kills
+                var result = [String: Int]()
+                
+                // restrict to stations
+                for stationCode in statisticsByStation.keys {
+                    result[stationCode] = statisticsByStation[stationCode]!.lureAddedByType[lureId]
+                }
+                
+                completion?(result, nil)
+            }
+        }
+    }
+    
+    func retrieveStationKillCounts(route: Route, speciesId: String?, completion: (([String: Int], Error?) -> Void)?) {
+        
+        if let id = route.id {
+            
+            trapStatisticsService.getTrapStatistics(routeId: id, trapTypeId: nil) { (statisticsByStation, error) in
+                
+                // result will be a dictionary where the key is the Station code (e.g. LW01) and the value is the count of kills for the given species
+                var result = [String: Int]()
+                
+                for stationCode in statisticsByStation.keys {
+                    if let speciesId = speciesId {
+                        result[stationCode] = statisticsByStation[stationCode]!.killsBySpecies[speciesId]
+                    } else {
+                        // add up the kills over all species
+                        result[stationCode] = statisticsByStation[stationCode]!.killsBySpecies.reduce(0, { $0 + $1.value })
+                    }
+                }
+                
+                completion?(result, error)
+            }
+        }
+        
     }
     
     func retrieveStationKillCounts(route: Route, trapTypeId: String?, completion: (([String: Int], Error?) -> Void)?) {

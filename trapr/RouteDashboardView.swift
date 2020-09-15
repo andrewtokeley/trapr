@@ -11,15 +11,35 @@ import Viperit
 import MapKit
 import Charts
 
+/**
+ Enumerator to identify which view a NavigationStrip related to
+ */
+enum ChartType: Int {
+    case stationMap = 0
+    case catchesChart
+    case baitChart
+}
+
 //MARK: RouteDashboardView Class
 final class RouteDashboardView: UserInterface {
     
     private var stations = [LocatableEntity]()
+    private var stationCounts = [String: Int]()
+    private var legendSegments = [Segment]()
+    private var legendTitle: String?
+    private var optionButtons = [MapOptionButton]()
+    
+    private var killCounts = [StackCount?]()
+    private var killCountsCurrentIndex: Int = 0
+    
+    private var baitCounts = [StackCount?]()
+    private var baitCountsCurrentIndex: Int = 0
     
     private let CELL_ID = "cell"
     
     private lazy var sections = [
         StaticSection("Route", [
+            StaticRow(mapTypeTableViewCell),
             StaticRow(mapTableViewCell, 400)]
         ),
         StaticSection("Stations", [
@@ -51,6 +71,25 @@ final class RouteDashboardView: UserInterface {
         let tableView = StaticTableView(sections: sections)
         tableView.staticTableViewDelegate = self
         return tableView
+    }()
+    
+    lazy var mapTypeNavigationStrip: NavigationStrip = {
+        let view = NavigationStrip()
+        view.tag = ChartType.stationMap.rawValue
+        //view.textLabel.text = "Catches"
+        view.setItems([
+                        NavigationStripItem(title: "Bait", itemData: MapType.bait),
+                        NavigationStripItem(title: "Catches", itemData: MapType.catches)],
+                        selectedItemIndex: 1)
+        view.delegate = self
+        return view
+    }()
+    
+    lazy var mapTypeTableViewCell: UITableViewCell = {
+        let cell = UITableViewCell()
+        cell.contentView.addSubview(mapTypeNavigationStrip)
+        mapTypeNavigationStrip.autoPinEdgesToSuperviewEdges()
+        return cell
     }()
     
     lazy var routeSummaryTableViewCell: UITableViewCell = {
@@ -102,12 +141,21 @@ final class RouteDashboardView: UserInterface {
     lazy var catchesChartTableViewCell: BarChartTableViewCell = {
         let cell = BarChartTableViewCell()
         cell.selectionStyle = .none
+        cell.chart.delegate = self
+        cell.chart.tag = ChartType.catchesChart.rawValue
+        cell.navigationStrip.tag = ChartType.catchesChart.rawValue
+        cell.navigationStrip.delegate = self
+        
         return cell
     }()
     
     lazy var poisonChartTableViewCell: BarChartTableViewCell = {
         let cell = BarChartTableViewCell()
         cell.selectionStyle = .none
+        cell.navigationStrip.tag = ChartType.baitChart.rawValue
+        cell.navigationStrip.delegate = self
+        cell.chart.delegate = self
+        cell.chart.tag = ChartType.baitChart.rawValue
         return cell
     }()
     
@@ -177,6 +225,25 @@ final class RouteDashboardView: UserInterface {
     
 }
 
+extension RouteDashboardView: NavigationStripDelegate {
+    
+    func navigationStrip(_ navigationStrip: NavigationStrip, navigatedToItemAt index: Int) {
+        let item = navigationStrip.items[index]
+        if let view = ChartType(rawValue: navigationStrip.tag) {
+            if view == .stationMap {
+                if let mapType = item.itemData as? MapType {
+                    presenter.didSelectMapType(mapType: mapType)
+                }
+            } else if view == .catchesChart {
+                self.displayChart(type: .catches, index: index)
+            } else if view == .baitChart {
+                self.displayChart(type: .bait, index: index)
+            }
+        }
+        
+    }
+    
+}
 //MARK: - StaticTableViewDelegate
 
 extension RouteDashboardView: StaticTableViewDelegate {
@@ -192,20 +259,168 @@ extension RouteDashboardView: StaticTableViewDelegate {
     }
 }
 
+// MARK: -
+
+extension RouteDashboardView: StackedBarChartDelegate {
+    func stackedBarChartNumberOfBars(_ stackedBarChart: StackedBarChart) -> Int {
+        let type = ChartType(rawValue: stackedBarChart.tag)
+        if type == .catchesChart {
+            return killCounts[killCountsCurrentIndex]?.counts.count ?? 0
+        } else if type == .baitChart {
+            return baitCounts[baitCountsCurrentIndex]?.counts.count  ?? 0
+        }
+        return 0
+    }
+    
+    func stackedBarChartNumberOfStacks(_ stackedBarChart: StackedBarChart) -> Int {
+        let type = ChartType(rawValue: stackedBarChart.tag)
+        if type == .catchesChart {
+            return killCounts[killCountsCurrentIndex]?.counts.first?.count ?? 0
+        } else if type == .baitChart {
+            return baitCounts[baitCountsCurrentIndex]?.counts.first?.count  ?? 0
+        }
+        return 0
+    }
+    
+    func stackedBarChart(_ stackedBarChart: StackedBarChart, stackLabel stackIndex: Int) -> String? {
+        var result: String?
+        let type = ChartType(rawValue: stackedBarChart.tag)
+        if type == .catchesChart {
+            result = killCounts[killCountsCurrentIndex]?.labels[stackIndex]
+        } else if type == .baitChart {
+            result = baitCounts[baitCountsCurrentIndex]?.labels[stackIndex]
+        }
+        return result
+    }
+    
+    func stackedBarChart(_ stackedBarChart: StackedBarChart, valuesAt barIndex: Int) -> [Double] {
+        var result: [Double]?
+        let type = ChartType(rawValue: stackedBarChart.tag)
+        if type == .catchesChart {
+            result = killCounts[killCountsCurrentIndex]?.counts[barIndex].compactMap { Double($0) }
+        } else if type == .baitChart {
+            result = baitCounts[baitCountsCurrentIndex]?.counts[barIndex].compactMap { Double($0) }
+        }
+        return result ?? [Double]()
+    }
+    
+    func stackedBarChart(_ stackedBarChart: StackedBarChart, xLabelFor barIndex: Int) -> String? {
+        
+        // assumes 12 monthly bars, where barIndex0 is 12 months ago (offset -11) and barIndex 11 is the current month (offset 0)
+        var monthsOffset: Int
+        monthsOffset = -(12 - barIndex + 1)
+        let displayMonth = Date().add(0, monthsOffset, 0)
+        return displayMonth.toString(format: "MMMMM")
+    }
+    
+    func stackedBarChart(_ stackedBarChart: StackedBarChart, colourOfStack stackIndex: Int) -> UIColor? {
+        let availableColours = UIColor.trpStackChartColors
+        
+        if stackIndex < availableColours.count {
+            return UIColor.trpStackChartColors[stackIndex]
+        } else {
+            return UIColor.red // so I know I have to fix this!
+        }
+    }
+    
+    func stackedBarChart(_ stackedBarChart: StackedBarChart, legendItemDataAtIndex index: Int) -> StackedBarChartLegendItemData? {
+        
+        var result: StackedBarChartLegendItemData?
+        var chartData = StackCount.zero
+        var lastPeriodData: StackCount? = nil
+        
+        let type = ChartType(rawValue: stackedBarChart.tag)
+        if type == .catchesChart {
+            chartData = killCounts[killCountsCurrentIndex]!
+            lastPeriodData = (killCountsCurrentIndex - 1 >= 0) ? killCounts[killCountsCurrentIndex - 1] : nil
+        } else if type == .baitChart {
+            chartData = baitCounts[baitCountsCurrentIndex]!
+            lastPeriodData = (baitCountsCurrentIndex - 1 >= 0) ? baitCounts[baitCountsCurrentIndex - 1] : nil
+        }
+        
+        //for i in 0...chartData.stackLabels.count - 1 {
+        let sumForStack = chartData.counts.reduce(0, { $0 + $1[index] })
+        
+        // Work out the sums for the preview period and the equivalent stack
+        // Can't assume the stacks are in the same order, must rely on matching the stacklabels between years.
+        var deltaValue: Int?
+        var deltaValueSuffix: String? = nil
+        if let lastPeriod = lastPeriodData {
+            // Equivalent stack index
+            if let index = lastPeriod.labels.firstIndex(of: chartData.labels[index]) {
+                let sumForStackLastPeriod = Int(lastPeriod.counts.reduce(0, { $0 + $1[index] }))
+                deltaValue = Int((Double(sumForStack - sumForStackLastPeriod)/Double(sumForStackLastPeriod)) * 100.0)
+                deltaValueSuffix = "%"
+            } else {
+                // there is nothing to compare in the previous period
+            }
+        }
+        
+        // colour of stack
+        if let colour = self.stackedBarChart(stackedBarChart, colourOfStack: index)
+        
+        {
+            result = StackedBarChartLegendItemData(
+                text: chartData.labels[index],
+                value: sumForStack,
+                textColour: colour,
+                deltaValue: deltaValue,
+                deltaValueSuffix: deltaValueSuffix)
+        }
+        
+        return result
+
+    }
+    
+}
+
 // MARK: - StationMapViewDelegate
 
 extension RouteDashboardView: StationMapViewDelegate {
+    
+    func stationMapNumberOfOptionButtons() -> Int {
+        return optionButtons.count
+    }
+    
+    func stationMap(_ stationMap: StationMapView, optionButtonAt index: Int) -> MapOptionButton? {
+        if optionButtons.count > 0 {
+            return optionButtons[index]
+        }
+        return nil
+    }
+    
+    func stationMap(_ stationMap: StationMapView, optionButtonSelectedAt index: Int) {
+        presenter.didselectMapOptionButton(optionButton: optionButtons[index])
+    }
     
     func stationMapStations(_ stationMap: StationMapView) -> [LocatableEntity] {
         return stations
     }
     
-    func stationMapShowHeatMap(_ stationMap: StationMapView) -> Bool {
+    func stationMapLegendTitle(_ stationMap: StationMapView) -> String? {
+        return self.legendTitle
+    }
+    
+    func stationMapLegendSegments(_ stationMap: StationMapView) -> [Segment] {
+        return self.legendSegments
+    }
+    
+    func stationMapShowLegend(_ stationMap: StationMapView) -> Bool {
         return true
     }
     
     func stationMap(_ stationMap: StationMapView, colourForStation station: LocatableEntity, state: AnnotationState) -> UIColor {
-        return presenter.getColorForMapStation(station: station, state: state)
+        
+        if let count = self.stationCounts[station.locationId] {
+            //find the segment this count is in
+            if let segment = self.legendSegments.first(where: { $0.range.contains(count) }) {
+                return segment.colour
+            }
+        }
+        
+        // this means the station could have a count for catches or bait, but didn't record anything
+        return .trpHeatNoValue
+        
     }
     
     func stationMap(_ stationMap: StationMapView, radiusForStation station: LocatableEntity) -> Int {
@@ -216,9 +431,9 @@ extension RouteDashboardView: StationMapViewDelegate {
         return presenter.getIsHidden(station: station)
     }
     
-    func stationMap(_ stationMap: StationMapView, didSelectFilter option: MapOption) {
-        presenter.didselectMapFilterOption(option: option)
-    }
+//    func stationMap(_ stationMap: StationMapView, didSelectFilter option: MapOption) {
+//        presenter.didselectMapFilterOption(option: option)
+//    }
 }
 
     //MARK: - UITextFieldDelegate
@@ -236,13 +451,16 @@ extension RouteDashboardView: UITextFieldDelegate {
 //MARK: - RouteDashboardView API
 extension RouteDashboardView: RouteDashboardViewApi {
     
-    func displayHeatmap(title: String, segments: [Segment]) {
-        self.mapTableViewCell.mapView.heatMapLegend.title = title
-        self.mapTableViewCell.mapView.heatMapLegend.setSegments(segments: segments)
+    func displayMapOptionButtons(buttons: [MapOptionButton], selectedIndex: Int?) {
+        self.optionButtons = buttons
+        self.mapTableViewCell.mapView.redrawMapOptions(selectedIndex: selectedIndex)
     }
     
-    func displayStations(stations: [LocatableEntity]) {
+    func displayStations(stations: [LocatableEntity], stationCounts: [String: Int], legendSegments: [Segment], legendTitle: String) {
+        self.legendSegments = legendSegments
+        self.legendTitle = legendTitle
         self.stations = stations
+        self.stationCounts = stationCounts
         self.mapTableViewCell.mapView.reload(forceRebuildOfAnnotations: true)
     }
     
@@ -271,17 +489,109 @@ extension RouteDashboardView: RouteDashboardViewApi {
         tableView.reloadData()
     }
     
-    func configureKillChart(counts: StackCount?, title: String?, lastPeriodCounts: StackCount?, lastPeriodTitle: String?) {
-        if let killCounts = counts {
-            catchesChartTableViewCell.configureChart(currentData: killCounts, dataTitle: title, lastPeriodData: lastPeriodCounts, lastPeriodTitle: lastPeriodTitle)
+//    func configureKillChartNavigation(navigationStripItems: [NavigationStripItem]) {
+//        catchesChartTableViewCell.navigationStrip.setItems(navigationStripItems)
+//    }
+//
+//    func configureBaitChartNavigation(navigationStripItems: [NavigationStripItem]) {
+//        poisonChartTableViewCell.navigationStrip.setItems(navigationStripItems)
+//    }
+    
+    func displayChart(type: MapType, index: Int) {
+        
+        if type == .catches {
+            self.killCountsCurrentIndex = index
+            self.catchesChartTableViewCell.chart.drawChart()
+        }
+        
+        if type == .bait {
+            self.baitCountsCurrentIndex = index
+            self.poisonChartTableViewCell.chart.drawChart()
         }
     }
     
-    func configurePoisonChart(counts: StackCount?, title: String?, lastPeriodCounts: StackCount?, lastPeriodTitle: String?) {
-        if let poisonCounts = counts {
-            poisonChartTableViewCell.configureChart(currentData: poisonCounts, dataTitle: title, lastPeriodData: lastPeriodCounts, lastPeriodTitle: lastPeriodTitle)
+    func setChartData(type: MapType, counts: [StackCount], titles: [String?]) {
+        
+        // define navigation
+        var items = [NavigationStripItem]()
+        for title in titles {
+            items.append(NavigationStripItem(title: title ?? "", itemData: nil))
+        }
+        
+        if type == .catches {
+            self.killCounts = counts
+            self.killCountsCurrentIndex = counts.count - 1 // start at the last, most recent one
+            
+            // configure the navigation
+            self.catchesChartTableViewCell.navigationStrip.setItems(items, selectedItemIndex: self.killCountsCurrentIndex)
+            self.catchesChartTableViewCell.chart.drawChart()
+        }
+        
+        if type == .bait {
+            self.baitCounts = counts
+            self.baitCountsCurrentIndex = counts.count - 1 // start at the last, most recent one
+            
+            // configure the navigation
+            self.poisonChartTableViewCell.navigationStrip.setItems(items, selectedItemIndex: self.baitCountsCurrentIndex)
+            self.poisonChartTableViewCell.chart.drawChart()
         }
     }
+    
+//    func configureKillChart(counts: StackCount, title: String, lastPeriodCounts: StackCount?, lastPeriodTitle: String?) {
+//        
+//        // make sure we have the right navigation
+//        catchesChartTableViewCell.navigationStrip.setItems([])
+//        // store counts
+//        self.killCounts = [lastPeriodCounts, counts]
+//        self.killCountsCurrentIndex = 1
+//        
+//        // configure the navigation
+//        var items = [NavigationStripItem(title: title, itemData: counts)]
+//        if let lastPeriodTitle = lastPeriodTitle {
+//            items.append(NavigationStripItem(title: lastPeriodTitle, itemData: lastPeriodCounts))
+//        }
+//        self.catchesChartTableViewCell.navigationStrip.setItems(items)
+//        
+//        // tell chart to draw itself, the delegate methods below will supply details.
+//        self.catchesChartTableViewCell.chart.drawChart()
+//    }
+//    
+//    func configurePoisonChart(counts: StackCount, title: String, lastPeriodCounts: StackCount?, lastPeriodTitle: String?) {
+//        
+//        // store counts
+//        self.baitCounts = [lastPeriodCounts, counts]
+//        self.baitCountsCurrentIndex = 1
+//        
+//        // configure the navigation
+//        var items = [NavigationStripItem(title: title, itemData: counts)]
+//        if let lastPeriodTitle = lastPeriodTitle {
+//            items.append(NavigationStripItem(title: lastPeriodTitle, itemData: lastPeriodCounts))
+//        }
+//        self.poisonChartTableViewCell.navigationStrip.setItems(items)
+//        
+//        // tell chart to draw itself, the delegate methods below will supply details.
+//        self.poisonChartTableViewCell.chart.drawChart()
+//    }
+    
+//    func configureKillChart(counts: StackCount?, title: String?, lastPeriodCounts: StackCount?, lastPeriodTitle: String?) {
+//        if let killCounts = counts {
+//            catchesChartTableViewCell.configureChart(currentData: killCounts, dataTitle: title, lastPeriodData: lastPeriodCounts, lastPeriodTitle: lastPeriodTitle)
+//            
+//            if let title = title,
+//               let lastPeriodTitle = lastPeriodTitle {
+//                catchesChartTableViewCell.navigationStrip.setItems([
+//                    NavigationStripItem(title: title, itemData: counts),
+//                    NavigationStripItem(title: lastPeriodTitle, itemData: lastPeriodCounts)]
+//                )
+//            }
+//        }
+//    }
+//    
+//    func configurePoisonChart(counts: StackCount?, title: String?, lastPeriodCounts: StackCount?, lastPeriodTitle: String?) {
+//        if let poisonCounts = counts {
+//            poisonChartTableViewCell.configureChart(currentData: poisonCounts, dataTitle: title, lastPeriodData: lastPeriodCounts, lastPeriodTitle: lastPeriodTitle)
+//        }
+//    }
   
     func reapplyStylingToAnnotationViews() {
         mapTableViewCell.mapView.reapplyStylingToAnnotationViews()

@@ -11,6 +11,24 @@ import Viperit
 import MapKit
 import Photos
 
+enum MapOptionId: Int {
+    case trapTypeFilterAll = 0
+    case trapTypeFilterPossumMaster = 1
+    case trapTypeFilterDOC200 = 2
+    case trapTypeFilterTimms = 3
+}
+
+/**
+ Represents which type of data is displayed on the Station Map.
+ */
+enum MapType: Int {
+    /// Map displays the number of kills of specific species
+    case catches = 0
+    
+    /// Map displays the amount of bait or poison added at each station
+    case bait = 1
+}
+
 // MARK: - RouteDashboardPresenter Class
 final class RouteDashboardPresenter: Presenter {
     
@@ -19,10 +37,20 @@ final class RouteDashboardPresenter: Presenter {
    
     var routeInformation: RouteInformation!
     var visitInformation: VisitInformation!
-    var stationKillCounts = [String: Int]()
-    var selectedTypeType: String?
+    
+//    var stationKillCounts = [String: Int]()
+//    var stationMapCounts = [String: Int]()
+    
+    // need this to check what species are catchable for each station
+    var trapTypes = [TrapType]()
+    
+    var selectedSpeciesId: String?
+    //var selectedTrapType: String?
+    var selectedLureCode: String?
+    
     var user: User?
     var allStations: [Station]?
+    var currentMapType: MapType = .catches
     
     var trapCounts: [ (trapName: String, count: Int  )]?
     
@@ -39,29 +67,39 @@ final class RouteDashboardPresenter: Presenter {
                 // Show spinner while loading
                 self.view.showSpinner()
                 
-                self.interactor.retrieveRouteInformation(route: route) { (information, error) in
+                self.interactor.retrieveTrapTypes() { (trapTypes) in
                     
-                    self.routeInformation = information
+                    self.trapTypes = trapTypes
                     
-                    self.interactor.retrieveVisitInformation(route: route) { (information, error) in
-                        self.visitInformation = information
-                        self.refreshVisitViews()
+                    self.interactor.retrieveRouteInformation(route: route) { (information, error) in
                         
-                        self.interactor.retrieveStationKillCounts(route: route, trapTypeId: nil) { (counts, error) in
-
-                            self.stationKillCounts = counts
+                        self.routeInformation = information
+                        
+                        self.interactor.retrieveVisitInformation(route: route) { (information, error) in
+                            self.visitInformation = information
                             
-                            self.view.displayStationSummary(summary: self.routeInformation.stationDescriptionsWithCodes, numberOfStations: self.routeInformation.stations.count)
+                            // refresh view dependent info, including charts
+                            self.refreshVisitViews()
                             
-                            self.view.displayTrapsDescription(description: String(self.routeInformation.stations.reduce(0, { $0 + $1.trapTypes.filter({ $0.active }).count } )))
-                            
-                            if let name = self.routeInformation.route?.name {
-                                self.view.displayTitle(name, editable: true)
-                            }
-                            
-                            // display all traptypes initially
-                            self.displayStations(route: route, trapTypeId: nil) {
-                                self.view.stopSpinner()
+                            self.interactor.retrieveStationKillCounts(route: route, speciesId: nil) { (counts, error) in
+                                
+                                //self.stationKillCounts = counts
+                                
+                                self.view.displayStationSummary(summary: self.routeInformation.stationDescriptionsWithCodes, numberOfStations: self.routeInformation.stations.count)
+                                
+                                self.view.displayTrapsDescription(description: String(self.routeInformation.stations.reduce(0, { $0 + $1.trapTypes.filter({ $0.active }).count } )))
+                                
+                                if let name = self.routeInformation.route?.name {
+                                    self.view.displayTitle(name, editable: true)
+                                }
+                                
+                                let mapOptionButtons = self.mapOptionButtons(for: self.currentMapType)
+                                let index = mapOptionButtons.firstIndex(where: { $0.isPrimary })
+                                self.view.displayMapOptionButtons(buttons: mapOptionButtons, selectedIndex: index)
+                                                            
+                                self.displayStationsForCatches(route: route, speciesId: nil) {
+                                    self.view.stopSpinner()
+                                }
                             }
                         }
                     }
@@ -72,34 +110,107 @@ final class RouteDashboardPresenter: Presenter {
     
     //MARK: - Helpers
     
+    fileprivate func mapOptionButtons(for mapType: MapType) -> [MapOptionButton] {
+        
+        var options = [MapOptionButton]()
+        
+        if mapType == .catches {
+            options.append(MapOptionButton(title: "ALL",
+                                           width: 60,
+                                           isPrimary: true,
+                                           id: nil,
+                                           optionType: MapType.catches))
+            options.append(MapOptionButton(title: "POSSUM",
+                                           width: 120,
+                                           isPrimary: false,
+                                           id: SpeciesCode.possum,
+                                           optionType: MapType.catches))
+            options.append(MapOptionButton(title: "RAT",
+                                           width: 70,
+                                           isPrimary: false,
+                                           id: SpeciesCode.rat,
+                                           optionType: MapType.catches))
+            options.append(MapOptionButton(title: "STOAT",
+                                           width: 70,
+                                           isPrimary: false,
+                                           id: SpeciesCode.stoat,
+                                           optionType: MapType.catches))
+            options.append(MapOptionButton(title: "HEDGEHOG",
+                                           width: 70,
+                                           isPrimary: false,
+                                           id: SpeciesCode.hedgehog,
+                                           optionType: MapType.catches))
+        } else {
+            options.append(MapOptionButton(title: "CONTRAC BLOX",
+                                           width: 120,
+                                           isPrimary: true,
+                                           id: LureCode.contracBloxPoison,
+                                           optionType: MapType.bait))
+            options.append(MapOptionButton(title: "CEREAL",
+                                           width: 70,
+                                           isPrimary: false,
+                                           id: LureCode.cereal,
+                                           optionType: MapType.bait))
+            options.append(MapOptionButton(title: "RABBIT",
+                                           width: 70,
+                                           isPrimary: false,
+                                           id: LureCode.driedRabbit,
+                                           optionType: MapType.bait))
+        }
+        
+        return options
+        
+    }
     /**
      Updates the map to show the all the route's stations that have the given trap type
      
      If the trap type is nil then all stations will be displayed
     */
-    fileprivate func displayStations(route: Route, trapTypeId: String?, completion: (() -> Void)? = nil) {
+    fileprivate func displayStationsForCatches(route: Route, speciesId: String?, completion: (() -> Void)? = nil) {
         
-        self.interactor.retrieveStationKillCounts(route: route, trapTypeId: trapTypeId) { (counts, error) in
+        self.interactor.retrieveStationKillCounts(route: route, speciesId: speciesId) { (counts, error) in
             
             // update the kill counts so that the correct station colours are shown on the map
-            self.stationKillCounts = counts
+            //self.stationKillCounts = counts
             
-            if let maxKillCount =  self.stationKillCounts.values.max() {
-                let segmentLength = (maxKillCount < 7 ? 7 : maxKillCount) / 7
-                let collection = SegmentCollection(start: 0, segmentLength: segmentLength)
+            if let maxKillCount =  counts.values.max() {
+                if let collection = try? SegmentCollection(start: 1, numberOfSegments: 6, maxExpectedValue: maxKillCount, openEnded: false, includeZeroSegment: true) {
                 
-                // redisplay the heatmap, as it's segments are relative to the number of kills
-                self.view.displayHeatmap(title: "CATCHES", segments: collection.segments)
-                
-                // redisplay the stations - they'll get the right colours based on kill counts
-                self.view.displayStations(stations: self.routeInformation.stations)
-                self.view.setVisibleRegionToAllStations()
-                completion?()
+                    // redisplay the stations - they'll get the right colours based on kill counts and the legend will be scaled accordingly
+                    self.view.displayStations(stations: self.routeInformation.stations, stationCounts: counts, legendSegments: collection.segments, legendTitle: "COUNT")
+                    
+                    self.view.setVisibleRegionToAllStations()
+                    completion?()
+                } else {
+                    completion?()
+                }
             } else {
                 completion?()
             }
+        }
+    }
+
+    fileprivate func displayStationsForBaitAdded(route: Route, lureId: String, completion: (() -> Void)? = nil) {
+        
+        self.interactor.retrieveStationBaitAddedCounts(route: route, lureId: lureId) { (counts, error) in
             
+            // update the kill counts so that the correct station colours are shown on the map
+            //self.stationMapCounts = counts
             
+            if let maxCount =  counts.values.max() {
+                if let collection = try? SegmentCollection(start: 1, numberOfSegments: 6, maxExpectedValue: maxCount, openEnded: false, includeZeroSegment: true) {
+                    
+                    // redisplay the stations - they'll get the right colours based on kill counts and the legend will be scaled accordingly
+                    self.view.displayStations(stations: self.routeInformation.stations, stationCounts: counts, legendSegments: collection.segments, legendTitle: "COUNT")
+                    
+                    self.view.setVisibleRegionToAllStations()
+                    completion?()
+                } else {
+                    completion?()
+                }
+            } else {
+                completion?()
+            }
         }
     }
     
@@ -117,14 +228,43 @@ final class RouteDashboardPresenter: Presenter {
                 view.showVisitDetails(show: false)
             }
             
-            view.configureKillChart(
-                counts: self.visitInformation.killCounts,
-                title: self.visitInformation.killCountsDescription,
-                lastPeriodCounts: self.visitInformation.killCountsLastPeriod,
-                lastPeriodTitle: self.visitInformation.killCountsLastPeriodDescription
-            )
+            if let killCounts = self.visitInformation.killCounts {
+                var counts = [killCounts]
+                var titles = [self.visitInformation.killCountsDescription]
+                if let prior = self.visitInformation.killCountsLastPeriod {
+                    counts.insert(prior, at: 0)
+                    titles.insert(self.visitInformation.killCountsLastPeriodDescription, at: 0)
+                }
+                view.setChartData(
+                    type: .catches,
+                    counts: counts,
+                    titles: titles
+                )
+            }
             
-            view.configurePoisonChart(counts: self.visitInformation.poisonCounts, title: self.visitInformation.poisonCountsDescription, lastPeriodCounts: self.visitInformation.poisonCountsLastPeriod, lastPeriodTitle: self.visitInformation.poisonCountsLastPeriodDescription)
+            if let poisonCounts = self.visitInformation.poisonCounts {
+                var counts = [poisonCounts]
+                var titles = [self.visitInformation.poisonCountsDescription]
+                if let prior = self.visitInformation.poisonCountsLastPeriod {
+                    counts.insert(prior, at: 0)
+                    titles.insert(self.visitInformation.poisonCountsLastPeriodDescription, at: 0)
+                }
+                view.setChartData(
+                    type: .bait,
+                    counts: counts,
+                    titles: titles
+                )
+            }
+            
+//            view.configureKillChart(
+//                counts: self.visitInformation.killCounts,
+//                title: self.visitInformation.killCountsDescription,
+//                lastPeriodCounts: self.visitInformation.killCountsLastPeriod,
+//                lastPeriodTitle: self.visitInformation.killCountsLastPeriodDescription
+//            )
+//
+//            view.configurePoisonChart(counts: self.visitInformation.poisonCounts, title: self.visitInformation.poisonCountsDescription, lastPeriodCounts: self.visitInformation.poisonCountsLastPeriod, lastPeriodTitle: self.visitInformation.poisonCountsLastPeriodDescription)
+
             
             // get a description for the average lure
             var usageText: String = ""
@@ -219,64 +359,149 @@ extension RouteDashboardPresenter: VisitHistoryDelegate {
 }
 
 // MARK: - RouteDashboardPresenter API
+
 extension RouteDashboardPresenter: RouteDashboardPresenterApi {
     
-    func didselectMapFilterOption(option: MapOption) {
-        switch option {
-            case .trapTypeFilterAll: self.didSelectMapOptionAllTrapTypes()
-            case .trapTypeFilterTimms: self.didSelectMapOptionTimms()
-            case .trapTypeFilterDOC200: self.didSelectMapOptionDoc200()
-            case .trapTypeFilterPossumMaster: self.didSelectMapOptionPossumMaster()
+    func didChangeBaitChartPerion(dataSetIndex: Int) {
+        view.displayChart(type: .bait, index: dataSetIndex)
+    }
+    
+    func didChangeKillChartPerion(dataSetIndex: Int) {
+        view.displayChart(type: .catches, index: dataSetIndex)
+    }
+    
+    func didSelectMapType(mapType: MapType) {
+        self.currentMapType = mapType
+        let mapOptionButtons = self.mapOptionButtons(for: self.currentMapType)
+        
+        // select the primary button if it exists or the first button
+        var selectedOptionButtonIndex = mapOptionButtons.firstIndex(where: { $0.isPrimary} )
+        if let _ = selectedOptionButtonIndex {
+            self.didselectMapOptionButton(optionButton: mapOptionButtons[selectedOptionButtonIndex!])
+        } else if let first = mapOptionButtons.first {
+            selectedOptionButtonIndex = 0
+            self.didselectMapOptionButton(optionButton: first)
+        }
+        
+        self.view.displayMapOptionButtons(buttons: mapOptionButtons, selectedIndex: selectedOptionButtonIndex)
+    }
+    
+    func didselectMapOptionButton(optionButton: MapOptionButton) {
+        
+        guard self.routeInformation?.route != nil else {
+            return
+        }
+        
+        if let type = optionButton.optionType as? MapType {
+            if type == .catches {
+                self.selectedSpeciesId = nil
+                if let speciesCode = optionButton.id as? SpeciesCode {
+                    self.selectedSpeciesId = speciesCode.rawValue
+                }
+                self.displayStationsForCatches(route: self.routeInformation!.route!, speciesId: self.selectedSpeciesId)
+            } else if type == .bait {
+                if let lureCode = optionButton.id as? LureCode {
+                    self.selectedLureCode = lureCode.rawValue
+                    self.displayStationsForBaitAdded(route: self.routeInformation!.route!, lureId: lureCode.rawValue)
+                }
+                
+            }
         }
     }
     
+    // TODO: can this be done from the view?
     func getIsHidden(station: LocatableEntity) -> Bool {
+        
         if let station = routeInformation?.stations.first(where: { $0.id == station.locationId }) {
-            return !station.trapTypes.contains { $0.trapTpyeId == selectedTypeType } && selectedTypeType != nil
+            
+            if self.currentMapType == .catches {
+
+                // work out whether the station contains a trap that can catch this species
+                if let selectedSpeciesId = self.selectedSpeciesId {
+                    let trapExistsThatCatchesSpecies = station.trapTypes.contains(where: { (trapTypeStatus) in
+                        // return true if trapType is active and contains a catchable species equal to the selectedSpeciesId
+                        if (trapTypeStatus.active) {
+                            let trapType = self.trapTypes.first(where: { $0.id == trapTypeStatus.trapTpyeId && $0.catchableSpecies?.contains(selectedSpeciesId) ?? false })
+                            return trapType != nil
+                        }
+                        return false
+                    })
+                    // don't hide if trap exists
+                    return !trapExistsThatCatchesSpecies
+                }
+                return false
+            } else if self.currentMapType == .bait {
+                // TODO - need to return whether the station contains a trap that uses the lure. Mmmm?
+                if let selectedLureId = self.selectedLureCode {
+                    let trapExistsThatHasLure = station.trapTypes.contains(where: {
+                        (trapTypeStatus) in
+                        
+                        // return true if there is a trap at the station that uses the selected lure
+                        if trapTypeStatus.active {
+                            let trapType = self.trapTypes.first(where: { $0.id == trapTypeStatus.trapTpyeId && $0.availableLures?.contains(selectedLureId) ?? false })
+                            return trapType != nil
+                        }
+                        return false
+                    })
+                    // don't hide if a trap exists for the selected lure
+                    return !trapExistsThatHasLure
+                }
+                return false
+            }
         }
         return false
     }
     
-    func getColorForMapStation(station: LocatableEntity, state: AnnotationState) -> UIColor {
-        if state == .normal {
-            if let stationCount = stationKillCounts[station.locationId] {
-                if let maxKillCount = stationKillCounts.values.max() {
-                    return UIColor.trpHeatColour(value:stationCount, maximumValue: maxKillCount)
-                }
-            } else {
-                return .trpMapDefaultStation
-            }
-        }
-        return .trpMapHighlightedStation
-    }
+//    func getColorForMapStation(station: LocatableEntity, state: AnnotationState) -> UIColor {
+//        if state == .normal {
+//            if self.currentMapType == .catches {
+//                if let stationCount = stationKillCounts[station.locationId] {
+//                    if let maxKillCount = stationKillCounts.values.max() {
+//                        return UIColor.trpHeatColour(value:stationCount, maximumValue: maxKillCount)
+//                    }
+//                } else {
+//                    return .clear
+//                }
+//            } else if currentMapType == .bait {
+//                if let count = stationMapCounts[station.locationId] {
+//                    if let maxCount = stationMapCounts.values.max() {
+//                        return UIColor.trpHeatColour(value:count, maximumValue: maxCount)
+//                    }
+//                } else {
+//                    return .clear
+//                }
+//            }
+//        }
+//        return .trpMapHighlightedStation
+ //   }
     
-    func didSelectMapOptionAllTrapTypes() {
-        if let route = self.routeInformation.route {
-            self.selectedTypeType = nil
-            self.displayStations(route: route, trapTypeId: nil)
-        }
-    }
-    
-    func didSelectMapOptionPossumMaster() {
-        if let route = self.routeInformation.route {
-            self.selectedTypeType = TrapTypeCode.possumMaster.rawValue
-            self.displayStations(route: route, trapTypeId: TrapTypeCode.possumMaster.rawValue)
-        }
-    }
-    
-    func didSelectMapOptionTimms() {
-        if let route = self.routeInformation.route {
-            self.selectedTypeType = TrapTypeCode.timms.rawValue
-            self.displayStations(route: route, trapTypeId: TrapTypeCode.timms.rawValue)
-        }
-    }
-    
-    func didSelectMapOptionDoc200() {
-        if let route = self.routeInformation.route {
-            self.selectedTypeType = TrapTypeCode.doc200.rawValue
-            self.displayStations(route: route, trapTypeId: TrapTypeCode.doc200.rawValue)
-        }
-    }
+//    func didSelectMapOptionAllTrapTypes() {
+//        if let route = self.routeInformation.route {
+//            self.selectedTrapType = nil
+//            self.displayStationsForCatches(route: route, trapTypeId: nil)
+//        }
+//    }
+//
+//    func didSelectMapOptionPossumMaster() {
+//        if let route = self.routeInformation.route {
+//            self.selectedTrapType = TrapTypeCode.possumMaster.rawValue
+//            self.displayStationsForCatches(route: route, trapTypeId: TrapTypeCode.possumMaster.rawValue)
+//        }
+//    }
+//
+//    func didSelectMapOptionTimms() {
+//        if let route = self.routeInformation.route {
+//            self.selectedTrapType = TrapTypeCode.timms.rawValue
+//            self.displayStationsForCatches(route: route, trapTypeId: TrapTypeCode.timms.rawValue)
+//        }
+//    }
+//
+//    func didSelectMapOptionDoc200() {
+//        if let route = self.routeInformation.route {
+//            self.selectedTrapType = TrapTypeCode.doc200.rawValue
+//            self.displayStationsForCatches(route: route, trapTypeId: TrapTypeCode.doc200.rawValue)
+//        }
+//    }
     
     func didDeleteRoute() {
         view.viewController.dismiss(animated: true, completion: nil)

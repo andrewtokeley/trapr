@@ -89,7 +89,7 @@ class HeatMapKey: UIView {
             
             let description = UILabel()
             description.font = .trpLabelSmall
-            description.text = segment.range.description()
+            description.text = segment.description
             description.textColor = .white
             self.heatMapDescriptionsStackView.addArrangedSubview(description)
         }

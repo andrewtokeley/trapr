@@ -16,20 +16,16 @@ import Foundation
 struct StackCount {
     var labels = [String]()
     var counts = [[Int]]()
-
-    init?(_ labels: [String], _ counts: [[Int]]) {
-
-        // invalid to have no counts of a mismatch in labels and counts
-        if counts.count == 0 || labels.count != counts.first?.count {
-            return nil
-        }
-        
-        // catches[i] same for all i
-        // check species.count = catches[0].count
+    
+    public static var zero: StackCount {
+        return StackCount([String](), [[Int]]())
+    }
+    
+    init(_ labels: [String], _ counts: [[Int]]) {
         self.labels = labels
         self.counts = counts
     }
-    
+
     /**
     Returns true if all the counts are zero
     */

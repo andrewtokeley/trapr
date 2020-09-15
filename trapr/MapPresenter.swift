@@ -130,7 +130,7 @@ extension MapPresenter: StationMapViewDelegate {
         return colour
     }
     
-    func stationMapShowHeatMap(_ stationMap: StationMapView) -> Bool {
+    func stationMapShowLegend(_ stationMap: StationMapView) -> Bool {
         return false
     }
     

@@ -21,30 +21,39 @@ class SegmentsTests: XCTestCase {
 
     func testClosedSegmentIntegers() throws {
 
-        let segments = Segments(start: 0, segmentLength: 5, numberOfSegments: 5)
+        let segments = try? SegmentCollection(start: 0, segmentLength: 5, numberOfSegments: 5)
         
-        XCTAssertTrue(segments.count == 5)
-        XCTAssertTrue(segments[0].lowerBound == 0)
-        XCTAssertTrue(segments[4].upperBound == 25)
-    }
-
-    func testDescriptionRounding() throws {
-
-        // Segments of Doubles 0 - 0.5, 0.5 - 1.0, 1.0 - 1.5
-        let segments = Segments(start: 0, segmentLength: 0.5, numberOfSegments: 5)
-        let descriptions = segments.segmentDescriptions(roundingPrecision: 2)
-        XCTAssert(descriptions[0] == "0.00 - 0.50")
-        XCTAssert(descriptions[1] == "0.50 - 1.00")
+        XCTAssertNotNil(segments)
+        XCTAssertTrue(segments?.count == 5)
+        XCTAssertTrue(segments?[0].range.lowerBound == 0)
+        XCTAssertTrue(segments?[4].range.upperBound == 25)
     }
     
     func testLastDescription() throws {
 
-        let segments1 = Segments(start: 0, segmentLength: 5, numberOfSegments: 5, openEnded: true)
-        XCTAssertTrue(segments1.segmentDescriptions().last == "20+" )
+        let segments1 = try? SegmentCollection(start: 0, segmentLength: 5, numberOfSegments: 5, openEnded: true)
+        XCTAssertNotNil(segments1)
+        XCTAssertTrue(segments1?.last?.description == "20+" )
         
-        let segments2 = Segments(start: 0, segmentLength: 5, numberOfSegments: 5, openEnded: false)
-        XCTAssertTrue(segments2.segmentDescriptions().last == "20 - 25" )
+        let segments2 = try? SegmentCollection(start: 0, segmentLength: 5, numberOfSegments: 5, openEnded: false)
+        XCTAssertNotNil(segments2)
+        XCTAssertTrue(segments2?.last?.description == "20 - 25" )
         
     }
 
+    func testZeroSegment() throws {
+        let segments = try? SegmentCollection(start: 1, segmentLength: 5, numberOfSegments: 5, openEnded: true, includeZeroSegment: true)
+        
+        XCTAssertNotNil(segments)
+        XCTAssertTrue(segments?.count == 6)
+        XCTAssertTrue(segments?.first?.description == "0")
+    }
+    
+    func testZeroSegment2() throws {
+        
+        let segment = Segment(colour: .red, range: 0..<1)
+        
+        XCTAssertTrue(segment.zeroSegment)
+        XCTAssertTrue(segment.description == "0")
+    }
 }
