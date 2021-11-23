@@ -39,8 +39,8 @@ namespace firebase {
 namespace firestore {
 namespace local {
 
-using auth::User;
 using core::Query;
+using credentials::User;
 using leveldb::DB;
 using leveldb::Iterator;
 using leveldb::Status;
@@ -474,7 +474,7 @@ Message<firestore_client_MutationQueue> LevelDbMutationQueue::MetadataForKey(
 
   if (reader.ok()) {
     return result;
-  } else if (reader.status().code() == Error::kNotFound) {
+  } else if (reader.status().code() == Error::kErrorNotFound) {
     // Return a default-constructed message (`TryParse` is guaranteed to return
     // a default-constructed message on failure).
     return result;

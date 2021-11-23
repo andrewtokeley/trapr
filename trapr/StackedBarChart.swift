@@ -119,13 +119,15 @@ class StackedBarChart: UIView {
             legendStrip.removeAllArrangedSubViews()
     
             let numberOfStacks = delegate.stackedBarChartNumberOfStacks(self)
-            for i in 0...numberOfStacks - 1 {
-                if let data = delegate.stackedBarChart(self, legendItemDataAtIndex: i) {
-                    let view = self.legendStripItemView
-                    view.updateDisplay(data: data)
-                    legendStrip.addArrangedSubview(view)
+            if numberOfStacks > 0 {
+                for i in 0...numberOfStacks - 1 {
+                    if let data = delegate.stackedBarChart(self, legendItemDataAtIndex: i) {
+                        let view = self.legendStripItemView
+                        view.updateDisplay(data: data)
+                        legendStrip.addArrangedSubview(view)
+                    }
+                    
                 }
-                
             }
         }
     }
@@ -134,10 +136,15 @@ class StackedBarChart: UIView {
      Gets the necessary data from the delegate to form the BarChartDataSet structure required by the underlying chart view
      */
     private func getBarChartDataSet() -> BarChartData? {
-        
         guard let delegate = delegate else { return nil }
         
         let numberOfBars = delegate.stackedBarChartNumberOfBars(self)
+        let numberOfStacks = delegate.stackedBarChartNumberOfStacks(self)
+        
+        guard numberOfBars > 0,
+              numberOfStacks > 0 else {
+                  return nil
+        }
         
         // Dataset
         var values = [BarChartDataEntry]()
@@ -148,7 +155,7 @@ class StackedBarChart: UIView {
         let dataSet = BarChartDataSet(entries: values, label: nil)
 
         // Stack colors and labels
-        let numberOfStacks = delegate.stackedBarChartNumberOfStacks(self)
+        
         var stackLabels = [String]()
         for i in 0...numberOfStacks - 1 {
             stackLabels.append(delegate.stackedBarChart(self, stackLabel: i) ?? String(i))

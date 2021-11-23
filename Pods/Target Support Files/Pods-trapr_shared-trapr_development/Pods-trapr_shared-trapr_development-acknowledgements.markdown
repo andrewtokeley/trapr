@@ -876,7 +876,7 @@ Apache License
 
 ## FirebaseAnalytics
 
-Copyright 2020 Google
+Copyright 2021 Google
 
 ## FirebaseAuth
 
@@ -1084,7 +1084,7 @@ Copyright 2020 Google
    limitations under the License.
 
 
-## FirebaseAuthInterop
+## FirebaseAuthUI
 
 
                                  Apache License
@@ -1702,7 +1702,7 @@ Copyright 2020 Google
    limitations under the License.
 
 
-## FirebaseCoreDiagnosticsInterop
+## FirebaseFirestore
 
 
                                  Apache License
@@ -1908,7 +1908,7 @@ Copyright 2020 Google
    limitations under the License.
 
 
-## FirebaseFirestore
+## FirebaseGoogleAuthUI
 
 
                                  Apache License
@@ -2940,7 +2940,7 @@ Copyright 2020 Google
 
 ## GoogleAppMeasurement
 
-Copyright 2020 Google
+Copyright 2021 Google
 
 ## GoogleDataTransport
 
@@ -3148,7 +3148,7 @@ Copyright 2020 Google
    limitations under the License.
 
 
-## GoogleDataTransportCCTSupport
+## GoogleSignIn
 
 
                                  Apache License
@@ -3353,10 +3353,6 @@ Copyright 2020 Google
    See the License for the specific language governing permissions and
    limitations under the License.
 
-
-## GoogleSignIn
-
-Copyright 2019 Google
 
 ## GoogleUtilities
 

@@ -20,17 +20,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         FirebaseApp.configure()
         
-        
         let db = Firestore.firestore()
         let settings = db.settings
         
         db.settings = settings
         
-        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        
         // Set global styles
         Styles.setAppearances()
         
+        // Show loader (and/or login)
         window = UIWindow(frame: UIScreen.main.bounds)
         let module = AppModules.loader.build()
         module.router.show(inWindow: window, embedInNavController: false, setupData: nil, makeKeyAndVisible: true)
@@ -42,11 +40,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
         -> Bool {
             
-            return GIDSignIn.sharedInstance()?.handle(url) ?? false
-//            return GIDSignIn.sharedInstance().handle(url,
-//                                                     sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-//                                                     annotation: [:])
-//
+        var handled: Bool
+
+        handled = GIDSignIn.sharedInstance.handle(url)
+        if handled {
+            return true
+        }
+
+        // Handle other custom URL types.
+        // If not handled by this app, return false.
+        return false
+
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {

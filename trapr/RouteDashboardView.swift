@@ -262,7 +262,7 @@ extension RouteDashboardView: StaticTableViewDelegate {
     }
 }
 
-// MARK: -
+// MARK: - StackedBarChartDelegate
 
 extension RouteDashboardView: StackedBarChartDelegate {
     func stackedBarChartNumberOfBars(_ stackedBarChart: StackedBarChart) -> Int {

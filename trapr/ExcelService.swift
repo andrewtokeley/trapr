@@ -21,7 +21,8 @@ class ExcelService {
     fileprivate lazy var visitService = { ServiceFactory.sharedInstance.visitFirestoreService }()
     fileprivate lazy var userService = { ServiceFactory.sharedInstance.userService }()
     
-    fileprivate let VISIT_REPORT_TEMPLATE = "East_Ridge_C4_v4"
+    // Must change this currently in order to update template
+    fileprivate let VISIT_REPORT_TEMPLATE = "East_Ridge_C4_Nov_2021"
     fileprivate let ATTACHMENT_FILENAME_TEMP = "TempExportFile.xlsx"
     
     fileprivate let VISIT_REPORT_REGION_ROW = 2
@@ -104,7 +105,8 @@ extension ExcelService: ExcelServiceInterface {
                                 for visit in visitsEx {
                                     
                                     let trapTag = visit.station?.longCodeWalkTheLine ?? "?"
-                                    let trapType = TrapTypeCode(rawValue: visit.trapType!.id!)?.walkTheLineName
+                                    //let trapType = TrapTypeCode(rawValue: visit.trapType!.id!)?.walkTheLineName
+                                    let trapType = visit.trapType?.walkTheLineName ?? "?"
                                     
                                     if let row = worksheet.findRow(searchTerms: [ColumnSeach(columnReference: ReportColumn.TrapTag.rawValue, value: trapTag), ColumnSeach(columnReference: ReportColumn.TrapType.rawValue, value: trapType)]) {
                                         

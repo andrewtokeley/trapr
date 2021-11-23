@@ -17,6 +17,7 @@ class TrapTypeFirestoreService: LookupFirestoreService<TrapType> {
             timms,
             doc200,
             pellibait,
+            steveAllanSA2,
             other
         ]
         
@@ -42,6 +43,7 @@ class TrapTypeFirestoreService: LookupFirestoreService<TrapType> {
         trap.defaultLure = LureCode.other.rawValue
         trap.imageName = "poison"
         trap.maxLures = 1
+        trap.walkTheLineName = "Other"
         return trap
     }
     
@@ -56,6 +58,7 @@ class TrapTypeFirestoreService: LookupFirestoreService<TrapType> {
         trap.defaultLure = LureCode.contracBloxPoison.rawValue
         trap.imageName = "pelifeed"
         trap.maxLures = 10
+        trap.walkTheLineName = "Pelifeed"
         return trap
     }
     
@@ -77,6 +80,7 @@ class TrapTypeFirestoreService: LookupFirestoreService<TrapType> {
         ]
         trap.imageName = "doc200"
         trap.maxLures = 1
+        trap.walkTheLineName = "DOC 200 Single"
         return trap
     }
     
@@ -96,11 +100,12 @@ class TrapTypeFirestoreService: LookupFirestoreService<TrapType> {
         ]
         trap.imageName = "possumMaster"
         trap.maxLures = 1
+        trap.walkTheLineName = "Possum Master"
         return trap
     }
     
     private var timms: TrapType {
-        let  trap = TrapType(id: TrapTypeCode.timms.rawValue, name: "Timms", order: 2)
+        let  trap = TrapType(id: TrapTypeCode.timms.rawValue, name: "Timms", order: 3)
         trap.killMethod = _KillMethod.direct
         trap.availableLures = [
             LureCode.cereal.rawValue,
@@ -118,6 +123,31 @@ class TrapTypeFirestoreService: LookupFirestoreService<TrapType> {
         ]
         trap.imageName = "timms"
         trap.maxLures = 1
+        trap.walkTheLineName = "Timms Cat Trap"
+        return trap
+    }
+    
+    private var steveAllanSA2: TrapType {
+        let  trap = TrapType(id: TrapTypeCode.sa4.rawValue, name: "SA2", order: 4)
+        trap.killMethod = _KillMethod.direct
+        trap.availableLures = [
+            LureCode.cereal.rawValue,
+            LureCode.driedRabbit.rawValue,
+            LureCode.apple.rawValue,
+            LureCode.other.rawValue
+        ]
+        trap.defaultLure = LureCode.cereal.rawValue
+        trap.catchableSpecies = [
+            SpeciesCode.possum.rawValue,
+            SpeciesCode.cat.rawValue,
+            SpeciesCode.hedgehog.rawValue,
+            SpeciesCode.cat.rawValue,
+            SpeciesCode.stoat.rawValue,
+            SpeciesCode.other.rawValue
+        ]
+        trap.imageName = "steveAllanSA2"
+        trap.maxLures = 1
+        trap.walkTheLineName = "Steve Allan SA2"
         return trap
     }
 }

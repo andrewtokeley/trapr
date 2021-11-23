@@ -39,6 +39,7 @@ final class LoaderView: UserInterface {
     lazy var googleSignInButton: GIDSignInButton = {
         let googleSignInButton = GIDSignInButton()
         googleSignInButton.alpha = 0
+        googleSignInButton.addTarget(self, action: #selector(googleSignInButtonClick(sender:)), for: .touchUpInside)
         return googleSignInButton
     }()
     
@@ -54,7 +55,7 @@ final class LoaderView: UserInterface {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        GIDSignIn.sharedInstance().presentingViewController = self
+        //GIDSignIn.sharedInstance.presentingViewController = self
     }
     
     override func loadView() {
@@ -71,11 +72,50 @@ final class LoaderView: UserInterface {
         self.view.addSubview(self.progressBar)
         self.view.addSubview(self.progressMessage)
         self.view.addSubview(self.googleSignInButton)
+        setConstraints()
         
         //GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance()?.delegate = self
-        
-        setConstraints()
+        //GIDSignIn.sharedInstance.delegate = self
+        //configureSignIn()
+        if (GIDSignIn.sharedInstance.hasPreviousSignIn()) {
+
+            GIDSignIn.sharedInstance.restorePreviousSignIn()
+            self.presenter.signInComplete()
+        }
+    }
+    
+    @objc private func googleSignInButtonClick(sender: UIButton) {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+
+        // Create Google Sign In configuration object.
+        let config = GIDConfiguration(clientID: clientID)
+
+        // Start the sign in flow (will be called when signin button clicked?)
+        GIDSignIn.sharedInstance.signIn(with: config, presenting: self) { user, error in
+
+          if let error = error {
+              self.presenter.signInFailed(error: error);
+              return
+          }
+          guard
+            let authentication = user?.authentication,
+            let idToken = authentication.idToken
+          else {
+            return
+          }
+
+          let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                         accessToken: authentication.accessToken)
+
+            Auth.auth().signIn(with: credential) { (authResult, error) in
+                if let error = error {
+                    self.presenter.signInFailed(error: error)
+                    return
+                }
+                //let z = user.profile.imageURL(withDimension: 40)
+                self.presenter.signInComplete()
+            }
+        }
     }
     
     private func setConstraints() {
@@ -146,39 +186,39 @@ extension LoaderView: LoaderViewApi {
     }
 }
 
-extension LoaderView: GIDSignInDelegate {
-    
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-        // ...
-        if let error = error {
-            
-            // Handle the error
-            self.presenter.signInFailed(error: error)
-            return
-        }
-        
-        guard let authentication = user.authentication else { return }
-        
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                       accessToken: authentication.accessToken)
-        
-        Auth.auth().signIn(with: credential) { (authResult, error) in
-            if let error = error {
-                self.presenter.signInFailed(error: error)
-                return
-            }
-            //let z = user.profile.imageURL(withDimension: 40)
-            self.presenter.signInComplete()
-        }
-    }
-    
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
-    }
-    
-    
-}
+//extension LoaderView: GIDSignInDelegate {
+//    
+//    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+//        // ...
+//        if let error = error {
+//            
+//            // Handle the error
+//            self.presenter.signInFailed(error: error)
+//            return
+//        }
+//        
+//        guard let authentication = user.authentication else { return }
+//        
+//        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+//                                                       accessToken: authentication.accessToken)
+//        
+//        Auth.auth().signIn(with: credential) { (authResult, error) in
+//            if let error = error {
+//                self.presenter.signInFailed(error: error)
+//                return
+//            }
+//            //let z = user.profile.imageURL(withDimension: 40)
+//            self.presenter.signInComplete()
+//        }
+//    }
+//    
+//    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+//        // Perform any operations when the user disconnects from app here.
+//        // ...
+//    }
+//    
+//    
+//}
 
 // MARK: - LoaderView Viper Components API
 private extension LoaderView {

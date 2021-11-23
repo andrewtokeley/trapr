@@ -53,8 +53,10 @@ enum TrapSetStatus: Int {
             return .setBaitEaten
         case .timms:
             return .stillSet
+        case .sa4:
+            return .stillSet
         default:
-            return .other
+            return .stillSet
         }
     }
     

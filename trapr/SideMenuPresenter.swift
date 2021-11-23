@@ -110,7 +110,7 @@ extension SideMenuPresenter: SideMenuPresenterApi {
                     
                     do {
                         try Auth.auth().signOut()
-                        GIDSignIn.sharedInstance()?.signOut()
+                        GIDSignIn.sharedInstance.signOut()
                         self.delegate?.didSelectMenuItem(menu: .SignOut, setupData: nil)
                     }
                     catch {

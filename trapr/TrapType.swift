@@ -19,21 +19,22 @@ enum TrapTypeCode: String {
     case pellibait = "PEL"
     case doc200 = "DOC200"
     case timms = "TIMM"
+    case sa4 = "SA4"
     case other = "OTHER"
- 
-    var walkTheLineName: String {
-        switch self {
-        case .possumMaster: return "Possum Master"
-        case .pellibait: return "Pelifeed"
-        case .doc200: return "DOC 200 Single"
-        case .timms: return "Timms Cat Trap"
-        case .other: return "Other"
-        }
-    }
     
-    var name: String {
-        return walkTheLineName
-    }
+//    var walkTheLineName: String {
+//        switch self {
+//        case .possumMaster: return "Possum Master"
+//        case .pellibait: return "Pelifeed"
+//        case .doc200: return "DOC 200 Single"
+//        case .timms: return "Timms Cat Trap"
+//        case .other: return "Other"
+//        }
+//    }
+//
+//    var name: String {
+//        return walkTheLineName
+//    }
 }
 
 enum TrapTypeFields: String {
@@ -43,6 +44,7 @@ enum TrapTypeFields: String {
     case killMethod = "killMethod"
     case imageName = "imageName"
     case maxLures = "maxLures"
+    case walkTheLineName = "walkTheLineName"
 }
 
 class TrapType: Lookup {
@@ -53,12 +55,16 @@ class TrapType: Lookup {
     var catchableSpecies: [String]?
     var imageName: String?
     var maxLures: Int = 1
+    var walkTheLineName: String?
     
     override var dictionary: [String : Any] {
         var result = super.dictionary
         
         result[TrapTypeFields.killMethod.rawValue] = self.killMethod.rawValue
-        
+    
+        if let _ = self.walkTheLineName {
+            result[TrapTypeFields.walkTheLineName.rawValue] = self.walkTheLineName
+        }
         if let _ = self.imageName {
             result[TrapTypeFields.imageName.rawValue] = self.imageName
         }
@@ -89,6 +95,9 @@ class TrapType: Lookup {
         super.init(dictionary: dictionary)
         
         // set the other fields
+        if let walkTheLineName = dictionary[TrapTypeFields.walkTheLineName.rawValue] as? String {
+            self.walkTheLineName = walkTheLineName
+        }
         if let imageName = dictionary[TrapTypeFields.imageName.rawValue] as? String {
             self.imageName = imageName
         }

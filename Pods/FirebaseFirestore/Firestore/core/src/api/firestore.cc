@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Google
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,9 +28,12 @@
 #include "Firestore/core/src/core/firestore_client.h"
 #include "Firestore/core/src/core/query.h"
 #include "Firestore/core/src/core/transaction.h"
+#include "Firestore/core/src/credentials/empty_credentials_provider.h"
 #include "Firestore/core/src/local/leveldb_persistence.h"
 #include "Firestore/core/src/model/document_key.h"
 #include "Firestore/core/src/model/resource_path.h"
+#include "Firestore/core/src/remote/firebase_metadata_provider.h"
+#include "Firestore/core/src/remote/grpc_connection.h"
 #include "Firestore/core/src/util/async_queue.h"
 #include "Firestore/core/src/util/executor.h"
 #include "Firestore/core/src/util/hard_assert.h"
@@ -41,39 +44,69 @@ namespace firebase {
 namespace firestore {
 namespace api {
 
-using auth::CredentialsProvider;
 using core::AsyncEventListener;
 using core::DatabaseInfo;
 using core::FirestoreClient;
-using core::Transaction;
+using credentials::AuthCredentialsProvider;
+using credentials::EmptyAppCheckCredentialsProvider;
 using local::LevelDbPersistence;
-using model::DocumentKey;
 using model::ResourcePath;
+using remote::FirebaseMetadataProvider;
+using remote::GrpcConnection;
 using util::AsyncQueue;
 using util::Empty;
 using util::Executor;
 using util::Status;
 
-Firestore::Firestore(model::DatabaseId database_id,
-                     std::string persistence_key,
-                     std::shared_ptr<CredentialsProvider> credentials_provider,
-                     std::shared_ptr<AsyncQueue> worker_queue,
-                     void* extension)
+Firestore::Firestore(
+    model::DatabaseId database_id,
+    std::string persistence_key,
+    std::shared_ptr<credentials::AuthCredentialsProvider>
+        auth_credentials_provider,
+    std::shared_ptr<credentials::AppCheckCredentialsProvider>
+        app_check_credentials_provider,
+    std::shared_ptr<AsyncQueue> worker_queue,
+    std::unique_ptr<FirebaseMetadataProvider> firebase_metadata_provider,
+    void* extension)
     : database_id_{std::move(database_id)},
-      credentials_provider_{std::move(credentials_provider)},
+      app_check_credentials_provider_{
+          std::move(app_check_credentials_provider)},
+      auth_credentials_provider_{std::move(auth_credentials_provider)},
       persistence_key_{std::move(persistence_key)},
       worker_queue_{std::move(worker_queue)},
+      firebase_metadata_provider_{std::move(firebase_metadata_provider)},
       extension_{extension} {
 }
 
+Firestore::Firestore(
+    model::DatabaseId database_id,
+    std::string persistence_key,
+    std::shared_ptr<credentials::AuthCredentialsProvider>
+        auth_credentials_provider,
+    std::shared_ptr<AsyncQueue> worker_queue,
+    std::unique_ptr<FirebaseMetadataProvider> firebase_metadata_provider,
+    void* extension)
+    : Firestore(std::move(database_id),
+                std::move(persistence_key),
+                std::move(auth_credentials_provider),
+                std::make_shared<EmptyAppCheckCredentialsProvider>(),
+                std::move(worker_queue),
+                std::move(firebase_metadata_provider),
+                extension) {
+}
+
 Firestore::~Firestore() {
-  std::lock_guard<std::mutex> lock{mutex_};
+  Dispose();
+}
+
+void Firestore::Dispose() {
+  std::lock_guard<std::mutex> lock(mutex_);
 
   // If the client hasn't been configured yet we don't need to create it just
   // to tear it down.
   if (!client_) return;
 
-  client_->Terminate();
+  client_->Dispose();
 }
 
 const std::shared_ptr<FirestoreClient>& Firestore::client() {
@@ -93,11 +126,17 @@ const Settings& Firestore::settings() const {
 void Firestore::set_settings(const Settings& settings) {
   std::lock_guard<std::mutex> lock{mutex_};
   if (client_) {
-    HARD_FAIL(
+    util::ThrowIllegalState(
         "Firestore instance has already been started and its settings can "
         "no longer be changed. You can only set settings before calling any "
         "other methods on a Firestore instance.");
   }
+  if (!settings.ssl_enabled() && settings.host() == Settings::DefaultHost) {
+    util::ThrowIllegalState(
+        "You can't set the 'sslEnabled' setting to false unless you also set a "
+        "non-default 'host'.");
+  }
+
   settings_ = settings;
 }
 
@@ -156,24 +195,24 @@ void Firestore::WaitForPendingWrites(util::StatusCallback callback) {
 }
 
 void Firestore::ClearPersistence(util::StatusCallback callback) {
-  worker_queue()->EnqueueEvenAfterShutdown([this, callback] {
-    auto Yield = [=](Status status) {
+  worker_queue()->EnqueueEvenWhileRestricted([this, callback] {
+    auto MaybeCallback = [=](Status status) {
       if (callback) {
-        this->user_executor_->Execute([=] { callback(status); });
+        user_executor_->Execute([=] { callback(status); });
       }
     };
 
     {
       std::lock_guard<std::mutex> lock{mutex_};
-      if (client_ && !client()->is_terminated()) {
-        Yield(util::Status(
-            Error::kFailedPrecondition,
+      if (client_ && !client_->is_terminated()) {
+        MaybeCallback(util::Status(
+            Error::kErrorFailedPrecondition,
             "Persistence cannot be cleared while the client is running."));
         return;
       }
     }
 
-    Yield(LevelDbPersistence::ClearPersistence(MakeDatabaseInfo()));
+    MaybeCallback(LevelDbPersistence::ClearPersistence(MakeDatabaseInfo()));
   });
 }
 
@@ -187,12 +226,16 @@ void Firestore::DisableNetwork(util::StatusCallback callback) {
   client_->DisableNetwork(std::move(callback));
 }
 
+void Firestore::SetClientLanguage(std::string language_token) {
+  GrpcConnection::SetClientLanguage(std::move(language_token));
+}
+
 std::unique_ptr<ListenerRegistration> Firestore::AddSnapshotsInSyncListener(
     std::unique_ptr<core::EventListener<Empty>> listener) {
   EnsureClientConfigured();
   auto async_listener = AsyncEventListener<Empty>::Create(
       client_->user_executor(), std::move(listener));
-  client_->AddSnapshotsInSyncListener(std::move(async_listener));
+  client_->AddSnapshotsInSyncListener(async_listener);
   return absl::make_unique<SnapshotsInSyncListenerRegistration>(
       client_, std::move(async_listener));
 }
@@ -202,15 +245,32 @@ void Firestore::EnsureClientConfigured() {
 
   if (!client_) {
     HARD_ASSERT(worker_queue_, "Expected non-null worker queue");
-    client_ = FirestoreClient::Create(MakeDatabaseInfo(), settings_,
-                                      std::move(credentials_provider_),
-                                      user_executor_, worker_queue_);
+    client_ = FirestoreClient::Create(
+        MakeDatabaseInfo(), settings_, std::move(auth_credentials_provider_),
+        std::move(app_check_credentials_provider_), user_executor_,
+        worker_queue_, std::move(firebase_metadata_provider_));
   }
 }
 
 DatabaseInfo Firestore::MakeDatabaseInfo() const {
   return DatabaseInfo(database_id_, persistence_key_, settings_.host(),
                       settings_.ssl_enabled());
+}
+
+std::shared_ptr<LoadBundleTask> Firestore::LoadBundle(
+    std::unique_ptr<util::ByteStream> bundle_data) {
+  EnsureClientConfigured();
+
+  auto task = std::make_shared<LoadBundleTask>(user_executor_);
+  client_->LoadBundle(std::move(bundle_data), task);
+
+  return task;
+}
+
+void Firestore::GetNamedQuery(const std::string& name,
+                              api::QueryCallback callback) {
+  EnsureClientConfigured();
+  client_->GetNamedQuery(name, std::move(callback));
 }
 
 }  // namespace api

@@ -19,8 +19,8 @@
 #include <limits>
 #include <utility>
 
-#include "Firestore/core/src/auth/user.h"
 #include "Firestore/core/src/core/database_info.h"
+#include "Firestore/core/src/credentials/user.h"
 #include "Firestore/core/src/local/leveldb_key.h"
 #include "Firestore/core/src/local/leveldb_lru_reference_delegate.h"
 #include "Firestore/core/src/local/leveldb_migrations.h"
@@ -42,7 +42,7 @@ namespace firestore {
 namespace local {
 namespace {
 
-using auth::User;
+using credentials::User;
 using leveldb::DB;
 using model::ListenSequenceNumber;
 using util::Filesystem;
@@ -76,7 +76,7 @@ std::set<std::string> CollectUserSet(LevelDbTransaction* transaction) {
 
 }  // namespace
 
-util::StatusOr<std::unique_ptr<LevelDbPersistence>> LevelDbPersistence::Create(
+StatusOr<std::unique_ptr<LevelDbPersistence>> LevelDbPersistence::Create(
     util::Path dir, LocalSerializer serializer, const LruParams& lru_params) {
   auto* fs = Filesystem::Default();
   Status status = EnsureDirectory(dir);
@@ -89,7 +89,7 @@ util::StatusOr<std::unique_ptr<LevelDbPersistence>> LevelDbPersistence::Create(
   if (!created.ok()) return created.status();
 
   std::unique_ptr<DB> db = std::move(created).ValueOrDie();
-  LevelDbMigrations::RunMigrations(db.get());
+  LevelDbMigrations::RunMigrations(db.get(), serializer);
 
   LevelDbTransaction transaction(db.get(), "Start LevelDB");
   std::set<std::string> users = CollectUserSet(&transaction);
@@ -117,6 +117,7 @@ LevelDbPersistence::LevelDbPersistence(std::unique_ptr<leveldb::DB> db,
   index_manager_ = absl::make_unique<LevelDbIndexManager>(this);
   reference_delegate_ =
       absl::make_unique<LevelDbLruReferenceDelegate>(this, lru_params);
+  bundle_cache_ = absl::make_unique<LevelDbBundleCache>(this, &serializer_);
 
   // TODO(gsoltis): set up a leveldb transaction for these operations.
   target_cache_->Start();
@@ -133,7 +134,8 @@ Status LevelDbPersistence::EnsureDirectory(const Path& dir) {
   auto* fs = Filesystem::Default();
   Status status = fs->RecursivelyCreateDir(dir);
   if (!status.ok()) {
-    return Status{Error::kInternal, "Failed to create persistence directory"}
+    return Status{Error::kErrorInternal,
+                  "Failed to create persistence directory"}
         .CausedBy(status);
   }
 
@@ -147,7 +149,7 @@ StatusOr<std::unique_ptr<DB>> LevelDbPersistence::OpenDb(const Path& dir) {
   DB* database = nullptr;
   leveldb::Status status = DB::Open(options, dir.ToUtf8String(), &database);
   if (!status.ok()) {
-    return Status{Error::kInternal,
+    return Status{Error::kErrorInternal,
                   StringFormat("Failed to open LevelDB database at %s",
                                dir.ToUtf8String())}
         .CausedBy(ConvertStatus(status));
@@ -177,21 +179,37 @@ util::Status LevelDbPersistence::ClearPersistence(
   return fs->RecursivelyRemove(leveldb_dir);
 }
 
-int64_t LevelDbPersistence::CalculateByteSize() {
+StatusOr<int64_t> LevelDbPersistence::CalculateByteSize() {
   auto* fs = Filesystem::Default();
 
-  int64_t count = 0;
+  // Accumulate the total size in an unsigned integer to avoid undefined
+  // behavior on overflow.
+  uint64_t count = 0;
   auto iter = util::DirectoryIterator::Create(directory_);
   for (; iter->Valid(); iter->Next()) {
-    int64_t file_size = fs->FileSize(iter->file()).ValueOrDie();
+    StatusOr<int64_t> maybe_size = fs->FileSize(iter->file());
+    if (!maybe_size.ok()) {
+      return Status::FromCause("Failed to size LevelDB directory",
+                               maybe_size.status());
+    }
+
+    uint64_t old_count = count;
+    int64_t file_size = maybe_size.ValueOrDie();
     count += file_size;
+
+    auto max_signed_value =
+        static_cast<uint64_t>(std::numeric_limits<int64_t>::max());
+    if (count < old_count || count > max_signed_value) {
+      return Status(Error::kErrorOutOfRange,
+                    "Failed to size LevelDB: count overflowed");
+    }
   }
 
-  HARD_ASSERT(iter->status().ok(), "Failed to iterate LevelDB directory: %s",
-              iter->status().error_message().c_str());
-  HARD_ASSERT(count >= 0 && count <= std::numeric_limits<int64_t>::max(),
-              "Overflowed counting bytes cached");
-  return count;
+  if (!iter->status().ok()) {
+    return Status::FromCause("Failed to iterate over LevelDB files",
+                             iter->status());
+  }
+  return static_cast<int64_t>(count);
 }
 
 // MARK: - Persistence
@@ -208,7 +226,7 @@ void LevelDbPersistence::Shutdown() {
 }
 
 LevelDbMutationQueue* LevelDbPersistence::GetMutationQueueForUser(
-    const auth::User& user) {
+    const credentials::User& user) {
   users_.insert(user.uid());
   current_mutation_queue_ =
       absl::make_unique<LevelDbMutationQueue>(user, this, &serializer_);
@@ -229,6 +247,10 @@ LevelDbIndexManager* LevelDbPersistence::index_manager() {
 
 LevelDbLruReferenceDelegate* LevelDbPersistence::reference_delegate() {
   return reference_delegate_.get();
+}
+
+LevelDbBundleCache* LevelDbPersistence::bundle_cache() {
+  return bundle_cache_.get();
 }
 
 void LevelDbPersistence::RunInternal(absl::string_view label,

@@ -1,4 +1,4 @@
-platform :ios, '11.0'
+platform :ios, '13.0'
 abstract_target 'trapr_shared' do
     use_frameworks!
     pod 'PureLayout'

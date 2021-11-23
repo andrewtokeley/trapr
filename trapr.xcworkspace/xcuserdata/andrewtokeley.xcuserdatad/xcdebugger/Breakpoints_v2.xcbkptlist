@@ -1323,7 +1323,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "600"
             endingLineNumber = "600"
-            landmarkName = "reloadMap(forceAnnotationRebuild:)"
+            landmarkName = "reapplyStylingToAnnotationViews()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1355,10 +1355,10 @@
             timestampString = "576886520.0431499"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "ExcelService"
-            landmarkType = "21">
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "generateVisitReportFile(visitSummary:completion:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1542,8 +1542,8 @@
             timestampString = "576886520.048417"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "generateVisitReportFile(visitSummary:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1559,8 +1559,8 @@
             timestampString = "576886520.048525"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "generateVisitReportFile(visitSummary:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1576,8 +1576,8 @@
             timestampString = "576886520.0486079"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
             landmarkName = "generateVisitReportFile(visitSummary:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1593,8 +1593,8 @@
             timestampString = "576886520.048673"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "updateWorksheet(worksheet:visitSummary:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1610,8 +1610,8 @@
             timestampString = "576886520.048726"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
             landmarkName = "updateWorksheet(worksheet:visitSummary:completion:)"
             landmarkType = "7">
             <Locations>
@@ -1661,8 +1661,8 @@
             timestampString = "576886520.04882"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
             landmarkName = "updateWorksheet(worksheet:visitSummary:completion:)"
             landmarkType = "7">
             <Locations>
@@ -1712,8 +1712,8 @@
             timestampString = "576886520.048872"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "updateWorksheet(worksheet:visitSummary:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1797,8 +1797,8 @@
             timestampString = "576886520.048988"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "updateWorksheet(worksheet:visitSummary:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1814,8 +1814,8 @@
             timestampString = "576886520.049144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "updateWorksheet(worksheet:visitSummary:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1831,8 +1831,8 @@
             timestampString = "576886520.049202"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "updateWorksheet(worksheet:visitSummary:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1848,8 +1848,8 @@
             timestampString = "576886520.0492491"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
             landmarkName = "generateVisitReportFile(visitSummary:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1865,8 +1865,8 @@
             timestampString = "576886520.049316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "updateWorksheet(worksheet:visitSummary:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1882,8 +1882,8 @@
             timestampString = "576886520.049364"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "extendVisits(visits:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2775,22 +2775,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1A56744B-F5AA-48FD-82A2-595C050433E8"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "trapr/AppDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "526D734E-B328-49EA-AC49-0CB360494285"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -2802,22 +2786,6 @@
             endingLineNumber = "30"
             landmarkName = "Router"
             landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E0C9B1EE-7AB0-4D85-99D5-7AB938DDFB23"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "trapr/AppDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4351,7 +4319,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "397"
             endingLineNumber = "397"
-            landmarkName = "stationMapStations(_:)"
+            landmarkName = "stationMap(_:optionButtonSelectedAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4447,7 +4415,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "409"
             endingLineNumber = "409"
-            landmarkName = "stationMapShowLegend(_:)"
+            landmarkName = "stationMapLegendSegments(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4477,8 +4445,8 @@
             filePath = "trapr/RouteDashboardPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "415"
-            endingLineNumber = "415"
+            startingLineNumber = "419"
+            endingLineNumber = "419"
             landmarkName = "getIsHidden(station:)"
             landmarkType = "7">
             <Locations>
@@ -4557,8 +4525,8 @@
             filePath = "trapr/RouteDashboardPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "527"
-            endingLineNumber = "527"
+            startingLineNumber = "531"
+            endingLineNumber = "531"
             landmarkName = "didSelectEditMenu()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4685,8 +4653,8 @@
             filePath = "trapr/RouteDashboardPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "460"
-            endingLineNumber = "460"
+            startingLineNumber = "464"
+            endingLineNumber = "464"
             landmarkName = "RouteDashboardPresenter"
             landmarkType = "21">
          </BreakpointContent>
@@ -5037,8 +5005,8 @@
             filePath = "trapr/RouteDashboardPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "609"
-            endingLineNumber = "609"
+            startingLineNumber = "613"
+            endingLineNumber = "613"
             landmarkName = "listPicker(_:itemDetailAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5247,7 +5215,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "401"
             endingLineNumber = "401"
-            landmarkName = "stationMapLegendTitle(_:)"
+            landmarkName = "stationMapStations(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5263,7 +5231,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "405"
             endingLineNumber = "405"
-            landmarkName = "stationMapLegendSegments(_:)"
+            landmarkName = "stationMapLegendTitle(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5357,8 +5325,8 @@
             filePath = "trapr/RouteDashboardPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "457"
-            endingLineNumber = "457"
+            startingLineNumber = "461"
+            endingLineNumber = "461"
             landmarkName = "RouteDashboardPresenter"
             landmarkType = "21">
          </BreakpointContent>
@@ -5373,8 +5341,8 @@
             filePath = "trapr/RouteDashboardPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "458"
-            endingLineNumber = "458"
+            startingLineNumber = "462"
+            endingLineNumber = "462"
             landmarkName = "RouteDashboardPresenter"
             landmarkType = "21">
          </BreakpointContent>
@@ -5389,8 +5357,8 @@
             filePath = "trapr/RouteDashboardPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "374"
-            endingLineNumber = "374"
+            startingLineNumber = "378"
+            endingLineNumber = "378"
             landmarkName = "didSelectMapType(mapType:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5405,8 +5373,8 @@
             filePath = "trapr/RouteDashboardPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "386"
-            endingLineNumber = "386"
+            startingLineNumber = "390"
+            endingLineNumber = "390"
             landmarkName = "didSelectMapType(mapType:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5487,8 +5455,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "266"
             endingLineNumber = "266"
-            landmarkName = "stackedBarChartNumberOfBars(_:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5503,8 +5471,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "502"
             endingLineNumber = "502"
-            landmarkName = "displayChart(type:index:)"
-            landmarkType = "7">
+            landmarkName = "RouteDashboardView"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5519,8 +5487,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "231"
             endingLineNumber = "231"
-            landmarkName = "navigationStrip(_:navigatedToItemAt:)"
-            landmarkType = "7">
+            landmarkName = "RouteDashboardView"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5615,7 +5583,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "460"
             endingLineNumber = "460"
-            landmarkName = "displayStations(stations:stationCounts:legendSegments:legendTitle:)"
+            landmarkName = "displayMapOptionButtons(buttons:selectedIndex:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5693,8 +5661,8 @@
             filePath = "trapr/RouteDashboardPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "405"
-            endingLineNumber = "405"
+            startingLineNumber = "409"
+            endingLineNumber = "409"
             landmarkName = "didselectMapOptionButton(optionButton:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5709,8 +5677,8 @@
             filePath = "trapr/RouteDashboardPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "430"
-            endingLineNumber = "430"
+            startingLineNumber = "434"
+            endingLineNumber = "434"
             landmarkName = "getIsHidden(station:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5807,8 +5775,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "414"
             endingLineNumber = "414"
-            landmarkName = "stationMap(_:colourForStation:state:)"
-            landmarkType = "7">
+            landmarkName = "RouteDashboardView"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -6061,9 +6029,73 @@
             filePath = "trapr/RouteDashboardPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "447"
-            endingLineNumber = "447"
+            startingLineNumber = "451"
+            endingLineNumber = "451"
             landmarkName = "getIsHidden(station:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "32D31AF8-A770-4C27-BBF6-7299C1BD33FB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "trapr/LoaderView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "googleSignInButtonClick(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8FC95041-E9C9-4EEE-A651-7D1F8B0CE97C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "trapr/LoaderView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "googleSignInButtonClick(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "171B6B5F-0240-4D5A-9F92-9D794E226126"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "trapr/LoaderView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "googleSignInButtonClick(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FB68487F-5C87-4322-B0CB-D3C5D3476066"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "trapr/RouteDashboardView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
+            landmarkName = "stackedBarChartNumberOfStacks(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

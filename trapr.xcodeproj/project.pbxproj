@@ -299,6 +299,12 @@
 		D89714C01F7A0C5D00E846B9 /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D89714BF1F7A0C5D00E846B9 /* ImageCollectionViewCell.xib */; };
 		D89714C21F7A0E4700E846B9 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89714C11F7A0E4700E846B9 /* ImageCollectionViewCell.swift */; };
 		D89A20DB1FDC98D200A813FB /* StationServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A20DA1FDC98D200A813FB /* StationServiceInterface.swift */; };
+		D8A1D98E274C606E003B26C2 /* steveAllanSA2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8A1D98C274C606D003B26C2 /* steveAllanSA2@2x.png */; };
+		D8A1D98F274C606E003B26C2 /* steveAllanSA2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8A1D98C274C606D003B26C2 /* steveAllanSA2@2x.png */; };
+		D8A1D990274C606E003B26C2 /* steveAllanSA2.png in Resources */ = {isa = PBXBuildFile; fileRef = D8A1D98D274C606E003B26C2 /* steveAllanSA2.png */; };
+		D8A1D991274C606E003B26C2 /* steveAllanSA2.png in Resources */ = {isa = PBXBuildFile; fileRef = D8A1D98D274C606E003B26C2 /* steveAllanSA2.png */; };
+		D8A1D993274C709C003B26C2 /* East_Ridge_C4_Nov_2021.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = D8A1D992274C709B003B26C2 /* East_Ridge_C4_Nov_2021.xlsx */; };
+		D8A1D994274C709C003B26C2 /* East_Ridge_C4_Nov_2021.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = D8A1D992274C709B003B26C2 /* East_Ridge_C4_Nov_2021.xlsx */; };
 		D8A4E961218CFE080070413B /* UserStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4E95F218CFDF40070413B /* UserStatistics.swift */; };
 		D8A4E962218CFE080070413B /* UserStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4E95F218CFDF40070413B /* UserStatistics.swift */; };
 		D8A4E964218D41D30070413B /* Trapline.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4E963218D41D30070413B /* Trapline.swift */; };
@@ -975,6 +981,9 @@
 		D89714C11F7A0E4700E846B9 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		D89A20DA1FDC98D200A813FB /* StationServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationServiceInterface.swift; sourceTree = "<group>"; };
 		D89EBD7B1FBE870D001203AC /* StationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationTests.swift; sourceTree = "<group>"; };
+		D8A1D98C274C606D003B26C2 /* steveAllanSA2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "steveAllanSA2@2x.png"; sourceTree = "<group>"; };
+		D8A1D98D274C606E003B26C2 /* steveAllanSA2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = steveAllanSA2.png; sourceTree = "<group>"; };
+		D8A1D992274C709B003B26C2 /* East_Ridge_C4_Nov_2021.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = East_Ridge_C4_Nov_2021.xlsx; sourceTree = "<group>"; };
 		D8A4E95F218CFDF40070413B /* UserStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatistics.swift; sourceTree = "<group>"; };
 		D8A4E963218D41D30070413B /* Trapline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trapline.swift; sourceTree = "<group>"; };
 		D8A4E966218D68BC0070413B /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
@@ -1646,6 +1655,7 @@
 				D8EA460F200AB9A20032224E /* StackCount.swift */,
 				D89714AB1F77FEED00E846B9 /* TrapSectionIndexPath.swift */,
 				D8B94D5F1F5EA1FE00D373EF /* Assets.xcassets */,
+				D8A1D992274C709B003B26C2 /* East_Ridge_C4_Nov_2021.xlsx */,
 				D8D652FE24B697B600C62002 /* East_Ridge_C4_v2.xlsx */,
 				D8D6530724B6EF2500C62002 /* East_Ridge_C4_v3.xlsx */,
 				D8D6530A24B7032300C62002 /* East_Ridge_C4_v4.xlsx */,
@@ -1738,6 +1748,8 @@
 		D8B94D991F5F28F200D373EF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D8A1D98D274C606E003B26C2 /* steveAllanSA2.png */,
+				D8A1D98C274C606D003B26C2 /* steveAllanSA2@2x.png */,
 				D8BBA1C824C553A800C10493 /* statisticsIcon.png */,
 				D8BBA1C924C553A800C10493 /* statisticsIcon@2x.png */,
 				D8BBA1B624C4F44C00C10493 /* logIcon@2x.png */,
@@ -1997,7 +2009,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1310;
 				ORGANIZATIONNAME = "Andrew Tokeley ";
 				TargetAttributes = {
 					D8B94D541F5EA1FE00D373EF = {
@@ -2058,6 +2070,7 @@
 				D82472CF225B5AF900AAD1E5 /* Podfile in Resources */,
 				D8C8A1E71FCBA6210075E44E /* envelope.png in Resources */,
 				D8DBE3ED1FF5CD7300AA6482 /* circle.png in Resources */,
+				D8A1D990274C606E003B26C2 /* steveAllanSA2.png in Resources */,
 				D8C25C8C217C3DF900C5DB64 /* exit@2x.png in Resources */,
 				D8D652FF24B697B700C62002 /* East_Ridge_C4_v2.xlsx in Resources */,
 				D8B73C311F97F4D8000C231E /* possumMaster.png in Resources */,
@@ -2106,6 +2119,7 @@
 				D8BBA19F24BFEB5100C10493 /* TableViewCellStyleValue3.xib in Resources */,
 				D8BBA1BA24C4F44E00C10493 /* logIcon2x.png in Resources */,
 				D8D1BB041FF8637C00AD71E3 /* Logo@2x.png in Resources */,
+				D8A1D993274C709C003B26C2 /* East_Ridge_C4_Nov_2021.xlsx in Resources */,
 				D87926951FB555A500240767 /* clock@2x.png in Resources */,
 				D8503DD81F67AF7800ED0C84 /* user.png in Resources */,
 				D858D7BD2019D68A00EE052D /* expand2.png in Resources */,
@@ -2124,6 +2138,7 @@
 				D8083D2D1FE6129A00D1C5F1 /* poison@2x.png in Resources */,
 				D84C24601FFF3AD8000BCAF8 /* edit.png in Resources */,
 				D86CE4861F92BC6F004A09EF /* sync.png in Resources */,
+				D8A1D98E274C606E003B26C2 /* steveAllanSA2@2x.png in Resources */,
 				D8BC08471F6A541200B284EE /* lessthan.png in Resources */,
 				D8C25DF52181A12800C5DB64 /* GoogleService-Info.plist in Resources */,
 				D8BC08461F6A541200B284EE /* greaterthan.png in Resources */,
@@ -2161,6 +2176,7 @@
 				D8C25D9D2181771F00C5DB64 /* envelope.png in Resources */,
 				D8C25D9E2181771F00C5DB64 /* circle.png in Resources */,
 				D8C25D9F2181771F00C5DB64 /* exit@2x.png in Resources */,
+				D8A1D991274C606E003B26C2 /* steveAllanSA2.png in Resources */,
 				D8C25DA02181771F00C5DB64 /* possumMaster.png in Resources */,
 				D8D6530024B697B700C62002 /* East_Ridge_C4_v2.xlsx in Resources */,
 				D8C25DA12181771F00C5DB64 /* expand.png in Resources */,
@@ -2209,6 +2225,7 @@
 				D8BBA1A024BFEB5100C10493 /* TableViewCellStyleValue3.xib in Resources */,
 				D8BBA1BB24C4F44E00C10493 /* logIcon2x.png in Resources */,
 				D8C25DCD2181771F00C5DB64 /* clock@2x.png in Resources */,
+				D8A1D994274C709C003B26C2 /* East_Ridge_C4_Nov_2021.xlsx in Resources */,
 				D8C25DCF2181771F00C5DB64 /* user.png in Resources */,
 				D8C25DD02181771F00C5DB64 /* expand2.png in Resources */,
 				D8C25DD12181771F00C5DB64 /* Podfile in Resources */,
@@ -2227,6 +2244,7 @@
 				D8C25DDE2181771F00C5DB64 /* poison@2x.png in Resources */,
 				D8C25DDF2181771F00C5DB64 /* edit.png in Resources */,
 				D8C25DE02181771F00C5DB64 /* sync.png in Resources */,
+				D8A1D98F274C606E003B26C2 /* steveAllanSA2@2x.png in Resources */,
 				D8C25DE12181771F00C5DB64 /* lessthan.png in Resources */,
 				D8C25DF32181A11E00C5DB64 /* GoogleService-Info.plist in Resources */,
 				D8C25DE22181771F00C5DB64 /* greaterthan.png in Resources */,
@@ -2249,15 +2267,11 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_development/Pods-trapr_shared-trapr_development-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
-				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseGoogleAuthUI/FirebaseGoogleAuthUI.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2318,8 +2332,16 @@
 				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseAuth/FirebaseAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseAuthUI/FirebaseAuthUI.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseFirestore/FirebaseFirestore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleSignIn/GoogleSignIn.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
@@ -2339,8 +2361,16 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseAuthUI.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseFirestore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleSignIn.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
@@ -2367,15 +2397,11 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-trapr_shared-trapr_production/Pods-trapr_shared-trapr_production-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
-				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseGoogleAuthUI/FirebaseGoogleAuthUI.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2416,7 +2442,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
 		};
 		D8C25DE82181771F00C5DB64 /* Increment Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2442,8 +2468,16 @@
 				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseAuth/FirebaseAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseAuthUI/FirebaseAuthUI.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseFirestore/FirebaseFirestore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleSignIn/GoogleSignIn.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
@@ -2463,8 +2497,16 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseAuthUI.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseFirestore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleSignIn.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
@@ -3063,6 +3105,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -3073,6 +3117,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -3080,8 +3125,10 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -3106,7 +3153,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inheritied)";
@@ -3122,6 +3169,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -3132,6 +3181,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -3139,8 +3189,10 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -3159,7 +3211,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

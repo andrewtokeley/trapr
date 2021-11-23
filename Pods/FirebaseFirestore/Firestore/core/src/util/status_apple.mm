@@ -70,9 +70,9 @@ namespace {
  */
 Status FromFirestoreNSError(NSError* error) {
   auto error_code = static_cast<int>(error.code);
-  HARD_ASSERT(
-      error_code >= Error::kCancelled && error_code <= Error::kUnauthenticated,
-      "Unknown error code");
+  HARD_ASSERT(error_code >= Error::kErrorCancelled &&
+                  error_code <= Error::kErrorUnauthenticated,
+              "Unknown error code");
 
   auto original = UnderlyingNSError::Create(error);
 
@@ -96,17 +96,18 @@ Status Status::FromNSError(NSError* error) {
 
   while (error) {
     if ([error.domain isEqualToString:NSPOSIXErrorDomain]) {
-      return FromErrno(static_cast<int>(error.code),
-                       MakeString(original->error().localizedDescription))
+      auto error_code = static_cast<int>(error.code);
+      auto description = MakeString(original->error().localizedDescription);
+      return FromErrno(error_code, description)
           .WithPlatformError(std::move(original));
     }
 
     error = error.userInfo[NSUnderlyingErrorKey];
   }
 
-  return Status{Error::kUnknown,
-                StringFormat("Unknown error: %s", original->error())}
-      .WithPlatformError(std::move(original));
+  auto description = StringFormat("Unknown error: %s", original->error());
+  return Status{Error::kErrorUnknown, description}.WithPlatformError(
+      std::move(original));
 }
 
 NSError* Status::ToNSError() const {

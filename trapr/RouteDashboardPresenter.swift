@@ -283,14 +283,18 @@ final class RouteDashboardPresenter: Presenter {
         var result = [(trapName: String, count: Int)]()
         
         if let information = self.routeInformation {
-        
-            let uniqueTrapTypesById = Array(Set(information.stations.flatMap { $0.trapTypes.compactMap { $0.active ? $0.trapTpyeId : nil } }))
-            var counts = uniqueTrapTypesById.map({ (trapTypeId) in
+            
+            // get a list of all the active trap types used on the route.
+            let uniqueTrapTypeIds = Array(Set(information.stations.flatMap { $0.trapTypes.compactMap { $0.active ? $0.trapTpyeId : nil } }))
+            
+            var counts = uniqueTrapTypeIds.map({ (trapTypeId) in
                 // return the number of stations containing this trapType
                 return information.stations.filter({ $0.trapTypes.filter( { $0.trapTpyeId == trapTypeId}).count > 0  }).count
             })
             
-            var names = uniqueTrapTypesById.compactMap { TrapTypeCode(rawValue: $0)?.name }
+            var names = uniqueTrapTypeIds.map( { (id) in
+                return self.trapTypes.first(where: { $0.id == id })?.walkTheLineName ?? "Unknown"
+            })
             
             // order descending by count
             let combined = zip(names, counts).sorted(by: { $0.1 > $1.1 } )

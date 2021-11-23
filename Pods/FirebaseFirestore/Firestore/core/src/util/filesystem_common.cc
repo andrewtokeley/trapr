@@ -27,13 +27,13 @@ namespace firestore {
 namespace util {
 
 Filesystem* Filesystem::Default() {
-  static Filesystem filesystem;
-  return &filesystem;
+  static auto* filesystem = new Filesystem();
+  return filesystem;
 }
 
 Status Filesystem::RecursivelyCreateDir(const Path& path) {
   Status result = CreateDir(path);
-  if (result.ok() || result.code() != Error::kNotFound) {
+  if (result.ok() || result.code() != Error::kErrorNotFound) {
     // Successfully created the directory, it already existed, or some other
     // unrecoverable error.
     return result;
@@ -53,15 +53,15 @@ Status Filesystem::RecursivelyCreateDir(const Path& path) {
 Status Filesystem::RecursivelyRemove(const Path& path) {
   Status status = IsDirectory(path);
   switch (status.code()) {
-    case Error::kOk:
+    case Error::kErrorOk:
       return RecursivelyRemoveDir(path);
 
-    case Error::kFailedPrecondition:
+    case Error::kErrorFailedPrecondition:
       // Could be a file or something else. Attempt to delete it as a file
       // but otherwise allow that to fail if it's not a file.
       return RemoveFile(path);
 
-    case Error::kNotFound:
+    case Error::kErrorNotFound:
       return Status::OK();
 
     default:
@@ -69,8 +69,8 @@ Status Filesystem::RecursivelyRemove(const Path& path) {
   }
 }
 
-Status Filesystem::RecursivelyRemoveDir(const Path& parent) {
-  std::unique_ptr<DirectoryIterator> iter = DirectoryIterator::Create(parent);
+Status Filesystem::RecursivelyRemoveDir(const Path& path) {
+  std::unique_ptr<DirectoryIterator> iter = DirectoryIterator::Create(path);
   for (; iter->Valid(); iter->Next()) {
     Status status = RecursivelyRemove(iter->file());
     if (!status.ok()) {
@@ -79,12 +79,12 @@ Status Filesystem::RecursivelyRemoveDir(const Path& parent) {
   }
 
   if (!iter->status().ok()) {
-    if (iter->status().code() == Error::kNotFound) {
+    if (iter->status().code() == Error::kErrorNotFound) {
       return Status::OK();
     }
     return iter->status();
   }
-  return RemoveDir(parent);
+  return RemoveDir(path);
 }
 
 #if !__APPLE__
@@ -99,7 +99,7 @@ StatusOr<std::string> Filesystem::ReadFile(const Path& path) {
   if (!file) {
     // TODO(varconst): more error details. This will require platform-specific
     // code, because `<iostream>` may not update `errno`.
-    return Status{Error::kUnknown,
+    return Status{Error::kErrorUnknown,
                   StringFormat("File at path '%s' cannot be opened",
                                path.ToUtf8String())};
   }
